@@ -1,0 +1,96 @@
+{
+  "block": 12,
+  "tokens": 64,
+  "weights_sha256": "043959e1a8075bf6e7d7ce264e9b82e3ec3d7bd36f79ca0c6fc210ca3e0c0392",
+  "graph_sha256": "a9776b2928a87a48395a21de3801678c2e7600096028546d53a7a255deecfce7",
+  "reconstructed_fp32_sha256": "4f7d20affefe49398695f1ae7585fdff91cef6a53d09e538e0846df6f29ff253",
+  "sections": [
+    {
+      "layer": "rmsn_8",
+      "tensor": "language_model.model.layers.12.input_layernorm.weight",
+      "shape": [
+        3072
+      ],
+      "storage": "fp32"
+    },
+    {
+      "layer": "gemm_0",
+      "tensor": "language_model.model.layers.12.self_attn.q_proj.weight",
+      "shape": [
+        4096,
+        3072
+      ],
+      "storage": "bf16"
+    },
+    {
+      "layer": "gemm_1",
+      "tensor": "language_model.model.layers.12.self_attn.k_proj.weight",
+      "shape": [
+        1024,
+        3072
+      ],
+      "storage": "bf16"
+    },
+    {
+      "layer": "gemm_2",
+      "tensor": "language_model.model.layers.12.self_attn.v_proj.weight",
+      "shape": [
+        1024,
+        3072
+      ],
+      "storage": "bf16"
+    },
+    {
+      "layer": "gemm_3",
+      "tensor": "language_model.model.layers.12.self_attn.o_proj.weight",
+      "shape": [
+        3072,
+        4096
+      ],
+      "storage": "bf16"
+    },
+    {
+      "layer": "rmsn_9",
+      "tensor": "language_model.model.layers.12.post_attention_layernorm.weight",
+      "shape": [
+        3072
+      ],
+      "storage": "fp32"
+    },
+    {
+      "layer": "gemm_4",
+      "tensor": "language_model.model.layers.12.mlp.gate_proj.weight",
+      "shape": [
+        9216,
+        3072
+      ],
+      "storage": "bf16"
+    },
+    {
+      "layer": "gemm_5",
+      "tensor": "language_model.model.layers.12.mlp.up_proj.weight",
+      "shape": [
+        9216,
+        3072
+      ],
+      "storage": "bf16"
+    },
+    {
+      "layer": "gemm_6",
+      "tensor": "language_model.model.layers.12.mlp.down_proj.weight",
+      "shape": [
+        3072,
+        9216
+      ],
+      "storage": "bf16"
+    }
+  ],
+  "files": {
+    "text.ncnn.param": "a9776b2928a87a48395a21de3801678c2e7600096028546d53a7a255deecfce7",
+    "text.ncnn.bin": "7ed7b10d6a06f8ac96c33dbbacad49e5b9e4e2ed7907b22148d6b0990cdc98c9"
+  },
+  "graph_contract_sha256": "67881d48031e178fcb5653f749d17895a9470d03adf5bf8098dd5bbff952ab36",
+  "builder_sha256": "ed548e91c257dbe19dcc0172f47286cbc82e58e0bb31d2b61c05a707b97ae41b",
+  "template_manifest_sha256": "fde4293a1a4f087bf41419b54e3efbfdad3d36056f2c51bcd02ea0dc0ebff9c3",
+  "base_manifest_sha256": "2396280c6c6351611548c24a24c0b5a4ca3fa6525bac934a7b720a3e3dcb0bae"
+}

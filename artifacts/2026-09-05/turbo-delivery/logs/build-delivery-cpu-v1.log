@@ -1,0 +1,25 @@
+[0/1] Re-running CMake...
+-- CMAKE_INSTALL_PREFIX = /usr/local
+-- NCNN_VERSION_STRING = 1.0.20260905
+-- Target arch: x86 64bit
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/build-cpu
+[1/10] Building CXX object CMakeFiles/ernie-head-runner.dir/probes/head_runner.cpp.o
+[2/10] Linking CXX executable ernie-head-runner
+[3/10] Building pinned native Tokenizers bridge
+   Compiling typenum v1.18.0
+   Compiling generic-array v0.14.7
+   Compiling cpufeatures v0.2.17
+   Compiling crypto-common v0.1.6
+   Compiling block-buffer v0.10.4
+   Compiling digest v0.10.7
+   Compiling sha2 v0.10.9
+   Compiling ernie-tokenizer-bridge v0.1.0 (/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/tokenizer)
+    Finished `release` profile [optimized] target(s) in 10.51s
+[4/10] Building CXX object CMakeFiles/ernie-tokenizer.dir/src/tokenizer.cpp.o
+[5/10] Linking CXX static library libernie-tokenizer.a
+[6/10] Building CXX object CMakeFiles/ernie-tokenize.dir/probes/tokenizer_runner.cpp.o
+[7/10] Linking CXX executable ernie-tokenize
+[8/10] Building CXX object CMakeFiles/ernie-image.dir/src/main.cpp.o
+[9/10] Linking CXX executable ernie-image

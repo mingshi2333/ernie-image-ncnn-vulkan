@@ -1,0 +1,4 @@
+ernie-image --model DIR --prompt TEXT --output NEW.png [--device cpu|vulkan] [--precision fp32|fp16] [--vae-device cpu|vulkan] [--vae-convolution direct|sgemm]
+            [--seed N] [--steps N] [--latent FILE.f32] [--embeddings FILE.f32] [--trace-dir NEWDIR]
+ernie-image --model DIR --verify-model
+Experimental fixed model bucket; FP32 text encoder, Euler master latent and FP32 VAE (CPU default). PE off, CFG=1.

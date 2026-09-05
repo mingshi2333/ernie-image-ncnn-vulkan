@@ -1,0 +1,31 @@
+[0/1] Re-running CMake...
+-- CMAKE_INSTALL_PREFIX = /usr/local
+-- NCNN_VERSION_STRING = 1.0.20260905
+-- Target arch: x86 64bit
+-- Found glslang: /usr/lib64/libglslang.a (found version "16.2.0")
+-- Found SPIRV: /usr/lib64/libSPIRV.a (found version "16.2.0")
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/build
+[1/6] Building pinned native Tokenizers bridge
+ Downloading crates ...
+  Downloaded block-buffer v0.10.4
+  Downloaded cpufeatures v0.2.17
+  Downloaded crypto-common v0.1.6
+  Downloaded typenum v1.18.0
+  Downloaded sha2 v0.10.9
+  Downloaded generic-array v0.14.7
+  Downloaded digest v0.10.7
+   Compiling typenum v1.18.0
+   Compiling generic-array v0.14.7
+   Compiling cpufeatures v0.2.17
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.6
+   Compiling digest v0.10.7
+   Compiling sha2 v0.10.9
+   Compiling ernie-tokenizer-bridge v0.1.0 (/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/tokenizer)
+    Finished `release` profile [optimized] target(s) in 13.63s
+[2/6] Building CXX object CMakeFiles/ernie-tokenizer.dir/src/tokenizer.cpp.o
+[3/6] Linking CXX static library libernie-tokenizer.a
+[4/6] Building CXX object CMakeFiles/ernie-image.dir/src/main.cpp.o
+[5/6] Linking CXX executable ernie-image

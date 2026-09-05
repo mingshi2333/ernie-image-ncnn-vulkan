@@ -1,0 +1,4 @@
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type GroupNorm
+{"outputs":1,"elapsed_seconds":50.3358}

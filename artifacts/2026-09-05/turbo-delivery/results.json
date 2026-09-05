@@ -1,0 +1,262 @@
+[
+  {
+    "case": "apple-fp16",
+    "run": "pipeline1024-portable-direct-v1",
+    "passed": true,
+    "prompt": "A red apple on a wooden table, soft daylight, realistic photo.",
+    "tokens": 15,
+    "config": {
+      "packed_width": 64,
+      "packed_height": 64,
+      "text_bucket": 32,
+      "dit_text_tokens": 64,
+      "text_layers": 25,
+      "dit_layers": 36
+    },
+    "steps": 8,
+    "precision": "fp16",
+    "comparison_count": 25,
+    "passed_comparisons": 25,
+    "failed_tensors": [],
+    "final_latent_nrmse": 0.011115472173172517,
+    "decoded_nrmse": 0.0032119861208441034,
+    "png_mae": 0.10760275522867839,
+    "png_max_abs": 22.0,
+    "png_passed": true,
+    "native_png_quantization_exact": true,
+    "max_rss_kib": 6104472,
+    "max_rss_gib": 5.821678161621094,
+    "total_seconds": 617.18,
+    "native_png_sha256": "d5fc1fd06f3e634b5675bc7b4ae0c969fd9d1f7a82e3051526d3b86625b261a8",
+    "gates": {
+      "nrmse": 0.15,
+      "global_rtol": 0.25,
+      "atol": 0.03,
+      "pixel_mae": 12,
+      "pixel_max": 80
+    },
+    "metrics_independently_recomputed": true,
+    "reference_environment": {
+      "torch": "2.12.1+cu130",
+      "pipeline_source_sha256": "26fbecb8c9d13a46b15aea7d599224bb03ad93e683ce3935d7a932d71316a9fd",
+      "dit_blocks_device": "cuda",
+      "heads_text_vae_device": "cpu",
+      "dtype": "float32",
+      "allow_tf32": false,
+      "cuda_device": "NVIDIA GeForce RTX 4060 Laptop GPU"
+    }
+  },
+  {
+    "case": "long-fp16",
+    "run": "pipeline1024-long-s64-v1",
+    "passed": false,
+    "prompt": "A small white cat sitting beside a blue ceramic teapot on a wooden desk, warm afternoon sunlight through a window, a green plant in the background, soft shadows, realistic photograph with fine detail.",
+    "tokens": 40,
+    "config": {
+      "packed_width": 64,
+      "packed_height": 64,
+      "text_bucket": 64,
+      "dit_text_tokens": 64,
+      "text_layers": 25,
+      "dit_layers": 36
+    },
+    "steps": 8,
+    "precision": "fp16",
+    "comparison_count": 25,
+    "passed_comparisons": 22,
+    "failed_tensors": [
+      "prediction-6",
+      "prediction-7",
+      "decoded"
+    ],
+    "final_latent_nrmse": 0.04638354239382042,
+    "decoded_nrmse": 0.021651909246905788,
+    "png_mae": 0.5321426391601562,
+    "png_max_abs": 79.0,
+    "png_passed": true,
+    "native_png_quantization_exact": true,
+    "max_rss_kib": 6113736,
+    "max_rss_gib": 5.830513000488281,
+    "total_seconds": 641.168,
+    "native_png_sha256": "1872b22d6c2f35f1a12152172b180569ace778ce42d38ecfc8eadcf741ce56ad",
+    "gates": {
+      "nrmse": 0.15,
+      "global_rtol": 0.25,
+      "atol": 0.03,
+      "pixel_mae": 12,
+      "pixel_max": 80
+    },
+    "metrics_independently_recomputed": true,
+    "reference_environment": {
+      "torch": "2.12.1+cu130",
+      "pipeline_source_sha256": "26fbecb8c9d13a46b15aea7d599224bb03ad93e683ce3935d7a932d71316a9fd",
+      "dit_blocks_device": "cuda",
+      "heads_text_vae_device": "cpu",
+      "dtype": "float32",
+      "allow_tf32": false,
+      "cuda_device": "NVIDIA GeForce RTX 4060 Laptop GPU"
+    }
+  },
+  {
+    "case": "long-fp32",
+    "run": "pipeline1024-long-s64-fp32-v1",
+    "passed": false,
+    "prompt": "A small white cat sitting beside a blue ceramic teapot on a wooden desk, warm afternoon sunlight through a window, a green plant in the background, soft shadows, realistic photograph with fine detail.",
+    "tokens": 40,
+    "config": {
+      "packed_width": 64,
+      "packed_height": 64,
+      "text_bucket": 64,
+      "dit_text_tokens": 64,
+      "text_layers": 25,
+      "dit_layers": 36
+    },
+    "steps": 8,
+    "precision": "fp32",
+    "comparison_count": 25,
+    "passed_comparisons": 20,
+    "failed_tensors": [
+      "prediction-6",
+      "prediction-7",
+      "step-7",
+      "final",
+      "unpacked"
+    ],
+    "final_latent_nrmse": 0.0014250285482812282,
+    "decoded_nrmse": 0.00041702267975407277,
+    "png_mae": 0.01891295115152995,
+    "png_max_abs": 2.0,
+    "png_passed": true,
+    "native_png_quantization_exact": true,
+    "max_rss_kib": 6097892,
+    "max_rss_gib": 5.815402984619141,
+    "total_seconds": 704.743,
+    "native_png_sha256": "3f28e59c2227aa4a0ae91e91ffa405671e7117b419c28257073b946b5818d1dd",
+    "gates": {
+      "nrmse": 0.003,
+      "global_rtol": 0.01,
+      "atol": 0.0002,
+      "pixel_mae": 0.1,
+      "pixel_max": 2
+    },
+    "metrics_independently_recomputed": true,
+    "reference_environment": {
+      "torch": "2.12.1+cu130",
+      "pipeline_source_sha256": "26fbecb8c9d13a46b15aea7d599224bb03ad93e683ce3935d7a932d71316a9fd",
+      "dit_blocks_device": "cuda",
+      "heads_text_vae_device": "cpu",
+      "dtype": "float32",
+      "allow_tf32": false,
+      "cuda_device": "NVIDIA GeForce RTX 4060 Laptop GPU"
+    }
+  },
+  {
+    "case": "chinese-fp16",
+    "run": "pipeline1024-chinese-s64-fp16-v1",
+    "passed": false,
+    "prompt": "雪山脚下的蓝色湖泊，松树林，清晨阳光，写实风景摄影。",
+    "tokens": 32,
+    "config": {
+      "packed_width": 64,
+      "packed_height": 64,
+      "text_bucket": 64,
+      "dit_text_tokens": 64,
+      "text_layers": 25,
+      "dit_layers": 36
+    },
+    "steps": 8,
+    "precision": "fp16",
+    "comparison_count": 25,
+    "passed_comparisons": 20,
+    "failed_tensors": [
+      "prediction-3",
+      "prediction-5",
+      "prediction-6",
+      "prediction-7",
+      "decoded"
+    ],
+    "final_latent_nrmse": 0.03876158091623338,
+    "decoded_nrmse": 0.03385202951499571,
+    "png_mae": 0.9999990463256836,
+    "png_max_abs": 145.0,
+    "png_passed": false,
+    "native_png_quantization_exact": true,
+    "max_rss_kib": 6107364,
+    "max_rss_gib": 5.824436187744141,
+    "total_seconds": 563.846,
+    "native_png_sha256": "769e520e3f58f14709f648adbc4d8add7ce06f8db93f0db7e4d1a80b015051ae",
+    "gates": {
+      "nrmse": 0.15,
+      "global_rtol": 0.25,
+      "atol": 0.03,
+      "pixel_mae": 12,
+      "pixel_max": 80
+    },
+    "metrics_independently_recomputed": true,
+    "reference_environment": {
+      "torch": "2.12.1+cu130",
+      "pipeline_source_sha256": "26fbecb8c9d13a46b15aea7d599224bb03ad93e683ce3935d7a932d71316a9fd",
+      "dit_blocks_device": "cuda",
+      "heads_text_vae_device": "cpu",
+      "dtype": "float32",
+      "allow_tf32": false,
+      "cuda_device": "NVIDIA GeForce RTX 4060 Laptop GPU"
+    }
+  },
+  {
+    "case": "chinese-fp32",
+    "run": "pipeline1024-chinese-s64-fp32-v1",
+    "passed": false,
+    "prompt": "雪山脚下的蓝色湖泊，松树林，清晨阳光，写实风景摄影。",
+    "tokens": 32,
+    "config": {
+      "packed_width": 64,
+      "packed_height": 64,
+      "text_bucket": 64,
+      "dit_text_tokens": 64,
+      "text_layers": 25,
+      "dit_layers": 36
+    },
+    "steps": 8,
+    "precision": "fp32",
+    "comparison_count": 25,
+    "passed_comparisons": 17,
+    "failed_tensors": [
+      "prediction-4",
+      "prediction-5",
+      "prediction-6",
+      "prediction-7",
+      "step-7",
+      "final",
+      "unpacked",
+      "decoded"
+    ],
+    "final_latent_nrmse": 0.0018501836473612445,
+    "decoded_nrmse": 0.0016327135430262139,
+    "png_mae": 0.03838348388671875,
+    "png_max_abs": 23.0,
+    "png_passed": false,
+    "native_png_quantization_exact": true,
+    "max_rss_kib": 6094044,
+    "max_rss_gib": 5.811733245849609,
+    "total_seconds": 675.481,
+    "native_png_sha256": "b01bec3dc4b45ac9f6e9272fbd3a6235888923acce6dc869f25d097ae25d27b8",
+    "gates": {
+      "nrmse": 0.003,
+      "global_rtol": 0.01,
+      "atol": 0.0002,
+      "pixel_mae": 0.1,
+      "pixel_max": 2
+    },
+    "metrics_independently_recomputed": true,
+    "reference_environment": {
+      "torch": "2.12.1+cu130",
+      "pipeline_source_sha256": "26fbecb8c9d13a46b15aea7d599224bb03ad93e683ce3935d7a932d71316a9fd",
+      "dit_blocks_device": "cuda",
+      "heads_text_vae_device": "cpu",
+      "dtype": "float32",
+      "allow_tf32": false,
+      "cuda_device": "NVIDIA GeForce RTX 4060 Laptop GPU"
+    }
+  }
+]

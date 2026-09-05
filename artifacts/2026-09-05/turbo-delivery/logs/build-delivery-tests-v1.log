@@ -1,0 +1,11 @@
+[0/1] Re-running CMake...
+-- CMAKE_INSTALL_PREFIX = /usr/local
+-- NCNN_VERSION_STRING = 1.0.20260905
+-- Target arch: x86 64bit
+-- Found glslang: /usr/lib64/libglslang.a (found version "16.2.0")
+-- Found SPIRV: /usr/lib64/libSPIRV.a (found version "16.2.0")
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/build
+[1/3] Building CXX object CMakeFiles/ernie-tokenize.dir/probes/tokenizer_runner.cpp.o
+[2/3] Linking CXX executable ernie-tokenize

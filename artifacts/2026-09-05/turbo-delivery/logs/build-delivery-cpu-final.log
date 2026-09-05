@@ -1,0 +1,9 @@
+[1/3] Building pinned native Tokenizers bridge
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on shared package cache
+   Compiling ernie-tokenizer-bridge v0.1.0 (/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/tokenizer)
+    Finished `release` profile [optimized] target(s) in 9.19s
+[2/3] Linking CXX executable ernie-tokenize
+[3/3] Linking CXX executable ernie-image

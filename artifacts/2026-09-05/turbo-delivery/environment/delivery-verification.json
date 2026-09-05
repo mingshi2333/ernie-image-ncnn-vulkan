@@ -1,0 +1,23 @@
+{
+  "runtime_sha256": {
+    "build/ernie-image": "374db8ef64690967375669c92c70c3203777444d4db5b4d199df20614843c8a1",
+    "build-cpu/ernie-image": "0fd36fa3ebf6fa8f82341a8ea3f072f351f77d52a32f6fe08de390a6474bb28f",
+    "build-ci/ernie-image": "6f3649691ab02f195ef635fb00812b792164c2e9cacb6f52b8237edf1c0ffd04",
+    "outputs/install-delivery-final/bin/ernie-image": "374db8ef64690967375669c92c70c3203777444d4db5b4d199df20614843c8a1"
+  },
+  "ncnn_revision": "6a1bf000f363714839a36793addc8c879d3d899e",
+  "glslang_revision": "780b6a209132dc74e99458f62ebe5fa7e57c41cf",
+  "hardware_test_driver": "/usr/share/vulkan/icd.d/nvidia_icd.x86_64.json",
+  "software_test_driver": "/usr/share/vulkan/icd.d/lvp_icd.x86_64.json",
+  "cpu_ctest": "8 passed, 0 failed, 0 skipped",
+  "nvidia_ctest": "19 passed, 0 failed, 0 skipped",
+  "gcc_software_vulkan_ctest": "16 passed, 0 failed, 3 BF16 skipped",
+  "python_unittest": "34 passed",
+  "remote_actions": "not run",
+  "gcc": "g++ (GCC) 16.2.1 20260819 (Red Hat 16.2.1-2)",
+  "clang": "clang version 22.1.8 (Fedora 22.1.8-4.fc44)",
+  "rust": "rustc 1.98.0 (88d9e12ae 2026-08-18) (Fedora 1.98.0-1.fc44)",
+  "cargo": "cargo 1.98.0 (797e8a9bc 2026-08-05) (Fedora 1.98.0-1.fc44)",
+  "cmake": "cmake version 4.3.0",
+  "platform": "Linux 7.1.13-200.fc44.x86_64 x86_64 GNU/Linux"
+}

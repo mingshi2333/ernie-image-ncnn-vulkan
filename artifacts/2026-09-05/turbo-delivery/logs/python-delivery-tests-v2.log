@@ -1,0 +1,36 @@
+test_corrupted_bytes_fail (test_model_contract.ContractTests.test_corrupted_bytes_fail) ... ok
+test_valid_artifacts (test_model_contract.ContractTests.test_valid_artifacts) ... ok
+test_wrong_runtime_revision_fails (test_model_contract.ContractTests.test_wrong_runtime_revision_fails) ... ok
+test_wrong_static_shape_fails (test_model_contract.ContractTests.test_wrong_static_shape_fails) ... ok
+test_math_changes_are_not_treated_as_weight_compatible (test_model_contract.DirectGraphTests.test_math_changes_are_not_treated_as_weight_compatible) ... ok
+test_shape_mismatch_rejected (test_model_contract.DirectGraphTests.test_shape_mismatch_rejected) ... ok
+test_three_reviewed_buckets_share_the_exact_topology (test_model_contract.DirectGraphTests.test_three_reviewed_buckets_share_the_exact_topology) ... ok
+test_oversized_response_is_not_accepted (test_model_contract.DownloadWindowTests.test_oversized_response_is_not_accepted) ... ok
+test_partial_response_is_retried_before_yielding_any_bytes (test_model_contract.DownloadWindowTests.test_partial_response_is_retried_before_yielding_any_bytes) ... ok
+test_persistent_truncation_fails_after_bounded_retries (test_model_contract.DownloadWindowTests.test_persistent_truncation_fails_after_bounded_retries) ... ok
+test_lossless_round_trip (test_model_contract.PackingTests.test_lossless_round_trip) ... ok
+test_reject_non_bf16_weights (test_model_contract.PackingTests.test_reject_non_bf16_weights) ... ok
+test_reject_unconsumed_data (test_model_contract.PackingTests.test_reject_unconsumed_data) ... ok
+test_unsharded_exact_component_and_reuse (test_model_contract.SingleFileFetchTests.test_unsharded_exact_component_and_reuse) ... ok
+test_unsharded_path_rejected_before_network (test_model_contract.SingleFileFetchTests.test_unsharded_path_rejected_before_network) ... ok
+test_complete_inventory_and_native_check_without_model_loading (test_package.PackageTests.test_complete_inventory_and_native_check_without_model_loading) ... ok
+test_configuration_cannot_disagree_with_manifest (test_package.PackageTests.test_configuration_cannot_disagree_with_manifest) ... ok
+test_copy_survives_source_removal_and_relocation (test_package.PackageTests.test_copy_survives_source_removal_and_relocation) ... ok
+test_development_links_are_explicit (test_package.PackageTests.test_development_links_are_explicit) ... ok
+test_missing_last_text_layer (test_package.PackageTests.test_missing_last_text_layer) ... ok
+test_omitted_file_cannot_evade_verification (test_package.PackageTests.test_omitted_file_cannot_evade_verification) ... ok
+test_path_escape_cannot_enter_inventory (test_package.PackageTests.test_path_escape_cannot_enter_inventory) ... ok
+test_portable_package_rejects_directory_link (test_package.PackageTests.test_portable_package_rejects_directory_link) ... ok
+test_portable_package_rejects_external_file_link (test_package.PackageTests.test_portable_package_rejects_external_file_link) ... ok
+test_reject_version_mismatch (test_package.PackageTests.test_reject_version_mismatch) ... ok
+test_same_size_bit_corruption (test_package.PackageTests.test_same_size_bit_corruption) ... ok
+test_truncated_weight (test_package.PackageTests.test_truncated_weight) ... ok
+test_gqa_head_count_is_not_a_token_dimension (test_text_bucket.TextBucketTests.test_gqa_head_count_is_not_a_token_dimension) ... ok
+test_independent_exports_have_identical_equations (test_text_bucket.TextBucketTests.test_independent_exports_have_identical_equations) ... ok
+test_normalization_equation_is_not_normalized_away (test_text_bucket.TextBucketTests.test_normalization_equation_is_not_normalized_away) ... ok
+test_wrong_manifest_bucket_rejected (test_text_bucket.TextBucketTests.test_wrong_manifest_bucket_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 31 tests in 0.289s
+
+OK

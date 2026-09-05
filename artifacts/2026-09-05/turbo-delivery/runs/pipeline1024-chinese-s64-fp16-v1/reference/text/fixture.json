@@ -1,0 +1,69 @@
+{
+  "prompt": "雪山脚下的蓝色湖泊，松树林，清晨阳光，写实风景摄影。",
+  "ids": [
+    1,
+    100098,
+    18680,
+    32037,
+    1154,
+    6979,
+    2713,
+    93990,
+    1157,
+    26416,
+    102893,
+    5947,
+    1138,
+    1625,
+    40421,
+    4901,
+    1145,
+    35185,
+    1625,
+    37202,
+    37931,
+    108733,
+    36001,
+    1625,
+    30488,
+    6892,
+    47540,
+    79088,
+    28295,
+    1132,
+    26361,
+    1320
+  ],
+  "tokens": 64,
+  "valid_tokens": 32,
+  "blocks": 25,
+  "scope": "Real prompt through official embedding and Mistral blocks 0..24; no final norm",
+  "source_sha256": "c43ca23115aea6b95837221055b3e9cf722176dffd37060d6db49fc00538da40",
+  "expected": {
+    "file": "expected.f32",
+    "shape": [
+      1,
+      32,
+      3072
+    ],
+    "dtype": "float32_le",
+    "sha256": "20be68ebb735bc11c61a4093327659529a656e38d25e7fa13fa5b1c6dedce0ac"
+  },
+  "gates": {
+    "fp32": {
+      "nrmse": 0.0002,
+      "atol": 0.0002,
+      "rtol": 0.0002
+    },
+    "fp16": {
+      "nrmse": 0.03,
+      "atol": 0.03,
+      "rtol": 0.03
+    },
+    "bf16": {
+      "nrmse": 0.15,
+      "atol": 0.2,
+      "rtol": 0.2
+    }
+  }
+}

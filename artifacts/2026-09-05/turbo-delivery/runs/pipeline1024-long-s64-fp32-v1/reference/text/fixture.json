@@ -1,0 +1,77 @@
+{
+  "prompt": "A small white cat sitting beside a blue ceramic teapot on a wooden desk, warm afternoon sunlight through a window, a green plant in the background, soft shadows, realistic photograph with fine detail.",
+  "ids": [
+    1,
+    1065,
+    3709,
+    7496,
+    7990,
+    18970,
+    25644,
+    1261,
+    10991,
+    50255,
+    1777,
+    98797,
+    1408,
+    1261,
+    32656,
+    25658,
+    1044,
+    15701,
+    26363,
+    59093,
+    2645,
+    1261,
+    7404,
+    1044,
+    1261,
+    11223,
+    7411,
+    1294,
+    1278,
+    7042,
+    1044,
+    6444,
+    49910,
+    1044,
+    43905,
+    18390,
+    1454,
+    7771,
+    12705,
+    1046
+  ],
+  "tokens": 64,
+  "valid_tokens": 40,
+  "blocks": 25,
+  "scope": "Real prompt through official embedding and Mistral blocks 0..24; no final norm",
+  "source_sha256": "c43ca23115aea6b95837221055b3e9cf722176dffd37060d6db49fc00538da40",
+  "expected": {
+    "file": "expected.f32",
+    "shape": [
+      1,
+      40,
+      3072
+    ],
+    "dtype": "float32_le",
+    "sha256": "e65d6d26169ff783b93080a395cd2b56dbbe80472100a80206c815768f9e8019"
+  },
+  "gates": {
+    "fp32": {
+      "nrmse": 0.0002,
+      "atol": 0.0002,
+      "rtol": 0.0002
+    },
+    "fp16": {
+      "nrmse": 0.03,
+      "atol": 0.03,
+      "rtol": 0.03
+    },
+    "bf16": {
+      "nrmse": 0.15,
+      "atol": 0.2,
+      "rtol": 0.2
+    }
+  }
+}

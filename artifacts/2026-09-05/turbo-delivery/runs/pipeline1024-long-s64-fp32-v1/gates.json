@@ -1,0 +1,21 @@
+{
+  "fp32": {
+    "nrmse": 0.003,
+    "global_rtol": 0.01,
+    "atol": 0.0002,
+    "pixel_mae": 0.1,
+    "pixel_max": 2
+  },
+  "fp16": {
+    "nrmse": 0.15,
+    "global_rtol": 0.25,
+    "atol": 0.03,
+    "pixel_mae": 12,
+    "pixel_max": 80
+  },
+  "conditioning": {
+    "nrmse": 0.0002,
+    "global_rtol": 0.0002,
+    "atol": 0.0002
+  }
+}

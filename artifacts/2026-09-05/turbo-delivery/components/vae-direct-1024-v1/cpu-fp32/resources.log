@@ -1,0 +1,23 @@
+	Command being timed: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/vae-direct-1024-v1/ernie-head-runner.snapshot --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/vae-128x128-specialized-v1 --fixture /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/vae-128x128-specialized-v1 --output /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/vae-direct-1024-v1/cpu-fp32/actual --component vae --height 128 --width 128 --text-tokens 0 --backend cpu --precision fp32 --vae-convolution direct"
+	User time (seconds): 179.27
+	System time (seconds): 2.45
+	Percent of CPU this job got: 360%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:50.34
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 5685048
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 6
+	Minor (reclaiming a frame) page faults: 1421841
+	Voluntary context switches: 102
+	Involuntary context switches: 8141
+	Swaps: 0
+	File system inputs: 16696
+	File system outputs: 24592
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

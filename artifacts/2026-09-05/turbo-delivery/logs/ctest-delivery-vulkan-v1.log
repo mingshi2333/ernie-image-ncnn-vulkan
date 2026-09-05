@@ -1,0 +1,41 @@
+Test project /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/build
+      Start  1: native_cache_cpu
+ 1/18 Test  #1: native_cache_cpu .................   Passed    0.07 sec
+      Start  2: native_cache_vulkan
+ 2/18 Test  #2: native_cache_vulkan ..............   Passed    1.28 sec
+      Start  3: package_integrity
+ 3/18 Test  #3: package_integrity ................   Passed    0.30 sec
+      Start  4: latent_contract_cpu
+ 4/18 Test  #4: latent_contract_cpu ..............   Passed    0.02 sec
+      Start  5: residual_contract_cpu
+ 5/18 Test  #5: residual_contract_cpu ............   Passed    0.02 sec
+      Start  6: residual_contract_vulkan
+ 6/18 Test  #6: residual_contract_vulkan .........   Passed    0.83 sec
+      Start  7: rmsnorm_range_cpu
+ 7/18 Test  #7: rmsnorm_range_cpu ................   Passed    0.02 sec
+      Start  8: layernorm_range_cpu
+ 8/18 Test  #8: layernorm_range_cpu ..............   Passed    0.01 sec
+      Start  9: erf_gelu_cpu
+ 9/18 Test  #9: erf_gelu_cpu .....................   Passed    0.03 sec
+      Start 10: erf_gelu_vulkan_fp32
+10/18 Test #10: erf_gelu_vulkan_fp32 .............   Passed    0.63 sec
+      Start 11: rmsnorm_range_vulkan_fp32
+11/18 Test #11: rmsnorm_range_vulkan_fp32 ........   Passed    0.80 sec
+      Start 12: layernorm_range_vulkan_fp32
+12/18 Test #12: layernorm_range_vulkan_fp32 ......   Passed    0.75 sec
+      Start 13: erf_gelu_vulkan_fp16
+13/18 Test #13: erf_gelu_vulkan_fp16 .............   Passed    0.64 sec
+      Start 14: rmsnorm_range_vulkan_fp16
+14/18 Test #14: rmsnorm_range_vulkan_fp16 ........   Passed    0.77 sec
+      Start 15: layernorm_range_vulkan_fp16
+15/18 Test #15: layernorm_range_vulkan_fp16 ......   Passed    0.70 sec
+      Start 16: erf_gelu_vulkan_bf16
+16/18 Test #16: erf_gelu_vulkan_bf16 .............   Passed    0.63 sec
+      Start 17: rmsnorm_range_vulkan_bf16
+17/18 Test #17: rmsnorm_range_vulkan_bf16 ........   Passed    0.78 sec
+      Start 18: layernorm_range_vulkan_bf16
+18/18 Test #18: layernorm_range_vulkan_bf16 ......   Passed    0.71 sec
+
+100% tests passed, 0 tests failed out of 18
+
+Total Test time (real) =   8.98 sec

@@ -1,0 +1,46 @@
+[
+  {
+    "component": "vae",
+    "backend": "cpu",
+    "precision": "fp32",
+    "passed": true,
+    "command": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/vae-direct-64-v1/ernie-head-runner.snapshot",
+      "--model",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/vae-8x8-v1",
+      "--fixture",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/vae-8x8-v1",
+      "--output",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/vae-direct-64-v1/cpu-fp32/actual",
+      "--component",
+      "vae",
+      "--height",
+      "8",
+      "--width",
+      "8",
+      "--text-tokens",
+      "0",
+      "--backend",
+      "cpu",
+      "--precision",
+      "fp32",
+      "--vae-convolution",
+      "direct"
+    ],
+    "runner_sha256": "0a4edaa001ce28df4dc7e62ed134f8466e7a73823142fe44ca30dba8cb389601",
+    "model_manifest_sha256": "c5ef057975a0ff28ba63940ff54a8c884b13e9c4358130e28cda75361eb4b2bd",
+    "validator_sha256": "d47056504fbca0a758cb6a28f3f50e35e02d807889001dc8de9499e90c455510",
+    "scope": "Official VAE decoder with synthetic unpacked latent; BN/unpack happens before this component",
+    "outputs": {
+      "out0": {
+        "nrmse": 7.344016500198284e-07,
+        "max_abs_error": 1.1622905731201172e-06,
+        "max_abs_limit": 0.0003150219440460205,
+        "nrmse_limit": 2e-05,
+        "actual_sha256": "db356dcd9a433a6159dc046ecd4d2d07ffbcfdfa3f243a8975c166fa0e8715ec",
+        "passed": true
+      }
+    },
+    "return_code": 0
+  }
+]

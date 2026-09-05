@@ -1,0 +1,108 @@
+{
+  "scope": "Pinned official CPU vs streamed CUDA FP32 DiT; identical initial noise, CPU heads/text/VAE",
+  "gates": {
+    "nrmse": 0.003
+  },
+  "passed": true,
+  "comparisons": [
+    {
+      "file": "initial.f32",
+      "nrmse": 0.0,
+      "max_abs": 0.0
+    },
+    {
+      "file": "text.f32",
+      "nrmse": 0.0,
+      "max_abs": 0.0
+    },
+    {
+      "file": "prediction-0.f32",
+      "nrmse": 4.958249322803813e-05,
+      "max_abs": 0.0005682185292243958
+    },
+    {
+      "file": "prediction-1.f32",
+      "nrmse": 6.551054816012505e-05,
+      "max_abs": 0.0004061460494995117
+    },
+    {
+      "file": "prediction-2.f32",
+      "nrmse": 0.00024108667929062787,
+      "max_abs": 0.0015226900577545166
+    },
+    {
+      "file": "prediction-3.f32",
+      "nrmse": 0.00015443467661805106,
+      "max_abs": 0.0007560253143310547
+    },
+    {
+      "file": "prediction-4.f32",
+      "nrmse": 0.00012180787470863736,
+      "max_abs": 0.0007332563400268555
+    },
+    {
+      "file": "prediction-5.f32",
+      "nrmse": 0.0001308978683523548,
+      "max_abs": 0.0007214993238449097
+    },
+    {
+      "file": "prediction-6.f32",
+      "nrmse": 0.0003041200763540207,
+      "max_abs": 0.002047300338745117
+    },
+    {
+      "file": "prediction-7.f32",
+      "nrmse": 0.00022501585246842754,
+      "max_abs": 0.0010560043156147003
+    },
+    {
+      "file": "step-0.f32",
+      "nrmse": 2.240010036528445e-06,
+      "max_abs": 1.9609928131103516e-05
+    },
+    {
+      "file": "step-1.f32",
+      "nrmse": 4.327265716069877e-06,
+      "max_abs": 1.8298625946044922e-05
+    },
+    {
+      "file": "step-2.f32",
+      "nrmse": 1.8898246082711243e-05,
+      "max_abs": 7.864832878112793e-05
+    },
+    {
+      "file": "step-3.f32",
+      "nrmse": 2.6606972469051218e-05,
+      "max_abs": 8.225440979003906e-05
+    },
+    {
+      "file": "step-4.f32",
+      "nrmse": 3.62483697934233e-05,
+      "max_abs": 0.00011777877807617188
+    },
+    {
+      "file": "step-5.f32",
+      "nrmse": 5.850457124463762e-05,
+      "max_abs": 0.00018364191055297852
+    },
+    {
+      "file": "step-6.f32",
+      "nrmse": 0.00013185233400137873,
+      "max_abs": 0.000479280948638916
+    },
+    {
+      "file": "step-7.f32",
+      "nrmse": 0.0001608514275315413,
+      "max_abs": 0.0007500052452087402
+    },
+    {
+      "file": "decoded.f32",
+      "nrmse": 8.891014319120047e-05,
+      "max_abs": 0.0005155801773071289
+    }
+  ],
+  "reference_fixtures_sha256": [
+    "09b1b569430b98d76f745bb1f8c1c8d0d645509693d6e4ac8ceaca99d83c9d04",
+    "da02f252872fbe31c0d729368a7899c87de59f7a4b30d64f38d4f38222924b26"
+  ]
+}

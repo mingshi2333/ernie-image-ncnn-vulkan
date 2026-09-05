@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "verified_on": "2026-09-05",
+  "ncnn": {
+    "url": "https://github.com/Tencent/ncnn.git",
+    "revision": "6a1bf000f363714839a36793addc8c879d3d899e",
+    "commit_date": "2026-09-04T11:56:47Z",
+    "role": "runtime_dependency"
+  },
+  "historical_port": {
+    "url": "https://github.com/futz12/ernie-image-ncnn-vulkan",
+    "revision": "8dcd6e4411137d8abe92c9d78581c4c96d5182c6",
+    "ncnn_revision": "f6f734f44d66f469fefee9ee401fd1cb5e3d573e",
+    "ncnn_commit_date": "2026-06-17T09:39:49Z",
+    "role": "read_only_reference_not_vendored"
+  },
+  "historical_converted_model": {
+    "url": "https://huggingface.co/wuyex/ernie-image-ncnn",
+    "revision": "140a052f7919f279de7f697fa54f33bd1c0cac2b",
+    "role": "reference_only_weights_not_downloaded"
+  },
+  "official_code": {
+    "url": "https://github.com/baidu/ERNIE-Image",
+    "revision": "1f30f5bb499726c606da0a24cc2a4a6c4d6ad775",
+    "role": "official_project_reference"
+  },
+  "official_model": {
+    "url": "https://huggingface.co/baidu/ERNIE-Image-Turbo",
+    "revision": "bc68c81e2a1730a394d5fc9fae70713dee940140",
+    "role": "Official tokenizer, text embedding and blocks 0..24, all 36 DiT blocks, heads, and VAE decoder/BN downloaded; complete 64x64 and 1024 apple parity passed; long-prompt late tensor failures retained"
+  },
+  "diffusers": {
+    "url": "https://github.com/huggingface/diffusers",
+    "revision": "7643c4826609c47755e3da0e5b768e8070468f49",
+    "role": "Pinned staged official FP32 reference at 64x64 and 1024x1024; streamed CUDA FP32 DiT blocks with TF32 disabled, other modules on CPU; full-resolution VAE independently verified",
+    "version": "0.41.0.dev0"
+  },
+  "transformers": {
+    "url": "https://github.com/huggingface/transformers",
+    "revision": "7d9754a05193eb79b1d86aa744b622b8068008cd",
+    "role": "Exact tokenizer fixtures; real-weight Mistral text path 0..24 verified; full Mistral3 hidden-state selection audited separately with tiny weights",
+    "version": "5.2.0",
+    "tag": "v5.2.0"
+  },
+  "reference_environment": {
+    "python": "3.14.7",
+    "torch": "2.12.1+cu130",
+    "safetensors": "0.8.0",
+    "accelerate": "1.12.0",
+    "requirements": "requirements-reference.lock",
+    "scope": "Reference and conversion environment; native generation does not load Python or PyTorch"
+  },
+  "pnnx": {
+    "version": "20260526",
+    "binary_sha256": "c3555c48e054245e50fa434a7673fbdad2b8f8c6cdca8c1579601f9882f474a0",
+    "role": "PyPI wheel converter; independent from the pinned ncnn runtime; graph checks required"
+  },
+  "tokenizers": {
+    "url": "https://github.com/huggingface/tokenizers",
+    "version": "0.22.2",
+    "role": "Matching Python reference and native Rust bridge; 48 token-ID fixtures exact",
+    "native_dependency_lock": "tokenizer/Cargo.lock",
+    "native_build": "Cargo --locked; dependency versions and checksums pinned in Cargo.lock"
+  },
+  "libpng": {
+    "version": "1.6.58",
+    "role": "System native PNG encoder"
+  },
+  "runtime_contract": {
+    "model_variant": "Turbo",
+    "batch": 1,
+    "steps": 8,
+    "cfg": 1,
+    "prompt_enhancer": false,
+    "text_bucket": 64,
+    "supported_text_buckets": [32, 64],
+    "text_layers": 25,
+    "text_final_norm": false,
+    "dit_layers": 36,
+    "dit_precision": "fp16 or fp32",
+    "dit_residual_precision": "fp32",
+    "euler_master_precision": "fp32",
+    "vae_default": "CPU direct convolution, FP32 activations with FP64 GroupNorm reductions",
+    "portable_package_schema": 2,
+    "native_rng": "std::mt19937 + std::normal_distribution; use saved initial.f32 for cross-framework parity"
+  }
+}
