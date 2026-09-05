@@ -1,0 +1,23 @@
+	Command being timed: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/dit36-s288-v1/ernie-dit-runner.snapshot --fixture /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/dit36-s288-v1/reference --tokens 288 --output /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/dit36-s288-v1/vulkan-fp32/actual.f32 --backend vulkan --precision fp32 --policy stream --input-head /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-heads-s288-v1/input --output-head /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-heads-s288-v2/output --width 4 --height 4 --text-tokens 272 --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v2/block-00/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v2/block-01/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v2/block-02/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v2/block-03/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v2/block-04/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v2/block-05/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v2/block-06/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v2/block-07/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v2/block-08/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-09/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-10/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-11/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-12/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-13/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-14/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-15/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-16/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-17/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-18/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-19/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-20/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-21/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-22/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-23/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-24/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-25/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-26/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-27/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-28/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-29/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-30/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-31/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v4/block-32/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v4/block-33/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v4/block-34/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v4/block-35/runtime"
+	User time (seconds): 30.80
+	System time (seconds): 26.41
+	Percent of CPU this job got: 94%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:00.36
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1078392
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 4
+	Minor (reclaiming a frame) page faults: 15710736
+	Voluntary context switches: 13401
+	Involuntary context switches: 1062
+	Swaps: 0
+	File system inputs: 12387440
+	File system outputs: 600
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

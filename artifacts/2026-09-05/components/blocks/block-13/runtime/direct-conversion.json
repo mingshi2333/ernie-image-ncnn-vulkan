@@ -1,0 +1,165 @@
+{
+  "method": "direct_official_bf16",
+  "schema_version": 1,
+  "block": 13,
+  "component_sha256": "e2eff6b278717e75164b3f3e19a9f73285d16a3512b970f9a2d27bdd3b0fd551",
+  "builder_sha256": "9a1bd308601051e5d0f780309ed402dd7b00847f9434863070c9671432ed1dac",
+  "template_manifest_sha256": "3516ee886a1f0d2ba1f5f62fe8993fd30c182ff1df3f559de6845498a85cb5a7",
+  "graph_contract_sha256": "88206e024759e4f8981fa1cb04636e644c3c7a3c7e08b2658a1f9bcce52ea50c",
+  "reconstructed_fp32_sha256": "fcdfc19711c1884b3f294a68ac6087ef47d38e7eae4f851f0beb5c6acb442274",
+  "sections": [
+    {
+      "layer": "rmsn_8",
+      "tensor": "layers.13.adaLN_sa_ln.weight",
+      "shape": [
+        4096
+      ],
+      "source_sha256": "adfdcce2f1f8cd55eacca1574310cdf9a6bd2da2125d42e50df3f6caa493f28c",
+      "output_offsets": [
+        0,
+        16384
+      ],
+      "storage": "fp32_affine"
+    },
+    {
+      "layer": "gemm_0",
+      "tensor": "layers.13.self_attention.to_q.weight",
+      "shape": [
+        4096,
+        4096
+      ],
+      "source_sha256": "ca5371e3dc9ff1e711099ae90c2b42bbc71615e6e87a17d0bbaddac65a95aeb3",
+      "output_offsets": [
+        16384,
+        33570820
+      ],
+      "storage": "bf16_modelbin"
+    },
+    {
+      "layer": "gemm_1",
+      "tensor": "layers.13.self_attention.to_k.weight",
+      "shape": [
+        4096,
+        4096
+      ],
+      "source_sha256": "c24570c97e0f31bb8008124a9e036c35a785881c6247b9833b36957ed5fd4255",
+      "output_offsets": [
+        33570820,
+        67125256
+      ],
+      "storage": "bf16_modelbin"
+    },
+    {
+      "layer": "gemm_2",
+      "tensor": "layers.13.self_attention.to_v.weight",
+      "shape": [
+        4096,
+        4096
+      ],
+      "source_sha256": "fc9f80f9771a37212e1394e93c0d8bf9558d0297d1b14d09017d1835808e1bc8",
+      "output_offsets": [
+        67125256,
+        100679692
+      ],
+      "storage": "bf16_modelbin"
+    },
+    {
+      "layer": "rmsn_9",
+      "tensor": "layers.13.self_attention.norm_q.weight",
+      "shape": [
+        128
+      ],
+      "source_sha256": "894b3daef89ac20d8107d6b671fc9bc9eec00de2689fcf761239dea83f7574c4",
+      "output_offsets": [
+        100679692,
+        100680204
+      ],
+      "storage": "fp32_affine"
+    },
+    {
+      "layer": "rmsn_10",
+      "tensor": "layers.13.self_attention.norm_k.weight",
+      "shape": [
+        128
+      ],
+      "source_sha256": "5d0a53b0465e8815ec94dd99f44d9e073bff0ac581225efab1594d2dd0db3d58",
+      "output_offsets": [
+        100680204,
+        100680716
+      ],
+      "storage": "fp32_affine"
+    },
+    {
+      "layer": "gemm_3",
+      "tensor": "layers.13.self_attention.to_out.0.weight",
+      "shape": [
+        4096,
+        4096
+      ],
+      "source_sha256": "efe07d1cb19d9c2ade345041214cfb8d7f0a36948ec84300e414bf860ee81268",
+      "output_offsets": [
+        100680716,
+        134235152
+      ],
+      "storage": "bf16_modelbin"
+    },
+    {
+      "layer": "rmsn_11",
+      "tensor": "layers.13.adaLN_mlp_ln.weight",
+      "shape": [
+        4096
+      ],
+      "source_sha256": "2662a7f8e7add1fc663c42bc06a07748dc18d9e4863fbcfeec212afa83389e17",
+      "output_offsets": [
+        134235152,
+        134251536
+      ],
+      "storage": "fp32_affine"
+    },
+    {
+      "layer": "gemm_4",
+      "tensor": "layers.13.mlp.up_proj.weight",
+      "shape": [
+        12288,
+        4096
+      ],
+      "source_sha256": "d419d1e7781dd08bcebb48b69c1ae46c2bc798430ee157e3f5b992c187c5a7fa",
+      "output_offsets": [
+        134251536,
+        234914836
+      ],
+      "storage": "bf16_modelbin"
+    },
+    {
+      "layer": "gemm_5",
+      "tensor": "layers.13.mlp.gate_proj.weight",
+      "shape": [
+        12288,
+        4096
+      ],
+      "source_sha256": "4c8a8581105a27292fb6f54b9ef46d1603766fe436a3b0924e220faa307f55f8",
+      "output_offsets": [
+        234914836,
+        335578136
+      ],
+      "storage": "bf16_modelbin"
+    },
+    {
+      "layer": "gemm_6",
+      "tensor": "layers.13.mlp.linear_fc2.weight",
+      "shape": [
+        4096,
+        12288
+      ],
+      "source_sha256": "1aef461c35a41590f3c4e7cb9d2bdcb6218e54ac34db2d5fcda4b43f02239db6",
+      "output_offsets": [
+        335578136,
+        436241436
+      ],
+      "storage": "bf16_modelbin"
+    }
+  ],
+  "stored_bytes": 436241436,
+  "scope": "Direct lossless file conversion; ModelBin expands weights during loading",
+  "elapsed_seconds": 1.4423598459998175
+}

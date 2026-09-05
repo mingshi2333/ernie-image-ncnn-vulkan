@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 #include "ernie_gelu.h"
+#include "ernie_rmsnorm.h"
 #include <cmath>
 #include <vector>
 
@@ -103,6 +104,8 @@ DEFINE_LAYER_CREATOR(ErnieGELU)
 
 int register_layers(ncnn::Net& net)
 {
-    return net.register_custom_layer("ErnieGELU", ErnieGELU_layer_creator);
+    int result = net.register_custom_layer("ErnieGELU", ErnieGELU_layer_creator);
+    if (!result) result = register_rmsnorm(net);
+    return result ? result : register_layernorm(net);
 }
 } // namespace ernie

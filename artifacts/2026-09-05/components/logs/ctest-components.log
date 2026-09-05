@@ -1,0 +1,27 @@
+Test project /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/build
+      Start  1: native_cache_cpu
+ 1/11 Test  #1: native_cache_cpu .................   Passed    0.05 sec
+      Start  2: native_cache_vulkan
+ 2/11 Test  #2: native_cache_vulkan ..............   Passed    1.26 sec
+      Start  3: latent_contract_cpu
+ 3/11 Test  #3: latent_contract_cpu ..............   Passed    0.02 sec
+      Start  4: rmsnorm_range_cpu
+ 4/11 Test  #4: rmsnorm_range_cpu ................   Passed    0.01 sec
+      Start  5: erf_gelu_cpu
+ 5/11 Test  #5: erf_gelu_cpu .....................   Passed    0.03 sec
+      Start  6: erf_gelu_vulkan_fp32
+ 6/11 Test  #6: erf_gelu_vulkan_fp32 .............   Passed    0.59 sec
+      Start  7: rmsnorm_range_vulkan_fp32
+ 7/11 Test  #7: rmsnorm_range_vulkan_fp32 ........   Passed    0.65 sec
+      Start  8: erf_gelu_vulkan_fp16
+ 8/11 Test  #8: erf_gelu_vulkan_fp16 .............   Passed    0.57 sec
+      Start  9: rmsnorm_range_vulkan_fp16
+ 9/11 Test  #9: rmsnorm_range_vulkan_fp16 ........   Passed    0.62 sec
+      Start 10: erf_gelu_vulkan_bf16
+10/11 Test #10: erf_gelu_vulkan_bf16 .............   Passed    0.60 sec
+      Start 11: rmsnorm_range_vulkan_bf16
+11/11 Test #11: rmsnorm_range_vulkan_bf16 ........   Passed    0.68 sec
+
+100% tests passed, 0 tests failed out of 11
+
+Total Test time (real) =   5.08 sec

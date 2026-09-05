@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--model', type=Path, required=True)
+    parser.add_argument('--runner', type=Path, default=ROOT / 'build/ernie-block-runner')
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--repeat', type=int, default=3)
     parser.add_argument('--host-weights', action='store_true')
@@ -25,7 +26,7 @@ def main():
         output = args.output / f'{backend}-{precision}'
         command = [sys.executable, str(ROOT / 'tools/validate_dit_block.py'), '--model', str(args.model.resolve()),
                    '--output', str(output.resolve()), '--backend', backend, '--precision', precision,
-                   '--repeat', str(args.repeat)]
+                   '--repeat', str(args.repeat), '--runner', str(args.runner.resolve())]
         if backend == 'vulkan':
             command.append('--device-io')
             if args.trace_attention:

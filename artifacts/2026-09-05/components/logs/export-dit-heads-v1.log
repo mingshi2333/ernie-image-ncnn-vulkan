@@ -1,0 +1,14 @@
+{"component": "input", "command": ["/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.venv/lib64/python3.14/site-packages/pnnx/pnnx", "head.pt", "inputshape=[1,128,4,4],[1,272,3072],[1,4096]", "fp16=0", "device=cpu"], "pnnx_sha256": "c3555c48e054245e50fa434a7673fbdad2b8f8c6cdca8c1579601f9882f474a0", "return_code": 0, "unsupported_diagnostics": [], "operators": ["Concat", "Convolution", "Gemm", "InnerProduct", "Input", "Permute", "Reshape", "Slice", "Split", "Swish"], "unconverted": []}
+{"component": "output", "command": ["/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.venv/lib64/python3.14/site-packages/pnnx/pnnx", "head.pt", "inputshape=[1,288,4096],[1,4096]", "fp16=0", "device=cpu"], "pnnx_sha256": "c3555c48e054245e50fa434a7673fbdad2b8f8c6cdca8c1579601f9882f474a0", "return_code": 0, "unsupported_diagnostics": ["slice along batch axis is not supported", "permute across batch dim is not supported yet!", "permute across batch dim is not supported yet!"], "operators": ["BinaryOp", "Crop", "ExpandDims", "Gemm", "InnerProduct", "Input", "LayerNorm", "Permute", "Reshape", "Slice"], "unconverted": []}
+Traceback (most recent call last):
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/tools/export_dit_heads.py", line 166, in <module>
+    main()
+    ~~~~^^
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/tools/export_dit_heads.py", line 161, in main
+    export_component(OutputHead(model, args.height, args.width), (x, c), (expected,), args.output / 'output',
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     {**metadata, 'component': 'output', 'activation_scale': 512})
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/tools/export_dit_heads.py", line 108, in export_component
+    raise RuntimeError('Head graph conversion failed; inspect conversion.log')
+RuntimeError: Head graph conversion failed; inspect conversion.log

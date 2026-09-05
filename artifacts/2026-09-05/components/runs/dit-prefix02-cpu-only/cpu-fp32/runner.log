@@ -1,0 +1,9 @@
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+{"backend":"cpu","precision":"fp32","policy":"stream","blocks":2,"peak_loaded_nets":1,"host_weights":false,"compute_submissions":0,"load_seconds":[0.844516525,0.811693081],"compute_seconds":[0.301120816,0.286764937],"dit_heads":true,"input_head_seconds":0.525654783,"output_head_seconds":0.119120191}

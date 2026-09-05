@@ -1,0 +1,117 @@
+{
+  "command": [
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/build/ernie-latent-runner",
+    "--fixture",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/latent-ops-v1/w1-h1-n8/fixture",
+    "--output",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/latent-ops-v1/w1-h1-n8/cpu",
+    "--width",
+    "1",
+    "--height",
+    "1",
+    "--steps",
+    "8",
+    "--backend",
+    "cpu"
+  ],
+  "runner_sha256": "2f1377e1d01fcdee4a7207f99e08f3fd571154308ce4af517ea387f87792d064",
+  "fixture_sha256": "eab8b5468b4ea9d9c5d3cc10bfa0e1434dd28fb0a6fc86bfd23f8d7ebc84f820",
+  "backend": "cpu",
+  "batched": false,
+  "passed": true,
+  "return_code": 0,
+  "runtime": {
+    "backend": "cpu",
+    "precision": "fp32",
+    "steps": 8,
+    "submissions": 0,
+    "batched": false,
+    "sigmas": [
+      1,
+      0.965517223,
+      0.923076928,
+      0.869565189,
+      0.800000012,
+      0.70588237,
+      0.571428597,
+      0.363636374,
+      0
+    ],
+    "timesteps": [
+      1000,
+      965.517212,
+      923.076904,
+      869.565186,
+      800,
+      705.882385,
+      571.428589,
+      363.636383
+    ]
+  },
+  "schedule_exact": true,
+  "comparisons": [
+    {
+      "tensor": "step-0",
+      "max_abs_error": 0.0,
+      "nrmse": 0.0,
+      "passed": true,
+      "sha256": "df1e2945dfc34778242a45bfce0a483692ea9afe6f8a749e4dc1f780dd78c754"
+    },
+    {
+      "tensor": "step-1",
+      "max_abs_error": 0.0,
+      "nrmse": 0.0,
+      "passed": true,
+      "sha256": "c4b2829323175805faab52ac8e80a0715b5f81c2e1539c7126c7e7dbc5528695"
+    },
+    {
+      "tensor": "step-2",
+      "max_abs_error": 0.0,
+      "nrmse": 0.0,
+      "passed": true,
+      "sha256": "c2396f74f61b828a54b33f0b9c817f30c45b377bfb99294051b23670e6cd2c58"
+    },
+    {
+      "tensor": "step-3",
+      "max_abs_error": 0.0,
+      "nrmse": 0.0,
+      "passed": true,
+      "sha256": "fe7ea70ab1a72a98a411050e29ebf78939572884976017b3b9748a1ab8a833ba"
+    },
+    {
+      "tensor": "step-4",
+      "max_abs_error": 0.0,
+      "nrmse": 0.0,
+      "passed": true,
+      "sha256": "9ea21e00119cc2093b4561088cdb5fa8508d5d4b2fd02e7037bfcea64f2d0285"
+    },
+    {
+      "tensor": "step-5",
+      "max_abs_error": 0.0,
+      "nrmse": 0.0,
+      "passed": true,
+      "sha256": "313a901b56fdf578d5d6bd081009e3af9215fbe5e9d1dc517262548f2f681784"
+    },
+    {
+      "tensor": "step-6",
+      "max_abs_error": 0.0,
+      "nrmse": 0.0,
+      "passed": true,
+      "sha256": "ad20c4d26d8708387c01c6bd470c448aefc36105fb3117cee3826c5583da2bdd"
+    },
+    {
+      "tensor": "step-7",
+      "max_abs_error": 0.0,
+      "nrmse": 0.0,
+      "passed": true,
+      "sha256": "ccb067d73b16955e156072bc3b65c174fb4c72347771838c5c8ee1c495226432"
+    },
+    {
+      "tensor": "unpacked",
+      "max_abs_error": 2.384185791015625e-07,
+      "nrmse": 3.7950002911610044e-08,
+      "passed": true,
+      "sha256": "9f0c3463283b416a4340efd87248cd829e452273c8d5ce6195c8e00da02812fd"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "command": [
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/build/ernie-latent-runner",
+    "--fixture",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/latent-ops-v2/w2-h3-n1/fixture",
+    "--output",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/latent-ops-v2/w2-h3-n1/vulkan-batched",
+    "--width",
+    "2",
+    "--height",
+    "3",
+    "--steps",
+    "1",
+    "--backend",
+    "vulkan",
+    "--batched"
+  ],
+  "runner_sha256": "7668602e499cc02e9de5b332c5c2bf74d6383b2ca47093bf21055fb8ffcbd030",
+  "fixture_sha256": "7d2d239f5d28dca0b9b5d1aaa40ac75034c3bd4581e2133749d184f9d2c0c3ec",
+  "backend": "vulkan",
+  "batched": true,
+  "passed": true,
+  "return_code": 0,
+  "runtime": {
+    "backend": "vulkan",
+    "precision": "fp32",
+    "steps": 1,
+    "submissions": 2,
+    "batched": true,
+    "sigmas": [
+      1,
+      0
+    ],
+    "timesteps": [
+      1000
+    ]
+  },
+  "schedule_exact": true,
+  "comparisons": [
+    {
+      "tensor": "step-0",
+      "max_abs_error": 0.0,
+      "nrmse": 0.0,
+      "passed": true,
+      "sha256": "e6bebdcf26e50229270af8dd2408c7fa7e4d43af0d06615bfa5f32fcf0328462"
+    },
+    {
+      "tensor": "unpacked",
+      "max_abs_error": 2.384185791015625e-07,
+      "nrmse": 3.9041017044978675e-08,
+      "passed": true,
+      "sha256": "d1cab3934e8bf21656a0bc5352551e700a4d2342515d9af44b60541b550b64ce"
+    }
+  ]
+}

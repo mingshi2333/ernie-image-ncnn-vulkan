@@ -1,0 +1,190 @@
+{
+  "schema_version": 1,
+  "tokens": 288,
+  "block": 32,
+  "official_model_revision": "bc68c81e2a1730a394d5fc9fae70713dee940140",
+  "weights_sha256": "76c89f54109ffe1606ef33b920b8e515ab5fe1311f3cbbf07f6a461b1f39a857",
+  "ncnn_revision": "6a1bf000f363714839a36793addc8c879d3d899e",
+  "weight_storage": {
+    "method": "direct_official_bf16",
+    "schema_version": 1,
+    "block": 32,
+    "component_sha256": "76c89f54109ffe1606ef33b920b8e515ab5fe1311f3cbbf07f6a461b1f39a857",
+    "builder_sha256": "9a1bd308601051e5d0f780309ed402dd7b00847f9434863070c9671432ed1dac",
+    "template_manifest_sha256": "3516ee886a1f0d2ba1f5f62fe8993fd30c182ff1df3f559de6845498a85cb5a7",
+    "graph_contract_sha256": "88206e024759e4f8981fa1cb04636e644c3c7a3c7e08b2658a1f9bcce52ea50c",
+    "reconstructed_fp32_sha256": "80ef1f93ad079432e21559f9b0fbb25cbf26a960b6c96c00596c9b06aef87eff",
+    "sections": [
+      {
+        "layer": "rmsn_8",
+        "tensor": "layers.32.adaLN_sa_ln.weight",
+        "shape": [
+          4096
+        ],
+        "source_sha256": "3de7778c18a634bc37369cb8d4a9e40d18a77fec87e7b560057fe6b82c604efb",
+        "output_offsets": [
+          0,
+          16384
+        ],
+        "storage": "fp32_affine"
+      },
+      {
+        "layer": "gemm_0",
+        "tensor": "layers.32.self_attention.to_q.weight",
+        "shape": [
+          4096,
+          4096
+        ],
+        "source_sha256": "69797707c6b46394d6d0387ccc452c994e024f5e1b563150cc5dd3df69262cfc",
+        "output_offsets": [
+          16384,
+          33570820
+        ],
+        "storage": "bf16_modelbin"
+      },
+      {
+        "layer": "gemm_1",
+        "tensor": "layers.32.self_attention.to_k.weight",
+        "shape": [
+          4096,
+          4096
+        ],
+        "source_sha256": "a1fd950c15e33a06cfc5623b037798d2fc84a69d6bbc9df76c91fc64cc4016f7",
+        "output_offsets": [
+          33570820,
+          67125256
+        ],
+        "storage": "bf16_modelbin"
+      },
+      {
+        "layer": "gemm_2",
+        "tensor": "layers.32.self_attention.to_v.weight",
+        "shape": [
+          4096,
+          4096
+        ],
+        "source_sha256": "ab8e786395ed4d7095d502da10b3da79be9fdab3d597b5f5e00d740a4211a06a",
+        "output_offsets": [
+          67125256,
+          100679692
+        ],
+        "storage": "bf16_modelbin"
+      },
+      {
+        "layer": "rmsn_9",
+        "tensor": "layers.32.self_attention.norm_q.weight",
+        "shape": [
+          128
+        ],
+        "source_sha256": "11b79a2c21c4e61362f8eb285417c7c23acd7fe560574b7b1a5ba1495e0d436e",
+        "output_offsets": [
+          100679692,
+          100680204
+        ],
+        "storage": "fp32_affine"
+      },
+      {
+        "layer": "rmsn_10",
+        "tensor": "layers.32.self_attention.norm_k.weight",
+        "shape": [
+          128
+        ],
+        "source_sha256": "a77db9c33dd272f50a268576213a2a70722ad3df07592b6dc4d0644b46c845b1",
+        "output_offsets": [
+          100680204,
+          100680716
+        ],
+        "storage": "fp32_affine"
+      },
+      {
+        "layer": "gemm_3",
+        "tensor": "layers.32.self_attention.to_out.0.weight",
+        "shape": [
+          4096,
+          4096
+        ],
+        "source_sha256": "aff18cdfe2df60dccae93472b425c756ee3fa73ddf8c771636a31d0ea3d362ef",
+        "output_offsets": [
+          100680716,
+          134235152
+        ],
+        "storage": "bf16_modelbin"
+      },
+      {
+        "layer": "rmsn_11",
+        "tensor": "layers.32.adaLN_mlp_ln.weight",
+        "shape": [
+          4096
+        ],
+        "source_sha256": "b620aa9edf663ac25664322e72dc7fef33f4a5efb55e3f92039befcbe884e077",
+        "output_offsets": [
+          134235152,
+          134251536
+        ],
+        "storage": "fp32_affine"
+      },
+      {
+        "layer": "gemm_4",
+        "tensor": "layers.32.mlp.up_proj.weight",
+        "shape": [
+          12288,
+          4096
+        ],
+        "source_sha256": "bad83ecadf059a5c490a98d02bbac0f6a8c84553e7072fbf28725e229e41de1f",
+        "output_offsets": [
+          134251536,
+          234914836
+        ],
+        "storage": "bf16_modelbin"
+      },
+      {
+        "layer": "gemm_5",
+        "tensor": "layers.32.mlp.gate_proj.weight",
+        "shape": [
+          12288,
+          4096
+        ],
+        "source_sha256": "db855c141ca42d12e8cd7ae50f713bfcb55971acf6fb1ab63d7d9dc7acf6d453",
+        "output_offsets": [
+          234914836,
+          335578136
+        ],
+        "storage": "bf16_modelbin"
+      },
+      {
+        "layer": "gemm_6",
+        "tensor": "layers.32.mlp.linear_fc2.weight",
+        "shape": [
+          4096,
+          12288
+        ],
+        "source_sha256": "5c7c4c18fa73ed692aa5c01ab19b58a9b59d7f9bb463401482314e8de8e05131",
+        "output_offsets": [
+          335578136,
+          436241436
+        ],
+        "storage": "bf16_modelbin"
+      }
+    ],
+    "stored_bytes": 436241436,
+    "scope": "Direct lossless file conversion; ModelBin expands weights during loading",
+    "elapsed_seconds": 1.4780795279993981
+  },
+  "files": {
+    "block.ncnn.param": "a7a42a03a969df8deed2c698a42e84a5f909b54ef886479a18a6605ed2cf29de",
+    "block.ncnn.bin": "fef41291e07b134c1d2fb256aeaa2e69d85e3541f518c95d342cd81f2a7d1368",
+    "direct-conversion.json": "c32fbc1568d725653377e91e1a24601422f3c7ce566e63af82f7b64a3abc9e20",
+    "fixture.json": "3d666334b95c65c8b73cee6ac247399e386119db7d185b5723c3339d5c7aa942",
+    "in0.f32": "69ae0692fcd77504aa2df6bce19c7fff980e225208931945c5b6b857a148190c",
+    "in1.f32": "79f10cbfe9db662ddedc348caae8b4c5ff319e1696ffa4fb8289c2b363cc0a11",
+    "in2.f32": "82cdb7967cc4922f7871ffd8bca282ee2b2b4de86315ce2623a563df303f40d5",
+    "in3.f32": "7c61c27e0296bfe144691bce23ee6f7aed16cda018efc230b2b596b97bd223b1",
+    "in4.f32": "001e283dede6b7c873c60472d18be697e3078d480b93b86362b390562c16dcad",
+    "in5.f32": "2e4b2cf3a258c066de1aeb122174958b6de659c1d691cb8ecb67cb3ff1bc0dff",
+    "in6.f32": "be91da0db28877c3c9699ca0e934fb7f05be6c3b78c1a6b5d3f4f0464ca7341a",
+    "in7.f32": "8b6c9e7e6a85e194563eaf5973b44d35aeaf969dc59e72b14add27f5e30f15da",
+    "in8.f32": "6320668750bb3c447c65882325f462dd753f4ab043c79ccb07812a7bd0cb9927",
+    "in9.f32": "948735370fc224eca83f93722150a6fef2fcfcbb3b6acf36a1d0f0dc732d7378",
+    "expected.f32": "3bf848ff79a7254a8350c4ae3743743cd0a18053c7c9834c20df542f1a8c4f45"
+  }
+}

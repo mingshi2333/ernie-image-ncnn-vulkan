@@ -1,0 +1,9 @@
+{
+  "repository": "https://huggingface.co/baidu/ERNIE-Image-Turbo",
+  "revision": "bc68c81e2a1730a394d5fc9fae70713dee940140",
+  "files": {
+    "tokenizer_config.json": "dfd5e67b652177f3e697dd67b0792bef7779c66522f47f502af2ce1715c5ec59",
+    "tokenizer.json": "577575622324b2e099e2648be26bdeb5e5815ffe66d7004e9e3ddbf421db6bf1"
+  },
+  "downloader_sha256": "9a4e0524182c9f87889c4dcdf408e97eed6257fdf7634be86c8eb743e9ab2aad"
+}

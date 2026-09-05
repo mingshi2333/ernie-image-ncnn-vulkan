@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "repository": "https://huggingface.co/baidu/ERNIE-Image-Turbo",
+  "revision": "bc68c81e2a1730a394d5fc9fae70713dee940140",
+  "prefix": "time_embedding.",
+  "index_url": "https://huggingface.co/baidu/ERNIE-Image-Turbo/resolve/bc68c81e2a1730a394d5fc9fae70713dee940140/transformer/diffusion_pytorch_model.safetensors.index.json",
+  "index_sha256": "cdd72f1fd19be0eb582c73dc94498765ed2b3925822495ce13c5cf526204aa9c",
+  "sha256": "e114660cfd93e12c6844967c5b39ae43d195ef86ffcf0eb90c69bccbd114320a",
+  "payload_bytes": 67125248,
+  "tensors": [
+    {
+      "name": "time_embedding.linear_1.bias",
+      "shard": "diffusion_pytorch_model-00001-of-00002.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        4096
+      ],
+      "source_offsets": [
+        9924180384,
+        9924188576
+      ],
+      "header_sha256": "cccc022e7f69d4bae0084927cae499a7ea1f34c8b04da44367c193172913eec0",
+      "sha256": "16a27643dfd8d52dac9c77318f3616eb021040e692f1e89f06f742746f38994d"
+    },
+    {
+      "name": "time_embedding.linear_1.weight",
+      "shard": "diffusion_pytorch_model-00001-of-00002.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        4096,
+        4096
+      ],
+      "source_offsets": [
+        9924188576,
+        9957743008
+      ],
+      "header_sha256": "cccc022e7f69d4bae0084927cae499a7ea1f34c8b04da44367c193172913eec0",
+      "sha256": "7b3909b0ea06527de8dd82e223f6fa955b88002ad4532c4d7a92d3ac538ad3eb"
+    },
+    {
+      "name": "time_embedding.linear_2.bias",
+      "shard": "diffusion_pytorch_model-00001-of-00002.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        4096
+      ],
+      "source_offsets": [
+        9957743008,
+        9957751200
+      ],
+      "header_sha256": "cccc022e7f69d4bae0084927cae499a7ea1f34c8b04da44367c193172913eec0",
+      "sha256": "ecde9a6a6282681dad3be46e896a1ccb83a0592774f28fe2bec84c5b1e864d64"
+    },
+    {
+      "name": "time_embedding.linear_2.weight",
+      "shard": "diffusion_pytorch_model-00001-of-00002.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        4096,
+        4096
+      ],
+      "source_offsets": [
+        9957751200,
+        9991305632
+      ],
+      "header_sha256": "cccc022e7f69d4bae0084927cae499a7ea1f34c8b04da44367c193172913eec0",
+      "sha256": "3853e606a971211db40df00fe509d7aa67b9dd753e4a1dde540cb3a65efdd636"
+    }
+  ],
+  "range_window_bytes": 33554432,
+  "downloader_sha256": "d63b4c1620ff86b8e4867f6b128fcb0b923b4eb2a51f5fe982429b3bf0c97657",
+  "verification": "HTTPS from pinned revision, exact range and length checks; local per-tensor and component hashes. Full upstream shard hash not checked."
+}

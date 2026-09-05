@@ -1,0 +1,25 @@
+{
+  "command": [
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.venv/lib64/python3.14/site-packages/pnnx/pnnx",
+    "head.pt",
+    "inputshape=[1,128,4,4],[1,272,3072],[1,4096]",
+    "fp16=0",
+    "device=cpu"
+  ],
+  "pnnx_sha256": "c3555c48e054245e50fa434a7673fbdad2b8f8c6cdca8c1579601f9882f474a0",
+  "return_code": 0,
+  "unsupported_diagnostics": [],
+  "operators": [
+    "Concat",
+    "Convolution",
+    "Gemm",
+    "InnerProduct",
+    "Input",
+    "Permute",
+    "Reshape",
+    "Slice",
+    "Split",
+    "Swish"
+  ],
+  "unconverted": []
+}

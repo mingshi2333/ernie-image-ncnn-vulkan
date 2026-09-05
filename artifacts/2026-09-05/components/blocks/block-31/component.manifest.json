@@ -1,0 +1,176 @@
+{
+  "schema_version": 1,
+  "repository": "https://huggingface.co/baidu/ERNIE-Image-Turbo",
+  "revision": "bc68c81e2a1730a394d5fc9fae70713dee940140",
+  "prefix": "layers.31.",
+  "index_url": "https://huggingface.co/baidu/ERNIE-Image-Turbo/resolve/bc68c81e2a1730a394d5fc9fae70713dee940140/transformer/diffusion_pytorch_model.safetensors.index.json",
+  "index_sha256": "cdd72f1fd19be0eb582c73dc94498765ed2b3925822495ce13c5cf526204aa9c",
+  "sha256": "ce6ec47106f9b2786bcb6b9e70ff5122a5c9e4972bd99730964d65901ea511b7",
+  "payload_bytes": 436224512,
+  "tensors": [
+    {
+      "name": "layers.31.adaLN_mlp_ln.weight",
+      "shard": "diffusion_pytorch_model-00002-of-00002.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        4096
+      ],
+      "source_offsets": [
+        3893540168,
+        3893548360
+      ],
+      "header_sha256": "a0eb8024c40948be58d5464117637680f5c864487ad8bc54596d9e23f08a649f",
+      "sha256": "061b7219da84565aac2c1c337c9bae935c99c5305bb45aacdbb5a0ec39c0fdff"
+    },
+    {
+      "name": "layers.31.adaLN_sa_ln.weight",
+      "shard": "diffusion_pytorch_model-00002-of-00002.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        4096
+      ],
+      "source_offsets": [
+        3893548360,
+        3893556552
+      ],
+      "header_sha256": "a0eb8024c40948be58d5464117637680f5c864487ad8bc54596d9e23f08a649f",
+      "sha256": "0705a22ddacac96d940424f7cf91863dacff9afe9d99eb7fc80bad81bab0f98e"
+    },
+    {
+      "name": "layers.31.mlp.gate_proj.weight",
+      "shard": "diffusion_pytorch_model-00002-of-00002.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        12288,
+        4096
+      ],
+      "source_offsets": [
+        3893556552,
+        3994219848
+      ],
+      "header_sha256": "a0eb8024c40948be58d5464117637680f5c864487ad8bc54596d9e23f08a649f",
+      "sha256": "8e540adb39b00da1fa315ea14be2c660883f1a08592ec5e8c203b5c4728c7fb6"
+    },
+    {
+      "name": "layers.31.mlp.linear_fc2.weight",
+      "shard": "diffusion_pytorch_model-00002-of-00002.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        4096,
+        12288
+      ],
+      "source_offsets": [
+        3994219848,
+        4094883144
+      ],
+      "header_sha256": "a0eb8024c40948be58d5464117637680f5c864487ad8bc54596d9e23f08a649f",
+      "sha256": "360d9f3650d1a530276e591a5362994966890b7667bdcdd79bc39ddab2f8f8a0"
+    },
+    {
+      "name": "layers.31.mlp.up_proj.weight",
+      "shard": "diffusion_pytorch_model-00002-of-00002.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        12288,
+        4096
+      ],
+      "source_offsets": [
+        4094883144,
+        4195546440
+      ],
+      "header_sha256": "a0eb8024c40948be58d5464117637680f5c864487ad8bc54596d9e23f08a649f",
+      "sha256": "67d55264d021ca6ac358c1a542d5fcbd47602f4bc70b29c629b2e668312060e9"
+    },
+    {
+      "name": "layers.31.self_attention.norm_k.weight",
+      "shard": "diffusion_pytorch_model-00002-of-00002.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        128
+      ],
+      "source_offsets": [
+        4195546440,
+        4195546696
+      ],
+      "header_sha256": "a0eb8024c40948be58d5464117637680f5c864487ad8bc54596d9e23f08a649f",
+      "sha256": "4dc601ad78af00b5a7404b0f7d496094af765e587c2450fe86faa4e88d5c1a04"
+    },
+    {
+      "name": "layers.31.self_attention.norm_q.weight",
+      "shard": "diffusion_pytorch_model-00002-of-00002.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        128
+      ],
+      "source_offsets": [
+        4195546696,
+        4195546952
+      ],
+      "header_sha256": "a0eb8024c40948be58d5464117637680f5c864487ad8bc54596d9e23f08a649f",
+      "sha256": "c38621ea92394ccdb3b5d676f69bbec078804fc6c818e491dada3e567fb6eeda"
+    },
+    {
+      "name": "layers.31.self_attention.to_k.weight",
+      "shard": "diffusion_pytorch_model-00002-of-00002.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        4096,
+        4096
+      ],
+      "source_offsets": [
+        4195546952,
+        4229101384
+      ],
+      "header_sha256": "a0eb8024c40948be58d5464117637680f5c864487ad8bc54596d9e23f08a649f",
+      "sha256": "8bcea8800510faf097e32fc64c291379a862fb50d9c59f0da6acf0f02d0e10e1"
+    },
+    {
+      "name": "layers.31.self_attention.to_out.0.weight",
+      "shard": "diffusion_pytorch_model-00002-of-00002.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        4096,
+        4096
+      ],
+      "source_offsets": [
+        4229101384,
+        4262655816
+      ],
+      "header_sha256": "a0eb8024c40948be58d5464117637680f5c864487ad8bc54596d9e23f08a649f",
+      "sha256": "14f161091b45de76cca1a871925a50e8605a2ffb18cc107b30bb9dfff54ce833"
+    },
+    {
+      "name": "layers.31.self_attention.to_q.weight",
+      "shard": "diffusion_pytorch_model-00002-of-00002.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        4096,
+        4096
+      ],
+      "source_offsets": [
+        4262655816,
+        4296210248
+      ],
+      "header_sha256": "a0eb8024c40948be58d5464117637680f5c864487ad8bc54596d9e23f08a649f",
+      "sha256": "276846872d3bfe3b52f4388871f8d5701d15826bccad49df7fd09e0ae360a3fb"
+    },
+    {
+      "name": "layers.31.self_attention.to_v.weight",
+      "shard": "diffusion_pytorch_model-00002-of-00002.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        4096,
+        4096
+      ],
+      "source_offsets": [
+        4296210248,
+        4329764680
+      ],
+      "header_sha256": "a0eb8024c40948be58d5464117637680f5c864487ad8bc54596d9e23f08a649f",
+      "sha256": "0de32bf6204a91ddcfb78a3a894bd88fdeb3a24578cfb1fe32872e01c31bc5b7"
+    }
+  ],
+  "range_window_bytes": 33554432,
+  "downloader_sha256": "d63b4c1620ff86b8e4867f6b128fcb0b923b4eb2a51f5fe982429b3bf0c97657",
+  "verification": "HTTPS from pinned revision, exact range and length checks; local per-tensor and component hashes. Full upstream shard hash not checked."
+}

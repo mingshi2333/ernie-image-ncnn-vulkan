@@ -1,0 +1,1 @@
+{"backend":"cpu","precision":"fp32","policy":"resident","blocks":2,"peak_loaded_nets":2,"host_weights":false,"compute_submissions":0,"load_seconds":[0.415537876,0.803919393],"compute_seconds":[0.292219371,0.295118804]}

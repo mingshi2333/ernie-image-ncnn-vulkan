@@ -1,0 +1,35 @@
+{
+  "fixture_sha256": "479fc8fc410c18256257967230f0f4753b1081e5e50b7980ff84b05d7ec81973",
+  "torch_build": "2.12.1+cu130",
+  "source_sha256": "1cd28228ec736ac2d3f2da613915ba8322885a09cbaf8873c86004657ff5bf17",
+  "tf32": false,
+  "reference": "Saved official CPU FP32 output",
+  "scope": "Post-candidate calibration only; does not change predeclared ncnn gates",
+  "cases": [
+    {
+      "precision": "fp32",
+      "status": "measured",
+      "seconds": 0.1389068579992454,
+      "max_abs_error": 0.005214691162109375,
+      "nrmse": 4.200011063823906e-06,
+      "reference_max_abs": 954.56884765625
+    },
+    {
+      "precision": "fp16",
+      "status": "measured",
+      "seconds": 0.10652747299991461,
+      "max_abs_error": 4.348236083984375,
+      "nrmse": 0.0034949419296010395,
+      "reference_max_abs": 954.56884765625
+    },
+    {
+      "precision": "bf16",
+      "status": "measured",
+      "seconds": 0.09307514600004652,
+      "max_abs_error": 38.83088684082031,
+      "nrmse": 0.028234101699557673,
+      "reference_max_abs": 954.56884765625
+    }
+  ],
+  "complete": true
+}

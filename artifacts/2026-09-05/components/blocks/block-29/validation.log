@@ -1,0 +1,4 @@
+{"backend": "cpu", "precision": "fp32", "passed": true, "failure": null, "nrmse": 5.695457995412506e-06, "max_rss_kib": 1063400}
+{"backend": "vulkan", "precision": "fp32", "passed": true, "failure": null, "nrmse": 5.526860765256719e-06, "max_rss_kib": 663916}
+{"backend": "vulkan", "precision": "fp16", "passed": true, "failure": null, "nrmse": 0.002410384615843449, "max_rss_kib": 665944}
+{"backend": "vulkan", "precision": "bf16", "passed": true, "failure": null, "nrmse": 0.01933801223315808, "max_rss_kib": 698948}

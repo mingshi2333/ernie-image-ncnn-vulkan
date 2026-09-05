@@ -1,0 +1,236 @@
+{
+  "schema_version": 1,
+  "width": 64,
+  "height": 64,
+  "steps": 8,
+  "scope": "FP32 official scheduler and pipeline transforms; synthetic predictions and BN statistics; no DiT/VAE inference",
+  "official_model_revision": "bc68c81e2a1730a394d5fc9fae70713dee940140",
+  "diffusers_revision": "7643c4826609c47755e3da0e5b768e8070468f49",
+  "torch": "2.12.1+cu130",
+  "sigmas": [
+    1.0,
+    0.9655172228813171,
+    0.9230769276618958,
+    0.8695651888847351,
+    0.800000011920929,
+    0.7058823704719543,
+    0.5714285969734192,
+    0.3636363744735718,
+    0.0
+  ],
+  "timesteps": [
+    1000.0,
+    965.5172119140625,
+    923.076904296875,
+    869.565185546875,
+    800.0,
+    705.8823852539062,
+    571.4285888671875,
+    363.6363830566406
+  ],
+  "gates": {
+    "atol": 2e-06,
+    "rtol": 2e-06,
+    "nrmse": 1e-06,
+    "schedule": "bit_equal_fp32"
+  },
+  "files": {
+    "initial": {
+      "file": "initial.f32",
+      "shape": [
+        1,
+        128,
+        64,
+        64
+      ],
+      "sha256": "273041a9934b981b302d98dd5317d13befeb9cc535059cdc4496ef7274b23492"
+    },
+    "mean": {
+      "file": "mean.f32",
+      "shape": [
+        128
+      ],
+      "sha256": "c6b552af60dc9cbc57c913b918ed09620ce4fc6f0c3fbc09c169779cd88e9b32"
+    },
+    "variance": {
+      "file": "variance.f32",
+      "shape": [
+        128
+      ],
+      "sha256": "e9e4607ce85fa9b9dd3856936aa8789b1bcf9cf75a9552b246e61ff1ef89f896"
+    },
+    "prediction-0": {
+      "file": "prediction-0.f32",
+      "shape": [
+        1,
+        128,
+        64,
+        64
+      ],
+      "sha256": "d5d465c856c356603e493f580b39afd8a71bff22a2e3bf01eda933395015998e"
+    },
+    "step-0": {
+      "file": "expected-step-0.f32",
+      "shape": [
+        1,
+        128,
+        64,
+        64
+      ],
+      "sha256": "8f86c341eac42e5029735cef1083cee6ca95ee0f61717081f44c6df9e6c7d7a4"
+    },
+    "prediction-1": {
+      "file": "prediction-1.f32",
+      "shape": [
+        1,
+        128,
+        64,
+        64
+      ],
+      "sha256": "b5aec523ed5e039b47b1d41610fba10aef73f04b1d7ceefb4b95b58bee55a605"
+    },
+    "step-1": {
+      "file": "expected-step-1.f32",
+      "shape": [
+        1,
+        128,
+        64,
+        64
+      ],
+      "sha256": "905a8daa2d5c5a317ca013c7c184ba0ab7ae2fa5b375176269216d4998bfaac3"
+    },
+    "prediction-2": {
+      "file": "prediction-2.f32",
+      "shape": [
+        1,
+        128,
+        64,
+        64
+      ],
+      "sha256": "dd247550f6f1ed80b3ef3bbdd5784815e91f634f117e81a38986e992f823f3d6"
+    },
+    "step-2": {
+      "file": "expected-step-2.f32",
+      "shape": [
+        1,
+        128,
+        64,
+        64
+      ],
+      "sha256": "4df8bf64828f7d145bceebb1f0fda64e0f47016001b19c2182eceaedc73d5b9b"
+    },
+    "prediction-3": {
+      "file": "prediction-3.f32",
+      "shape": [
+        1,
+        128,
+        64,
+        64
+      ],
+      "sha256": "9f91414537ca4c232996e5945e959f04c796525fd9f2e1b760e6c7d112fe2e79"
+    },
+    "step-3": {
+      "file": "expected-step-3.f32",
+      "shape": [
+        1,
+        128,
+        64,
+        64
+      ],
+      "sha256": "2d7376c1636c60518f6efa367511a4b60c88a6b0f14bf35e04b80ab6075e7aad"
+    },
+    "prediction-4": {
+      "file": "prediction-4.f32",
+      "shape": [
+        1,
+        128,
+        64,
+        64
+      ],
+      "sha256": "0cdada03fd46f0fd7d096a45d284932acba9ec5fc6d2d1b08186988165d51304"
+    },
+    "step-4": {
+      "file": "expected-step-4.f32",
+      "shape": [
+        1,
+        128,
+        64,
+        64
+      ],
+      "sha256": "2bae32c74e675c625cf2908dafac8c1dbe276be9a839988c26363ec5b568079b"
+    },
+    "prediction-5": {
+      "file": "prediction-5.f32",
+      "shape": [
+        1,
+        128,
+        64,
+        64
+      ],
+      "sha256": "8a59fb948dcfcc7cb8689b71ea9cb0619ddd39fad8080d2930062b9130794b14"
+    },
+    "step-5": {
+      "file": "expected-step-5.f32",
+      "shape": [
+        1,
+        128,
+        64,
+        64
+      ],
+      "sha256": "00235e5e272125eb8447d82ccb7477109c305b785b8433ce8f662cfbebfbc6ab"
+    },
+    "prediction-6": {
+      "file": "prediction-6.f32",
+      "shape": [
+        1,
+        128,
+        64,
+        64
+      ],
+      "sha256": "732c0b2791a3e26cab4b5ffa4b50a29ce4c1c38a918206f368bc6b78e970eeac"
+    },
+    "step-6": {
+      "file": "expected-step-6.f32",
+      "shape": [
+        1,
+        128,
+        64,
+        64
+      ],
+      "sha256": "468d4e0abd03451769ae7f83cdeeb5cd27009865f0c6b610a5f0482eb8979c9a"
+    },
+    "prediction-7": {
+      "file": "prediction-7.f32",
+      "shape": [
+        1,
+        128,
+        64,
+        64
+      ],
+      "sha256": "0cbebed82aefb66d1b4af8b462db21fb219b601f75166e3c94230194a7040673"
+    },
+    "step-7": {
+      "file": "expected-step-7.f32",
+      "shape": [
+        1,
+        128,
+        64,
+        64
+      ],
+      "sha256": "0ae02b302b0559faf4c642fd1b040a1fea0b8a2c043264c675d3870a12fb3636"
+    },
+    "unpacked": {
+      "file": "expected-unpacked.f32",
+      "shape": [
+        1,
+        32,
+        128,
+        128
+      ],
+      "sha256": "4f88275cd3b771bb3ee8f91ddb094ab6c233d9477f7b4a45c93b8866f1e3218a"
+    }
+  },
+  "generator_sha256": "e1e0ee6901eb22d919428f96aebfe6f64bfea716f8472d58fa9d224d54ef11ed",
+  "pipeline_source_sha256": "26fbecb8c9d13a46b15aea7d599224bb03ad93e683ce3935d7a932d71316a9fd",
+  "scheduler_source_sha256": "1af27be5b2f92b7d139d3c50239be5ce3eafc4a7eddf59c2d30689f8ec31e93d"
+}

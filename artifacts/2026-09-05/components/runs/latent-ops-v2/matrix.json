@@ -1,0 +1,142 @@
+{
+  "scope": "FP32 latent operations with saved synthetic predictions, not full denoising inference",
+  "scheduler_config_url": "https://huggingface.co/baidu/ERNIE-Image-Turbo/resolve/bc68c81e2a1730a394d5fc9fae70713dee940140/scheduler/scheduler_config.json",
+  "scheduler_config_sha256": "96031c39fcd4651aeaa07fa6b64262b9332967199e0b89c3a4694db127756f34",
+  "complete": true,
+  "passed": true,
+  "cases": [
+    {
+      "case": "w1-h1-n8",
+      "variant": "cpu",
+      "passed": true,
+      "result": "w1-h1-n8/cpu/result.json"
+    },
+    {
+      "case": "w1-h1-n8",
+      "variant": "vulkan",
+      "passed": true,
+      "result": "w1-h1-n8/vulkan/result.json"
+    },
+    {
+      "case": "w1-h1-n8",
+      "variant": "vulkan-batched",
+      "passed": true,
+      "result": "w1-h1-n8/vulkan-batched/result.json",
+      "batched_matches_per_step_exactly": true
+    },
+    {
+      "case": "w3-h5-n8",
+      "variant": "cpu",
+      "passed": true,
+      "result": "w3-h5-n8/cpu/result.json"
+    },
+    {
+      "case": "w3-h5-n8",
+      "variant": "vulkan",
+      "passed": true,
+      "result": "w3-h5-n8/vulkan/result.json"
+    },
+    {
+      "case": "w3-h5-n8",
+      "variant": "vulkan-batched",
+      "passed": true,
+      "result": "w3-h5-n8/vulkan-batched/result.json",
+      "batched_matches_per_step_exactly": true
+    },
+    {
+      "case": "w64-h64-n8",
+      "variant": "cpu",
+      "passed": true,
+      "result": "w64-h64-n8/cpu/result.json"
+    },
+    {
+      "case": "w64-h64-n8",
+      "variant": "vulkan",
+      "passed": true,
+      "result": "w64-h64-n8/vulkan/result.json"
+    },
+    {
+      "case": "w64-h64-n8",
+      "variant": "vulkan-batched",
+      "passed": true,
+      "result": "w64-h64-n8/vulkan-batched/result.json",
+      "batched_matches_per_step_exactly": true
+    },
+    {
+      "case": "w2-h3-n1",
+      "variant": "cpu",
+      "passed": true,
+      "result": "w2-h3-n1/cpu/result.json"
+    },
+    {
+      "case": "w2-h3-n1",
+      "variant": "vulkan",
+      "passed": true,
+      "result": "w2-h3-n1/vulkan/result.json"
+    },
+    {
+      "case": "w2-h3-n1",
+      "variant": "vulkan-batched",
+      "passed": true,
+      "result": "w2-h3-n1/vulkan-batched/result.json",
+      "batched_matches_per_step_exactly": true
+    },
+    {
+      "case": "w2-h3-n7",
+      "variant": "cpu",
+      "passed": true,
+      "result": "w2-h3-n7/cpu/result.json"
+    },
+    {
+      "case": "w2-h3-n7",
+      "variant": "vulkan",
+      "passed": true,
+      "result": "w2-h3-n7/vulkan/result.json"
+    },
+    {
+      "case": "w2-h3-n7",
+      "variant": "vulkan-batched",
+      "passed": true,
+      "result": "w2-h3-n7/vulkan-batched/result.json",
+      "batched_matches_per_step_exactly": true
+    },
+    {
+      "case": "w2-h3-n17",
+      "variant": "cpu",
+      "passed": true,
+      "result": "w2-h3-n17/cpu/result.json"
+    },
+    {
+      "case": "w2-h3-n17",
+      "variant": "vulkan",
+      "passed": true,
+      "result": "w2-h3-n17/vulkan/result.json"
+    },
+    {
+      "case": "w2-h3-n17",
+      "variant": "vulkan-batched",
+      "passed": true,
+      "result": "w2-h3-n17/vulkan-batched/result.json",
+      "batched_matches_per_step_exactly": true
+    },
+    {
+      "case": "w2-h3-n50",
+      "variant": "cpu",
+      "passed": true,
+      "result": "w2-h3-n50/cpu/result.json"
+    },
+    {
+      "case": "w2-h3-n50",
+      "variant": "vulkan",
+      "passed": true,
+      "result": "w2-h3-n50/vulkan/result.json"
+    },
+    {
+      "case": "w2-h3-n50",
+      "variant": "vulkan-batched",
+      "passed": true,
+      "result": "w2-h3-n50/vulkan-batched/result.json",
+      "batched_matches_per_step_exactly": true
+    }
+  ]
+}

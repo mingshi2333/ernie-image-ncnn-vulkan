@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "repository": "https://huggingface.co/baidu/ERNIE-Image-Turbo",
+  "revision": "bc68c81e2a1730a394d5fc9fae70713dee940140",
+  "prefix": "adaLN_modulation.",
+  "index_url": "https://huggingface.co/baidu/ERNIE-Image-Turbo/resolve/bc68c81e2a1730a394d5fc9fae70713dee940140/transformer/diffusion_pytorch_model.safetensors.index.json",
+  "index_sha256": "cdd72f1fd19be0eb582c73dc94498765ed2b3925822495ce13c5cf526204aa9c",
+  "sha256": "a888b409adbe9b9558b8c7aafe41595ecce730ef850a2aac4232f49b5031bc49",
+  "payload_bytes": 201375744,
+  "tensors": [
+    {
+      "name": "adaLN_modulation.1.bias",
+      "shard": "diffusion_pytorch_model-00001-of-00002.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        24576
+      ],
+      "source_offsets": [
+        28064,
+        77216
+      ],
+      "header_sha256": "cccc022e7f69d4bae0084927cae499a7ea1f34c8b04da44367c193172913eec0",
+      "sha256": "63a05f7332d8a0350f4b4b0b1d517abc7997dbd8f152abf0098ca1c714401249"
+    },
+    {
+      "name": "adaLN_modulation.1.weight",
+      "shard": "diffusion_pytorch_model-00001-of-00002.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        24576,
+        4096
+      ],
+      "source_offsets": [
+        77216,
+        201403808
+      ],
+      "header_sha256": "cccc022e7f69d4bae0084927cae499a7ea1f34c8b04da44367c193172913eec0",
+      "sha256": "1b7c42f51b2f799fb09c9366edcd6a4bc6654652265cbe836b5fdba8b1336354"
+    }
+  ],
+  "range_window_bytes": 33554432,
+  "downloader_sha256": "d63b4c1620ff86b8e4867f6b128fcb0b923b4eb2a51f5fe982429b3bf0c97657",
+  "verification": "HTTPS from pinned revision, exact range and length checks; local per-tensor and component hashes. Full upstream shard hash not checked."
+}

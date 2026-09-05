@@ -33,11 +33,16 @@
 
 ## 2. 转换闭环与 Turbo CLI，预计 1–3 周
 
-- [ ] Tokenizer 按官方配置处理 Unicode、ByteLevel、`ignore_merges`、BOS、截断和 special tokens。固定中英日、空白、符号、长文本样本，token IDs 完全一致。
+状态：原生 tokenizer、全部 DiT blocks、输入/输出层及 FP32 latent 运算已有实现。小尺寸预测与各项负面结果以最新组件报告为准，完整文生图仍未接通。
+
+- [x] 原生 Tokenizers 0.22.2 与官方 48 个样本 token IDs 完全一致，覆盖多语种、空白、特殊符号、BOS、空文本和 2048 截断。非法 UTF-8 明确拒绝。
+- [ ] `ignore_merges=true` 配置已保留；尚未找到开关前后不同的真实词表反例，不宣称已经建立差异测试覆盖。
 - [ ] 文本模型只导出实际需要的文本路径，核实 `hidden_states[-2]` 对应截断层及 final norm 行为。
-- [ ] 导出全部 DiT blocks、preprocessor、finalizer，保留每一文件的来源、checksum 和转换命令。
-- [ ] 实现 FlowMatch Euler：固定 shift 4，`t = 1000 * sigma`，严格匹配时间步序列与更新顺序。
-- [ ] VAE decoder 对齐 128 通道 packed latent、2×2 unpack、32 通道 latent 和 BN 反归一化。以锁定官方 pipeline 实际使用的 epsilon 为准。
+- [x] 转换 36 个 DiT blocks、preprocessor、finalizer，保留来源与 checksum。独立 block 检查中 CPU FP32 / Vulkan FP32 / FP16 均为 36/36，BF16 为 33/36，失败项不作通过处理。
+- [x] 实现 FP32 FlowMatch Euler：shift 4、`t = 1000 * sigma`，21 组 CPU/Vulkan 合成预测测试通过，sigma、时间步和每步更新逐位对齐。
+- [ ] 将真实 DiT 预测接入 8 步循环，补齐 C++ 时间正弦特征生成与 FP16/BF16 scheduler 的舍入顺序。
+- [x] 实现 VAE 前的 BN 反归一化（实际 pipeline 使用 `eps=1e-5`）及 128→32 通道、2×2 unpack，验证非方形布局。
+- [ ] 转换并验证实际 VAE decoder。
 - [ ] 实现 model path、prompt、seed、resolution、steps、device、output、输入 latent 和输入 embeddings。
 - [ ] 小尺寸先通过，再验收 1024×1024、8 steps、CFG=1、PE 关闭的 PNG 输出。
 
@@ -46,10 +51,11 @@
 ## 3. 设备数据流与 8GB 内存方案，预计 1–3 周
 
 - [ ] text encoder 在 DiT 加载前释放，DiT 在 VAE 加载前释放。预计算 embeddings 模式不加载文本模型。
-- [ ] 连接 preprocessor → DiT → image-token slice → finalizer → Euler 的 `VkMat` 路径。
-- [ ] 调用方管理 `VkCompute` 和提交边界，检查是否有层回退 CPU 或隐式下载。
+- [x] 接通 preprocessor → streamed DiT → image-token slice → finalizer 的 `VkMat` 路径，组件之间不下载激活；Euler 闭环尚待接入。
+- [x] 调用方管理 `VkCompute`、allocator 和提交边界，拒绝计算图中没有 Vulkan 实现的计算层；逐块完成后释放该 Net 的权重。
 - [ ] 将 RoPE、mask、原始文本投影和每步时间嵌入按依赖关系预计算，保持特定层的广播而不展开为大张量。
 - [ ] 比较 host-memory weights 与受控 block 权重调度，记录 PCIe/host 访问成本。必要时 VAE tiled decode。
+- [x] 实现调用方共享 Vulkan pipeline cache，复用相同静态图的 pipeline；同输入对照结果见组件报告。缓存权重、优化上传和重复去噪仍需单独测量。
 - [ ] 输出冷启动、热运行、文本编码、逐步 DiT、VAE、总时间、峰值 RAM/VRAM、swap 增量和模型大小。
 
 退出条件：在本机明确报告支持的最大分辨率/文本长度/精度与资源峰值。8GB 是待验证目标，不把部分算子成功或单独低显存选项视作达成。
@@ -66,6 +72,6 @@
 
 ## 决策顺序
 
-下一个里程碑是 **小尺寸 Turbo 的完整参考与 C++ 去噪链路**：先实现官方 tokenizer/文本编码对应关系、前后处理、Euler 和 VAE，再逐块导入其余 35 层，并验证同一组保存的 embeddings 和初始 latent。单 block 的 GPU 数据流和 BF16 文件存储可以复用。
+下一个里程碑是 **真实文本条件下的小尺寸 Turbo 闭环**：验证 Mistral3 文本路径和 hidden-state 选择，接入 C++ 时间特征与 8 步 Euler，再完成 VAE 解码。比较时使用同一组保存的 embeddings 和初始 latent。先以 FP16 作为低显存工作路线，BF16 的独立失败门槛保持完整可追溯。
 
-不承诺整模型提速倍数。当前实测移除了单 block 转换这一主要不确定项，完整链路、真实激活误差积累和约 14.9GiB 的 DiT 权重调度仍是主要工作。原先 4–8 周是单人工程投入的粗略估算，单 block 耗时不能用来预测整项目进度或端到端速度。
+不承诺整模型提速倍数。当前已实现分阶段加载约 14.9GiB DiT 权重的基础路径，加载/初始化开销、真实文本条件下的误差积累和 8 步闭环仍需验证。原先 4–8 周是单人工程投入的粗略估算，单 block 或一次预测的耗时不能用来预测整项目进度或端到端速度。

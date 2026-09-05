@@ -1,17 +1,22 @@
 """Guard against corrupted artifacts, incompatible fixtures, and accidental lossy packing."""
 import hashlib
+import io
 import json
 from pathlib import Path
 import struct
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
+from contextlib import redirect_stdout
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 from prepare_block import sha256
 from validate_dit_block import verify
 from pack_block_weights import pack
+from build_dit_weights import graph_hash, GRAPH_SHA256
+from fetch_component import bounded_ranges
 
 
 class ContractTests(unittest.TestCase):
@@ -95,6 +100,46 @@ class PackingTests(unittest.TestCase):
             self.make_stream(directory, trailing=b'extra')
             with self.assertRaisesRegex(ValueError, 'complete reviewed block'):
                 pack(directory, directory / 'packed')
+
+
+class DirectGraphTests(unittest.TestCase):
+    def test_three_reviewed_buckets_share_the_exact_topology(self):
+        for tokens in [24, 288, 4160]:
+            graph = (ROOT / f'artifacts/2026-09-05/dit-block/models/s{tokens}/block.ncnn.param').read_text()
+            self.assertEqual(graph_hash(graph, tokens), GRAPH_SHA256)
+
+    def test_shape_mismatch_rejected(self):
+        graph = (ROOT / 'artifacts/2026-09-05/dit-block/models/s24/block.ncnn.param').read_text()
+        with self.assertRaisesRegex(ValueError, 'Static token dimension'):
+            graph_hash(graph, 288)
+
+    def test_math_changes_are_not_treated_as_weight_compatible(self):
+        graph = (ROOT / 'artifacts/2026-09-05/dit-block/models/s24/block.ncnn.param').read_text()
+        self.assertNotEqual(graph_hash(graph.replace('1=1.000000e-6', '1=1.000000e-5'), 24), GRAPH_SHA256)
+        self.assertNotEqual(graph_hash(graph.replace('3=1 4=0', '3=0 4=0'), 24), GRAPH_SHA256)
+
+
+class DownloadWindowTests(unittest.TestCase):
+    def test_partial_response_is_retried_before_yielding_any_bytes(self):
+        responses = [io.BytesIO(b'bad'), io.BytesIO(b'abcd'), io.BytesIO(b'ef')]
+        with patch('fetch_component.request_range', side_effect=responses) as request, \
+                patch('fetch_component.time.sleep'), redirect_stdout(io.StringIO()):
+            chunks = list(bounded_ranges('fixture', 10, 15, window=4))
+        self.assertEqual(chunks, [b'abcd', b'ef'])
+        self.assertEqual([call.args[1:] for call in request.call_args_list], [(10, 13), (10, 13), (14, 15)])
+
+    def test_persistent_truncation_fails_after_bounded_retries(self):
+        with patch('fetch_component.request_range', side_effect=lambda *args: io.BytesIO(b'')) as request, \
+                patch('fetch_component.time.sleep'), redirect_stdout(io.StringIO()):
+            with self.assertRaisesRegex(RuntimeError, 'Truncated range window'):
+                list(bounded_ranges('fixture', 0, 3, window=4))
+        self.assertEqual(request.call_count, 3)
+
+    def test_oversized_response_is_not_accepted(self):
+        with patch('fetch_component.request_range', side_effect=lambda *args: io.BytesIO(b'extra')), \
+                patch('fetch_component.time.sleep'), redirect_stdout(io.StringIO()):
+            with self.assertRaises(RuntimeError):
+                list(bounded_ranges('fixture', 0, 3, window=4))
 
 
 if __name__ == '__main__':

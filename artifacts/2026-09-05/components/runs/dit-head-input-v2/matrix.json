@@ -1,0 +1,394 @@
+[
+  {
+    "component": "input",
+    "backend": "cpu",
+    "precision": "fp32",
+    "passed": true,
+    "command": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/dit-head-input-v2/ernie-head-runner.snapshot",
+      "--model",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-heads-s288-v1/input",
+      "--fixture",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-heads-s288-v1/input",
+      "--output",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/dit-head-input-v2/cpu-fp32/actual",
+      "--component",
+      "input",
+      "--height",
+      "4",
+      "--width",
+      "4",
+      "--text-tokens",
+      "272",
+      "--backend",
+      "cpu",
+      "--precision",
+      "fp32"
+    ],
+    "runner_sha256": "9b41c878226270ab4513efbc3abd228cf993b49ce9ed9b30244a8f43d9bea678",
+    "model_manifest_sha256": "4621fc682228c07546e155882b3541bd8d06bb337ced9a36d1596db527a356d4",
+    "validator_sha256": "569fc9b646dcd47f30c7d2c05837302057579232d8e900bf59c188eecfb9afef",
+    "scope": "Real projection/conditioning weights and synthetic inputs; no text encoder or denoising loop",
+    "outputs": {
+      "out0": {
+        "nrmse": 1.0411810848444047e-06,
+        "max_abs_error": 0.00026702880859375,
+        "max_abs_limit": 0.024208319091796875,
+        "nrmse_limit": 2e-05,
+        "actual_sha256": "a7610a7de68f4cbf6e29651642edbc4d543b0c303a7ae9dce45dd05f921cb0f4",
+        "passed": true
+      },
+      "out1": {
+        "nrmse": 4.65748488715702e-07,
+        "max_abs_error": 2.6226043701171875e-06,
+        "max_abs_limit": 0.0009518899440765381,
+        "nrmse_limit": 2e-05,
+        "actual_sha256": "d6a964b07652f214b6cff7c180b1bba9be4eaf9680b50c6bbfde8791b7b8e892",
+        "passed": true
+      },
+      "out2": {
+        "nrmse": 4.455506672140461e-07,
+        "max_abs_error": 1.6689300537109375e-06,
+        "max_abs_limit": 0.001161923885345459,
+        "nrmse_limit": 2e-05,
+        "actual_sha256": "1e8ce19b70ff965673b3ca6f6735e74a8dabe3fb588cc477c63d11845d54f305",
+        "passed": true
+      },
+      "out3": {
+        "nrmse": 5.834697686805924e-07,
+        "max_abs_error": 3.933906555175781e-06,
+        "max_abs_limit": 0.0008890304565429688,
+        "nrmse_limit": 2e-05,
+        "actual_sha256": "0c6aa1085669f3bea0caee9fcf3c88e4d12985c786120d8ea1f18a64b7995076",
+        "passed": true
+      },
+      "out4": {
+        "nrmse": 3.994805343743853e-07,
+        "max_abs_error": 5.7220458984375e-06,
+        "max_abs_limit": 0.0018358360290527346,
+        "nrmse_limit": 2e-05,
+        "actual_sha256": "44b64fadad73c8c7252d059c73f5dd563c774c38fdd6af852acd650c7745269a",
+        "passed": true
+      },
+      "out5": {
+        "nrmse": 2.742124444460252e-07,
+        "max_abs_error": 1.1920928955078125e-06,
+        "max_abs_limit": 0.0015410469055175784,
+        "nrmse_limit": 2e-05,
+        "actual_sha256": "3a8aaca206193eb29533664a28abac6f5514370d13259ce8878a29be4a630c19",
+        "passed": true
+      },
+      "out6": {
+        "nrmse": 5.593460768747086e-07,
+        "max_abs_error": 1.4901161193847656e-06,
+        "max_abs_limit": 0.00044951701164245607,
+        "nrmse_limit": 2e-05,
+        "actual_sha256": "4ef33932e8b6393f4faf0ededfa37db1c2dd21f35849191b42049fb0b6186cc4",
+        "passed": true
+      },
+      "out7": {
+        "nrmse": 5.093464676845732e-07,
+        "max_abs_error": 1.33514404296875e-05,
+        "max_abs_limit": 0.004699652862548828,
+        "nrmse_limit": 2e-05,
+        "actual_sha256": "f60ee63005e85f5da6c8082130258aa5530a9b3a16aa270cb09e3ff501043f21",
+        "passed": true
+      }
+    },
+    "return_code": 0
+  },
+  {
+    "component": "input",
+    "backend": "vulkan",
+    "precision": "fp32",
+    "passed": true,
+    "command": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/dit-head-input-v2/ernie-head-runner.snapshot",
+      "--model",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-heads-s288-v1/input",
+      "--fixture",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-heads-s288-v1/input",
+      "--output",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/dit-head-input-v2/vulkan-fp32/actual",
+      "--component",
+      "input",
+      "--height",
+      "4",
+      "--width",
+      "4",
+      "--text-tokens",
+      "272",
+      "--backend",
+      "vulkan",
+      "--precision",
+      "fp32"
+    ],
+    "runner_sha256": "9b41c878226270ab4513efbc3abd228cf993b49ce9ed9b30244a8f43d9bea678",
+    "model_manifest_sha256": "4621fc682228c07546e155882b3541bd8d06bb337ced9a36d1596db527a356d4",
+    "validator_sha256": "569fc9b646dcd47f30c7d2c05837302057579232d8e900bf59c188eecfb9afef",
+    "scope": "Real projection/conditioning weights and synthetic inputs; no text encoder or denoising loop",
+    "outputs": {
+      "out0": {
+        "nrmse": 1.0415870484990868e-06,
+        "max_abs_error": 0.00026702880859375,
+        "max_abs_limit": 0.024208319091796875,
+        "nrmse_limit": 2e-05,
+        "actual_sha256": "454caa47214ddbef96f1a552b0d8b0d72df96b6929251f60828e81b92fa55dbc",
+        "passed": true
+      },
+      "out1": {
+        "nrmse": 3.9498059133173096e-07,
+        "max_abs_error": 2.6226043701171875e-06,
+        "max_abs_limit": 0.0009518899440765381,
+        "nrmse_limit": 2e-05,
+        "actual_sha256": "50c0eda1e9fbb082154746defd0b7f42f87e50998e8c7aae52a021c3211b9e92",
+        "passed": true
+      },
+      "out2": {
+        "nrmse": 4.291140850439216e-07,
+        "max_abs_error": 1.9073486328125e-06,
+        "max_abs_limit": 0.001161923885345459,
+        "nrmse_limit": 2e-05,
+        "actual_sha256": "5d01aaeb98ded3f0a0a6e84bf62ceda0bd391213e0906154e79c3abb51e16561",
+        "passed": true
+      },
+      "out3": {
+        "nrmse": 4.829054282876883e-07,
+        "max_abs_error": 3.0994415283203125e-06,
+        "max_abs_limit": 0.0008890304565429688,
+        "nrmse_limit": 2e-05,
+        "actual_sha256": "b627a2eb3f005011ce03d765c95bba51479ce99d06228fe0955b4a51bbddb413",
+        "passed": true
+      },
+      "out4": {
+        "nrmse": 3.8309682076229057e-07,
+        "max_abs_error": 4.291534423828125e-06,
+        "max_abs_limit": 0.0018358360290527346,
+        "nrmse_limit": 2e-05,
+        "actual_sha256": "802d8d00e50c24a4173327b015f5f0d37cd0a1df6926be102cafbae5ef648551",
+        "passed": true
+      },
+      "out5": {
+        "nrmse": 2.724507509141055e-07,
+        "max_abs_error": 1.6689300537109375e-06,
+        "max_abs_limit": 0.0015410469055175784,
+        "nrmse_limit": 2e-05,
+        "actual_sha256": "3e14ae6801163adcbd8343b8ebd5558b2a32812e12934e21d6271226cfd460e1",
+        "passed": true
+      },
+      "out6": {
+        "nrmse": 4.1984156797216163e-07,
+        "max_abs_error": 1.1920928955078125e-06,
+        "max_abs_limit": 0.00044951701164245607,
+        "nrmse_limit": 2e-05,
+        "actual_sha256": "04d8cab215a3f6ad33678f568c803c0000fb29138c1358d51ee08149a64a1984",
+        "passed": true
+      },
+      "out7": {
+        "nrmse": 4.886887347276218e-07,
+        "max_abs_error": 1.71661376953125e-05,
+        "max_abs_limit": 0.004699652862548828,
+        "nrmse_limit": 2e-05,
+        "actual_sha256": "d5080bdde444c545927d3131483ab77ec202d44a9bd47986b77a3b8c65c2df5c",
+        "passed": true
+      }
+    },
+    "return_code": 0
+  },
+  {
+    "component": "input",
+    "backend": "vulkan",
+    "precision": "fp16",
+    "passed": true,
+    "command": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/dit-head-input-v2/ernie-head-runner.snapshot",
+      "--model",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-heads-s288-v1/input",
+      "--fixture",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-heads-s288-v1/input",
+      "--output",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/dit-head-input-v2/vulkan-fp16/actual",
+      "--component",
+      "input",
+      "--height",
+      "4",
+      "--width",
+      "4",
+      "--text-tokens",
+      "272",
+      "--backend",
+      "vulkan",
+      "--precision",
+      "fp16"
+    ],
+    "runner_sha256": "9b41c878226270ab4513efbc3abd228cf993b49ce9ed9b30244a8f43d9bea678",
+    "model_manifest_sha256": "4621fc682228c07546e155882b3541bd8d06bb337ced9a36d1596db527a356d4",
+    "validator_sha256": "569fc9b646dcd47f30c7d2c05837302057579232d8e900bf59c188eecfb9afef",
+    "scope": "Real projection/conditioning weights and synthetic inputs; no text encoder or denoising loop",
+    "outputs": {
+      "out0": {
+        "nrmse": 0.00029271114549227347,
+        "max_abs_error": 0.0466461181640625,
+        "max_abs_limit": 3.631247863769531,
+        "nrmse_limit": 0.02,
+        "actual_sha256": "f7687f76d0b75052b3862aa18e832f1d91f99f0d4844364ee6603496ffa39742",
+        "passed": true
+      },
+      "out1": {
+        "nrmse": 0.0003197133728540591,
+        "max_abs_error": 0.0017201900482177734,
+        "max_abs_limit": 0.1427834916114807,
+        "nrmse_limit": 0.02,
+        "actual_sha256": "802bbaa9f4a8df8aeed21ccf43459321b68f3b5ee6571144c10618b2bfc579dd",
+        "passed": true
+      },
+      "out2": {
+        "nrmse": 0.0002461305938284122,
+        "max_abs_error": 0.0010256767272949219,
+        "max_abs_limit": 0.17428858280181883,
+        "nrmse_limit": 0.02,
+        "actual_sha256": "589ffb95c4bf29b50fbaa67f483486be0e387ac71043bd44aa9f54294d40c736",
+        "passed": true
+      },
+      "out3": {
+        "nrmse": 0.0002737903585088031,
+        "max_abs_error": 0.0018481016159057617,
+        "max_abs_limit": 0.1333545684814453,
+        "nrmse_limit": 0.02,
+        "actual_sha256": "be45b3cebb1bc396d40eabc9583ad7d551da98a11e6f7c6d8b8bc4ac966c97b4",
+        "passed": true
+      },
+      "out4": {
+        "nrmse": 0.0002269355519222743,
+        "max_abs_error": 0.0024957656860351562,
+        "max_abs_limit": 0.27537540435791014,
+        "nrmse_limit": 0.02,
+        "actual_sha256": "879d7258ead55b4bcbb44a0ac03c9d8df151a027163f3568903cfae03d4ed112",
+        "passed": true
+      },
+      "out5": {
+        "nrmse": 0.0002950782283515504,
+        "max_abs_error": 0.002109527587890625,
+        "max_abs_limit": 0.23115703582763672,
+        "nrmse_limit": 0.02,
+        "actual_sha256": "9a09f725f834b123965f612e600e00fffcc374f9938a98524443f4173e81867a",
+        "passed": true
+      },
+      "out6": {
+        "nrmse": 0.00028463752991204834,
+        "max_abs_error": 0.0007001161575317383,
+        "max_abs_limit": 0.06742755174636841,
+        "nrmse_limit": 0.02,
+        "actual_sha256": "469fcf4df1f4ab357572afdbc72d52894bc73c9c392e7ef00b8f19439d2960c3",
+        "passed": true
+      },
+      "out7": {
+        "nrmse": 0.00027444506001523194,
+        "max_abs_error": 0.009626388549804688,
+        "max_abs_limit": 0.7049479293823242,
+        "nrmse_limit": 0.02,
+        "actual_sha256": "777205813a5be6957affe8745036886b409a33cef9b3dff9abf0ff3f4acc9ee2",
+        "passed": true
+      }
+    },
+    "return_code": 0
+  },
+  {
+    "component": "input",
+    "backend": "vulkan",
+    "precision": "bf16",
+    "passed": true,
+    "command": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/dit-head-input-v2/ernie-head-runner.snapshot",
+      "--model",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-heads-s288-v1/input",
+      "--fixture",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-heads-s288-v1/input",
+      "--output",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/dit-head-input-v2/vulkan-bf16/actual",
+      "--component",
+      "input",
+      "--height",
+      "4",
+      "--width",
+      "4",
+      "--text-tokens",
+      "272",
+      "--backend",
+      "vulkan",
+      "--precision",
+      "bf16"
+    ],
+    "runner_sha256": "9b41c878226270ab4513efbc3abd228cf993b49ce9ed9b30244a8f43d9bea678",
+    "model_manifest_sha256": "4621fc682228c07546e155882b3541bd8d06bb337ced9a36d1596db527a356d4",
+    "validator_sha256": "569fc9b646dcd47f30c7d2c05837302057579232d8e900bf59c188eecfb9afef",
+    "scope": "Real projection/conditioning weights and synthetic inputs; no text encoder or denoising loop",
+    "outputs": {
+      "out0": {
+        "nrmse": 0.0023483249418350463,
+        "max_abs_error": 0.33521270751953125,
+        "max_abs_limit": 24.208319091796877,
+        "nrmse_limit": 0.1,
+        "actual_sha256": "1df58786ebf11734e19cefb3b43b9b8c3bd29b352f87f806882ec6be8a7aa57d",
+        "passed": true
+      },
+      "out1": {
+        "nrmse": 0.0017223347151675743,
+        "max_abs_error": 0.008616924285888672,
+        "max_abs_limit": 0.951889944076538,
+        "nrmse_limit": 0.1,
+        "actual_sha256": "7059a69ad0e18a109ea6fb49cb3fd9fdae134c536802ae757c79922e2298c345",
+        "passed": true
+      },
+      "out2": {
+        "nrmse": 0.0014156584432506376,
+        "max_abs_error": 0.006459712982177734,
+        "max_abs_limit": 1.161923885345459,
+        "nrmse_limit": 0.1,
+        "actual_sha256": "e65147e7b841e968b637876eed9f6cd8136ed4606bf0966f21c34adbb9b01dde",
+        "passed": true
+      },
+      "out3": {
+        "nrmse": 0.001901748414336832,
+        "max_abs_error": 0.0117034912109375,
+        "max_abs_limit": 0.8890304565429688,
+        "nrmse_limit": 0.1,
+        "actual_sha256": "d0f593656567f8b349f4faba389727ad391eebd393292a8963614a4ff2c45361",
+        "passed": true
+      },
+      "out4": {
+        "nrmse": 0.0017136935966704163,
+        "max_abs_error": 0.01728057861328125,
+        "max_abs_limit": 1.8358360290527345,
+        "nrmse_limit": 0.1,
+        "actual_sha256": "31bbf13e0dc5319408a773a53c218151407276952de298cc8290eacc8fb5a81c",
+        "passed": true
+      },
+      "out5": {
+        "nrmse": 0.0019428450476054017,
+        "max_abs_error": 0.013515472412109375,
+        "max_abs_limit": 1.5410469055175782,
+        "nrmse_limit": 0.1,
+        "actual_sha256": "ad02f5f658762797165e0978df2583684f830a50bc44910bd014ee56ffccf742",
+        "passed": true
+      },
+      "out6": {
+        "nrmse": 0.0018587330853354854,
+        "max_abs_error": 0.003604114055633545,
+        "max_abs_limit": 0.44951701164245605,
+        "nrmse_limit": 0.1,
+        "actual_sha256": "00e84491a8dc19beb6b7a3272c1793d96b0ca894a90bba06b1e71af9e1b9f89d",
+        "passed": true
+      },
+      "out7": {
+        "nrmse": 0.0018235977929527902,
+        "max_abs_error": 0.06455802917480469,
+        "max_abs_limit": 4.699652862548828,
+        "nrmse_limit": 0.1,
+        "actual_sha256": "41c14972391935bbdab572cc6772413d9116889962d5432802ce81d0fb84c08c",
+        "passed": true
+      }
+    },
+    "return_code": 0
+  }
+]

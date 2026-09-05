@@ -1,0 +1,25 @@
+{
+  "command": [
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/build/ernie-latent-runner",
+    "--fixture",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/latent-ops-v1/w2-h3-n17/fixture",
+    "--output",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/latent-ops-v1/w2-h3-n17/vulkan-batched",
+    "--width",
+    "2",
+    "--height",
+    "3",
+    "--steps",
+    "17",
+    "--backend",
+    "vulkan",
+    "--batched"
+  ],
+  "runner_sha256": "2f1377e1d01fcdee4a7207f99e08f3fd571154308ce4af517ea387f87792d064",
+  "fixture_sha256": "c7ee90ff25ee03e7827081ba9772ef211d7bafa52555ae6dd6727ef644ab3fca",
+  "backend": "vulkan",
+  "batched": true,
+  "passed": false,
+  "return_code": 1,
+  "failure": "Runner failed; see runner.log"
+}

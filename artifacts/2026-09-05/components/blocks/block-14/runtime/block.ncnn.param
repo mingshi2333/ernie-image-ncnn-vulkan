@@ -1,0 +1,76 @@
+7767517
+74 91
+Input                    in0                      0 1 in0
+Split                    splitncnn_0              1 2 in0 1 2
+Input                    in1                      0 1 in1
+Input                    in2                      0 1 in2
+Input                    in3                      0 1 in3
+Input                    in4                      0 1 in4
+Input                    in5                      0 1 in5
+Input                    in6                      0 1 in6
+Input                    in7                      0 1 in7
+Input                    in8                      0 1 in8
+Input                    in9                      0 1 in9
+RMSNorm                  rmsn_8                   1 1 2 12 0=4096 1=1.000000e-6 2=1
+BinaryOp                 add_0                    1 1 in2 13 0=0 1=1 2=1.0
+BinaryOp                 mul_1                    2 1 12 13 14 0=2
+BinaryOp                 add_2                    2 1 14 in1 15 0=0
+Split                    splitncnn_1              1 3 15 16 17 18
+Gemm                     gemm_0                   1 1 18 19 10=-1 2=0 3=1 4=0 5=1 6=1 7=288 8=4096 9=4096
+Reshape                  reshape_12               1 1 19 20 0=128 1=32 2=288
+Permute                  transpose_16             1 1 20 21 0=2
+Gemm                     gemm_1                   1 1 17 22 10=-1 2=0 3=1 4=0 5=1 6=1 7=288 8=4096 9=4096
+Reshape                  reshape_13               1 1 22 23 0=128 1=32 2=288
+Permute                  transpose_17             1 1 23 24 0=2
+Gemm                     gemm_2                   1 1 16 25 10=-1 2=0 3=1 4=0 5=1 6=1 7=288 8=4096 9=4096
+Reshape                  reshape_14               1 1 25 26 0=128 1=32 2=288
+Permute                  transpose_18             1 1 26 27 0=2
+RMSNorm                  rmsn_9                   1 1 21 28 0=128 1=1.000000e-6 2=1
+Slice                    tensor_split_0           1 2 28 29 30 -23300=2,64,-233 1=2
+Split                    splitncnn_3              1 2 30 31 32
+Split                    splitncnn_2              1 2 29 33 34
+Reshape unsqueeze_20 1 1 in7 35 0=128 1=288 2=1
+Reshape unsqueeze_21 1 1 in8 36 0=128 1=288 2=1
+Slice                    tensor_split_1           1 2 35 37 38 -23300=2,64,-233 1=2
+Split                    splitncnn_5              1 2 38 39 40
+Split                    splitncnn_4              1 2 37 41 42
+Slice                    tensor_split_2           1 2 36 43 44 -23300=2,64,-233 1=2
+Split                    splitncnn_7              1 2 44 45 46
+Split                    splitncnn_6              1 2 43 47 48
+BinaryOp                 mul_3                    2 1 31 47 49 0=2
+BinaryOp                 mul_4                    2 1 33 41 50 0=2
+BinaryOp                 sub_5                    2 1 50 49 51 0=1
+BinaryOp                 mul_6                    2 1 34 45 52 0=2
+BinaryOp                 mul_7                    2 1 32 39 53 0=2
+BinaryOp                 add_8                    2 1 53 52 54 0=0
+Concat                   cat_0                    2 1 51 54 55 0=2
+RMSNorm                  rmsn_10                  1 1 24 56 0=128 1=1.000000e-6 2=1
+Slice                    tensor_split_3           1 2 56 57 58 -23300=2,64,-233 1=2
+Split                    splitncnn_9              1 2 58 59 60
+Split                    splitncnn_8              1 2 57 61 62
+BinaryOp                 mul_9                    2 1 59 48 63 0=2
+BinaryOp                 mul_10                   2 1 61 42 64 0=2
+BinaryOp                 sub_11                   2 1 64 63 65 0=1
+BinaryOp                 mul_12                   2 1 62 46 66 0=2
+BinaryOp                 mul_13                   2 1 60 40 67 0=2
+BinaryOp                 add_14                   2 1 67 66 68 0=0
+Concat                   cat_1                    2 1 65 68 69 0=2
+SDPA                     sdpa_22                  4 1 55 69 27 in9 70 5=1
+Permute                  transpose_19             1 1 70 71 0=2
+Reshape                  reshape_15               1 1 71 72 0=4096 1=288
+Gemm                     gemm_3                   1 1 72 73 10=-1 2=0 3=1 4=0 5=1 6=1 7=288 8=4096 9=4096
+BinaryOp                 mul_15                   2 1 in3 73 74 0=2
+BinaryOp                 add_16                   2 1 1 74 75 0=0
+Split                    splitncnn_10             1 2 75 76 77
+RMSNorm                  rmsn_11                  1 1 77 78 0=4096 1=1.000000e-6 2=1
+BinaryOp                 add_17                   1 1 in5 79 0=0 1=1 2=1.0
+BinaryOp                 mul_18                   2 1 78 79 80 0=2
+BinaryOp                 add_19                   2 1 80 in4 81 0=0
+Split                    splitncnn_11             1 2 81 82 83
+Gemm                     gemm_4                   1 1 83 84 10=-1 2=0 3=1 4=0 5=1 6=1 7=288 8=12288 9=4096
+Gemm                     gemm_5                   1 1 82 85 10=-1 2=0 3=1 4=0 5=1 6=1 7=288 8=12288 9=4096
+ErnieGELU gelu_7 1 1 85 86
+BinaryOp                 mul_20                   2 1 84 86 87 0=2
+Gemm                     gemm_6                   1 1 87 88 10=-1 2=0 3=1 4=0 5=1 6=1 7=288 8=4096 9=12288
+BinaryOp                 mul_21                   2 1 in6 88 89 0=2
+BinaryOp                 add_22                   2 1 76 89 out0 0=0

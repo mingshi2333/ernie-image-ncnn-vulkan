@@ -1,0 +1,695 @@
+{
+  "captured_at": "2026-09-05T05:47:03.516276+00:00",
+  "parent_commit": "7585eae1ca225134531c74a2d941f2802510d471",
+  "ncnn_revision": "6a1bf000f363714839a36793addc8c879d3d899e",
+  "scope": "Component and DiT prediction validation; no complete text-to-image pipeline",
+  "blocks": [
+    {
+      "block": 0,
+      "batch": "dit-s288-v2",
+      "passed": true,
+      "weights_sha256": "6cce36f7a939f04274e78fa4d4c653d60c7190e4e66f9968537312d394600daa",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": true
+      },
+      "nrmse": {
+        "cpu-fp32": 3.0788032024093986e-06,
+        "vulkan-fp32": 2.9218895828780945e-06,
+        "vulkan-fp16": 0.0012193875428984989,
+        "vulkan-bf16": 0.009755037973591212
+      }
+    },
+    {
+      "block": 1,
+      "batch": "dit-s288-v2",
+      "passed": true,
+      "weights_sha256": "9040a02a155a8661be328827535d9bad7f9985c6167cd7ab8c13e08aebca44db",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": true
+      },
+      "nrmse": {
+        "cpu-fp32": 4.074428278831063e-06,
+        "vulkan-fp32": 3.916818274533373e-06,
+        "vulkan-fp16": 0.0016871234381308211,
+        "vulkan-bf16": 0.013636426080661922
+      }
+    },
+    {
+      "block": 2,
+      "batch": "dit-s288-v2",
+      "passed": true,
+      "weights_sha256": "5ac96eb351f159838f233a4feede38a9b4e6f84c04d94a6c8b4564e2de0661cf",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": true
+      },
+      "nrmse": {
+        "cpu-fp32": 3.7146658020933587e-06,
+        "vulkan-fp32": 3.5475026879699095e-06,
+        "vulkan-fp16": 0.0015237815137657902,
+        "vulkan-bf16": 0.011997834577221157
+      }
+    },
+    {
+      "block": 3,
+      "batch": "dit-s288-v2",
+      "passed": true,
+      "weights_sha256": "6f89db9de3da3445beb1e4e522cdc75a7048c2aa34666a072f8b2c6707f36580",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": true
+      },
+      "nrmse": {
+        "cpu-fp32": 3.4867348696848246e-06,
+        "vulkan-fp32": 3.3535737584807635e-06,
+        "vulkan-fp16": 0.0014297392881606344,
+        "vulkan-bf16": 0.011387776010640872
+      }
+    },
+    {
+      "block": 4,
+      "batch": "dit-s288-v2",
+      "passed": true,
+      "weights_sha256": "d1957f3b061baf6126ba78db2ad561ba2a762013bfa78cbd8ef396aeb10efe80",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": true
+      },
+      "nrmse": {
+        "cpu-fp32": 4.046382561532858e-06,
+        "vulkan-fp32": 3.875247445336261e-06,
+        "vulkan-fp16": 0.0017376335988930033,
+        "vulkan-bf16": 0.013704023699862027
+      }
+    },
+    {
+      "block": 5,
+      "batch": "dit-s288-v2",
+      "passed": true,
+      "weights_sha256": "5258338fa396b69180d0f3600ef7de32439a955bbc45bfe5b7206f10e2eefb1d",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": true
+      },
+      "nrmse": {
+        "cpu-fp32": 4.089110260571e-06,
+        "vulkan-fp32": 3.919030029595913e-06,
+        "vulkan-fp16": 0.0017618269666597164,
+        "vulkan-bf16": 0.014149003145671274
+      }
+    },
+    {
+      "block": 6,
+      "batch": "dit-s288-v2",
+      "passed": true,
+      "weights_sha256": "1ff632436f9e55e3b41e83c872d35621f730228ad43f7bb56d7dd9bcf78aa3df",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": true
+      },
+      "nrmse": {
+        "cpu-fp32": 4.3622788819025505e-06,
+        "vulkan-fp32": 4.192947005481265e-06,
+        "vulkan-fp16": 0.0019383267248935321,
+        "vulkan-bf16": 0.015597042519795844
+      }
+    },
+    {
+      "block": 7,
+      "batch": "dit-s288-v2",
+      "passed": true,
+      "weights_sha256": "6eeb0e802a575099c034dabda6c48851921459ea29dace986ef80994f6afd11c",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": true
+      },
+      "nrmse": {
+        "cpu-fp32": 7.01805498268267e-06,
+        "vulkan-fp32": 6.61756521697834e-06,
+        "vulkan-fp16": 0.0032208249202328575,
+        "vulkan-bf16": 0.02515214424149973
+      }
+    },
+    {
+      "block": 8,
+      "batch": "dit-s288-v2",
+      "passed": true,
+      "weights_sha256": "81f8a2d8ad7ee7d8754c633a7a0d4b3cbad09a1cbaa6564719e808cfe7553b8d",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": true
+      },
+      "nrmse": {
+        "cpu-fp32": 4.734904171673198e-06,
+        "vulkan-fp32": 4.5394785140660475e-06,
+        "vulkan-fp16": 0.0020937039258198706,
+        "vulkan-bf16": 0.016831589230711468
+      }
+    },
+    {
+      "block": 9,
+      "batch": "dit-s288-v3",
+      "passed": true,
+      "weights_sha256": "27ef087ea6a5834e18feed3e9d79a55469eebceed5cee88f4f609071c75bc4ce",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": true
+      },
+      "nrmse": {
+        "cpu-fp32": 4.903918618206258e-06,
+        "vulkan-fp32": 4.714459193175828e-06,
+        "vulkan-fp16": 0.002177970346070851,
+        "vulkan-bf16": 0.017414871507030954
+      }
+    },
+    {
+      "block": 10,
+      "batch": "dit-s288-v3",
+      "passed": true,
+      "weights_sha256": "ed3fa807f1f3907540901f1cb06c9342efffe7d4ff93697a3d6f981b9a59039c",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": true
+      },
+      "nrmse": {
+        "cpu-fp32": 4.795504268349877e-06,
+        "vulkan-fp32": 4.608085240121881e-06,
+        "vulkan-fp16": 0.002135673525844022,
+        "vulkan-bf16": 0.01712182685213178
+      }
+    },
+    {
+      "block": 11,
+      "batch": "dit-s288-v3",
+      "passed": true,
+      "weights_sha256": "bb5c28c39f43e5242660acd6af4b5a54510cb577bd27524a983b9e54637b882c",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": true
+      },
+      "nrmse": {
+        "cpu-fp32": 4.6096333716594074e-06,
+        "vulkan-fp32": 4.417129388689367e-06,
+        "vulkan-fp16": 0.0020091587784633307,
+        "vulkan-bf16": 0.016029811829753115
+      }
+    },
+    {
+      "block": 12,
+      "batch": "dit-s288-v3",
+      "passed": true,
+      "weights_sha256": "0aa5b47616ff40e1806b7fb10e78fa50b15e2ee513797f8a58739c9a255bae72",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": true
+      },
+      "nrmse": {
+        "cpu-fp32": 4.512854880567782e-06,
+        "vulkan-fp32": 4.361641580478717e-06,
+        "vulkan-fp16": 0.0019771217271633786,
+        "vulkan-bf16": 0.015766500418895782
+      }
+    },
+    {
+      "block": 13,
+      "batch": "dit-s288-v3",
+      "passed": true,
+      "weights_sha256": "e2eff6b278717e75164b3f3e19a9f73285d16a3512b970f9a2d27bdd3b0fd551",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": true
+      },
+      "nrmse": {
+        "cpu-fp32": 4.5910200521462e-06,
+        "vulkan-fp32": 4.421005575172706e-06,
+        "vulkan-fp16": 0.0020140967501177135,
+        "vulkan-bf16": 0.01604409043813172
+      }
+    },
+    {
+      "block": 14,
+      "batch": "dit-s288-v3",
+      "passed": true,
+      "weights_sha256": "7b3c822eb92ab62e2d314f8c8cc428b8d9d70adcc739796c8ce59ebfd5134cc4",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": true
+      },
+      "nrmse": {
+        "cpu-fp32": 4.6431320433569074e-06,
+        "vulkan-fp32": 4.428990973675382e-06,
+        "vulkan-fp16": 0.0019851213741933476,
+        "vulkan-bf16": 0.015899066471271293
+      }
+    },
+    {
+      "block": 15,
+      "batch": "dit-s288-v3",
+      "passed": true,
+      "weights_sha256": "d3c1b748148895cf9f4a72669bd77d69a1315c024bcc4f1e5f4f96ecd283a3b2",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": true
+      },
+      "nrmse": {
+        "cpu-fp32": 4.545092250171221e-06,
+        "vulkan-fp32": 4.379143080835969e-06,
+        "vulkan-fp16": 0.0019273848254982504,
+        "vulkan-bf16": 0.015361114929705953
+      }
+    },
+    {
+      "block": 16,
+      "batch": "dit-s288-v3",
+      "passed": true,
+      "weights_sha256": "4247a2b6e6fd11779cd6239681b81dd4ed00b47d921205c48cb7afc5a346a861",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": true
+      },
+      "nrmse": {
+        "cpu-fp32": 4.9419692807710454e-06,
+        "vulkan-fp32": 4.809813157197496e-06,
+        "vulkan-fp16": 0.0021088365567594187,
+        "vulkan-bf16": 0.016677825747188707
+      }
+    },
+    {
+      "block": 17,
+      "batch": "dit-s288-v3",
+      "passed": true,
+      "weights_sha256": "595bc0f525865ebc1edbd680b48c97206e120f8dd87b7cc7ddf7adadc348c3de",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": true
+      },
+      "nrmse": {
+        "cpu-fp32": 4.944932812453466e-06,
+        "vulkan-fp32": 4.772190392018676e-06,
+        "vulkan-fp16": 0.0020347411200830933,
+        "vulkan-bf16": 0.016300936833822315
+      }
+    },
+    {
+      "block": 18,
+      "batch": "dit-s288-v3",
+      "passed": true,
+      "weights_sha256": "4e52fe6da04255be6442240227ac7d96bc1dadafd364334607c99acc586b1fa3",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": true
+      },
+      "nrmse": {
+        "cpu-fp32": 5.15538067907991e-06,
+        "vulkan-fp32": 5.0306618392564334e-06,
+        "vulkan-fp16": 0.002195759785701777,
+        "vulkan-bf16": 0.01739508749432663
+      }
+    },
+    {
+      "block": 19,
+      "batch": "dit-s288-v3",
+      "passed": true,
+      "weights_sha256": "b16011a3292fa17f9141afe18680a2b8aaf11ea629222586d67530a77a949250",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": true
+      },
+      "nrmse": {
+        "cpu-fp32": 5.4323294089499555e-06,
+        "vulkan-fp32": 5.239474808721706e-06,
+        "vulkan-fp16": 0.0022833081856164597,
+        "vulkan-bf16": 0.01811591380347283
+      }
+    },
+    {
+      "block": 20,
+      "batch": "dit-s288-v3",
+      "passed": true,
+      "weights_sha256": "ab9d9eae39b60c7e14a9ca1ac753f27caec6165fc1d48b4c27ae85a1c741054d",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": true
+      },
+      "nrmse": {
+        "cpu-fp32": 5.459111774591374e-06,
+        "vulkan-fp32": 5.308858743413786e-06,
+        "vulkan-fp16": 0.002301347407070625,
+        "vulkan-bf16": 0.018343913685208487
+      }
+    },
+    {
+      "block": 21,
+      "batch": "dit-s288-v3",
+      "passed": true,
+      "weights_sha256": "50fcff28a273064c48746a30d0568145877ac50aaa64a4de6c2b2825aa7b64e3",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": true
+      },
+      "nrmse": {
+        "cpu-fp32": 5.087838993730796e-06,
+        "vulkan-fp32": 4.97886723718391e-06,
+        "vulkan-fp16": 0.0021121922991320695,
+        "vulkan-bf16": 0.01679386180549238
+      }
+    },
+    {
+      "block": 22,
+      "batch": "dit-s288-v3",
+      "passed": true,
+      "weights_sha256": "625e3eb821a0a6d888252127cfc19b726604d98fde3b1c21a2a36c5572647e50",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": true
+      },
+      "nrmse": {
+        "cpu-fp32": 6.0147469872752125e-06,
+        "vulkan-fp32": 5.851924496165478e-06,
+        "vulkan-fp16": 0.002543053499864564,
+        "vulkan-bf16": 0.01997343090762031
+      }
+    },
+    {
+      "block": 23,
+      "batch": "dit-s288-v3",
+      "passed": true,
+      "weights_sha256": "19cfca4ecc3d1f1d0753d30db193373df3dd49b248beafe929d54e0a45d3f706",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": true
+      },
+      "nrmse": {
+        "cpu-fp32": 5.404962143741066e-06,
+        "vulkan-fp32": 5.26271884968344e-06,
+        "vulkan-fp16": 0.00224902016965851,
+        "vulkan-bf16": 0.017931927192847814
+      }
+    },
+    {
+      "block": 24,
+      "batch": "dit-s288-v3",
+      "passed": true,
+      "weights_sha256": "a71cca381faf54318afb4c0833ea7947fd4e007e1dd8919c5c043047ef47c6e4",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": true
+      },
+      "nrmse": {
+        "cpu-fp32": 5.972306795780432e-06,
+        "vulkan-fp32": 5.826140816094213e-06,
+        "vulkan-fp16": 0.0025755902819406653,
+        "vulkan-bf16": 0.02073755930246092
+      }
+    },
+    {
+      "block": 25,
+      "batch": "dit-s288-v3",
+      "passed": true,
+      "weights_sha256": "555c03defb8e7490eff12551ce15a8c194af216864658296ffa32322ae0a0825",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": true
+      },
+      "nrmse": {
+        "cpu-fp32": 5.444420072224176e-06,
+        "vulkan-fp32": 5.331480410024598e-06,
+        "vulkan-fp16": 0.0022847687050077527,
+        "vulkan-bf16": 0.018285798868535926
+      }
+    },
+    {
+      "block": 26,
+      "batch": "dit-s288-v3",
+      "passed": true,
+      "weights_sha256": "0e904c8992355c6ec889396d1513e326e181a914aeabe97b5a26c8db3f33c403",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": true
+      },
+      "nrmse": {
+        "cpu-fp32": 5.488081751481716e-06,
+        "vulkan-fp32": 5.3660658827440785e-06,
+        "vulkan-fp16": 0.002293069276633518,
+        "vulkan-bf16": 0.01831224491537427
+      }
+    },
+    {
+      "block": 27,
+      "batch": "dit-s288-v3",
+      "passed": true,
+      "weights_sha256": "9651e925adc1808f6060e0aa57c54dae8878cddeda03a433bb28fc6932690f9d",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": true
+      },
+      "nrmse": {
+        "cpu-fp32": 5.6303927027712425e-06,
+        "vulkan-fp32": 5.491918605292961e-06,
+        "vulkan-fp16": 0.0023689616994975603,
+        "vulkan-bf16": 0.019029531909371726
+      }
+    },
+    {
+      "block": 28,
+      "batch": "dit-s288-v3",
+      "passed": true,
+      "weights_sha256": "6546b49ed0a1fec9ca551ac30c674cbbe9e59e00673df24f72d91647fa32d032",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": true
+      },
+      "nrmse": {
+        "cpu-fp32": 5.740597372372096e-06,
+        "vulkan-fp32": 5.590338763420699e-06,
+        "vulkan-fp16": 0.002425192259054243,
+        "vulkan-bf16": 0.019368922047098853
+      }
+    },
+    {
+      "block": 29,
+      "batch": "dit-s288-v3",
+      "passed": true,
+      "weights_sha256": "0b4251d2eb054b9454998aea1bd73167c000fc7e3a5f310473065a196ed2093a",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": true
+      },
+      "nrmse": {
+        "cpu-fp32": 5.695457995412506e-06,
+        "vulkan-fp32": 5.526860765256719e-06,
+        "vulkan-fp16": 0.002410384615843449,
+        "vulkan-bf16": 0.01933801223315808
+      }
+    },
+    {
+      "block": 30,
+      "batch": "dit-s288-v3",
+      "passed": true,
+      "weights_sha256": "5c2ca31f210bbad06d0836974e46bdeee89654500b8c4fa9581ab547e43d1ab4",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": true
+      },
+      "nrmse": {
+        "cpu-fp32": 5.456097265986319e-06,
+        "vulkan-fp32": 5.3304162690568955e-06,
+        "vulkan-fp16": 0.0023367808801422144,
+        "vulkan-bf16": 0.01845677875441909
+      }
+    },
+    {
+      "block": 31,
+      "batch": "dit-s288-v3",
+      "passed": false,
+      "weights_sha256": "ce6ec47106f9b2786bcb6b9e70ff5122a5c9e4972bd99730964d65901ea511b7",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": false
+      },
+      "nrmse": {
+        "cpu-fp32": 7.99454163175313e-06,
+        "vulkan-fp32": 7.729161356921107e-06,
+        "vulkan-fp16": 0.00415263025782953,
+        "vulkan-bf16": 0.031334959453276225
+      }
+    },
+    {
+      "block": 32,
+      "batch": "dit-s288-v4",
+      "passed": true,
+      "weights_sha256": "76c89f54109ffe1606ef33b920b8e515ab5fe1311f3cbbf07f6a461b1f39a857",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": true
+      },
+      "nrmse": {
+        "cpu-fp32": 7.010107100990439e-06,
+        "vulkan-fp32": 6.482413970510777e-06,
+        "vulkan-fp16": 0.0028845410439614495,
+        "vulkan-bf16": 0.02382759653735124
+      }
+    },
+    {
+      "block": 33,
+      "batch": "dit-s288-v4",
+      "passed": false,
+      "weights_sha256": "ca0768594c98b26cda9002170928e69b3fac1c8d25047b3902a4bfadea64ae1e",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": false
+      },
+      "nrmse": {
+        "cpu-fp32": 8.599778272338838e-06,
+        "vulkan-fp32": 8.308073505967254e-06,
+        "vulkan-fp16": 0.003900192407774255,
+        "vulkan-bf16": 0.03189761209907198
+      }
+    },
+    {
+      "block": 34,
+      "batch": "dit-s288-v4",
+      "passed": true,
+      "weights_sha256": "36f3f90cd8318d68bf84949f21b7d28fefc7ed896154475a46af904b480c8949",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": true
+      },
+      "nrmse": {
+        "cpu-fp32": 3.97019081217643e-06,
+        "vulkan-fp32": 3.859717581096525e-06,
+        "vulkan-fp16": 0.0016220394656225883,
+        "vulkan-bf16": 0.013028894915408689
+      }
+    },
+    {
+      "block": 35,
+      "batch": "dit-s288-v4",
+      "passed": false,
+      "weights_sha256": "afba6cee02f4b21a2f08dac64326552dee5eb625ee7dae226433b2eb7d9096db",
+      "bytes": 436241436,
+      "configuration_passed": {
+        "cpu-fp32": true,
+        "vulkan-fp32": true,
+        "vulkan-fp16": true,
+        "vulkan-bf16": false
+      },
+      "nrmse": {
+        "cpu-fp32": 1.0840183659992237e-05,
+        "vulkan-fp32": 9.000229318744653e-06,
+        "vulkan-fp16": 0.005273568386207763,
+        "vulkan-bf16": 0.04033608016172178
+      }
+    }
+  ],
+  "all_blocks_passed": false,
+  "block_weight_bytes": 15704691696,
+  "missing_optional_evidence": []
+}

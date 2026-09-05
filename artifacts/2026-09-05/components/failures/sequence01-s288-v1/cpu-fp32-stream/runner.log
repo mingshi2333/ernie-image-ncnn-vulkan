@@ -1,0 +1,1 @@
+{"backend":"cpu","precision":"fp32","policy":"stream","blocks":2,"peak_loaded_nets":1,"host_weights":false,"compute_submissions":0,"load_seconds":[0.41063308,0.776450805],"compute_seconds":[0.295026206,0.290325599]}

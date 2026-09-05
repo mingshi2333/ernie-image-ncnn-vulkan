@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "width": 2,
+  "height": 3,
+  "steps": 1,
+  "scope": "FP32 official scheduler and pipeline transforms; synthetic predictions and BN statistics; no DiT/VAE inference",
+  "official_model_revision": "bc68c81e2a1730a394d5fc9fae70713dee940140",
+  "diffusers_revision": "7643c4826609c47755e3da0e5b768e8070468f49",
+  "torch": "2.12.1+cu130",
+  "sigmas": [
+    1.0,
+    0.0
+  ],
+  "timesteps": [
+    1000.0
+  ],
+  "gates": {
+    "atol": 2e-06,
+    "rtol": 2e-06,
+    "nrmse": 1e-06,
+    "schedule": "bit_equal_fp32"
+  },
+  "files": {
+    "initial": {
+      "file": "initial.f32",
+      "shape": [
+        1,
+        128,
+        3,
+        2
+      ],
+      "sha256": "70430bab830d58121cbed9b0e7e16dadfddae3a3daf00dfec47602ece323d471"
+    },
+    "mean": {
+      "file": "mean.f32",
+      "shape": [
+        128
+      ],
+      "sha256": "3ccb249957ae7dd722f6c66c3348410ac0b393ba81381cdefdd65fe4e2077b87"
+    },
+    "variance": {
+      "file": "variance.f32",
+      "shape": [
+        128
+      ],
+      "sha256": "4f544eb4a65b6ee5e79759f18f9ba3eb116d5f3ef12b0147e2aa89ff471ca509"
+    },
+    "prediction-0": {
+      "file": "prediction-0.f32",
+      "shape": [
+        1,
+        128,
+        3,
+        2
+      ],
+      "sha256": "7eccea010a6009f18fff19c107ac63c799f8b6cdc88585c5fc997f70d6c64b9d"
+    },
+    "step-0": {
+      "file": "expected-step-0.f32",
+      "shape": [
+        1,
+        128,
+        3,
+        2
+      ],
+      "sha256": "e6bebdcf26e50229270af8dd2408c7fa7e4d43af0d06615bfa5f32fcf0328462"
+    },
+    "unpacked": {
+      "file": "expected-unpacked.f32",
+      "shape": [
+        1,
+        32,
+        6,
+        4
+      ],
+      "sha256": "d5735e79cffc96e950c61e71ddf17c337d3fbc8e0c48f4856761d9ea14aa1f4c"
+    }
+  },
+  "generator_sha256": "e1e0ee6901eb22d919428f96aebfe6f64bfea716f8472d58fa9d224d54ef11ed",
+  "pipeline_source_sha256": "26fbecb8c9d13a46b15aea7d599224bb03ad93e683ce3935d7a932d71316a9fd",
+  "scheduler_source_sha256": "1af27be5b2f92b7d139d3c50239be5ce3eafc4a7eddf59c2d30689f8ec31e93d"
+}

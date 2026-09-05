@@ -1,0 +1,141 @@
+{
+  "tokens": 288,
+  "height": 4,
+  "width": 4,
+  "text_tokens": 272,
+  "valid_text": 270,
+  "timestep": 1000.0,
+  "blocks": [
+    0,
+    1
+  ],
+  "scope": "DiT prefix with input/output heads",
+  "input_scope": "Saved synthetic latent and text embeddings; official conditioning and real weights; no text encoder/VAE/Euler",
+  "model_manifests": [
+    "4621fc682228c07546e155882b3541bd8d06bb337ced9a36d1596db527a356d4",
+    "ef457c520aa11d2dd77cfbe5de420145d87813e45d0b545dbaa27b45ed450346",
+    "a1215b72d1ff6694e707bc4beea05a28aa0545d50fc8513da3641fc091fd306d",
+    "ee9203c614ef0485cd4cb43b96c1cfa59db1177ae22071a009c1936e9052e114"
+  ],
+  "source_sha256": "d64815e19b6e559bb7bf4968d3e3fcffc930a0c0faa5d1e52870bc8574c96c35",
+  "torch": "2.12.1+cu130",
+  "inputs": {
+    "in0": {
+      "file": "in0.f32",
+      "shape": [
+        1,
+        128,
+        4,
+        4
+      ],
+      "dtype": "float32_le",
+      "sha256": "4b6fbf045688cc0ed9c9e589b9dc0cd2955f2ac9847a581357c4fc16d4c204e1"
+    },
+    "in1": {
+      "file": "in1.f32",
+      "shape": [
+        1,
+        272,
+        3072
+      ],
+      "dtype": "float32_le",
+      "sha256": "8c3f34ee1ec0b0a50f17b4eeb2870433cad02aa4013b93e5a967b7bbd2280c7a"
+    },
+    "in2": {
+      "file": "in2.f32",
+      "shape": [
+        1,
+        4096
+      ],
+      "dtype": "float32_le",
+      "sha256": "cbdb74f8ed28761a4f99c179b272f8182f9bae2a3b6243e971b3334d68d00b6d"
+    },
+    "in3": {
+      "file": "in3.f32",
+      "shape": [
+        1,
+        288,
+        128
+      ],
+      "dtype": "float32_le",
+      "sha256": "8b6c9e7e6a85e194563eaf5973b44d35aeaf969dc59e72b14add27f5e30f15da"
+    },
+    "in4": {
+      "file": "in4.f32",
+      "shape": [
+        1,
+        288,
+        128
+      ],
+      "dtype": "float32_le",
+      "sha256": "6320668750bb3c447c65882325f462dd753f4ab043c79ccb07812a7bd0cb9927"
+    },
+    "in5": {
+      "file": "in5.f32",
+      "shape": [
+        288,
+        288
+      ],
+      "dtype": "float32_le",
+      "sha256": "948735370fc224eca83f93722150a6fef2fcfcbb3b6acf36a1d0f0dc732d7378"
+    }
+  },
+  "gates": {
+    "fp32": {
+      "atol": 0.0002,
+      "rtol": 0.0002,
+      "nrmse": 0.0002
+    },
+    "fp16": {
+      "atol": 0.03,
+      "rtol": 0.03,
+      "nrmse": 0.03
+    },
+    "bf16": {
+      "atol": 0.2,
+      "rtol": 0.2,
+      "nrmse": 0.12
+    }
+  },
+  "reference_stages": [
+    {
+      "block": 0,
+      "output": {
+        "file": "block-00.f32",
+        "shape": [
+          288,
+          1,
+          4096
+        ],
+        "dtype": "float32_le",
+        "sha256": "a0c34adf3403f467c953eb6690c9cd55af7a5274c5dfa43aa4cf79e06c93c51c"
+      },
+      "elapsed_seconds": 0.7258487029998832
+    },
+    {
+      "block": 1,
+      "output": {
+        "file": "block-01.f32",
+        "shape": [
+          288,
+          1,
+          4096
+        ],
+        "dtype": "float32_le",
+        "sha256": "c9d586c0af0a65306d8a21f4c8b1262afdd1a842e0b97e498ba042e04683b992"
+      },
+      "elapsed_seconds": 0.691964982999707
+    }
+  ],
+  "expected": {
+    "file": "expected.f32",
+    "shape": [
+      1,
+      128,
+      4,
+      4
+    ],
+    "dtype": "float32_le",
+    "sha256": "49ce31ed778207052dc4cfa8fe0c24a71ef3d6800e39651b27f7fcb88a875e99"
+  }
+}

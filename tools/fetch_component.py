@@ -2,16 +2,19 @@
 """Extract a pinned safetensors component using bounded HTTP Range requests."""
 import argparse
 import hashlib
+import http.client
 import json
 import math
 import re
 import struct
+import time
 import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 MAX_HEADER = 16 * 1024 * 1024
 WIDTHS = {'BF16': 2, 'F16': 2, 'F32': 4, 'F64': 8, 'I64': 8, 'I32': 4, 'I16': 2, 'I8': 1, 'U8': 1, 'BOOL': 1}
+RANGE_WINDOW = 32 * 1024 * 1024
 
 
 def request_range(url, start, end):
@@ -39,6 +42,31 @@ def read_header(url):
     if len(data) != size:
         raise RuntimeError('Truncated safetensors JSON header')
     return json.loads(data), size + 8, hashlib.sha256(data).hexdigest()
+
+
+def bounded_ranges(url, start, end, window=RANGE_WINDOW):
+    """Yield only fully received, exact-size windows; retry transient truncation."""
+    if window < 1 or start < 0 or end < start:
+        raise ValueError('Invalid bounded range')
+    cursor = start
+    while cursor <= end:
+        stop = min(end, cursor + window - 1)
+        count = stop - cursor + 1
+        for attempt in range(3):
+            try:
+                with request_range(url, cursor, stop) as response:
+                    data = response.read(count + 1)
+                if len(data) != count:
+                    raise RuntimeError(f'Truncated range window: expected {count}, received {len(data)}')
+                break
+            except (OSError, RuntimeError, http.client.HTTPException) as error:
+                print(json.dumps({'status': 'range_retry', 'start': cursor, 'end': stop,
+                                  'attempt': attempt + 1, 'error': str(error)}), flush=True)
+                if attempt == 2:
+                    raise
+                time.sleep(attempt + 1)
+        yield data
+        cursor = stop + 1
 
 
 def sha256(path):
@@ -99,7 +127,7 @@ def fetch_component(prefix, output, subfolder='transformer', index_name='diffusi
     if temporary.exists():
         raise FileExistsError(f'Partial output exists: {temporary}; preserve or remove it before retrying')
     print(json.dumps({'status': 'download', 'tensors': len(records), 'payload_bytes': cursor, 'prefix': prefix}), flush=True)
-    # Adjacent tensors share one response, but each tensor has its own checksum.
+    # Adjacent tensors share bounded requests, with independent tensor hashes.
     groups = []
     for item in records:
         if groups and groups[-1][-1]['shard'] == item['shard'] and groups[-1][-1]['source_offsets'][1] == item['source_offsets'][0]:
@@ -110,25 +138,29 @@ def fetch_component(prefix, output, subfolder='transformer', index_name='diffusi
         target.write(struct.pack('<Q', len(header_bytes)))
         target.write(header_bytes)
         for group in groups:
-            with request_range(base + group[0]['shard'], group[0]['source_offsets'][0], group[-1]['source_offsets'][1] - 1) as response:
-                for item in group:
-                    remaining = item['source_offsets'][1] - item['source_offsets'][0]
-                    h = hashlib.sha256()
-                    while remaining:
-                        data = response.read(min(1024 * 1024, remaining))
-                        if not data:
-                            raise RuntimeError('Truncated tensor response; partial output retained')
-                        target.write(data)
-                        h.update(data)
-                        remaining -= len(data)
-                    item['sha256'] = h.hexdigest()
-                    print(json.dumps({'tensor': item['name'], 'status': 'downloaded'}), flush=True)
-                if response.read(1):
-                    raise RuntimeError('Response exceeds requested component range')
+            chunks = iter(bounded_ranges(base + group[0]['shard'], group[0]['source_offsets'][0], group[-1]['source_offsets'][1] - 1))
+            data, offset = b'', 0
+            for item in group:
+                remaining = item['source_offsets'][1] - item['source_offsets'][0]
+                h = hashlib.sha256()
+                while remaining:
+                    if offset == len(data):
+                        data, offset = next(chunks), 0
+                    take = min(remaining, len(data) - offset)
+                    part = memoryview(data)[offset:offset + take]
+                    target.write(part)
+                    h.update(part)
+                    remaining -= take
+                    offset += take
+                item['sha256'] = h.hexdigest()
+                print(json.dumps({'tensor': item['name'], 'status': 'downloaded'}), flush=True)
+            if offset != len(data) or next(chunks, None) is not None:
+                raise RuntimeError('Response exceeds requested component range')
     temporary.rename(output)
     manifest = {'schema_version': 1, 'repository': lock['url'], 'revision': revision, 'prefix': prefix,
                 'index_url': base + index_name, 'index_sha256': hashlib.sha256(index_data).hexdigest(),
                 'sha256': sha256(output), 'payload_bytes': cursor, 'tensors': records,
+                'range_window_bytes': RANGE_WINDOW, 'downloader_sha256': sha256(Path(__file__)),
                 'verification': 'HTTPS from pinned revision, exact range and length checks; local per-tensor and component hashes. Full upstream shard hash not checked.'}
     manifest_path.write_text(json.dumps(manifest, indent=2) + '\n')
     print(json.dumps({'status': 'complete', 'file': str(output), 'sha256': manifest['sha256']}), flush=True)

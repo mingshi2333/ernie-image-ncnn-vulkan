@@ -1,0 +1,108 @@
+{
+  "command": [
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/build/ernie-latent-runner",
+    "--fixture",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/latent-ops-v2/w2-h3-n7/fixture",
+    "--output",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/latent-ops-v2/w2-h3-n7/cpu",
+    "--width",
+    "2",
+    "--height",
+    "3",
+    "--steps",
+    "7",
+    "--backend",
+    "cpu"
+  ],
+  "runner_sha256": "7668602e499cc02e9de5b332c5c2bf74d6383b2ca47093bf21055fb8ffcbd030",
+  "fixture_sha256": "a01da0ce6745e13bb4b5e16f250538fe4e23efcd682507ec2699fefe75fb6258",
+  "backend": "cpu",
+  "batched": false,
+  "passed": true,
+  "return_code": 0,
+  "runtime": {
+    "backend": "cpu",
+    "precision": "fp32",
+    "steps": 7,
+    "submissions": 0,
+    "batched": false,
+    "sigmas": [
+      1,
+      0.960000038,
+      0.909090936,
+      0.842105269,
+      0.75,
+      0.615384638,
+      0.400000006,
+      0
+    ],
+    "timesteps": [
+      1000,
+      960.000061,
+      909.090942,
+      842.105286,
+      750,
+      615.384644,
+      400
+    ]
+  },
+  "schedule_exact": true,
+  "comparisons": [
+    {
+      "tensor": "step-0",
+      "max_abs_error": 0.0,
+      "nrmse": 0.0,
+      "passed": true,
+      "sha256": "2a7567610212e88cf304b0d6fda35498e54ce968d556fa6df9fbf1ca5136a5c3"
+    },
+    {
+      "tensor": "step-1",
+      "max_abs_error": 0.0,
+      "nrmse": 0.0,
+      "passed": true,
+      "sha256": "ddad012cc651b964f1d0fd3665bd1f7f47cb292b37962fa2fc90c46be22f50ae"
+    },
+    {
+      "tensor": "step-2",
+      "max_abs_error": 0.0,
+      "nrmse": 0.0,
+      "passed": true,
+      "sha256": "853933231acdcf116ed4bb39639fb3c5a98d156699f67b4294d12f1cecb1aa5e"
+    },
+    {
+      "tensor": "step-3",
+      "max_abs_error": 0.0,
+      "nrmse": 0.0,
+      "passed": true,
+      "sha256": "94a882e470b68c06fb9e69440dfbb2e293c4e37c42d0a66b0a027bba5cbc1f71"
+    },
+    {
+      "tensor": "step-4",
+      "max_abs_error": 0.0,
+      "nrmse": 0.0,
+      "passed": true,
+      "sha256": "1c9c2799c688e3f76c76b768f819ab41a7edfa708a8c48b9952a99f0ffd3e4db"
+    },
+    {
+      "tensor": "step-5",
+      "max_abs_error": 0.0,
+      "nrmse": 0.0,
+      "passed": true,
+      "sha256": "44c64af5eb1bfccb4fd8c7517b2ec3b0332dd7132e387100285dc945a712c560"
+    },
+    {
+      "tensor": "step-6",
+      "max_abs_error": 0.0,
+      "nrmse": 0.0,
+      "passed": true,
+      "sha256": "336405b40710012ca2b8942d734133e84d3c80e892ce7d6a7a0910e80ab1a1ff"
+    },
+    {
+      "tensor": "unpacked",
+      "max_abs_error": 4.76837158203125e-07,
+      "nrmse": 2.9995305570335685e-08,
+      "passed": true,
+      "sha256": "93c91c1ce4e180657ce60501c13973afd90b9da52206921ba287b5cfc72d6c3c"
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "backend": "vulkan",
+  "precision": "fp16",
+  "model": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-15/runtime",
+  "fixture": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-15/runtime",
+  "passed": true,
+  "host_weights": false,
+  "device_io": true,
+  "repeat": 1,
+  "trace_attention": true,
+  "tokens": 288,
+  "scope": "Real block weights; synthetic hidden states and shared AdaLN vectors; official position embeddings",
+  "model_manifest_sha256": "c9a65fcca62c291a2599617aeb1ff9dfd0420fb01a9507aeaea2ff0582ca3a6e",
+  "fixture_sha256": "e5e75a1d8d3fc941a15a16a0463218000df086dee929831761c317a351e076d0",
+  "runner_sha256": "4740d19e0bf51d3f715e63cfac5e97c6defc62013573300e114c8d7c030f29a7",
+  "validator_sha256": "e2b2a6c257d1eb4c490d0f34e51de43febe738eaded2d78b5e6d4789710f6cb2",
+  "command": [
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/ernie-block-runner.snapshot",
+    "--model",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-15/runtime",
+    "--fixture",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-15/runtime",
+    "--tokens",
+    "288",
+    "--backend",
+    "vulkan",
+    "--precision",
+    "fp16",
+    "--repeat",
+    "1",
+    "--output",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-15/validation/vulkan-fp16/actual.f32",
+    "--device-io",
+    "--trace-attention"
+  ],
+  "gpu_device_total_mib": {
+    "first": 1227,
+    "sampled_peak": 1770,
+    "samples": 20,
+    "scope": "Whole NVIDIA device 0, includes other processes; sampled every 100 ms, not allocator/process peak"
+  },
+  "return_code": 0,
+  "max_rss_kib": 665236,
+  "runtime": {
+    "backend": "vulkan",
+    "precision": "fp16",
+    "tokens": 288,
+    "load_seconds": 1.38676,
+    "first_run_seconds": 0.0201298,
+    "run_seconds": [
+      0.0201298
+    ],
+    "host_weights": false,
+    "device_io": true,
+    "upload_seconds": 0.00785768,
+    "repeat_max_abs": 0,
+    "non_vulkan_compute_layers": [],
+    "attention_diagnostic": {
+      "calls": 1,
+      "flash_calls": 1,
+      "cooperative_calls": 1,
+      "tokens": 288,
+      "head_dim": 128
+    }
+  },
+  "actual_sha256": "924b06727ff11d1a4e47c3ab9dc93c5375b8d144dd6c74e71776d63d3a4c60fb",
+  "max_abs_error": 2.446197509765625,
+  "nrmse": 0.0019273848254982504,
+  "max_abs_limit": 38.070461425781254,
+  "nrmse_limit": 0.01
+}

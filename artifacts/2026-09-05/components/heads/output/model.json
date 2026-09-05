@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "component": "output",
+  "source_sha256": "43a66c276638071da187e31f47c98d3e509971237a8164ab5005aab223407143",
+  "weights": {
+    "x_embedder": "c7e838e73eacab54d637c3a12ff7e8a74723ce4ad30918033d6d4c4350505b8c",
+    "text_proj": "2392a8d33d7732567dde863708a0dd1cb86c55324ac6f4857479dbb80af693f4",
+    "time_embedding": "e114660cfd93e12c6844967c5b39ae43d195ef86ffcf0eb90c69bccbd114320a",
+    "adaLN_modulation": "a888b409adbe9b9558b8c7aafe41595ecce730ef850a2aac4232f49b5031bc49",
+    "final_norm": "12fa6e315102b34387b8790eb4f59adcfbe83187bcc8a734f5146b4646ee2067",
+    "final_linear": "80e961c277a916f9bcb584ab347cacac764a95b0abae3d55bd69a33af31322b2"
+  },
+  "ncnn_revision": "6a1bf000f363714839a36793addc8c879d3d899e",
+  "files": {
+    "head.ncnn.param": "6e142df6aae793a901c1bbb750543fd098daf754e823b65d76901e3456d9e83c",
+    "head.ncnn.bin": "dd92f84a863ca32c5ed68fc7f20755c53e9021b206bb4894899725d3fce1cef4",
+    "fixture.json": "a24e7e46d1784de93d34259df94285b74368234a3d2575fb2182aa80b261ca0f",
+    "conversion.json": "1bd5c2a7ea3c9d67eb4b4bbbde0be8b1b053081bde4cae5a1e0990995f5112d9",
+    "in0.f32": "d159bf7808128a6dc7a97658f9a99c8adcae4f496dad41fc4d604272a1fbaddc",
+    "in1.f32": "1a6a675434cd973f0cf67f41add57f2ff496e50a0f99bc1f322b55ab110c1da1",
+    "out0.f32": "4ef16cf483b166fec5452748a278578a7a4cd96a8a227756da99ba01d947f9df"
+  }
+}

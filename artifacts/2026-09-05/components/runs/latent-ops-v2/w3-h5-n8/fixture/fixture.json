@@ -1,0 +1,236 @@
+{
+  "schema_version": 1,
+  "width": 3,
+  "height": 5,
+  "steps": 8,
+  "scope": "FP32 official scheduler and pipeline transforms; synthetic predictions and BN statistics; no DiT/VAE inference",
+  "official_model_revision": "bc68c81e2a1730a394d5fc9fae70713dee940140",
+  "diffusers_revision": "7643c4826609c47755e3da0e5b768e8070468f49",
+  "torch": "2.12.1+cu130",
+  "sigmas": [
+    1.0,
+    0.9655172228813171,
+    0.9230769276618958,
+    0.8695651888847351,
+    0.800000011920929,
+    0.7058823704719543,
+    0.5714285969734192,
+    0.3636363744735718,
+    0.0
+  ],
+  "timesteps": [
+    1000.0,
+    965.5172119140625,
+    923.076904296875,
+    869.565185546875,
+    800.0,
+    705.8823852539062,
+    571.4285888671875,
+    363.6363830566406
+  ],
+  "gates": {
+    "atol": 2e-06,
+    "rtol": 2e-06,
+    "nrmse": 1e-06,
+    "schedule": "bit_equal_fp32"
+  },
+  "files": {
+    "initial": {
+      "file": "initial.f32",
+      "shape": [
+        1,
+        128,
+        5,
+        3
+      ],
+      "sha256": "de8e98139bcc3244b8ffcf5e48b62f3a10e984a25a740e92c505a042bae22f25"
+    },
+    "mean": {
+      "file": "mean.f32",
+      "shape": [
+        128
+      ],
+      "sha256": "57d5f9ab0e2e334efe9e61ece156a761de55a20f0e5c763c2bae7e498e2388ab"
+    },
+    "variance": {
+      "file": "variance.f32",
+      "shape": [
+        128
+      ],
+      "sha256": "0620cb41d184ad973ef3167c52fe159d77f41531b331813fb152a819d3063ab6"
+    },
+    "prediction-0": {
+      "file": "prediction-0.f32",
+      "shape": [
+        1,
+        128,
+        5,
+        3
+      ],
+      "sha256": "addde17be5b25281885dec714bb24647f82a70e245b7fa05c775afe49c8e54b4"
+    },
+    "step-0": {
+      "file": "expected-step-0.f32",
+      "shape": [
+        1,
+        128,
+        5,
+        3
+      ],
+      "sha256": "bb6044bc8658ff6e460aea87db751077472d62cdc83fdfd15147a7df727a4f28"
+    },
+    "prediction-1": {
+      "file": "prediction-1.f32",
+      "shape": [
+        1,
+        128,
+        5,
+        3
+      ],
+      "sha256": "529ce5558a2a3012bfdde5ba9b514d25778d59fe8edf67f0c52efa5de9e088c1"
+    },
+    "step-1": {
+      "file": "expected-step-1.f32",
+      "shape": [
+        1,
+        128,
+        5,
+        3
+      ],
+      "sha256": "d4bdc788609ff0e6e40cac01863ba3861cd54b930846b5b62ffd8d22982f04b3"
+    },
+    "prediction-2": {
+      "file": "prediction-2.f32",
+      "shape": [
+        1,
+        128,
+        5,
+        3
+      ],
+      "sha256": "be4285ee9c5643478ab4e9a3fba31aea84401da29627116a7b17f16c078c5d90"
+    },
+    "step-2": {
+      "file": "expected-step-2.f32",
+      "shape": [
+        1,
+        128,
+        5,
+        3
+      ],
+      "sha256": "0bcf61fd5f18ba6996a0c135519c504f3e98e27cff947f9f37ec96ef91ae495c"
+    },
+    "prediction-3": {
+      "file": "prediction-3.f32",
+      "shape": [
+        1,
+        128,
+        5,
+        3
+      ],
+      "sha256": "3b7759be1796c6d8b5b167c85b84d93c53938f23c3c8850d96ca20e45218e435"
+    },
+    "step-3": {
+      "file": "expected-step-3.f32",
+      "shape": [
+        1,
+        128,
+        5,
+        3
+      ],
+      "sha256": "be508e0a784fc8681c62f5e3ea56c1aa6296bc81ef4e2207a1ad60526cd85d6a"
+    },
+    "prediction-4": {
+      "file": "prediction-4.f32",
+      "shape": [
+        1,
+        128,
+        5,
+        3
+      ],
+      "sha256": "fe47b73c51e58429cd64df2b90d4acd6c45a6501fabd51667a747af311b76df5"
+    },
+    "step-4": {
+      "file": "expected-step-4.f32",
+      "shape": [
+        1,
+        128,
+        5,
+        3
+      ],
+      "sha256": "d09d2625c16c012853b4670e8f94b8e44bb1cc1b799c4f27be3f21fcc472fe5f"
+    },
+    "prediction-5": {
+      "file": "prediction-5.f32",
+      "shape": [
+        1,
+        128,
+        5,
+        3
+      ],
+      "sha256": "202b0bddc19d36ac2a69426df6d890dc5c98cc21bb63dfbc8964ae101b08360d"
+    },
+    "step-5": {
+      "file": "expected-step-5.f32",
+      "shape": [
+        1,
+        128,
+        5,
+        3
+      ],
+      "sha256": "009a5c9f854e522da0d1cc2d175f71933ff0cce79eeb3997b97c59d8570394de"
+    },
+    "prediction-6": {
+      "file": "prediction-6.f32",
+      "shape": [
+        1,
+        128,
+        5,
+        3
+      ],
+      "sha256": "c445f55982ec6098b114faa3a8f203c293bdc238bd09a9146dc9042ba01b5dc8"
+    },
+    "step-6": {
+      "file": "expected-step-6.f32",
+      "shape": [
+        1,
+        128,
+        5,
+        3
+      ],
+      "sha256": "1d6ecff26e746d80652860487df32634f0b2cd1c62dfffaa24c0716f9a8114ff"
+    },
+    "prediction-7": {
+      "file": "prediction-7.f32",
+      "shape": [
+        1,
+        128,
+        5,
+        3
+      ],
+      "sha256": "45d81d549f64515f61a283a865ab9bafc37bf829a94688884b5a3fde429b30fe"
+    },
+    "step-7": {
+      "file": "expected-step-7.f32",
+      "shape": [
+        1,
+        128,
+        5,
+        3
+      ],
+      "sha256": "649c2d4aaea7823848ed90c3ec556cda32968bf8dcae90a8097a51242118a4c2"
+    },
+    "unpacked": {
+      "file": "expected-unpacked.f32",
+      "shape": [
+        1,
+        32,
+        10,
+        6
+      ],
+      "sha256": "53c3afb65fef2d4b394f37521f072b0f42aff05d4f8542ec446815700d3eab4c"
+    }
+  },
+  "generator_sha256": "e1e0ee6901eb22d919428f96aebfe6f64bfea716f8472d58fa9d224d54ef11ed",
+  "pipeline_source_sha256": "26fbecb8c9d13a46b15aea7d599224bb03ad93e683ce3935d7a932d71316a9fd",
+  "scheduler_source_sha256": "1af27be5b2f92b7d139d3c50239be5ce3eafc4a7eddf59c2d30689f8ec31e93d"
+}

@@ -1,0 +1,20 @@
+7767517
+18 19
+Input                    in0                      0 1 in0
+Input                    in1                      0 1 in1
+Permute                  transpose_7              1 1 in0 2 0=0
+InnerProduct             linear_2                 1 1 in1 3 0=8192 1=1 2=33554432
+Slice                    chunk_0                  1 2 3 4 5 -23300=2,-233,-233 1=1
+LayerNorm                ln_1                     1 1 2 6 0=4096 1=1.000000e-6 2=0
+ExpandDims               unsqueeze_9              1 1 4 7 -23303=1,0
+ExpandDims               unsqueeze_10             1 1 5 8 -23303=1,0
+BinaryOp                 add_0                    1 1 7 9 0=0 1=1 2=1.0
+Reshape                  reshape_4                1 1 9 10 0=4096 1=1 2=1
+BinaryOp                 mul_1                    2 1 6 10 11 0=2
+Reshape                  reshape_5                1 1 8 12 0=4096 1=1 2=1
+BinaryOp                 add_2                    2 1 11 12 13 0=0
+Permute                  transpose_8              1 1 13 14 0=0
+Gemm                     gemm_0                   1 1 14 15 10=4 2=0 3=1 4=0 5=1 6=1 7=288 8=128 9=4096
+Crop                     slice_0                  1 1 15 16 -23310=1,16 -23311=1,1 -23309=1,0
+Reshape                  reshape_6                1 1 16 17 0=128 1=4 11=4 2=1
+Permute                  permute_3                1 1 17 out0 0=4

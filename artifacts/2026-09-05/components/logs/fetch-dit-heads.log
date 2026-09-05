@@ -1,0 +1,31 @@
+x_embedder
+{"status": "download", "tensors": 2, "payload_bytes": 1056768, "prefix": "x_embedder."}
+{"tensor": "x_embedder.proj.bias", "status": "downloaded"}
+{"tensor": "x_embedder.proj.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/dit-x_embedder.safetensors", "sha256": "c7e838e73eacab54d637c3a12ff7e8a74723ce4ad30918033d6d4c4350505b8c"}
+text_proj
+{"status": "download", "tensors": 1, "payload_bytes": 25165824, "prefix": "text_proj."}
+{"tensor": "text_proj.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/dit-text_proj.safetensors", "sha256": "2392a8d33d7732567dde863708a0dd1cb86c55324ac6f4857479dbb80af693f4"}
+time_embedding
+{"status": "download", "tensors": 4, "payload_bytes": 67125248, "prefix": "time_embedding."}
+{"tensor": "time_embedding.linear_1.bias", "status": "downloaded"}
+{"tensor": "time_embedding.linear_1.weight", "status": "downloaded"}
+{"tensor": "time_embedding.linear_2.bias", "status": "downloaded"}
+{"tensor": "time_embedding.linear_2.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/dit-time_embedding.safetensors", "sha256": "e114660cfd93e12c6844967c5b39ae43d195ef86ffcf0eb90c69bccbd114320a"}
+adaLN_modulation
+{"status": "download", "tensors": 2, "payload_bytes": 201375744, "prefix": "adaLN_modulation."}
+{"tensor": "adaLN_modulation.1.bias", "status": "downloaded"}
+{"tensor": "adaLN_modulation.1.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/dit-adaLN_modulation.safetensors", "sha256": "a888b409adbe9b9558b8c7aafe41595ecce730ef850a2aac4232f49b5031bc49"}
+final_norm
+{"status": "download", "tensors": 2, "payload_bytes": 67125248, "prefix": "final_norm."}
+{"tensor": "final_norm.linear.bias", "status": "downloaded"}
+{"tensor": "final_norm.linear.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/dit-final_norm.safetensors", "sha256": "12fa6e315102b34387b8790eb4f59adcfbe83187bcc8a734f5146b4646ee2067"}
+final_linear
+{"status": "download", "tensors": 2, "payload_bytes": 1048832, "prefix": "final_linear."}
+{"tensor": "final_linear.bias", "status": "downloaded"}
+{"tensor": "final_linear.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/dit-final_linear.safetensors", "sha256": "80e961c277a916f9bcb584ab347cacac764a95b0abae3d55bd69a33af31322b2"}

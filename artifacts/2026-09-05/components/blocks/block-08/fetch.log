@@ -1,0 +1,13 @@
+{"status": "download", "tensors": 11, "payload_bytes": 436224512, "prefix": "layers.8."}
+{"tensor": "layers.8.adaLN_mlp_ln.weight", "status": "downloaded"}
+{"tensor": "layers.8.adaLN_sa_ln.weight", "status": "downloaded"}
+{"tensor": "layers.8.mlp.gate_proj.weight", "status": "downloaded"}
+{"tensor": "layers.8.mlp.linear_fc2.weight", "status": "downloaded"}
+{"tensor": "layers.8.mlp.up_proj.weight", "status": "downloaded"}
+{"tensor": "layers.8.self_attention.norm_k.weight", "status": "downloaded"}
+{"tensor": "layers.8.self_attention.norm_q.weight", "status": "downloaded"}
+{"tensor": "layers.8.self_attention.to_k.weight", "status": "downloaded"}
+{"tensor": "layers.8.self_attention.to_out.0.weight", "status": "downloaded"}
+{"tensor": "layers.8.self_attention.to_q.weight", "status": "downloaded"}
+{"tensor": "layers.8.self_attention.to_v.weight", "status": "downloaded"}
+{"status": "complete", "file": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/official/dit-block-08.safetensors", "sha256": "81f8a2d8ad7ee7d8754c633a7a0d4b3cbad09a1cbaa6564719e808cfe7553b8d"}

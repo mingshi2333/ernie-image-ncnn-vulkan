@@ -3,6 +3,6 @@
 #include "net.h"
 
 namespace ernie {
-// Registers the erf-form GELU used by ERNIE. It has no learned parameters.
+// Registers erf-form GELU and the FP32-intermediate RMSNorm runtime override.
 int register_layers(ncnn::Net& net);
 }

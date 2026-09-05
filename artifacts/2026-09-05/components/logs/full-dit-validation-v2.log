@@ -1,0 +1,48 @@
+{"stage": "launch", "script": "tools/validate_block_sequence.py"}
+{"backend": "cpu", "precision": "fp32", "policy": "stream", "passed": true, "nrmse": 5.227185941382854e-06, "max_rss_kib": 1342536}
+{"backend": "vulkan", "precision": "fp32", "policy": "stream", "passed": true, "nrmse": 5.080989843804072e-06, "max_rss_kib": 715412}
+{"backend": "vulkan", "precision": "fp16", "policy": "stream", "passed": true, "nrmse": 0.0027044386802545944, "max_rss_kib": 723136}
+{"backend": "vulkan", "precision": "bf16", "policy": "stream", "passed": true, "nrmse": 0.02159695448699802, "max_rss_kib": 715848}
+{"stage": "complete", "script": "tools/validate_block_sequence.py", "return_code": 0}
+{"stage": "launch", "script": "tools/validate_dit.py"}
+{"stage": "reference", "block": 0}
+{"stage": "reference", "block": 1}
+{"stage": "reference", "block": 2}
+{"stage": "reference", "block": 3}
+{"stage": "reference", "block": 4}
+{"stage": "reference", "block": 5}
+{"stage": "reference", "block": 6}
+{"stage": "reference", "block": 7}
+{"stage": "reference", "block": 8}
+{"stage": "reference", "block": 9}
+{"stage": "reference", "block": 10}
+{"stage": "reference", "block": 11}
+{"stage": "reference", "block": 12}
+{"stage": "reference", "block": 13}
+{"stage": "reference", "block": 14}
+{"stage": "reference", "block": 15}
+{"stage": "reference", "block": 16}
+{"stage": "reference", "block": 17}
+{"stage": "reference", "block": 18}
+{"stage": "reference", "block": 19}
+{"stage": "reference", "block": 20}
+{"stage": "reference", "block": 21}
+{"stage": "reference", "block": 22}
+{"stage": "reference", "block": 23}
+{"stage": "reference", "block": 24}
+{"stage": "reference", "block": 25}
+{"stage": "reference", "block": 26}
+{"stage": "reference", "block": 27}
+{"stage": "reference", "block": 28}
+{"stage": "reference", "block": 29}
+{"stage": "reference", "block": 30}
+{"stage": "reference", "block": 31}
+{"stage": "reference", "block": 32}
+{"stage": "reference", "block": 33}
+{"stage": "reference", "block": 34}
+{"stage": "reference", "block": 35}
+{"backend": "cpu", "precision": "fp32", "passed": true, "nrmse": 1.3676868892345036e-05, "failure": null, "max_rss_kib": 1324500}
+{"backend": "vulkan", "precision": "fp32", "passed": true, "nrmse": 1.0235285576044845e-05, "failure": null, "max_rss_kib": 1078392}
+{"backend": "vulkan", "precision": "fp16", "passed": true, "nrmse": 0.003826119754118802, "failure": null, "max_rss_kib": 1081536}
+{"backend": "vulkan", "precision": "bf16", "passed": true, "nrmse": 0.028499874816190873, "failure": null, "max_rss_kib": 1083036}
+{"stage": "complete", "script": "tools/validate_dit.py", "return_code": 0}

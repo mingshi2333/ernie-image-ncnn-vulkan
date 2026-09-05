@@ -1,0 +1,51 @@
+{
+  "backend": "vulkan",
+  "precision": "fp16",
+  "policy": "stream",
+  "passed": true,
+  "command": [
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/build/ernie-block-sequence-runner",
+    "--fixture",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/sequence01-s288-v2/reference",
+    "--tokens",
+    "288",
+    "--output",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/sequence01-s288-v2/vulkan-fp16-stream/actual.f32",
+    "--backend",
+    "vulkan",
+    "--precision",
+    "fp16",
+    "--policy",
+    "stream",
+    "--model",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/converted/dit-block-00-s288/runtime",
+    "--model",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/converted/dit-block-01-s288"
+  ],
+  "runner_sha256": "c1646372a60457c4c2678266e44fb7f4513af944f1bb0e786ec43003a796b3b0",
+  "fixture_sha256": "c3d6f5bc8bd27dfa3e489bb68762fe5388077101f85058abfd2827c8f8ba0f28",
+  "return_code": 0,
+  "runtime": {
+    "backend": "vulkan",
+    "precision": "fp16",
+    "policy": "stream",
+    "blocks": 2,
+    "peak_loaded_nets": 1,
+    "host_weights": false,
+    "compute_submissions": 2,
+    "load_seconds": [
+      0.92409608,
+      1.28714608
+    ],
+    "compute_seconds": [
+      0.038345645,
+      0.018195659
+    ]
+  },
+  "max_rss_kib": 688860,
+  "nrmse": 0.001470286757543667,
+  "max_abs_error": 6.20458984375,
+  "max_abs_limit": 164.026669921875,
+  "nrmse_limit": 0.03,
+  "actual_sha256": "963ace21adbb252c47f18a9f8438fa47bcdd7fb465b5551ddb5c7e1568aaecb8"
+}

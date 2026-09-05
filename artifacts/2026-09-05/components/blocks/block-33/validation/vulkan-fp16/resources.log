@@ -1,0 +1,23 @@
+	Command being timed: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v4/ernie-block-runner.snapshot --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v4/block-33/runtime --fixture /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v4/block-33/runtime --tokens 288 --backend vulkan --precision fp16 --repeat 1 --output /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v4/block-33/validation/vulkan-fp16/actual.f32 --device-io --trace-attention"
+	User time (seconds): 4.40
+	System time (seconds): 1.74
+	Percent of CPU this job got: 300%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:02.04
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 677796
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 781806
+	Voluntary context switches: 513
+	Involuntary context switches: 371
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 9224
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

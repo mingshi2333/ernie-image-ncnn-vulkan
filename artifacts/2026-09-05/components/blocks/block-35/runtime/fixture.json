@@ -1,0 +1,158 @@
+{
+  "schema_version": 1,
+  "block": 35,
+  "seed": 20260905,
+  "tokens": 288,
+  "grid": [
+    4,
+    4
+  ],
+  "text_tokens": 272,
+  "valid_text": 270,
+  "weights_sha256": "afba6cee02f4b21a2f08dac64326552dee5eb625ee7dae226433b2eb7d9096db",
+  "official_model_revision": "bc68c81e2a1730a394d5fc9fae70713dee940140",
+  "input_scope": "Real block weights; synthetic hidden states and shared AdaLN vectors; official position embeddings",
+  "wrapper_vs_official": {
+    "max_abs_error": 0.0,
+    "nrmse": 0.0,
+    "reference_max_abs": 1516.5574951171875
+  },
+  "reference_generation_seconds": 0.7611832689999574,
+  "reference_source_sha256": "0f1814f63008298707afea5d7bd22d0a16073f0a8e858037c198faa28027e926",
+  "versions": {
+    "torch": "2.12.1",
+    "diffusers": "0.41.0.dev0",
+    "transformers": "5.2.0",
+    "safetensors": "0.8.0",
+    "pnnx": "20260526"
+  },
+  "torch_build": "2.12.1+cu130",
+  "inputs": {
+    "in0": {
+      "file": "in0.f32",
+      "shape": [
+        1,
+        288,
+        4096
+      ],
+      "dtype": "float32_le",
+      "sha256": "69ae0692fcd77504aa2df6bce19c7fff980e225208931945c5b6b857a148190c"
+    },
+    "in1": {
+      "file": "in1.f32",
+      "shape": [
+        1,
+        1,
+        4096
+      ],
+      "dtype": "float32_le",
+      "sha256": "79f10cbfe9db662ddedc348caae8b4c5ff319e1696ffa4fb8289c2b363cc0a11"
+    },
+    "in2": {
+      "file": "in2.f32",
+      "shape": [
+        1,
+        1,
+        4096
+      ],
+      "dtype": "float32_le",
+      "sha256": "82cdb7967cc4922f7871ffd8bca282ee2b2b4de86315ce2623a563df303f40d5"
+    },
+    "in3": {
+      "file": "in3.f32",
+      "shape": [
+        1,
+        1,
+        4096
+      ],
+      "dtype": "float32_le",
+      "sha256": "7c61c27e0296bfe144691bce23ee6f7aed16cda018efc230b2b596b97bd223b1"
+    },
+    "in4": {
+      "file": "in4.f32",
+      "shape": [
+        1,
+        1,
+        4096
+      ],
+      "dtype": "float32_le",
+      "sha256": "001e283dede6b7c873c60472d18be697e3078d480b93b86362b390562c16dcad"
+    },
+    "in5": {
+      "file": "in5.f32",
+      "shape": [
+        1,
+        1,
+        4096
+      ],
+      "dtype": "float32_le",
+      "sha256": "2e4b2cf3a258c066de1aeb122174958b6de659c1d691cb8ecb67cb3ff1bc0dff"
+    },
+    "in6": {
+      "file": "in6.f32",
+      "shape": [
+        1,
+        1,
+        4096
+      ],
+      "dtype": "float32_le",
+      "sha256": "be91da0db28877c3c9699ca0e934fb7f05be6c3b78c1a6b5d3f4f0464ca7341a"
+    },
+    "in7": {
+      "file": "in7.f32",
+      "shape": [
+        1,
+        288,
+        128
+      ],
+      "dtype": "float32_le",
+      "sha256": "8b6c9e7e6a85e194563eaf5973b44d35aeaf969dc59e72b14add27f5e30f15da"
+    },
+    "in8": {
+      "file": "in8.f32",
+      "shape": [
+        1,
+        288,
+        128
+      ],
+      "dtype": "float32_le",
+      "sha256": "6320668750bb3c447c65882325f462dd753f4ab043c79ccb07812a7bd0cb9927"
+    },
+    "in9": {
+      "file": "in9.f32",
+      "shape": [
+        288,
+        288
+      ],
+      "dtype": "float32_le",
+      "sha256": "948735370fc224eca83f93722150a6fef2fcfcbb3b6acf36a1d0f0dc732d7378"
+    }
+  },
+  "expected": {
+    "file": "expected.f32",
+    "shape": [
+      1,
+      288,
+      4096
+    ],
+    "dtype": "float32_le",
+    "sha256": "8e27b83de5f31db8eff3621add37977bef67d677a97a56fd91a72058b7525b83"
+  },
+  "gates": {
+    "fp32": {
+      "atol": 0.0002,
+      "rtol": 0.0002,
+      "nrmse": 2e-05
+    },
+    "fp16": {
+      "atol": 0.02,
+      "rtol": 0.02,
+      "nrmse": 0.01
+    },
+    "bf16": {
+      "atol": 0.15,
+      "rtol": 0.08,
+      "nrmse": 0.03
+    }
+  }
+}

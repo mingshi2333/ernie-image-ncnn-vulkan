@@ -1,0 +1,48 @@
+pnnxparam = head.pnnx.param
+pnnxbin = head.pnnx.bin
+pnnxpy = head_pnnx.py
+pnnxonnx = head.pnnx.onnx
+ncnnparam = head.ncnn.param
+ncnnbin = head.ncnn.bin
+ncnnpy = head_ncnn.py
+fp16 = 0
+optlevel = 2
+device = cpu
+inputshape = [1,128,4,4]f32,[1,272,3072]f32,[1,4096]f32
+inputshape2 = 
+input = 
+input2 = 
+customop = 
+moduleop = 
+get inputshape from traced inputs
+inputshape = [1,128,4,4]f32,[1,272,3072]f32,[1,4096]f32
+############# pass_level0
+inline module = diffusers.models.embeddings.TimestepEmbedding
+inline module = diffusers.models.transformers.transformer_ernie_image.ErnieImagePatchEmbedDynamic
+inline module = diffusers.models.embeddings.TimestepEmbedding
+inline module = diffusers.models.transformers.transformer_ernie_image.ErnieImagePatchEmbedDynamic
+
+----------------
+
+############# pass_level1
+############# pass_level2
+############# pass_level3
+############# pass_level4
+############# pass_level5
+############# pass_ncnn
+fallback batch axis 233 for operand 2
+fallback batch axis 233 for operand 8
+fallback batch axis 233 for operand 9
+fallback batch axis 233 for operand 10
+fallback batch axis 233 for operand 11
+fallback batch axis 233 for operand 12
+fallback batch axis 233 for operand 13
+fallback batch axis 233 for operand 14
+fallback batch axis 233 for operand 15
+fallback batch axis 233 for operand 16
+fallback batch axis 233 for operand 17
+fallback batch axis 233 for operand 18
+fallback batch axis 233 for operand 19
+model inputshape = [1,128,4,4]f32,[1,272,3072]f32,[1,4096]f32
+FLOPS = 7.13G
+memory OPS = 151.8M

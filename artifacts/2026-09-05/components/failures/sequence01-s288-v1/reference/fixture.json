@@ -1,0 +1,172 @@
+{
+  "tokens": 288,
+  "blocks": [
+    0,
+    1
+  ],
+  "inputs": {
+    "in0": {
+      "file": "in0.f32",
+      "shape": [
+        1,
+        288,
+        4096
+      ],
+      "dtype": "float32_le",
+      "sha256": "69ae0692fcd77504aa2df6bce19c7fff980e225208931945c5b6b857a148190c"
+    },
+    "in1": {
+      "file": "in1.f32",
+      "shape": [
+        1,
+        1,
+        4096
+      ],
+      "dtype": "float32_le",
+      "sha256": "79f10cbfe9db662ddedc348caae8b4c5ff319e1696ffa4fb8289c2b363cc0a11"
+    },
+    "in2": {
+      "file": "in2.f32",
+      "shape": [
+        1,
+        1,
+        4096
+      ],
+      "dtype": "float32_le",
+      "sha256": "82cdb7967cc4922f7871ffd8bca282ee2b2b4de86315ce2623a563df303f40d5"
+    },
+    "in3": {
+      "file": "in3.f32",
+      "shape": [
+        1,
+        1,
+        4096
+      ],
+      "dtype": "float32_le",
+      "sha256": "7c61c27e0296bfe144691bce23ee6f7aed16cda018efc230b2b596b97bd223b1"
+    },
+    "in4": {
+      "file": "in4.f32",
+      "shape": [
+        1,
+        1,
+        4096
+      ],
+      "dtype": "float32_le",
+      "sha256": "001e283dede6b7c873c60472d18be697e3078d480b93b86362b390562c16dcad"
+    },
+    "in5": {
+      "file": "in5.f32",
+      "shape": [
+        1,
+        1,
+        4096
+      ],
+      "dtype": "float32_le",
+      "sha256": "2e4b2cf3a258c066de1aeb122174958b6de659c1d691cb8ecb67cb3ff1bc0dff"
+    },
+    "in6": {
+      "file": "in6.f32",
+      "shape": [
+        1,
+        1,
+        4096
+      ],
+      "dtype": "float32_le",
+      "sha256": "be91da0db28877c3c9699ca0e934fb7f05be6c3b78c1a6b5d3f4f0464ca7341a"
+    },
+    "in7": {
+      "file": "in7.f32",
+      "shape": [
+        1,
+        288,
+        128
+      ],
+      "dtype": "float32_le",
+      "sha256": "8b6c9e7e6a85e194563eaf5973b44d35aeaf969dc59e72b14add27f5e30f15da"
+    },
+    "in8": {
+      "file": "in8.f32",
+      "shape": [
+        1,
+        288,
+        128
+      ],
+      "dtype": "float32_le",
+      "sha256": "6320668750bb3c447c65882325f462dd753f4ab043c79ccb07812a7bd0cb9927"
+    },
+    "in9": {
+      "file": "in9.f32",
+      "shape": [
+        288,
+        288
+      ],
+      "dtype": "float32_le",
+      "sha256": "948735370fc224eca83f93722150a6fef2fcfcbb3b6acf36a1d0f0dc732d7378"
+    }
+  },
+  "scope": "Connected real block weights with synthetic initial activation and shared AdaLN; no preprocessor or finalizer",
+  "model_manifests": [
+    "3516ee886a1f0d2ba1f5f62fe8993fd30c182ff1df3f559de6845498a85cb5a7",
+    "3d84142d57c2c78fe6de77f5cf1a9f5d5ccea7afe4f749cc50ac04447b5cfe33"
+  ],
+  "source_sha256": "d044f0e3ad34e701c6e76aff8854554fab832c1a36981704244b2ea0dfeeab7e",
+  "torch": "2.12.1+cu130",
+  "reference_stages": [
+    {
+      "block": 0,
+      "output": {
+        "file": "after-block-00.f32",
+        "shape": [
+          1,
+          288,
+          4096
+        ],
+        "dtype": "float32_le",
+        "sha256": "0046fb5fb279a7664cc73f61fd71751b49e4dbcf6942ec21634321bea5edd1f0"
+      },
+      "elapsed_seconds": 0.6658009870000114
+    },
+    {
+      "block": 1,
+      "output": {
+        "file": "after-block-01.f32",
+        "shape": [
+          1,
+          288,
+          4096
+        ],
+        "dtype": "float32_le",
+        "sha256": "d429147e5413751e81d6aaf2d96003ea70bbd9ce2260cf540bd393aa84161450"
+      },
+      "elapsed_seconds": 0.6557586429998992
+    }
+  ],
+  "gates": {
+    "fp32": {
+      "atol": 0.0002,
+      "rtol": 0.0002,
+      "nrmse": 0.0002
+    },
+    "fp16": {
+      "atol": 0.03,
+      "rtol": 0.03,
+      "nrmse": 0.03
+    },
+    "bf16": {
+      "atol": 0.2,
+      "rtol": 0.2,
+      "nrmse": 0.12
+    }
+  },
+  "expected": {
+    "file": "after-block-01.f32",
+    "shape": [
+      1,
+      288,
+      4096
+    ],
+    "dtype": "float32_le",
+    "sha256": "d429147e5413751e81d6aaf2d96003ea70bbd9ce2260cf540bd393aa84161450"
+  }
+}
