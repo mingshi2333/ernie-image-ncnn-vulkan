@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "verified_on": "2026-09-05",
+  "ncnn": {
+    "url": "https://github.com/Tencent/ncnn.git",
+    "revision": "6a1bf000f363714839a36793addc8c879d3d899e",
+    "commit_date": "2026-09-04T11:56:47Z",
+    "role": "runtime_dependency"
+  },
+  "historical_port": {
+    "url": "https://github.com/futz12/ernie-image-ncnn-vulkan",
+    "revision": "8dcd6e4411137d8abe92c9d78581c4c96d5182c6",
+    "ncnn_revision": "f6f734f44d66f469fefee9ee401fd1cb5e3d573e",
+    "ncnn_commit_date": "2026-06-17T09:39:49Z",
+    "role": "read_only_reference_not_vendored"
+  },
+  "historical_converted_model": {
+    "url": "https://huggingface.co/wuyex/ernie-image-ncnn",
+    "revision": "140a052f7919f279de7f697fa54f33bd1c0cac2b",
+    "role": "reference_only_weights_not_downloaded"
+  },
+  "official_code": {
+    "url": "https://github.com/baidu/ERNIE-Image",
+    "revision": "1f30f5bb499726c606da0a24cc2a4a6c4d6ad775",
+    "role": "official_project_reference"
+  },
+  "official_model": {
+    "url": "https://huggingface.co/baidu/ERNIE-Image-Turbo",
+    "revision": "bc68c81e2a1730a394d5fc9fae70713dee940140",
+    "role": "official_weights_not_downloaded"
+  },
+  "diffusers": {
+    "url": "https://github.com/huggingface/diffusers",
+    "revision": "7643c4826609c47755e3da0e5b768e8070468f49",
+    "role": "inspected_reference_source_full_pipeline_not_validated"
+  },
+  "transformers": {
+    "url": "https://github.com/huggingface/transformers",
+    "revision": null,
+    "role": "must_pin_and_verify_with_model_before_export"
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "verified_on": "2026-09-05",
+  "comparison_url": "https://github.com/Tencent/ncnn/compare/f6f734f44d66f469fefee9ee401fd1cb5e3d573e...6a1bf000f363714839a36793addc8c879d3d899e",
+  "total_commits": 33,
+  "relevant_commits": [
+    {
+      "revision": "f74639deebca33bb6d00091d1b4c42595dded59a",
+      "date": "2026-07-13T02:13:39Z",
+      "subject": "gemm block quantization infrastructure for llm decoder style (#6814)"
+    },
+    {
+      "revision": "92b73d66652239245c377f400091d4ea5a09a938",
+      "date": "2026-08-04T06:34:22Z",
+      "subject": "x86/arm/mips/loongarch/riscv gemm block quantization optimization (#6831)"
+    },
+    {
+      "revision": "c189d88a8da46714e8b52b9b4c317c32a12f16d5",
+      "date": "2026-08-13T09:19:50Z",
+      "subject": "modelbin bf16 storage type (#6900)"
+    },
+    {
+      "revision": "7f162381ab0461f103239bfe6b345a0d6cce7ee1",
+      "date": "2026-08-17T07:44:30Z",
+      "subject": "kvcache allocator (#6901)"
+    },
+    {
+      "revision": "60bfa40044efffbba5d4ccae090a037185942a4d",
+      "date": "2026-09-01T09:35:42Z",
+      "subject": "sdpa flash attention x86 optimization, llm models enable gqa, dispatch for avx2 bfloat2float (#6923)"
+    }
+  ],
+  "old_port_findings": [
+    {
+      "symbol": "PromptEnhancer::load",
+      "line": 487,
+      "finding": "Forces gpuid=-1, disables bf16 and host-memory weights."
+    },
+    {
+      "symbol": "PromptEnhancer::run_decoder",
+      "line": 631,
+      "finding": "26 pairs of CPU Mat cache handles, default extraction type, no dedicated cache allocator."
+    },
+    {
+      "symbol": "generate_image",
+      "line": 1698,
+      "finding": "Text encoder and DiT overlap in lifetime; VAE is constructed before they leave scope."
+    },
+    {
+      "symbol": "generate_image/run_pred",
+      "line": 1840,
+      "finding": "Recomputes position tables and mask each step; Mat boundaries and CPU image-token copies precede finalizer and Euler update."
+    }
+  ],
+  "runtime_validation_scope": "Synthetic causal GQA only. No full ERNIE weights loaded.",
+  "model_param_inspections": [
+    {
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/pe/decoder.ncnn.param",
+      "sha256": "0dd27e936dd5c1a5da820e282a6a183248893aba6cad7ec78f16548550cc1ac4",
+      "bytes": 62331,
+      "sdpa_count": 26,
+      "sdpa_cache_enabled_count": 26,
+      "sample_attention": "SDPA                     sdpa_577                 6 3 155 156 44 29 cache_k0 cache_v0 167 out_cache_k0 out_cache_v0 5=1 6=0.08838835 7=1"
+    },
+    {
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/dit/chunks.ncnn.param",
+      "sha256": "74ccdb234ef4e7844a0857942adaf1338163ad093562f6033f7da53c437e7abe",
+      "bytes": 116782,
+      "sdpa_count": 36,
+      "sdpa_cache_enabled_count": 0,
+      "sample_attention": "SDPA                     sdpa_722                 4 1 588 601 281 263 602 5=1"
+    }
+  ]
+}
