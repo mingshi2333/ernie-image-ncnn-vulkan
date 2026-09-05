@@ -1,72 +1,78 @@
 # ernie-image-ncnn-vulkan
 
-ERNIE-Image-Turbo 本地文生图的 C++ / ncnn / Vulkan 项目。首版目标为 Linux、batch=1、Turbo 8 步、CFG=1，提示词增强器（PE）可关闭。
+ERNIE-Image-Turbo 本地文生图的 C++ / ncnn / Vulkan 实现。**已从原始提示词生成 1024×1024 PNG**；推理程序不依赖 Python，不访问网络。当前为实验性 Linux 原型：batch=1、Turbo 8 步、CFG=1、提示词增强器（PE）关闭。
 
-**当前阶段：36 层 DiT 的小尺寸单次预测已能在 CPU/Vulkan 运行。原生 tokenizer、FP32 Euler 和 latent 解包也已实现，完整文生图尚未接通，当前不能从 prompt 直接生成 PNG。**
+2026-09-05，本机 RTX 4060 Laptop 8GB / Ryzen 7745HX / 32GB RAM 实测：英文提示词 “A red apple on a wooden table, soft daylight, realistic photo.” 生成窗边木桌上的红苹果。文本编码使用 CPU FP32，DiT 使用 Vulkan FP16 和 FP32 残差，Euler 主 latent 使用 FP32，VAE 使用 CPU。一次带中间张量记录的运行耗时 **522.17 秒**，进程峰值 RSS **23.03 GiB**，整卡显存 100 ms 采样峰值 **2605 MiB**。整卡数据含其他程序，系统 swap 使用量增加 **0.96 GiB**；这些不是精确的本进程显存或无 swap 基准。
 
-截至 2026-09-05，主要结果如下。所有模型验证均使用固定版本的官方权重。
+1024 的结果证明本机功能闭环，尚无该分辨率完整官方去噪对照或多提示词质量评估。64×64 的完整链路已经通过预设数值和像素门槛；该小尺寸参考是纹理状数值样例，不能据此判断提示词质量。
 
-| 模块 | 当前验证范围与结果 |
+| 模块 | 已完成的验证 |
 |---|---|
-| ncnn 原生 KV cache | CPU/Vulkan 24 个合成 GQA 场景通过，用于后续 PE/自回归路径 |
-| 36 个独立 DiT block | CPU FP32、Vulkan FP32、FP16 各 36/36；BF16 33/36，保留第 31、33、35 号失败 |
-| 36 层串联 | 四种配置均通过；FP16 NRMSE 约 0.00270，GPU 中间激活不下载 |
-| 输入层 → 36 blocks → 输出层 | 288 tokens 的单次预测，使用保存的合成 latent/text embeddings 与官方时间条件；具体误差见组件报告 |
-| 原生 tokenizer | C++ + Tokenizers 0.22.2 静态 Rust 库，48 个样本 token IDs 与官方完全一致 |
-| FP32 Euler、BN 与解包 | 21 组 CPU/Vulkan 检查通过，时间步和每步 Euler 输出逐位一致；BN/unpack 在 FP32 误差范围内 |
+| 原生 tokenizer | C++ + Tokenizers 0.22.2 静态 Rust 库，48 个样本 token IDs 与官方一致 |
+| 文本编码器 | 实际 Mistral 文本路径，前 25 层输出；真实英文提示词 CPU NRMSE 6.28e-6，另有中文、空文本对照 |
+| 36 层 DiT、8 步 Euler | 合成文本闭环通过 CPU FP32、Vulkan FP32 / FP16；真实文本 FP16 残差溢出已定位并修正 |
+| 64×64 完整 prompt → PNG | 同一份保存的初始 latent，对照分阶段执行的官方模块；最终 latent NRMSE 0.05244，PNG 平均误差 1.465/255，全部预设门槛通过 |
+| 1024×1024 VAE | 独立官方参考对照，CPU NRMSE 2.02e-6，固定门槛 2e-5 |
+| 1024×1024 原生生成 | 36 层、8 步、15 tokens、seed 42，完成 RGB PNG；单次功能和资源实测 |
+| 历史独立 DiT block 矩阵 | CPU FP32 / Vulkan FP32 / FP16 各 36/36，BF16 33/36；第 31、33、35 号失败保留 |
+| 原生 KV cache | CPU/Vulkan 24 个合成 GQA 场景通过，用于后续 PE / 自回归路径 |
 
-本项目保留 ERNIE 特有的三轴 RoPE、erf GELU、shared AdaLN 和最终非 affine LayerNorm。GPU GELU 使用 erf 形式；RMSNorm 与 LayerNorm 的临时计算保持 FP32，避免 FP16 平方溢出。36 层按需逐块加载，pipeline cache 由调用方共享；没有跨去噪步复用 DiT K/V。
+完整证据、固定门槛、失败记录及适用范围见 [pipeline 实测报告](artifacts/2026-09-05/pipeline/README.md)。旧版 [组件报告](artifacts/2026-09-05/components/README.md) 和 [单 block 报告](artifacts/2026-09-05/dit-block/README.md) 保留各自的输入与代码版本，不能与新版本混作同一轮结果。
 
-直接转换器复用经过完整图指纹核验的静态计算图，将每块约 832MiB 的 FP32 文件表示无损缩小为约 416MiB BF16 表示。第 0 块与 pnnx 导出后打包的文件逐字节相同。这是磁盘格式优化，加载仍会展开数据，不代表峰值内存减半。
+## 构建
 
-最新实现、数值门槛、性能对照和负面结果见 [组件与完整 DiT 预测报告](artifacts/2026-09-05/components/README.md)，重跑命令见 [组件复现](docs/REPRODUCE-COMPONENTS.md)。此前的 [单 block 报告](artifacts/2026-09-05/dit-block/README.md) 覆盖 24 / 288 / 4160 tokens，包括 Flash Attention 与协作矩阵分支；其中低精度结果属于归一化修复前的历史版本。
-
-本项目独立组织转换、数值对照和执行代码。已有 [futz12/ernie-image-ncnn-vulkan](https://github.com/futz12/ernie-image-ncnn-vulkan/tree/8dcd6e4411137d8abe92c9d78581c4c96d5182c6) 作为历史参考，尚未复制其运行时代码或下载其权重。
-
-## 从这里开始
-
-- [当前技术判断和优化优先级](docs/2026-09-05-upstream-audit.md)
-- [实施路线与验收条件](docs/ROADMAP.md)
-- [版本与来源](sources.lock.json)
-- [第一轮原生缓存实测](artifacts/2026-09-05/README.md)
-- [最新组件与完整 DiT 预测实测](artifacts/2026-09-05/components/README.md)
-- [历史 DiT 单 block 实测](artifacts/2026-09-05/dit-block/README.md)
-- [官方权重下载、转换与复现](docs/REPRODUCE-BLOCK.md)
-- [项目执行约定](AGENTS.md)
-
-## 构建与验证
-
-要求 C++17 编译器、CMake 3.19+、Git。Vulkan 构建需要 glslang，可以使用系统安装，也可以初始化 ncnn 的 glslang 子模块。以下 15 项 CTest 检查 KV cache、GELU、RMSNorm/LayerNorm 和 latent 契约，不需要模型权重。真实权重流程另见复现说明。
+需要 C++17、CMake 3.19+、Git、Rust/Cargo、libpng 开发库；Vulkan 构建还需要 Vulkan 和 glslang 开发环境。默认精简 ncnn 层集合已覆盖当前生成器。
 
 ```sh
 git submodule update --init third_party/ncnn
-cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DNCNN_SYSTEM_GLSLANG=ON -DNCNN_INT8=OFF -DNCNN_WEIGHT_QUANT=OFF
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release \
+  -DNCNN_SYSTEM_GLSLANG=ON -DNCNN_INT8=OFF -DNCNN_WEIGHT_QUANT=OFF \
+  -DERNIE_BUILD_TOKENIZER=ON -DERNIE_BUILD_GENERATOR=ON
 cmake --build build -j 4
 ctest --test-dir build --output-on-failure
 ```
 
-没有系统 glslang 时，先执行 `git -C third_party/ncnn submodule update --init glslang`，配置时使用 `-DNCNN_SYSTEM_GLSLANG=OFF`。仅构建 CPU 时使用 `-DERNIE_ENABLE_VULKAN=OFF`。
+没有系统 glslang 时，先执行 `git -C third_party/ncnn submodule update --init glslang`，配置时改用 `-DNCNN_SYSTEM_GLSLANG=OFF`。仅 CPU 构建使用独立目录并加 `-DERNIE_ENABLE_VULKAN=OFF`。已验证 Vulkan 构建 17/17 CTest、CPU 构建 6/6 CTest；这些算子与契约检查不需要权重，真实模型对照另行执行。
 
-保存可追溯的验证输出：
+## 转换与生成
+
+完整步骤见 [pipeline 复现](docs/REPRODUCE-PIPELINE.md)。Python 只用于下载、转换和参考验证。模型权重、编译产物及生成图片不进入 Git；当前模型包由经过验证的本地组件符号链接组成，源目录必须保留，尚不是可分发的独立模型包。
+
+本机已验证的模型包可直接运行：
 
 ```sh
-python3 tools/run_probes.py --build-dir build --output-dir outputs/probe-run
+build/ernie-image --model models/pipeline1024-residual-v1 \
+  --prompt 'A red apple on a wooden table, soft daylight, realistic photo.' \
+  --output outputs/apple-new.png --device vulkan --precision fp16 --seed 42 --steps 8
 ```
 
-程序输出逐场景 JSON，失败返回非零值。没有 Vulkan 设备时该测试明确跳过，不计作通过。它使用独立的双精度累加参考计算，不把另一条 ncnn 缓存路径当作数值真值。缓存内容被视作后端私有数据，仅观察底层缓冲身份以检查复用，不读取或持久化其内部布局。
+输出路径必须不存在，父目录需已存在。分辨率由转换时的静态模型桶确定；当前包为 64×64 和 1024×1024。文本编码桶为 **32 tokens（含 BOS）**，超长提示词明确拒绝。PE 关闭，CLI 暂无任意尺寸切换。CPU 运行需同时指定 `--device cpu --precision fp32`。
 
-默认仅编译探针需要的 ncnn 层。后续完整推理构建必须使用新的构建目录并设置 `-DERNIE_MINIMAL_NCNN=OFF`，或清除旧的 `WITH_LAYER_*` 缓存设置。
+`--latent FILE.f32` 可指定 FP32 初始噪声；`--embeddings FILE.f32` 可读取与当前提示词 token 数相同的 FP32 文本特征并跳过文本模型。`--trace-dir NEWDIR` 保存实际 token IDs、初始 latent、文本特征、逐步预测及输出。跨框架对照必须读取同一份保存的初始 latent，相同整数 seed 不保证相同噪声。
 
-## 优化方向
+## 实现中的关键区别
 
-先解决三个问题：可复现的官方权重转换、DiT 去噪过程的数据传输、8GB 显卡上的模型生命周期和权重调度。PE 的新版原生 KV cache 是单独的增强项。
+固定 Transformers 版本将官方 Mistral3 配置中的文本子模型分派给 `MistralModel`，不是 `Ministral3Model`。需要的 `hidden_states[-2]` 为 block 24 输出：执行前 25 层，不执行第 26 层或 final norm，也不加载视觉支路和 LM head。该选择同时有完整小模型 hidden-state 钩子检查和真实权重文本路径对照。
 
-DiT 的图文联合 attention 在每轮去噪中改变，不能直接跨轮复用 K/V。提示词的原始文本特征、位置表、mask 和时间步相关小张量可以按其依赖条件缓存。CPU block quantization 和 Vulkan quantization 需分别验证。
+DiT 保留三轴 RoPE、erf GELU、shared AdaLN 和最终非 affine LayerNorm。真实文本条件下，残差激活可超过 FP16 的 65504 上限。两个残差相加点使用 `ErnieResidualAdd` 保持 FP32，RMSNorm / LayerNorm 临时计算也使用 FP32，归一化后的投影输入返回模型存储精度。每步 Euler 检查有限值，Vulkan 仅下载 128 个状态浮点数。CPU VAE 的 GroupNorm 使用 FP64 均值与中心方差归约，其余激活和 affine 运算为 FP32。
 
-当前完整 DiT 预测使用 4×4 packed-latent 网格与 272 个文本位置（含两个 padding）。1024×1024 的完整 36 层、真实文本编码、8 步 Euler 闭环、VAE 解码、精确峰值 RAM/VRAM 和 PNG 输出仍有独立验收项。
+36 层 DiT 每次只加载一块，GPU 中间激活保留在设备上，调用方共享 Vulkan pipeline cache。模型文件的 BF16 表示无损保存官方 BF16 权重，每块约 416MiB，36 块共约 14.63GiB；加载仍会展开和准备权重，文件缩小不代表内存同比缩小。
+
+高分辨率 VAE 使用完整图指纹约束下的两处空间 reshape 特化，并通过独立执行的目标分辨率官方参考。原先整图 pnnx 转换因主机内存持续增长而停止，失败记录保留；不把特化后的成功写成整图导出成功。
+
+## 下一步优化
+
+当前优先处理 DiT 每步重复的权重准备与上传、受控预取、VAE 工作区内存，以及按依赖关系复用文本投影和小型条件张量。随后扩展文本桶，建立多提示词和完整 1024 官方对照，补充冷启动、重复运行及精确 allocator 测量。
+
+新版 ncnn 已有原生 KV cache、专用 allocator 和容量管理。它对后续 PE 自回归路径有用；图文联合 DiT 每步的隐藏状态都会变化，跨去噪步复用其 K/V 需要单独的近似算法与质量门槛。量化、PE、近似缓存和其他平台都保留为独立验收项。
+
+- [实施路线与验收条件](docs/ROADMAP.md)
+- [上游调查和优化依据](docs/2026-09-05-upstream-audit.md)
+- [版本、来源与运行时约定](sources.lock.json)
+- [项目执行约定](AGENTS.md)
 
 ## 来源和许可
 
-本项目新增代码采用 MIT 许可。ncnn 保留其 BSD-3-Clause 许可。官方模型、参考项目及未来引入的第三方代码分别保留原许可和来源。
+本项目新增代码采用 MIT 许可。ncnn 保留 BSD-3-Clause；官方模型及未来引入的第三方代码分别保留原许可和来源。历史参考 [futz12/ernie-image-ncnn-vulkan](https://github.com/futz12/ernie-image-ncnn-vulkan/tree/8dcd6e4411137d8abe92c9d78581c4c96d5182c6) 的运行时代码和模型权重未复制到本项目。
 
-原生缓存 API 的使用参考了 [ncnn 官方文档](https://github.com/Tencent/ncnn/blob/6a1bf000f363714839a36793addc8c879d3d899e/docs/developer-guide/kvcache.md) 与 [会话测试](https://github.com/Tencent/ncnn/blob/6a1bf000f363714839a36793addc8c879d3d899e/tests/test_sdpa_kvcache_session.cpp)。
+缓存 API 依据固定版本的 [ncnn 官方文档](https://github.com/Tencent/ncnn/blob/6a1bf000f363714839a36793addc8c879d3d899e/docs/developer-guide/kvcache.md) 和 [会话测试](https://github.com/Tencent/ncnn/blob/6a1bf000f363714839a36793addc8c879d3d899e/tests/test_sdpa_kvcache_session.cpp)。

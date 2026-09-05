@@ -1,0 +1,34 @@
+pnnxparam = head.pnnx.param
+pnnxbin = head.pnnx.bin
+pnnxpy = head_pnnx.py
+pnnxonnx = head.pnnx.onnx
+ncnnparam = head.ncnn.param
+ncnnbin = head.ncnn.bin
+ncnnpy = head_ncnn.py
+fp16 = 0
+optlevel = 2
+device = cpu
+inputshape = [1,32,128,128]f32
+inputshape2 = 
+input = 
+input2 = 
+customop = 
+moduleop = 
+get inputshape from traced inputs
+inputshape = [1,32,128,128]f32
+############# pass_level0
+inline module = diffusers.models.attention_processor.Attention
+inline module = diffusers.models.autoencoders.vae.Decoder
+inline module = diffusers.models.resnet.ResnetBlock2D
+inline module = diffusers.models.unets.unet_2d_blocks.UNetMidBlock2D
+inline module = diffusers.models.unets.unet_2d_blocks.UpDecoderBlock2D
+inline module = diffusers.models.upsampling.Upsample2D
+inline module = diffusers.models.attention_processor.Attention
+inline module = diffusers.models.autoencoders.vae.Decoder
+inline module = diffusers.models.resnet.ResnetBlock2D
+inline module = diffusers.models.unets.unet_2d_blocks.UNetMidBlock2D
+inline module = diffusers.models.unets.unet_2d_blocks.UpDecoderBlock2D
+inline module = diffusers.models.upsampling.Upsample2D
+
+----------------
+

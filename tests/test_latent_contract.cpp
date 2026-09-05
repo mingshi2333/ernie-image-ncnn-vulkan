@@ -26,6 +26,12 @@ int main()
             if (schedule.delta(i) >= 0.f) throw std::runtime_error("Schedule does not descend");
         ncnn::Mat input(3, 5, 128), prediction(3, 5, 128), bad(3, 5, 32), output, stats(128), variance(128);
         input.fill(1.f); prediction.fill(1.f); stats.fill(0.f); variance.fill(1.f);
+        if (!ernie::finite_latent(input)) throw std::runtime_error("Finite input rejected");
+        input.channel(42)[7] = INFINITY;
+        if (ernie::finite_latent(input)) throw std::runtime_error("Infinity accepted");
+        input.channel(42)[7] = NAN;
+        if (ernie::finite_latent(input)) throw std::runtime_error("NaN accepted");
+        input.channel(42)[7] = 1.f;
         rejects([&] { ernie::euler_step(input, bad, -.1f, output); });
         rejects([&] { ernie::euler_step(input, prediction, 0.f, output); });
         rejects([&] { ernie::euler_step(input, prediction, NAN, output); });

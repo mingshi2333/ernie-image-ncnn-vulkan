@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "repository": "https://huggingface.co/baidu/ERNIE-Image-Turbo",
+  "revision": "bc68c81e2a1730a394d5fc9fae70713dee940140",
+  "prefix": "language_model.model.embed_tokens.",
+  "single_file_url": "https://huggingface.co/baidu/ERNIE-Image-Turbo/resolve/bc68c81e2a1730a394d5fc9fae70713dee940140/text_encoder/model.safetensors",
+  "source_header_sha256": "6bb3f0545cd10970ca1735d1f693e1f167b83bcb45356e9964927557e114474d",
+  "sha256": "a66c375fe6f3706c7409f6b7a878c0035aab76f057a043843c479e7dfc42aa2a",
+  "payload_bytes": 805306368,
+  "tensors": [
+    {
+      "name": "language_model.model.embed_tokens.weight",
+      "shard": "model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        131072,
+        3072
+      ],
+      "source_offsets": [
+        61008,
+        805367376
+      ],
+      "header_sha256": "6bb3f0545cd10970ca1735d1f693e1f167b83bcb45356e9964927557e114474d",
+      "sha256": "77504404513f2d54ed2626f47857ad5d951932f61886fe30ca8b9eefbe868c3f"
+    }
+  ],
+  "range_window_bytes": 33554432,
+  "downloader_sha256": "d1e564b9db0658fd9dd29ddc5b43afcf146bf9a31cfc4042099d738571cd59b6",
+  "verification": "HTTPS from pinned revision, exact range and length checks; local per-tensor and component hashes. Full upstream shard hash not checked."
+}

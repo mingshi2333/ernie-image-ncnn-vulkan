@@ -1,5 +1,7 @@
 # 真实 DiT block 的复现
 
+> 后续实现已完成本机 1024 原生生成，最新状态见 [pipeline 报告](../artifacts/2026-09-05/pipeline/README.md) 和 [完整复现](REPRODUCE-PIPELINE.md)。本文保留最初调查或局部验证的范围，文中的待办不代表最新整体状态。
+
 本流程使用官方 ERNIE-Image-Turbo 的第 0 个 DiT block，权重真实，hidden states 和 shared AdaLN 输入为固定随机张量。它验证转换和执行语义，尚不包含 tokenizer、文本编码、完整去噪或 VAE。
 
 ## 环境

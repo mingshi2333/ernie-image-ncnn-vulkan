@@ -77,15 +77,25 @@ def sha256(path):
     return h.hexdigest()
 
 
-def fetch_component(prefix, output, subfolder='transformer', index_name='diffusion_pytorch_model.safetensors.index.json'):
+def fetch_component(prefix, output, subfolder='transformer', index_name='diffusion_pytorch_model.safetensors.index.json', single_file=None):
     lock = json.loads((ROOT / 'sources.lock.json').read_text())['official_model']
     revision = lock['revision']
     base = f"{lock['url']}/resolve/{revision}/{subfolder}/"
-    with urllib.request.urlopen(base + index_name, timeout=30) as response:
-        index_data = response.read(MAX_HEADER + 1)
-    if len(index_data) > MAX_HEADER:
-        raise RuntimeError('Index unexpectedly large')
-    weight_map = json.loads(index_data)['weight_map']
+    headers = {}
+    if single_file is not None:
+        if Path(single_file).name != single_file:
+            raise ValueError('Unexpected single-file path')
+        headers[single_file] = read_header(base + single_file)
+        weight_map = {name: single_file for name in headers[single_file][0] if name != '__metadata__'}
+        source_info = {'single_file_url': base + single_file,
+                       'source_header_sha256': headers[single_file][2]}
+    else:
+        with urllib.request.urlopen(base + index_name, timeout=30) as response:
+            index_data = response.read(MAX_HEADER + 1)
+        if len(index_data) > MAX_HEADER:
+            raise RuntimeError('Index unexpectedly large')
+        weight_map = json.loads(index_data)['weight_map']
+        source_info = {'index_url': base + index_name, 'index_sha256': hashlib.sha256(index_data).hexdigest()}
     selected = {k: v for k, v in weight_map.items() if k.startswith(prefix)}
     if not selected:
         raise ValueError(f'No tensors match {prefix!r}')
@@ -94,7 +104,8 @@ def fetch_component(prefix, output, subfolder='transformer', index_name='diffusi
         if manifest_path.is_file():
             manifest = json.loads(manifest_path.read_text())
             if (manifest['revision'] == revision and manifest['prefix'] == prefix
-                    and manifest['sha256'] == sha256(output)):
+                    and manifest['sha256'] == sha256(output)
+                    and all(manifest.get(key) == value for key, value in source_info.items())):
                 print(json.dumps({'status': 'reused', 'file': str(output), 'sha256': manifest['sha256']}), flush=True)
                 return manifest
         raise FileExistsError('Existing component has no matching valid manifest; use a new output path')
@@ -103,7 +114,7 @@ def fetch_component(prefix, output, subfolder='transformer', index_name='diffusi
     for shard in sorted(set(selected.values())):
         if Path(shard).name != shard:
             raise ValueError('Unexpected shard path')
-        header, data_start, header_hash = read_header(base + shard)
+        header, data_start, header_hash = headers[shard] if shard in headers else read_header(base + shard)
         for name in selected:
             if selected[name] != shard:
                 continue
@@ -158,7 +169,7 @@ def fetch_component(prefix, output, subfolder='transformer', index_name='diffusi
                 raise RuntimeError('Response exceeds requested component range')
     temporary.rename(output)
     manifest = {'schema_version': 1, 'repository': lock['url'], 'revision': revision, 'prefix': prefix,
-                'index_url': base + index_name, 'index_sha256': hashlib.sha256(index_data).hexdigest(),
+                **source_info,
                 'sha256': sha256(output), 'payload_bytes': cursor, 'tensors': records,
                 'range_window_bytes': RANGE_WINDOW, 'downloader_sha256': sha256(Path(__file__)),
                 'verification': 'HTTPS from pinned revision, exact range and length checks; local per-tensor and component hashes. Full upstream shard hash not checked.'}

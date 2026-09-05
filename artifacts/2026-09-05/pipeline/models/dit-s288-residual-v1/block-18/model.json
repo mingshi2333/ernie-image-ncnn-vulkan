@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "kind": "inference_static_bucket",
+  "block": 18,
+  "tokens": 288,
+  "fp32_residual": true,
+  "scope": "Static graph exported independently; reused lossless weights; no standalone numerical fixture in this package",
+  "official_model_revision": "bc68c81e2a1730a394d5fc9fae70713dee940140",
+  "ncnn_revision": "6a1bf000f363714839a36793addc8c879d3d899e",
+  "weights_sha256": "4e52fe6da04255be6442240227ac7d96bc1dadafd364334607c99acc586b1fa3",
+  "base_manifest_sha256": "aa9df518319af994474582f3ec67d43c98a5f6f338c81f679dcd76d3449af02b",
+  "template_manifest_sha256": "ef457c520aa11d2dd77cfbe5de420145d87813e45d0b545dbaa27b45ed450346",
+  "graph_contract_sha256": "88206e024759e4f8981fa1cb04636e644c3c7a3c7e08b2658a1f9bcce52ea50c",
+  "builder_sha256": "27a51ac3d22da17e52d7b2b30658ff6719c53c3e25e0c7045c3e9468d464db44",
+  "reconstructed_fp32_sha256": "846839c3834637054f2d0aefc74da68b917d693cb55496f7eb292511ed446b30",
+  "files": {
+    "block.ncnn.param": "35ef68fc6d9a59e35dea58d8d3197edbf30dbb8dae7c8044e5144c8f38c88566",
+    "block.ncnn.bin": "647de30014ffacce8777c7f7998fcfb4c10c6476a99fa4460970c194f2b5fda4"
+  }
+}

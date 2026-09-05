@@ -1,0 +1,29 @@
+[0/1] Re-running CMake...
+-- CMAKE_INSTALL_PREFIX = /usr/local
+-- NCNN_VERSION_STRING = 1.0.20260905
+-- Target arch: x86 64bit
+-- Found glslang: /usr/lib64/libglslang.a (found version "16.2.0")
+-- Found SPIRV: /usr/lib64/libSPIRV.a (found version "16.2.0")
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/build
+[1/3] Building CXX object CMakeFiles/ernie-residual-contract.dir/tests/test_residual_contract.cpp.o
+FAILED: [code=1] CMakeFiles/ernie-residual-contract.dir/tests/test_residual_contract.cpp.o 
+/usr/bin/clang++  -I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/src -I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/third_party/ncnn/src -I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/build/ncnn/src -O3 -DNDEBUG -std=gnu++17 -fPIE -fopenmp=libomp -MD -MT CMakeFiles/ernie-residual-contract.dir/tests/test_residual_contract.cpp.o -MF CMakeFiles/ernie-residual-contract.dir/tests/test_residual_contract.cpp.o.d -o CMakeFiles/ernie-residual-contract.dir/tests/test_residual_contract.cpp.o -c /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/tests/test_residual_contract.cpp
+/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/tests/test_residual_contract.cpp:75:23: error: no matching member function for call to 'load_model'
+   75 |             check(net.load_model(model));
+      |                   ~~~~^~~~~~~~~~
+/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/third_party/ncnn/src/net.h:65:9: note: candidate function not viable: no known conversion from 'ncnn::ModelBinFromMatArray' to 'const DataReader' for 1st argument
+   65 |     int load_model(const DataReader& dr);
+      |         ^          ~~~~~~~~~~~~~~~~~~~~
+/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/third_party/ncnn/src/net.h:91:9: note: candidate function not viable: no known conversion from 'ncnn::ModelBinFromMatArray' to 'FILE *' (aka 'struct _IO_FILE *') for 1st argument
+   91 |     int load_model(FILE* fp);
+      |         ^          ~~~~~~~~
+/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/third_party/ncnn/src/net.h:92:9: note: candidate function not viable: no known conversion from 'ncnn::ModelBinFromMatArray' to 'const char *' for 1st argument
+   92 |     int load_model(const char* modelpath);
+      |         ^          ~~~~~~~~~~~~~~~~~~~~~
+/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/third_party/ncnn/src/net.h:108:12: note: candidate function not viable: no known conversion from 'ncnn::ModelBinFromMatArray' to 'const unsigned char *' for 1st argument
+  108 |     size_t load_model(const unsigned char* mem);
+      |            ^          ~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+ninja: build stopped: subcommand failed.

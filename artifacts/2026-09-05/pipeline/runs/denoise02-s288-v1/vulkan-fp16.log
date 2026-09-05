@@ -1,0 +1,54 @@
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+{"step":0,"timestep":1000,"delta":-0.199999988079,"elapsed_seconds":7.222130069,"block_load_seconds":5.313146992,"block_compute_seconds":0.197057052,"input_head_seconds":1.24323044,"output_head_seconds":0.433131801}
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+{"step":1,"timestep":800,"delta":-0.800000011921,"elapsed_seconds":3.701497229,"block_load_seconds":2.571760292,"block_compute_seconds":0.179736435,"input_head_seconds":0.753464682,"output_head_seconds":0.164301281}
+{"complete":true,"steps":2,"blocks":2,"backend":"vulkan","dit_storage":"fp16","scheduler_storage":"fp32","trace_downloads":true}
+	Command being timed: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/denoise02-s288-v1/ernie-denoise-runner.snapshot --fixture /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/denoise02-s288-v1/reference --output /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/denoise02-s288-v1/vulkan-fp16 --input-head /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-heads-s288-v1/input --output-head /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-heads-s288-v2/output --steps 2 --width 4 --height 4 --text-tokens 272 --backend vulkan --precision fp16 --trace --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v2/block-00/runtime --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v2/block-01/runtime"
+	User time (seconds): 27.75
+	System time (seconds): 7.41
+	Percent of CPU this job got: 303%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:11.57
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1116212
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 3895627
+	Voluntary context switches: 2190
+	Involuntary context switches: 858
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 280
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

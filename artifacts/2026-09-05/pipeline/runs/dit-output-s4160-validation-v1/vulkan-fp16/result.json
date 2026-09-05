@@ -1,0 +1,42 @@
+{
+  "component": "output",
+  "backend": "vulkan",
+  "precision": "fp16",
+  "passed": true,
+  "command": [
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/dit-output-s4160-validation-v1/ernie-head-runner.snapshot",
+    "--model",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-heads-s4160-v1/output",
+    "--fixture",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-heads-s4160-v1/output",
+    "--output",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/dit-output-s4160-validation-v1/vulkan-fp16/actual",
+    "--component",
+    "output",
+    "--height",
+    "64",
+    "--width",
+    "64",
+    "--text-tokens",
+    "64",
+    "--backend",
+    "vulkan",
+    "--precision",
+    "fp16"
+  ],
+  "runner_sha256": "75204ca7628e80f1c0e07065229eb6b009cc4299384062ee888a02e9f5ab08ec",
+  "model_manifest_sha256": "61b36a018d225b20507f985f6f4e2a4441f7a32de9ca5bc87f2bb58e40f2e115",
+  "validator_sha256": "569fc9b646dcd47f30c7d2c05837302057579232d8e900bf59c188eecfb9afef",
+  "scope": "Real projection/conditioning weights and synthetic inputs; no text encoder or denoising loop",
+  "outputs": {
+    "out0": {
+      "nrmse": 0.000515413277801088,
+      "max_abs_error": 0.056613922119140625,
+      "max_abs_limit": 2.9100373077392576,
+      "nrmse_limit": 0.02,
+      "actual_sha256": "ed9367e0e23aabb4d81a64708e096fbb29c5b9db7082a5777ca3c86429a4f46d",
+      "passed": true
+    }
+  },
+  "return_code": 0
+}

@@ -1,0 +1,51 @@
+{
+  "prompt": "一只坐在窗边的橘猫。",
+  "ids": [
+    1,
+    3087,
+    16981,
+    96279,
+    2998,
+    20477,
+    1151,
+    63960,
+    2713,
+    19572,
+    1152,
+    49200,
+    1171,
+    1320
+  ],
+  "tokens": 32,
+  "valid_tokens": 14,
+  "blocks": 25,
+  "scope": "Real prompt through official embedding and Mistral blocks 0..24; no final norm",
+  "source_sha256": "49830fb28893cba055cc1508c2b690167b976af8abc1b94b498095bbea5fe760",
+  "expected": {
+    "file": "expected.f32",
+    "shape": [
+      1,
+      14,
+      3072
+    ],
+    "dtype": "float32_le",
+    "sha256": "71ab681f2056ad0689d8908fc931fca785586f4a3975ae34661df1f06beb19d6"
+  },
+  "gates": {
+    "fp32": {
+      "nrmse": 0.0002,
+      "atol": 0.0002,
+      "rtol": 0.0002
+    },
+    "fp16": {
+      "nrmse": 0.03,
+      "atol": 0.03,
+      "rtol": 0.03
+    },
+    "bf16": {
+      "nrmse": 0.15,
+      "atol": 0.2,
+      "rtol": 0.2
+    }
+  }
+}

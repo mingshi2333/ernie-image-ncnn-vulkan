@@ -1,0 +1,178 @@
+// SPDX-License-Identifier: MIT
+#include "text_encoder.h"
+#if NCNN_VULKAN
+#include "pipelinecache.h"
+#endif
+#include <filesystem>
+#include <fstream>
+#include <iomanip>
+#include <iostream>
+#include <numeric>
+#include <stdexcept>
+namespace fs = std::filesystem;
+static ncnn::Mat read(const fs::path &path, int w, int h)
+{
+    if (fs::file_size(path) != size_t(w) * h * 4)
+        throw std::runtime_error("Wrong input length");
+    ncnn::Mat value(w, h);
+    if (value.empty())
+        throw std::bad_alloc();
+    std::ifstream file(path, std::ios::binary);
+    if (!file.read(static_cast<char *>(value.data), size_t(w) * h * 4))
+        throw std::runtime_error("Input read failed");
+    return value;
+}
+int main(int argc, char **argv)
+{
+    std::vector<std::string> models;
+    fs::path fixture, output, ids_path, embeddings, frequencies;
+    int tokens = 0, valid = 0, status = 0;
+    std::string backend = "cpu", precision = "fp32";
+    try
+    {
+        for (int i = 1; i < argc; ++i)
+        {
+            const std::string flag = argv[i];
+            if (++i == argc)
+                throw std::invalid_argument("Missing argument value");
+            const std::string value = argv[i];
+            if (flag == "--model")
+                models.push_back(value);
+            else if (flag == "--fixture")
+                fixture = value;
+            else if (flag == "--output")
+                output = value;
+            else if (flag == "--ids")
+                ids_path = value;
+            else if (flag == "--embeddings")
+                embeddings = value;
+            else if (flag == "--frequencies")
+                frequencies = value;
+            else if (flag == "--backend")
+                backend = value;
+            else if (flag == "--precision")
+                precision = value;
+            else if (flag == "--tokens")
+            {
+                size_t n = 0;
+                tokens = std::stoi(value, &n);
+                if (n != value.size())
+                    throw std::invalid_argument("Invalid token count");
+            }
+            else
+                throw std::invalid_argument("Unknown argument: " + flag);
+        }
+        if (models.empty() || models.size() > 25 || output.empty() || fs::exists(output) || tokens < 1 ||
+            tokens > 2048 || (backend != "cpu" && backend != "vulkan") ||
+            (precision != "fp32" && precision != "fp16" && precision != "bf16") ||
+            (backend == "cpu" && precision != "fp32") || (fixture.empty() == ids_path.empty()))
+            throw std::invalid_argument(
+                "Require models, new output, token bucket and exactly one fixture/ids source");
+        ncnn::Mat input;
+        std::vector<ncnn::Mat> constants;
+        if (!fixture.empty())
+        {
+            input = read(fixture / "in0.f32", 3072, tokens);
+            constants = {read(fixture / "in1.f32", 128, tokens), read(fixture / "in2.f32", 128, tokens),
+                         read(fixture / "in3.f32", tokens, tokens)};
+            valid = tokens;
+        }
+        else
+        {
+            std::ifstream file(ids_path);
+            if (!file)
+                throw std::runtime_error("Cannot open token IDs");
+            std::vector<uint32_t> ids;
+            std::string item;
+            while (file >> item)
+            {
+                size_t consumed = 0;
+                const auto value = std::stoull(item, &consumed);
+                if (consumed != item.size() || value >= 131072 || ids.size() >= size_t(tokens))
+                    throw std::invalid_argument("Invalid IDs or prompt exceeds bucket");
+                ids.push_back(uint32_t(value));
+            }
+            if (!file.eof())
+                throw std::runtime_error("Cannot read token IDs");
+            input = ernie::text_embeddings(embeddings.string(), ids, tokens);
+            constants = ernie::text_constants(frequencies.string(), tokens);
+            valid = int(ids.size());
+        }
+        ncnn::Option option;
+        option.num_threads = 4;
+        option.use_vulkan_compute = backend == "vulkan";
+        option.use_fp16_storage = precision == "fp16";
+        option.use_bf16_storage = precision == "bf16";
+        option.use_fp16_packed = option.use_fp16_arithmetic = option.use_bf16_packed = false;
+        ernie::BlockSequenceStats stats;
+        ncnn::Mat result;
+        if (backend == "cpu")
+            result = ernie::run_text_blocks(models, input, constants, option, stats);
+        else
+        {
+#if NCNN_VULKAN
+            ncnn::create_gpu_instance();
+            if (ncnn::get_gpu_count() < 1)
+                throw std::runtime_error("No Vulkan device");
+            const int index = ncnn::get_default_gpu_index();
+            const auto &info = ncnn::get_gpu_info(index);
+            if ((precision == "fp16" && !info.support_fp16_storage()) ||
+                (precision == "bf16" && !info.support_bf16_storage()))
+                throw std::runtime_error("Unsupported storage precision");
+            const auto *device = ncnn::get_gpu_device(index);
+            ncnn::PipelineCache cache(device);
+            ncnn::VkBlobAllocator blobs(device);
+            ncnn::VkStagingAllocator staging(device);
+            option.pipeline_cache = &cache;
+            option.blob_vkallocator = option.workspace_vkallocator = &blobs;
+            option.staging_vkallocator = &staging;
+            ncnn::VkMat gpu_input;
+            std::vector<ncnn::VkMat> gpu_constants(constants.size());
+            {
+                ncnn::VkCompute upload(device);
+                upload.record_upload(input, gpu_input, option);
+                for (size_t i = 0; i < constants.size(); ++i)
+                    upload.record_upload(constants[i], gpu_constants[i], option);
+                if (upload.submit_and_wait())
+                    throw std::runtime_error("Text upload failed");
+            }
+            const auto gpu_output =
+                ernie::run_text_blocks(models, gpu_input, gpu_constants, device, option, stats);
+            ncnn::VkCompute download(device);
+            ncnn::Option plain = option;
+            plain.use_packing_layout = false;
+            download.record_download(gpu_output, result, plain);
+            if (download.submit_and_wait())
+                throw std::runtime_error("Text download failed");
+#else
+            throw std::runtime_error("Built without Vulkan");
+#endif
+        }
+        if (result.empty() || result.dims != 2 || result.w != 3072 || result.h != tokens ||
+            result.elemsize != 4u || result.elempack != 1)
+            throw std::runtime_error("Invalid text output layout");
+        if (output.has_parent_path())
+            fs::create_directories(output.parent_path());
+        std::ofstream file(output, std::ios::binary);
+        file.write(static_cast<char *>(result.data), size_t(valid) * 3072 * 4);
+        if (!file)
+            throw std::runtime_error("Text output write failed");
+        std::cout << std::setprecision(12) << "{\"blocks\":" << models.size() << ",\"tokens\":" << tokens
+                  << ",\"valid_tokens\":" << valid << ",\"backend\":\"" << backend << "\",\"precision\":\""
+                  << precision << "\",\"load_seconds\":"
+                  << std::accumulate(stats.load_seconds.begin(), stats.load_seconds.end(), 0.)
+                  << ",\"compute_seconds\":"
+                  << std::accumulate(stats.compute_seconds.begin(), stats.compute_seconds.end(), 0.)
+                  << ",\"compute_submissions\":" << stats.compute_submissions << "}\n";
+    }
+    catch (const std::exception &error)
+    {
+        std::cerr << error.what() << '\n';
+        status = 1;
+    }
+#if NCNN_VULKAN
+    if (backend == "vulkan")
+        ncnn::destroy_gpu_instance();
+#endif
+    return status;
+}

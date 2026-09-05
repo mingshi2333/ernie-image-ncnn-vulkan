@@ -1,5 +1,7 @@
 # 2026-09-05：旧 ERNIE 移植与当前 ncnn 的差异
 
+> 后续实现已完成本机 1024 原生生成，最新状态见 [pipeline 报告](../artifacts/2026-09-05/pipeline/README.md) 和 [完整复现](REPRODUCE-PIPELINE.md)。本文保留最初调查或局部验证的范围，文中的待办不代表最新整体状态。
+
 本文保留项目启动时的源码判断。后续已完成第 0 个真实 DiT block、GPU erf GELU、BF16 文件存储和 4160-token 对照，更新结果见 [单 block 报告](../artifacts/2026-09-05/dit-block/README.md)。完整文生图仍未接通。
 
 判断：当前 ncnn 已有可直接使用的原生 KV cache 和专用 allocator，足以简化 ERNIE 提示词增强器的缓存管理。完整文生图的主要优化机会仍在 DiT 的数据流和大权重内存调度。此次同时完成源码审查和无权重算子验证，尚未运行 ERNIE 完整模型。

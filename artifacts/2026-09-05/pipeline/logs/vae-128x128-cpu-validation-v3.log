@@ -1,0 +1,1 @@
+{"component": "vae", "backend": "cpu", "precision": "fp32", "passed": true, "outputs": {"out0": {"nrmse": 2.0179114347507727e-06, "max_abs_error": 1.2353062629699707e-05, "max_abs_limit": 0.00037963845729827885, "nrmse_limit": 2e-05, "actual_sha256": "34bec9cbed9c8cfef1152968eb26f17940fe864928ddf401144e760a3e00db6d", "passed": true}}, "failure": null}

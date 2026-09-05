@@ -1,0 +1,17 @@
+/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.venv/lib64/python3.14/site-packages/diffusers/models/upsampling.py:145: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  assert hidden_states.shape[1] == self.channels
+/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.venv/lib64/python3.14/site-packages/diffusers/models/upsampling.py:160: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if hidden_states.shape[0] >= 64:
+/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.venv/lib64/python3.14/site-packages/diffusers/models/upsampling.py:171: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if hidden_states.numel() * scale_factor > pow(2, 31):
+{"component": "vae", "command": ["/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.venv/lib64/python3.14/site-packages/pnnx/pnnx", "head.pt", "inputshape=[1,32,128,128]", "fp16=0", "device=cpu"], "pnnx_sha256": "c3555c48e054245e50fa434a7673fbdad2b8f8c6cdca8c1579601f9882f474a0", "return_code": -15, "unsupported_diagnostics": []}
+Traceback (most recent call last):
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/tools/export_vae.py", line 58, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/tools/export_vae.py", line 56, in main
+    export_component(Decode(model),(x,),(expected,),args.output.resolve(),metadata)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/tools/export_dit_heads.py", line 113, in export_component
+    raise RuntimeError('Head graph conversion failed; inspect conversion.log')
+RuntimeError: Head graph conversion failed; inspect conversion.log

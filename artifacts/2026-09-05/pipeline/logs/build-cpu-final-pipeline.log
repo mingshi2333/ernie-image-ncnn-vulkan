@@ -1,0 +1,17 @@
+[1/17] Building CXX object CMakeFiles/ernie-runtime.dir/src/denoiser.cpp.o
+[2/17] Building CXX object CMakeFiles/ernie-runtime.dir/src/conditioning.cpp.o
+[3/17] Building CXX object CMakeFiles/ernie-runtime.dir/src/text_encoder.cpp.o
+[4/17] Linking CXX static library libernie-runtime.a
+[5/17] Linking CXX executable ernie-attention-probe
+[6/17] Building CXX object CMakeFiles/ernie-denoise-runner.dir/probes/denoise_runner.cpp.o
+[7/17] Building CXX object CMakeFiles/ernie-rmsnorm-probe.dir/probes/rmsnorm_probe.cpp.o
+[8/17] Linking CXX executable ernie-block-runner
+[9/17] Linking CXX executable ernie-gelu-probe
+[10/17] Linking CXX executable ernie-latent-runner
+[11/17] Linking CXX executable ernie-block-sequence-runner
+[12/17] Linking CXX executable ernie-head-runner
+[13/17] Linking CXX executable ernie-denoise-runner
+[14/17] Linking CXX executable ernie-rmsnorm-probe
+[15/17] Linking CXX executable ernie-latent-contract
+[16/17] Building CXX object CMakeFiles/ernie-text-runner.dir/probes/text_runner.cpp.o
+[17/17] Linking CXX executable ernie-text-runner

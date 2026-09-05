@@ -1,0 +1,21 @@
+[1/21] Building CXX object CMakeFiles/ernie-tokenize.dir/probes/tokenizer_runner.cpp.o
+[2/21] Building CXX object CMakeFiles/ernie-runtime.dir/src/denoiser.cpp.o
+[3/21] Building CXX object CMakeFiles/ernie-runtime.dir/src/conditioning.cpp.o
+[4/21] Building CXX object CMakeFiles/ernie-runtime.dir/src/text_encoder.cpp.o
+[5/21] Linking CXX static library libernie-runtime.a
+[6/21] Building CXX object CMakeFiles/ernie-denoise-runner.dir/probes/denoise_runner.cpp.o
+[7/21] Building CXX object CMakeFiles/ernie-rmsnorm-probe.dir/probes/rmsnorm_probe.cpp.o
+[8/21] Building CXX object CMakeFiles/ernie-text-runner.dir/probes/text_runner.cpp.o
+[9/21] Linking CXX executable ernie-tokenize
+[10/21] Building CXX object CMakeFiles/ernie-image.dir/src/main.cpp.o
+[11/21] Linking CXX executable ernie-attention-probe
+[12/21] Linking CXX executable ernie-block-runner
+[13/21] Linking CXX executable ernie-gelu-probe
+[14/21] Linking CXX executable ernie-latent-runner
+[15/21] Linking CXX executable ernie-text-runner
+[16/21] Linking CXX executable ernie-denoise-runner
+[17/21] Linking CXX executable ernie-head-runner
+[18/21] Linking CXX executable ernie-block-sequence-runner
+[19/21] Linking CXX executable ernie-latent-contract
+[20/21] Linking CXX executable ernie-rmsnorm-probe
+[21/21] Linking CXX executable ernie-image

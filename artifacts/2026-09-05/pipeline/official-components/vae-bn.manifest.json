@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "repository": "https://huggingface.co/baidu/ERNIE-Image-Turbo",
+  "revision": "bc68c81e2a1730a394d5fc9fae70713dee940140",
+  "prefix": "bn.",
+  "single_file_url": "https://huggingface.co/baidu/ERNIE-Image-Turbo/resolve/bc68c81e2a1730a394d5fc9fae70713dee940140/vae/diffusion_pytorch_model.safetensors",
+  "source_header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+  "sha256": "994f11f035c926c3be5a59802b401ab5304bbab7d53053995d4737b76b8411a6",
+  "payload_bytes": 520,
+  "tensors": [
+    {
+      "name": "bn.num_batches_tracked",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "I64",
+      "shape": [],
+      "source_offsets": [
+        28128,
+        28136
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+    },
+    {
+      "name": "bn.running_mean",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        128
+      ],
+      "source_offsets": [
+        28136,
+        28392
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "ee8ef2e59ab125b9c3e32175557ae5b67ce248fe5139c979b6a6affe70faacc9"
+    },
+    {
+      "name": "bn.running_var",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        128
+      ],
+      "source_offsets": [
+        28392,
+        28648
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "29c3fdc9732895bcd46334b22b4f44e70157d5dfda3dd3e85f9e26e7251ba44a"
+    }
+  ],
+  "range_window_bytes": 33554432,
+  "downloader_sha256": "d1e564b9db0658fd9dd29ddc5b43afcf146bf9a31cfc4042099d738571cd59b6",
+  "verification": "HTTPS from pinned revision, exact range and length checks; local per-tensor and component hashes. Full upstream shard hash not checked."
+}

@@ -1,0 +1,33 @@
+{
+  "scope": "Native prompt-to-PNG versus staged pinned official FP32 modules; PE off, CFG=1; identical saved initial latent",
+  "runner_sha256": "6872f5a64854015ffeb1337f6787d331834ef5845c255f4b7c323ee59294c116",
+  "validator_sha256": "0eda11e87a003c198cae92292c182210dfe17819f037d999d7d22b3bb96ed608",
+  "package_manifest_sha256": "bd97bdfd0b31d6c8d86375bc3eae35ee64479878c070e64a7fe0ab97ffa915bb",
+  "reference_fixture_sha256": "09b1b569430b98d76f745bb1f8c1c8d0d645509693d6e4ac8ceaca99d83c9d04",
+  "device": "vulkan",
+  "dit_precision": "fp32",
+  "text_scheduler_vae_precision": "fp32",
+  "command": [
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pipeline64-apple-fp32-v2/ernie-image.snapshot",
+    "--model",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/pipeline64-v1",
+    "--prompt",
+    "A red apple on a wooden table, soft daylight, realistic photo.",
+    "--output",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pipeline64-apple-fp32-v2/native.png",
+    "--device",
+    "vulkan",
+    "--precision",
+    "fp32",
+    "--steps",
+    "8",
+    "--latent",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pipeline64-apple-fp16-v1/reference/initial.f32",
+    "--trace-dir",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pipeline64-apple-fp32-v2/trace"
+  ],
+  "passed": false,
+  "comparisons": [],
+  "return_code": 139,
+  "failure": "Native generator failed"
+}

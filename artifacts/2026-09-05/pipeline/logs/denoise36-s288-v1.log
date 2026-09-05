@@ -1,0 +1,11 @@
+{"reference_step": 0, "elapsed_seconds": 29.746901262999927}
+{"reference_step": 1, "elapsed_seconds": 28.145374587000333}
+{"reference_step": 2, "elapsed_seconds": 32.15857288400002}
+{"reference_step": 3, "elapsed_seconds": 30.637840928000514}
+{"reference_step": 4, "elapsed_seconds": 29.56433900799948}
+{"reference_step": 5, "elapsed_seconds": 29.36961622400031}
+{"reference_step": 6, "elapsed_seconds": 29.501130863999606}
+{"reference_step": 7, "elapsed_seconds": 29.64418624799964}
+{"backend": "cpu", "dit_storage": "fp32", "passed": true, "failure": null}
+{"backend": "vulkan", "dit_storage": "fp32", "passed": true, "failure": null}
+{"backend": "vulkan", "dit_storage": "fp16", "passed": true, "failure": null}

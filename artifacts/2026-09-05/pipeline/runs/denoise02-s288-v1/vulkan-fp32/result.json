@@ -1,0 +1,125 @@
+{
+  "backend": "vulkan",
+  "dit_storage": "fp32",
+  "scheduler_storage": "fp32",
+  "passed": true,
+  "command": [
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/denoise02-s288-v1/ernie-denoise-runner.snapshot",
+    "--fixture",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/denoise02-s288-v1/reference",
+    "--output",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/denoise02-s288-v1/vulkan-fp32",
+    "--input-head",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-heads-s288-v1/input",
+    "--output-head",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-heads-s288-v2/output",
+    "--steps",
+    "2",
+    "--width",
+    "4",
+    "--height",
+    "4",
+    "--text-tokens",
+    "272",
+    "--backend",
+    "vulkan",
+    "--precision",
+    "fp32",
+    "--trace",
+    "--model",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v2/block-00/runtime",
+    "--model",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v2/block-01/runtime"
+  ],
+  "runner_sha256": "d6e9d6715e3a5b1c94beca7cb1c458f54f7c1ebe3c8905115fb08f5d1bc107ea",
+  "fixture_sha256": "cbe216b7233909e45cf4c208e1997a3dd54187f801e63ae797f2a78959338749",
+  "scope": "FP32 official DiT and Euler; saved synthetic text embeddings and latent; no text encoder or VAE",
+  "comparisons": [
+    {
+      "step": 0,
+      "tensor": "prediction",
+      "max_abs_error": 2.384185791015625e-05,
+      "nrmse": 1.2346973348456591e-06,
+      "reference_max_abs": 11.468019485473633,
+      "passed": true,
+      "sha256": "e9f9b06edec35fee2e952cb45391925ae25d762c021feb0965e527d71d76bd7a"
+    },
+    {
+      "step": 0,
+      "tensor": "step",
+      "max_abs_error": 4.76837158203125e-06,
+      "nrmse": 1.8681839847629468e-06,
+      "reference_max_abs": 1.673680305480957,
+      "passed": true,
+      "sha256": "9c767e774649394e2e1765bd55f52a3213173e2d7c0c83b08976d3c554ea3ddd"
+    },
+    {
+      "step": 0,
+      "tensor": "features",
+      "max_abs_error": 2.8789043426513672e-05,
+      "nrmse": 1.223788905754724e-06,
+      "reference_max_abs": 1.0,
+      "passed": true,
+      "sha256": "0f8858bd249998b7665bbffed0b0669df9e64b9fe857fb49152cd37ac0977c22"
+    },
+    {
+      "step": 1,
+      "tensor": "prediction",
+      "max_abs_error": 2.384185791015625e-05,
+      "nrmse": 2.3845288212718786e-06,
+      "reference_max_abs": 5.566835403442383,
+      "passed": true,
+      "sha256": "da42dd3db636f903648756db9f372a39498f4d069fd35bee6efb03cdbe004a04"
+    },
+    {
+      "step": 1,
+      "tensor": "step",
+      "max_abs_error": 1.430511474609375e-05,
+      "nrmse": 2.774404244241093e-06,
+      "reference_max_abs": 2.828664541244507,
+      "passed": true,
+      "sha256": "19b901c0a7f9187c88817148ef62d0dbf539fd116b355bbe6fec211f63d91f39"
+    },
+    {
+      "step": 1,
+      "tensor": "features",
+      "max_abs_error": 2.9668211936950684e-05,
+      "nrmse": 1.2244232615389352e-06,
+      "reference_max_abs": 1.0,
+      "passed": true,
+      "sha256": "0e3aaf574d6b7a1623eef23b5984bad8b589b390e936d8a8785dbf3505b3c62d"
+    }
+  ],
+  "return_code": 0,
+  "runtime": [
+    {
+      "step": 0,
+      "timestep": 1000,
+      "delta": -0.199999988079,
+      "elapsed_seconds": 3.587135796,
+      "block_load_seconds": 2.145252545,
+      "block_compute_seconds": 0.144831615,
+      "input_head_seconds": 1.003002448,
+      "output_head_seconds": 0.273690219
+    },
+    {
+      "step": 1,
+      "timestep": 800,
+      "delta": -0.800000011921,
+      "elapsed_seconds": 2.502857763,
+      "block_load_seconds": 1.616450096,
+      "block_compute_seconds": 0.157867195,
+      "input_head_seconds": 0.567201552,
+      "output_head_seconds": 0.139631155
+    },
+    {
+      "complete": true,
+      "steps": 2,
+      "blocks": 2,
+      "backend": "vulkan",
+      "dit_storage": "fp32",
+      "scheduler_storage": "fp32",
+      "trace_downloads": true
+    }
+  ]
+}

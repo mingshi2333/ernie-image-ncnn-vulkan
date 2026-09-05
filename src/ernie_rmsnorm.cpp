@@ -36,7 +36,7 @@ public:
         {
             if (affine_size != 4096 || params.get(2, 1) != 0) return -1;
         }
-        else if ((affine_size != 128 && affine_size != 4096) || params.get(2, 1) != 1) return -1;
+        else if ((affine_size != 128 && affine_size != 3072 && affine_size != 4096) || params.get(2, 1) != 1) return -1;
         int result = cpu->load_param(params);
 #if NCNN_VULKAN
         if (!result) result = gpu ? gpu->load_param(params) : -1;
@@ -102,15 +102,22 @@ public:
     int forward_inplace(ncnn::VkMat& value, ncnn::VkCompute& command, const ncnn::Option& option) const override
     {
         const auto high = fp32(option);
-        if (value.elembits() == 32) return gpu->forward_inplace(value, command, high);
-        if (value.elembits() != 16) return -1;
         ncnn::VkMat promoted, result;
         // Original options identify BF16 versus FP16 source bits. Cast type 1
         // explicitly requests FP32 while preserving the current packing.
-        vkdev->convert_packing(value, promoted, value.elempack, 1, command, option);
+        if (value.elembits() == 32) promoted = value;
+        else if (value.elembits() == 16)
+            vkdev->convert_packing(value, promoted, value.elempack, 1, command, option);
+        else return -1;
         if (promoted.empty()) return -100;
         int status = gpu->forward_inplace(promoted, command, high);
         if (status) return status;
+        if (!option.use_fp16_storage && !option.use_fp16_packed && !option.use_bf16_storage && !option.use_bf16_packed)
+        {
+            value = promoted;
+            return 0;
+        }
+        // A FP32 skip path still feeds low-storage projections after norm.
         const int storage_type = option.use_bf16_storage || option.use_bf16_packed ? 5 : 2;
         vkdev->convert_packing(promoted, result, value.elempack, storage_type, command, option);
         if (result.empty()) return -100;

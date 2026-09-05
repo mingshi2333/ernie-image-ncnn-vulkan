@@ -1,0 +1,12 @@
+{
+  "command": [
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.venv/lib64/python3.14/site-packages/pnnx/pnnx",
+    "head.pt",
+    "inputshape=[1,32,128,128]",
+    "fp16=0",
+    "device=cpu"
+  ],
+  "pnnx_sha256": "c3555c48e054245e50fa434a7673fbdad2b8f8c6cdca8c1579601f9882f474a0",
+  "return_code": -15,
+  "unsupported_diagnostics": []
+}

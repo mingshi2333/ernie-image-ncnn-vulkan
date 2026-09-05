@@ -1,0 +1,2056 @@
+{
+  "schema_version": 1,
+  "repository": "https://huggingface.co/baidu/ERNIE-Image-Turbo",
+  "revision": "bc68c81e2a1730a394d5fc9fae70713dee940140",
+  "prefix": "decoder.",
+  "single_file_url": "https://huggingface.co/baidu/ERNIE-Image-Turbo/resolve/bc68c81e2a1730a394d5fc9fae70713dee940140/vae/diffusion_pytorch_model.safetensors",
+  "source_header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+  "sha256": "197d7e112850b5525f70b46af3e899b70199a59d0afdf815fbcfe9e2a0dee6ea",
+  "payload_bytes": 99238406,
+  "tensors": [
+    {
+      "name": "decoder.conv_in.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        28648,
+        29672
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "2cdf4ddf0a26ced79659af5b0a2c7fa53efe9b81a569cd0af8ca01efdb9852ed"
+    },
+    {
+      "name": "decoder.conv_in.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512,
+        32,
+        3,
+        3
+      ],
+      "source_offsets": [
+        29672,
+        324584
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "8a0adb56663e72f60091d4fc7a54e93eb35728094b89520fcece7311106a0041"
+    },
+    {
+      "name": "decoder.conv_norm_out.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        128
+      ],
+      "source_offsets": [
+        324584,
+        324840
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "98207f37060264f0e1ec97157dfcbab7b9431556535bc310d7f4883723bf1e09"
+    },
+    {
+      "name": "decoder.conv_norm_out.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        128
+      ],
+      "source_offsets": [
+        324840,
+        325096
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "e70690402faf6044e2234d2982680d2b5376409f5e501cd102dc403e72172cb7"
+    },
+    {
+      "name": "decoder.conv_out.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        3
+      ],
+      "source_offsets": [
+        325096,
+        325102
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "146cc62d95116fc52efba986277d8c70e6d2e37cd4e4dd6080f418d6242ce23a"
+    },
+    {
+      "name": "decoder.conv_out.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        3,
+        128,
+        3,
+        3
+      ],
+      "source_offsets": [
+        325102,
+        332014
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "6b08e2e8248e63624359ac46260ed8632ab958a335b7cb28aa11758c1e3d7621"
+    },
+    {
+      "name": "decoder.mid_block.attentions.0.group_norm.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        332014,
+        333038
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "d8bd597dfe02f11252f03e74590e9cc9e6f8300f8f2eeac37f04a462d967903b"
+    },
+    {
+      "name": "decoder.mid_block.attentions.0.group_norm.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        333038,
+        334062
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "8182bde7120abf4e3267f68514f94b7dc48920d318d389b5e1cb3858c2c51c06"
+    },
+    {
+      "name": "decoder.mid_block.attentions.0.to_k.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        334062,
+        335086
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "a127915bdb60f4566a34fa083aea0c8006b2959cfc9310e0a5f89f362967c5e4"
+    },
+    {
+      "name": "decoder.mid_block.attentions.0.to_k.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512,
+        512
+      ],
+      "source_offsets": [
+        335086,
+        859374
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "0b17f061af5b04c887d605421be19f253d220a95c881a274995362528d6fcd13"
+    },
+    {
+      "name": "decoder.mid_block.attentions.0.to_out.0.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        859374,
+        860398
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "7bc2a056dcb04eb8c535e4c96e260ea0ca11bcd34966397561ba80fb62942ede"
+    },
+    {
+      "name": "decoder.mid_block.attentions.0.to_out.0.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512,
+        512
+      ],
+      "source_offsets": [
+        860398,
+        1384686
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "7f1e53f66cbf1b7de9adf71e145752767f33ef67d8bd05343981056db219639d"
+    },
+    {
+      "name": "decoder.mid_block.attentions.0.to_q.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        1384686,
+        1385710
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "a75ab18f79b29533fbcd912e75f7ffed193362a3e67e8497844d3ab9865644b7"
+    },
+    {
+      "name": "decoder.mid_block.attentions.0.to_q.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512,
+        512
+      ],
+      "source_offsets": [
+        1385710,
+        1909998
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "12847c08fed0c0ff8d127b7e0c5f5644d435f5e79f271f06c7d26e10d7f38d02"
+    },
+    {
+      "name": "decoder.mid_block.attentions.0.to_v.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        1909998,
+        1911022
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "62d2262d7afa3aed7a0840db85980cb3fd3840d6423294debe729226a9a34a80"
+    },
+    {
+      "name": "decoder.mid_block.attentions.0.to_v.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512,
+        512
+      ],
+      "source_offsets": [
+        1911022,
+        2435310
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "0f2b669451214d79b599c6b71f5642dd4b832e073925671e137191331dbbb29b"
+    },
+    {
+      "name": "decoder.mid_block.resnets.0.conv1.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        2435310,
+        2436334
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "bb08dfbceea49c21c027efc1d380883ed29328f1f04b992f0354bce4c76f623c"
+    },
+    {
+      "name": "decoder.mid_block.resnets.0.conv1.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512,
+        512,
+        3,
+        3
+      ],
+      "source_offsets": [
+        2436334,
+        7154926
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "2572b23675b3f90df33f1ef3d15879e3e1b88c4d595bf20674089780c1ac76b2"
+    },
+    {
+      "name": "decoder.mid_block.resnets.0.conv2.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        7154926,
+        7155950
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "9ffe9fb9b29494d2d6d45b05a9c2576b546093a7b97aadfbb1fa825c92a0e31a"
+    },
+    {
+      "name": "decoder.mid_block.resnets.0.conv2.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512,
+        512,
+        3,
+        3
+      ],
+      "source_offsets": [
+        7155950,
+        11874542
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "cfde987877fdb61cf33b0fde05a922369cc22f6e53eb10c377b14a5e3214dfa1"
+    },
+    {
+      "name": "decoder.mid_block.resnets.0.norm1.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        11874542,
+        11875566
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "937947d8c60fe16dd4ff42909e966728f1f3e06aa9a139c68fd2722cf4344141"
+    },
+    {
+      "name": "decoder.mid_block.resnets.0.norm1.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        11875566,
+        11876590
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "046279f603854f01c7d630caf8b6d5afcecd5b99e845d71e1aa7573ef76a34ec"
+    },
+    {
+      "name": "decoder.mid_block.resnets.0.norm2.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        11876590,
+        11877614
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "1887ac8fa8b67a0d1089d05d3d0a84ea5ed8a8c7b832a7117a74a80f84f84038"
+    },
+    {
+      "name": "decoder.mid_block.resnets.0.norm2.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        11877614,
+        11878638
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "f1aa92567b90f5f65240a1e813b54bedaf756ba3bd4bf3bb90abfb5086371348"
+    },
+    {
+      "name": "decoder.mid_block.resnets.1.conv1.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        11878638,
+        11879662
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "d15921f710e3b2f64148b24b54ff64fdd5a279acdee1003dee5ec30183923b53"
+    },
+    {
+      "name": "decoder.mid_block.resnets.1.conv1.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512,
+        512,
+        3,
+        3
+      ],
+      "source_offsets": [
+        11879662,
+        16598254
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "4ffbf46b1f4fb151ed0158d0e7a5bd0df3d5a7a9a4bf0f334a44d166cf5ba1d2"
+    },
+    {
+      "name": "decoder.mid_block.resnets.1.conv2.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        16598254,
+        16599278
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "c6f1d42b3ce8650fa7a5f2450168a700970961302b2935a88662a09705d6c1c2"
+    },
+    {
+      "name": "decoder.mid_block.resnets.1.conv2.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512,
+        512,
+        3,
+        3
+      ],
+      "source_offsets": [
+        16599278,
+        21317870
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "c519772f5e011e4f9affc8a4541ee7f57d384f19f01aacaed269c1c3160d4b48"
+    },
+    {
+      "name": "decoder.mid_block.resnets.1.norm1.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        21317870,
+        21318894
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "e3bc9bac89ec718499b3a6c8136302159d24e83f113fc3c7edb7a31cbbf57089"
+    },
+    {
+      "name": "decoder.mid_block.resnets.1.norm1.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        21318894,
+        21319918
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "cbe2804ab6f4546e73d0bd9c65488ef29d1f0b79e786620c91f1aa9596b8f4c6"
+    },
+    {
+      "name": "decoder.mid_block.resnets.1.norm2.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        21319918,
+        21320942
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "2e8a68f7a9e7b27cb0d09adf4cf8cc0b01e4c7173fd2f6285167531b389eb508"
+    },
+    {
+      "name": "decoder.mid_block.resnets.1.norm2.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        21320942,
+        21321966
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "331236417e14fb273bb14506ded13042dbf4070312dcc8bf868af20e7cac131f"
+    },
+    {
+      "name": "decoder.up_blocks.0.resnets.0.conv1.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        21321966,
+        21322990
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "45ad4f99512dfbb7c675e6cfd4c24115781c8c48e465a3351e18bc0036e6b143"
+    },
+    {
+      "name": "decoder.up_blocks.0.resnets.0.conv1.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512,
+        512,
+        3,
+        3
+      ],
+      "source_offsets": [
+        21322990,
+        26041582
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "96c7c29a51a956d9392d3aef9cfa3362e5ba4b75c6458d1f46fa84227afcabb3"
+    },
+    {
+      "name": "decoder.up_blocks.0.resnets.0.conv2.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        26041582,
+        26042606
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "8a46659f9580e538dbcf2a1c3b2d0b544c386a391d8c9691774748f3b2577827"
+    },
+    {
+      "name": "decoder.up_blocks.0.resnets.0.conv2.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512,
+        512,
+        3,
+        3
+      ],
+      "source_offsets": [
+        26042606,
+        30761198
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "9c3cceee50b5b26583070a4cef7356d0b197e0a328d3e66759e362613f61dabf"
+    },
+    {
+      "name": "decoder.up_blocks.0.resnets.0.norm1.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        30761198,
+        30762222
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "320732396537eaa3b912abbfd575efb0f9450f65e628aa0c7b0f994fae6d9eba"
+    },
+    {
+      "name": "decoder.up_blocks.0.resnets.0.norm1.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        30762222,
+        30763246
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "1a6fe9c3a01c85cce4f16caa2475d59db3808bc0a5ad97ffacf70767b0d528e2"
+    },
+    {
+      "name": "decoder.up_blocks.0.resnets.0.norm2.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        30763246,
+        30764270
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "0084a5069daa34243689b0a260d297ac6eb00ee46e4f7e6c6d95499087b625fc"
+    },
+    {
+      "name": "decoder.up_blocks.0.resnets.0.norm2.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        30764270,
+        30765294
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "b3cb62b536841ada28a34c92151a892e5d5abb3d56de8e546a4e535715df4592"
+    },
+    {
+      "name": "decoder.up_blocks.0.resnets.1.conv1.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        30765294,
+        30766318
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "3fb174198e4aa2dece2df50e208c08f40fd99e9cc339305b1b6a8fd647a7140b"
+    },
+    {
+      "name": "decoder.up_blocks.0.resnets.1.conv1.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512,
+        512,
+        3,
+        3
+      ],
+      "source_offsets": [
+        30766318,
+        35484910
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "af2a2741acc5e9fe3e49d9d4564f29202ec356b9a789e9a0c8554817521a49e9"
+    },
+    {
+      "name": "decoder.up_blocks.0.resnets.1.conv2.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        35484910,
+        35485934
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "a22ae5db6862db327e17b106745f52184af12bb2d47095e0ca456ba11465f83c"
+    },
+    {
+      "name": "decoder.up_blocks.0.resnets.1.conv2.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512,
+        512,
+        3,
+        3
+      ],
+      "source_offsets": [
+        35485934,
+        40204526
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "a21878326af8619f2b25414ad994af3ea3c70d682f8d83a6831f758b250bc85e"
+    },
+    {
+      "name": "decoder.up_blocks.0.resnets.1.norm1.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        40204526,
+        40205550
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "1773a44f7c370deae005d5d444131fd9bf9320cfb7364685333c3e402433f2c6"
+    },
+    {
+      "name": "decoder.up_blocks.0.resnets.1.norm1.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        40205550,
+        40206574
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "9d8e945ccfbac011c15e6dbdf842408c353b44cf531049b214d9264035db9d87"
+    },
+    {
+      "name": "decoder.up_blocks.0.resnets.1.norm2.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        40206574,
+        40207598
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "f276788b776b7d3c7270f4ff5e671e1a571de02942eac940206095c5fb088d2f"
+    },
+    {
+      "name": "decoder.up_blocks.0.resnets.1.norm2.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        40207598,
+        40208622
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "acfca7669ac1b712e3c42fcee32259a0f7d5d3e3a9d5ecfa2fed614137e4763c"
+    },
+    {
+      "name": "decoder.up_blocks.0.resnets.2.conv1.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        40208622,
+        40209646
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "090564ec1b145f415b63900dace7feb9f420f1c955beb703c9fc426d3b261275"
+    },
+    {
+      "name": "decoder.up_blocks.0.resnets.2.conv1.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512,
+        512,
+        3,
+        3
+      ],
+      "source_offsets": [
+        40209646,
+        44928238
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "e3d114b08fe0db6b9b46773f794afdb5df4f557e557fa3ef9074cdc43c7afadc"
+    },
+    {
+      "name": "decoder.up_blocks.0.resnets.2.conv2.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        44928238,
+        44929262
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "9d07074a8f450c028dcebb2061f34799921dbf85ad52ca4cd4c4cade7006a505"
+    },
+    {
+      "name": "decoder.up_blocks.0.resnets.2.conv2.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512,
+        512,
+        3,
+        3
+      ],
+      "source_offsets": [
+        44929262,
+        49647854
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "8bf9ce3e5d0395692315c950a567f1de17e2e530facb12b520daabfd96867441"
+    },
+    {
+      "name": "decoder.up_blocks.0.resnets.2.norm1.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        49647854,
+        49648878
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "8dd96c9adefd0e1eeb98d65ce4aeffcb35c226723d522a8cbd7ef515ecb2a018"
+    },
+    {
+      "name": "decoder.up_blocks.0.resnets.2.norm1.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        49648878,
+        49649902
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "41dc36aa961af8a6a1cf9738a8e54e9bbb2f42b06a13dd6506e0621195c0fced"
+    },
+    {
+      "name": "decoder.up_blocks.0.resnets.2.norm2.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        49649902,
+        49650926
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "b1e7fe91b6c6998c5c682ccb6f9e47be0c8ab5986caeedb312ea216eb8a8ceb8"
+    },
+    {
+      "name": "decoder.up_blocks.0.resnets.2.norm2.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        49650926,
+        49651950
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "be2634e3faaf98f4f4720ed1fc3a2947aff0f4d77694025be8bc677099940ac7"
+    },
+    {
+      "name": "decoder.up_blocks.0.upsamplers.0.conv.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        49651950,
+        49652974
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "542cde0bd90a97a6fed8a13bffcafa339e3252dbff720a1eb70a81cd0a35186e"
+    },
+    {
+      "name": "decoder.up_blocks.0.upsamplers.0.conv.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512,
+        512,
+        3,
+        3
+      ],
+      "source_offsets": [
+        49652974,
+        54371566
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "79edf5f7f35b9eabfedbb100fedafd54251f0b7b60c85303ef0f32c7e22934b7"
+    },
+    {
+      "name": "decoder.up_blocks.1.resnets.0.conv1.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        54371566,
+        54372590
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "a7f2c0ec57e9cb2aff03db5cd4d09f0921bd387a0292ab2cc9b601b92c5eca2b"
+    },
+    {
+      "name": "decoder.up_blocks.1.resnets.0.conv1.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512,
+        512,
+        3,
+        3
+      ],
+      "source_offsets": [
+        54372590,
+        59091182
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "acf338a30928bc1b442b957930f09cbb17367f6f5af3a42e28c40cc72f685e41"
+    },
+    {
+      "name": "decoder.up_blocks.1.resnets.0.conv2.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        59091182,
+        59092206
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "a0fb82c0ce6f1b0a9a28958a6f4276392c9d0fa53e0bd6ac117b4b507121c53a"
+    },
+    {
+      "name": "decoder.up_blocks.1.resnets.0.conv2.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512,
+        512,
+        3,
+        3
+      ],
+      "source_offsets": [
+        59092206,
+        63810798
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "65be5954194de5291164b8b3d4feb6cbab5cbc3d3d807ec63a19ca2dd31e734e"
+    },
+    {
+      "name": "decoder.up_blocks.1.resnets.0.norm1.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        63810798,
+        63811822
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "622331186856aa02e96cbb0dc47cb1dd241bf8b3fb7fd2ae5dc372680fe3c052"
+    },
+    {
+      "name": "decoder.up_blocks.1.resnets.0.norm1.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        63811822,
+        63812846
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "fc9984e8792dba8037a28698b3b13f046be79a049b979ece3c290fd58d95dc03"
+    },
+    {
+      "name": "decoder.up_blocks.1.resnets.0.norm2.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        63812846,
+        63813870
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "78247f396b54908747327086d12e7f26b23f93556aaf9fcc7039e3510b2623c3"
+    },
+    {
+      "name": "decoder.up_blocks.1.resnets.0.norm2.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        63813870,
+        63814894
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "f00006ae452f03df0ad2b04492871ca4f342ff6820270a2ca4871d84c5060a27"
+    },
+    {
+      "name": "decoder.up_blocks.1.resnets.1.conv1.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        63814894,
+        63815918
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "58280a82ce8fc9d048bcffbb6f8e8ea04d834423189ee58fbbf87729417d6f41"
+    },
+    {
+      "name": "decoder.up_blocks.1.resnets.1.conv1.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512,
+        512,
+        3,
+        3
+      ],
+      "source_offsets": [
+        63815918,
+        68534510
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "cc6a572aba236af3dd9f7ee7a34bd3427bd1d637477e438a542e671cd5c442d6"
+    },
+    {
+      "name": "decoder.up_blocks.1.resnets.1.conv2.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        68534510,
+        68535534
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "f92be82c0a096fd34351108b9860d7cf4dd8920c2134a1a8379e849cd612b883"
+    },
+    {
+      "name": "decoder.up_blocks.1.resnets.1.conv2.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512,
+        512,
+        3,
+        3
+      ],
+      "source_offsets": [
+        68535534,
+        73254126
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "5c8378693cdc632dca04d632fa4a368db6efd902e2f8b497181751d87079f994"
+    },
+    {
+      "name": "decoder.up_blocks.1.resnets.1.norm1.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        73254126,
+        73255150
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "3f35eec59fd85b56db90c70d0b355490ae911d21182b054dd9afaae53c01f476"
+    },
+    {
+      "name": "decoder.up_blocks.1.resnets.1.norm1.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        73255150,
+        73256174
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "e90a2488826d37679da9ae190f02b2eff4db87259a93001aa7969d204dedb798"
+    },
+    {
+      "name": "decoder.up_blocks.1.resnets.1.norm2.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        73256174,
+        73257198
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "2f0e1b16dca8bcd555bb6b93628bedeb2fc721cc2f017b09b72919a527fd7ea1"
+    },
+    {
+      "name": "decoder.up_blocks.1.resnets.1.norm2.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        73257198,
+        73258222
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "f7cd78ad264b5825ebcd6661cc4447503e9293f1e25e885b7aebf00e28bd3626"
+    },
+    {
+      "name": "decoder.up_blocks.1.resnets.2.conv1.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        73258222,
+        73259246
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "38339a42144c1d342db23fd3abafb21af5ec78ca965976bd7054bb551204acf7"
+    },
+    {
+      "name": "decoder.up_blocks.1.resnets.2.conv1.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512,
+        512,
+        3,
+        3
+      ],
+      "source_offsets": [
+        73259246,
+        77977838
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "bdfe8bc6a05964204d2a94cc5c9ca51000cf21faea5423dec8ad927629a3584a"
+    },
+    {
+      "name": "decoder.up_blocks.1.resnets.2.conv2.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        77977838,
+        77978862
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "00bb4c4fdf2d4e319c2f16f0bd63e9f0f2d80bbff40cf7aca3908fc79f8463a7"
+    },
+    {
+      "name": "decoder.up_blocks.1.resnets.2.conv2.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512,
+        512,
+        3,
+        3
+      ],
+      "source_offsets": [
+        77978862,
+        82697454
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "ac1d7b566556a0a8265309bded7e7685577dd0d5469e93ed49e785f7dba71277"
+    },
+    {
+      "name": "decoder.up_blocks.1.resnets.2.norm1.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        82697454,
+        82698478
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "9e38cf1b8d4856040b92efaf84b3106821797f62a8960bb2acc28cacd8a37e48"
+    },
+    {
+      "name": "decoder.up_blocks.1.resnets.2.norm1.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        82698478,
+        82699502
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "5542da937e215e104488e56a662926b9efe2ef1952e0269501f38204c05ff50a"
+    },
+    {
+      "name": "decoder.up_blocks.1.resnets.2.norm2.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        82699502,
+        82700526
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "ab5dbb9ec67af6dc647bb698d68936eb752ca7734c6bb8c79144bc9e490c1052"
+    },
+    {
+      "name": "decoder.up_blocks.1.resnets.2.norm2.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        82700526,
+        82701550
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "95758365168e7ce6c3af772548cf6a9621ca558e983b0032667285585171db5d"
+    },
+    {
+      "name": "decoder.up_blocks.1.upsamplers.0.conv.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        82701550,
+        82702574
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "680d3b70a4c821c44d99351a918a5287d3e580ab48fd80010fa4abbac067cc3a"
+    },
+    {
+      "name": "decoder.up_blocks.1.upsamplers.0.conv.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512,
+        512,
+        3,
+        3
+      ],
+      "source_offsets": [
+        82702574,
+        87421166
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "01cc47c0ab763dccd30c47e33a8571b4b30dc572f11d5e74fee3e56c0385e5ae"
+    },
+    {
+      "name": "decoder.up_blocks.2.resnets.0.conv1.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        256
+      ],
+      "source_offsets": [
+        87421166,
+        87421678
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "7aea6a9ba6d1ae835365a5c3c11b277602500a5ee4429284e4696feff0bcb0f9"
+    },
+    {
+      "name": "decoder.up_blocks.2.resnets.0.conv1.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        256,
+        512,
+        3,
+        3
+      ],
+      "source_offsets": [
+        87421678,
+        89780974
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "4d4ae20c71b63495decda7b3ab0db9dd8b6b35dc64c574a41eaa2ebf4208365a"
+    },
+    {
+      "name": "decoder.up_blocks.2.resnets.0.conv2.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        256
+      ],
+      "source_offsets": [
+        89780974,
+        89781486
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "d933009008e753af286ce11bc7a1953c94a5eae26cc1337c685c944361537d19"
+    },
+    {
+      "name": "decoder.up_blocks.2.resnets.0.conv2.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        256,
+        256,
+        3,
+        3
+      ],
+      "source_offsets": [
+        89781486,
+        90961134
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "2b78d75c41ff1acc12fde27c4891aeb8a6cd5f6fd2957e59698a160b7e7b1414"
+    },
+    {
+      "name": "decoder.up_blocks.2.resnets.0.conv_shortcut.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        256
+      ],
+      "source_offsets": [
+        90961134,
+        90961646
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "e3958d9c880646f1758bde986f2fd724ef69c9bcf63a0712dffb3f826875f748"
+    },
+    {
+      "name": "decoder.up_blocks.2.resnets.0.conv_shortcut.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        256,
+        512,
+        1,
+        1
+      ],
+      "source_offsets": [
+        90961646,
+        91223790
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "4c7f38fa65ead907383634a9e793e089c3340a125dd78173c6141a27b8b71e96"
+    },
+    {
+      "name": "decoder.up_blocks.2.resnets.0.norm1.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        91223790,
+        91224814
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "15db90c87430d33b32b43343acd620f94dafd719d5d82112acec8e1df7656cb1"
+    },
+    {
+      "name": "decoder.up_blocks.2.resnets.0.norm1.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        512
+      ],
+      "source_offsets": [
+        91224814,
+        91225838
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "9d5a7d197c5195617f893151eb4aecacd30b4d9de8631531ac9c740ab6a473b9"
+    },
+    {
+      "name": "decoder.up_blocks.2.resnets.0.norm2.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        256
+      ],
+      "source_offsets": [
+        91225838,
+        91226350
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "cf534f5f5539b04ba8002be42f0c70cbd3fba78199b9033866b0f875a202b708"
+    },
+    {
+      "name": "decoder.up_blocks.2.resnets.0.norm2.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        256
+      ],
+      "source_offsets": [
+        91226350,
+        91226862
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "a668b7d87b7523f929f148d74e964091ad87cab30be55916a544d6facbf74e1e"
+    },
+    {
+      "name": "decoder.up_blocks.2.resnets.1.conv1.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        256
+      ],
+      "source_offsets": [
+        91226862,
+        91227374
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "4141395dea9c492d0c1cb96b6d758555d06422ba83ee2c46f54c0938aa88add5"
+    },
+    {
+      "name": "decoder.up_blocks.2.resnets.1.conv1.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        256,
+        256,
+        3,
+        3
+      ],
+      "source_offsets": [
+        91227374,
+        92407022
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "820062747b035d053afcbee5a9bf599aaea674e7dee8ab9942d019f09b020cdc"
+    },
+    {
+      "name": "decoder.up_blocks.2.resnets.1.conv2.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        256
+      ],
+      "source_offsets": [
+        92407022,
+        92407534
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "dd268eb932f979eddc8b6b2059a921389ee42ea50446e1b1134478b2c0fc562a"
+    },
+    {
+      "name": "decoder.up_blocks.2.resnets.1.conv2.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        256,
+        256,
+        3,
+        3
+      ],
+      "source_offsets": [
+        92407534,
+        93587182
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "3e717fcfe58866084884fe735696b08df410763899c41345059235894656a1e9"
+    },
+    {
+      "name": "decoder.up_blocks.2.resnets.1.norm1.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        256
+      ],
+      "source_offsets": [
+        93587182,
+        93587694
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "f9fae9c4fa69e1d67a32a53c08a51439027629e670345560d528e088a9175d10"
+    },
+    {
+      "name": "decoder.up_blocks.2.resnets.1.norm1.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        256
+      ],
+      "source_offsets": [
+        93587694,
+        93588206
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "9741f7c4978bbb36afacd5dd17fb060928eeeebc06b410b730b2cf37c09f6d88"
+    },
+    {
+      "name": "decoder.up_blocks.2.resnets.1.norm2.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        256
+      ],
+      "source_offsets": [
+        93588206,
+        93588718
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "2a30573747b8750ca48c51529a94a0bfb4bbc0476b41374e36e53fc0f9183d99"
+    },
+    {
+      "name": "decoder.up_blocks.2.resnets.1.norm2.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        256
+      ],
+      "source_offsets": [
+        93588718,
+        93589230
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "3292209e6688e91b936bc8c15b614c49c680cca85d37f6de98d39f2eaf827653"
+    },
+    {
+      "name": "decoder.up_blocks.2.resnets.2.conv1.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        256
+      ],
+      "source_offsets": [
+        93589230,
+        93589742
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "cac684632811a8ebaa403bf0312f9bbb44a74714d53dac36496d013eb181733d"
+    },
+    {
+      "name": "decoder.up_blocks.2.resnets.2.conv1.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        256,
+        256,
+        3,
+        3
+      ],
+      "source_offsets": [
+        93589742,
+        94769390
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "027c6d2aaf8ca44f45a9f655113a0e0173c93e9842ccd6308a8063a211c50079"
+    },
+    {
+      "name": "decoder.up_blocks.2.resnets.2.conv2.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        256
+      ],
+      "source_offsets": [
+        94769390,
+        94769902
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "c953d12240ad89b30828858de1aae884d00eb25399cb2dc52bc5e5c19c3468da"
+    },
+    {
+      "name": "decoder.up_blocks.2.resnets.2.conv2.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        256,
+        256,
+        3,
+        3
+      ],
+      "source_offsets": [
+        94769902,
+        95949550
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "2cf30025eb9b712f1ed989634303f19b3043bccb55a6cd8a989582938693bb5e"
+    },
+    {
+      "name": "decoder.up_blocks.2.resnets.2.norm1.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        256
+      ],
+      "source_offsets": [
+        95949550,
+        95950062
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "f9e23d37abc7bca5282e160b22ed16fb216c9084e553b050bc5b50768b2eff03"
+    },
+    {
+      "name": "decoder.up_blocks.2.resnets.2.norm1.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        256
+      ],
+      "source_offsets": [
+        95950062,
+        95950574
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "69300f2a9360282831441b0e9db1d14af84b61359015b5d1d162e422da232908"
+    },
+    {
+      "name": "decoder.up_blocks.2.resnets.2.norm2.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        256
+      ],
+      "source_offsets": [
+        95950574,
+        95951086
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "eee524cd0474f2980d8cb4e9412ed01fd457ed474fc18569b9105c6eae5baa2b"
+    },
+    {
+      "name": "decoder.up_blocks.2.resnets.2.norm2.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        256
+      ],
+      "source_offsets": [
+        95951086,
+        95951598
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "a42fec1a8e7313ef8a05556272f461d153bf6d47ae6a8e239160335639cd21b2"
+    },
+    {
+      "name": "decoder.up_blocks.2.upsamplers.0.conv.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        256
+      ],
+      "source_offsets": [
+        95951598,
+        95952110
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "5d22b98698127c4c7af7840ed7c807a9d7088b0a6015cff99b0da2abae3f9ba6"
+    },
+    {
+      "name": "decoder.up_blocks.2.upsamplers.0.conv.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        256,
+        256,
+        3,
+        3
+      ],
+      "source_offsets": [
+        95952110,
+        97131758
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "04858b1c78524be869717ba3420ed8d4df1633479d73f1cce14b5debaf525f54"
+    },
+    {
+      "name": "decoder.up_blocks.3.resnets.0.conv1.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        128
+      ],
+      "source_offsets": [
+        97131758,
+        97132014
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "92744867fb5b360a9715faddf628d919f71a7b02fa232256cb4570fd6dfae20d"
+    },
+    {
+      "name": "decoder.up_blocks.3.resnets.0.conv1.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        128,
+        256,
+        3,
+        3
+      ],
+      "source_offsets": [
+        97132014,
+        97721838
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "83601e40f48f096306868327c7035c286e668a81279c4e23bfc2bd12be9d59c4"
+    },
+    {
+      "name": "decoder.up_blocks.3.resnets.0.conv2.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        128
+      ],
+      "source_offsets": [
+        97721838,
+        97722094
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "ac081084edc818fef6916b39981bc6cb6585366ace566118f7ca76cf06e1da50"
+    },
+    {
+      "name": "decoder.up_blocks.3.resnets.0.conv2.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "source_offsets": [
+        97722094,
+        98017006
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "6a1477b600f1d69b3d1db670307c8fa05289baabceada94b683c2dcc37047174"
+    },
+    {
+      "name": "decoder.up_blocks.3.resnets.0.conv_shortcut.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        128
+      ],
+      "source_offsets": [
+        98017006,
+        98017262
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "d089c182322434a3c6d49467eac69745d2a9ef6ab0d2432693db3c5893dcfa01"
+    },
+    {
+      "name": "decoder.up_blocks.3.resnets.0.conv_shortcut.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        128,
+        256,
+        1,
+        1
+      ],
+      "source_offsets": [
+        98017262,
+        98082798
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "5d8ee5867e00e1593f76bbdff7193db16e32ee35cce955bee079845ea5531265"
+    },
+    {
+      "name": "decoder.up_blocks.3.resnets.0.norm1.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        256
+      ],
+      "source_offsets": [
+        98082798,
+        98083310
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "d94d3d966427dc294fb3a8b4e6b95ccc1f1521df398854ec2bbd972fef6c0ad0"
+    },
+    {
+      "name": "decoder.up_blocks.3.resnets.0.norm1.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        256
+      ],
+      "source_offsets": [
+        98083310,
+        98083822
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "1090f5cde25c7b828898fd1fd853fb6cccb4bebe9ccd76a1a250c6635f9c9ac7"
+    },
+    {
+      "name": "decoder.up_blocks.3.resnets.0.norm2.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        128
+      ],
+      "source_offsets": [
+        98083822,
+        98084078
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "3f508bced1837b72764a8183fc251f5a4cf5bec5c290c82990093097f0e3685f"
+    },
+    {
+      "name": "decoder.up_blocks.3.resnets.0.norm2.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        128
+      ],
+      "source_offsets": [
+        98084078,
+        98084334
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "b1295cceb70223e7941ef818881e57ae1e68d5b40b5feb5449f72d50ea3cb23c"
+    },
+    {
+      "name": "decoder.up_blocks.3.resnets.1.conv1.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        128
+      ],
+      "source_offsets": [
+        98084334,
+        98084590
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "28663f0a2a722894d8983fd75def4f265e52c0e18fb60a73ad59df8bff688f03"
+    },
+    {
+      "name": "decoder.up_blocks.3.resnets.1.conv1.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "source_offsets": [
+        98084590,
+        98379502
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "8f4854bf63dc6030a91ebc43792c50853bdd6217ba9d9ece80403059989c8d84"
+    },
+    {
+      "name": "decoder.up_blocks.3.resnets.1.conv2.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        128
+      ],
+      "source_offsets": [
+        98379502,
+        98379758
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "f95b2f2038861e740aa1a4d89cdce223177e2b18d83f7ecfe4c6489394fdd75b"
+    },
+    {
+      "name": "decoder.up_blocks.3.resnets.1.conv2.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "source_offsets": [
+        98379758,
+        98674670
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "3b8b77737d5a7d6c342f1209122e0e0a7b11e3a4fc127dea93084d01653cf6f1"
+    },
+    {
+      "name": "decoder.up_blocks.3.resnets.1.norm1.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        128
+      ],
+      "source_offsets": [
+        98674670,
+        98674926
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "778c8aade951df886f26cfde3c1081e3127e56f827f8278e281cefa3396b94d6"
+    },
+    {
+      "name": "decoder.up_blocks.3.resnets.1.norm1.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        128
+      ],
+      "source_offsets": [
+        98674926,
+        98675182
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "5083b3ca5f5e9db330432f5c64109df2953f8dcd648ad4a0f8a0987450ef744f"
+    },
+    {
+      "name": "decoder.up_blocks.3.resnets.1.norm2.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        128
+      ],
+      "source_offsets": [
+        98675182,
+        98675438
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "2429f5f6f1d13b006bb0e8589c0ed04bfd6f69abf1e6cf43c47d81d4d441b01a"
+    },
+    {
+      "name": "decoder.up_blocks.3.resnets.1.norm2.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        128
+      ],
+      "source_offsets": [
+        98675438,
+        98675694
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "70e07e26734bbccb8ca0152a779ff8acbc6bae0635d887b674db751b93ac03c6"
+    },
+    {
+      "name": "decoder.up_blocks.3.resnets.2.conv1.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        128
+      ],
+      "source_offsets": [
+        98675694,
+        98675950
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "7ddcfe5bac1b23150f38e974f941986ffb377eec309898e14bb642f1fc5906c9"
+    },
+    {
+      "name": "decoder.up_blocks.3.resnets.2.conv1.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "source_offsets": [
+        98675950,
+        98970862
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "802e1055640a15d435561fd8aec0a33adad5b9db6181b8582508e6821f344ef8"
+    },
+    {
+      "name": "decoder.up_blocks.3.resnets.2.conv2.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        128
+      ],
+      "source_offsets": [
+        98970862,
+        98971118
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "b3b9685a44e2a385fdaf061402cc4fdce12a79aad544a715713a433d32c45c33"
+    },
+    {
+      "name": "decoder.up_blocks.3.resnets.2.conv2.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "source_offsets": [
+        98971118,
+        99266030
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "4430df049f39602b200c6b6ef091752f96af294d54953a3c826bfbe5362bda77"
+    },
+    {
+      "name": "decoder.up_blocks.3.resnets.2.norm1.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        128
+      ],
+      "source_offsets": [
+        99266030,
+        99266286
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "93e1e8aaeaaa6fdc18029676c38c5ba637288f13587e8084545ba7cad67c7c50"
+    },
+    {
+      "name": "decoder.up_blocks.3.resnets.2.norm1.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        128
+      ],
+      "source_offsets": [
+        99266286,
+        99266542
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "82763ea7faf48885b1a1f1c2b96382567c68e26ab2ca7e48511d925514319328"
+    },
+    {
+      "name": "decoder.up_blocks.3.resnets.2.norm2.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        128
+      ],
+      "source_offsets": [
+        99266542,
+        99266798
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "ddfa2b8477ff83dfb8a8e6bd6926bf4ccf75e06c072bb44be826bdceea217343"
+    },
+    {
+      "name": "decoder.up_blocks.3.resnets.2.norm2.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        128
+      ],
+      "source_offsets": [
+        99266798,
+        99267054
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "8e86c3891ea02a792c7d1497d8fb769b4e927b731647c0644b7f37d4b01a2a3f"
+    }
+  ],
+  "range_window_bytes": 33554432,
+  "downloader_sha256": "d1e564b9db0658fd9dd29ddc5b43afcf146bf9a31cfc4042099d738571cd59b6",
+  "verification": "HTTPS from pinned revision, exact range and length checks; local per-tensor and component hashes. Full upstream shard hash not checked."
+}

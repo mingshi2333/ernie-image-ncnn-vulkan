@@ -81,14 +81,17 @@ def main():
     parser.add_argument('--runner', type=Path, default=ROOT / 'build/ernie-head-runner')
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--cpu-only', action='store_true')
+    parser.add_argument('--vulkan-fp32-only', action='store_true')
     args = parser.parse_args()
-    if args.output.exists():
+    if args.output.exists() or (args.cpu_only and args.vulkan_fp32_only):
         parser.error('Use a new output directory')
     verify(args.model)
     args.output.mkdir(parents=True)
     runner = args.output / 'ernie-head-runner.snapshot'
     shutil.copy2(args.runner, runner)
     variants = [('cpu', 'fp32')] if args.cpu_only else [('cpu', 'fp32'), ('vulkan', 'fp32'), ('vulkan', 'fp16'), ('vulkan', 'bf16')]
+    if args.vulkan_fp32_only:
+        variants = [('vulkan', 'fp32')]
     results = []
     for backend, precision in variants:
         item = run(args.model, args.output / f'{backend}-{precision}', runner, backend, precision)

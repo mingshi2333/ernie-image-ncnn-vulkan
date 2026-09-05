@@ -1,0 +1,97 @@
+{
+  "captured_at": "2026-09-05T07:29:18.038081+00:00",
+  "parent_commit": "e0688319e58408660557435764d1749d367c991d",
+  "ncnn_revision": "6a1bf000f363714839a36793addc8c879d3d899e",
+  "scope": "64x64 full numerical comparison and one 1024x1024 native functional/resource run",
+  "full64_passed": true,
+  "full64_png": {
+    "shape": [
+      64,
+      64,
+      3
+    ],
+    "mae": 1.4654134114583333,
+    "max_abs": 15.0,
+    "sha256": "d9cd2369d09ae3fff4c8267ca37fb0538ef58fb9eb7254f8182c04e4fca08cc9",
+    "passed": true
+  },
+  "full64_final": {
+    "tensor": "final",
+    "max_abs_error": 0.2848173677921295,
+    "nrmse": 0.052440392452810236,
+    "reference_max_abs": 4.635237693786621,
+    "passed": true,
+    "sha256": "0c9f4b51f0e94fbca85377737e0da7ef627cbcf99a8226725bcf82ba9cd8a27d"
+  },
+  "vae1024_passed": true,
+  "vae1024_output": {
+    "nrmse": 2.0179114347507727e-06,
+    "max_abs_error": 1.2353062629699707e-05,
+    "max_abs_limit": 0.00037963845729827885,
+    "nrmse_limit": 2e-05,
+    "actual_sha256": "34bec9cbed9c8cfef1152968eb26f17940fe864928ddf401144e760a3e00db6d",
+    "passed": true
+  },
+  "full1024_passed": true,
+  "full1024_quality_validated": false,
+  "full1024_image": {
+    "size": [
+      1024,
+      1024
+    ],
+    "mode": "RGB",
+    "sha256": "06ab1162a81914ff25527719fba201e268b5a40b215c03aea469ba68e0698f9c"
+  },
+  "full1024_resources": {
+    "max_rss_kib": 24145308,
+    "total_seconds": 522.174,
+    "text_seconds": 12.8351,
+    "denoise_seconds": [
+      59.7523,
+      56.3492,
+      56.3934,
+      55.812,
+      56.2329,
+      55.5835,
+      55.7007,
+      55.7733
+    ],
+    "vae_and_png_seconds": 56.4258,
+    "gpu_device_total_mib": {
+      "first": 1228,
+      "sampled_peak": 2605,
+      "samples": 5203
+    },
+    "system_memory_before_kib": {
+      "MemAvailable": 25362384,
+      "SwapTotal": 65042428,
+      "SwapFree": 61001608
+    },
+    "system_memory_after_kib": {
+      "MemAvailable": 26056024,
+      "SwapTotal": 65042428,
+      "SwapFree": 59997036
+    }
+  },
+  "binaries_sha256": {
+    "build/ernie-image": "ef82719a239710197d8fd9a43215491b58596c4e7eaabce5c158573f7b0d2713",
+    "build-cpu/ernie-image": "77f98f462c40e3ed35d9da3d0200b08e475e04546f2c316cdef5516e00ce6239"
+  },
+  "source_capture_scope": "Current source snapshot; individual results retain their historical binary/tool hashes. Later CLI input finite checks and benchmark error handling do not retroactively change runs.",
+  "retained_failures": [
+    "text-block00-validation-v1",
+    "pipeline64-apple-fp16-v1",
+    "pipeline64-apple-fp32-v2",
+    "pipeline-nan-diagnostic-v1",
+    "real-activation-diagnostic-v1",
+    "vae-128x128-validation-v1",
+    "vae-128x128-cpu-validation-v1",
+    "vae-128x128-cpu-validation-v2"
+  ],
+  "excluded": [
+    "model weights",
+    "reference/actual tensor payloads",
+    "binaries",
+    "generated images"
+  ]
+}

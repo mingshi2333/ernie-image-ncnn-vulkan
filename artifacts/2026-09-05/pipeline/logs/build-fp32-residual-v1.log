@@ -1,0 +1,25 @@
+[0/1] Re-running CMake...
+-- CMAKE_INSTALL_PREFIX = /usr/local
+-- NCNN_VERSION_STRING = 1.0.20260905
+-- Target arch: x86 64bit
+-- Found glslang: /usr/lib64/libglslang.a (found version "16.2.0")
+-- Found SPIRV: /usr/lib64/libSPIRV.a (found version "16.2.0")
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/build
+[1/17] Building CXX object CMakeFiles/ernie-runtime.dir/src/ernie_gelu.cpp.o
+[2/17] Building CXX object CMakeFiles/ernie-runtime.dir/src/ernie_rmsnorm.cpp.o
+[3/17] Building CXX object CMakeFiles/ernie-runtime.dir/src/ernie_residual.cpp.o
+[4/17] Linking CXX static library libernie-runtime.a
+[5/17] Building CXX object CMakeFiles/ernie-head-runner.dir/probes/head_runner.cpp.o
+[6/17] Building CXX object CMakeFiles/ernie-image.dir/src/main.cpp.o
+[7/17] Linking CXX executable ernie-gelu-probe
+[8/17] Linking CXX executable ernie-block-runner
+[9/17] Linking CXX executable ernie-latent-runner
+[10/17] Linking CXX executable ernie-block-sequence-runner
+[11/17] Linking CXX executable ernie-head-runner
+[12/17] Linking CXX executable ernie-denoise-runner
+[13/17] Linking CXX executable ernie-text-runner
+[14/17] Linking CXX executable ernie-image
+[15/17] Linking CXX executable ernie-rmsnorm-probe
+[16/17] Linking CXX executable ernie-latent-contract

@@ -1,0 +1,7 @@
+{
+  "scope": "Block 14 receives saved FP16 activations from a real prompt at timestep 1000; before/after residual precision fix",
+  "cpu_fp32_max_abs": 78784.765625,
+  "fixed_fp16_max_abs": 78792.0,
+  "max_abs_error": 7.234375,
+  "nrmse": 0.0002848189639718553
+}

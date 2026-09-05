@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "component": "vae",
+  "source_sha256": "43a66c276638071da187e31f47c98d3e509971237a8164ab5005aab223407143",
+  "weights": {
+    "decoder": "197d7e112850b5525f70b46af3e899b70199a59d0afdf815fbcfe9e2a0dee6ea",
+    "post-quant": "9d8a703c17acf65f7f12fdc7cde6e52e73be83fd8cadf51e42737f50afe9f8a9"
+  },
+  "ncnn_revision": "6a1bf000f363714839a36793addc8c879d3d899e",
+  "files": {
+    "head.ncnn.param": "6ecb591c473c56f3d9e923c845be2125e6e42b33ee2cd8d4d1783db68e32c4c5",
+    "head.ncnn.bin": "ee7db4b3725079f9baeb8587bcad56fd3f04d92254b90d86acc894c1ec63cd24",
+    "fixture.json": "59e4f996b5086b045982981635b0ae450dc05079294c5c8d48c4c9e953a1fc30",
+    "conversion.json": "c4b86ad00dd1c4fa13eff7003d0a0ef606de3fd8d4313f3e1aea1ca8886ce11b",
+    "in0.f32": "4b6fbf045688cc0ed9c9e589b9dc0cd2955f2ac9847a581357c4fc16d4c204e1",
+    "out0.f32": "117a89382833e69483036ce2a3a6a5975e04afbbd14877bf9a0869a794c7559d"
+  }
+}

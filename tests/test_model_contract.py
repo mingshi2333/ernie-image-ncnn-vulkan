@@ -16,7 +16,44 @@ from prepare_block import sha256
 from validate_dit_block import verify
 from pack_block_weights import pack
 from build_dit_weights import graph_hash, GRAPH_SHA256
-from fetch_component import bounded_ranges
+from fetch_component import bounded_ranges, fetch_component
+
+
+class SingleFileFetchTests(unittest.TestCase):
+    def test_unsharded_exact_component_and_reuse(self):
+        payload = struct.pack('<2f', 1.25, -0.5)
+        header = {'selected.weight': {'dtype': 'F32', 'shape': [2], 'data_offsets': [0, 8]},
+                  'other.weight': {'dtype': 'F32', 'shape': [1], 'data_offsets': [8, 12]}}
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / 'selected.safetensors'
+            with patch('fetch_component.read_header', return_value=(header, 100, 'header-hash')), \
+                 patch('fetch_component.bounded_ranges', return_value=iter([payload])) as download, \
+                 redirect_stdout(io.StringIO()):
+                manifest = fetch_component('selected.', output, subfolder='text_encoder', single_file='model.safetensors')
+            self.assertEqual(manifest['payload_bytes'], 8)
+            self.assertIn('single_file_url', manifest)
+            self.assertNotIn('index_url', manifest)
+            self.assertEqual(manifest['tensors'][0]['source_offsets'], [100, 108])
+            self.assertEqual(manifest['tensors'][0]['sha256'], hashlib.sha256(payload).hexdigest())
+            self.assertEqual(output.read_bytes()[-8:], payload)
+            download.assert_called_once()
+            with patch('fetch_component.read_header', return_value=(header, 100, 'header-hash')), \
+                 patch('fetch_component.bounded_ranges') as download, redirect_stdout(io.StringIO()):
+                reused = fetch_component('selected.', output, subfolder='text_encoder', single_file='model.safetensors')
+            self.assertEqual(reused['sha256'], manifest['sha256'])
+            download.assert_not_called()
+            # The same prefix/header in a different component is a different source.
+            with patch('fetch_component.read_header', return_value=(header, 100, 'header-hash')), \
+                 patch('fetch_component.bounded_ranges') as download:
+                with self.assertRaises(FileExistsError):
+                    fetch_component('selected.', output, subfolder='wrong_component', single_file='model.safetensors')
+            download.assert_not_called()
+
+    def test_unsharded_path_rejected_before_network(self):
+        with patch('fetch_component.read_header') as read_header:
+            with self.assertRaises(ValueError):
+                fetch_component('x.', Path('unused'), single_file='../model.safetensors')
+            read_header.assert_not_called()
 
 
 class ContractTests(unittest.TestCase):

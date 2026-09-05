@@ -22,6 +22,7 @@ struct FlowSchedule
 
 void euler_step(const ncnn::Mat& sample, const ncnn::Mat& prediction,
                 float delta, ncnn::Mat& next, int threads = 4);
+bool finite_latent(const ncnn::Mat& value);
 // Pipeline epsilon is 1e-5, despite the currently published VAE config.
 // BN unnormalization precedes channel-to-spatial unpatchification.
 ncnn::Mat unpack_for_vae(const ncnn::Mat& packed, const ncnn::Mat& mean,
@@ -45,9 +46,13 @@ public:
     void record_unpack(const ncnn::VkMat& packed, const ncnn::VkMat& mean,
                        const ncnn::VkMat& variance, ncnn::VkMat& unpacked,
                        ncnn::VkCompute& command, const ncnn::Option& option) const;
+    // Download 128 finite-status floats (512 bytes), never the activation.
+    bool finite_latent(const ncnn::VkMat& value, const ncnn::VulkanDevice* device,
+                       const ncnn::Option& option) const;
 private:
     ncnn::Pipeline* euler_ = nullptr;
     ncnn::Pipeline* unpack_ = nullptr;
+    ncnn::Pipeline* finite_ = nullptr;
 };
 #endif
 } // namespace ernie

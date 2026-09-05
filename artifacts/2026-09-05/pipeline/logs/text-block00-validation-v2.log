@@ -1,0 +1,4 @@
+{"backend": "cpu", "precision": "fp32", "passed": true, "nrmse": 4.276402011531548e-07, "failure": null}
+{"backend": "vulkan", "precision": "fp32", "passed": true, "nrmse": 3.965799266729263e-07, "failure": null}
+{"backend": "vulkan", "precision": "fp16", "passed": true, "nrmse": 0.0003751880594504872, "failure": null}
+{"backend": "vulkan", "precision": "bf16", "passed": true, "nrmse": 0.0029716877534383544, "failure": null}

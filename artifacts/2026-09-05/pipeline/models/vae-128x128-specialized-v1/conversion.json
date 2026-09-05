@@ -1,0 +1,17 @@
+{
+  "method": "reviewed_spatial_reshape_specialization",
+  "changes": [
+    {
+      "before": "Reshape                  reshape_99               1 1 13 14 0=64 1=512",
+      "after": "Reshape reshape_99 1 1 13 14 0=16384 1=512"
+    },
+    {
+      "before": "Reshape                  reshape_100              1 1 18 19 0=8 1=8 2=512",
+      "after": "Reshape reshape_100 1 1 18 19 0=128 1=128 2=512"
+    }
+  ],
+  "template_manifest_sha256": "c5ef057975a0ff28ba63940ff54a8c884b13e9c4358130e28cda75361eb4b2bd",
+  "template_graph_sha256": "6ecb591c473c56f3d9e923c845be2125e6e42b33ee2cd8d4d1783db68e32c4c5",
+  "independent_reference_sha256": "f28499cec47f88bcc0b74e090a7d0010150bec95aadbea2891cc531c64cbbc2b",
+  "scope": "Conversion candidate; must pass full-resolution official-reference validation before use"
+}

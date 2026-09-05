@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "tokens": 32,
+  "layers_required": 25,
+  "hidden_state": "hidden_states[-2] = output of block 24; no final norm",
+  "scope": "Text path only; no vision branch or LM head",
+  "source_sha256": "ab6ff40f7a66ffc126ba20f158dab015014ab2d8f31510f51b2958db801aa43a",
+  "config_sha256": "2c975219345634ee6b5d47172267b530f32f55ca02fef0787eb45285418e3614",
+  "blocks": [
+    {
+      "block": 0,
+      "tokens": 32,
+      "weights_sha256": "292fba9a9ce542a1534716ac394070655f1f3c38120578fce5bb4ad10542161d",
+      "graph_sha256": "912dc8a3f8839cca841004f8c5afb4df5c9d5015d4fedbb4deb77d67a62e2523",
+      "reconstructed_fp32_sha256": "bae6c7fb845410ee1c6e6d97b32f557f27d459c3c7ac3119c7747ccba753f44c",
+      "sections": [
+        {
+          "layer": "rmsn_8",
+          "tensor": "language_model.model.layers.0.input_layernorm.weight",
+          "shape": [
+            3072
+          ],
+          "storage": "fp32"
+        },
+        {
+          "layer": "gemm_0",
+          "tensor": "language_model.model.layers.0.self_attn.q_proj.weight",
+          "shape": [
+            4096,
+            3072
+          ],
+          "storage": "bf16"
+        },
+        {
+          "layer": "gemm_1",
+          "tensor": "language_model.model.layers.0.self_attn.k_proj.weight",
+          "shape": [
+            1024,
+            3072
+          ],
+          "storage": "bf16"
+        },
+        {
+          "layer": "gemm_2",
+          "tensor": "language_model.model.layers.0.self_attn.v_proj.weight",
+          "shape": [
+            1024,
+            3072
+          ],
+          "storage": "bf16"
+        },
+        {
+          "layer": "gemm_3",
+          "tensor": "language_model.model.layers.0.self_attn.o_proj.weight",
+          "shape": [
+            3072,
+            4096
+          ],
+          "storage": "bf16"
+        },
+        {
+          "layer": "rmsn_9",
+          "tensor": "language_model.model.layers.0.post_attention_layernorm.weight",
+          "shape": [
+            3072
+          ],
+          "storage": "fp32"
+        },
+        {
+          "layer": "gemm_4",
+          "tensor": "language_model.model.layers.0.mlp.gate_proj.weight",
+          "shape": [
+            9216,
+            3072
+          ],
+          "storage": "bf16"
+        },
+        {
+          "layer": "gemm_5",
+          "tensor": "language_model.model.layers.0.mlp.up_proj.weight",
+          "shape": [
+            9216,
+            3072
+          ],
+          "storage": "bf16"
+        },
+        {
+          "layer": "gemm_6",
+          "tensor": "language_model.model.layers.0.mlp.down_proj.weight",
+          "shape": [
+            3072,
+            9216
+          ],
+          "storage": "bf16"
+        }
+      ],
+      "files": {
+        "text.ncnn.param": "912dc8a3f8839cca841004f8c5afb4df5c9d5015d4fedbb4deb77d67a62e2523",
+        "text.ncnn.bin": "6d0876f542983ebe20b22f14c8d29043a7168a121bca92c5eb20031b435200cc"
+      }
+    }
+  ],
+  "embedding": {
+    "file": "embeddings.bf16",
+    "sha256": "77504404513f2d54ed2626f47857ad5d951932f61886fe30ca8b9eefbe868c3f",
+    "source_sha256": "a66c375fe6f3706c7409f6b7a878c0035aab76f057a043843c479e7dfc42aa2a"
+  },
+  "rope": {
+    "file": "rope-inv-freq.f32",
+    "sha256": "a736a0fd458aada260a1106b3d23f9e7593f258b09ab54ece95eda02b8f455d2",
+    "attention_scaling": 1.0
+  }
+}

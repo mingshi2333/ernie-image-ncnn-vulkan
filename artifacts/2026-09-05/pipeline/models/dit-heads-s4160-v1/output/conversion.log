@@ -1,0 +1,31 @@
+pnnxparam = head.pnnx.param
+pnnxbin = head.pnnx.bin
+pnnxpy = head_pnnx.py
+pnnxonnx = head.pnnx.onnx
+ncnnparam = head.ncnn.param
+ncnnbin = head.ncnn.bin
+ncnnpy = head_ncnn.py
+fp16 = 0
+optlevel = 2
+device = cpu
+inputshape = [1,4160,4096]f32,[1,4096]f32
+inputshape2 = 
+input = 
+input2 = 
+customop = 
+moduleop = 
+get inputshape from traced inputs
+inputshape = [1,4160,4096]f32,[1,4096]f32
+############# pass_level0
+
+----------------
+
+############# pass_level1
+############# pass_level2
+############# pass_level3
+############# pass_level4
+############# pass_level5
+############# pass_ncnn
+model inputshape = [1,4160,4096]f32,[1,4096]f32
+FLOPS = 4.6G
+memory OPS = 119.837M

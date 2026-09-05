@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "repository": "https://huggingface.co/baidu/ERNIE-Image-Turbo",
+  "revision": "bc68c81e2a1730a394d5fc9fae70713dee940140",
+  "prefix": "post_quant_conv.",
+  "single_file_url": "https://huggingface.co/baidu/ERNIE-Image-Turbo/resolve/bc68c81e2a1730a394d5fc9fae70713dee940140/vae/diffusion_pytorch_model.safetensors",
+  "source_header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+  "sha256": "9d8a703c17acf65f7f12fdc7cde6e52e73be83fd8cadf51e42737f50afe9f8a9",
+  "payload_bytes": 2112,
+  "tensors": [
+    {
+      "name": "post_quant_conv.bias",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        32
+      ],
+      "source_offsets": [
+        168110446,
+        168110510
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "4d2065d17ebec258927d584db805c400807df3170ca36464f433972ed1e5c457"
+    },
+    {
+      "name": "post_quant_conv.weight",
+      "shard": "diffusion_pytorch_model.safetensors",
+      "dtype": "BF16",
+      "shape": [
+        32,
+        32,
+        1,
+        1
+      ],
+      "source_offsets": [
+        168110510,
+        168112558
+      ],
+      "header_sha256": "c1ba5cc25ab7a306fc9b5c43c70243df8fd3c29e81dd931bef2086ac8e0b61ea",
+      "sha256": "7996ce0f4e9012f621914b92509fd8cf609457c1e17c60f76a26cadffc4f73ff"
+    }
+  ],
+  "range_window_bytes": 33554432,
+  "downloader_sha256": "d1e564b9db0658fd9dd29ddc5b43afcf146bf9a31cfc4042099d738571cd59b6",
+  "verification": "HTTPS from pinned revision, exact range and length checks; local per-tensor and component hashes. Full upstream shard hash not checked."
+}

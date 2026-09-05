@@ -1,0 +1,278 @@
+{
+  "scope": "CLI rejects non-finite/malformed tensors, oversized prompts and invalid step counts before large inference; valid saved embeddings reach latent validation",
+  "runner_sha256": {
+    "build": "ef82719a239710197d8fd9a43215491b58596c4e7eaabce5c158573f7b0d2713",
+    "build-cpu": "77f98f462c40e3ed35d9da3d0200b08e475e04546f2c316cdef5516e00ce6239"
+  },
+  "cases": [
+    {
+      "case": "nan-embedding",
+      "runner": "build",
+      "command": [
+        "build/ernie-image",
+        "--model",
+        "models/pipeline1024-residual-v1",
+        "--prompt",
+        "A red apple on a wooden table, soft daylight, realistic photo.",
+        "--output",
+        "outputs/cli-input-contract-v1/build-nan-embedding.png",
+        "--device",
+        "cpu",
+        "--precision",
+        "fp32",
+        "--embeddings",
+        "outputs/cli-input-contract-v1/nan.f32"
+      ],
+      "return_code": 1,
+      "expected_error": "Tensor contains non-finite values",
+      "passed": true
+    },
+    {
+      "case": "inf-embedding",
+      "runner": "build",
+      "command": [
+        "build/ernie-image",
+        "--model",
+        "models/pipeline1024-residual-v1",
+        "--prompt",
+        "A red apple on a wooden table, soft daylight, realistic photo.",
+        "--output",
+        "outputs/cli-input-contract-v1/build-inf-embedding.png",
+        "--device",
+        "cpu",
+        "--precision",
+        "fp32",
+        "--embeddings",
+        "outputs/cli-input-contract-v1/inf.f32"
+      ],
+      "return_code": 1,
+      "expected_error": "Tensor contains non-finite values",
+      "passed": true
+    },
+    {
+      "case": "short-embedding",
+      "runner": "build",
+      "command": [
+        "build/ernie-image",
+        "--model",
+        "models/pipeline1024-residual-v1",
+        "--prompt",
+        "A red apple on a wooden table, soft daylight, realistic photo.",
+        "--output",
+        "outputs/cli-input-contract-v1/build-short-embedding.png",
+        "--device",
+        "cpu",
+        "--precision",
+        "fp32",
+        "--embeddings",
+        "outputs/cli-input-contract-v1/short.f32"
+      ],
+      "return_code": 1,
+      "expected_error": "Wrong tensor size",
+      "passed": true
+    },
+    {
+      "case": "inf-latent",
+      "runner": "build",
+      "command": [
+        "build/ernie-image",
+        "--model",
+        "models/pipeline1024-residual-v1",
+        "--prompt",
+        "A red apple on a wooden table, soft daylight, realistic photo.",
+        "--output",
+        "outputs/cli-input-contract-v1/build-inf-latent.png",
+        "--device",
+        "cpu",
+        "--precision",
+        "fp32",
+        "--embeddings",
+        "outputs/pipeline1024-apple-fp16-v1/trace/text.f32",
+        "--latent",
+        "outputs/cli-input-contract-v1/latent-inf.f32"
+      ],
+      "return_code": 1,
+      "expected_error": "Tensor contains non-finite values",
+      "passed": true
+    },
+    {
+      "case": "long-prompt",
+      "runner": "build",
+      "command": [
+        "build/ernie-image",
+        "--model",
+        "models/pipeline1024-residual-v1",
+        "--prompt",
+        "A red apple on a wooden table, soft daylight, realistic photo.",
+        "--output",
+        "outputs/cli-input-contract-v1/build-long-prompt.png",
+        "--device",
+        "cpu",
+        "--precision",
+        "fp32",
+        "--prompt",
+        "apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple "
+      ],
+      "return_code": 1,
+      "expected_error": "Prompt exceeds this model",
+      "passed": true
+    },
+    {
+      "case": "zero-steps",
+      "runner": "build",
+      "command": [
+        "build/ernie-image",
+        "--model",
+        "models/pipeline1024-residual-v1",
+        "--prompt",
+        "A red apple on a wooden table, soft daylight, realistic photo.",
+        "--output",
+        "outputs/cli-input-contract-v1/build-zero-steps.png",
+        "--device",
+        "cpu",
+        "--precision",
+        "fp32",
+        "--steps",
+        "0"
+      ],
+      "return_code": 1,
+      "expected_error": "Steps must be in [1,1000]",
+      "passed": true
+    },
+    {
+      "case": "nan-embedding",
+      "runner": "build-cpu",
+      "command": [
+        "build-cpu/ernie-image",
+        "--model",
+        "models/pipeline1024-residual-v1",
+        "--prompt",
+        "A red apple on a wooden table, soft daylight, realistic photo.",
+        "--output",
+        "outputs/cli-input-contract-v1/build-cpu-nan-embedding.png",
+        "--device",
+        "cpu",
+        "--precision",
+        "fp32",
+        "--embeddings",
+        "outputs/cli-input-contract-v1/nan.f32"
+      ],
+      "return_code": 1,
+      "expected_error": "Tensor contains non-finite values",
+      "passed": true
+    },
+    {
+      "case": "inf-embedding",
+      "runner": "build-cpu",
+      "command": [
+        "build-cpu/ernie-image",
+        "--model",
+        "models/pipeline1024-residual-v1",
+        "--prompt",
+        "A red apple on a wooden table, soft daylight, realistic photo.",
+        "--output",
+        "outputs/cli-input-contract-v1/build-cpu-inf-embedding.png",
+        "--device",
+        "cpu",
+        "--precision",
+        "fp32",
+        "--embeddings",
+        "outputs/cli-input-contract-v1/inf.f32"
+      ],
+      "return_code": 1,
+      "expected_error": "Tensor contains non-finite values",
+      "passed": true
+    },
+    {
+      "case": "short-embedding",
+      "runner": "build-cpu",
+      "command": [
+        "build-cpu/ernie-image",
+        "--model",
+        "models/pipeline1024-residual-v1",
+        "--prompt",
+        "A red apple on a wooden table, soft daylight, realistic photo.",
+        "--output",
+        "outputs/cli-input-contract-v1/build-cpu-short-embedding.png",
+        "--device",
+        "cpu",
+        "--precision",
+        "fp32",
+        "--embeddings",
+        "outputs/cli-input-contract-v1/short.f32"
+      ],
+      "return_code": 1,
+      "expected_error": "Wrong tensor size",
+      "passed": true
+    },
+    {
+      "case": "inf-latent",
+      "runner": "build-cpu",
+      "command": [
+        "build-cpu/ernie-image",
+        "--model",
+        "models/pipeline1024-residual-v1",
+        "--prompt",
+        "A red apple on a wooden table, soft daylight, realistic photo.",
+        "--output",
+        "outputs/cli-input-contract-v1/build-cpu-inf-latent.png",
+        "--device",
+        "cpu",
+        "--precision",
+        "fp32",
+        "--embeddings",
+        "outputs/pipeline1024-apple-fp16-v1/trace/text.f32",
+        "--latent",
+        "outputs/cli-input-contract-v1/latent-inf.f32"
+      ],
+      "return_code": 1,
+      "expected_error": "Tensor contains non-finite values",
+      "passed": true
+    },
+    {
+      "case": "long-prompt",
+      "runner": "build-cpu",
+      "command": [
+        "build-cpu/ernie-image",
+        "--model",
+        "models/pipeline1024-residual-v1",
+        "--prompt",
+        "A red apple on a wooden table, soft daylight, realistic photo.",
+        "--output",
+        "outputs/cli-input-contract-v1/build-cpu-long-prompt.png",
+        "--device",
+        "cpu",
+        "--precision",
+        "fp32",
+        "--prompt",
+        "apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple apple "
+      ],
+      "return_code": 1,
+      "expected_error": "Prompt exceeds this model",
+      "passed": true
+    },
+    {
+      "case": "zero-steps",
+      "runner": "build-cpu",
+      "command": [
+        "build-cpu/ernie-image",
+        "--model",
+        "models/pipeline1024-residual-v1",
+        "--prompt",
+        "A red apple on a wooden table, soft daylight, realistic photo.",
+        "--output",
+        "outputs/cli-input-contract-v1/build-cpu-zero-steps.png",
+        "--device",
+        "cpu",
+        "--precision",
+        "fp32",
+        "--steps",
+        "0"
+      ],
+      "return_code": 1,
+      "expected_error": "Steps must be in [1,1000]",
+      "passed": true
+    }
+  ],
+  "passed": true
+}

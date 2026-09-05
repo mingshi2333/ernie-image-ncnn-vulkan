@@ -1,0 +1,476 @@
+{
+  "scope": "FP32 official DiT and Euler; saved synthetic text embeddings and latent; no text encoder or VAE",
+  "height": 4,
+  "width": 4,
+  "text_tokens": 272,
+  "tokens": 288,
+  "valid_text": 270,
+  "blocks": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35
+  ],
+  "steps": 8,
+  "inputs": {
+    "in0": {
+      "file": "in0.f32",
+      "shape": [
+        1,
+        128,
+        4,
+        4
+      ],
+      "dtype": "float32_le",
+      "sha256": "4b6fbf045688cc0ed9c9e589b9dc0cd2955f2ac9847a581357c4fc16d4c204e1"
+    },
+    "in1": {
+      "file": "in1.f32",
+      "shape": [
+        1,
+        272,
+        3072
+      ],
+      "dtype": "float32_le",
+      "sha256": "8c3f34ee1ec0b0a50f17b4eeb2870433cad02aa4013b93e5a967b7bbd2280c7a"
+    },
+    "in3": {
+      "file": "in3.f32",
+      "shape": [
+        1,
+        288,
+        128
+      ],
+      "dtype": "float32_le",
+      "sha256": "8b6c9e7e6a85e194563eaf5973b44d35aeaf969dc59e72b14add27f5e30f15da"
+    },
+    "in4": {
+      "file": "in4.f32",
+      "shape": [
+        1,
+        288,
+        128
+      ],
+      "dtype": "float32_le",
+      "sha256": "6320668750bb3c447c65882325f462dd753f4ab043c79ccb07812a7bd0cb9927"
+    },
+    "in5": {
+      "file": "in5.f32",
+      "shape": [
+        288,
+        288
+      ],
+      "dtype": "float32_le",
+      "sha256": "948735370fc224eca83f93722150a6fef2fcfcbb3b6acf36a1d0f0dc732d7378"
+    }
+  },
+  "sigmas": [
+    1.0,
+    0.9655172228813171,
+    0.9230769276618958,
+    0.8695651888847351,
+    0.800000011920929,
+    0.7058823704719543,
+    0.5714285969734192,
+    0.3636363744735718,
+    0.0
+  ],
+  "timesteps": [
+    1000.0,
+    965.5172119140625,
+    923.076904296875,
+    869.565185546875,
+    800.0,
+    705.8823852539062,
+    571.4285888671875,
+    363.6363830566406
+  ],
+  "model_manifests": [
+    "4621fc682228c07546e155882b3541bd8d06bb337ced9a36d1596db527a356d4",
+    "ef457c520aa11d2dd77cfbe5de420145d87813e45d0b545dbaa27b45ed450346",
+    "a1215b72d1ff6694e707bc4beea05a28aa0545d50fc8513da3641fc091fd306d",
+    "545c1cea48e42d935d8f7ba2f3bba98deb5acf0b8a59d99f8d711e02ba7cb951",
+    "5a241c527b13682e706cff2638a12b6760b93272ab77d093ebb31d7121e5a6e0",
+    "3e3bec24333e9c050321cdd0c38ea122fa1f2c6225d212d29289967d9a22ea17",
+    "5cebb09b0dfd1127995938d604cc14daa35c0eae635150aa1180ca3a0d42415b",
+    "96ec8c9ad3d7e25bb48392bb7dd308872948aacfbec77ea7d98a3adbaf266bcb",
+    "e5a59dfa98ff9855cc98d79ffe36a39e86a86eaf6912ec876df01fed97beedb8",
+    "7b9b750d24259373ca46731d620d51ad087838c5c327ffe8ba8593826fcf7af0",
+    "2d7de770da25ed54ee0fc50e86d7545e8b977dd04d6b7cf908515a2f791e6fba",
+    "031522faca955b5d66da68685a2906dfa913d612cacebcfd798d9957ee7c97f7",
+    "bafce11c95b96ac21a7cf2ca2f08c681d2ccebcf56ff1bf196165548a0428dfb",
+    "f1290f0f485bbf6cc9a1c44d2bd23a237d79b383b383dd3d875c152057ff8ec7",
+    "7b0704f4bffe70e1c8ba8c3eb2aa980378dbd0d92a951bb786b9981d548bdebf",
+    "8a93060c3ef941aace34f2d96d441bac70720f2e81775f563c767355ea0221dc",
+    "c9a65fcca62c291a2599617aeb1ff9dfd0420fb01a9507aeaea2ff0582ca3a6e",
+    "65b4e0fdc985e191a750dfe5311bdc3e31e11c422c38b0301acb0d1cd5713223",
+    "8c63c8ff0cadcd5bc4f8c91bf9f9fb0b1a0bb7885eae10b6edb44b8ae4bd027a",
+    "aa9df518319af994474582f3ec67d43c98a5f6f338c81f679dcd76d3449af02b",
+    "4bc5ea5838b26d1c6b5af5c2a59a08595393caf172eb6a04b1aae0671dcb0cde",
+    "a9257a968c4edb730e08a3645589f37f07fc3f58f395dc05bb639d20d0d22197",
+    "ca85f9060d16a57372cbfa3ed2080865205769e9a42767f3f8b24d815010dff4",
+    "b33aab72ab3e317b2ec50c8910c7180691b508b41c76060662ede856db288dae",
+    "7e95cbdfdcbd21096141fe65366a520f52e0fd9d96e61c49788ba88783e4999e",
+    "6aaa55b046c46593a07c6d1cdc945fe5649e9ebe96de722b53fd67d9060b661c",
+    "2c3540af1353fb7efb15f7eff5054b73d3d27380bad041c2e6c4abc234316594",
+    "8bcfb02e81c1c39cb6e32fbef977090ace58fb3be14302b883cffe0b3dc1320a",
+    "7804ac83358d1b46093439bb2e693a3f85b1bbab695b9d6257c924e56cee654e",
+    "7282b84bb71057f838f5ab1d19f57ecbc0e4f8806787610258ab1c651154c0f0",
+    "ec51a7dc6e518b0a19ad63d150cef265fcb166009bcc66034cc25d56f234dbf6",
+    "6a4b7b30673c01538c8723a92650966262e37471fbbc9efcc0f7ad2afd8bffda",
+    "66398323851e4d3477f7d8bef5f492b24b89015aff06183c64f45aec5332ecc9",
+    "ec36e8e57589526a1d42aa938e516ef2128a44b972ee832eda8b66d9a41ed6bf",
+    "d9038f030fd269c59e3cb4810c8f134d7d896a638bba713c91b6487a9fa013fb",
+    "89a1aeaf5605db66634342543da64033fc912d6cedcfbcc7220622450b48d459",
+    "a040217ce7a363724ee41c6cb78b762f9c0eb693514ec524b12d138c7e09def9",
+    "ee9203c614ef0485cd4cb43b96c1cfa59db1177ae22071a009c1936e9052e114"
+  ],
+  "source_sha256": "a93c24203f999e421cedec578fea6f9f2ae768d550354afe45b8d18c5b761fc1",
+  "torch": "2.12.1+cu130",
+  "scheduler_config": {
+    "num_train_timesteps": 1000,
+    "shift": 4.0,
+    "use_dynamic_shifting": false,
+    "base_shift": 0.5,
+    "max_shift": 1.15,
+    "base_image_seq_len": 256,
+    "max_image_seq_len": 4096,
+    "invert_sigmas": false,
+    "shift_terminal": null,
+    "use_karras_sigmas": false,
+    "use_exponential_sigmas": false,
+    "use_beta_sigmas": false,
+    "time_shift_type": "exponential",
+    "stochastic_sampling": false,
+    "_use_default_values": [
+      "stochastic_sampling",
+      "invert_sigmas",
+      "base_shift",
+      "use_karras_sigmas",
+      "max_image_seq_len",
+      "time_shift_type",
+      "max_shift",
+      "use_dynamic_shifting",
+      "shift_terminal",
+      "use_exponential_sigmas",
+      "use_beta_sigmas",
+      "base_image_seq_len"
+    ]
+  },
+  "scheduler_source_sha256": "1af27be5b2f92b7d139d3c50239be5ce3eafc4a7eddf59c2d30689f8ec31e93d",
+  "gates": {
+    "fp32": {
+      "nrmse": 0.002,
+      "global_rtol": 0.002,
+      "atol": 0.0002
+    },
+    "fp16": {
+      "nrmse": 0.1,
+      "global_rtol": 0.1,
+      "atol": 0.03
+    },
+    "time_features": {
+      "max_abs": 0.00013,
+      "nrmse": 2e-05
+    }
+  },
+  "outputs": [
+    {
+      "prediction": {
+        "file": "prediction-0.f32",
+        "shape": [
+          1,
+          128,
+          4,
+          4
+        ],
+        "dtype": "float32_le",
+        "sha256": "e25064e77a5b1520403344d1fbe377c0fcd938cc9508542c7ed5f0d09180cf46"
+      },
+      "step": {
+        "file": "step-0.f32",
+        "shape": [
+          1,
+          128,
+          4,
+          4
+        ],
+        "dtype": "float32_le",
+        "sha256": "c83de74f96ad6ae6dc2b747a1d24c80198dfbf1091edac6e5380d6471e9bd25f"
+      },
+      "features": {
+        "file": "features-0.f32",
+        "shape": [
+          1,
+          4096
+        ],
+        "dtype": "float32_le",
+        "sha256": "cbdb74f8ed28761a4f99c179b272f8182f9bae2a3b6243e971b3334d68d00b6d"
+      }
+    },
+    {
+      "prediction": {
+        "file": "prediction-1.f32",
+        "shape": [
+          1,
+          128,
+          4,
+          4
+        ],
+        "dtype": "float32_le",
+        "sha256": "ae6651db1199d01d2dc5e40239979e88030396aadcf68c3090c593a78923bc29"
+      },
+      "step": {
+        "file": "step-1.f32",
+        "shape": [
+          1,
+          128,
+          4,
+          4
+        ],
+        "dtype": "float32_le",
+        "sha256": "8afe041c992aec186ce0bb5fac5d8b54d127e8ab8e036a1e99755d1813100728"
+      },
+      "features": {
+        "file": "features-1.f32",
+        "shape": [
+          1,
+          4096
+        ],
+        "dtype": "float32_le",
+        "sha256": "6f9c1165569238e41e084eed7cd821eae251d673b669d63be6ecc49e69fb2139"
+      }
+    },
+    {
+      "prediction": {
+        "file": "prediction-2.f32",
+        "shape": [
+          1,
+          128,
+          4,
+          4
+        ],
+        "dtype": "float32_le",
+        "sha256": "0c00aee401b18258121e2492488273c72222f8bd19cada1d75c2e077a5143079"
+      },
+      "step": {
+        "file": "step-2.f32",
+        "shape": [
+          1,
+          128,
+          4,
+          4
+        ],
+        "dtype": "float32_le",
+        "sha256": "fd6a006f5f02f7dcc082b95e4b4f6c717ec273cebff798ab677592cb6a268728"
+      },
+      "features": {
+        "file": "features-2.f32",
+        "shape": [
+          1,
+          4096
+        ],
+        "dtype": "float32_le",
+        "sha256": "48dd7e9bdc34b71490b464a25f07ff4beb34e46ef9d1888e6676320d57ee8903"
+      }
+    },
+    {
+      "prediction": {
+        "file": "prediction-3.f32",
+        "shape": [
+          1,
+          128,
+          4,
+          4
+        ],
+        "dtype": "float32_le",
+        "sha256": "05e4014acc6a8ae457b435d887cc015c83a1230798f53f9eab8b26ffd1c5aee5"
+      },
+      "step": {
+        "file": "step-3.f32",
+        "shape": [
+          1,
+          128,
+          4,
+          4
+        ],
+        "dtype": "float32_le",
+        "sha256": "a942babbe52215dd1b5bf28bb37b342fdba824c1217dfa1a5b6ff9e80c32430a"
+      },
+      "features": {
+        "file": "features-3.f32",
+        "shape": [
+          1,
+          4096
+        ],
+        "dtype": "float32_le",
+        "sha256": "edde6ce69494622946191eedc4ca7025f3c64b491a6165d8ecb9426c6e833e0d"
+      }
+    },
+    {
+      "prediction": {
+        "file": "prediction-4.f32",
+        "shape": [
+          1,
+          128,
+          4,
+          4
+        ],
+        "dtype": "float32_le",
+        "sha256": "d2e9b59e1b3bdce57a6faa63ca3d0c8cf51e5c5a28ee0939adbd0a07317db105"
+      },
+      "step": {
+        "file": "step-4.f32",
+        "shape": [
+          1,
+          128,
+          4,
+          4
+        ],
+        "dtype": "float32_le",
+        "sha256": "38414a58bc1c6c49047e89e819f631d7f5c6d404235c9dd0e5436a5cfe766d12"
+      },
+      "features": {
+        "file": "features-4.f32",
+        "shape": [
+          1,
+          4096
+        ],
+        "dtype": "float32_le",
+        "sha256": "1c24a97c2d0cb135a0bda6340d74b986fdfe27e037fac2e2eed38e0a7b4a2eb7"
+      }
+    },
+    {
+      "prediction": {
+        "file": "prediction-5.f32",
+        "shape": [
+          1,
+          128,
+          4,
+          4
+        ],
+        "dtype": "float32_le",
+        "sha256": "0641aaf55847e30a1982f00b1dbfc077f8ed0ab51cf3d96e10643f659a8fa913"
+      },
+      "step": {
+        "file": "step-5.f32",
+        "shape": [
+          1,
+          128,
+          4,
+          4
+        ],
+        "dtype": "float32_le",
+        "sha256": "5794a029ac165e4837e93a9e7b072b6e938b064691da79173d3b143840a334a4"
+      },
+      "features": {
+        "file": "features-5.f32",
+        "shape": [
+          1,
+          4096
+        ],
+        "dtype": "float32_le",
+        "sha256": "4b8e4f2586743af5ac1affe772c11710780aa95cad675f3ea7f7e5f741f9c535"
+      }
+    },
+    {
+      "prediction": {
+        "file": "prediction-6.f32",
+        "shape": [
+          1,
+          128,
+          4,
+          4
+        ],
+        "dtype": "float32_le",
+        "sha256": "9b3ad9326ac63f5ec79a9f37c746247a8a6cacade979fcc9fceeb790c6a277ae"
+      },
+      "step": {
+        "file": "step-6.f32",
+        "shape": [
+          1,
+          128,
+          4,
+          4
+        ],
+        "dtype": "float32_le",
+        "sha256": "96fca0a9bef21deb6d11b2e02429ca3de805a2396faaa8ba215fe71ba6ea914a"
+      },
+      "features": {
+        "file": "features-6.f32",
+        "shape": [
+          1,
+          4096
+        ],
+        "dtype": "float32_le",
+        "sha256": "ae3da3292b1c5813d341b664984b36038537d1c7f3d2cd88eeaa5666774841b8"
+      }
+    },
+    {
+      "prediction": {
+        "file": "prediction-7.f32",
+        "shape": [
+          1,
+          128,
+          4,
+          4
+        ],
+        "dtype": "float32_le",
+        "sha256": "90281e67ae397480ac28c07014614efac07b44b6ac71f6460ce747d8958e8783"
+      },
+      "step": {
+        "file": "step-7.f32",
+        "shape": [
+          1,
+          128,
+          4,
+          4
+        ],
+        "dtype": "float32_le",
+        "sha256": "bfc6a9a75af14308d5e7a5d0abce22a7f3b60c3d542e8f536b069d7b95870d72"
+      },
+      "features": {
+        "file": "features-7.f32",
+        "shape": [
+          1,
+          4096
+        ],
+        "dtype": "float32_le",
+        "sha256": "14cbdc336396366f9195f434826e313fbc6d88f8e29e073bdfa169f1825f4b66"
+      }
+    }
+  ],
+  "complete": true
+}

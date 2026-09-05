@@ -74,7 +74,7 @@ class OutputHead(nn.Module):
         return patches.transpose(1, 2).reshape(1, 128, self.height, self.width).contiguous()
 
 
-def export_component(model, inputs, expected, output, metadata):
+def export_component(model, inputs, expected, output, metadata, reference_only=False):
     output.mkdir(parents=True)
     actual = model(*inputs)
     actual = actual if isinstance(actual, tuple) else (actual,)
@@ -88,6 +88,9 @@ def export_component(model, inputs, expected, output, metadata):
                          'fp16': {'atol': .03, 'rtol': .03, 'nrmse': .02},
                          'bf16': {'atol': .2, 'rtol': .2, 'nrmse': .1}}}
     (output / 'fixture.json').write_text(json.dumps(fixture, indent=2) + '\n')
+    if reference_only:
+        print(json.dumps({'component':metadata['component'],'reference_only':True,'output':str(output)}),flush=True)
+        return
     scripted = torch.jit.trace(model, inputs, check_trace=False)
     scripted.save(str(output / 'head.pt'))
     del scripted

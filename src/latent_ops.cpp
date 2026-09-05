@@ -56,6 +56,18 @@ float FlowSchedule::delta(size_t step) const
     return sigmas[step + 1] - sigmas[step];
 }
 
+bool finite_latent(const ncnn::Mat& value)
+{
+    check_latent(value);
+    for (int c = 0; c < value.c; ++c)
+    {
+        const float* data = value.channel(c);
+        for (int i = 0; i < value.w * value.h; ++i)
+            if (!std::isfinite(data[i])) return false;
+    }
+    return true;
+}
+
 void euler_step(const ncnn::Mat& sample, const ncnn::Mat& prediction, float delta,
                 ncnn::Mat& next, int threads)
 {
@@ -150,6 +162,25 @@ void main()
 }
 )glsl";
 
+constexpr const char* finite_shader = R"glsl(
+#version 450
+layout(binding=0) readonly buffer values_buffer { float values[]; };
+layout(binding=1) writeonly buffer flags_buffer { float flags[]; };
+layout(push_constant) uniform parameter { uint plane; uint stride; } p;
+void main()
+{
+    uint c = gl_GlobalInvocationID.x;
+    if (c >= 128) return;
+    float ok = 1.f;
+    for (uint i = 0; i < p.plane; ++i)
+    {
+        float v = values[c * p.stride + i];
+        if (isnan(v) || isinf(v)) { ok = 0.f; break; }
+    }
+    flags[c] = ok;
+}
+)glsl";
+
 std::unique_ptr<ncnn::Pipeline> make_pipeline(const char* source, const ncnn::VulkanDevice* device)
 {
     ncnn::Option option;
@@ -175,11 +206,35 @@ VulkanLatentOps::VulkanLatentOps(const ncnn::VulkanDevice* device)
     if (!device) throw std::invalid_argument("A Vulkan device is required");
     auto euler = make_pipeline(euler_shader, device);
     auto unpack = make_pipeline(unpack_shader, device);
+    auto finite = make_pipeline(finite_shader, device);
     euler_ = euler.release();
     unpack_ = unpack.release();
+    finite_ = finite.release();
 }
 
-VulkanLatentOps::~VulkanLatentOps() { delete euler_; delete unpack_; }
+VulkanLatentOps::~VulkanLatentOps() { delete euler_; delete unpack_; delete finite_; }
+
+bool VulkanLatentOps::finite_latent(const ncnn::VkMat& value, const ncnn::VulkanDevice* device,
+                                   const ncnn::Option& option) const
+{
+    check_latent(value);
+    check_options(option);
+    ncnn::VkMat flags(128, size_t(4), 1, option.blob_vkallocator);
+    if (flags.empty()) throw std::bad_alloc();
+    ncnn::VkCompute command(device);
+    std::vector<ncnn::vk_constant_type> constants(2);
+    constants[0].u32 = value.w * value.h;
+    constants[1].u32 = value.cstep;
+    command.record_pipeline(finite_, {value, flags}, constants, flags);
+    ncnn::Option high = option;
+    high.use_fp16_storage = high.use_fp16_packed = high.use_fp16_arithmetic = false;
+    high.use_bf16_storage = high.use_bf16_packed = high.use_packing_layout = false;
+    ncnn::Mat result;
+    command.record_download(flags, result, high);
+    if (command.submit_and_wait()) throw std::runtime_error("Latent finite check failed");
+    for (int i = 0; i < 128; ++i) if (result[i] != 1.f) return false;
+    return true;
+}
 
 void VulkanLatentOps::record_euler(const ncnn::VkMat& sample, const ncnn::VkMat& prediction,
                                   float delta, ncnn::VkMat& next, ncnn::VkCompute& command,

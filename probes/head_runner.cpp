@@ -67,9 +67,9 @@ int main(int argc, char** argv)
             else throw std::invalid_argument("Unknown argument: " + flag);
         }
         if (model.empty() || fixture.empty() || output.empty() || fs::exists(output)
-            || width < 1 || width > 256 || height < 1 || height > 256 || text_tokens < 1
-            || text_tokens > 2048 || width * height + text_tokens > 6144
-            || (component != "input" && component != "output")
+            || width < 1 || width > 256 || height < 1 || height > 256 || text_tokens < (component == "vae" ? 0 : 1)
+            || text_tokens > 2048 || (component != "vae" && width * height + text_tokens > 6144)
+            || (component != "input" && component != "output" && component != "vae")
             || (backend != "cpu" && backend != "vulkan")
             || (precision != "fp32" && precision != "fp16" && precision != "bf16")
             || (backend == "cpu" && precision != "fp32"))
@@ -78,7 +78,12 @@ int main(int argc, char** argv)
         const int tokens = width * height + text_tokens;
         std::vector<ncnn::Mat> inputs;
         std::vector<size_t> counts;
-        if (component == "input")
+        if (component == "vae")
+        {
+            inputs.push_back(read(fixture / "in0.f32", ncnn::Mat(width, height, 32)));
+            counts.push_back(size_t(width) * height * 64 * 3);
+        }
+        else if (component == "input")
         {
             inputs.push_back(read(fixture / "in0.f32", ncnn::Mat(width, height, 128)));
             inputs.push_back(read(fixture / "in1.f32", ncnn::Mat(3072, text_tokens)));
@@ -98,6 +103,7 @@ int main(int argc, char** argv)
         option.use_fp16_storage = precision == "fp16";
         option.use_bf16_storage = precision == "bf16";
         option.use_fp16_packed = option.use_fp16_arithmetic = option.use_bf16_packed = false;
+        if (component == "vae" && backend == "cpu") option.use_winograd_convolution = false;
         std::vector<ncnn::Mat> outputs(counts.size());
         const auto start = std::chrono::steady_clock::now();
         {

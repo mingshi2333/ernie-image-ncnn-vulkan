@@ -1,0 +1,24 @@
+Command exited with non-zero status 1
+	Command being timed: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/vae-128x128-validation-v1/ernie-head-runner.snapshot --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/vae-128x128-specialized-v1 --fixture /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/vae-128x128-specialized-v1 --output /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/vae-128x128-validation-v1/vulkan-fp32/actual --component vae --height 128 --width 128 --text-tokens 0 --backend vulkan --precision fp32"
+	User time (seconds): 9.73
+	System time (seconds): 2.01
+	Percent of CPU this job got: 227%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:05.15
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 370108
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 15
+	Minor (reclaiming a frame) page faults: 564454
+	Voluntary context switches: 1442
+	Involuntary context switches: 252
+	Swaps: 0
+	File system inputs: 4096
+	File system outputs: 96
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1

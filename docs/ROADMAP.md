@@ -1,77 +1,67 @@
 # 实施路线
 
-首版交付：从官方 ERNIE-Image-Turbo 权重进行可复现转换，使用 C++ / ncnn / Vulkan 在本地生成 PNG，提供数值对照和低显存执行数据。默认 Linux、batch=1、Turbo 8 steps、CFG=1、PE 关闭。原版 50 steps/CFG、PE、其他平台和近似缓存随后独立扩展。
+首版目标：官方 ERNIE-Image-Turbo 权重 → 可追溯转换 → C++ / ncnn / Vulkan → 本地 PNG。Linux、batch=1、Turbo 8 steps、CFG=1、PE 关闭。
+
+**2026-09-05：本机已完成 1024×1024 原生生成；64×64 完整官方模块数值对照通过。** 1024 尚未完成全去噪官方参考对照或多提示词质量评估，当前是可运行的实验原型。证据见 [pipeline 报告](../artifacts/2026-09-05/pipeline/README.md)。
 
 ## 0. 上游验证与项目基础
 
-状态：已完成原生缓存探针和单 block 参考环境，完整 pipeline 待验证。
+- [x] 独立本地 Git 项目、GitHub 私有 README 占位、上游版本锁定。
+- [x] 核实 ncnn 专用 KV cache allocator、容量增长和 CPU attention 更新。
+- [x] CPU/Vulkan 24 个合成 GQA 场景，保存原始输出与误差。
+- [x] 分开 PE 自回归缓存、Vulkan pipeline 编译缓存与 DiT 跨步近似缓存。
+- [x] 64×64 分阶段执行的官方模块参考，保存 prompt、token IDs、embeddings、初始 latent、每步预测、最终 latent 和图片。
+- [ ] 完整 1024 官方去噪参考及多提示词质量数据集。
+- [ ] 历史项目相同输入的实际构建和复现；目前仅源码调查，不宣称已有速度优势。
 
-- [x] 建立独立 Git 项目，锁定当前 ncnn 和历史参考版本。
-- [x] 核实新版专用 allocator、容量增长和 CPU attention 更新。
-- [x] 24 个合成算子场景检查，保存 CPU/Vulkan 原始输出和误差。
-- [x] 区分 PE 自回归缓存和 DiT 跨步近似缓存。
-- [x] 固定单 block 验证环境，导入 Transformers 5.2.0 的 Mistral3。版本和实际验证范围已写入锁文件，完整文本模型兼容性仍待验证。
-- [ ] 官方 pipeline 关闭 PE 跑通，保留版本、prompt、token IDs、embeddings、初始 latent、sigma、逐步预测、最终 latent 和图片。
-- [ ] 对旧模型做实际构建和相同输入复现，记录其成功或失败项。
+## 1. 真实权重与转换契约
 
-退出条件：至少一套可重跑的官方小尺寸参考与完整版本记录。当前合成 attention 结果不能代替本门槛。
+- [x] 官方组件选择性下载：固定 revision、Range、原始张量和组合文件散列；支持文本与 VAE 单文件权重来源。
+- [x] DiT 24 / 288 / 4160 静态 token 桶，三轴 RoPE、erf GELU、GQA/SDPA、shared AdaLN 与 final norm 数学检查。
+- [x] 36 个独立块：CPU FP32 / Vulkan FP32 / FP16 各 36/36，BF16 33/36；保留第 31、33、35 号失败。
+- [x] BF16 磁盘流无损转换、完整计算图指纹和还原 FP32 散列检查。
+- [x] 真实文本触发的第 14 号 DiT block 残差溢出复现，FP32 skip 修复；不截断激活。
+- [x] 高分辨率 VAE 两处受审查 reshape 特化及独立官方目标分辨率对照。
+- [ ] 多种高分辨率文本桶、精确 allocator/进程显存测量。
 
-## 1. 一个真实 DiT block，预计 3–7 个工作日
+历史 [单 block](../artifacts/2026-09-05/dit-block/README.md) 与 [组件](../artifacts/2026-09-05/components/README.md) 报告保留原版本，低精度修复前后的数据不可混为同一版本。
 
-状态：第 0 个真实权重 block 的转换与数值门槛已通过。输入为合成激活，完整真实激活和精确显存追踪仍待补齐。
+## 2. Turbo CLI 功能闭环
 
-- [x] 提取该 block 的 11 个官方 BF16 张量，保存版本、Range、张量和组合文件散列。
-- [x] 显式导出 24、288、4160 三个 token 桶，12 组 CPU/Vulkan 比较通过，每组重复三次。
-- [x] 保留原生 SDPA、4 个 RMSNorm、GELU 门控和 shared AdaLN，添加 erf 形式 GPU GELU。该 DiT 为 32/32 heads，文本侧 GQA 仍由独立缓存探针验证。
-- [x] 验证 ERNIE 的三轴 RoPE，包含文本位置超过 256 的输入，拒绝不等价的标准 RotaryEmbed 自动融合。
-- [x] 在运行 ncnn 前保存初始数值门槛，完成 CPU FP32、Vulkan FP32/BF16/FP16 对照。门槛适用于单 block 合成激活，完整 pipeline 质量门槛尚待建立。
-- [x] 测量 4096 图片 + 64 文本 tokens，观察到 FP16/BF16 的 Flash Attention 与协作矩阵分支，记录逐次时延、进程 RSS 和设备显存采样。
-- [x] 添加无损 BF16 文件存储，约 832MiB → 416MiB，还原散列和 CPU/Vulkan 输出均一致。
-- [ ] 完成多个高分辨率文本长度组合及精确 allocator/进程显存峰值。当前采样是整卡总量，不能视为精确本进程峰值。
+- [x] 原生 Tokenizers 0.22.2，48 个样本与官方 token IDs 完全一致，非法 UTF-8 拒绝。
+- [ ] `ignore_merges=true` 已保留，但尚未建立该开关的真实词表差异反例。
+- [x] 确认实际 Mistral 文本模型分派，前 25 层实现 `hidden_states[-2]`，无 final norm；32-token 桶。
+- [x] 真实英文、中文、空文本的文本路径对照；英文额外验证 Vulkan 精度路径，CLI 默认 CPU FP32。
+- [x] 输入/输出层、36 blocks、C++ 时间特征与 FP32 FlowMatch Euler 8 步闭环。
+- [x] BN 反归一化使用实际 pipeline 的 `eps=1e-5`，128→32 通道、2×2 unpack。
+- [x] 官方 VAE decoder + post-quant；CPU FP64 GroupNorm 归约修复大尺寸误差。
+- [x] CLI 的模型路径、prompt、seed、steps、device、output、输入 latent、输入 embeddings 与 trace。
+- [x] 64×64 同初始 latent 完整数值/像素验收，1024×1024、8 steps、CFG=1、PE 关闭的 PNG 功能验收。
+- [ ] 更长文本和更多尺寸的独立转换桶及质量验证，当前尺寸由模型包固定。
+- [ ] 可迁移独立模型包、运行时完整 manifest 检验和构建 CI。
 
-进展证据见 [复现说明](REPRODUCE-BLOCK.md) 与 [单 block 报告](../artifacts/2026-09-05/dit-block/README.md)。核心转换门槛已通过，可以进入阶段 2。8GB 方案倾向组件分阶段释放、受控权重调度和 FP16/BF16 Flash Attention。仅一个 block 的成功不能证明 36 个 block 的总权重和去噪循环可运行。
+当前数值门槛不是零误差保证。64×64 FP16 最终 latent NRMSE 0.05244、PNG MAE 1.465/255；1024 仅通过功能与资源检查。FP16/BF16 scheduler 舍入不是本原型目标，scheduler 明确保留 FP32。
 
-## 2. 转换闭环与 Turbo CLI，预计 1–3 周
+## 3. 设备数据流与资源优化
 
-状态：原生 tokenizer、全部 DiT blocks、输入/输出层及 FP32 latent 运算已有实现。小尺寸预测与各项负面结果以最新组件报告为准，完整文生图仍未接通。
+- [x] text encoder 在 DiT 前释放，DiT 在 VAE 前释放；预计算 embeddings 跳过文本模型。
+- [x] preprocessor → 36 streamed blocks → finalizer → Euler 的设备激活路径；仅有限值状态回传，trace 另行下载。
+- [x] 调用方管理 VkCompute、allocator 和共享 pipeline cache，逐块完成后释放 Net 权重。
+- [x] RoPE、mask、原始文本条件预计算并驻留；每步时间特征明确生成。
+- [x] 1024 单次运行的文本、逐步 DiT、VAE/PNG、总时延、峰值 RSS、整卡采样和系统 swap 前后记录。
+- [ ] 分离并减少重复的权重读取、CPU 准备与设备上传，比较受控预取和权重常驻策略。
+- [ ] 进一步分离文本投影、时间条件等不随相应层变化的运算，数值对照后再计算收益。
+- [ ] 降低 CPU VAE 工作区（当前全流程峰值 RSS 23.03 GiB）；比较直接卷积、分块或设备解码。
+- [ ] 冷启动/热运行多次测量，精确进程/allocator 显存及 swap 归属，更多设备验证。
 
-- [x] 原生 Tokenizers 0.22.2 与官方 48 个样本 token IDs 完全一致，覆盖多语种、空白、特殊符号、BOS、空文本和 2048 截断。非法 UTF-8 明确拒绝。
-- [ ] `ignore_merges=true` 配置已保留；尚未找到开关前后不同的真实词表反例，不宣称已经建立差异测试覆盖。
-- [ ] 文本模型只导出实际需要的文本路径，核实 `hidden_states[-2]` 对应截断层及 final norm 行为。
-- [x] 转换 36 个 DiT blocks、preprocessor、finalizer，保留来源与 checksum。独立 block 检查中 CPU FP32 / Vulkan FP32 / FP16 均为 36/36，BF16 为 33/36，失败项不作通过处理。
-- [x] 实现 FP32 FlowMatch Euler：shift 4、`t = 1000 * sigma`，21 组 CPU/Vulkan 合成预测测试通过，sigma、时间步和每步更新逐位对齐。
-- [ ] 将真实 DiT 预测接入 8 步循环，补齐 C++ 时间正弦特征生成与 FP16/BF16 scheduler 的舍入顺序。
-- [x] 实现 VAE 前的 BN 反归一化（实际 pipeline 使用 `eps=1e-5`）及 128→32 通道、2×2 unpack，验证非方形布局。
-- [ ] 转换并验证实际 VAE decoder。
-- [ ] 实现 model path、prompt、seed、resolution、steps、device、output、输入 latent 和输入 embeddings。
-- [ ] 小尺寸先通过，再验收 1024×1024、8 steps、CFG=1、PE 关闭的 PNG 输出。
+已在 8GB 显卡、32GB 主机上完成一次 1024 原生生成；整卡采样峰值 2605 MiB，不是本进程精确峰值。系统 swap 增加 0.96 GiB，不作无 swap 声明。1024 运行总计 522.17 秒，含 trace；不据此宣称相对历史项目或官方实现提速。
 
-退出条件：官方权重 → 转换 → C++ CLI → PNG 可重跑，逐模块和每步误差可追溯。相同 seed 不足以保证跨框架同初始噪声，比较时必须读取同一份 latent 文件。
+## 4. PE 与后续交付
 
-## 3. 设备数据流与 8GB 内存方案，预计 1–3 周
+- [ ] CPU PE 使用独立原生 cache allocator、`type=1` 缓存句柄，真实模型验证 prefill/decode/reset/独立会话。
+- [ ] 可选 GPU PE，缓存驻留设备，减少每 token 提交和下载。
+- [ ] CPU block quantization 与 Vulkan 精度策略分开验证；不预设量化算法和收益。
+- [ ] 近似 DiT 缓存必须显式启用并通过单独质量门槛，不包装成精确 K/V 复用。
+- [ ] Windows、其他 GPU、便携模型包与发布材料。
 
-- [ ] text encoder 在 DiT 加载前释放，DiT 在 VAE 加载前释放。预计算 embeddings 模式不加载文本模型。
-- [x] 接通 preprocessor → streamed DiT → image-token slice → finalizer 的 `VkMat` 路径，组件之间不下载激活；Euler 闭环尚待接入。
-- [x] 调用方管理 `VkCompute`、allocator 和提交边界，拒绝计算图中没有 Vulkan 实现的计算层；逐块完成后释放该 Net 的权重。
-- [ ] 将 RoPE、mask、原始文本投影和每步时间嵌入按依赖关系预计算，保持特定层的广播而不展开为大张量。
-- [ ] 比较 host-memory weights 与受控 block 权重调度，记录 PCIe/host 访问成本。必要时 VAE tiled decode。
-- [x] 实现调用方共享 Vulkan pipeline cache，复用相同静态图的 pipeline；同输入对照结果见组件报告。缓存权重、优化上传和重复去噪仍需单独测量。
-- [ ] 输出冷启动、热运行、文本编码、逐步 DiT、VAE、总时间、峰值 RAM/VRAM、swap 增量和模型大小。
-
-退出条件：在本机明确报告支持的最大分辨率/文本长度/精度与资源峰值。8GB 是待验证目标，不把部分算子成功或单独低显存选项视作达成。
-
-## 4. PE 与交付完善
-
-- [ ] CPU PE 接专用 cache allocator，CPU cache 使用 `type=1`，按当前 x86 attention 做匹配基准。
-- [ ] 在实际模型上验证每层 cache 生命周期、prefill、decode、重置和并行独立会话。
-- [ ] 可选 GPU PE：缓存始终留在设备，尽量将 decoder / LM head 放入合理提交批次，仅下载生成所需的小输出。
-- [ ] CPU block quantization、Vulkan 精度策略分别量化评估。当前 ncnn 不支持 Vulkan Gemm block-quantized weights，不预设量化算法或收益。
-- [ ] 添加构建 CI、模型 manifest 校验、可重复基准和错误处理，再扩展 Windows 与其他 GPU。
-
-退出条件：PE 开启/关闭分开报告，不能将二者作为同一配置比较速度。发布前所有公开兼容性和性能声明都由实测支撑。
-
-## 决策顺序
-
-下一个里程碑是 **真实文本条件下的小尺寸 Turbo 闭环**：验证 Mistral3 文本路径和 hidden-state 选择，接入 C++ 时间特征与 8 步 Euler，再完成 VAE 解码。比较时使用同一组保存的 embeddings 和初始 latent。先以 FP16 作为低显存工作路线，BF16 的独立失败门槛保持完整可追溯。
-
-不承诺整模型提速倍数。当前已实现分阶段加载约 14.9GiB DiT 权重的基础路径，加载/初始化开销、真实文本条件下的误差积累和 8 步闭环仍需验证。原先 4–8 周是单人工程投入的粗略估算，单 block 或一次预测的耗时不能用来预测整项目进度或端到端速度。
+下一里程碑是 **保持已通过的数学与图像结果，降低权重调度和 VAE 内存成本，并扩大 1024 质量证据**。PE、原版多步/CFG 模型、量化与跨平台在各自可验证的阶段推进。外部推送和发布按用户已授权范围执行；当前完整实现保存在本地。

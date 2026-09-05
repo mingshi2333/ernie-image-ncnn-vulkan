@@ -1,0 +1,14 @@
+[0/1] Re-running CMake...
+-- CMAKE_INSTALL_PREFIX = /usr/local
+-- NCNN_VERSION_STRING = 1.0.20260905
+-- Target arch: x86 64bit
+-- Found glslang: /usr/lib64/libglslang.a (found version "16.2.0")
+-- Found SPIRV: /usr/lib64/libSPIRV.a (found version "16.2.0")
+-- Configuring done (0.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/build
+[1/6] Building CXX object CMakeFiles/ernie-runtime.dir/src/ernie_rmsnorm.cpp.o
+[2/6] Building CXX object CMakeFiles/ernie-runtime.dir/src/text_encoder.cpp.o
+[3/6] Linking CXX static library libernie-runtime.a
+[4/6] Building CXX object CMakeFiles/ernie-text-runner.dir/probes/text_runner.cpp.o
+[5/6] Linking CXX executable ernie-text-runner

@@ -1,0 +1,35 @@
+pnnxparam = text.pnnx.param
+pnnxbin = text.pnnx.bin
+pnnxpy = text_pnnx.py
+pnnxonnx = text.pnnx.onnx
+ncnnparam = text.ncnn.param
+ncnnbin = text.ncnn.bin
+ncnnpy = text_ncnn.py
+fp16 = 0
+optlevel = 2
+device = cpu
+inputshape = [1,32,3072]f32,[1,32,128]f32,[1,32,128]f32,[32,32]f32
+inputshape2 = 
+input = 
+input2 = 
+customop = 
+moduleop = 
+get inputshape from traced inputs
+inputshape = [1,32,3072]f32,[1,32,128]f32,[1,32,128]f32,[32,32]f32
+############# pass_level0
+inline module = transformers.activations.SiLUActivation
+inline module = transformers.models.mistral.modeling_mistral.MistralMLP
+inline module = transformers.activations.SiLUActivation
+inline module = transformers.models.mistral.modeling_mistral.MistralMLP
+
+----------------
+
+############# pass_level1
+############# pass_level2
+############# pass_level3
+############# pass_level4
+############# pass_level5
+############# pass_ncnn
+model inputshape = [1,32,3072]f32,[1,32,128]f32,[1,32,128]f32,[32,32]f32
+FLOPS = 7.47G
+memory OPS = 121.953M

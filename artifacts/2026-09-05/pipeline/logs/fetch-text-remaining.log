@@ -1,0 +1,413 @@
+{"status": "download", "tensors": 9, "payload_bytes": 232796160, "prefix": "language_model.model.layers.1."}
+{"tensor": "language_model.model.layers.1.input_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.1.mlp.down_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.1.mlp.gate_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.1.mlp.up_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.1.post_attention_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.1.self_attn.k_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.1.self_attn.o_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.1.self_attn.q_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.1.self_attn.v_proj.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/text-block-01.safetensors", "sha256": "fef80d4899f11c34534b79781486908346bf69c54744b6f75788b3c7e57e6880"}
+{"status": "download", "tensors": 9, "payload_bytes": 232796160, "prefix": "language_model.model.layers.2."}
+{"tensor": "language_model.model.layers.2.input_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.2.mlp.down_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.2.mlp.gate_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.2.mlp.up_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.2.post_attention_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.2.self_attn.k_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.2.self_attn.o_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.2.self_attn.q_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.2.self_attn.v_proj.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/text-block-02.safetensors", "sha256": "d621f554138a2bd39ed2ee1eaf04e7cf508947a7afc9e049ca80c2b6f2620be8"}
+{"status": "download", "tensors": 9, "payload_bytes": 232796160, "prefix": "language_model.model.layers.3."}
+{"tensor": "language_model.model.layers.3.input_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.3.mlp.down_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.3.mlp.gate_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.3.mlp.up_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.3.post_attention_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.3.self_attn.k_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.3.self_attn.o_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.3.self_attn.q_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.3.self_attn.v_proj.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/text-block-03.safetensors", "sha256": "e4c53a52910c860e1d280b8156c45552165b119399c9b27e7d6ea73cee64e8cd"}
+{"status": "download", "tensors": 9, "payload_bytes": 232796160, "prefix": "language_model.model.layers.4."}
+{"tensor": "language_model.model.layers.4.input_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.4.mlp.down_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.4.mlp.gate_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.4.mlp.up_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.4.post_attention_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.4.self_attn.k_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.4.self_attn.o_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.4.self_attn.q_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.4.self_attn.v_proj.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/text-block-04.safetensors", "sha256": "a8a2a58e8c9fbe1b4b94b3ed000ed55b973539d3e346eac5896e272423d7b64e"}
+{"status": "download", "tensors": 9, "payload_bytes": 232796160, "prefix": "language_model.model.layers.5."}
+{"tensor": "language_model.model.layers.5.input_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.5.mlp.down_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.5.mlp.gate_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.5.mlp.up_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.5.post_attention_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.5.self_attn.k_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.5.self_attn.o_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.5.self_attn.q_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.5.self_attn.v_proj.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/text-block-05.safetensors", "sha256": "c3abd87eae23cd05dc1665c4c66283a79d833f220a93c43c5ff859863789c6e5"}
+{"status": "download", "tensors": 9, "payload_bytes": 232796160, "prefix": "language_model.model.layers.6."}
+{"tensor": "language_model.model.layers.6.input_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.6.mlp.down_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.6.mlp.gate_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.6.mlp.up_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.6.post_attention_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.6.self_attn.k_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.6.self_attn.o_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.6.self_attn.q_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.6.self_attn.v_proj.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/text-block-06.safetensors", "sha256": "0a864229400c73fc16466083c569f4c7adb5d1bbb9b8a21e9861f21d3c446902"}
+{"status": "download", "tensors": 9, "payload_bytes": 232796160, "prefix": "language_model.model.layers.7."}
+{"tensor": "language_model.model.layers.7.input_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.7.mlp.down_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.7.mlp.gate_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.7.mlp.up_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.7.post_attention_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.7.self_attn.k_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.7.self_attn.o_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.7.self_attn.q_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.7.self_attn.v_proj.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/text-block-07.safetensors", "sha256": "8d3b112ad1fdd884c880aefa9bcafeee7244bc4d6297810f588fcf8c4a1591af"}
+{"status": "download", "tensors": 9, "payload_bytes": 232796160, "prefix": "language_model.model.layers.8."}
+{"tensor": "language_model.model.layers.8.input_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.8.mlp.down_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.8.mlp.gate_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.8.mlp.up_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.8.post_attention_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.8.self_attn.k_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.8.self_attn.o_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.8.self_attn.q_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.8.self_attn.v_proj.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/text-block-08.safetensors", "sha256": "81e6eb6820e1f674453bc6dcb4ea56fb83803a1c0263961c359552bc675b4bab"}
+{"status": "download", "tensors": 9, "payload_bytes": 232796160, "prefix": "language_model.model.layers.9."}
+{"tensor": "language_model.model.layers.9.input_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.9.mlp.down_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.9.mlp.gate_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.9.mlp.up_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.9.post_attention_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.9.self_attn.k_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.9.self_attn.o_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.9.self_attn.q_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.9.self_attn.v_proj.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/text-block-09.safetensors", "sha256": "72f6303aa96876f4b907fafe4193dabc6a9d8b2eb04c20f3583e51762a93a7c7"}
+{"status": "download", "tensors": 9, "payload_bytes": 232796160, "prefix": "language_model.model.layers.10."}
+{"tensor": "language_model.model.layers.10.input_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.10.mlp.down_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.10.mlp.gate_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.10.mlp.up_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.10.post_attention_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.10.self_attn.k_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.10.self_attn.o_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.10.self_attn.q_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.10.self_attn.v_proj.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/text-block-10.safetensors", "sha256": "a5ba7f951f2555ddbe434b3ff1b570e0cb4139954cf430ca5812ea051172e896"}
+{"status": "download", "tensors": 9, "payload_bytes": 232796160, "prefix": "language_model.model.layers.11."}
+{"tensor": "language_model.model.layers.11.input_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.11.mlp.down_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.11.mlp.gate_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.11.mlp.up_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.11.post_attention_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.11.self_attn.k_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.11.self_attn.o_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.11.self_attn.q_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.11.self_attn.v_proj.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/text-block-11.safetensors", "sha256": "9fc97d98c35188e7b8958bc385c8b84665258fc431f399ba8e9c5985c807413e"}
+{"status": "download", "tensors": 9, "payload_bytes": 232796160, "prefix": "language_model.model.layers.12."}
+{"tensor": "language_model.model.layers.12.input_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.12.mlp.down_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.12.mlp.gate_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.12.mlp.up_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.12.post_attention_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.12.self_attn.k_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.12.self_attn.o_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.12.self_attn.q_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.12.self_attn.v_proj.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/text-block-12.safetensors", "sha256": "043959e1a8075bf6e7d7ce264e9b82e3ec3d7bd36f79ca0c6fc210ca3e0c0392"}
+{"status": "download", "tensors": 9, "payload_bytes": 232796160, "prefix": "language_model.model.layers.13."}
+{"tensor": "language_model.model.layers.13.input_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.13.mlp.down_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.13.mlp.gate_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.13.mlp.up_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.13.post_attention_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.13.self_attn.k_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.13.self_attn.o_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.13.self_attn.q_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.13.self_attn.v_proj.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/text-block-13.safetensors", "sha256": "994c2e1cc8e43b2edc40480b308935609c3f7031aa2196981a42708b08de4ef9"}
+{"status": "download", "tensors": 9, "payload_bytes": 232796160, "prefix": "language_model.model.layers.14."}
+{"tensor": "language_model.model.layers.14.input_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.14.mlp.down_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.14.mlp.gate_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.14.mlp.up_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.14.post_attention_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.14.self_attn.k_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.14.self_attn.o_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.14.self_attn.q_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.14.self_attn.v_proj.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/text-block-14.safetensors", "sha256": "9c2d90aed1bc0783ce27ac4b46618858b97034cbbe0b351d0a0108431979260a"}
+{"status": "download", "tensors": 9, "payload_bytes": 232796160, "prefix": "language_model.model.layers.15."}
+{"tensor": "language_model.model.layers.15.input_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.15.mlp.down_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.15.mlp.gate_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.15.mlp.up_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.15.post_attention_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.15.self_attn.k_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.15.self_attn.o_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.15.self_attn.q_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.15.self_attn.v_proj.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/text-block-15.safetensors", "sha256": "4d00e6f25c4af2f894ae35fce647e2374681ee3345dcf43c93a3f89979ee0edf"}
+{"status": "download", "tensors": 9, "payload_bytes": 232796160, "prefix": "language_model.model.layers.16."}
+{"tensor": "language_model.model.layers.16.input_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.16.mlp.down_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.16.mlp.gate_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.16.mlp.up_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.16.post_attention_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.16.self_attn.k_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.16.self_attn.o_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.16.self_attn.q_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.16.self_attn.v_proj.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/text-block-16.safetensors", "sha256": "f773595f7176d0cfd7197fca31fc91d0e90080d9ca220541832da016c97cf5ff"}
+{"status": "download", "tensors": 9, "payload_bytes": 232796160, "prefix": "language_model.model.layers.17."}
+{"tensor": "language_model.model.layers.17.input_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.17.mlp.down_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.17.mlp.gate_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.17.mlp.up_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.17.post_attention_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.17.self_attn.k_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.17.self_attn.o_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.17.self_attn.q_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.17.self_attn.v_proj.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/text-block-17.safetensors", "sha256": "04152c286b19bccd3cd6fc21932dc2d8efaf2e1a4236a0b0f2d409f1bae673bb"}
+{"status": "download", "tensors": 9, "payload_bytes": 232796160, "prefix": "language_model.model.layers.18."}
+{"tensor": "language_model.model.layers.18.input_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.18.mlp.down_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.18.mlp.gate_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.18.mlp.up_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.18.post_attention_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.18.self_attn.k_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.18.self_attn.o_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.18.self_attn.q_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.18.self_attn.v_proj.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/text-block-18.safetensors", "sha256": "146d88e9e8dd8c7b1f4b1ebef7c239dbf0408c7c90d1436e680b8146d84d79d6"}
+{"status": "download", "tensors": 9, "payload_bytes": 232796160, "prefix": "language_model.model.layers.19."}
+{"tensor": "language_model.model.layers.19.input_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.19.mlp.down_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.19.mlp.gate_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.19.mlp.up_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.19.post_attention_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.19.self_attn.k_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.19.self_attn.o_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.19.self_attn.q_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.19.self_attn.v_proj.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/text-block-19.safetensors", "sha256": "16fee4b5ad94def3cdcc76c1a2451d20667a2f2c01ee802325fd488fb863c145"}
+{"status": "download", "tensors": 9, "payload_bytes": 232796160, "prefix": "language_model.model.layers.20."}
+{"tensor": "language_model.model.layers.20.input_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.20.mlp.down_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.20.mlp.gate_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.20.mlp.up_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.20.post_attention_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.20.self_attn.k_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.20.self_attn.o_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.20.self_attn.q_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.20.self_attn.v_proj.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/text-block-20.safetensors", "sha256": "a50c28177601f7cfa19829f5d6c84c6554e540f6953c1cae0dbcd8c7babb2f9c"}
+{"status": "download", "tensors": 9, "payload_bytes": 232796160, "prefix": "language_model.model.layers.21."}
+{"tensor": "language_model.model.layers.21.input_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.21.mlp.down_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.21.mlp.gate_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.21.mlp.up_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.21.post_attention_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.21.self_attn.k_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.21.self_attn.o_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.21.self_attn.q_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.21.self_attn.v_proj.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/text-block-21.safetensors", "sha256": "a4ee12c049a6be163cc9b4dbe7e6f25e56d2fe8f26f1ac03757bad99a402f6bc"}
+{"status": "download", "tensors": 9, "payload_bytes": 232796160, "prefix": "language_model.model.layers.22."}
+{"tensor": "language_model.model.layers.22.input_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.22.mlp.down_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.22.mlp.gate_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.22.mlp.up_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.22.post_attention_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.22.self_attn.k_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.22.self_attn.o_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.22.self_attn.q_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.22.self_attn.v_proj.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/text-block-22.safetensors", "sha256": "7088522b1cc2fb2e0307357c5295ed49affc6b7c996d7a73a698d3b240cf8975"}
+{"status": "download", "tensors": 9, "payload_bytes": 232796160, "prefix": "language_model.model.layers.23."}
+{"tensor": "language_model.model.layers.23.input_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.23.mlp.down_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.23.mlp.gate_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.23.mlp.up_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.23.post_attention_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.23.self_attn.k_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.23.self_attn.o_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.23.self_attn.q_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.23.self_attn.v_proj.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/text-block-23.safetensors", "sha256": "0badfedeb3745bc6f6c4af29c1a4a09f86e24c08eaca21789223f73afbd42a83"}
+{"status": "download", "tensors": 9, "payload_bytes": 232796160, "prefix": "language_model.model.layers.24."}
+{"tensor": "language_model.model.layers.24.input_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.24.mlp.down_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.24.mlp.gate_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.24.mlp.up_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.24.post_attention_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.24.self_attn.k_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.24.self_attn.o_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.24.self_attn.q_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.24.self_attn.v_proj.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/text-block-24.safetensors", "sha256": "ec8ce80af40d926cc2cbf974e815b7b343ad53a774252d0317e4f06dfeacb495"}
+{"status": "download", "tensors": 138, "payload_bytes": 99238406, "prefix": "decoder."}
+{"tensor": "decoder.conv_in.bias", "status": "downloaded"}
+{"tensor": "decoder.conv_in.weight", "status": "downloaded"}
+{"tensor": "decoder.conv_norm_out.bias", "status": "downloaded"}
+{"tensor": "decoder.conv_norm_out.weight", "status": "downloaded"}
+{"tensor": "decoder.conv_out.bias", "status": "downloaded"}
+{"tensor": "decoder.conv_out.weight", "status": "downloaded"}
+{"tensor": "decoder.mid_block.attentions.0.group_norm.bias", "status": "downloaded"}
+{"tensor": "decoder.mid_block.attentions.0.group_norm.weight", "status": "downloaded"}
+{"tensor": "decoder.mid_block.attentions.0.to_k.bias", "status": "downloaded"}
+{"tensor": "decoder.mid_block.attentions.0.to_k.weight", "status": "downloaded"}
+{"tensor": "decoder.mid_block.attentions.0.to_out.0.bias", "status": "downloaded"}
+{"tensor": "decoder.mid_block.attentions.0.to_out.0.weight", "status": "downloaded"}
+{"tensor": "decoder.mid_block.attentions.0.to_q.bias", "status": "downloaded"}
+{"tensor": "decoder.mid_block.attentions.0.to_q.weight", "status": "downloaded"}
+{"tensor": "decoder.mid_block.attentions.0.to_v.bias", "status": "downloaded"}
+{"tensor": "decoder.mid_block.attentions.0.to_v.weight", "status": "downloaded"}
+{"tensor": "decoder.mid_block.resnets.0.conv1.bias", "status": "downloaded"}
+{"tensor": "decoder.mid_block.resnets.0.conv1.weight", "status": "downloaded"}
+{"tensor": "decoder.mid_block.resnets.0.conv2.bias", "status": "downloaded"}
+{"tensor": "decoder.mid_block.resnets.0.conv2.weight", "status": "downloaded"}
+{"tensor": "decoder.mid_block.resnets.0.norm1.bias", "status": "downloaded"}
+{"tensor": "decoder.mid_block.resnets.0.norm1.weight", "status": "downloaded"}
+{"tensor": "decoder.mid_block.resnets.0.norm2.bias", "status": "downloaded"}
+{"tensor": "decoder.mid_block.resnets.0.norm2.weight", "status": "downloaded"}
+{"tensor": "decoder.mid_block.resnets.1.conv1.bias", "status": "downloaded"}
+{"tensor": "decoder.mid_block.resnets.1.conv1.weight", "status": "downloaded"}
+{"tensor": "decoder.mid_block.resnets.1.conv2.bias", "status": "downloaded"}
+{"tensor": "decoder.mid_block.resnets.1.conv2.weight", "status": "downloaded"}
+{"tensor": "decoder.mid_block.resnets.1.norm1.bias", "status": "downloaded"}
+{"tensor": "decoder.mid_block.resnets.1.norm1.weight", "status": "downloaded"}
+{"tensor": "decoder.mid_block.resnets.1.norm2.bias", "status": "downloaded"}
+{"tensor": "decoder.mid_block.resnets.1.norm2.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.0.resnets.0.conv1.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.0.resnets.0.conv1.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.0.resnets.0.conv2.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.0.resnets.0.conv2.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.0.resnets.0.norm1.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.0.resnets.0.norm1.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.0.resnets.0.norm2.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.0.resnets.0.norm2.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.0.resnets.1.conv1.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.0.resnets.1.conv1.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.0.resnets.1.conv2.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.0.resnets.1.conv2.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.0.resnets.1.norm1.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.0.resnets.1.norm1.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.0.resnets.1.norm2.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.0.resnets.1.norm2.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.0.resnets.2.conv1.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.0.resnets.2.conv1.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.0.resnets.2.conv2.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.0.resnets.2.conv2.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.0.resnets.2.norm1.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.0.resnets.2.norm1.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.0.resnets.2.norm2.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.0.resnets.2.norm2.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.0.upsamplers.0.conv.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.0.upsamplers.0.conv.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.1.resnets.0.conv1.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.1.resnets.0.conv1.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.1.resnets.0.conv2.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.1.resnets.0.conv2.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.1.resnets.0.norm1.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.1.resnets.0.norm1.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.1.resnets.0.norm2.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.1.resnets.0.norm2.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.1.resnets.1.conv1.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.1.resnets.1.conv1.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.1.resnets.1.conv2.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.1.resnets.1.conv2.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.1.resnets.1.norm1.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.1.resnets.1.norm1.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.1.resnets.1.norm2.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.1.resnets.1.norm2.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.1.resnets.2.conv1.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.1.resnets.2.conv1.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.1.resnets.2.conv2.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.1.resnets.2.conv2.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.1.resnets.2.norm1.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.1.resnets.2.norm1.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.1.resnets.2.norm2.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.1.resnets.2.norm2.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.1.upsamplers.0.conv.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.1.upsamplers.0.conv.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.2.resnets.0.conv1.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.2.resnets.0.conv1.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.2.resnets.0.conv2.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.2.resnets.0.conv2.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.2.resnets.0.conv_shortcut.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.2.resnets.0.conv_shortcut.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.2.resnets.0.norm1.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.2.resnets.0.norm1.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.2.resnets.0.norm2.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.2.resnets.0.norm2.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.2.resnets.1.conv1.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.2.resnets.1.conv1.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.2.resnets.1.conv2.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.2.resnets.1.conv2.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.2.resnets.1.norm1.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.2.resnets.1.norm1.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.2.resnets.1.norm2.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.2.resnets.1.norm2.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.2.resnets.2.conv1.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.2.resnets.2.conv1.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.2.resnets.2.conv2.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.2.resnets.2.conv2.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.2.resnets.2.norm1.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.2.resnets.2.norm1.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.2.resnets.2.norm2.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.2.resnets.2.norm2.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.2.upsamplers.0.conv.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.2.upsamplers.0.conv.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.3.resnets.0.conv1.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.3.resnets.0.conv1.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.3.resnets.0.conv2.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.3.resnets.0.conv2.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.3.resnets.0.conv_shortcut.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.3.resnets.0.conv_shortcut.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.3.resnets.0.norm1.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.3.resnets.0.norm1.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.3.resnets.0.norm2.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.3.resnets.0.norm2.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.3.resnets.1.conv1.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.3.resnets.1.conv1.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.3.resnets.1.conv2.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.3.resnets.1.conv2.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.3.resnets.1.norm1.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.3.resnets.1.norm1.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.3.resnets.1.norm2.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.3.resnets.1.norm2.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.3.resnets.2.conv1.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.3.resnets.2.conv1.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.3.resnets.2.conv2.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.3.resnets.2.conv2.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.3.resnets.2.norm1.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.3.resnets.2.norm1.weight", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.3.resnets.2.norm2.bias", "status": "downloaded"}
+{"tensor": "decoder.up_blocks.3.resnets.2.norm2.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/vae-decoder.safetensors", "sha256": "197d7e112850b5525f70b46af3e899b70199a59d0afdf815fbcfe9e2a0dee6ea"}
+{"status": "download", "tensors": 2, "payload_bytes": 2112, "prefix": "post_quant_conv."}
+{"tensor": "post_quant_conv.bias", "status": "downloaded"}
+{"tensor": "post_quant_conv.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/vae-post-quant.safetensors", "sha256": "9d8a703c17acf65f7f12fdc7cde6e52e73be83fd8cadf51e42737f50afe9f8a9"}
+{"status": "download", "tensors": 3, "payload_bytes": 520, "prefix": "bn."}
+{"tensor": "bn.num_batches_tracked", "status": "downloaded"}
+{"tensor": "bn.running_mean", "status": "downloaded"}
+{"tensor": "bn.running_var", "status": "downloaded"}
+{"status": "complete", "file": "models/official/vae-bn.safetensors", "sha256": "994f11f035c926c3be5a59802b401ab5304bbab7d53053995d4737b76b8411a6"}

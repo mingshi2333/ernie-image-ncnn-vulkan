@@ -1,0 +1,32 @@
+{
+  "backend": "vulkan",
+  "precision": "fp32",
+  "passed": true,
+  "command": [
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/text-block00-validation-v2/runner.snapshot",
+    "--output",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/text-block00-validation-v2/vulkan-fp32/output.f32",
+    "--tokens",
+    "32",
+    "--backend",
+    "vulkan",
+    "--precision",
+    "fp32",
+    "--model",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/text-s32-v1/block-00",
+    "--fixture",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/text-block00-s32-v2"
+  ],
+  "scope": "Official Mistral text block weights, synthetic activation, causal YaRN prefill",
+  "runner_sha256": "d3e741e8dbf66bee85603f42ddf3bd8012c2b7b44bc768663e3eb12f0be9c2bb",
+  "validator_sha256": "49830fb28893cba055cc1508c2b690167b976af8abc1b94b498095bbea5fe760",
+  "model_manifests": [
+    "75e97c22ddfde40fae58069c30dc3fd2463357ab49485e7f43b8d0ff45b28803"
+  ],
+  "fixture_sha256": "2ff2e93a6c91a155ccefa0dfce271f60f3785ff371951816e8e760b846cfa97c",
+  "return_code": 0,
+  "max_abs_error": 2.7418136596679688e-06,
+  "nrmse": 3.965799266729263e-07,
+  "reference_max_abs": 1.2779430150985718,
+  "sha256": "313d80257fd69c5c049acd46bfaf65188bdc1699007c7022877da73bdfd3c0d5"
+}

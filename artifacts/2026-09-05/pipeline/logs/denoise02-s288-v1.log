@@ -1,0 +1,5 @@
+{"reference_step": 0, "elapsed_seconds": 1.7543442020005386}
+{"reference_step": 1, "elapsed_seconds": 1.8556154369998694}
+{"backend": "cpu", "dit_storage": "fp32", "passed": true, "failure": null}
+{"backend": "vulkan", "dit_storage": "fp32", "passed": true, "failure": null}
+{"backend": "vulkan", "dit_storage": "fp16", "passed": true, "failure": null}

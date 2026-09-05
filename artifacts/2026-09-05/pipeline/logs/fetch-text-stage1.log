@@ -1,0 +1,14 @@
+{"status": "download", "tensors": 1, "payload_bytes": 805306368, "prefix": "language_model.model.embed_tokens."}
+{"tensor": "language_model.model.embed_tokens.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/text-embed.safetensors", "sha256": "a66c375fe6f3706c7409f6b7a878c0035aab76f057a043843c479e7dfc42aa2a"}
+{"status": "download", "tensors": 9, "payload_bytes": 232796160, "prefix": "language_model.model.layers.0."}
+{"tensor": "language_model.model.layers.0.input_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.0.mlp.down_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.0.mlp.gate_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.0.mlp.up_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.0.post_attention_layernorm.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.0.self_attn.k_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.0.self_attn.o_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.0.self_attn.q_proj.weight", "status": "downloaded"}
+{"tensor": "language_model.model.layers.0.self_attn.v_proj.weight", "status": "downloaded"}
+{"status": "complete", "file": "models/official/text-block-00.safetensors", "sha256": "292fba9a9ce542a1534716ac394070655f1f3c38120578fce5bb4ad10542161d"}

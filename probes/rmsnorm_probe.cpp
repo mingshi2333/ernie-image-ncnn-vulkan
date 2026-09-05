@@ -37,7 +37,7 @@ int main(int argc, char** argv)
 #else
         if (backend == "vulkan") return 77;
 #endif
-        for (int width : (centered ? std::vector<int>{4096} : std::vector<int>{128, 4096}))
+        for (int width : (centered ? std::vector<int>{4096} : std::vector<int>{128, 3072, 4096}))
             for (float scale : {1.f, centered ? 1024.f : 512.f})
             {
                 ncnn::Net net;

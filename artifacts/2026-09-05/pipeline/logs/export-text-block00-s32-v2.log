@@ -1,0 +1,3 @@
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+{"return_code": 0, "unsupported": [], "pnnx_sha256": "c3555c48e054245e50fa434a7673fbdad2b8f8c6cdca8c1579601f9882f474a0", "operators": ["BinaryOp", "Concat", "ExpandDims", "Gemm", "Input", "Permute", "RMSNorm", "Reshape", "SDPA", "Slice", "Split", "Swish"], "unconverted": []}

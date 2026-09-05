@@ -1,0 +1,65 @@
+{
+  "component": "vae",
+  "height": 8,
+  "width": 8,
+  "text_tokens": 0,
+  "tokens": 0,
+  "weights": {
+    "decoder": "197d7e112850b5525f70b46af3e899b70199a59d0afdf815fbcfe9e2a0dee6ea",
+    "post-quant": "9d8a703c17acf65f7f12fdc7cde6e52e73be83fd8cadf51e42737f50afe9f8a9"
+  },
+  "official_revision": "bc68c81e2a1730a394d5fc9fae70713dee940140",
+  "scope": "Official VAE decoder with synthetic unpacked latent; BN/unpack happens before this component",
+  "official_source_sha256": "7d9a976c1e4f42615e8c422f1643d86b49c4339221bd04b67f518b718ebd6c2d",
+  "vae_config_sha256": "4d5ba5e01de06d589dd46e2955ab97e2b0968703dce31b9ebe1d2a38c141836d",
+  "wrapper_vs_official": [
+    {
+      "max_abs_error": 0.0,
+      "nrmse": 0.0,
+      "reference_max_abs": 0.5751097202301025
+    }
+  ],
+  "inputs": {
+    "in0": {
+      "file": "in0.f32",
+      "shape": [
+        1,
+        32,
+        8,
+        8
+      ],
+      "dtype": "float32_le",
+      "sha256": "4b6fbf045688cc0ed9c9e589b9dc0cd2955f2ac9847a581357c4fc16d4c204e1"
+    }
+  },
+  "expected": {
+    "out0": {
+      "file": "out0.f32",
+      "shape": [
+        1,
+        3,
+        64,
+        64
+      ],
+      "dtype": "float32_le",
+      "sha256": "117a89382833e69483036ce2a3a6a5975e04afbbd14877bf9a0869a794c7559d"
+    }
+  },
+  "gates": {
+    "fp32": {
+      "atol": 0.0002,
+      "rtol": 0.0002,
+      "nrmse": 2e-05
+    },
+    "fp16": {
+      "atol": 0.03,
+      "rtol": 0.03,
+      "nrmse": 0.02
+    },
+    "bf16": {
+      "atol": 0.2,
+      "rtol": 0.2,
+      "nrmse": 0.1
+    }
+  }
+}

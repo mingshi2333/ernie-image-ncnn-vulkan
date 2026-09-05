@@ -1,0 +1,19 @@
+7767517
+17 21
+pnnx.Input               pnnx_input_0             0 1 0 #0=(1,128,64,64)f32
+pnnx.Input               pnnx_input_1             0 1 1 #1=(1,64,3072)f32
+pnnx.Input               pnnx_input_2             0 1 2 #2=(1,4096)f32
+nn.Conv2d                x_embedder.proj          1 1 0 3 bias=True dilation=(1,1) groups=1 in_channels=128 kernel_size=(1,1) out_channels=4096 padding=(0,0) padding_mode=zeros stride=(1,1) @bias=(4096)f32 @weight=(4096,128,1,1)f32 #0=(1,128,64,64)f32 #3=(1,4096,64,64)f32
+Tensor.reshape           Tensor.reshape_4         1 1 3 4 shape=(1,4096,4096) $input=3 #3=(1,4096,64,64)f32 #4=(1,4096,4096)f32
+torch.transpose          torch.transpose_7        1 1 4 5 dim0=1 dim1=2 $input=4 #4=(1,4096,4096)f32 #5=(1,4096,4096)f32
+nn.Linear                text_proj                1 1 1 6 bias=False in_features=3072 out_features=4096 @weight=(4096,3072)f32 #1=(1,64,3072)f32 #6=(1,64,4096)f32
+torch.cat                torch.cat_6              2 1 5 6 7 dim=1 #5=(1,4096,4096)f32 #6=(1,64,4096)f32 #7=(1,4160,4096)f32
+nn.Linear                time_embedding.linear_1  1 1 2 8 bias=True in_features=4096 out_features=4096 @bias=(4096)f32 @weight=(4096,4096)f32 #2=(1,4096)f32 #8=(1,4096)f32
+nn.SiLU                  time_embedding.act       1 1 8 9 #8=(1,4096)f32 #9=(1,4096)f32
+nn.Linear                time_embedding.linear_2  1 1 9 10 bias=True in_features=4096 out_features=4096 @bias=(4096)f32 @weight=(4096,4096)f32 #9=(1,4096)f32 #10=(1,4096)f32
+nn.SiLU                  adaLN_modulation.0       1 1 10 11 #10=(1,4096)f32 #11=(1,4096)f32
+nn.Linear                adaLN_modulation.1       1 1 11 12 bias=True in_features=4096 out_features=24576 @bias=(24576)f32 @weight=(24576,4096)f32 #11=(1,4096)f32 #12=(1,24576)f32
+Tensor.reshape           Tensor.reshape_5         1 1 12 13 shape=(1,6,4096) $input=12 #12=(1,24576)f32 #13=(1,6,4096)f32
+torch.tensor_split       Tensor.slice_9           1 6 13 14 15 16 17 18 19 dim=1 indices=(1,2,3,4,5) #13=(1,6,4096)f32 #14=(1,1,4096)f32 #15=(1,1,4096)f32 #16=(1,1,4096)f32 #17=(1,1,4096)f32 #18=(1,1,4096)f32 #19=(1,1,4096)f32
+prim::TupleConstruct     pnnx_121                 8 1 7 10 14 15 16 17 18 19 20 #7=(1,4160,4096)f32 #10=(1,4096)f32 #14=(1,1,4096)f32 #15=(1,1,4096)f32 #16=(1,1,4096)f32 #17=(1,1,4096)f32 #18=(1,1,4096)f32 #19=(1,1,4096)f32
+pnnx.Output              pnnx_output_0            1 0 20

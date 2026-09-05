@@ -1,0 +1,23 @@
+	Command being timed: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pipeline1024-apple-fp16-v1/ernie-image.snapshot --model /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/pipeline1024-residual-v1 --prompt A red apple on a wooden table, soft daylight, realistic photo. --output /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pipeline1024-apple-fp16-v1/native.png --seed 42 --steps 8 --device vulkan --precision fp16 --vae-device cpu --trace-dir /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pipeline1024-apple-fp16-v1/trace"
+	User time (seconds): 1213.58
+	System time (seconds): 473.18
+	Percent of CPU this job got: 322%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 8:42.95
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 24145308
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1993864
+	Minor (reclaiming a frame) page faults: 234701762
+	Voluntary context switches: 1224939
+	Involuntary context switches: 35471
+	Swaps: 0
+	File system inputs: 23473096
+	File system outputs: 251112
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

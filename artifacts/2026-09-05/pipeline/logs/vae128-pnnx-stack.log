@@ -1,0 +1,46 @@
+Python Exception <class 'ModuleNotFoundError'>: No module named 'UEPrinters'
+/home/mingshi/.gdbinit:10: Error in sourced command file:
+Error occurred in Python: No module named 'UEPrinters'
+[New LWP 276738]
+[New LWP 276737]
+[New LWP 276736]
+
+This GDB supports auto-downloading debuginfo from the following URLs:
+  <ima:enforcing>
+  <https://debuginfod.fedoraproject.org/>
+  <ima:ignore>
+Enable debuginfod for this session? (y or [n]) [answered N; input not from terminal]
+Debuginfod has been disabled.
+To make this setting permanent, add 'set debuginfod enabled off' to .gdbinit.
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib64/libthread_db.so.1".
+0x000000000378dacc in ?? ()
+
+Thread 4 (Thread 0x7fbb604d6680 (LWP 276736) "PTThreadPool"):
+#0  0x00007fbb6096b312 in __syscall_cancel_arch () from /lib64/libc.so.6
+#1  0x00007fbb6095f52c in __internal_syscall_cancel () from /lib64/libc.so.6
+#2  0x00007fbb6095f877 in __futex_abstimed_wait_cancelable64 () from /lib64/libc.so.6
+#3  0x00007fbb609620cc in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libc.so.6
+#4  0x00007fbb60c1da87 in std::condition_variable::wait(std::unique_lock<std::mutex>&) () from /lib64/libstdc++.so.6
+
+Thread 3 (Thread 0x7fbb5fcd5680 (LWP 276737) "PTThreadPool"):
+#0  0x00007fbb6096b312 in __syscall_cancel_arch () from /lib64/libc.so.6
+#1  0x00007fbb6095f52c in __internal_syscall_cancel () from /lib64/libc.so.6
+#2  0x00007fbb6095f877 in __futex_abstimed_wait_cancelable64 () from /lib64/libc.so.6
+#3  0x00007fbb609620cc in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libc.so.6
+#4  0x00007fbb60c1da87 in std::condition_variable::wait(std::unique_lock<std::mutex>&) () from /lib64/libstdc++.so.6
+
+Thread 2 (Thread 0x7fbb5f4d4680 (LWP 276738) "PTThreadPool"):
+#0  0x00007fbb6096b312 in __syscall_cancel_arch () from /lib64/libc.so.6
+#1  0x00007fbb6095f52c in __internal_syscall_cancel () from /lib64/libc.so.6
+#2  0x00007fbb6095f877 in __futex_abstimed_wait_cancelable64 () from /lib64/libc.so.6
+#3  0x00007fbb609620cc in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libc.so.6
+#4  0x00007fbb60c1da87 in std::condition_variable::wait(std::unique_lock<std::mutex>&) () from /lib64/libstdc++.so.6
+
+Thread 1 (Thread 0x7fbb60f3d100 (LWP 276735) "pnnx"):
+#0  0x000000000378dacc in ?? ()
+#1  0x000000000378e5e4 in ?? ()
+#2  0x000000000379d18c in ?? ()
+#3  0x00000000037977dd in ?? ()
+#4  0x00000000009cb18c in ?? ()
+[Inferior 1 (process 276735) detached]

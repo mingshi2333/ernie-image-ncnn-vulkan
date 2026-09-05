@@ -1,0 +1,245 @@
+{
+  "scope": "Native prompt-to-PNG versus staged pinned official FP32 modules; PE off, CFG=1; identical saved initial latent",
+  "runner_sha256": "7f18b764f57113336e748133ec5b5b43a1caab791ba03ef0828eb0dcae6fff54",
+  "validator_sha256": "0eda11e87a003c198cae92292c182210dfe17819f037d999d7d22b3bb96ed608",
+  "package_manifest_sha256": "9c14feef90fe8e3d189466ce2cef3fce78b9fdf772ffdacee5afe02b40d90752",
+  "reference_fixture_sha256": "09b1b569430b98d76f745bb1f8c1c8d0d645509693d6e4ac8ceaca99d83c9d04",
+  "device": "vulkan",
+  "dit_precision": "fp16",
+  "text_scheduler_vae_precision": "fp32",
+  "command": [
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pipeline64-apple-fp16-v3/ernie-image.snapshot",
+    "--model",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/pipeline64-residual-v1",
+    "--prompt",
+    "A red apple on a wooden table, soft daylight, realistic photo.",
+    "--output",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pipeline64-apple-fp16-v3/native.png",
+    "--device",
+    "vulkan",
+    "--precision",
+    "fp16",
+    "--steps",
+    "8",
+    "--latent",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pipeline64-apple-fp16-v1/reference/initial.f32",
+    "--trace-dir",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pipeline64-apple-fp16-v3/trace"
+  ],
+  "passed": true,
+  "comparisons": [
+    {
+      "tensor": "initial",
+      "max_abs_error": 0.0,
+      "nrmse": 0.0,
+      "reference_max_abs": 3.729480266571045,
+      "passed": true,
+      "sha256": "4b6fbf045688cc0ed9c9e589b9dc0cd2955f2ac9847a581357c4fc16d4c204e1"
+    },
+    {
+      "tensor": "text",
+      "max_abs_error": 0.0037841796875,
+      "nrmse": 6.281201736996835e-06,
+      "reference_max_abs": 598.9039916992188,
+      "passed": true,
+      "sha256": "906464f41c3896c35070b0f5d49584a0dfe29846cb7d929b1716b4436fa6c2c9"
+    },
+    {
+      "tensor": "padded-text",
+      "max_abs_error": 0.0037841796875,
+      "nrmse": 6.281201736996835e-06,
+      "reference_max_abs": 598.9039916992188,
+      "passed": true,
+      "sha256": "d42ff54acd69df7f1791ba9d5701c60ab31d15b08c515f9729304a2f4c166d4c"
+    },
+    {
+      "tensor": "constant-0",
+      "max_abs_error": 5.960464477539063e-08,
+      "nrmse": 7.836391009742999e-09,
+      "reference_max_abs": 1.0,
+      "passed": true,
+      "sha256": "b52049d9ec27dac514ee69bf62b799edb8e45191ad5522e817d1e7705412dbc1"
+    },
+    {
+      "tensor": "constant-1",
+      "max_abs_error": 5.960464477539063e-08,
+      "nrmse": 1.6078992553126883e-08,
+      "reference_max_abs": 0.9999998807907104,
+      "passed": true,
+      "sha256": "71cd9d25c3fc3fbf646dcff91e298b15fcf3c415eb79462d81e9cfd964bcc04b"
+    },
+    {
+      "tensor": "constant-2",
+      "max_abs_error": 0.0,
+      "nrmse": 0.0,
+      "reference_max_abs": 1.0000000150474662e+30,
+      "passed": true,
+      "sha256": "71ba600d0841d55b95bea94c0e17b5edb3311e1dfc56cda0723894ac1015d0a3"
+    },
+    {
+      "tensor": "prediction-0",
+      "max_abs_error": 0.18263840675354004,
+      "nrmse": 0.028645865784342348,
+      "reference_max_abs": 4.453892707824707,
+      "passed": true,
+      "sha256": "b25dea0a56321460c5fa0408dd09d1d8526a9079d6a87b4a6033b3f71ea73391"
+    },
+    {
+      "tensor": "step-0",
+      "max_abs_error": 0.0062978267669677734,
+      "nrmse": 0.0012942023783144329,
+      "reference_max_abs": 3.6128792762756348,
+      "passed": true,
+      "sha256": "713b3e02ae609e162770df21ecf52e153daee5a741a2689ed90cad557be87730"
+    },
+    {
+      "tensor": "prediction-1",
+      "max_abs_error": 0.12571823596954346,
+      "nrmse": 0.02807445595878465,
+      "reference_max_abs": 4.122437953948975,
+      "passed": true,
+      "sha256": "84cbf35040010bd8aea56ea8c1ed8c6e0996eaec1d2768b9b580a3baca2c0c99"
+    },
+    {
+      "tensor": "step-1",
+      "max_abs_error": 0.008651584386825562,
+      "nrmse": 0.0020810841892136573,
+      "reference_max_abs": 3.44443416595459,
+      "passed": true,
+      "sha256": "5b6426836a4fecba7ec8ad714563ebb11a9b7f00c993a1d6b637addaa0bedf7a"
+    },
+    {
+      "tensor": "prediction-2",
+      "max_abs_error": 0.23363631963729858,
+      "nrmse": 0.0450960490675415,
+      "reference_max_abs": 4.900341510772705,
+      "passed": true,
+      "sha256": "724d2c34600af2f47d89a276cf181ca14e2f68271b9ae29c06f07191b3254fe3"
+    },
+    {
+      "tensor": "step-2",
+      "max_abs_error": 0.014369487762451172,
+      "nrmse": 0.004089250456877638,
+      "reference_max_abs": 3.294182062149048,
+      "passed": true,
+      "sha256": "c5b7cd3c6239c4001c3a06ccd2bbbee44fcda94a73ffd3e2cc9f5a2cf29578b1"
+    },
+    {
+      "tensor": "prediction-3",
+      "max_abs_error": 0.22558200359344482,
+      "nrmse": 0.04469333570162065,
+      "reference_max_abs": 4.174091339111328,
+      "passed": true,
+      "sha256": "f9f4794bf30437c8d4b4bc8967f475ea88fd7b83f312b31e38c6d686cf17b29c"
+    },
+    {
+      "tensor": "step-3",
+      "max_abs_error": 0.02185845375061035,
+      "nrmse": 0.006745293638384224,
+      "reference_max_abs": 3.1187236309051514,
+      "passed": true,
+      "sha256": "d50d3854b590c2710713697dfb7de4e850bce1da7c20635b22433c18c4f81793"
+    },
+    {
+      "tensor": "prediction-4",
+      "max_abs_error": 0.23204565048217773,
+      "nrmse": 0.044745261600529544,
+      "reference_max_abs": 4.32291841506958,
+      "passed": true,
+      "sha256": "6ed08582f17e7cb3fa549eead1da1cd8b2e88785e5ce85ba37b1c6f99054f98e"
+    },
+    {
+      "tensor": "step-4",
+      "max_abs_error": 0.029358267784118652,
+      "nrmse": 0.010770869989683582,
+      "reference_max_abs": 2.813436985015869,
+      "passed": true,
+      "sha256": "bad23f898becd1d4133f6b892cbcb6fb150f17b2028f606f22b803badf39c2ea"
+    },
+    {
+      "tensor": "prediction-5",
+      "max_abs_error": 0.28766047954559326,
+      "nrmse": 0.05226744015781201,
+      "reference_max_abs": 4.142326831817627,
+      "passed": true,
+      "sha256": "45d6824e7fd49ef8af45d6e16a337da123f81320568ce9d79112c9ffc745432b"
+    },
+    {
+      "tensor": "step-5",
+      "max_abs_error": 0.05571556091308594,
+      "nrmse": 0.020210618093342417,
+      "reference_max_abs": 2.686732053756714,
+      "passed": true,
+      "sha256": "6025a8d4ad66d9a84418a401867738933ef312a4f4563447ec8d889572625285"
+    },
+    {
+      "tensor": "prediction-6",
+      "max_abs_error": 0.6851945519447327,
+      "nrmse": 0.07677623550627428,
+      "reference_max_abs": 4.161602973937988,
+      "passed": true,
+      "sha256": "ec843cd0123c24a9b7d068a1ebfd93591dd8b98a5a48ee3512bc4889930a472b"
+    },
+    {
+      "tensor": "step-6",
+      "max_abs_error": 0.15428078174591064,
+      "nrmse": 0.03873036779280396,
+      "reference_max_abs": 3.3662548065185547,
+      "passed": true,
+      "sha256": "5e16ee030007d40a2b411e148c4d3052d37f46bbf27c4b468d8390851e935700"
+    },
+    {
+      "tensor": "prediction-7",
+      "max_abs_error": 0.48522186279296875,
+      "nrmse": 0.07387464751204263,
+      "reference_max_abs": 4.042555809020996,
+      "passed": true,
+      "sha256": "a208bf875ed0d61211279b206040116a6056714800c7f41318b1a2d05c558e2e"
+    },
+    {
+      "tensor": "step-7",
+      "max_abs_error": 0.2848173677921295,
+      "nrmse": 0.052440392452810236,
+      "reference_max_abs": 4.635237693786621,
+      "passed": true,
+      "sha256": "0c9f4b51f0e94fbca85377737e0da7ef627cbcf99a8226725bcf82ba9cd8a27d"
+    },
+    {
+      "tensor": "final",
+      "max_abs_error": 0.2848173677921295,
+      "nrmse": 0.052440392452810236,
+      "reference_max_abs": 4.635237693786621,
+      "passed": true,
+      "sha256": "0c9f4b51f0e94fbca85377737e0da7ef627cbcf99a8226725bcf82ba9cd8a27d"
+    },
+    {
+      "tensor": "unpacked",
+      "max_abs_error": 0.49331898987293243,
+      "nrmse": 0.052211141049308483,
+      "reference_max_abs": 8.288923263549805,
+      "passed": true,
+      "sha256": "c0406ac9b93c2a9f9092afdc0d5198293fb4e2f97f4baafb7ce74d324c52836c"
+    },
+    {
+      "tensor": "decoded",
+      "max_abs_error": 0.12456107139587402,
+      "nrmse": 0.026879926334509148,
+      "reference_max_abs": 1.2242813110351562,
+      "passed": true,
+      "sha256": "463f997affb9af3931b954a61cc705351c61f1a0f9914401c777a7cbdc3e5466"
+    }
+  ],
+  "return_code": 0,
+  "png": {
+    "shape": [
+      64,
+      64,
+      3
+    ],
+    "mae": 1.4654134114583333,
+    "max_abs": 15.0,
+    "sha256": "d9cd2369d09ae3fff4c8267ca37fb0538ef58fb9eb7254f8182c04e4fca08cc9",
+    "passed": true
+  },
+  "native_png_quantization_exact": true
+}

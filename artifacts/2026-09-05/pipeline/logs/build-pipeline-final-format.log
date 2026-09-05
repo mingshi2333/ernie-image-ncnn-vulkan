@@ -1,0 +1,18 @@
+[1/18] Building CXX object CMakeFiles/ernie-runtime.dir/src/ernie_groupnorm.cpp.o
+[2/18] Building CXX object CMakeFiles/ernie-runtime.dir/src/ernie_gelu.cpp.o
+[3/18] Building CXX object CMakeFiles/ernie-runtime.dir/src/ernie_residual.cpp.o
+[4/18] Building CXX object CMakeFiles/ernie-runtime.dir/src/denoiser.cpp.o
+[5/18] Linking CXX static library libernie-runtime.a
+[6/18] Building CXX object CMakeFiles/ernie-residual-contract.dir/tests/test_residual_contract.cpp.o
+[7/18] Building CXX object CMakeFiles/ernie-image.dir/src/main.cpp.o
+[8/18] Linking CXX executable ernie-block-runner
+[9/18] Linking CXX executable ernie-latent-runner
+[10/18] Linking CXX executable ernie-gelu-probe
+[11/18] Linking CXX executable ernie-block-sequence-runner
+[12/18] Linking CXX executable ernie-head-runner
+[13/18] Linking CXX executable ernie-denoise-runner
+[14/18] Linking CXX executable ernie-text-runner
+[15/18] Linking CXX executable ernie-image
+[16/18] Linking CXX executable ernie-latent-contract
+[17/18] Linking CXX executable ernie-residual-contract
+[18/18] Linking CXX executable ernie-rmsnorm-probe

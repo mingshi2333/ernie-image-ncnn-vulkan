@@ -1,0 +1,20 @@
+test_corrupted_bytes_fail (test_model_contract.ContractTests.test_corrupted_bytes_fail) ... ok
+test_valid_artifacts (test_model_contract.ContractTests.test_valid_artifacts) ... ok
+test_wrong_runtime_revision_fails (test_model_contract.ContractTests.test_wrong_runtime_revision_fails) ... ok
+test_wrong_static_shape_fails (test_model_contract.ContractTests.test_wrong_static_shape_fails) ... ok
+test_math_changes_are_not_treated_as_weight_compatible (test_model_contract.DirectGraphTests.test_math_changes_are_not_treated_as_weight_compatible) ... ok
+test_shape_mismatch_rejected (test_model_contract.DirectGraphTests.test_shape_mismatch_rejected) ... ok
+test_three_reviewed_buckets_share_the_exact_topology (test_model_contract.DirectGraphTests.test_three_reviewed_buckets_share_the_exact_topology) ... ok
+test_oversized_response_is_not_accepted (test_model_contract.DownloadWindowTests.test_oversized_response_is_not_accepted) ... ok
+test_partial_response_is_retried_before_yielding_any_bytes (test_model_contract.DownloadWindowTests.test_partial_response_is_retried_before_yielding_any_bytes) ... ok
+test_persistent_truncation_fails_after_bounded_retries (test_model_contract.DownloadWindowTests.test_persistent_truncation_fails_after_bounded_retries) ... ok
+test_lossless_round_trip (test_model_contract.PackingTests.test_lossless_round_trip) ... ok
+test_reject_non_bf16_weights (test_model_contract.PackingTests.test_reject_non_bf16_weights) ... ok
+test_reject_unconsumed_data (test_model_contract.PackingTests.test_reject_unconsumed_data) ... ok
+test_unsharded_exact_component_and_reuse (test_model_contract.SingleFileFetchTests.test_unsharded_exact_component_and_reuse) ... ok
+test_unsharded_path_rejected_before_network (test_model_contract.SingleFileFetchTests.test_unsharded_path_rejected_before_network) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.009s
+
+OK
