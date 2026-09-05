@@ -1,0 +1,37 @@
+Traceback (most recent call last):
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/tools/compare_reference_backends.py", line 63, in <module>
+    main()
+    ~~~~^^
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/tools/compare_reference_backends.py", line 51, in main
+    out = model(x, freqs.to('cuda'), temb, attention_mask=inputs[9].to('cuda')[None, None]).transpose(0, 1)
+          ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.venv/lib64/python3.14/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.venv/lib64/python3.14/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.venv/lib64/python3.14/site-packages/diffusers/models/transformers/transformer_ernie_image.py", line 273, in forward
+    attn_out = self.self_attention(x_bsh, attention_mask=attention_mask, image_rotary_emb=rotary_pos_emb)
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.venv/lib64/python3.14/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.venv/lib64/python3.14/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.venv/lib64/python3.14/site-packages/diffusers/models/transformers/transformer_ernie_image.py", line 227, in forward
+    return self.processor(self, hidden_states, attention_mask, image_rotary_emb, **kwargs)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.venv/lib64/python3.14/site-packages/diffusers/models/transformers/transformer_ernie_image.py", line 139, in __call__
+    hidden_states = dispatch_attention_fn(
+        query,
+    ...<6 lines>...
+        parallel_config=self._parallel_config,
+    )
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.venv/lib64/python3.14/site-packages/diffusers/models/attention_dispatch.py", line 440, in dispatch_attention_fn
+    return backend_fn(**kwargs)
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.venv/lib64/python3.14/site-packages/diffusers/models/attention_dispatch.py", line 3713, in _native_attention
+    out = torch.nn.functional.scaled_dot_product_attention(
+        query=query,
+    ...<6 lines>...
+        enable_gqa=enable_gqa,
+    )
+RuntimeError: invalid dtype for bias - should match query's dtype

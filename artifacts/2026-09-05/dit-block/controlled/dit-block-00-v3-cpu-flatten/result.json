@@ -1,0 +1,13 @@
+{
+  "backend": "cpu",
+  "precision": "fp32",
+  "return_code": 0,
+  "fixture": "models/converted/dit-block-00-explicit-rope-v3",
+  "tokens": 24,
+  "passed": true,
+  "scope": "Real block weights; synthetic hidden states and shared AdaLN vectors; official position embeddings",
+  "max_abs_error": 0.01708984375,
+  "nrmse": 3.1217109907892238e-06,
+  "max_abs_limit": 0.931865234375,
+  "nrmse_limit": 2e-05
+}

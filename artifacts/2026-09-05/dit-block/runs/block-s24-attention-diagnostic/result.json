@@ -1,0 +1,73 @@
+{
+  "backend": "vulkan",
+  "precision": "bf16",
+  "model": "models/converted/dit-block-00-s24",
+  "fixture": "models/converted/dit-block-00-s24",
+  "passed": true,
+  "host_weights": false,
+  "device_io": true,
+  "repeat": 3,
+  "trace_attention": true,
+  "tokens": 24,
+  "scope": "Real block weights; synthetic hidden states and shared AdaLN vectors; official position embeddings",
+  "model_manifest_sha256": "1319ec4e7d6bee2bbf2de5142ad81f3deca750e1653d22597eed42a502b89593",
+  "fixture_sha256": "9b508c82b9c25aac01bdb971787f05b56966626229b8f54c0e0a9f0b261492cc",
+  "runner_sha256": "5aac7b340c678d034f3738745c9dbcf8d4d9026d395d725391a9cd04ea8bfff7",
+  "validator_sha256": "acdca5f38c8c3ed30c60cd0098233a6c98e0b26e24022750e1774b633c8b27e5",
+  "command": [
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/build/ernie-block-runner",
+    "--model",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/converted/dit-block-00-s24",
+    "--fixture",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/converted/dit-block-00-s24",
+    "--tokens",
+    "24",
+    "--backend",
+    "vulkan",
+    "--precision",
+    "bf16",
+    "--repeat",
+    "3",
+    "--output",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/block-s24-attention-diagnostic/actual.f32",
+    "--device-io",
+    "--trace-attention"
+  ],
+  "gpu_device_total_mib": {
+    "first": 1197,
+    "sampled_peak": 1612,
+    "samples": 17,
+    "scope": "Whole NVIDIA device 0, includes other processes; sampled every 100 ms, not allocator/process peak"
+  },
+  "return_code": 0,
+  "max_rss_kib": 664288,
+  "runtime": {
+    "backend": "vulkan",
+    "precision": "bf16",
+    "tokens": 24,
+    "load_seconds": 1.07056,
+    "first_run_seconds": 0.00369375,
+    "run_seconds": [
+      0.00369375,
+      0.00361776,
+      0.00355364
+    ],
+    "host_weights": false,
+    "device_io": true,
+    "upload_seconds": 0.00883365,
+    "repeat_max_abs": 0,
+    "non_vulkan_compute_layers": [],
+    "attention_diagnostic": {
+      "calls": 3,
+      "flash_calls": 3,
+      "cooperative_calls": 3,
+      "tokens": 24,
+      "head_dim": 128
+    }
+  },
+  "actual_sha256": "68ed79d08fee01bf92933bc817952e9426800316ba7f92aee9da6cb8816a1f54",
+  "max_abs_error": 26.5078125,
+  "nrmse": 0.010810331694474816,
+  "max_abs_limit": 372.81609375,
+  "nrmse_limit": 0.03
+}

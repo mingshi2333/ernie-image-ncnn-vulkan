@@ -1,0 +1,28 @@
+{
+  "captured_at_utc": "2026-09-05T03:48:48Z",
+  "platform": "Linux-7.1.13-200.fc44.x86_64-x86_64-with-glibc2.43",
+  "compiler": "Clang 22.1.8",
+  "build": "Release, 4 CPU threads; ncnn INT8/WEIGHT_QUANT disabled",
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU, 595.91.07, 8188 MiB",
+  "python": "Python 3.14.7",
+  "scope": "Block validation on local host; no end-to-end image generation",
+  "ncnn_revision": "6a1bf000f363714839a36793addc8c879d3d899e",
+  "source_files": {
+    "src/ernie_gelu.h": "dcf2bdf0b32f2f52daa09546e2852b04b603fb11538242db1b6b24150085c1f1",
+    "src/ernie_gelu.cpp": "0214bb32f71fd798cc9c705e681c1545397ff4ec011977d23a1e9559fe0eaf0c",
+    "probes/attention_probe.cpp": "4a30bcb2400120fd189f3c65c850730d71271bbe9e73ef78deb2475b00dbf344",
+    "probes/block_runner.cpp": "a07b590553c4b37a450505754e77ab2800e83d5c22fd1d2e78488b29f70405a8",
+    "probes/gelu_probe.cpp": "974c9742455849b0863e447e92b258a780f6986108f025815552e8444c7386e1",
+    "probes/attention_diagnostic.h": "5cd7c829968c73c2376b5c5ba214e1c0e0b2117761d9968ecfff6da0cd5cc6e9",
+    "probes/attention_diagnostic.cpp": "f1ada77fc926e89c9a474b47521c612154ba815dbe37be720a362ab0569a7724",
+    "tools/run_probes.py": "943dcc738520548c7327d37b6ae8eb63694349b8a7b8c10f0ecd0a170b3aa561",
+    "tools/fetch_component.py": "7dce075d13a3890acb921e58eccbe500c5caaeaa7a4fd1e801decab21f06be51",
+    "tools/export_dit_block.py": "cc2957037b80cce840a0c09e2646c9290d66e7ce6907d57bc14c18978f49a12d",
+    "tools/prepare_block.py": "8efa0964ab40017f9ba346979c8efe6ad50e6a4ac5a2dd961d59e8a59e779ff8",
+    "tools/validate_dit_block.py": "e2b2a6c257d1eb4c490d0f34e51de43febe738eaded2d78b5e6d4789710f6cb2",
+    "tools/run_block_matrix.py": "a90da77c8b8c3cc740f0beacbd04f9e4ec2df3c158bcb9bfd48ff36b63f9967e",
+    "tools/pack_block_weights.py": "7057668992e3520ef435c697198797905b563897c3f2d1227166b777329259f8",
+    "tools/compare_reference_backends.py": "1cd28228ec736ac2d3f2da613915ba8322885a09cbaf8873c86004657ff5bf17",
+    "tests/test_model_contract.py": "8c3d5d91778dcac723b84a847d8f1446407be9716dea226b578ecc98e98321c1"
+  }
+}

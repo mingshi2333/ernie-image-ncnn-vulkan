@@ -1,0 +1,33 @@
+pnnxparam = block.pnnx.param
+pnnxbin = block.pnnx.bin
+pnnxpy = block_pnnx.py
+pnnxonnx = block.pnnx.onnx
+ncnnparam = block.ncnn.param
+ncnnbin = block.ncnn.bin
+ncnnpy = block_ncnn.py
+fp16 = 0
+optlevel = 2
+device = cpu
+inputshape = [1,24,4096]f32,[1,1,4096]f32,[1,1,4096]f32,[1,1,4096]f32,[1,1,4096]f32,[1,1,4096]f32,[1,1,4096]f32,[1,24,128]f32,[1,24,128]f32,[24,24]f32
+inputshape2 = 
+input = 
+input2 = 
+customop = 
+moduleop = 
+get inputshape from traced inputs
+inputshape = [1,24,4096]f32,[1,1,4096]f32,[1,1,4096]f32,[1,1,4096]f32,[1,1,4096]f32,[1,1,4096]f32,[1,1,4096]f32,[1,24,128]f32,[1,24,128]f32,[24,24]f32
+############# pass_level0
+inline module = diffusers.models.transformers.transformer_ernie_image.ErnieImageFeedForward
+inline module = diffusers.models.transformers.transformer_ernie_image.ErnieImageFeedForward
+
+----------------
+
+############# pass_level1
+############# pass_level2
+############# pass_level3
+############# pass_level4
+############# pass_level5
+############# pass_ncnn
+model inputshape = [1,24,4096]f32,[1,1,4096]f32,[1,1,4096]f32,[1,1,4096]f32,[1,1,4096]f32,[1,1,4096]f32,[1,1,4096]f32,[1,24,128]f32,[1,24,128]f32,[24,24]f32
+FLOPS = 10.486G
+memory OPS = 224.754M

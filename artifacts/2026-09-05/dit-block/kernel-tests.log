@@ -1,0 +1,176 @@
+Start testing: Sep 05 06:42 MSK
+----------------------------------------------------------
+1/6 Testing: native_cache_cpu
+1/6 Test: native_cache_cpu
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/build/ernie-attention-probe" "--backend" "cpu"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/build
+"native_cache_cpu" start time: Sep 05 06:42 MSK
+Output:
+----------------------------------------------------------
+{"ncnn_revision":"6a1bf000f363714839a36793addc8c879d3d899e","q_heads":32,"kv_heads":8,"head_dim":128,"backend":"cpu"}
+{"configuration":"cpu_fp32_dedicated","case":"prefill_decode_reuse","tokens":40,"steps":9,"hint":128,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":2.16066837e-07,"nrmse":9.75599188e-08,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"cpu_fp32_dedicated","case":"reset_and_growth","tokens":65,"steps":7,"hint":8,"key_backing_allocations":3,"value_backing_allocations":3,"max_abs_error":1.93715096e-07,"nrmse":1.0636602e-07,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"cpu_fp32_dedicated","case":"fresh_prompt_after_reset","tokens":9,"steps":3,"hint":16,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":1.49011612e-07,"nrmse":7.24022572e-08,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"cpu_fp32_default","case":"prefill_decode_reuse","tokens":40,"steps":9,"hint":128,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":2.16066837e-07,"nrmse":9.75599188e-08,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"cpu_fp32_default","case":"reset_and_growth","tokens":65,"steps":7,"hint":8,"key_backing_allocations":3,"value_backing_allocations":3,"max_abs_error":1.93715096e-07,"nrmse":1.0636602e-07,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"cpu_fp32_default","case":"fresh_prompt_after_reset","tokens":9,"steps":3,"hint":16,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":1.49011612e-07,"nrmse":7.24022572e-08,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"native_cache_cpu" end time: Sep 05 06:42 MSK
+"native_cache_cpu" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/6 Testing: native_cache_vulkan
+2/6 Test: native_cache_vulkan
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/build/ernie-attention-probe" "--backend" "vulkan"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/build
+"native_cache_vulkan" start time: Sep 05 06:42 MSK
+Output:
+----------------------------------------------------------
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+{"ncnn_revision":"6a1bf000f363714839a36793addc8c879d3d899e","q_heads":32,"kv_heads":8,"head_dim":128,"backend":"vulkan"}
+Vulkan device: NVIDIA GeForce RTX 4060 Laptop GPU
+{"configuration":"vulkan_fp32_dedicated","case":"prefill_decode_reuse","tokens":40,"steps":9,"hint":128,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":1.49011612e-07,"nrmse":1.05336898e-07,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"vulkan_fp32_dedicated","case":"reset_and_growth","tokens":65,"steps":7,"hint":8,"key_backing_allocations":4,"value_backing_allocations":4,"max_abs_error":1.78813934e-07,"nrmse":1.16683426e-07,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"vulkan_fp32_dedicated","case":"fresh_prompt_after_reset","tokens":9,"steps":3,"hint":16,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":1.78813934e-07,"nrmse":7.45773035e-08,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"vulkan_fp32_default","case":"prefill_decode_reuse","tokens":40,"steps":9,"hint":128,"key_backing_allocations":9,"value_backing_allocations":9,"max_abs_error":1.49011612e-07,"nrmse":1.05336898e-07,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"vulkan_fp32_default","case":"reset_and_growth","tokens":65,"steps":7,"hint":8,"key_backing_allocations":7,"value_backing_allocations":7,"max_abs_error":1.78813934e-07,"nrmse":1.16683426e-07,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"vulkan_fp32_default","case":"fresh_prompt_after_reset","tokens":9,"steps":3,"hint":16,"key_backing_allocations":3,"value_backing_allocations":3,"max_abs_error":1.78813934e-07,"nrmse":7.45773035e-08,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"vulkan_fp16_dedicated","case":"prefill_decode_reuse","tokens":40,"steps":9,"hint":128,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":0.00047814846,"nrmse":0.000299650544,"atol":0.002,"nrmse_limit":0.005,"passed":true}
+{"configuration":"vulkan_fp16_dedicated","case":"reset_and_growth","tokens":65,"steps":7,"hint":8,"key_backing_allocations":4,"value_backing_allocations":4,"max_abs_error":0.000543236732,"nrmse":0.000309597437,"atol":0.002,"nrmse_limit":0.005,"passed":true}
+{"configuration":"vulkan_fp16_dedicated","case":"fresh_prompt_after_reset","tokens":9,"steps":3,"hint":16,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":0.000584125519,"nrmse":0.000279038385,"atol":0.002,"nrmse_limit":0.005,"passed":true}
+{"configuration":"vulkan_fp16_default","case":"prefill_decode_reuse","tokens":40,"steps":9,"hint":128,"key_backing_allocations":9,"value_backing_allocations":9,"max_abs_error":0.00047814846,"nrmse":0.000299650544,"atol":0.002,"nrmse_limit":0.005,"passed":true}
+{"configuration":"vulkan_fp16_default","case":"reset_and_growth","tokens":65,"steps":7,"hint":8,"key_backing_allocations":7,"value_backing_allocations":7,"max_abs_error":0.000543236732,"nrmse":0.000309597437,"atol":0.002,"nrmse_limit":0.005,"passed":true}
+{"configuration":"vulkan_fp16_default","case":"fresh_prompt_after_reset","tokens":9,"steps":3,"hint":16,"key_backing_allocations":3,"value_backing_allocations":3,"max_abs_error":0.000584125519,"nrmse":0.000279038385,"atol":0.002,"nrmse_limit":0.005,"passed":true}
+{"configuration":"vulkan_bf16_dedicated","case":"prefill_decode_reuse","tokens":40,"steps":9,"hint":128,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":0.00453811884,"nrmse":0.00242157887,"atol":0.015,"nrmse_limit":0.03,"passed":true}
+{"configuration":"vulkan_bf16_dedicated","case":"reset_and_growth","tokens":65,"steps":7,"hint":8,"key_backing_allocations":4,"value_backing_allocations":4,"max_abs_error":0.00429242849,"nrmse":0.00247968627,"atol":0.015,"nrmse_limit":0.03,"passed":true}
+{"configuration":"vulkan_bf16_dedicated","case":"fresh_prompt_after_reset","tokens":9,"steps":3,"hint":16,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":0.00431728363,"nrmse":0.00224450165,"atol":0.015,"nrmse_limit":0.03,"passed":true}
+{"configuration":"vulkan_bf16_default","case":"prefill_decode_reuse","tokens":40,"steps":9,"hint":128,"key_backing_allocations":9,"value_backing_allocations":9,"max_abs_error":0.00453811884,"nrmse":0.00242157887,"atol":0.015,"nrmse_limit":0.03,"passed":true}
+{"configuration":"vulkan_bf16_default","case":"reset_and_growth","tokens":65,"steps":7,"hint":8,"key_backing_allocations":7,"value_backing_allocations":7,"max_abs_error":0.00429242849,"nrmse":0.00247968627,"atol":0.015,"nrmse_limit":0.03,"passed":true}
+{"configuration":"vulkan_bf16_default","case":"fresh_prompt_after_reset","tokens":9,"steps":3,"hint":16,"key_backing_allocations":3,"value_backing_allocations":3,"max_abs_error":0.00431728363,"nrmse":0.00224450165,"atol":0.015,"nrmse_limit":0.03,"passed":true}
+<end of output>
+Test time =   1.23 sec
+----------------------------------------------------------
+Test Passed.
+"native_cache_vulkan" end time: Sep 05 06:42 MSK
+"native_cache_vulkan" time elapsed: 00:00:01
+----------------------------------------------------------
+
+3/6 Testing: erf_gelu_cpu
+3/6 Test: erf_gelu_cpu
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/build/ernie-gelu-probe" "cpu" "fp32"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/build
+"erf_gelu_cpu" start time: Sep 05 06:42 MSK
+Output:
+----------------------------------------------------------
+{"backend":"cpu","precision":"fp32","shape":0,"samples":65536,"max_abs_error":3.72798e-07,"limit":2e-06,"passed":true}
+{"backend":"cpu","precision":"fp32","shape":1,"samples":98688,"max_abs_error":3.83925e-07,"limit":2e-06,"passed":true}
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"erf_gelu_cpu" end time: Sep 05 06:42 MSK
+"erf_gelu_cpu" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/6 Testing: erf_gelu_vulkan_fp32
+4/6 Test: erf_gelu_vulkan_fp32
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/build/ernie-gelu-probe" "vulkan" "fp32"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/build
+"erf_gelu_vulkan_fp32" start time: Sep 05 06:42 MSK
+Output:
+----------------------------------------------------------
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+{"backend":"vulkan","precision":"fp32","shape":0,"samples":65536,"max_abs_error":4.17454e-07,"limit":2e-06,"passed":true}
+{"backend":"vulkan","precision":"fp32","shape":1,"samples":98688,"max_abs_error":4.04994e-07,"limit":2e-06,"passed":true}
+<end of output>
+Test time =   0.64 sec
+----------------------------------------------------------
+Test Passed.
+"erf_gelu_vulkan_fp32" end time: Sep 05 06:42 MSK
+"erf_gelu_vulkan_fp32" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/6 Testing: erf_gelu_vulkan_fp16
+5/6 Test: erf_gelu_vulkan_fp16
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/build/ernie-gelu-probe" "vulkan" "fp16"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/build
+"erf_gelu_vulkan_fp16" start time: Sep 05 06:42 MSK
+Output:
+----------------------------------------------------------
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+{"backend":"vulkan","precision":"fp16","shape":0,"samples":65536,"max_abs_error":0.00390625,"limit":0.008,"passed":true}
+{"backend":"vulkan","precision":"fp16","shape":1,"samples":98688,"max_abs_error":0.00390625,"limit":0.008,"passed":true}
+<end of output>
+Test time =   0.60 sec
+----------------------------------------------------------
+Test Passed.
+"erf_gelu_vulkan_fp16" end time: Sep 05 06:42 MSK
+"erf_gelu_vulkan_fp16" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/6 Testing: erf_gelu_vulkan_bf16
+6/6 Test: erf_gelu_vulkan_bf16
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/build/ernie-gelu-probe" "vulkan" "bf16"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/build
+"erf_gelu_vulkan_bf16" start time: Sep 05 06:42 MSK
+Output:
+----------------------------------------------------------
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+{"backend":"vulkan","precision":"bf16","shape":0,"samples":65536,"max_abs_error":0.0312481,"limit":0.064,"passed":true}
+{"backend":"vulkan","precision":"bf16","shape":1,"samples":98688,"max_abs_error":0.031168,"limit":0.064,"passed":true}
+<end of output>
+Test time =   0.63 sec
+----------------------------------------------------------
+Test Passed.
+"erf_gelu_vulkan_bf16" end time: Sep 05 06:42 MSK
+"erf_gelu_vulkan_bf16" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Sep 05 06:42 MSK

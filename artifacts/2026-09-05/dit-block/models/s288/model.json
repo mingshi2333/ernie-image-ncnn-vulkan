@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "tokens": 288,
+  "block": 0,
+  "official_model_revision": "bc68c81e2a1730a394d5fc9fae70713dee940140",
+  "weights_sha256": "6cce36f7a939f04274e78fa4d4c653d60c7190e4e66f9968537312d394600daa",
+  "ncnn_revision": "6a1bf000f363714839a36793addc8c879d3d899e",
+  "changes": [
+    "GELU -> ErnieGELU: erf-form GPU implementation",
+    "Two constant-table ExpandDims -> equivalent Vulkan Reshape"
+  ],
+  "prepare_source_sha256": "8efa0964ab40017f9ba346979c8efe6ad50e6a4ac5a2dd961d59e8a59e779ff8",
+  "gelu_source_sha256": "0214bb32f71fd798cc9c705e681c1545397ff4ec011977d23a1e9559fe0eaf0c",
+  "files": {
+    "fixture.json": "23908ef4d84fd2d391fb4ec61f3c21be7e4ac120d0a7e27526704fec86fc74b4",
+    "conversion.json": "bcde6ee3af2e728e4a7b2d48748b9dcefd4991fb785d70d1b0901e9e2373c0dc",
+    "conversion.log": "9397a9a2433487cc4c3b3c843df46798e4c8b786fd891bbe0ebdec6c7353ca9f",
+    "block.ncnn.bin": "852a78cf0ed54ba7c09ca06211b59fa3dedd5b506ad24280783ce44edd4e814e",
+    "expected.f32": "0046fb5fb279a7664cc73f61fd71751b49e4dbcf6942ec21634321bea5edd1f0",
+    "in0.f32": "69ae0692fcd77504aa2df6bce19c7fff980e225208931945c5b6b857a148190c",
+    "in1.f32": "79f10cbfe9db662ddedc348caae8b4c5ff319e1696ffa4fb8289c2b363cc0a11",
+    "in2.f32": "82cdb7967cc4922f7871ffd8bca282ee2b2b4de86315ce2623a563df303f40d5",
+    "in3.f32": "7c61c27e0296bfe144691bce23ee6f7aed16cda018efc230b2b596b97bd223b1",
+    "in4.f32": "001e283dede6b7c873c60472d18be697e3078d480b93b86362b390562c16dcad",
+    "in5.f32": "2e4b2cf3a258c066de1aeb122174958b6de659c1d691cb8ecb67cb3ff1bc0dff",
+    "in6.f32": "be91da0db28877c3c9699ca0e934fb7f05be6c3b78c1a6b5d3f4f0464ca7341a",
+    "in7.f32": "8b6c9e7e6a85e194563eaf5973b44d35aeaf969dc59e72b14add27f5e30f15da",
+    "in8.f32": "6320668750bb3c447c65882325f462dd753f4ab043c79ccb07812a7bd0cb9927",
+    "in9.f32": "948735370fc224eca83f93722150a6fef2fcfcbb3b6acf36a1d0f0dc732d7378",
+    "block.ncnn.param": "a7a42a03a969df8deed2c698a42e84a5f909b54ef886479a18a6605ed2cf29de",
+    "block.pnnx-original.param": "45dc7f3cf188ffeab492c3f015d4d140cddb18685e4830b5af4e9b60b8da2420"
+  }
+}

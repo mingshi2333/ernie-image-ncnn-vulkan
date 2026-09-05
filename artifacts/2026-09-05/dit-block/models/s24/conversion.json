@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.venv/lib64/python3.14/site-packages/pnnx/pnnx",
+    "block.pt",
+    "inputshape=[1,24,4096],[1,1,4096],[1,1,4096],[1,1,4096],[1,1,4096],[1,1,4096],[1,1,4096],[1,24,128],[1,24,128],[24,24]",
+    "fp16=0",
+    "device=cpu"
+  ],
+  "pnnx_sha256": "c3555c48e054245e50fa434a7673fbdad2b8f8c6cdca8c1579601f9882f474a0",
+  "return_code": 0,
+  "exporter_sha256": "3fcc2d43d6e00b1f2dae046916b2833b4a7eb3770563e67f09480d69ea1c5071",
+  "unsupported_diagnostics": [],
+  "sdpa_count": 1,
+  "rmsnorm_count": 4,
+  "unsafe_rotary_fusion": false,
+  "unconverted_operators": []
+}

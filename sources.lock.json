@@ -27,16 +27,32 @@
   "official_model": {
     "url": "https://huggingface.co/baidu/ERNIE-Image-Turbo",
     "revision": "bc68c81e2a1730a394d5fc9fae70713dee940140",
-    "role": "official_weights_not_downloaded"
+    "role": "official_block_0_downloaded_and_validated_full_pipeline_pending"
   },
   "diffusers": {
     "url": "https://github.com/huggingface/diffusers",
     "revision": "7643c4826609c47755e3da0e5b768e8070468f49",
-    "role": "inspected_reference_source_full_pipeline_not_validated"
+    "role": "official_block_reference_validated_full_pipeline_pending",
+    "version": "0.41.0.dev0"
   },
   "transformers": {
     "url": "https://github.com/huggingface/transformers",
-    "revision": null,
-    "role": "must_pin_and_verify_with_model_before_export"
+    "revision": "7d9754a05193eb79b1d86aa744b622b8068008cd",
+    "role": "installed_model_config_version_Mistral3_import_verified_text_encoder_pending",
+    "version": "5.2.0",
+    "tag": "v5.2.0"
+  },
+  "reference_environment": {
+    "python": "3.14.7",
+    "torch": "2.12.1+cu130",
+    "safetensors": "0.8.0",
+    "accelerate": "1.12.0",
+    "requirements": "requirements-reference.lock",
+    "scope": "Local reference and block conversion environment, not a full pipeline certification"
+  },
+  "pnnx": {
+    "version": "20260526",
+    "binary_sha256": "c3555c48e054245e50fa434a7673fbdad2b8f8c6cdca8c1579601f9882f474a0",
+    "role": "PyPI wheel converter; independent from the pinned ncnn runtime; graph checks required"
   }
 }

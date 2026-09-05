@@ -1,0 +1,1 @@
+{"backend":"cpu","precision":"fp32","tokens":24,"load_seconds":0.40766,"first_run_seconds":0.0427708,"run_seconds":[0.0427708,0.042766,0.0442169],"host_weights":false,"device_io":false,"upload_seconds":0,"repeat_max_abs":0,"non_vulkan_compute_layers":[]}

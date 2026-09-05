@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "tokens": 4160,
+  "block": 0,
+  "official_model_revision": "bc68c81e2a1730a394d5fc9fae70713dee940140",
+  "weights_sha256": "6cce36f7a939f04274e78fa4d4c653d60c7190e4e66f9968537312d394600daa",
+  "ncnn_revision": "6a1bf000f363714839a36793addc8c879d3d899e",
+  "changes": [
+    "GELU -> ErnieGELU: erf-form GPU implementation",
+    "Two constant-table ExpandDims -> equivalent Vulkan Reshape"
+  ],
+  "prepare_source_sha256": "8efa0964ab40017f9ba346979c8efe6ad50e6a4ac5a2dd961d59e8a59e779ff8",
+  "gelu_source_sha256": "0214bb32f71fd798cc9c705e681c1545397ff4ec011977d23a1e9559fe0eaf0c",
+  "files": {
+    "fixture.json": "4a286b7e8f3e684fc9f0129381f466d6f8ece122310c94349350710dc0b7e7fa",
+    "conversion.json": "bc887a34e0e300ee644c0694b5ed6f8510efb9c698324caf20f59f76570d6bfb",
+    "conversion.log": "3b98020af54da5fd1bacab04248e134101d1d16fccb136b20c2ee61765fd6949",
+    "block.ncnn.bin": "e8dd207d95dd18b9c7854e5cde577e6b00272b3ad82721bae54bdd7eacaa03bd",
+    "expected.f32": "03d0cb9b9a278be96ebe4b8b7044f12a9f39320d4bc35f6cd272a70b9b12f5c1",
+    "in0.f32": "4624ce9f75b95521c937538bf92e87dd3f164a862e5e36f7a0a7bc6f9e5f3b4d",
+    "in1.f32": "cf1bec8aae48267b65607abc115a37b3d0e13bb3a13f525a2350b1e7d54aba3f",
+    "in2.f32": "90c4c39ab3fdd0b4bb3d3442933994f0cffa6d851ad23bb8ca703c5afabf1a28",
+    "in3.f32": "3a477eb9c637123599b2ff1cb60683703a6b0d3cf3eb17bcbabc6c22b5076d9b",
+    "in4.f32": "df1c0149a078d0113dca5a84a7a64c1befe06794914b1c3d8f967b2290f3bb9e",
+    "in5.f32": "f6109f48051cf0038efb0deb36bf949fc126a182a183685284a1feef5fc5e462",
+    "in6.f32": "ae3cc52b6cfbcc8a6f3a13b16af863ff6ab32753518e1e15b9c7dd4bb0cb9b3c",
+    "in7.f32": "ad3c2e5ebae5bf32d735a02cb77888f4b0a4dcef071415537937c8d8c2fa255d",
+    "in8.f32": "61d90714f9163c2b5cce6bac3daa82d19aa73f1045fe546f93b433f9877ea8b2",
+    "in9.f32": "ea754b7836c89041a8d38d3a8652543f0c3ba5153fed383ddf48d868c248b48c",
+    "block.ncnn.param": "98e79164a05ca0536a09bce9abe436b20742cd6be47a132d77a1231ff999bcc0",
+    "block.pnnx-original.param": "f85ea23ebeff8f0008342ead0728f34ee07568f981150aed3b26c4398721183f"
+  },
+  "weight_storage": {
+    "format": "BF16 ModelBin Gemm sections, FP32 affine RMSNorm sections",
+    "lossless": true,
+    "original_bytes": 872449052,
+    "stored_bytes": 436241436,
+    "reconstructed_fp32_sha256": "852a78cf0ed54ba7c09ca06211b59fa3dedd5b506ad24280783ce44edd4e814e",
+    "source_model_sha256": "45332e105c9d42059e668df62f7f0b81a8a63ce192d760782ada81ff8e801cac",
+    "packer_sha256": "7057668992e3520ef435c697198797905b563897c3f2d1227166b777329259f8",
+    "scope": "On-disk representation only. ModelBin expands to float32 during loading; this does not promise lower peak RAM/VRAM."
+  }
+}

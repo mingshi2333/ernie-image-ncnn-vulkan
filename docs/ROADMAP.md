@@ -4,13 +4,13 @@
 
 ## 0. 上游验证与项目基础
 
-状态：已完成原生缓存探针，完整参考环境待验证。
+状态：已完成原生缓存探针和单 block 参考环境，完整 pipeline 待验证。
 
 - [x] 建立独立 Git 项目，锁定当前 ncnn 和历史参考版本。
 - [x] 核实新版专用 allocator、容量增长和 CPU attention 更新。
 - [x] 24 个合成算子场景检查，保存 CPU/Vulkan 原始输出和误差。
 - [x] 区分 PE 自回归缓存和 DiT 跨步近似缓存。
-- [ ] 固定兼容的 PyTorch / Diffusers / Transformers 版本。当前锁中 Transformers revision 仍待实际参考环境验证，不能随意把最新版本标为兼容。
+- [x] 固定单 block 验证环境，导入 Transformers 5.2.0 的 Mistral3。版本和实际验证范围已写入锁文件，完整文本模型兼容性仍待验证。
 - [ ] 官方 pipeline 关闭 PE 跑通，保留版本、prompt、token IDs、embeddings、初始 latent、sigma、逐步预测、最终 latent 和图片。
 - [ ] 对旧模型做实际构建和相同输入复现，记录其成功或失败项。
 
@@ -18,14 +18,18 @@
 
 ## 1. 一个真实 DiT block，预计 3–7 个工作日
 
-- [ ] 确认权重容量和分片位置，只加载该 block 及必要前后处理，避免全模型 FP32 导出。
-- [ ] 显式导出单 block。固定 shape 起步，再覆盖少量 token 长度桶。
-- [ ] 导出中保留 SDPA、GQA、RMSNorm、GELU 门控和 shared AdaLN 的语义。
-- [ ] 单独验证 ERNIE 的三轴 RoPE（theta 256，轴维度 32/48/48，完整重复角度和非交错半向量旋转），不能照搬 Z-Image 或标准 RotaryEmbed。
-- [ ] 在 CPU FP32、Vulkan FP32/BF16/FP16 下比较同一输入。依据 PyTorch 自身后端差异，在查看候选结果前写下真实 block 的精度阈值。
-- [ ] 测量 1024 输出对应的 4096 图片 tokens 加不同文本长度，确认 Flash Attention 实际分支与显存峰值。
+状态：第 0 个真实权重 block 的转换与数值门槛已通过。输入为合成激活，完整真实激活和精确显存追踪仍待补齐。
 
-退出条件：真实权重 block 能从原始权重重建并通过数值门槛，记录 CPU/GPU 传输和时延。此时更新完整实施估期与 8GB 容量方案。
+- [x] 提取该 block 的 11 个官方 BF16 张量，保存版本、Range、张量和组合文件散列。
+- [x] 显式导出 24、288、4160 三个 token 桶，12 组 CPU/Vulkan 比较通过，每组重复三次。
+- [x] 保留原生 SDPA、4 个 RMSNorm、GELU 门控和 shared AdaLN，添加 erf 形式 GPU GELU。该 DiT 为 32/32 heads，文本侧 GQA 仍由独立缓存探针验证。
+- [x] 验证 ERNIE 的三轴 RoPE，包含文本位置超过 256 的输入，拒绝不等价的标准 RotaryEmbed 自动融合。
+- [x] 在运行 ncnn 前保存初始数值门槛，完成 CPU FP32、Vulkan FP32/BF16/FP16 对照。门槛适用于单 block 合成激活，完整 pipeline 质量门槛尚待建立。
+- [x] 测量 4096 图片 + 64 文本 tokens，观察到 FP16/BF16 的 Flash Attention 与协作矩阵分支，记录逐次时延、进程 RSS 和设备显存采样。
+- [x] 添加无损 BF16 文件存储，约 832MiB → 416MiB，还原散列和 CPU/Vulkan 输出均一致。
+- [ ] 完成多个高分辨率文本长度组合及精确 allocator/进程显存峰值。当前采样是整卡总量，不能视为精确本进程峰值。
+
+进展证据见 [复现说明](REPRODUCE-BLOCK.md) 与 [单 block 报告](../artifacts/2026-09-05/dit-block/README.md)。核心转换门槛已通过，可以进入阶段 2。8GB 方案倾向组件分阶段释放、受控权重调度和 FP16/BF16 Flash Attention。仅一个 block 的成功不能证明 36 个 block 的总权重和去噪循环可运行。
 
 ## 2. 转换闭环与 Turbo CLI，预计 1–3 周
 
@@ -62,6 +66,6 @@
 
 ## 决策顺序
 
-最近的首要里程碑是 **一个真实权重 DiT block 的转换和 CPU/Vulkan 对照**。合成 KV cache 探针已经验证了新版接口，继续只优化 PE 会偏离 PE 关闭时的主要文生图瓶颈。
+下一个里程碑是 **小尺寸 Turbo 的完整参考与 C++ 去噪链路**：先实现官方 tokenizer/文本编码对应关系、前后处理、Euler 和 VAE，再逐块导入其余 35 层，并验证同一组保存的 embeddings 和初始 latent。单 block 的 GPU 数据流和 BF16 文件存储可以复用。
 
-阶段 1 结束前不承诺整模型提速倍数。各阶段可能重叠，已有移植可复用程度仍需实际权重复现决定。当前按熟悉 C++/ncnn 的单人投入估算可靠首版约 4–8 周，8GB 优化和跨平台结果可能继续增加工作量。
+不承诺整模型提速倍数。当前实测移除了单 block 转换这一主要不确定项，完整链路、真实激活误差积累和约 14.9GiB 的 DiT 权重调度仍是主要工作。原先 4–8 周是单人工程投入的粗略估算，单 block 耗时不能用来预测整项目进度或端到端速度。

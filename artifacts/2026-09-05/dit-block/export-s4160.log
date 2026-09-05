@@ -1,0 +1,4 @@
+{"stage": "wrapper_vs_official", "max_abs_error": 0.0, "nrmse": 0.0, "reference_max_abs": 3136.197509765625}
+{"stage": "pnnx", "binary": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.venv/lib64/python3.14/site-packages/pnnx/pnnx"}
+{"command": ["/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.venv/lib64/python3.14/site-packages/pnnx/pnnx", "block.pt", "inputshape=[1,4160,4096],[1,1,4096],[1,1,4096],[1,1,4096],[1,1,4096],[1,1,4096],[1,1,4096],[1,4160,128],[1,4160,128],[4160,4160]", "fp16=0", "device=cpu"], "pnnx_sha256": "c3555c48e054245e50fa434a7673fbdad2b8f8c6cdca8c1579601f9882f474a0", "return_code": 0, "exporter_sha256": "cc2957037b80cce840a0c09e2646c9290d66e7ce6907d57bc14c18978f49a12d", "unsupported_diagnostics": [], "sdpa_count": 1, "rmsnorm_count": 4, "unsafe_rotary_fusion": false, "unconverted_operators": []}
+{"stage": "runtime_ready", "path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/converted/dit-block-00-s4160/runtime"}

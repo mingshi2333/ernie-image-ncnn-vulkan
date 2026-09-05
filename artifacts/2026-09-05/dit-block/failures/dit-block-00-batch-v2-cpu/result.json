@@ -1,0 +1,9 @@
+{
+  "backend": "cpu",
+  "precision": "fp32",
+  "return_code": 1,
+  "fixture": "models/converted/dit-block-00-batch-v2",
+  "tokens": 24,
+  "passed": false,
+  "scope": "Real block weights; synthetic hidden states and shared AdaLN vectors; official position embeddings"
+}
