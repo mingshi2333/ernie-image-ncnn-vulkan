@@ -185,6 +185,8 @@ def freeze(output):
         if not source.is_file() or source.stat().st_size > 2*1024*1024:
             raise ValueError(f'Missing or unexpectedly large evidence: {source}')
         target.parent.mkdir(parents=True, exist_ok=True)
+        if target.exists() and sha256(target) != sha256(source):
+            raise ValueError(f'Conflicting evidence destination: {target}')
         shutil.copyfile(source, target)
 
     def metadata_tree(source, destination):
@@ -194,8 +196,8 @@ def freeze(output):
             if path.is_file() and path.suffix in ('.json', '.log', '.cfg', '.param', '.txt', '.py'):
                 copy(path, destination/path.relative_to(source))
 
-    for label, (name, expected_pass) in CASES.items():
-        run = ROOT/'outputs'/name
+    for label, (run_name, expected_pass) in CASES.items():
+        run = ROOT/'outputs'/run_name
         result = json.loads((run/'result.json').read_text())
         fixture = json.loads((run/'reference/fixture.json').read_text())
         gates = json.loads((run/'gates.json').read_text())
@@ -208,9 +210,9 @@ def freeze(output):
             validator = ROOT/'outputs/validator-source-variants'/(result['validator_sha256']+'.py')
         if sha256(validator) != result['validator_sha256']:
             raise ValueError(f'Validator snapshot differs: {label}')
-        for name, digest in result.get('source_snapshot', {}).items():
-            if sha256(run/'scripts'/name) != digest:
-                raise ValueError(f'Source snapshot differs: {label}/{name}')
+        for script_name, digest in result.get('source_snapshot', {}).items():
+            if sha256(run/'scripts'/script_name) != digest:
+                raise ValueError(f'Source snapshot differs: {label}/{script_name}')
         package_path = Path(result['command'][result['command'].index('--model')+1])
         if sha256(package_path/'manifest.json') != result['package_manifest_sha256']:
             raise ValueError(f'Package manifest changed: {label}')
@@ -232,7 +234,7 @@ def freeze(output):
         log = (run/'native.log').read_text()
         rss = int(re.search(r'Maximum resident set size \(kbytes\):\s*(\d+)', log)[1])
         elapsed = float(re.search(r'Total: ([\d.]+) s', log)[1])
-        row = {'case': label, 'run': name, 'passed': result['passed'], 'prompt': fixture['prompt'],
+        row = {'case': label, 'run': run_name, 'passed': result['passed'], 'prompt': fixture['prompt'],
                'tokens': len(fixture['ids']), 'config': fixture['config'], 'steps': fixture['steps'],
                'precision': result['dit_precision'], 'comparison_count': len(result['comparisons']),
                'passed_comparisons': sum(r['passed'] for r in result['comparisons']),
@@ -246,9 +248,9 @@ def freeze(output):
                'metrics_independently_recomputed': True,
                'reference_environment': fixture['reference_environment']}
         index.append(row)
-        metadata_tree(run, output/'runs'/name)
+        metadata_tree(run, output/'runs'/run_name)
         # rglob intentionally does not follow the reused reference symlink.
-        metadata_tree((run/'reference').resolve(), output/'runs'/name/'reference')
+        metadata_tree((run/'reference').resolve(), output/'runs'/run_name/'reference')
 
     for name in COMPONENTS:
         metadata_tree(ROOT/'outputs'/name, output/'components'/name)
