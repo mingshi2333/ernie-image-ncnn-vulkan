@@ -8,6 +8,7 @@ from safetensors.torch import load_file
 from prepare_block import ROOT,sha256
 from rebucket_dit import verify_runtime
 from validate_dit_heads import verify as verify_head
+from rebucket_text import verified as verify_text
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
@@ -33,9 +34,11 @@ def main():
     for i,path in enumerate(args.dit):
         m=verify_runtime(path)
         if m['block']!=i or m['tokens']!=pre['tokens']:raise ValueError('DiT block order or shape mismatch')
+    text_bucket=json.loads((args.text[0]/'model.json').read_text())['tokens']
+    if not 1<=text_bucket<=pre['text_tokens']<=2048:raise ValueError('Text bucket exceeds DiT text capacity')
     for i,path in enumerate(args.text):
-        m=json.loads((path/'model.json').read_text())
-        if m['block']!=i or m['tokens']!=32 or any(sha256(path/name)!=value for name,value in m['files'].items()):
+        m=verify_text(path)
+        if m['block']!=i or m['tokens']!=text_bucket:
             raise ValueError('Text block order, shape or checksum mismatch')
     package=json.loads((args.embedding_package/'model.json').read_text())
     for name in ('embedding','rope'):
@@ -70,7 +73,7 @@ def main():
         if value.shape!=(128,) or not torch.isfinite(value).all() or (key.endswith('var') and (value<0).any()):
             raise ValueError('Invalid BN statistics')
         value.numpy().astype('<f4').tofile(output/'vae'/name)
-    cfg={'packed_width':pre['width'],'packed_height':pre['height'],'text_bucket':32,'dit_text_tokens':pre['text_tokens'],
+    cfg={'packed_width':pre['width'],'packed_height':pre['height'],'text_bucket':text_bucket,'dit_text_tokens':pre['text_tokens'],
          'text_layers':25,'dit_layers':36}
     (output/'model.cfg').write_text(''.join(f'{k} {v}\n' for k,v in cfg.items()))
     manifest={'schema_version':1,'scope':'Local symlink package; requires source directories to remain present',
@@ -78,6 +81,6 @@ def main():
         'bn_source_sha256':bn_manifest['sha256'],'builder_sha256':sha256(__file__),'official_model_revision':revision,
         'files':{name:sha256(output/name) for name in ['model.cfg','dit/rope-inv-freq.f32','vae/bn-mean.f32','vae/bn-variance.f32']}}
     (output/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
-    print(json.dumps({'package':str(output),'resolution':[pre['width']*16,pre['height']*16],'text_bucket':32}),flush=True)
+    print(json.dumps({'package':str(output),'resolution':[pre['width']*16,pre['height']*16],'text_bucket':text_bucket}),flush=True)
 
 if __name__=='__main__':main()

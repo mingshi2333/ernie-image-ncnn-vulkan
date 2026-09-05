@@ -120,8 +120,8 @@ void png_write(const fs::path &path, const ncnn::Mat &decoded)
 int main(int argc, char **argv)
 {
     fs::path root, output, latent_path, embeddings_path, trace;
-    std::string prompt, backend = "vulkan", precision = "fp16", vae_backend = "cpu";
-    bool have_prompt = false;
+    std::string prompt, backend = "vulkan", precision = "fp16", vae_backend = "cpu", vae_convolution = "direct";
+    bool have_prompt = false, verify_only = false;
     int steps = 8, status = 0;
     uint32_t seed = 42;
     try
@@ -129,12 +129,18 @@ int main(int argc, char **argv)
         for (int i = 1; i < argc; ++i)
         {
             const std::string flag = argv[i];
+            if (flag == "--verify-model")
+            {
+                verify_only = true;
+                continue;
+            }
             if (flag == "--help")
             {
                 std::cout << "ernie-image --model DIR --prompt TEXT --output NEW.png [--device cpu|vulkan] "
-                             "[--precision fp32|fp16] [--vae-device cpu|vulkan]\n"
+                             "[--precision fp32|fp16] [--vae-device cpu|vulkan] [--vae-convolution direct|sgemm]\n"
                           << "            [--seed N] [--steps N] [--latent FILE.f32] [--embeddings FILE.f32] "
                              "[--trace-dir NEWDIR]\n"
+                          << "ernie-image --model DIR --verify-model\n"
                           << "Experimental fixed model bucket; FP32 text encoder, Euler master latent and "
                              "FP32 VAE (CPU default). PE off, CFG=1.\n";
                 return 0;
@@ -146,6 +152,8 @@ int main(int argc, char **argv)
                 root = value;
             else if (flag == "--output")
                 output = value;
+            else if (flag == "--vae-convolution")
+                vae_convolution = value;
             else if (flag == "--prompt")
             {
                 prompt = value;
@@ -181,13 +189,20 @@ int main(int argc, char **argv)
             else
                 throw std::invalid_argument("Unknown argument: " + flag);
         }
-        if (root.empty() || output.empty() || !have_prompt || fs::exists(output) ||
+        if (root.empty() || (!verify_only && (output.empty() || !have_prompt || fs::exists(output))) ||
             (!trace.empty() && fs::exists(trace)) || (backend != "cpu" && backend != "vulkan") ||
             (precision != "fp32" && precision != "fp16") || (backend == "cpu" && precision != "fp32") ||
-            (vae_backend != "cpu" && vae_backend != "vulkan"))
+            (vae_backend != "cpu" && vae_backend != "vulkan") ||
+            (vae_convolution != "sgemm" && vae_convolution != "direct"))
             throw std::invalid_argument("Invalid request; see --help and use new output paths");
-        const auto cfg = model_config(root / "model.cfg");
         const auto total_start = std::chrono::steady_clock::now();
+        const auto cfg = model_config(root / "model.cfg");
+        ernie::verify_package(root.string());
+        std::cout << "Model verified: "
+                  << std::chrono::duration<double>(std::chrono::steady_clock::now() - total_start).count()
+                  << " s" << std::endl;
+        if (verify_only)
+            return 0;
         const int w = cfg.at("packed_width"), h = cfg.at("packed_height"), bucket = cfg.at("text_bucket");
         if (!trace.empty())
             fs::create_directories(trace);
@@ -349,6 +364,7 @@ int main(int argc, char **argv)
             ncnn::Net vae;
             vae.opt = cpu;
             vae.opt.use_winograd_convolution = false;
+            vae.opt.use_sgemm_convolution = vae_convolution == "sgemm";
 #if NCNN_VULKAN
             if (vae_backend == "vulkan")
             {

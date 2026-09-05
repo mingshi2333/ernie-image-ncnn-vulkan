@@ -16,12 +16,17 @@ from transformers import AutoTokenizer
 from transformers.models.mistral.modeling_mistral import MistralRotaryEmbedding
 from safetensors import safe_open
 
-def real_reference(models, prompt, output):
-    if [json.loads((m/'model.json').read_text())['block'] for m in models] != list(range(25)):
+def real_reference(models, prompt, output, source_weights=None, bucket=None):
+    manifests=([json.loads((m/'model.json').read_text()) for m in models] if source_weights is None else
+               [{'block':i,'tokens':bucket,'weights_sha256':digest} for i,digest in enumerate(source_weights)])
+    if [m['block'] for m in manifests] != list(range(25)):
         raise ValueError('Full text path must contain blocks 0..24')
+    bucket=manifests[0]['tokens']
+    if not 1<=bucket<=2048 or any(m['tokens']!=bucket for m in manifests):
+        raise ValueError('Text graph buckets differ')
     tokenizer=AutoTokenizer.from_pretrained(ROOT/'models/tokenizer',local_files_only=True)
     ids=tokenizer(prompt,add_special_tokens=True,truncation=True,padding=False)['input_ids']
-    if not 1<=len(ids)<=32:raise ValueError('Prompt exceeds reviewed 32-token bucket')
+    if not 1<=len(ids)<=bucket:raise ValueError(f'Prompt exceeds reviewed {bucket}-token bucket')
     output.mkdir(parents=True)
     (output/'ids.txt').write_text('\n'.join(map(str,ids))+'\n')
     path=ROOT/'models/official/text-embed.safetensors'
@@ -37,11 +42,11 @@ def real_reference(models, prompt, output):
     mask=torch.full((len(ids),len(ids)),torch.finfo(torch.float32).min).triu(1)[None,None]
     for index, model in enumerate(models):
         block,source=load_block(index)
-        if source['sha256']!=json.loads((model/'model.json').read_text())['weights_sha256']:
+        if source['sha256']!=manifests[index]['weights_sha256']:
             raise ValueError('Converted text block source differs')
         x=block(x,attention_mask=mask,position_ids=positions,position_embeddings=(cos,sin),use_cache=False)
         del block
-    fixture={'prompt':prompt,'ids':ids,'tokens':32,'valid_tokens':len(ids),'blocks':25,
+    fixture={'prompt':prompt,'ids':ids,'tokens':bucket,'valid_tokens':len(ids),'blocks':25,
              'scope':'Real prompt through official embedding and Mistral blocks 0..24; no final norm',
              'source_sha256':sha256(__file__),'expected':save_tensor(output/'expected.f32',x),
              'gates':{'fp32':{'nrmse':.0002,'atol':.0002,'rtol':.0002},'fp16':{'nrmse':.03,'atol':.03,'rtol':.03},

@@ -3,6 +3,17 @@
 //! supplies valid buffers and owns the handle from create until destroy.
 use std::{panic::{catch_unwind, AssertUnwindSafe}, path::Path, slice, str};
 use tokenizers::{Tokenizer, TruncationParams};
+mod package;
+
+#[no_mangle]
+pub unsafe extern "C" fn ernie_package_verify(directory: *const u8, length: usize,
+    error: *mut u8, error_capacity: usize) -> i32 {
+    match catch_unwind(AssertUnwindSafe(|| package::verify(Path::new(text(directory, length)?)))) {
+        Ok(Ok(())) => 0,
+        Ok(Err(message)) => { write_error(error, error_capacity, &message); -1 },
+        Err(_) => { write_error(error, error_capacity, "Package verification panicked"); -1 }
+    }
+}
 
 pub struct Handle { tokenizer: Tokenizer, maximum: usize, bos: u32 }
 

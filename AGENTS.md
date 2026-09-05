@@ -4,7 +4,7 @@
 
 - This is the standalone ERNIE-Image-Turbo ncnn/Vulkan project. Do not modify sibling ncnn or pnnx workspaces as a side effect.
 - Start with `README.md`, `sources.lock.json`, `docs/ROADMAP.md`, and the latest artifact report.
-- The experimental native generator has passed a complete 64x64 prompt-to-PNG comparison against staged official modules. A native 1024x1024 run also completed on this host; it is a functional/resource smoke without full-resolution official denoising parity. Read the latest pipeline artifact for limits; small images are numerical fixtures, not prompt-quality evidence.
+- The experimental native generator has passed complete 64x64 and 1024x1024 apple comparisons against staged official modules. The 40-token 1024 English fixture fails some late tensor gates in both FP16 and FP32, although its PNG comparisons pass. The 32-token Chinese scene fails tensor and maximum-pixel gates in both precisions; FP32 PNG MAE is 0.03838 but maximum error 23 exceeds 2. Read artifacts/2026-09-05/turbo-delivery/README.md for current limits; do not call this broad quality acceptance.
 - Use Chinese for progress and technical reports unless the user asks otherwise.
 
 ## Evidence and correctness
@@ -20,8 +20,10 @@
 - Register the project's RMSNorm and final LayerNorm wrappers. Native FP16 intermediate squares can overflow; the wrappers promote normalization on device. Final LayerNorm is non-affine, width 4096, and conditioning has no SiLU.
 - Real text causes DiT residual activations to exceed 65504. FP16 inference requires both residual sums to use ErnieResidualAdd and retain the FP32 skip path. Normalized projections return to model storage precision. Never silently clamp the residual.
 - The FP32 Euler master latent is checked after each step. Vulkan downloads only 128 status floats for this check; tracing downloads activations separately and changes measurement scope.
-- The pinned Mistral3 text configuration dispatches MistralModel, not Ministral3. Required hidden_states[-2] is block 24 output: 25 blocks, without final norm. The initial text bucket is 32 tokens.
+- The pinned Mistral3 text configuration dispatches MistralModel, not Ministral3. Required hidden_states[-2] is block 24 output: 25 blocks, without final norm. Independently exported text buckets are 32 and 64 tokens, including BOS.
 - CPU VAE uses FP64 mean/centered-variance reductions with FP32 activations and affine arithmetic. Large native GroupNorm reductions failed the fixed numerical gate before this correction.
+- CPU VAE defaults to direct convolution with Winograd disabled. The 1024 standalone fixture passes at NRMSE 9.41e-7 and 5.42 GiB peak RSS; the complete apple run uses 5.82 GiB. The old SGEMM mode remains explicit for comparisons.
+- Single-step teacher forcing is a diagnostic, not a substitute for free-running parity. Step 6 of the long FP32 fixture passes with official input tensors; the full trajectory still fails. Do not loosen existing gates or discard either result.
 - BF16 standalone gates fail for blocks 31, 33, and 35 on the current synthetic fixture. Do not erase those failures or relax gates after observing results. Connected predictions are a different fixture scope.
 - Treat BF16 ModelBin packing as lossless on-disk storage only when the full reconstructed FP32 stream hash matches. Loading still expands data and does not establish a peak memory reduction.
 - Export a separate static graph for each token bucket. A matching operator list does not prove shape compatibility.
@@ -32,6 +34,7 @@
 
 - The initial target is an 8GB GPU and 32GB system RAM. Inspect current availability before large runs. Begin with one block and staged weight loading.
 - Keep weights, build products and generated images out of Git. Store small manifests, measurements and source hashes in `artifacts/`.
+- Schema-2 portable packages contain all 136 runtime files with no internal symlinks. Both native and Python checks cover every runtime checksum, file size, revision and model.cfg agreement. Keep schema-1 development package compatibility.
 - Snapshot runner binaries before long validation jobs. A concurrent build can temporarily remove or replace its executable; the first batch recorded this failure.
 - Run large GPU jobs sequentially. Overlapping a VAE test and DiT generation caused allocation failures and a SIGSEGV; that run does not establish an isolated-device capacity limit.
 - External publication, push and release require user authorization. Local construction and tests are within the approved project scope.

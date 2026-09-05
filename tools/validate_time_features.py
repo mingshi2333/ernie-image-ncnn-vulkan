@@ -8,6 +8,7 @@ import shutil
 import subprocess
 import numpy as np
 import torch
+from diffusers import FlowMatchEulerDiscreteScheduler
 from diffusers.models.embeddings import get_timestep_embedding
 from export_dit_block import metrics, save_tensor
 from prepare_block import ROOT, sha256
@@ -25,10 +26,14 @@ def main():
     torch.set_num_threads(2)
     values = [0., 1e-8, .25, 1., 62.5, 123.456, 500., 999.99, 1000.]
     values += [float(v) for v in np.random.default_rng(20260905).uniform(0, 1000, 24).astype('f4')]
+    scheduler = FlowMatchEulerDiscreteScheduler(num_train_timesteps=1000, shift=4.)
+    scheduler.set_timesteps(sigmas=torch.linspace(1., 0., 9)[:-1], device='cpu')
+    values += scheduler.timesteps.tolist()
     manifest = {'scope': 'Time features only; C++ scalar libm versus pinned official CPU FP32',
         'gates': {'max_abs_error': .00013, 'nrmse': .00002}, 'cases': [],
         'generator_sha256': sha256(__file__), 'runner_sha256': sha256(runner),
         'official_source_sha256': sha256(inspect.getfile(get_timestep_embedding))}
+    manifest['turbo_timesteps'] = scheduler.timesteps.tolist()
     for i, value in enumerate(values):
         step = torch.tensor([value], dtype=torch.float32)
         expected = get_timestep_embedding(step, 4096, flip_sin_to_cos=False, downscale_freq_shift=0)

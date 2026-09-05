@@ -10,6 +10,7 @@ import signal
 import subprocess
 from PIL import Image
 from prepare_block import ROOT, sha256
+from package_model import verify_package
 
 def memory():
     fields={}
@@ -29,33 +30,19 @@ def main():
     p.add_argument('--precision',choices=['fp16','fp32'],default='fp16')
     p.add_argument('--device',choices=['vulkan','cpu'],default='vulkan')
     p.add_argument('--vae-device',choices=['cpu','vulkan'],default='cpu')
+    p.add_argument('--vae-convolution',choices=['direct','sgemm'],default='direct')
     p.add_argument('--timeout',type=int,default=3600)
     args=p.parse_args()
     if args.output.exists() or args.timeout<1 or not 1<=args.steps<=1000 or not 0<=args.seed<=2**32-1:
         p.error('Use a new output and valid timeout, steps and seed')
     if args.device=='cpu' and args.precision!='fp32':p.error('CPU requires fp32')
-    manifest=json.loads((args.model/'manifest.json').read_text())
-    tokenizer=json.loads((args.model/'tokenizer/manifest.json').read_text())
-    if (tokenizer['revision']!=manifest['official_model_revision']
-        or set(tokenizer['files'])!={'tokenizer.json','tokenizer_config.json'}
-        or any(sha256(args.model/'tokenizer'/name)!=digest for name,digest in tokenizer['files'].items())):
-        raise ValueError('Tokenizer revision or file checksum differs')
-    for name,digest in manifest['files'].items():
-        if sha256(args.model/name)!=digest:raise ValueError('Package file checksum differs')
-    for name,digest in manifest['source_manifests'].items():
-        path=args.model/name
-        if path.is_dir():path=path/'model.json'
-        if sha256(path)!=digest:raise ValueError('Source manifest differs')
-        if path.name=='model.json':
-            component=json.loads(path.read_text())
-            for filename,expected in component.get('files',{}).items():
-                if Path(filename).name!=filename or sha256(path.parent/filename)!=expected:
-                    raise ValueError('Component file checksum differs')
+    manifest,_=verify_package(args.model)
     args.output.mkdir(parents=True)
     runner=args.output/'ernie-image.snapshot';shutil.copy2(args.runner,runner)
     command=[str(runner.resolve()),'--model',str(args.model.resolve()),'--prompt',args.prompt,
         '--output',str((args.output/'native.png').resolve()),'--seed',str(args.seed),'--steps',str(args.steps),
         '--device',args.device,'--precision',args.precision,'--vae-device',args.vae_device,
+        '--vae-convolution',args.vae_convolution,
         '--trace-dir',str((args.output/'trace').resolve())]
     result={'scope':'One native functional run; no full-resolution official denoising reference or perceptual quality gate',
         'passed':False,'quality_validated':False,'prompt':args.prompt,'config':manifest['config'],

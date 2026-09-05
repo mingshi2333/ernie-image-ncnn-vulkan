@@ -1,52 +1,59 @@
 # ernie-image-ncnn-vulkan
 
-ERNIE-Image-Turbo 本地文生图的 C++ / ncnn / Vulkan 实现。**已从原始提示词生成 1024×1024 PNG**；推理程序不依赖 Python，不访问网络。当前为实验性 Linux 原型：batch=1、Turbo 8 步、CFG=1、提示词增强器（PE）关闭。
+ERNIE-Image-Turbo 本地文生图的 C++ / ncnn / Vulkan 实现。**可以离线生成 1024×1024 PNG，已提供独立模型包、文件完整性检查和安装入口。** 推理程序不依赖 Python，不访问网络。当前支持 Linux、batch=1、Turbo 8 步、CFG=1、提示词增强器（PE）关闭，仍是实验版本。
 
-2026-09-05，本机 RTX 4060 Laptop 8GB / Ryzen 7745HX / 32GB RAM 实测：英文提示词 “A red apple on a wooden table, soft daylight, realistic photo.” 生成窗边木桌上的红苹果。文本编码使用 CPU FP32，DiT 使用 Vulkan FP16 和 FP32 残差，Euler 主 latent 使用 FP32，VAE 使用 CPU。一次带中间张量记录的运行耗时 **522.17 秒**，进程峰值 RSS **23.03 GiB**，整卡显存 100 ms 采样峰值 **2605 MiB**。整卡数据含其他程序，系统 swap 使用量增加 **0.96 GiB**；这些不是精确的本进程显存或无 swap 基准。
+2026-09-05，本机 RTX 4060 Laptop 8GB / Ryzen 7745HX / 32GB RAM 实测：苹果提示词的完整 1024 官方模块对照通过，默认直接卷积将完整生成的峰值进程 RSS 从 **23.03 GiB 降到 5.82 GiB**。新运行耗时 **617.18 秒**，包含约 19.12 秒的全模型散列检查和中间张量记录；这是单次观测，不是受控速度基准。文本、Euler 主 latent 和 VAE 使用 FP32；DiT 默认 Vulkan FP16，并保留 FP32 残差。
 
-1024 的结果证明本机功能闭环，尚无该分辨率完整官方去噪对照或多提示词质量评估。64×64 的完整链路已经通过预设数值和像素门槛；该小尺寸参考是纹理状数值样例，不能据此判断提示词质量。
+**数值验收有通过和失败结果。** 苹果样本通过全部 25 项张量比较与 PNG 门限；40-token 长英文样本的 FP16 和 FP32 成图均通过各自像素门限，但后几步张量未全部通过。中文样本的两种精度均有张量及局部最大像素差超限；FP32 平均像素误差降至 0.03838/255，仍未通过全部门限。所有门限和失败记录均保留。这三条固定提示词不构成广泛的感知质量评估。
 
 | 模块 | 已完成的验证 |
 |---|---|
 | 原生 tokenizer | C++ + Tokenizers 0.22.2 静态 Rust 库，48 个样本 token IDs 与官方一致 |
-| 文本编码器 | 实际 Mistral 文本路径，前 25 层输出；真实英文提示词 CPU NRMSE 6.28e-6，另有中文、空文本对照 |
+| 文本编码器 | 实际 Mistral 文本路径，前 25 层输出；独立导出 32/64-token 桶；40-token 真实英文 CPU NRMSE 6.19e-6，另有中文、空文本对照 |
 | 36 层 DiT、8 步 Euler | 合成文本闭环通过 CPU FP32、Vulkan FP32 / FP16；真实文本 FP16 残差溢出已定位并修正 |
 | 64×64 完整 prompt → PNG | 同一份保存的初始 latent，对照分阶段执行的官方模块；最终 latent NRMSE 0.05244，PNG 平均误差 1.465/255，全部预设门槛通过 |
-| 1024×1024 VAE | 独立官方参考对照，CPU NRMSE 2.02e-6，固定门槛 2e-5 |
-| 1024×1024 原生生成 | 36 层、8 步、15 tokens、seed 42，完成 RGB PNG；单次功能和资源实测 |
+| 1024×1024 VAE | 直接卷积、独立官方参考，CPU NRMSE 9.41e-7，固定门槛 2e-5；单独解码峰值 RSS 5.42 GiB |
+| 1024×1024 苹果完整对照 | 36 层、8 步、15 tokens；最终 latent NRMSE 0.01112、PNG MAE 0.10760/255，全部门限通过 |
+| 1024×1024 长英文完整对照 | 40 tokens；FP16 / FP32 张量门限均有失败，PNG MAE 分别 0.53214 / 0.01891，各自像素门限通过 |
+| 1024×1024 中文完整对照 | 32 tokens；FP16 / FP32 PNG MAE 分别 1.00000 / 0.03838，但最大像素差 145 / 23 均超过各自门限，整体未通过 |
+| 独立模型包 | 136 个运行文件、约 21.67 GiB；原生 SHA256/文件大小检查，损坏、缺文件、目录搬移检查 |
 | 历史独立 DiT block 矩阵 | CPU FP32 / Vulkan FP32 / FP16 各 36/36，BF16 33/36；第 31、33、35 号失败保留 |
 | 原生 KV cache | CPU/Vulkan 24 个合成 GQA 场景通过，用于后续 PE / 自回归路径 |
 
-完整证据、固定门槛、失败记录及适用范围见 [pipeline 实测报告](artifacts/2026-09-05/pipeline/README.md)。旧版 [组件报告](artifacts/2026-09-05/components/README.md) 和 [单 block 报告](artifacts/2026-09-05/dit-block/README.md) 保留各自的输入与代码版本，不能与新版本混作同一轮结果。
+最新证据、固定门槛、失败记录及适用范围见 [Turbo 交付报告](artifacts/2026-09-05/turbo-delivery/README.md)。历史 [pipeline 报告](artifacts/2026-09-05/pipeline/README.md)、[组件报告](artifacts/2026-09-05/components/README.md) 和 [单 block 报告](artifacts/2026-09-05/dit-block/README.md) 保留各自的输入与代码版本，不能混作同一轮结果。
 
 ## 构建
 
-需要 C++17、CMake 3.19+、Git、Rust/Cargo、libpng 开发库；Vulkan 构建还需要 Vulkan 和 glslang 开发环境。默认精简 ncnn 层集合已覆盖当前生成器。
+需要 C++17、CMake 3.19+、Git、Rust/Cargo、libpng 开发库；Vulkan 构建还需要 Vulkan 开发库和可用驱动。下面使用 ncnn 固定的 glslang 子模块。默认精简 ncnn 层集合已覆盖当前生成器。
 
 ```sh
-git submodule update --init third_party/ncnn
+git submodule update --init --recursive
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release \
-  -DNCNN_SYSTEM_GLSLANG=ON -DNCNN_INT8=OFF -DNCNN_WEIGHT_QUANT=OFF \
+  -DNCNN_SYSTEM_GLSLANG=OFF -DNCNN_INT8=OFF -DNCNN_WEIGHT_QUANT=OFF \
   -DERNIE_BUILD_TOKENIZER=ON -DERNIE_BUILD_GENERATOR=ON
 cmake --build build -j 4
 ctest --test-dir build --output-on-failure
+cmake --install build --prefix "$PWD/outputs/install"
 ```
 
-没有系统 glslang 时，先执行 `git -C third_party/ncnn submodule update --init glslang`，配置时改用 `-DNCNN_SYSTEM_GLSLANG=OFF`。仅 CPU 构建使用独立目录并加 `-DERNIE_ENABLE_VULKAN=OFF`。已验证 Vulkan 构建 17/17 CTest、CPU 构建 6/6 CTest；这些算子与契约检查不需要权重，真实模型对照另行执行。
+也可使用系统 glslang 开发库并指定 `-DNCNN_SYSTEM_GLSLANG=ON`。仅 CPU 构建使用独立目录并加 `-DERNIE_ENABLE_VULKAN=OFF`。本机 NVIDIA Vulkan 19/19、CPU 8/8 CTest 和 Python 34/34 通过；这些算子与契约检查不需要权重，真实模型对照另行执行。本地 GCC + 固定 glslang 构建成功，软件 Vulkan 16 项通过、3 项 BF16 因驱动不支持跳过。Linux CPU/Vulkan 工作流已写入，尚未推送触发 GitHub Actions。安装后的二进制仍需要兼容的系统库，详见 [运行说明](docs/RUNNING.md)。
 
 ## 转换与生成
 
-完整步骤见 [pipeline 复现](docs/REPRODUCE-PIPELINE.md)。Python 只用于下载、转换和参考验证。模型权重、编译产物及生成图片不进入 Git；当前模型包由经过验证的本地组件符号链接组成，源目录必须保留，尚不是可分发的独立模型包。
+完整步骤见 [pipeline 复现](docs/REPRODUCE-PIPELINE.md)。Python 只用于下载、转换、打包和参考验证。模型权重、编译产物及生成图片不进入 Git。组装器先建立开发用链接包，`tools/package_model.py` 再复制实际运行文件，生成不依赖原转换目录的 schema-2 独立包。
 
 本机已验证的模型包可直接运行：
 
 ```sh
-build/ernie-image --model models/pipeline1024-residual-v1 \
+build/ernie-image --model models/turbo1024-s64-portable --verify-model
+build/ernie-image --model models/turbo1024-s64-portable \
   --prompt 'A red apple on a wooden table, soft daylight, realistic photo.' \
   --output outputs/apple-new.png --device vulkan --precision fp16 --seed 42 --steps 8
 ```
 
-输出路径必须不存在，父目录需已存在。分辨率由转换时的静态模型桶确定；当前包为 64×64 和 1024×1024。文本编码桶为 **32 tokens（含 BOS）**，超长提示词明确拒绝。PE 关闭，CLI 暂无任意尺寸切换。CPU 运行需同时指定 `--device cpu --precision fp32`。
+输出路径必须不存在，父目录需已存在。分辨率由转换时的静态模型桶确定；已有 64×64 数值测试包和 1024×1024 生成包。文本编码桶为 **32 或 64 tokens（含 BOS）**，上述包为 64。超出所选桶的提示词明确拒绝；更大桶需要独立导出和验证。CLI 暂无任意尺寸切换。CPU 运行需同时指定 `--device cpu --precision fp32`。
+
+每次运行都会在加载权重前检查所有文件，不能用只检查首块或清单文件的方式跳过尾层损坏。`--verify-model` 仅检查模型包，不启动推理。清单用于检测损坏或缺失，不是发布者数字签名。CPU VAE 默认 `--vae-convolution direct`；`sgemm` 保留旧工作区路径以便受控比较。
 
 `--latent FILE.f32` 可指定 FP32 初始噪声；`--embeddings FILE.f32` 可读取与当前提示词 token 数相同的 FP32 文本特征并跳过文本模型。`--trace-dir NEWDIR` 保存实际 token IDs、初始 latent、文本特征、逐步预测及输出。跨框架对照必须读取同一份保存的初始 latent，相同整数 seed 不保证相同噪声。
 
@@ -62,7 +69,7 @@ DiT 保留三轴 RoPE、erf GELU、shared AdaLN 和最终非 affine LayerNorm。
 
 ## 下一步优化
 
-当前优先处理 DiT 每步重复的权重准备与上传、受控预取、VAE 工作区内存，以及按依赖关系复用文本投影和小型条件张量。随后扩展文本桶，建立多提示词和完整 1024 官方对照，补充冷启动、重复运行及精确 allocator 测量。
+VAE 直接卷积和 64-token 桶已经完成。后续优先扩大独立提示词与种子数据集，研究已记录的长文本跨步误差累积，处理 DiT 每步重复的权重准备与上传、受控预取，以及按依赖关系复用文本投影和小型条件张量。FP32 attention 当前会构造完整注意力矩阵，显存成本明显高于 FP16；需单独评估 FP32 分块 attention。冷启动、重复运行和精确 allocator 测量仍待补充。
 
 新版 ncnn 已有原生 KV cache、专用 allocator 和容量管理。它对后续 PE 自回归路径有用；图文联合 DiT 每步的隐藏状态都会变化，跨去噪步复用其 K/V 需要单独的近似算法与质量门槛。量化、PE、近似缓存和其他平台都保留为独立验收项。
 

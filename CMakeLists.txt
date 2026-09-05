@@ -23,7 +23,7 @@ if(ERNIE_BUILD_TOKENIZER)
     add_custom_command(OUTPUT "${tokenizer_library}"
         COMMAND "${CMAKE_COMMAND}" -E env CARGO_BUILD_JOBS=4 "${CARGO_EXECUTABLE}" build --release --locked
                 --manifest-path "${CMAKE_CURRENT_SOURCE_DIR}/tokenizer/Cargo.toml" --target-dir "${CMAKE_BINARY_DIR}/cargo"
-        DEPENDS tokenizer/Cargo.toml tokenizer/Cargo.lock tokenizer/src/lib.rs
+        DEPENDS tokenizer/Cargo.toml tokenizer/Cargo.lock tokenizer/src/lib.rs tokenizer/src/package.rs sources.lock.json
         COMMENT "Building pinned native Tokenizers bridge")
     add_custom_target(ernie-tokenizer-rust DEPENDS "${tokenizer_library}")
     add_library(ernie-tokenizer-native STATIC IMPORTED)
@@ -107,6 +107,17 @@ if(ERNIE_BUILD_GENERATOR)
     find_package(PNG REQUIRED)
     add_executable(ernie-image src/main.cpp)
     target_link_libraries(ernie-image PRIVATE ernie-runtime ernie-tokenizer PNG::PNG)
+    include(GNUInstallDirs)
+    install(TARGETS ernie-image RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+    install(FILES LICENSE sources.lock.json docs/RUNNING.md DESTINATION ${CMAKE_INSTALL_DATADIR}/ernie-image)
+    find_package(Python3 COMPONENTS Interpreter QUIET)
+    if(Python3_Interpreter_FOUND)
+        add_test(NAME package_integrity COMMAND "${Python3_EXECUTABLE}"
+                 -m unittest discover -s "${CMAKE_CURRENT_SOURCE_DIR}/tests" -p test_package.py -v)
+        set_tests_properties(package_integrity PROPERTIES ENVIRONMENT "ERNIE_TEST_RUNNER=$<TARGET_FILE:ernie-image>")
+        add_test(NAME text_bucket_contract COMMAND "${Python3_EXECUTABLE}"
+                 -m unittest discover -s "${CMAKE_CURRENT_SOURCE_DIR}/tests" -p test_text_bucket.py -v)
+    endif()
     if(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
         target_compile_options(ernie-image PRIVATE -ffp-contract=off)
     endif()

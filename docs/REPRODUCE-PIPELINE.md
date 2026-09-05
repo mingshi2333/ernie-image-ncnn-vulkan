@@ -2,7 +2,7 @@
 
 环境沿用 [单 block 复现](REPRODUCE-BLOCK.md)，并按 [README](../README.md) 启用 tokenizer、生成器和 libpng。Python 用于转换/参考，`build/ernie-image` 本身是原生程序。以下示例使用一致的新目录命名；本机历史验证包为 `models/pipeline64-residual-v1` 和 `models/pipeline1024-residual-v1`，底层块来自多次独立转换。
 
-所有输出目录应是新路径，失败结果另存。一次只运行一个大 GPU 作业。已用主机为 8GB 显卡、32GB RAM；完整 1024 运行峰值 RSS 约 23.0GiB，系统 swap 增加约 0.96GiB。不要在内存压力下重复整图高分辨率 VAE 的 pnnx 转换。
+所有输出目录应是新路径，失败结果另存。一次只运行一个大 GPU 作业。已用主机为 8GB 显卡、32GB RAM；直接卷积版本完整 1024 运行峰值 RSS 约 5.82GiB，旧 SGEMM 版本约 23.0GiB。不要在内存压力下重复整图高分辨率 VAE 的 pnnx 转换。
 
 ## 1. DiT 基础权重
 
@@ -41,7 +41,17 @@ for i in range(25):
 subprocess.run(cmd, check=True)
 ```
 
-32 tokens 包含 BOS。`ignore_merges=true` 保留在 tokenizer 配置中，但当前没有该开关的真实词表差异反例。`hidden_states[-2]` 为 block 24 输出，无 final norm；不导出第 26 层、视觉模型或 LM head。
+32 tokens 包含 BOS。扩展到 64 tokens 时，先独立导出目标桶，再通过整个图的指纹校验复用无损权重：
+
+```sh
+.venv/bin/python tools/export_text_block.py --tokens 64 --output models/text-template-64
+.venv/bin/python tools/rebucket_text.py --source models/text-32 \
+  --template models/text-template-64 --output models/text-64
+```
+
+组装时将 25 个 `--text` 路径换成 `models/text-64/block-NN`，embedding-package 仍使用 `models/text-32`。已导出的 4160-token DiT 包含 4096 个图像位置和 64 个文本位置，因此不需要改变该 DiT 图。每个更大的桶都需要独立导出和验证，不能任意修改配置文件。
+
+`ignore_merges=true` 保留在 tokenizer 配置中，但当前没有该开关的真实词表差异反例。`hidden_states[-2]` 为 block 24 输出，无 final norm；不导出第 26 层、视觉模型或 LM head。
 
 ## 3. VAE
 
@@ -55,12 +65,12 @@ subprocess.run(cmd, check=True)
 .venv/bin/python tools/specialize_vae.py --template models/vae-8 \
   --reference models/vae-128-reference --output models/vae-128
 .venv/bin/python tools/validate_dit_heads.py --model models/vae-128 \
-  --cpu-only --output outputs/vae-128-cpu
+  --cpu-only --vae-convolution direct --output outputs/vae-128-cpu
 ```
 
 8×8 / 128×128 是解包后的 32 通道 VAE 输入，分别输出 64×64 / 1024×1024。转换器严格匹配整个小尺寸图的 SHA-256，仅修改 attention 前后 flatten/unflatten；卷积、归一化、最近邻上采样和权重不变。大尺寸官方 fixture 的来源、权重、形状与张量散列必须匹配，再运行完整输出数值门槛。
 
-原始大尺寸整图 pnnx 导出因内存持续增长而停止。CPU 原生 GroupNorm 的大尺寸归约曾两次超过固定 `2e-5` NRMSE 门槛；仅关闭 Winograd 没有修复。当前 CPU GroupNorm 使用 FP64 均值和中心方差归约，FP32 激活与 affine 运算，NRMSE 2.02e-6。GPU VAE 仍使用原生 GroupNorm，尚未通过完整 1024 图像生成验收；默认选择 CPU。
+原始大尺寸整图 pnnx 导出因内存持续增长而停止。CPU 原生 GroupNorm 的大尺寸归约曾两次超过固定 `2e-5` NRMSE 门槛；仅关闭 Winograd 没有修复。当前 CPU GroupNorm 使用 FP64 均值和中心方差归约，FP32 激活与 affine 运算。直接卷积 1024 fixture 的 NRMSE 为 9.41e-7，峰值 RSS 5.42 GiB。GPU VAE 仍使用原生 GroupNorm，尚未通过完整 1024 图像生成验收；默认选择 CPU。
 
 ## 4. 前后处理、FP32 残差与静态桶
 
@@ -104,19 +114,40 @@ for pixels, tokens, vae in [(64, 288, 'models/vae-8'),
     subprocess.run(cmd, check=True)
 ```
 
-组装器核验 tokenizer 版本/文件、层顺序、静态 shape、组件及权重散列，写入独立 manifest、RoPE 和官方 BN 统计。BN 使用实际 pipeline 的 `eps=1e-5`。当前包依赖本地符号链接，不能单独搬走。原生 CLI 读取配置和张量，完整文件散列检查由组装/验证工具负责，独立分发及原生 manifest 校验留待后续。
+组装器核验 tokenizer 版本/文件、层顺序、静态 shape、组件及权重散列，写入独立 manifest、RoPE 和官方 BN 统计。BN 使用实际 pipeline 的 `eps=1e-5`。组装阶段保留本地符号链接；用下列命令生成可搬移包：
+
+```sh
+python tools/package_model.py --model models/pipeline-1024 --output models/turbo-portable
+build/ernie-image --model models/turbo-portable --verify-model
+```
+
+便携包只包含 136 个运行文件和完整 SHA256/字节数清单，不含外部符号链接或转换 fixture。原生 CLI 每次加载前完整校验，旧的本地 schema-1 包仍可使用。详细运行和安装说明见 [RUNNING.md](RUNNING.md)。
 
 ## 6. 完整对照和本机资源测量
 
 ```sh
 .venv/bin/python tools/validate_pipeline.py --model models/pipeline-64 \
   --precision fp16 --output outputs/full-64
+.venv/bin/python tools/validate_pipeline.py --model models/turbo-portable \
+  --reference-device cuda --precision fp16 --output outputs/parity-1024
 .venv/bin/python tools/benchmark_pipeline.py --model models/pipeline-1024 \
   --precision fp16 --vae-device cpu --output outputs/full-1024
 ```
 
 第一项先分阶段执行固定版本官方模块，再使用保存的同一份初始 latent 运行原生程序。FP16 门槛在执行前保存：各去噪/最终张量 NRMSE ≤ 0.15，同时满足 `0.03 + 0.25 * max(abs(reference))` 最大绝对误差；PNG MAE ≤ 12/255、最大差 ≤ 80/255。文本/位置条件有独立更严门槛。逐步 latent、预测、解包、解码和 PNG 量化全部单独核对，任一失败返回非零。门槛是工程数值标准，不等同于感知质量评估。`--reference COMPLETE_DIR` 仅复用配置、prompt、步数和所有散列一致的完整参考。
 
-第二项只测试 1024 原生功能与资源，结果明示 `quality_validated=false`。它保留 binary 快照、来源和包散列、实际随机 latent、逐步张量、PNG 散列、GNU time 最大 RSS、100 ms 整卡显存采样及系统内存/swap 前后状态。时延包含 trace 的保存开销；显存样本含其他程序且可能漏过短峰值，不是精确本进程计量。
+`--reference-device cuda` 每次只在显卡上放置一个官方 FP32 DiT block，禁用 TF32，文本、前后处理、scheduler 和 VAE 仍使用官方 CPU FP32 实现。小尺寸 CPU/CUDA 对照已先行通过。参考在子进程中完成并退出，确保 CUDA context 释放后再启动 Vulkan；`empty_cache()` 单独使用不足以释放 context。`--reference-only` 只生成参考；`--latent` 可指定两边共用的保存噪声，复用参考时也检查散列。它不是 BF16 官方默认运行的逐位一致性声明。
 
-本次 1024 输出为木桌上的红苹果，符合所用单个提示词的肉眼检查。完整高分辨率官方去噪对照、多提示词质量、长文本、重复性能与不同设备仍需单独评估，不能从这一张图外推。
+若要隔离第七步的局部预测误差，可重放官方前六步输出；该诊断不会改写原始整条轨迹的失败结果：
+
+```sh
+.venv/bin/python tools/diagnose_pipeline_step.py --model models/turbo-portable \
+  --reference outputs/parity-1024/reference --step 6 --precision fp32 \
+  --output outputs/teacher-forced-step6
+```
+
+`--step` 从 0 开始。诊断使用完整官方 fixture 中的输入 latent、文本、位置/mask、官方时间特征和目标预测，应用既有全链路张量门限。长英文 FP32 的该单步 NRMSE 7.42e-5 通过；自由运行对应预测为 0.00349，仍保留失败。FP32 的完整门槛是 NRMSE ≤ 0.003、最大绝对差 ≤ `0.0002 + 0.01 * max(abs(reference))`，PNG MAE ≤ 0.1/255、最大差 ≤ 2/255。
+
+`benchmark_pipeline.py` 只测试原生功能与资源，结果仍明示 `quality_validated=false`。它保留 binary 快照、来源和包散列、实际随机 latent、逐步张量、PNG 散列、GNU time 最大 RSS、100 ms 整卡显存采样及系统内存/swap 前后状态。时延包含 trace 的保存开销；显存样本含其他程序且可能漏过短峰值，不是精确本进程计量。
+
+1024 苹果样本已通过完整 8 步官方对照；长英文 FP16/FP32 的部分后期张量未通过，像素比较通过。所有固定样本、失败门限与资源数据见 [Turbo 交付报告](../artifacts/2026-09-05/turbo-delivery/README.md)。少量固定样本的数值验收不能代替广泛的感知质量数据集、重复性能测量和其他设备测试。

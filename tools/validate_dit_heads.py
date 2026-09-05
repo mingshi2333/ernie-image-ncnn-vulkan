@@ -30,13 +30,14 @@ def verify(model):
     return fixture
 
 
-def run(model, output, runner, backend, precision):
+def run(model, output, runner, backend, precision, vae_convolution='sgemm'):
     fixture = verify(model)
     output.mkdir(parents=True)
     command = [str(runner.resolve()), '--model', str(model.resolve()), '--fixture', str(model.resolve()),
                '--output', str((output / 'actual').resolve()), '--component', fixture['component'],
                '--height', str(fixture['height']), '--width', str(fixture['width']),
                '--text-tokens', str(fixture['text_tokens']), '--backend', backend, '--precision', precision]
+    command += ['--vae-convolution', vae_convolution]
     result = {'component': fixture['component'], 'backend': backend, 'precision': precision,
               'passed': False, 'command': command, 'runner_sha256': sha256(runner),
               'model_manifest_sha256': sha256(model / 'model.json'), 'validator_sha256': sha256(__file__),
@@ -82,6 +83,7 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--cpu-only', action='store_true')
     parser.add_argument('--vulkan-fp32-only', action='store_true')
+    parser.add_argument('--vae-convolution', choices=['sgemm','direct'], default='sgemm')
     args = parser.parse_args()
     if args.output.exists() or (args.cpu_only and args.vulkan_fp32_only):
         parser.error('Use a new output directory')
@@ -94,7 +96,7 @@ def main():
         variants = [('vulkan', 'fp32')]
     results = []
     for backend, precision in variants:
-        item = run(args.model, args.output / f'{backend}-{precision}', runner, backend, precision)
+        item = run(args.model, args.output / f'{backend}-{precision}', runner, backend, precision, args.vae_convolution)
         results.append(item)
         print(json.dumps({'component': item['component'], 'backend': backend, 'precision': precision,
                           'passed': item['passed'], 'outputs': item['outputs'], 'failure': item.get('failure')}), flush=True)

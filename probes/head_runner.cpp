@@ -41,6 +41,7 @@ int main(int argc, char** argv)
 {
     fs::path model, fixture, output;
     std::string component, backend = "cpu", precision = "fp32";
+    std::string vae_convolution = "sgemm";
     int width = 0, height = 0, text_tokens = 0, status = 0;
     try
     {
@@ -55,6 +56,7 @@ int main(int argc, char** argv)
             else if (flag == "--component") component = value;
             else if (flag == "--backend") backend = value;
             else if (flag == "--precision") precision = value;
+            else if (flag == "--vae-convolution") vae_convolution = value;
             else if (flag == "--width" || flag == "--height" || flag == "--text-tokens")
             {
                 size_t consumed = 0;
@@ -72,7 +74,8 @@ int main(int argc, char** argv)
             || (component != "input" && component != "output" && component != "vae")
             || (backend != "cpu" && backend != "vulkan")
             || (precision != "fp32" && precision != "fp16" && precision != "bf16")
-            || (backend == "cpu" && precision != "fp32"))
+            || (backend == "cpu" && precision != "fp32")
+            || (vae_convolution != "sgemm" && vae_convolution != "direct"))
             throw std::invalid_argument("Require --model DIR --fixture DIR --output NEWDIR --component input|output "
                                        "--width N --height N --text-tokens N [--backend cpu|vulkan] [--precision fp32|fp16|bf16]");
         const int tokens = width * height + text_tokens;
@@ -104,6 +107,7 @@ int main(int argc, char** argv)
         option.use_bf16_storage = precision == "bf16";
         option.use_fp16_packed = option.use_fp16_arithmetic = option.use_bf16_packed = false;
         if (component == "vae" && backend == "cpu") option.use_winograd_convolution = false;
+        if (component == "vae" && backend == "cpu") option.use_sgemm_convolution = vae_convolution == "sgemm";
         std::vector<ncnn::Mat> outputs(counts.size());
         const auto start = std::chrono::steady_clock::now();
         {

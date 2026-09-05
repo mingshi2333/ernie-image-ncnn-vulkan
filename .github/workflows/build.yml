@@ -1,0 +1,52 @@
+name: Native Linux build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  linux:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      matrix:
+        vulkan: ['OFF', 'ON']
+    steps:
+      # https://github.com/actions/checkout (v7, verified 2026-09-05)
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          submodules: recursive
+          persist-credentials: false
+      - name: Install native build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake ninja-build g++ libpng-dev libvulkan-dev mesa-vulkan-drivers
+          rustup update stable --no-self-update
+          rustup default stable
+          rustc --version
+      - name: Configure pinned ncnn and native tokenizer
+        run: >-
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+          -DERNIE_ENABLE_VULKAN=${{ matrix.vulkan }}
+          -DERNIE_BUILD_TOKENIZER=ON -DERNIE_BUILD_GENERATOR=ON
+          -DNCNN_SYSTEM_GLSLANG=OFF -DNCNN_INT8=OFF
+      - name: Build
+        run: cmake --build build --parallel 2
+      - name: Model-free runtime and package contracts
+        # Software Vulkan exercises the kernels; this is not a hardware or
+        # real-weight image quality benchmark. CTest reports unavailable GPUs.
+        run: ctest --test-dir build --output-on-failure
+      - name: Install and check executable
+        run: |
+          cmake --install build --prefix "$RUNNER_TEMP/ernie-install"
+          "$RUNNER_TEMP/ernie-install/bin/ernie-image" --help

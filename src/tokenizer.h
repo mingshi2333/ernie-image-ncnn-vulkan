@@ -5,6 +5,8 @@
 #include <vector>
 
 namespace ernie {
+// Check every inference file before model loading, using its SHA256 manifest.
+void verify_package(const std::string& model_directory);
 // Native C++ API, backed by pinned official Tokenizers through a C ABI.
 // No Python interpreter, network access, or model weights are used at encoding.
 class Tokenizer

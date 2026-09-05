@@ -3,12 +3,19 @@
 #include <stdexcept>
 
 extern "C" {
+int ernie_package_verify(const unsigned char*, size_t, unsigned char*, size_t);
 void* ernie_tok_create(const unsigned char*, size_t, unsigned char*, size_t);
 size_t ernie_tok_maximum(const void*);
 int ernie_tok_encode(const void*, const unsigned char*, size_t, uint32_t*, size_t, size_t*, unsigned char*, size_t);
 void ernie_tok_destroy(void*);
 }
 namespace ernie {
+void verify_package(const std::string& directory)
+{
+    unsigned char error[1024] = {};
+    if (ernie_package_verify(reinterpret_cast<const unsigned char*>(directory.data()), directory.size(), error, sizeof(error)))
+        throw std::runtime_error(reinterpret_cast<const char*>(error));
+}
 Tokenizer::Tokenizer(const std::string& directory)
 {
     unsigned char error[512] = {};
