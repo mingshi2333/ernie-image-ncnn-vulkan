@@ -1,0 +1,49 @@
+{
+  "status": "CPU prepared only; no GPU execution",
+  "identity": {
+    "launcher.py": "01002b79ddd0f319b1ef6fef4f3aa5049454c31306e3d1d72248646cf58dcf6f",
+    "plan.json": "38f2f50d52cf7c67e942ae7753509f1d91a5128275fdb531bbbed43bd9f5e5f9",
+    "execution/diagnose_q2_scope_guard.py": "7f1b77a0658d3db904734b4cca1620aa6d83666cf871af93582373a2d4ec347e",
+    "execution/diagnose_mlp81_official_resume.py": "d370f120313c36410d805820f9c3ced05c5b5532295710d9c2ce3308080ca116",
+    "native/boundary.f32": "da8bc040080f6674042c860a372c8f004041dae617a0cdeffae96f3c2be61d54",
+    "native/out0.f32": "175bfa394aec3b7e576caaea3fd897cf84db122d4cd9378d7d72dfe704df68a3"
+  },
+  "bound_count": 5905,
+  "cpu_probe": {
+    "pids": [
+      {
+        "pid": 2102388,
+        "name": "python",
+        "rss_bytes": 15503360,
+        "vm_swap_bytes": 0,
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/ernie-q2-mlp81-cpu-probe-v4c.scope",
+        "affinity": [
+          0,
+          2
+        ]
+      }
+    ],
+    "rss_sum": 15503360,
+    "process_swap_bytes": 0,
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/ernie-q2-mlp81-cpu-probe-v4c.scope",
+    "cgroup_values": {
+      "memory.max": "10737418240",
+      "memory.swap.max": "0",
+      "cpu.max": "200000 100000",
+      "memory.current": "8445952",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "memory.swap.events": "high 0\nmax 0\nfail 0",
+      "cgroup.procs": "2102388"
+    },
+    "host_available": 15819386880
+  },
+  "tests_passed": 4,
+  "v2_preserved": true,
+  "v4_prepared_not_executed": true,
+  "source": {
+    "tools/diagnose_q2_scope_guard.py": "7f1b77a0658d3db904734b4cca1620aa6d83666cf871af93582373a2d4ec347e",
+    "tools/diagnose_mlp81_scope_launch.py": "01002b79ddd0f319b1ef6fef4f3aa5049454c31306e3d1d72248646cf58dcf6f",
+    "tools/diagnose_mlp81_official_resume.py": "d370f120313c36410d805820f9c3ced05c5b5532295710d9c2ce3308080ca116"
+  }
+}
