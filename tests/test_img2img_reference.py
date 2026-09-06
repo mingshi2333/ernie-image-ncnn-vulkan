@@ -4,7 +4,7 @@ import numpy as np
 
 from tools.reference_img2img import make_start, strength_plan, turbo_sigmas
 from tools.reference_img2img_positive import reviewed_profile, validate_inputs, validate_start, validate_suffix
-from tools.validate_img2img_positive_result import metrics, validate_process
+from tools.validate_img2img_positive_result import metrics, validate_execution_identity, validate_process
 
 
 class Img2ImgReferenceTests(unittest.TestCase):
@@ -176,6 +176,28 @@ class Img2ImgReferenceTests(unittest.TestCase):
                        {'failure': 'guard stopped'}, {'memory_events': 'oom 1\noom_kill 1\n'}):
             with self.subTest(change=change), self.assertRaisesRegex(ValueError, 'resource guard'):
                 validate_process({**valid, **change})
+
+    def test_actual_execution_identity_binds_current_contract_and_command(self):
+        import hashlib, json, tempfile
+        from pathlib import Path
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory); execution = root / 'run'; execution.mkdir()
+            plan = root / 'plan.json'; plan.write_text('{}')
+            process = execution / 'process.json'; process.write_text(json.dumps({'command': ['runner', '--strength', '1']}))
+            log = execution / 'runner.log'; log.write_text('complete\n')
+            sha = lambda path: hashlib.sha256(path.read_bytes()).hexdigest()
+            identity = {'input_contract_sha256': 'a' * 64, 'start_bitwise_noise': True,
+                        'start_sha256': 'b' * 64, 'noise_sha256': 'b' * 64,
+                        'plan_provenance_sha256': sha(plan), 'process_sha256': sha(process),
+                        'process_command': ['runner', '--strength', '1'],
+                        'outputs': [{'path': p.name, 'sha256': sha(p), 'bytes': p.stat().st_size}
+                                    for p in (process, log)]}
+            (execution / 'identity.json').write_text(json.dumps(identity))
+            validate_execution_identity(root, execution, plan, 'a' * 64)
+            identity['input_contract_sha256'] = 'c' * 64
+            (execution / 'identity.json').write_text(json.dumps(identity))
+            with self.assertRaisesRegex(ValueError, 'Actual execution identity differs'):
+                validate_execution_identity(root, execution, plan, 'a' * 64)
 
 
 if __name__ == '__main__':

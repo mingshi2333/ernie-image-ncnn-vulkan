@@ -57,6 +57,31 @@ def validate_process(process):
         raise ValueError("Execution process or resource guard is incomplete")
 
 
+def validate_execution_identity(base, execution, plan_identity, contract_sha256):
+    identity_path = execution / "identity.json"
+    identity = json.loads(identity_path.read_text())
+    process_path = execution / "process.json"
+    process = json.loads(process_path.read_text())
+    if (identity.get("input_contract_sha256") != contract_sha256
+            or identity.get("start_bitwise_noise") is not True
+            or identity.get("start_sha256") != identity.get("noise_sha256")
+            or identity.get("plan_provenance_sha256") != digest(plan_identity)
+            or identity.get("process_sha256") != digest(process_path)
+            or identity.get("process_command") != process.get("command")):
+        raise ValueError("Actual execution identity differs")
+    seen = set()
+    for item in identity.get("outputs", []):
+        relative = item.get("path")
+        path = execution / relative if isinstance(relative, str) else execution
+        if (not isinstance(relative, str) or relative in seen or not path.is_file()
+                or item.get("bytes") != path.stat().st_size or item.get("sha256") != digest(path)):
+            raise ValueError("Actual execution output identity differs")
+        seen.add(relative)
+    if "process.json" not in seen or "runner.log" not in seen:
+        raise ValueError("Actual execution identity is incomplete")
+    return identity_path
+
+
 def audit(base):
     base = Path(base); inputs = base / "inputs"; native = base / "native-execution"; trace = native / "trace"
     official_execution = base / "official-execution-v3"
@@ -64,6 +89,7 @@ def audit(base):
         official_execution = base / "official-execution"
     official = official_execution / "oracle"; suffix = official / "suffix"
     contract, prompt, _ = validate_inputs(inputs)
+    contract_sha256 = digest(inputs / "input-contract.json")
     native_identity = validate_identity(base, "native-plan")
     official_identity_path = base / "official-plan/identity-v3.json"
     official_identity = json.loads(official_identity_path.read_text())
@@ -81,6 +107,12 @@ def audit(base):
     for item in runtime.get("sources", {}).values():
         if digest(item["path"]) != item.get("sha256"):
             raise ValueError("Official installed runtime identity differs")
+    official_execution_identity = native_execution_identity = None
+    if contract["request"]["strength"] == 1.:
+        official_execution_identity = validate_execution_identity(
+            base, official_execution, official_identity_path, contract_sha256)
+        native_execution_identity = validate_execution_identity(
+            base, native, base / "native-plan/identity.json", contract_sha256)
     fixture = json.loads((suffix / "fixture.json").read_text())
     start_step = contract["request"]["start_step"]
     suffix_denominator = 9 + 2 * (8 - start_step)
@@ -132,7 +164,7 @@ def audit(base):
     result = {"schema_version": 1, "status": "pass" if passed else "quality_gate_failed",
               "complete_execution": True, "quality_gate_passed": passed,
               "scope": f"One fixed public development 1024x1024 strength-{contract['request']['strength']} case; not formal15/72",
-              "input_contract_sha256": digest(inputs / "input-contract.json"),
+              "input_contract_sha256": contract_sha256,
               "official_identity_sha256": digest(official_identity_path),
               "official_runtime_identity_sha256": digest(base / "official-plan/runtime-identity.json"),
               "official_process_sha256": digest(official_execution / "process.json"),
@@ -142,6 +174,9 @@ def audit(base):
               "native_process_sha256": digest(native / "process.json"),
               "boundaries_compared": len(pairs), "official_suffix_denominator": suffix_denominator,
               "prompt_bytes_equal": True, "token_ids": fixture["ids"]}
+    if official_execution_identity is not None:
+        result["official_execution_identity_sha256"] = digest(official_execution_identity)
+        result["native_execution_identity_sha256"] = digest(native_execution_identity)
     return comparison, result
 
 
