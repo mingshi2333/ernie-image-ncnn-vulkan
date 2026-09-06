@@ -48,3 +48,44 @@ available encoder 精确匹配编译期合同及对应 source instance，检查�
 PE/text/DiT/VAE 图生图或 15-case 验收。现有独立证据只证明一个 512×384 development
 reconstruction；因此不能宣称 F2/F3 整体完成或图生图质量验收。Windows UTF-8 路径仍需真实
 Windows 环境验证。完整包构建、真实 strength0/positive CLI 和独立代码审查应由 root 排队执行。
+
+## 生产包与真实 strength=0 补充执行
+
+使用正常 `package_dynamic_model.py --schema3 --encoder` 路径建立了新的
+`outputs/f2-production-img2img-package-v1`，没有修改既有模型目录或冻结资产。包的 manifest SHA-256
+为 `2b212d7a...d923`，声明 1 个 512×384/text-2048 instance、80 个 CAS objects、总对象字节
+23,409,328,994；native schema-3 verifier 对实际目录通过。encoder 合同仍是唯一受审查的
+512×384 合同，param/bin/BN 四个对象分别是 `4858cc8b...`、`7fa2441a...`、`9027fac5...`、
+`8b465682...`。
+
+运行前将生产 `ernie-image` 与其完整实际源码清单冻结到
+`outputs/f2-production-strength0-v1-execution`。runner SHA-256 为 `941a131b...b52d`，源码快照
+HEAD 为 `f04b35f3...`，包含 schema source identity 修复和 resize 半像素边界修复。输入是与官方
+512×384 reference 相同的确定性 RGB fixture；PNG SHA-256 为 `7b991c64...cb8c`，解码 RGB bytes
+SHA-256 为 `c01747af...e2ea`。
+
+实际 CLI 使用 `--device cpu --vae-device cpu --strength 0 --threads 2 --width 512 --height 384`，
+在 systemd user scope 的 `MemoryMax=3G`、`MemorySwapMax=0` 下退出 0。wall time 42.70 秒，峰值
+RSS 1,441,796 KiB，swap 0。执行包含约 19.51 秒的完整包认证以及约 23.14 秒的 encoder/decode；
+没有运行 GPU。
+
+六边界结果通过既有固定 gate：输入 RGB、encoder mean、packed、normalized/final、unpacked 的生产
+散列与既有原生 512×384 证据逐字节一致。相对官方 reference，unpacked 最大绝对误差
+`6.55651e-6`；decoded 最大绝对误差 `1.65403e-5`、平均 `8.19570e-7`；PNG 最大通道误差 1、
+平均 `0.000125461`。新 decoded 与旧原生 probe 的最大差为 `4.76837e-7`，说明散列变化只是
+最后位数差异，并未扩大原有官方误差。全部散列和逐项统计保存在 execution 的 `result.json`。
+
+`strace openat` 记录证明包认证先读取全部 80 个 CAS 对象；认证后只有 source manifest、encoder
+param/bin、BN mean/variance 和 decoder param/bin 再次打开。text/DiT 对象都只有认证读取，没有运行
+加载；trace 也只有 input、encoder、final/unpacked/decoded 边界，没有 prompt、text、noise、initial、
+prediction 或 step 文件。因此本次 strength=0 确实绕过 PE、tokenizer、text 和 DiT，而不是仅靠
+计时推断。
+
+本轮还关闭了独立审查的两个 Important：Rust verifier 现在要求 `encoder_source_manifest_sha256`
+确实存在于 instances，不能借用别的 instance 的相同 CAS 自证；双线性缩放分别 clamp 原始 floor
+坐标的两个邻点，2×1 红/蓝图缩放到 4×1 时左右边界保持纯红/纯蓝。Rust 3 个 package tests、
+image-I/O 与 CLI 两个 CTest 均通过。
+
+本次只证明真实生产 schema-3 的 512×384 strength=0 CPU 路径。strength=0.5 的相同输入、noise、
+schedule 与官方 oracle 已可准备，但尚未执行；PE/text/DiT positive-strength、15-case 与其他尺寸仍是
+pending，不能据此宣称整体 F2 或质量验收完成。
