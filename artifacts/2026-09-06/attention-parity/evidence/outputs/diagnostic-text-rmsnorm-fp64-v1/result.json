@@ -1,0 +1,22 @@
+{
+  "scope": "Only CPU RMSNorm reductions changed; saved original official text reference, Chinese valid tokens",
+  "first_norm_vs_torch": {
+    "nrmse": 4.299371242972798e-08,
+    "max_abs": 4.76837158203125e-07
+  },
+  "first_norm_vs_fp64": {
+    "nrmse": 4.951033091356657e-08,
+    "max_abs": 4.687019825588834e-07
+  },
+  "full_text_vs_torch": {
+    "nrmse": 6.7566421384334784e-06,
+    "max_abs": 0.004150390625
+  },
+  "native_baseline_vs_torch": {
+    "nrmse": 6.2543759073529245e-06,
+    "max_abs": 0.0037841796875
+  },
+  "source_sha256": "08ebef4252b28a19f81865eefcd24329f284a1a543c0fddd68cfe0bdce649ddb",
+  "runner_sha256": "62b21b36fd15fbee0f603df2fc9fb0d981cc6616590e2f4cff0245fcb3569804",
+  "reference_fixture_sha256": "81a853d9db2c6aba80a3fa72abac618dd9196f8598b5055cc2a41586480580b7"
+}

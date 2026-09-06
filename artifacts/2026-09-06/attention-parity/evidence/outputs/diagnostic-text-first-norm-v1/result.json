@@ -1,0 +1,31 @@
+{
+  "scope": "Chinese real embedding and official first text RMSNorm weight; valid rows, CPU only",
+  "native_vs_torch": {
+    "nrmse": 1.8078977928853118e-06,
+    "max_abs": 1.9073486328125e-05
+  },
+  "native_vs_fp64": {
+    "nrmse": 1.812728430126963e-06,
+    "max_abs": 1.902132833109249e-05
+  },
+  "torch_vs_fp64": {
+    "nrmse": 5.3820766512903405e-08,
+    "max_abs": 4.687019825588834e-07
+  },
+  "source_sha256": "6c378513fa16e2a71197d2f12667dd83d887e25d3488416aa240ee713148c257",
+  "runner_sha256": "9998c066d6e11589f59ae8f5ae017afde3de76bfcad6d2e2982345abeda413e2",
+  "files_sha256": {
+    "run.py": "6c378513fa16e2a71197d2f12667dd83d887e25d3488416aa240ee713148c257",
+    "torch.f32": "f8e0323f9c4e4385236604e6ba725765950321f51c364a45c1d6dd1cad5008fc",
+    "fp64.f64": "d1dfa543b4d3834f09eadbb4eb2724dc9620a020afe9eaa7166e1e540315e3a9",
+    "runner.snapshot": "9998c066d6e11589f59ae8f5ae017afde3de76bfcad6d2e2982345abeda413e2",
+    "native.log": "75f35869aea4a590c9fa43a2e56daf1ca5d6af569cdec60346dee35be6712373",
+    "actual.f32": "851a8d6f0139823f5df055df8c9f42e997e8b3ec8c4adfc257c898958918d1cd",
+    "fixture/in0.f32": "824cd6cfdb82b351297e08aac7d33f44f4b0e532142e9093119812302566ede2",
+    "fixture/in1.f32": "c35020473aed1b4642cd726cad727b63fff2824ad68cedd7ffb73c7cbd890479",
+    "fixture/in2.f32": "c35020473aed1b4642cd726cad727b63fff2824ad68cedd7ffb73c7cbd890479",
+    "fixture/in3.f32": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+    "model/text.ncnn.bin": "df8b2110dc0f78f1122f9d5ed2c63c22642dcd70912006e6d5901cdafcfabb41",
+    "model/text.ncnn.param": "cbd66e48af73173d12cb3a8e7941dd58d2e3866ef3421f6c72fa3cdb78a0c562"
+  }
+}

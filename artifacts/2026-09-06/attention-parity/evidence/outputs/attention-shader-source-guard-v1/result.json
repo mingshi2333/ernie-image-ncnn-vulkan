@@ -1,0 +1,36 @@
+{
+  "scope": "CMake regeneration after shader source drift in copied fixture; pinned submodule not modified",
+  "checks": [
+    {
+      "case": "configure",
+      "return_code": 0,
+      "passed": true
+    },
+    {
+      "case": "initial_build",
+      "return_code": 0,
+      "passed": true
+    },
+    {
+      "case": "sdpa_cross.comp",
+      "return_code": 2,
+      "passed": true
+    },
+    {
+      "case": "sdpa_cross.comp restored",
+      "return_code": 0,
+      "passed": true
+    },
+    {
+      "case": "softmax_reduce_sum.comp",
+      "return_code": 2,
+      "passed": true
+    },
+    {
+      "case": "softmax_reduce_sum.comp restored",
+      "return_code": 0,
+      "passed": true
+    }
+  ],
+  "passed": true
+}

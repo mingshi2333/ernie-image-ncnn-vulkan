@@ -1,0 +1,9 @@
+CMake Error at ErnieAttentionShader.cmake:39 (message):
+  Review the changed ncnn softmax shader before deriving the ERNIE
+  accumulation shader
+Call Stack (most recent call first):
+  CMakeLists.txt:4 (include)
+
+
+-- Configuring incomplete, errors occurred!
+gmake: *** [Makefile:138: cmake_check_build_system] Error 1

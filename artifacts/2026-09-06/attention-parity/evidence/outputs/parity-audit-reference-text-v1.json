@@ -1,0 +1,59 @@
+{
+  "run": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pipeline1024-chinese-s64-fp32-reference-text-v1",
+  "scope": "Diagnostic free-running DiT and VAE with saved official text embeddings; native text encoder bypassed; not complete native prompt-to-PNG acceptance",
+  "conditioning_source": "saved_reference_diagnostic",
+  "prompt": "\u96ea\u5c71\u811a\u4e0b\u7684\u84dd\u8272\u6e56\u6cca\uff0c\u677e\u6811\u6797\uff0c\u6e05\u6668\u9633\u5149\uff0c\u5199\u5b9e\u98ce\u666f\u6444\u5f71\u3002",
+  "tokens": 32,
+  "config": {
+    "packed_width": 64,
+    "packed_height": 64,
+    "text_bucket": 64,
+    "dit_text_tokens": 64,
+    "text_layers": 25,
+    "dit_layers": 36
+  },
+  "precision": "fp32",
+  "steps": 8,
+  "passed": false,
+  "comparisons": 25,
+  "passed_comparisons": 24,
+  "failed_tensors": [
+    "decoded"
+  ],
+  "final_latent": {
+    "tensor": "final",
+    "max_abs_error": 0.02705967426300049,
+    "nrmse": 0.0003637483386668739,
+    "reference_max_abs": 6.056336879730225,
+    "passed": true,
+    "sha256": "30ab8e3181095f26f7f4619eb25ad18118cd124613675037e15526403fc6116e"
+  },
+  "decoded": {
+    "tensor": "decoded",
+    "max_abs_error": 0.024891123175621033,
+    "nrmse": 0.00030145649978045354,
+    "reference_max_abs": 1.300978660583496,
+    "passed": false,
+    "sha256": "0fc9e26e1c4d15f0b7b15c1c85d7c3d6654e758be7b5ef6415abb0e0e926d8f6"
+  },
+  "png": {
+    "shape": [
+      1024,
+      1024,
+      3
+    ],
+    "mae": 0.007412910461425781,
+    "max_abs": 3.0,
+    "sha256": "a1f26fe3348571c08b12b7681dfdeefd0453bdf12304d9ce709669f0335aac80",
+    "passed": false
+  },
+  "resources": {
+    "scope": "One native run including SHA256 verification and trace; not a controlled performance comparison",
+    "max_rss_kib": 6093204,
+    "total_seconds": 695.065,
+    "model_verification_seconds": 16.7637,
+    "vae_and_png_seconds": 49.9606
+  },
+  "runner_sha256": "1dd2880274fd862631254966f78e401340393a711be7b27940554715fe13320b",
+  "independently_recomputed": true
+}

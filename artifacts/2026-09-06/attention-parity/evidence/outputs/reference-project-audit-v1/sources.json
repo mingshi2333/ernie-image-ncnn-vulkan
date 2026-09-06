@@ -1,0 +1,47 @@
+[
+  {
+    "file": "outputs/reference-project-audit-v1/zimage/README.md",
+    "url": "https://raw.githubusercontent.com/nihui/zimage-ncnn-vulkan/c1938eef9cd7e03cb216da4f4c89a0c041543e7a/README.md",
+    "sha256": "82a5569ff14072bce44035c6d6869cade22a79aff5284562b8e3bedf065add75"
+  },
+  {
+    "file": "outputs/reference-project-audit-v1/zimage/src/zimage.cpp",
+    "url": "https://raw.githubusercontent.com/nihui/zimage-ncnn-vulkan/c1938eef9cd7e03cb216da4f4c89a0c041543e7a/src/zimage.cpp",
+    "sha256": "6a022c783c8cbb5d9b9dc7b638c02f03f1310f0c3bd862b02b0ce63fb0da0960"
+  },
+  {
+    "file": "outputs/reference-project-audit-v1/zimage/src/zimage_pipeline.cpp",
+    "url": "https://raw.githubusercontent.com/nihui/zimage-ncnn-vulkan/c1938eef9cd7e03cb216da4f4c89a0c041543e7a/src/zimage_pipeline.cpp",
+    "sha256": "950c9f7aa6f8e762a07542453e96158e1337d2fda9057e19404d97bf77f3546a"
+  },
+  {
+    "file": "outputs/reference-project-audit-v1/zimage/.github/workflows/CI.yml",
+    "url": "https://raw.githubusercontent.com/nihui/zimage-ncnn-vulkan/c1938eef9cd7e03cb216da4f4c89a0c041543e7a/.github/workflows/CI.yml",
+    "sha256": "67f6133458f82b9e4275fabd9326fd100ec464cfd46d82c8baaa33dad7d94a7b"
+  },
+  {
+    "file": "outputs/reference-project-audit-v1/zimage/src/main.cpp",
+    "url": "https://raw.githubusercontent.com/nihui/zimage-ncnn-vulkan/c1938eef9cd7e03cb216da4f4c89a0c041543e7a/src/main.cpp",
+    "sha256": "a119eaa7a82245d5cb771f13f4136ccd22e9c8d21d87b5e1298ed0650ce86a0c"
+  },
+  {
+    "file": "outputs/reference-project-audit-v1/ernie/README.md",
+    "url": "https://raw.githubusercontent.com/futz12/ernie-image-ncnn-vulkan/8dcd6e4411137d8abe92c9d78581c4c96d5182c6/README.md",
+    "sha256": "9c1dafd950a5b748c8560158d665c881d9b41c05520ff040036b1c3dff4788d1"
+  },
+  {
+    "file": "outputs/reference-project-audit-v1/ernie/src/ernie_image_pipeline.cpp",
+    "url": "https://raw.githubusercontent.com/futz12/ernie-image-ncnn-vulkan/8dcd6e4411137d8abe92c9d78581c4c96d5182c6/src/ernie_image_pipeline.cpp",
+    "sha256": "7f449771d5e9ad588f9532c6fb87671dc322d837b017d0cb07f3bcc44ae5d988"
+  },
+  {
+    "file": "outputs/reference-project-audit-v1/ernie/src/pe_decoder.cpp",
+    "url": "https://raw.githubusercontent.com/futz12/ernie-image-ncnn-vulkan/8dcd6e4411137d8abe92c9d78581c4c96d5182c6/src/pe_decoder.cpp",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "file": "outputs/reference-project-audit-v1/ernie/src/main.cpp",
+    "url": "https://raw.githubusercontent.com/futz12/ernie-image-ncnn-vulkan/8dcd6e4411137d8abe92c9d78581c4c96d5182c6/src/main.cpp",
+    "sha256": "4abe56fdaa3c3cbad9d6265611a258d9d5d44ddc2839afbd66de757e8a533ef3"
+  }
+]

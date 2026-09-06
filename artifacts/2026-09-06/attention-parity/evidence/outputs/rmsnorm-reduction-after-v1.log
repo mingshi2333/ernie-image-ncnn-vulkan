@@ -1,0 +1,36 @@
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+{"width":128,"rows":1,"packing":false,"max_abs":1.30197045145e-07,"max_abs_limit":3.13136656504e-06,"nrmse":2.30162217601e-08,"nrmse_limit":2e-7,"passed":true}
+{"width":128,"rows":1,"packing":true,"max_abs":1.30197045145e-07,"max_abs_limit":3.13136656504e-06,"nrmse":2.30162217601e-08,"nrmse_limit":2e-7,"passed":true}
+{"width":128,"rows":9,"packing":false,"max_abs":6.72132726365e-07,"max_abs_limit":4.12131230945e-06,"nrmse":3.75334548522e-08,"nrmse_limit":2e-7,"passed":true}
+{"width":128,"rows":9,"packing":true,"max_abs":6.72132726365e-07,"max_abs_limit":4.12131230945e-06,"nrmse":3.75334548522e-08,"nrmse_limit":2e-7,"passed":true}
+{"width":128,"rows":64,"packing":false,"max_abs":6.72132726365e-07,"max_abs_limit":4.12131230945e-06,"nrmse":3.82086809578e-08,"nrmse_limit":2e-7,"passed":true}
+{"width":128,"rows":64,"packing":true,"max_abs":6.72132726365e-07,"max_abs_limit":4.12131230945e-06,"nrmse":3.82086809578e-08,"nrmse_limit":2e-7,"passed":true}
+{"width":3072,"rows":1,"packing":false,"max_abs":3.6201878828e-07,"max_abs_limit":7.5420550576e-06,"nrmse":1.30724139744e-08,"nrmse_limit":2e-7,"passed":true}
+{"width":3072,"rows":1,"packing":true,"max_abs":3.6201878828e-07,"max_abs_limit":7.5420550576e-06,"nrmse":1.30724139744e-08,"nrmse_limit":2e-7,"passed":true}
+{"width":3072,"rows":9,"packing":false,"max_abs":1.87087812265e-06,"max_abs_limit":1.2391353233e-05,"nrmse":2.59334006055e-08,"nrmse_limit":2e-7,"passed":true}
+{"width":3072,"rows":9,"packing":true,"max_abs":1.87087812265e-06,"max_abs_limit":1.2391353233e-05,"nrmse":2.59334006055e-08,"nrmse_limit":2e-7,"passed":true}
+{"width":3072,"rows":64,"packing":false,"max_abs":1.87087812265e-06,"max_abs_limit":1.2391353233e-05,"nrmse":2.6490271841e-08,"nrmse_limit":2e-7,"passed":true}
+{"width":3072,"rows":64,"packing":true,"max_abs":1.87087812265e-06,"max_abs_limit":1.2391353233e-05,"nrmse":2.6490271841e-08,"nrmse_limit":2e-7,"passed":true}
+{"width":4096,"rows":1,"packing":false,"max_abs":8.30649149464e-07,"max_abs_limit":8.39921858387e-06,"nrmse":2.59609556566e-08,"nrmse_limit":2e-7,"passed":true}
+{"width":4096,"rows":1,"packing":true,"max_abs":8.30649149464e-07,"max_abs_limit":8.39921858387e-06,"nrmse":2.59609556566e-08,"nrmse_limit":2e-7,"passed":true}
+{"width":4096,"rows":9,"packing":false,"max_abs":1.55746715791e-06,"max_abs_limit":1.39985348448e-05,"nrmse":2.59609556497e-08,"nrmse_limit":2e-7,"passed":true}
+{"width":4096,"rows":9,"packing":true,"max_abs":1.55746715791e-06,"max_abs_limit":1.39985348448e-05,"nrmse":2.59609556497e-08,"nrmse_limit":2e-7,"passed":true}
+{"width":4096,"rows":64,"packing":false,"max_abs":1.55746715791e-06,"max_abs_limit":1.39985348448e-05,"nrmse":2.59609556493e-08,"nrmse_limit":2e-7,"passed":true}
+{"width":4096,"rows":64,"packing":true,"max_abs":1.55746715791e-06,"max_abs_limit":1.39985348448e-05,"nrmse":2.59609556493e-08,"nrmse_limit":2e-7,"passed":true}

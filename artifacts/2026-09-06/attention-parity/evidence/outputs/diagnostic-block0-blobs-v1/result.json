@@ -1,0 +1,111 @@
+{
+  "runner_sha256": "00d405650d69b266b58753fc55d1ad3cfd63cd67003a24cbd8fdf16f77424ec0",
+  "scope": "Official CUDA block zero layer values from identical real inputs; exact-head Chinese step-zero fixture",
+  "layers": [
+    {
+      "blob": "12",
+      "max_abs_error": 1.9073486328125e-06,
+      "nrmse": 4.6819785194507484e-08,
+      "reference_max_abs": 23.805246353149414,
+      "actual_sha256": "a3dde669cf5e80c9858e2cf7d1eb1f1a050e985e72a3e9d173c871abb2f4e968"
+    },
+    {
+      "blob": "15",
+      "max_abs_error": 1.9073486328125e-06,
+      "nrmse": 4.442748354211407e-08,
+      "reference_max_abs": 11.876932144165039,
+      "actual_sha256": "a9beffc3304add14c75c121e4cd65c585d1e7283e7edc58bc7ce9f0c1d899a7b"
+    },
+    {
+      "blob": "19",
+      "max_abs_error": 3.0517578125e-05,
+      "nrmse": 6.166977583586462e-08,
+      "reference_max_abs": 122.38243103027344,
+      "actual_sha256": "60d2fcedfc691fc94a1e06b1b96699a01a2caea4045b8d3bb19417f9997045f4"
+    },
+    {
+      "blob": "28",
+      "max_abs_error": 21.145599365234375,
+      "nrmse": 1.3979437449762462,
+      "reference_max_abs": 12.144012451171875,
+      "actual_sha256": "2c78dcc528293f8352839d29e6b57abe13e00ca2e91fe235f37bc660eb381772"
+    },
+    {
+      "blob": "72",
+      "max_abs_error": 0.00018787384033203125,
+      "nrmse": 4.155494341271527e-06,
+      "reference_max_abs": 24.475841522216797,
+      "actual_sha256": "94d91be34cbffa1fa8b9e525d504d818af2f4e050ea7a8ec1bb9620716102fce"
+    },
+    {
+      "blob": "73",
+      "max_abs_error": 0.0010833740234375,
+      "nrmse": 3.228198038765534e-06,
+      "reference_max_abs": 257.769775390625,
+      "actual_sha256": "edf57af40e6082d86f480d57c74ef320f05c147f3cf50b315b8c6866894071de"
+    },
+    {
+      "blob": "75",
+      "max_abs_error": 0.0064697265625,
+      "nrmse": 1.6230585732363272e-06,
+      "reference_max_abs": 4404.2431640625,
+      "actual_sha256": "29f3a1e9cb74da1c633bdab74aa3ffeb28de74a65c4cae71b1ac1d6cdca51014"
+    },
+    {
+      "blob": "78",
+      "max_abs_error": 3.814697265625e-05,
+      "nrmse": 5.036567444191344e-07,
+      "reference_max_abs": 34.66939926147461,
+      "actual_sha256": "5e8664297125d189eacd49ee90c4563eeaf6cb27e0d4250391f76fde9286ac27"
+    },
+    {
+      "blob": "81",
+      "max_abs_error": 7.152557373046875e-06,
+      "nrmse": 2.285322200422547e-06,
+      "reference_max_abs": 5.4148173332214355,
+      "actual_sha256": "720e2c12d167abbdcfa5caead61abab58e56234b78b1d31f834ed5608039756f"
+    },
+    {
+      "blob": "84",
+      "max_abs_error": 3.212690353393555e-05,
+      "nrmse": 2.829377759624733e-06,
+      "reference_max_abs": 16.966463088989258,
+      "actual_sha256": "2693209114b1203c70fc56f75a7961cbc8172762b24d54ae722a3c2f49d773f1"
+    },
+    {
+      "blob": "85",
+      "max_abs_error": 6.890296936035156e-05,
+      "nrmse": 1.7151685427976032e-06,
+      "reference_max_abs": 14.592425346374512,
+      "actual_sha256": "70eb7064ce1543f58c2297f73e7d25355b7eba9ebce3b5f211521a9d215b3df0"
+    },
+    {
+      "blob": "87",
+      "max_abs_error": 0.00015163421630859375,
+      "nrmse": 4.0771127988089905e-06,
+      "reference_max_abs": 129.0159912109375,
+      "actual_sha256": "9ad5264bdf238e58e5d6e0e49353a32962e0ad926d397cb7c0f9d072e9bea2f2"
+    },
+    {
+      "blob": "88",
+      "max_abs_error": 0.0002593994140625,
+      "nrmse": 2.9749577271372058e-06,
+      "reference_max_abs": 1313.164794921875,
+      "actual_sha256": "a21a1ab872bb7939a6d14e25ceaa70631ddb9a83cdc3c92b9413c276dda7eb92"
+    },
+    {
+      "blob": "out0",
+      "max_abs_error": 0.00830078125,
+      "nrmse": 1.2528446918378735e-06,
+      "reference_max_abs": 30145.7109375,
+      "actual_sha256": "f9be82f6ed697f065c64088f7e2d88e6e0f5b0068d10c75881a19a90b5c4a6f4"
+    },
+    {
+      "blob": "86",
+      "max_abs_error": 4.9591064453125e-05,
+      "nrmse": 3.0866626897220123e-06,
+      "reference_max_abs": 11.855795860290527,
+      "actual_sha256": "78b5591dc82ae631c9026294369cc507ff852dc18756c1dbaab8ed4f871a0be4"
+    }
+  ]
+}

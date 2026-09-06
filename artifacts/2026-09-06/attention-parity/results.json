@@ -1,0 +1,385 @@
+[
+  {
+    "run": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pipeline1024-long-s64-fp32-v1",
+    "scope": "Native prompt-to-PNG versus staged pinned official FP32 modules; PE off, CFG=1; identical saved initial latent",
+    "conditioning_source": "native_text_encoder",
+    "prompt": "A small white cat sitting beside a blue ceramic teapot on a wooden desk, warm afternoon sunlight through a window, a green plant in the background, soft shadows, realistic photograph with fine detail.",
+    "tokens": 40,
+    "config": {
+      "packed_width": 64,
+      "packed_height": 64,
+      "text_bucket": 64,
+      "dit_text_tokens": 64,
+      "text_layers": 25,
+      "dit_layers": 36
+    },
+    "precision": "fp32",
+    "steps": 8,
+    "passed": false,
+    "comparisons": 25,
+    "passed_comparisons": 20,
+    "failed_tensors": [
+      "prediction-6",
+      "prediction-7",
+      "step-7",
+      "final",
+      "unpacked"
+    ],
+    "final_latent": {
+      "tensor": "final",
+      "max_abs_error": 0.11704778671264648,
+      "nrmse": 0.0014250285482812282,
+      "reference_max_abs": 6.8570404052734375,
+      "passed": false,
+      "sha256": "3c785a5fac67c339e0daa9eaad1b8a8b9d53a8aa9ad75350ee558b258027c8f7"
+    },
+    "decoded": {
+      "tensor": "decoded",
+      "max_abs_error": 0.012690305709838867,
+      "nrmse": 0.00041702267975407277,
+      "reference_max_abs": 1.267530918121338,
+      "passed": true,
+      "sha256": "b047c3dad0c249ffb9b2a1225ca1f9ff346a36a6db4afc817f7571bf50cc5290"
+    },
+    "png": {
+      "shape": [
+        1024,
+        1024,
+        3
+      ],
+      "mae": 0.01891295115152995,
+      "max_abs": 2.0,
+      "sha256": "3f28e59c2227aa4a0ae91e91ffa405671e7117b419c28257073b946b5818d1dd",
+      "passed": true
+    },
+    "resources": {
+      "scope": "One native run including SHA256 verification and trace; not a controlled performance comparison",
+      "max_rss_kib": 6097892,
+      "total_seconds": 704.743,
+      "model_verification_seconds": 18.4935,
+      "vae_and_png_seconds": 50.7633
+    },
+    "runner_sha256": "9123be72295dbfeb074c3c7e50a7748204af60ae4c22324bd3a26c809233e66d",
+    "validator_sha256": "1046bf7f3a68be177fe7faf5ca3b33d9677b20984b00c74ddd919ab20c91f2fe",
+    "source_snapshot_coverage": "validator_only",
+    "independently_recomputed": true
+  },
+  {
+    "run": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pipeline1024-long-s64-fp32-chunked-v1",
+    "scope": "Native prompt-to-PNG versus staged pinned official FP32 modules; PE off, CFG=1; identical saved initial latent",
+    "conditioning_source": "native_text_encoder",
+    "prompt": "A small white cat sitting beside a blue ceramic teapot on a wooden desk, warm afternoon sunlight through a window, a green plant in the background, soft shadows, realistic photograph with fine detail.",
+    "tokens": 40,
+    "config": {
+      "packed_width": 64,
+      "packed_height": 64,
+      "text_bucket": 64,
+      "dit_text_tokens": 64,
+      "text_layers": 25,
+      "dit_layers": 36
+    },
+    "precision": "fp32",
+    "steps": 8,
+    "passed": false,
+    "comparisons": 25,
+    "passed_comparisons": 24,
+    "failed_tensors": [
+      "prediction-7"
+    ],
+    "final_latent": {
+      "tensor": "final",
+      "max_abs_error": 0.042178988456726074,
+      "nrmse": 0.000262300613321707,
+      "reference_max_abs": 6.8570404052734375,
+      "passed": true,
+      "sha256": "d13390d5e96f5c369a388155ac85186bbe16d1f890ca035f3123abc5453fbb13"
+    },
+    "decoded": {
+      "tensor": "decoded",
+      "max_abs_error": 0.010079801082611084,
+      "nrmse": 0.0001050645878873406,
+      "reference_max_abs": 1.267530918121338,
+      "passed": true,
+      "sha256": "b545c342e6958ac61a0f9f50ac2cfcb25a5bf7e5484904a5bd1f134f450535ac"
+    },
+    "png": {
+      "shape": [
+        1024,
+        1024,
+        3
+      ],
+      "mae": 0.0026769638061523438,
+      "max_abs": 1.0,
+      "sha256": "ca9f78f750feedb4194c21385a6065a46028a350cf88804d44563dbaecc3c3bf",
+      "passed": true
+    },
+    "resources": {
+      "scope": "One native run including SHA256 verification and trace; not a controlled performance comparison",
+      "max_rss_kib": 5973548,
+      "total_seconds": 728.723,
+      "model_verification_seconds": 16.8844,
+      "vae_and_png_seconds": 49.5448
+    },
+    "runner_sha256": "b6532b91cb1a70e0658ef1b14af9737acb320fe1d82981dad479a9a611573391",
+    "validator_sha256": "c5d186377d6818b6452b82751fcd1fcb5ee71f90ea51454916f888c38a8c3f42",
+    "source_snapshot_coverage": "per_run_scripts",
+    "independently_recomputed": true
+  },
+  {
+    "run": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pipeline1024-chinese-s64-fp32-v1",
+    "scope": "Native prompt-to-PNG versus staged pinned official FP32 modules; PE off, CFG=1; identical saved initial latent",
+    "conditioning_source": "native_text_encoder",
+    "prompt": "雪山脚下的蓝色湖泊，松树林，清晨阳光，写实风景摄影。",
+    "tokens": 32,
+    "config": {
+      "packed_width": 64,
+      "packed_height": 64,
+      "text_bucket": 64,
+      "dit_text_tokens": 64,
+      "text_layers": 25,
+      "dit_layers": 36
+    },
+    "precision": "fp32",
+    "steps": 8,
+    "passed": false,
+    "comparisons": 25,
+    "passed_comparisons": 17,
+    "failed_tensors": [
+      "prediction-4",
+      "prediction-5",
+      "prediction-6",
+      "prediction-7",
+      "step-7",
+      "final",
+      "unpacked",
+      "decoded"
+    ],
+    "final_latent": {
+      "tensor": "final",
+      "max_abs_error": 0.10774397850036621,
+      "nrmse": 0.0018501836473612445,
+      "reference_max_abs": 6.056336879730225,
+      "passed": false,
+      "sha256": "9736a74e326647077b4de080c0996663cef5ca9fd7604b9453cb2f40462ac267"
+    },
+    "decoded": {
+      "tensor": "decoded",
+      "max_abs_error": 0.1781921088695526,
+      "nrmse": 0.0016327135430262139,
+      "reference_max_abs": 1.300978660583496,
+      "passed": false,
+      "sha256": "b0fcaa04a7cac299db085ecd250f071d9205e1a4d4c46cfa97ae3f71c21f5bea"
+    },
+    "png": {
+      "shape": [
+        1024,
+        1024,
+        3
+      ],
+      "mae": 0.03838348388671875,
+      "max_abs": 23.0,
+      "sha256": "b01bec3dc4b45ac9f6e9272fbd3a6235888923acce6dc869f25d097ae25d27b8",
+      "passed": false
+    },
+    "resources": {
+      "scope": "One native run including SHA256 verification and trace; not a controlled performance comparison",
+      "max_rss_kib": 6094044,
+      "total_seconds": 675.481,
+      "model_verification_seconds": 16.3427,
+      "vae_and_png_seconds": 47.8016
+    },
+    "runner_sha256": "374db8ef64690967375669c92c70c3203777444d4db5b4d199df20614843c8a1",
+    "validator_sha256": "7fce1a4cb1ff32d6aabebd97ed2ff5b75be19ac19d8fd569a23797c72da62847",
+    "source_snapshot_coverage": "per_run_scripts",
+    "independently_recomputed": true
+  },
+  {
+    "run": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pipeline1024-chinese-s64-fp32-kahan-v1",
+    "scope": "Native prompt-to-PNG versus staged pinned official FP32 modules; PE off, CFG=1; identical saved initial latent",
+    "conditioning_source": "native_text_encoder",
+    "prompt": "雪山脚下的蓝色湖泊，松树林，清晨阳光，写实风景摄影。",
+    "tokens": 32,
+    "config": {
+      "packed_width": 64,
+      "packed_height": 64,
+      "text_bucket": 64,
+      "dit_text_tokens": 64,
+      "text_layers": 25,
+      "dit_layers": 36
+    },
+    "precision": "fp32",
+    "steps": 8,
+    "passed": false,
+    "comparisons": 25,
+    "passed_comparisons": 21,
+    "failed_tensors": [
+      "prediction-5",
+      "prediction-6",
+      "prediction-7",
+      "decoded"
+    ],
+    "final_latent": {
+      "tensor": "final",
+      "max_abs_error": 0.05744493007659912,
+      "nrmse": 0.0010560880373101697,
+      "reference_max_abs": 6.056336879730225,
+      "passed": true,
+      "sha256": "bc31c4a67c5ea7a20c4bf0ff1781e39bfeeaa0f0c1a4fce6bad868ae7c02bc98"
+    },
+    "decoded": {
+      "tensor": "decoded",
+      "max_abs_error": 0.09596821665763855,
+      "nrmse": 0.0008694917661582807,
+      "reference_max_abs": 1.300978660583496,
+      "passed": false,
+      "sha256": "50e1ba4056ea0514c7794a7c900e40d242c746ae8f976a3d6eb60c62227d66ff"
+    },
+    "png": {
+      "shape": [
+        1024,
+        1024,
+        3
+      ],
+      "mae": 0.02262560526529948,
+      "max_abs": 13.0,
+      "sha256": "51db3cf6651899e1031023bbc64d5acae9a8f3c30b8685aedc4512590eed1950",
+      "passed": false
+    },
+    "resources": {
+      "scope": "One native run including SHA256 verification and trace; not a controlled performance comparison",
+      "max_rss_kib": 6095136,
+      "total_seconds": 724.47,
+      "model_verification_seconds": 21.0576,
+      "vae_and_png_seconds": 51.1121
+    },
+    "runner_sha256": "7b1ea9e544cecb9aaa61cb3974f237a22d5852ec4b94ff51614fb7a4f094c472",
+    "validator_sha256": "7fce1a4cb1ff32d6aabebd97ed2ff5b75be19ac19d8fd569a23797c72da62847",
+    "source_snapshot_coverage": "per_run_scripts",
+    "independently_recomputed": true
+  },
+  {
+    "run": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pipeline1024-chinese-s64-fp32-chunked-v1",
+    "scope": "Native prompt-to-PNG versus staged pinned official FP32 modules; PE off, CFG=1; identical saved initial latent",
+    "conditioning_source": "native_text_encoder",
+    "prompt": "雪山脚下的蓝色湖泊，松树林，清晨阳光，写实风景摄影。",
+    "tokens": 32,
+    "config": {
+      "packed_width": 64,
+      "packed_height": 64,
+      "text_bucket": 64,
+      "dit_text_tokens": 64,
+      "text_layers": 25,
+      "dit_layers": 36
+    },
+    "precision": "fp32",
+    "steps": 8,
+    "passed": false,
+    "comparisons": 25,
+    "passed_comparisons": 21,
+    "failed_tensors": [
+      "prediction-5",
+      "prediction-6",
+      "prediction-7",
+      "decoded"
+    ],
+    "final_latent": {
+      "tensor": "final",
+      "max_abs_error": 0.05744493007659912,
+      "nrmse": 0.0010560880373101697,
+      "reference_max_abs": 6.056336879730225,
+      "passed": true,
+      "sha256": "bc31c4a67c5ea7a20c4bf0ff1781e39bfeeaa0f0c1a4fce6bad868ae7c02bc98"
+    },
+    "decoded": {
+      "tensor": "decoded",
+      "max_abs_error": 0.09596821665763855,
+      "nrmse": 0.0008694917661582807,
+      "reference_max_abs": 1.300978660583496,
+      "passed": false,
+      "sha256": "50e1ba4056ea0514c7794a7c900e40d242c746ae8f976a3d6eb60c62227d66ff"
+    },
+    "png": {
+      "shape": [
+        1024,
+        1024,
+        3
+      ],
+      "mae": 0.02262560526529948,
+      "max_abs": 13.0,
+      "sha256": "51db3cf6651899e1031023bbc64d5acae9a8f3c30b8685aedc4512590eed1950",
+      "passed": false
+    },
+    "resources": {
+      "scope": "One native run including SHA256 verification and trace; not a controlled performance comparison",
+      "max_rss_kib": 6087548,
+      "total_seconds": 712.343,
+      "model_verification_seconds": 17.028,
+      "vae_and_png_seconds": 52.8578
+    },
+    "runner_sha256": "1dd2880274fd862631254966f78e401340393a711be7b27940554715fe13320b",
+    "validator_sha256": "c5d186377d6818b6452b82751fcd1fcb5ee71f90ea51454916f888c38a8c3f42",
+    "source_snapshot_coverage": "per_run_scripts",
+    "independently_recomputed": true
+  },
+  {
+    "run": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pipeline1024-chinese-s64-fp32-reference-text-v1",
+    "scope": "Diagnostic free-running DiT and VAE with saved official text embeddings; native text encoder bypassed; not complete native prompt-to-PNG acceptance",
+    "conditioning_source": "saved_reference_diagnostic",
+    "prompt": "雪山脚下的蓝色湖泊，松树林，清晨阳光，写实风景摄影。",
+    "tokens": 32,
+    "config": {
+      "packed_width": 64,
+      "packed_height": 64,
+      "text_bucket": 64,
+      "dit_text_tokens": 64,
+      "text_layers": 25,
+      "dit_layers": 36
+    },
+    "precision": "fp32",
+    "steps": 8,
+    "passed": false,
+    "comparisons": 25,
+    "passed_comparisons": 24,
+    "failed_tensors": [
+      "decoded"
+    ],
+    "final_latent": {
+      "tensor": "final",
+      "max_abs_error": 0.02705967426300049,
+      "nrmse": 0.0003637483386668739,
+      "reference_max_abs": 6.056336879730225,
+      "passed": true,
+      "sha256": "30ab8e3181095f26f7f4619eb25ad18118cd124613675037e15526403fc6116e"
+    },
+    "decoded": {
+      "tensor": "decoded",
+      "max_abs_error": 0.024891123175621033,
+      "nrmse": 0.00030145649978045354,
+      "reference_max_abs": 1.300978660583496,
+      "passed": false,
+      "sha256": "0fc9e26e1c4d15f0b7b15c1c85d7c3d6654e758be7b5ef6415abb0e0e926d8f6"
+    },
+    "png": {
+      "shape": [
+        1024,
+        1024,
+        3
+      ],
+      "mae": 0.007412910461425781,
+      "max_abs": 3.0,
+      "sha256": "a1f26fe3348571c08b12b7681dfdeefd0453bdf12304d9ce709669f0335aac80",
+      "passed": false
+    },
+    "resources": {
+      "scope": "One native run including SHA256 verification and trace; not a controlled performance comparison",
+      "max_rss_kib": 6093204,
+      "total_seconds": 695.065,
+      "model_verification_seconds": 16.7637,
+      "vae_and_png_seconds": 49.9606
+    },
+    "runner_sha256": "1dd2880274fd862631254966f78e401340393a711be7b27940554715fe13320b",
+    "validator_sha256": "c5d186377d6818b6452b82751fcd1fcb5ee71f90ea51454916f888c38a8c3f42",
+    "source_snapshot_coverage": "per_run_scripts",
+    "independently_recomputed": true
+  }
+]

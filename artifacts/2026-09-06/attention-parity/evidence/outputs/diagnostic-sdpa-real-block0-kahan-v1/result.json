@@ -1,0 +1,19 @@
+{
+  "scope": "Identical official CUDA post-RoPE Q/K/V; one native SDPA; FP64 selected image queries preserve all keys",
+  "runner_sha256": "b8c9f56a1632f4ac8c8920073ad43fedf2cc1867eae813a1995382446829e852",
+  "native_vs_cuda": {
+    "max_abs_error": 5.7220458984375e-05,
+    "nrmse": 2.030953360840229e-06,
+    "reference_max_abs": 24.475841522216797
+  },
+  "native_vs_fp64": {
+    "max_abs_error": 3.337860107421875e-05,
+    "nrmse": 1.3767403510179919e-06,
+    "reference_max_abs": 16.37714958190918
+  },
+  "cuda_vs_fp64": {
+    "max_abs_error": 3.4102719162376616e-05,
+    "nrmse": 1.2469408691429847e-06,
+    "reference_max_abs": 16.377148961630088
+  }
+}

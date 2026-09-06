@@ -1,0 +1,20 @@
+{
+  "scope": "Identical official CUDA post-RoPE Q/K/V; one native SDPA; FP64 selected image queries preserve all keys",
+  "diagnostic_correction": "v1 MemoryData default load_type=1 misread tagged test weights; v2 explicitly selects tagged load_type=0. v1 is invalid diagnostic input, not a runtime quality failure.",
+  "runner_sha256": "00d405650d69b266b58753fc55d1ad3cfd63cd67003a24cbd8fdf16f77424ec0",
+  "native_vs_cuda": {
+    "max_abs_error": 0.000186920166015625,
+    "nrmse": 4.1402436227803255e-06,
+    "reference_max_abs": 24.475841522216797
+  },
+  "native_vs_fp64": {
+    "max_abs_error": 0.0001373291015625,
+    "nrmse": 3.894995937204983e-06,
+    "reference_max_abs": 16.37714958190918
+  },
+  "cuda_vs_fp64": {
+    "max_abs_error": 3.4102719162376616e-05,
+    "nrmse": 1.2469408691429847e-06,
+    "reference_max_abs": 16.377148961630088
+  }
+}

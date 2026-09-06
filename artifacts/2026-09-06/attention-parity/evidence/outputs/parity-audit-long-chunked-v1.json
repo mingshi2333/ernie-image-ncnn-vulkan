@@ -1,0 +1,59 @@
+{
+  "run": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pipeline1024-long-s64-fp32-chunked-v1",
+  "scope": "Native prompt-to-PNG versus staged pinned official FP32 modules; PE off, CFG=1; identical saved initial latent",
+  "conditioning_source": "native_text_encoder",
+  "prompt": "A small white cat sitting beside a blue ceramic teapot on a wooden desk, warm afternoon sunlight through a window, a green plant in the background, soft shadows, realistic photograph with fine detail.",
+  "tokens": 40,
+  "config": {
+    "packed_width": 64,
+    "packed_height": 64,
+    "text_bucket": 64,
+    "dit_text_tokens": 64,
+    "text_layers": 25,
+    "dit_layers": 36
+  },
+  "precision": "fp32",
+  "steps": 8,
+  "passed": false,
+  "comparisons": 25,
+  "passed_comparisons": 24,
+  "failed_tensors": [
+    "prediction-7"
+  ],
+  "final_latent": {
+    "tensor": "final",
+    "max_abs_error": 0.042178988456726074,
+    "nrmse": 0.000262300613321707,
+    "reference_max_abs": 6.8570404052734375,
+    "passed": true,
+    "sha256": "d13390d5e96f5c369a388155ac85186bbe16d1f890ca035f3123abc5453fbb13"
+  },
+  "decoded": {
+    "tensor": "decoded",
+    "max_abs_error": 0.010079801082611084,
+    "nrmse": 0.0001050645878873406,
+    "reference_max_abs": 1.267530918121338,
+    "passed": true,
+    "sha256": "b545c342e6958ac61a0f9f50ac2cfcb25a5bf7e5484904a5bd1f134f450535ac"
+  },
+  "png": {
+    "shape": [
+      1024,
+      1024,
+      3
+    ],
+    "mae": 0.0026769638061523438,
+    "max_abs": 1.0,
+    "sha256": "ca9f78f750feedb4194c21385a6065a46028a350cf88804d44563dbaecc3c3bf",
+    "passed": true
+  },
+  "resources": {
+    "scope": "One native run including SHA256 verification and trace; not a controlled performance comparison",
+    "max_rss_kib": 5973548,
+    "total_seconds": 728.723,
+    "model_verification_seconds": 16.8844,
+    "vae_and_png_seconds": 49.5448
+  },
+  "runner_sha256": "b6532b91cb1a70e0658ef1b14af9737acb320fe1d82981dad479a9a611573391",
+  "independently_recomputed": true
+}

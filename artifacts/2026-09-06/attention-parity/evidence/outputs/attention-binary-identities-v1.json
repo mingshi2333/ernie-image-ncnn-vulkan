@@ -1,0 +1,14 @@
+{
+  "scope": "Binary identities for final attention code; long full-run binary predates only Vulkan text submission accounting, which its CPU text path does not use",
+  "files_sha256": {
+    "build/ernie-image": "1dd2880274fd862631254966f78e401340393a711be7b27940554715fe13320b",
+    "build-ci/ernie-image": "712c31f272604481e8d4d8323f60815affbcdc606146d628c9dae1e240826e6c",
+    "build-cpu/ernie-image": "31c9b3d00247070b4da153425501f0bfe59e3792ea6bfcf3f43a411cac343079",
+    "outputs/install-attention-final-v1/bin/ernie-image": "1dd2880274fd862631254966f78e401340393a711be7b27940554715fe13320b",
+    "outputs/pipeline1024-long-s64-fp32-chunked-v1/ernie-image.snapshot": "b6532b91cb1a70e0658ef1b14af9737acb320fe1d82981dad479a9a611573391",
+    "outputs/pipeline1024-chinese-s64-fp32-reference-text-v1/ernie-image.snapshot": "1dd2880274fd862631254966f78e401340393a711be7b27940554715fe13320b",
+    "outputs/diagnostic-sdpa-real-block0-chunked-v1/runner.snapshot": "9a3ad02efac527500838c2deb7057bc72e8c7f110f1126bb3f386e1de0763976"
+  },
+  "ncnn_commit": "6a1bf000f363714839a36793addc8c879d3d899e",
+  "ncnn_worktree_status": ""
+}

@@ -1,0 +1,206 @@
+[
+  {
+    "run": "pipeline1024-long-s64-fp32-chunked-v1",
+    "conditioning_source": "native_text_encoder",
+    "tensor_failures": [
+      {
+        "tensor": "prediction-7",
+        "shape": [
+          1,
+          128,
+          64,
+          64
+        ],
+        "elements": 524288,
+        "max_error_limit": 0.06847718257904054,
+        "elements_above_max_error_limit": 3,
+        "error_quantiles": {
+          "0.5": 0.00012934207916259766,
+          "0.9": 0.00042017251253128034,
+          "0.99": 0.0012642741203308105,
+          "0.999": 0.004870350539684182,
+          "1.0": 0.11422061920166016
+        },
+        "maximum_index": [
+          0,
+          62,
+          3,
+          50
+        ],
+        "actual_at_maximum": 0.4871811270713806,
+        "reference_at_maximum": 0.6014017462730408
+      }
+    ],
+    "png": {
+      "channel_values": 3145728,
+      "different_channel_values": 8421,
+      "pixels_with_any_channel_difference": 8261,
+      "pixels_above_max_error_limit": 0,
+      "channel_values_above_max_error_limit": 0
+    },
+    "scope": "Additional error localization; does not replace or alter any pass/fail gate"
+  },
+  {
+    "run": "pipeline1024-chinese-s64-fp32-kahan-v1",
+    "conditioning_source": "native_text_encoder",
+    "tensor_failures": [
+      {
+        "tensor": "prediction-5",
+        "shape": [
+          1,
+          128,
+          64,
+          64
+        ],
+        "elements": 524288,
+        "max_error_limit": 0.05697222728729248,
+        "elements_above_max_error_limit": 1,
+        "error_quantiles": {
+          "0.5": 0.00038549676537513733,
+          "0.9": 0.0022610604763031,
+          "0.99": 0.0070677891373634345,
+          "0.999": 0.014239992737769935,
+          "1.0": 0.058165550231933594
+        },
+        "maximum_index": [
+          0,
+          126,
+          25,
+          17
+        ],
+        "actual_at_maximum": 2.214362382888794,
+        "reference_at_maximum": 2.2725279331207275
+      },
+      {
+        "tensor": "prediction-6",
+        "shape": [
+          1,
+          128,
+          64,
+          64
+        ],
+        "elements": 524288,
+        "max_error_limit": 0.054409232330322264,
+        "elements_above_max_error_limit": 4,
+        "error_quantiles": {
+          "0.5": 0.00032235682010650635,
+          "0.9": 0.0019470837898552414,
+          "0.99": 0.006291757225990298,
+          "0.999": 0.01359718048572539,
+          "1.0": 0.08202004432678223
+        },
+        "maximum_index": [
+          0,
+          13,
+          10,
+          12
+        ],
+        "actual_at_maximum": 1.607385516166687,
+        "reference_at_maximum": 1.5253654718399048
+      },
+      {
+        "tensor": "prediction-7",
+        "shape": [
+          1,
+          128,
+          64,
+          64
+        ],
+        "elements": 524288,
+        "max_error_limit": 0.058839202117919924,
+        "elements_above_max_error_limit": 19,
+        "error_quantiles": {
+          "0.5": 0.0003510713577270508,
+          "0.9": 0.00230390131473541,
+          "0.99": 0.007860123664140706,
+          "0.999": 0.019682994842529222,
+          "1.0": 0.13592690974473953
+        },
+        "maximum_index": [
+          0,
+          5,
+          16,
+          58
+        ],
+        "actual_at_maximum": 0.21701805293560028,
+        "reference_at_maximum": 0.08109114319086075
+      },
+      {
+        "tensor": "decoded",
+        "shape": [
+          1,
+          3,
+          1024,
+          1024
+        ],
+        "elements": 3145728,
+        "max_error_limit": 0.013209786605834961,
+        "elements_above_max_error_limit": 334,
+        "error_quantiles": {
+          "0.5": 4.3332576751708984e-05,
+          "0.9": 0.00043816864490509033,
+          "0.99": 0.0019821742177009577,
+          "0.999": 0.00582264509797098,
+          "1.0": 0.09596821665763855
+        },
+        "maximum_index": [
+          0,
+          2,
+          300,
+          550
+        ],
+        "actual_at_maximum": 0.3198798596858978,
+        "reference_at_maximum": 0.4158480763435364
+      }
+    ],
+    "png": {
+      "channel_values": 3145728,
+      "different_channel_values": 70364,
+      "pixels_with_any_channel_difference": 61000,
+      "pixels_above_max_error_limit": 60,
+      "channel_values_above_max_error_limit": 120
+    },
+    "scope": "Additional error localization; does not replace or alter any pass/fail gate"
+  },
+  {
+    "run": "pipeline1024-chinese-s64-fp32-reference-text-v1",
+    "conditioning_source": "saved_reference_diagnostic",
+    "tensor_failures": [
+      {
+        "tensor": "decoded",
+        "shape": [
+          1,
+          3,
+          1024,
+          1024
+        ],
+        "elements": 3145728,
+        "max_error_limit": 0.013209786605834961,
+        "elements_above_max_error_limit": 12,
+        "error_quantiles": {
+          "0.5": 1.33514404296875e-05,
+          "0.9": 0.00013393163681030273,
+          "0.99": 0.0007173418998718262,
+          "0.999": 0.0020906871259212534,
+          "1.0": 0.024891123175621033
+        },
+        "maximum_index": [
+          0,
+          2,
+          408,
+          475
+        ],
+        "actual_at_maximum": 0.23777605593204498,
+        "reference_at_maximum": 0.262667179107666
+      }
+    ],
+    "png": {
+      "channel_values": 3145728,
+      "different_channel_values": 23290,
+      "pixels_with_any_channel_difference": 21842,
+      "pixels_above_max_error_limit": 3,
+      "channel_values_above_max_error_limit": 7
+    },
+    "scope": "Additional error localization; does not replace or alter any pass/fail gate"
+  }
+]

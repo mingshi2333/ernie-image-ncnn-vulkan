@@ -1,0 +1,160 @@
+{
+  "scope": "Complete native Chinese trajectory: Kahan full matrix versus Kahan query chunks; does not turn the retained numerical failure into a pass",
+  "before": "outputs/pipeline1024-chinese-s64-fp32-kahan-v1",
+  "after": "outputs/pipeline1024-chinese-s64-fp32-chunked-v1",
+  "total_tensors": 25,
+  "matched_tensors": 25,
+  "png_exact": true,
+  "tensors": [
+    {
+      "tensor": "initial",
+      "before_sha256": "f07a2134e662229cd4f6981c648cbbc925080debf514ef51c00d7669dc55e983",
+      "after_sha256": "f07a2134e662229cd4f6981c648cbbc925080debf514ef51c00d7669dc55e983",
+      "exact": true
+    },
+    {
+      "tensor": "text",
+      "before_sha256": "8c8a2261fd6c13f2771d5dc52329d97ac9129daaaca38dbf86b6458f4fd2ff8e",
+      "after_sha256": "8c8a2261fd6c13f2771d5dc52329d97ac9129daaaca38dbf86b6458f4fd2ff8e",
+      "exact": true
+    },
+    {
+      "tensor": "padded-text",
+      "before_sha256": "62bd0898e8875e5bb2af0e9ae4dc3f9f6683af1871b030564e2ba93f389b879e",
+      "after_sha256": "62bd0898e8875e5bb2af0e9ae4dc3f9f6683af1871b030564e2ba93f389b879e",
+      "exact": true
+    },
+    {
+      "tensor": "constant-0",
+      "before_sha256": "18ef5d09d02a0c9a7740183406d6ef2cbd85dfc7cd5d59e625200a831086f49c",
+      "after_sha256": "18ef5d09d02a0c9a7740183406d6ef2cbd85dfc7cd5d59e625200a831086f49c",
+      "exact": true
+    },
+    {
+      "tensor": "constant-1",
+      "before_sha256": "b392037350ef3f0639f940a20f30dbbea129ed33fb14e22ae81a0cb1f9890e69",
+      "after_sha256": "b392037350ef3f0639f940a20f30dbbea129ed33fb14e22ae81a0cb1f9890e69",
+      "exact": true
+    },
+    {
+      "tensor": "constant-2",
+      "before_sha256": "12f5c9c117a285813a3677969cd181090513e8eae36ac787c7749fdb5c5319cc",
+      "after_sha256": "12f5c9c117a285813a3677969cd181090513e8eae36ac787c7749fdb5c5319cc",
+      "exact": true
+    },
+    {
+      "tensor": "prediction-0",
+      "before_sha256": "bd186b6605615823b0d27765eefd1a8bf4f7e78cb2b63cc43606d3527c4dba1c",
+      "after_sha256": "bd186b6605615823b0d27765eefd1a8bf4f7e78cb2b63cc43606d3527c4dba1c",
+      "exact": true
+    },
+    {
+      "tensor": "step-0",
+      "before_sha256": "e87b3eccae98413a1d395b92e25df0bb433966a9503b21815230d406c0345739",
+      "after_sha256": "e87b3eccae98413a1d395b92e25df0bb433966a9503b21815230d406c0345739",
+      "exact": true
+    },
+    {
+      "tensor": "prediction-1",
+      "before_sha256": "8bb6aca75b68c59e91568c650a6b4b38cc210c9f8928d7d9ff64109e5021a234",
+      "after_sha256": "8bb6aca75b68c59e91568c650a6b4b38cc210c9f8928d7d9ff64109e5021a234",
+      "exact": true
+    },
+    {
+      "tensor": "step-1",
+      "before_sha256": "2923511db150d4b5f731143d4a7d1988d471b09a3228e530d60dacfcf8bc3240",
+      "after_sha256": "2923511db150d4b5f731143d4a7d1988d471b09a3228e530d60dacfcf8bc3240",
+      "exact": true
+    },
+    {
+      "tensor": "prediction-2",
+      "before_sha256": "4351b1961d068c484ab1fa9f114ead42adab4a23aaa774a7afac89ee6738403c",
+      "after_sha256": "4351b1961d068c484ab1fa9f114ead42adab4a23aaa774a7afac89ee6738403c",
+      "exact": true
+    },
+    {
+      "tensor": "step-2",
+      "before_sha256": "f07825c4b632590b1032c98bd57b683e2b3f6de9dc5fa31d85aa88adeab030f5",
+      "after_sha256": "f07825c4b632590b1032c98bd57b683e2b3f6de9dc5fa31d85aa88adeab030f5",
+      "exact": true
+    },
+    {
+      "tensor": "prediction-3",
+      "before_sha256": "2d8a85735df5255a7ab7b06de47810e2eea75ed01716deb1748768fc90a40c1b",
+      "after_sha256": "2d8a85735df5255a7ab7b06de47810e2eea75ed01716deb1748768fc90a40c1b",
+      "exact": true
+    },
+    {
+      "tensor": "step-3",
+      "before_sha256": "98233c1cd413e6213c423934505ba9bcec38a0cef02d30f8b8e77ef49b59079e",
+      "after_sha256": "98233c1cd413e6213c423934505ba9bcec38a0cef02d30f8b8e77ef49b59079e",
+      "exact": true
+    },
+    {
+      "tensor": "prediction-4",
+      "before_sha256": "0e7f371a2db21044cb5d3eeb7ab7c848c2fa02d521ef0a02e67cf9ff4a66358a",
+      "after_sha256": "0e7f371a2db21044cb5d3eeb7ab7c848c2fa02d521ef0a02e67cf9ff4a66358a",
+      "exact": true
+    },
+    {
+      "tensor": "step-4",
+      "before_sha256": "e643ff10843811f584759dbc9db7d6d31a3cc0c53e7481a745295e37288b0425",
+      "after_sha256": "e643ff10843811f584759dbc9db7d6d31a3cc0c53e7481a745295e37288b0425",
+      "exact": true
+    },
+    {
+      "tensor": "prediction-5",
+      "before_sha256": "c2159969c71ddc1ce21769bb1d33b8c4ac8d5926f33c22441f809a18c01ce70f",
+      "after_sha256": "c2159969c71ddc1ce21769bb1d33b8c4ac8d5926f33c22441f809a18c01ce70f",
+      "exact": true
+    },
+    {
+      "tensor": "step-5",
+      "before_sha256": "059dbdf3e907c65c2ec91e44501217fc984665e0e8e2a1eed20f13b5446675a7",
+      "after_sha256": "059dbdf3e907c65c2ec91e44501217fc984665e0e8e2a1eed20f13b5446675a7",
+      "exact": true
+    },
+    {
+      "tensor": "prediction-6",
+      "before_sha256": "45d48708c8c159e3671c6a56c1d2e4229e6cc291fe56751ec8be699f5d4ca484",
+      "after_sha256": "45d48708c8c159e3671c6a56c1d2e4229e6cc291fe56751ec8be699f5d4ca484",
+      "exact": true
+    },
+    {
+      "tensor": "step-6",
+      "before_sha256": "dc3cd151d8ddb8284ac58230b13cb0f70980d33a1ad6847ac61751eaf8b5e468",
+      "after_sha256": "dc3cd151d8ddb8284ac58230b13cb0f70980d33a1ad6847ac61751eaf8b5e468",
+      "exact": true
+    },
+    {
+      "tensor": "prediction-7",
+      "before_sha256": "e9d631006eaddce9a8944ec4bf0f7d58afa525e4951cd223d22fa04cd8f8815e",
+      "after_sha256": "e9d631006eaddce9a8944ec4bf0f7d58afa525e4951cd223d22fa04cd8f8815e",
+      "exact": true
+    },
+    {
+      "tensor": "step-7",
+      "before_sha256": "bc31c4a67c5ea7a20c4bf0ff1781e39bfeeaa0f0c1a4fce6bad868ae7c02bc98",
+      "after_sha256": "bc31c4a67c5ea7a20c4bf0ff1781e39bfeeaa0f0c1a4fce6bad868ae7c02bc98",
+      "exact": true
+    },
+    {
+      "tensor": "final",
+      "before_sha256": "bc31c4a67c5ea7a20c4bf0ff1781e39bfeeaa0f0c1a4fce6bad868ae7c02bc98",
+      "after_sha256": "bc31c4a67c5ea7a20c4bf0ff1781e39bfeeaa0f0c1a4fce6bad868ae7c02bc98",
+      "exact": true
+    },
+    {
+      "tensor": "unpacked",
+      "before_sha256": "ed7c3d5be975f142efdbabe6f427b51324616a73ba79d3edeca3324694acf6df",
+      "after_sha256": "ed7c3d5be975f142efdbabe6f427b51324616a73ba79d3edeca3324694acf6df",
+      "exact": true
+    },
+    {
+      "tensor": "decoded",
+      "before_sha256": "50e1ba4056ea0514c7794a7c900e40d242c746ae8f976a3d6eb60c62227d66ff",
+      "after_sha256": "50e1ba4056ea0514c7794a7c900e40d242c746ae8f976a3d6eb60c62227d66ff",
+      "exact": true
+    }
+  ]
+}

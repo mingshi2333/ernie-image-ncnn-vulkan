@@ -1,0 +1,10 @@
+test_corrupted_legacy_snapshot_is_rejected (test_parity_evidence.ValidatorSnapshotTests.test_corrupted_legacy_snapshot_is_rejected) ... ok
+test_legacy_validator_is_recovered_by_exact_digest (test_parity_evidence.ValidatorSnapshotTests.test_legacy_validator_is_recovered_by_exact_digest) ... ok
+test_missing_modern_snapshot_cannot_use_legacy_fallback (test_parity_evidence.ValidatorSnapshotTests.test_missing_modern_snapshot_cannot_use_legacy_fallback) ... ok
+test_modern_snapshot_keeps_its_original_location (test_parity_evidence.ValidatorSnapshotTests.test_modern_snapshot_keeps_its_original_location) ... ok
+test_present_but_corrupted_snapshot_cannot_use_legacy_fallback (test_parity_evidence.ValidatorSnapshotTests.test_present_but_corrupted_snapshot_cannot_use_legacy_fallback) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.002s
+
+OK

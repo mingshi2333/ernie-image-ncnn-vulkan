@@ -1,0 +1,55 @@
+test_corrupted_legacy_snapshot_is_rejected (test_parity_evidence.ValidatorSnapshotTests.test_corrupted_legacy_snapshot_is_rejected) ... ERROR
+test_legacy_validator_is_recovered_by_exact_digest (test_parity_evidence.ValidatorSnapshotTests.test_legacy_validator_is_recovered_by_exact_digest) ... ERROR
+test_missing_modern_snapshot_cannot_use_legacy_fallback (test_parity_evidence.ValidatorSnapshotTests.test_missing_modern_snapshot_cannot_use_legacy_fallback) ... ERROR
+test_modern_snapshot_keeps_its_original_location (test_parity_evidence.ValidatorSnapshotTests.test_modern_snapshot_keeps_its_original_location) ... ERROR
+test_present_but_corrupted_snapshot_cannot_use_legacy_fallback (test_parity_evidence.ValidatorSnapshotTests.test_present_but_corrupted_snapshot_cannot_use_legacy_fallback) ... ERROR
+
+======================================================================
+ERROR: test_corrupted_legacy_snapshot_is_rejected (test_parity_evidence.ValidatorSnapshotTests.test_corrupted_legacy_snapshot_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/tests/test_parity_evidence.py", line 36, in test_corrupted_legacy_snapshot_is_rejected
+    evidence.validator_snapshot(self.run, self.result)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'collect_parity_evidence' has no attribute 'validator_snapshot'
+
+======================================================================
+ERROR: test_legacy_validator_is_recovered_by_exact_digest (test_parity_evidence.ValidatorSnapshotTests.test_legacy_validator_is_recovered_by_exact_digest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/tests/test_parity_evidence.py", line 31, in test_legacy_validator_is_recovered_by_exact_digest
+    self.assertEqual(evidence.validator_snapshot(self.run, self.result), self.legacy)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'collect_parity_evidence' has no attribute 'validator_snapshot'
+
+======================================================================
+ERROR: test_missing_modern_snapshot_cannot_use_legacy_fallback (test_parity_evidence.ValidatorSnapshotTests.test_missing_modern_snapshot_cannot_use_legacy_fallback)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/tests/test_parity_evidence.py", line 41, in test_missing_modern_snapshot_cannot_use_legacy_fallback
+    evidence.validator_snapshot(self.run, self.result)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'collect_parity_evidence' has no attribute 'validator_snapshot'
+
+======================================================================
+ERROR: test_modern_snapshot_keeps_its_original_location (test_parity_evidence.ValidatorSnapshotTests.test_modern_snapshot_keeps_its_original_location)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/tests/test_parity_evidence.py", line 56, in test_modern_snapshot_keeps_its_original_location
+    self.assertEqual(evidence.validator_snapshot(self.run, self.result), source)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'collect_parity_evidence' has no attribute 'validator_snapshot'
+
+======================================================================
+ERROR: test_present_but_corrupted_snapshot_cannot_use_legacy_fallback (test_parity_evidence.ValidatorSnapshotTests.test_present_but_corrupted_snapshot_cannot_use_legacy_fallback)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/tests/test_parity_evidence.py", line 48, in test_present_but_corrupted_snapshot_cannot_use_legacy_fallback
+    evidence.validator_snapshot(self.run, self.result)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'collect_parity_evidence' has no attribute 'validator_snapshot'
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.006s
+
+FAILED (errors=5)

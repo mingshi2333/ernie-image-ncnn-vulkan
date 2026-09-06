@@ -1,0 +1,8 @@
+{
+  "scope": "Same official post-RoPE Q/K/V, 32 heads, 4160 queries and keys; query chunks versus complete Kahan matrix",
+  "matches_unsliced_exactly": true,
+  "native_sha256": "3aa9423f46a88dcf800bd97daefe30dffd566e364ac6a11eb7f9fd3d82b30b87",
+  "baseline_sha256": "3aa9423f46a88dcf800bd97daefe30dffd566e364ac6a11eb7f9fd3d82b30b87",
+  "runner_sha256": "9a3ad02efac527500838c2deb7057bc72e8c7f110f1126bb3f386e1de0763976",
+  "baseline_result_sha256": "8d86ba342e1f507f3f2a48a06ecf9445dad5ed6746737d659b7788ad0039881a"
+}

@@ -1,0 +1,16 @@
+[1/16] Building CXX object CMakeFiles/ernie-runtime.dir/src/text_encoder.cpp.o
+[2/16] Linking CXX static library libernie-runtime.a
+[3/16] Linking CXX executable ernie-attention-probe
+[4/16] Linking CXX executable ernie-block-runner
+[5/16] Linking CXX executable ernie-attention-workspace-probe
+[6/16] Linking CXX executable ernie-attention-accuracy-probe
+[7/16] Linking CXX executable ernie-latent-runner
+[8/16] Linking CXX executable ernie-gelu-probe
+[9/16] Linking CXX executable ernie-block-sequence-runner
+[10/16] Linking CXX executable ernie-head-runner
+[11/16] Linking CXX executable ernie-text-runner
+[12/16] Linking CXX executable ernie-denoise-runner
+[13/16] Linking CXX executable ernie-latent-contract
+[14/16] Linking CXX executable ernie-residual-contract
+[15/16] Linking CXX executable ernie-image
+[16/16] Linking CXX executable ernie-rmsnorm-probe

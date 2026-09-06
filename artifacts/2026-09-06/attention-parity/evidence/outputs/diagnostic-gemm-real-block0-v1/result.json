@@ -1,0 +1,36 @@
+{
+  "scope": "One real block-zero query projection; identical FP32 inputs and BF16-source weights; FP64 dot rounded to FP32 as an independent precision reference",
+  "runner_sha256": "3556dcaf3415da28c78a26d25138bea1310d846faa8effeb50b21021810d58d6",
+  "comparisons": {
+    "cpu-native-vs-fp64": {
+      "max_abs_error": 0.0003662109375,
+      "nrmse": 1.0813533446477971e-06,
+      "reference_max_abs": 122.38228607177734
+    },
+    "cpu-native-vs-cuda": {
+      "max_abs_error": 0.0,
+      "nrmse": 0.0,
+      "reference_max_abs": 122.38245391845703
+    },
+    "vulkan-native-vs-fp64": {
+      "max_abs_error": 0.0003662109375,
+      "nrmse": 1.0813533446477971e-06,
+      "reference_max_abs": 122.38228607177734
+    },
+    "vulkan-native-vs-cuda": {
+      "max_abs_error": 0.0,
+      "nrmse": 0.0,
+      "reference_max_abs": 122.38245391845703
+    },
+    "cuda-vs-fp64": {
+      "max_abs_error": 0.0003662109375,
+      "nrmse": 1.0813533446477971e-06,
+      "reference_max_abs": 122.38228607177734
+    },
+    "cpu-vs-fp64": {
+      "max_abs_error": 4.57763671875e-05,
+      "nrmse": 1.4386273408259517e-07,
+      "reference_max_abs": 122.38228607177734
+    }
+  }
+}
