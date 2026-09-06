@@ -25,3 +25,13 @@ Linux CPU 的移动安装、公共 C++ 消费和 CLI 模型前拒绝证据有效
 实际 pinned 上游 `third_party/ncnn/src/ncnn.pc.in` 与生成/安装 ncnn.pc 均是 `prefix=${pcfiledir}/../..`，不是固定 `/usr/local`，故此固定版本无需本项目重定位覆盖；没有修改上游。Ernie 的被验证消费接口为 CMake target，不声明单独 ncnn pkg-config 静态依赖完整性。
 
 SDK 配置拒绝 instrumentation、共享 ncnn、Vulkan + system glslang 组合，以收窄可迁移静态导出范围。当前只验 Linux CPU。Vulkan bundled glslang 安装链尚需实际隔离消费者验证；Windows/macOS、不同标准/OpenMP runtime、真正图像生成不在这次证据范围。现有测试不是 hermetic 工具链证明，源 inventory/构建记录也不代替未执行平台的运行证据。
+
+## v2 实际 CPU/Vulkan 安装闭环
+
+root 将修复冻结在 `outputs/d1-install-source-v2`，base_commit12cd53a加显式12项overlay，source-identity.json SHA70faadbee76bc31f7728c010d1e9371d99a2e2aefa8e7bdc74ef60847645c811。审查重新核对其中94个项目源文件全部hash匹配，两份 `outputs/d1-install-build-{cpu,vulkan}-v2/identity.json` 都绑定此同一源identity。两build result均exit0、source_changes_after_build空。此次审查未重建或运行GPU；底层ncnn/glslang依赖身份仍以固定来源与构建记录为准，不把94个项目文件hash称完整工具链闭包。
+
+实际结果 `/tmp/ernie-sdk-cpu-install-v2/result.json`、`/tmp/ernie-sdk-vulkan-install-v2/result.json` 均passed。重新完整流式SHA/size核对CPU51个、Vulkan75个安装文件，全部一致。两者的恶意 `foreign-ncnn/ncnnConfig.cmake` 实际含FATAL_ERROR；consumer配置传入对应 `-Dncnn_DIR` 后成功，consumer缓存仍为原来的 `ncnn_DIR:UNINITIALIZED=/tmp/.../foreign-ncnn`。安装config现在直接include确定同前缀ncnnConfig，未执行重定向外部包；原Important在源码与真实回归两层关闭。
+
+两套消费者配置/链接/执行均由bwrap隐藏整个项目根（含原构建/ncnn），unshare-net，移动中文空格安装前缀后进行。命令日志退出：install/preflight/configure/build/CTest/help/diagnose均0，损坏包验证1并输出Unexpected schema-3 fields。两份CTest均明确执行installed_pipeline_api，1/1通过，分别0.00秒和0.26秒，非空测试假通过。compile_commands只注入移动前缀public include，没有私有ncnn/src include路径。Vulkan额外安装bundled shader compiler静态依赖后实际完成链接，不依赖被隐藏的原build。
+
+CPU diagnose输出vulkan_compiled=false/gpu_count0；Vulkan diagnose实际完成设备枚举（RTX4060及llvmpipe）。这是API/安装/枚举合同，不能称Vulkan fullmodel推理、速度或质量验收，也没有验证Windows/macOS或不同工具链/驱动的可移植性。既有模型前异常检查与CLI错误处理证据继续成立，当前D1本次Linux CPU/Vulkan安装切片无未关闭Important。
