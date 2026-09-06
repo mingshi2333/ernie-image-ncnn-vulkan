@@ -1,0 +1,14 @@
+{
+  "scope": "Supplemental native process-group guard; started after native load, not a full-run peak measurement",
+  "pid": 1712044,
+  "pgid": 1712043,
+  "start_ticks": "9601112",
+  "started_utc": "2026-09-06T15:21:02.724425+00:00",
+  "rss_cap_bytes": 19327352832,
+  "host_min_bytes": 1073741824,
+  "rss_peak_bytes": 14278942720,
+  "kernel_hwm_observed_bytes": 15818813440,
+  "status": "native_exited",
+  "available_bytes": 17204551680,
+  "finished_utc": "2026-09-06T15:29:17.662813+00:00"
+}
