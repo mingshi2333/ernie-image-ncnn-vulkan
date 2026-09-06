@@ -23,7 +23,9 @@ from prepare_block import ROOT,sha256
 from validate_text import real_reference
 from prompt_io import read_prompt
 
-def reference(package,prompt,output,steps,device='cpu',initial_path=None):
+def reference(package,prompt,output,steps,device='cpu',initial_path=None,start_step=0):
+    if type(start_step) is not int or start_step < 0 or start_step > steps:
+        raise ValueError('Reference start step must be in [0,steps]')
     package_manifest=json.loads((package/'manifest.json').read_text())
     cfg=package_manifest['config']
     source_weights=package_manifest.get('source_weights')
@@ -44,7 +46,7 @@ def reference(package,prompt,output,steps,device='cpu',initial_path=None):
         initial=torch.from_numpy(values.copy()).reshape(1,128,h,w)
     save_tensor(output/'initial.f32',initial)
     synth,freqs=make_inputs(h,w,text_tokens,len(meta['ids']),20260905)
-    fixture={'prompt':prompt,'config':cfg,'ids':meta['ids'],'steps':steps,
+    fixture={'prompt':prompt,'config':cfg,'ids':meta['ids'],'steps':steps,'start_step':start_step,
         'scope':'Native prompt-to-PNG versus staged pinned official FP32 modules; PE off, CFG=1; identical saved initial latent',
         'reference_environment':{'torch':torch.__version__,'pipeline_source_sha256':sha256(inspect.getfile(ErnieImagePipeline)),
             'dit_blocks_device':device,'heads_text_vae_device':'cpu','dtype':'float32','allow_tf32':False,
@@ -56,6 +58,7 @@ def reference(package,prompt,output,steps,device='cpu',initial_path=None):
     heads,_=load_heads()
     scheduler=FlowMatchEulerDiscreteScheduler(num_train_timesteps=1000,shift=4.)
     scheduler.set_timesteps(sigmas=torch.linspace(1.,0.,steps+1)[:-1],device='cpu')
+    scheduler.set_begin_index(start_step)
     sample=initial
     path=output/'fixture.json'
     path.write_text(json.dumps(fixture,indent=2,ensure_ascii=False)+'\n')
@@ -65,7 +68,8 @@ def reference(package,prompt,output,steps,device='cpu',initial_path=None):
     torch.backends.cudnn.allow_tf32=False
     block_freqs=freqs.to(device)
     block_mask=synth[-1][None,None].to(device)
-    for i,t in enumerate(scheduler.timesteps):
+    temb=x=captured=None
+    for i,t in enumerate(scheduler.timesteps[start_step:],start=start_step):
         start=time.perf_counter();captured={}
         hook=heads.final_norm.register_forward_pre_hook(lambda m,inputs:captured.update(x=inputs[0],c=inputs[1]))
         hook2=heads.adaLN_modulation.register_forward_hook(lambda m,inputs,out:captured.update(ada=out))
