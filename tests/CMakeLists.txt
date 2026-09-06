@@ -67,3 +67,7 @@ if(ERNIE_ENABLE_VULKAN)
         set_tests_properties(layernorm_range_vulkan_${precision} PROPERTIES SKIP_RETURN_CODE 77)
     endforeach()
 endif()
+
+add_executable(ernie-shape-plan-contract test_shape_plan.cpp)
+target_link_libraries(ernie-shape-plan-contract PRIVATE ernie-shape-plan)
+add_test(NAME shape_plan_contract COMMAND ernie-shape-plan-contract)

@@ -26,3 +26,7 @@ if(ERNIE_BUILD_GENERATOR)
         target_compile_options(ernie-pipeline PRIVATE -ffp-contract=off)
     endif()
 endif()
+
+# Independent mathematical planner; intentionally not connected to the pipeline.
+add_library(ernie-shape-plan STATIC shape_plan.cpp)
+target_include_directories(ernie-shape-plan PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
