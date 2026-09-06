@@ -1,0 +1,89 @@
+Test project /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan
+      Start  1: native_cache_cpu
+ 1/42 Test  #1: native_cache_cpu .................   Passed    0.03 sec
+      Start  2: runtime_cache_cpu
+ 2/42 Test  #2: runtime_cache_cpu ................   Passed    0.03 sec
+      Start  3: native_cache_vulkan
+ 3/42 Test  #3: native_cache_vulkan ..............   Passed    1.17 sec
+      Start  4: runtime_cache_vulkan
+ 4/42 Test  #4: runtime_cache_vulkan .............   Passed    1.13 sec
+      Start  5: attention_long_fp32_accuracy
+ 5/42 Test  #5: attention_long_fp32_accuracy .....   Passed    0.77 sec
+      Start  6: attention_bounded_workspace
+ 6/42 Test  #6: attention_bounded_workspace ......   Passed    1.94 sec
+      Start  7: pipeline_api_contract
+ 7/42 Test  #7: pipeline_api_contract ............   Passed    0.15 sec
+      Start  8: request_validation_contract
+ 8/42 Test  #8: request_validation_contract ......   Passed    0.28 sec
+      Start  9: gpu_context_contract
+ 9/42 Test  #9: gpu_context_contract .............   Passed    0.41 sec
+      Start 10: prompt_file_contract
+10/42 Test #10: prompt_file_contract .............   Passed    0.00 sec
+      Start 11: image_io_contract
+11/42 Test #11: image_io_contract ................   Passed    0.00 sec
+      Start 12: pe_sampling_contract
+12/42 Test #12: pe_sampling_contract .............   Passed    0.01 sec
+      Start 13: pe_package_integrity
+13/42 Test #13: pe_package_integrity .............   Passed    0.13 sec
+      Start 14: package_integrity
+14/42 Test #14: package_integrity ................   Passed    0.30 sec
+      Start 15: cli_contract
+15/42 Test #15: cli_contract .....................   Passed    0.68 sec
+      Start 16: installed_cpp_consumer
+16/42 Test #16: installed_cpp_consumer ...........   Passed    1.56 sec
+      Start 17: text_bucket_contract
+17/42 Test #17: text_bucket_contract .............   Passed    0.03 sec
+      Start 18: variant_dimensions
+18/42 Test #18: variant_dimensions ...............   Passed    0.03 sec
+      Start 19: latent_contract_cpu
+19/42 Test #19: latent_contract_cpu ..............   Passed    0.00 sec
+      Start 20: component_files_contract_cpu
+20/42 Test #20: component_files_contract_cpu .....   Passed    0.00 sec
+      Start 21: img2img_contract_cpu
+21/42 Test #21: img2img_contract_cpu .............   Passed    0.00 sec
+      Start 22: image_encoder_contract_cpu
+22/42 Test #22: image_encoder_contract_cpu .......   Passed    0.00 sec
+      Start 23: residual_contract_cpu
+23/42 Test #23: residual_contract_cpu ............   Passed    0.00 sec
+      Start 24: residual_contract_vulkan
+24/42 Test #24: residual_contract_vulkan .........   Passed    0.73 sec
+      Start 25: residual_contract_vulkan_bf16
+25/42 Test #25: residual_contract_vulkan_bf16 ....   Passed    0.63 sec
+      Start 26: rmsnorm_range_cpu
+26/42 Test #26: rmsnorm_range_cpu ................   Passed    0.00 sec
+      Start 27: layernorm_range_cpu
+27/42 Test #27: layernorm_range_cpu ..............   Passed    0.00 sec
+      Start 28: erf_gelu_cpu
+28/42 Test #28: erf_gelu_cpu .....................   Passed    0.01 sec
+      Start 29: erf_gelu_vulkan_fp32
+29/42 Test #29: erf_gelu_vulkan_fp32 .............   Passed    0.58 sec
+      Start 30: rmsnorm_range_vulkan_fp32
+30/42 Test #30: rmsnorm_range_vulkan_fp32 ........   Passed    0.66 sec
+      Start 31: layernorm_range_vulkan_fp32
+31/42 Test #31: layernorm_range_vulkan_fp32 ......   Passed    0.61 sec
+      Start 32: erf_gelu_vulkan_fp16
+32/42 Test #32: erf_gelu_vulkan_fp16 .............   Passed    0.57 sec
+      Start 33: rmsnorm_range_vulkan_fp16
+33/42 Test #33: rmsnorm_range_vulkan_fp16 ........   Passed    0.67 sec
+      Start 34: layernorm_range_vulkan_fp16
+34/42 Test #34: layernorm_range_vulkan_fp16 ......   Passed    0.62 sec
+      Start 35: erf_gelu_vulkan_bf16
+35/42 Test #35: erf_gelu_vulkan_bf16 .............   Passed    0.56 sec
+      Start 36: rmsnorm_range_vulkan_bf16
+36/42 Test #36: rmsnorm_range_vulkan_bf16 ........   Passed    0.67 sec
+      Start 37: layernorm_range_vulkan_bf16
+37/42 Test #37: layernorm_range_vulkan_bf16 ......   Passed    0.62 sec
+      Start 38: shape_plan_contract
+38/42 Test #38: shape_plan_contract ..............   Passed    0.00 sec
+      Start 39: shape_graph_contract
+39/42 Test #39: shape_graph_contract .............   Passed    0.00 sec
+      Start 40: text_down_contract_cpu
+40/42 Test #40: text_down_contract_cpu ...........   Passed    0.11 sec
+      Start 41: model_package_contract
+41/42 Test #41: model_package_contract ...........   Passed    0.00 sec
+      Start 42: execution_metrics_cpu
+42/42 Test #42: execution_metrics_cpu ............   Passed    0.00 sec
+
+100% tests passed, 0 tests failed out of 42
+
+Total Test time (real) =  15.76 sec

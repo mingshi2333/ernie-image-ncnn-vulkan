@@ -1,0 +1,1193 @@
+Start testing: Sep 06 21:19 MSK
+----------------------------------------------------------
+1/42 Testing: native_cache_cpu
+1/42 Test: native_cache_cpu
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-attention-probe" "--backend" "cpu"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"native_cache_cpu" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+{"ncnn_revision":"6a1bf000f363714839a36793addc8c879d3d899e","q_heads":32,"kv_heads":8,"head_dim":128,"backend":"cpu","runtime_layer":false}
+{"configuration":"cpu_fp32_dedicated","case":"prefill_decode_reuse","tokens":40,"steps":9,"hint":128,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":2.16066837e-07,"nrmse":9.75170428e-08,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"cpu_fp32_dedicated","case":"reset_and_growth","tokens":65,"steps":7,"hint":8,"key_backing_allocations":3,"value_backing_allocations":3,"max_abs_error":1.93715096e-07,"nrmse":1.12331578e-07,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"cpu_fp32_dedicated","case":"fresh_prompt_after_reset","tokens":9,"steps":3,"hint":16,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":1.49011612e-07,"nrmse":8.58040985e-08,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"cpu_fp32_default","case":"prefill_decode_reuse","tokens":40,"steps":9,"hint":128,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":2.16066837e-07,"nrmse":9.75170428e-08,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"cpu_fp32_default","case":"reset_and_growth","tokens":65,"steps":7,"hint":8,"key_backing_allocations":3,"value_backing_allocations":3,"max_abs_error":1.93715096e-07,"nrmse":1.12331578e-07,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"cpu_fp32_default","case":"fresh_prompt_after_reset","tokens":9,"steps":3,"hint":16,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":1.49011612e-07,"nrmse":8.58040985e-08,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"native_cache_cpu" end time: Sep 06 21:19 MSK
+"native_cache_cpu" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/42 Testing: runtime_cache_cpu
+2/42 Test: runtime_cache_cpu
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-attention-probe" "--backend" "cpu" "--runtime-layer"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"runtime_cache_cpu" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+overwrite built-in layer type SDPA
+overwrite built-in layer type SDPA
+{"ncnn_revision":"6a1bf000f363714839a36793addc8c879d3d899e","q_heads":32,"kv_heads":8,"head_dim":128,"backend":"cpu","runtime_layer":true}
+{"configuration":"cpu_fp32_dedicated","case":"prefill_decode_reuse","tokens":40,"steps":9,"hint":128,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":2.16066837e-07,"nrmse":9.75170428e-08,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"cpu_fp32_dedicated","case":"reset_and_growth","tokens":65,"steps":7,"hint":8,"key_backing_allocations":3,"value_backing_allocations":3,"max_abs_error":1.93715096e-07,"nrmse":1.12331578e-07,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"cpu_fp32_dedicated","case":"fresh_prompt_after_reset","tokens":9,"steps":3,"hint":16,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":1.49011612e-07,"nrmse":8.58040985e-08,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"cpu_fp32_default","case":"prefill_decode_reuse","tokens":40,"steps":9,"hint":128,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":2.16066837e-07,"nrmse":9.75170428e-08,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"cpu_fp32_default","case":"reset_and_growth","tokens":65,"steps":7,"hint":8,"key_backing_allocations":3,"value_backing_allocations":3,"max_abs_error":1.93715096e-07,"nrmse":1.12331578e-07,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"cpu_fp32_default","case":"fresh_prompt_after_reset","tokens":9,"steps":3,"hint":16,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":1.49011612e-07,"nrmse":8.58040985e-08,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"runtime_cache_cpu" end time: Sep 06 21:19 MSK
+"runtime_cache_cpu" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/42 Testing: native_cache_vulkan
+3/42 Test: native_cache_vulkan
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-attention-probe" "--backend" "vulkan"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"native_cache_vulkan" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+{"ncnn_revision":"6a1bf000f363714839a36793addc8c879d3d899e","q_heads":32,"kv_heads":8,"head_dim":128,"backend":"vulkan","runtime_layer":false}
+Vulkan device: NVIDIA GeForce RTX 4060 Laptop GPU
+{"configuration":"vulkan_fp32_dedicated","case":"prefill_decode_reuse","tokens":40,"steps":9,"hint":128,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":1.49011612e-07,"nrmse":1.05336898e-07,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"vulkan_fp32_dedicated","case":"reset_and_growth","tokens":65,"steps":7,"hint":8,"key_backing_allocations":4,"value_backing_allocations":4,"max_abs_error":1.78813934e-07,"nrmse":1.16683426e-07,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"vulkan_fp32_dedicated","case":"fresh_prompt_after_reset","tokens":9,"steps":3,"hint":16,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":1.78813934e-07,"nrmse":7.45773035e-08,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"vulkan_fp32_default","case":"prefill_decode_reuse","tokens":40,"steps":9,"hint":128,"key_backing_allocations":9,"value_backing_allocations":9,"max_abs_error":1.49011612e-07,"nrmse":1.05336898e-07,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"vulkan_fp32_default","case":"reset_and_growth","tokens":65,"steps":7,"hint":8,"key_backing_allocations":7,"value_backing_allocations":7,"max_abs_error":1.78813934e-07,"nrmse":1.16683426e-07,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"vulkan_fp32_default","case":"fresh_prompt_after_reset","tokens":9,"steps":3,"hint":16,"key_backing_allocations":3,"value_backing_allocations":3,"max_abs_error":1.78813934e-07,"nrmse":7.45773035e-08,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"vulkan_fp16_dedicated","case":"prefill_decode_reuse","tokens":40,"steps":9,"hint":128,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":0.00047814846,"nrmse":0.000299650544,"atol":0.002,"nrmse_limit":0.005,"passed":true}
+{"configuration":"vulkan_fp16_dedicated","case":"reset_and_growth","tokens":65,"steps":7,"hint":8,"key_backing_allocations":4,"value_backing_allocations":4,"max_abs_error":0.000543236732,"nrmse":0.000309597437,"atol":0.002,"nrmse_limit":0.005,"passed":true}
+{"configuration":"vulkan_fp16_dedicated","case":"fresh_prompt_after_reset","tokens":9,"steps":3,"hint":16,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":0.000584125519,"nrmse":0.000279038385,"atol":0.002,"nrmse_limit":0.005,"passed":true}
+{"configuration":"vulkan_fp16_default","case":"prefill_decode_reuse","tokens":40,"steps":9,"hint":128,"key_backing_allocations":9,"value_backing_allocations":9,"max_abs_error":0.00047814846,"nrmse":0.000299650544,"atol":0.002,"nrmse_limit":0.005,"passed":true}
+{"configuration":"vulkan_fp16_default","case":"reset_and_growth","tokens":65,"steps":7,"hint":8,"key_backing_allocations":7,"value_backing_allocations":7,"max_abs_error":0.000543236732,"nrmse":0.000309597437,"atol":0.002,"nrmse_limit":0.005,"passed":true}
+{"configuration":"vulkan_fp16_default","case":"fresh_prompt_after_reset","tokens":9,"steps":3,"hint":16,"key_backing_allocations":3,"value_backing_allocations":3,"max_abs_error":0.000584125519,"nrmse":0.000279038385,"atol":0.002,"nrmse_limit":0.005,"passed":true}
+{"configuration":"vulkan_bf16_dedicated","case":"prefill_decode_reuse","tokens":40,"steps":9,"hint":128,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":0.00453811884,"nrmse":0.00242157887,"atol":0.015,"nrmse_limit":0.03,"passed":true}
+{"configuration":"vulkan_bf16_dedicated","case":"reset_and_growth","tokens":65,"steps":7,"hint":8,"key_backing_allocations":4,"value_backing_allocations":4,"max_abs_error":0.00429242849,"nrmse":0.00247968627,"atol":0.015,"nrmse_limit":0.03,"passed":true}
+{"configuration":"vulkan_bf16_dedicated","case":"fresh_prompt_after_reset","tokens":9,"steps":3,"hint":16,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":0.00431728363,"nrmse":0.00224450165,"atol":0.015,"nrmse_limit":0.03,"passed":true}
+{"configuration":"vulkan_bf16_default","case":"prefill_decode_reuse","tokens":40,"steps":9,"hint":128,"key_backing_allocations":9,"value_backing_allocations":9,"max_abs_error":0.00453811884,"nrmse":0.00242157887,"atol":0.015,"nrmse_limit":0.03,"passed":true}
+{"configuration":"vulkan_bf16_default","case":"reset_and_growth","tokens":65,"steps":7,"hint":8,"key_backing_allocations":7,"value_backing_allocations":7,"max_abs_error":0.00429242849,"nrmse":0.00247968627,"atol":0.015,"nrmse_limit":0.03,"passed":true}
+{"configuration":"vulkan_bf16_default","case":"fresh_prompt_after_reset","tokens":9,"steps":3,"hint":16,"key_backing_allocations":3,"value_backing_allocations":3,"max_abs_error":0.00431728363,"nrmse":0.00224450165,"atol":0.015,"nrmse_limit":0.03,"passed":true}
+<end of output>
+Test time =   1.17 sec
+----------------------------------------------------------
+Test Passed.
+"native_cache_vulkan" end time: Sep 06 21:19 MSK
+"native_cache_vulkan" time elapsed: 00:00:01
+----------------------------------------------------------
+
+4/42 Testing: runtime_cache_vulkan
+4/42 Test: runtime_cache_vulkan
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-attention-probe" "--backend" "vulkan" "--runtime-layer"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"runtime_cache_vulkan" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+{"ncnn_revision":"6a1bf000f363714839a36793addc8c879d3d899e","q_heads":32,"kv_heads":8,"head_dim":128,"backend":"vulkan","runtime_layer":true}
+Vulkan device: NVIDIA GeForce RTX 4060 Laptop GPU
+overwrite built-in layer type SDPA
+overwrite built-in layer type SDPA
+overwrite built-in layer type SDPA
+overwrite built-in layer type SDPA
+overwrite built-in layer type SDPA
+overwrite built-in layer type SDPA
+{"configuration":"vulkan_fp32_dedicated","case":"prefill_decode_reuse","tokens":40,"steps":9,"hint":128,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":1.1920929e-07,"nrmse":8.50290218e-08,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"vulkan_fp32_dedicated","case":"reset_and_growth","tokens":65,"steps":7,"hint":8,"key_backing_allocations":4,"value_backing_allocations":4,"max_abs_error":1.78813934e-07,"nrmse":8.89914578e-08,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"vulkan_fp32_dedicated","case":"fresh_prompt_after_reset","tokens":9,"steps":3,"hint":16,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":1.49011612e-07,"nrmse":7.22445137e-08,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"vulkan_fp32_default","case":"prefill_decode_reuse","tokens":40,"steps":9,"hint":128,"key_backing_allocations":9,"value_backing_allocations":9,"max_abs_error":1.1920929e-07,"nrmse":8.50290218e-08,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"vulkan_fp32_default","case":"reset_and_growth","tokens":65,"steps":7,"hint":8,"key_backing_allocations":7,"value_backing_allocations":7,"max_abs_error":1.78813934e-07,"nrmse":8.89914578e-08,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"vulkan_fp32_default","case":"fresh_prompt_after_reset","tokens":9,"steps":3,"hint":16,"key_backing_allocations":3,"value_backing_allocations":3,"max_abs_error":1.49011612e-07,"nrmse":7.22445137e-08,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"vulkan_fp16_dedicated","case":"prefill_decode_reuse","tokens":40,"steps":9,"hint":128,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":0.00047814846,"nrmse":0.000299650544,"atol":0.002,"nrmse_limit":0.005,"passed":true}
+{"configuration":"vulkan_fp16_dedicated","case":"reset_and_growth","tokens":65,"steps":7,"hint":8,"key_backing_allocations":4,"value_backing_allocations":4,"max_abs_error":0.000543236732,"nrmse":0.000309597437,"atol":0.002,"nrmse_limit":0.005,"passed":true}
+{"configuration":"vulkan_fp16_dedicated","case":"fresh_prompt_after_reset","tokens":9,"steps":3,"hint":16,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":0.000584125519,"nrmse":0.000279038385,"atol":0.002,"nrmse_limit":0.005,"passed":true}
+{"configuration":"vulkan_fp16_default","case":"prefill_decode_reuse","tokens":40,"steps":9,"hint":128,"key_backing_allocations":9,"value_backing_allocations":9,"max_abs_error":0.00047814846,"nrmse":0.000299650544,"atol":0.002,"nrmse_limit":0.005,"passed":true}
+{"configuration":"vulkan_fp16_default","case":"reset_and_growth","tokens":65,"steps":7,"hint":8,"key_backing_allocations":7,"value_backing_allocations":7,"max_abs_error":0.000543236732,"nrmse":0.000309597437,"atol":0.002,"nrmse_limit":0.005,"passed":true}
+{"configuration":"vulkan_fp16_default","case":"fresh_prompt_after_reset","tokens":9,"steps":3,"hint":16,"key_backing_allocations":3,"value_backing_allocations":3,"max_abs_error":0.000584125519,"nrmse":0.000279038385,"atol":0.002,"nrmse_limit":0.005,"passed":true}
+{"configuration":"vulkan_bf16_dedicated","case":"prefill_decode_reuse","tokens":40,"steps":9,"hint":128,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":0.00453811884,"nrmse":0.00242157887,"atol":0.015,"nrmse_limit":0.03,"passed":true}
+{"configuration":"vulkan_bf16_dedicated","case":"reset_and_growth","tokens":65,"steps":7,"hint":8,"key_backing_allocations":4,"value_backing_allocations":4,"max_abs_error":0.00429242849,"nrmse":0.00247968627,"atol":0.015,"nrmse_limit":0.03,"passed":true}
+{"configuration":"vulkan_bf16_dedicated","case":"fresh_prompt_after_reset","tokens":9,"steps":3,"hint":16,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":0.00431728363,"nrmse":0.00224450165,"atol":0.015,"nrmse_limit":0.03,"passed":true}
+{"configuration":"vulkan_bf16_default","case":"prefill_decode_reuse","tokens":40,"steps":9,"hint":128,"key_backing_allocations":9,"value_backing_allocations":9,"max_abs_error":0.00453811884,"nrmse":0.00242157887,"atol":0.015,"nrmse_limit":0.03,"passed":true}
+{"configuration":"vulkan_bf16_default","case":"reset_and_growth","tokens":65,"steps":7,"hint":8,"key_backing_allocations":7,"value_backing_allocations":7,"max_abs_error":0.00429242849,"nrmse":0.00247968627,"atol":0.015,"nrmse_limit":0.03,"passed":true}
+{"configuration":"vulkan_bf16_default","case":"fresh_prompt_after_reset","tokens":9,"steps":3,"hint":16,"key_backing_allocations":3,"value_backing_allocations":3,"max_abs_error":0.00431728363,"nrmse":0.00224450165,"atol":0.015,"nrmse_limit":0.03,"passed":true}
+<end of output>
+Test time =   1.13 sec
+----------------------------------------------------------
+Test Passed.
+"runtime_cache_vulkan" end time: Sep 06 21:19 MSK
+"runtime_cache_vulkan" time elapsed: 00:00:01
+----------------------------------------------------------
+
+5/42 Testing: attention_long_fp32_accuracy
+5/42 Test: attention_long_fp32_accuracy
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-attention-accuracy-probe"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"attention_long_fp32_accuracy" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+{"scope":"FP32 long attention, FP64 oracle and constant preservation","keys":4160,"max_abs_error":1.19209289551e-07,"constant_error":1.19209289551e-07,"nrmse":5.66539657721e-08,"passed":true}
+<end of output>
+Test time =   0.77 sec
+----------------------------------------------------------
+Test Passed.
+"attention_long_fp32_accuracy" end time: Sep 06 21:19 MSK
+"attention_long_fp32_accuracy" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/42 Testing: attention_bounded_workspace
+6/42 Test: attention_bounded_workspace
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-attention-workspace-probe"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"attention_bounded_workspace" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+overwrite built-in layer type SDPA
+overwrite built-in layer type SDPA
+overwrite built-in layer type SDPA
+overwrite built-in layer type SDPA
+overwrite built-in layer type SDPA
+overwrite built-in layer type SDPA
+overwrite built-in layer type SDPA
+overwrite built-in layer type SDPA
+{"case":"shared-mask","queries":257,"keys":257,"kv_groups":2,"output_width":128,"mask_channels":1,"largest_workspace_request":263168,"internal_submissions":2,"matches_unsliced_exactly":true,"max_abs":1.19209289551e-07,"nrmse":4.50704505962e-08,"passed":true}
+{"case":"per-head-mask","queries":257,"keys":193,"kv_groups":2,"output_width":64,"mask_channels":2,"largest_workspace_request":197632,"internal_submissions":2,"matches_unsliced_exactly":true,"max_abs":1.19209289551e-07,"nrmse":3.96676224433e-08,"passed":true}
+{"case":"grouped-query-mask","queries":257,"keys":193,"kv_groups":1,"output_width":64,"mask_channels":2,"largest_workspace_request":197632,"internal_submissions":2,"matches_unsliced_exactly":true,"max_abs":1.19209289551e-07,"nrmse":4.15691727131e-08,"passed":true}
+{"case":"grouped-query-no-mask","queries":257,"keys":193,"kv_groups":1,"output_width":64,"mask_channels":0,"largest_workspace_request":197632,"internal_submissions":2,"matches_unsliced_exactly":true,"max_abs":1.19209289551e-07,"nrmse":4.14243007966e-08,"passed":true}
+<end of output>
+Test time =   1.94 sec
+----------------------------------------------------------
+Test Passed.
+"attention_bounded_workspace" end time: Sep 06 21:19 MSK
+"attention_bounded_workspace" time elapsed: 00:00:01
+----------------------------------------------------------
+
+7/42 Testing: pipeline_api_contract
+7/42 Test: pipeline_api_contract
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-pipeline-api-contract"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"pipeline_api_contract" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+Public C++ API builds without private headers and reports runtime capabilities
+<end of output>
+Test time =   0.15 sec
+----------------------------------------------------------
+Test Passed.
+"pipeline_api_contract" end time: Sep 06 21:19 MSK
+"pipeline_api_contract" time elapsed: 00:00:00
+----------------------------------------------------------
+
+8/42 Testing: request_validation_contract
+8/42 Test: request_validation_contract
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-request-validation-contract"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"request_validation_contract" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+Request validation rejects invalid and unavailable configurations before model loading
+<end of output>
+Test time =   0.28 sec
+----------------------------------------------------------
+Test Passed.
+"request_validation_contract" end time: Sep 06 21:19 MSK
+"request_validation_contract" time elapsed: 00:00:00
+----------------------------------------------------------
+
+9/42 Testing: gpu_context_contract
+9/42 Test: gpu_context_contract
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-gpu-context-contract"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"gpu_context_contract" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+Shared GPU context survives nested, concurrent and failed diagnostic users
+<end of output>
+Test time =   0.41 sec
+----------------------------------------------------------
+Test Passed.
+"gpu_context_contract" end time: Sep 06 21:19 MSK
+"gpu_context_contract" time elapsed: 00:00:00
+----------------------------------------------------------
+
+10/42 Testing: prompt_file_contract
+10/42 Test: prompt_file_contract
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-prompt-file-contract"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"prompt_file_contract" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+Prompt BOM, exact whitespace and UTF-8 boundaries passed
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"prompt_file_contract" end time: Sep 06 21:19 MSK
+"prompt_file_contract" time elapsed: 00:00:00
+----------------------------------------------------------
+
+11/42 Testing: image_io_contract
+11/42 Test: image_io_contract
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-image-io-contract"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"image_io_contract" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+PNG/JPEG/BMP/TGA image I/O contracts passed
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"image_io_contract" end time: Sep 06 21:19 MSK
+"image_io_contract" time elapsed: 00:00:00
+----------------------------------------------------------
+
+12/42 Testing: pe_sampling_contract
+12/42 Test: pe_sampling_contract
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-pe-sampling-contract"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"pe_sampling_contract" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+PE greedy, 100000-draw distribution, nucleus, bounds and finite-value contracts passed
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"pe_sampling_contract" end time: Sep 06 21:19 MSK
+"pe_sampling_contract" time elapsed: 00:00:00
+----------------------------------------------------------
+
+13/42 Testing: pe_package_integrity
+13/42 Test: pe_package_integrity
+Command: "/home/mingshi/.local/bin/python3.13" "-m" "unittest" "discover" "-s" "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/tests" "-p" "test_pe_package.py" "-v"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"pe_package_integrity" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+test_complete_package (test_pe_package.PePackageTests.test_complete_package) ... ok
+test_missing_head (test_pe_package.PePackageTests.test_missing_head) ... ok
+test_move_without_source (test_pe_package.PePackageTests.test_move_without_source) ... ok
+test_omitted_tail_checksum (test_pe_package.PePackageTests.test_omitted_tail_checksum) ... ok
+test_portable_package_rejects_external_link (test_pe_package.PePackageTests.test_portable_package_rejects_external_link) ... ok
+test_resealed_changed_chat_template (test_pe_package.PePackageTests.test_resealed_changed_chat_template) ... ok
+test_resealed_configuration_disagreement (test_pe_package.PePackageTests.test_resealed_configuration_disagreement) ... ok
+test_resealed_wrong_capacity (test_pe_package.PePackageTests.test_resealed_wrong_capacity) ... ok
+test_revision_mismatch (test_pe_package.PePackageTests.test_revision_mismatch) ... ok
+test_tail_block_corruption (test_pe_package.PePackageTests.test_tail_block_corruption) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.071s
+
+OK
+<end of output>
+Test time =   0.13 sec
+----------------------------------------------------------
+Test Passed.
+"pe_package_integrity" end time: Sep 06 21:19 MSK
+"pe_package_integrity" time elapsed: 00:00:00
+----------------------------------------------------------
+
+14/42 Testing: package_integrity
+14/42 Test: package_integrity
+Command: "/home/mingshi/.local/bin/python3.13" "-m" "unittest" "discover" "-s" "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/tests" "-p" "test_package.py" "-v"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"package_integrity" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+test_complete_inventory_and_native_check_without_model_loading (test_package.PackageTests.test_complete_inventory_and_native_check_without_model_loading) ... ok
+test_configuration_cannot_disagree_with_manifest (test_package.PackageTests.test_configuration_cannot_disagree_with_manifest) ... ok
+test_copy_survives_source_removal_and_relocation (test_package.PackageTests.test_copy_survives_source_removal_and_relocation) ... ok
+test_development_links_are_explicit (test_package.PackageTests.test_development_links_are_explicit) ... ok
+test_external_alias_to_complete_portable_root_is_allowed (test_package.PackageTests.test_external_alias_to_complete_portable_root_is_allowed) ... ok
+test_manifest_config_cannot_use_boolean_for_integer (test_package.PackageTests.test_manifest_config_cannot_use_boolean_for_integer) ... ok
+test_missing_last_text_layer (test_package.PackageTests.test_missing_last_text_layer) ... ok
+test_omitted_file_cannot_evade_verification (test_package.PackageTests.test_omitted_file_cannot_evade_verification) ... ok
+test_path_escape_cannot_enter_inventory (test_package.PackageTests.test_path_escape_cannot_enter_inventory) ... ok
+test_portable_flag_must_be_boolean (test_package.PackageTests.test_portable_flag_must_be_boolean) ... ok
+test_portable_package_rejects_directory_link (test_package.PackageTests.test_portable_package_rejects_directory_link) ... ok
+test_portable_package_rejects_external_file_link (test_package.PackageTests.test_portable_package_rejects_external_file_link) ... ok
+test_reject_version_mismatch (test_package.PackageTests.test_reject_version_mismatch) ... ok
+test_same_size_bit_corruption (test_package.PackageTests.test_same_size_bit_corruption) ... ok
+test_truncated_weight (test_package.PackageTests.test_truncated_weight) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.268s
+
+OK
+<end of output>
+Test time =   0.30 sec
+----------------------------------------------------------
+Test Passed.
+"package_integrity" end time: Sep 06 21:19 MSK
+"package_integrity" time elapsed: 00:00:00
+----------------------------------------------------------
+
+15/42 Testing: cli_contract
+15/42 Test: cli_contract
+Command: "/home/mingshi/.local/bin/python3.13" "-m" "unittest" "discover" "-s" "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/tests" "-p" "test_cli.py" "-v"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"cli_contract" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+test_bf16_request_obeys_compiled_device_support (test_cli.CliTests.test_bf16_request_obeys_compiled_device_support) ... ok
+test_diagnose_lists_runtime_without_loading_a_model (test_cli.CliTests.test_diagnose_lists_runtime_without_loading_a_model) ... ok
+test_diagnose_reads_only_bounded_model_config_metadata (test_cli.CliTests.test_diagnose_reads_only_bounded_model_config_metadata) ... ok
+test_diagnose_rejects_generation_options (test_cli.CliTests.test_diagnose_rejects_generation_options) ... ok
+test_dimensions_must_be_multiples_of_sixteen (test_cli.CliTests.test_dimensions_must_be_multiples_of_sixteen) ... ok
+test_dimensions_require_both_axes (test_cli.CliTests.test_dimensions_require_both_axes) ... ok
+test_duplicate_prompt_cannot_silently_replace_first (test_cli.CliTests.test_duplicate_prompt_cannot_silently_replace_first) ... ok
+test_gpu_requires_a_vulkan_stage (test_cli.CliTests.test_gpu_requires_a_vulkan_stage) ... ok
+test_img2img_only_options_require_input (test_cli.CliTests.test_img2img_only_options_require_input) ... ok
+test_img2img_reads_input_before_model_loading (test_cli.CliTests.test_img2img_reads_input_before_model_loading) ... ok
+test_invalid_img2img_metadata_is_rejected (test_cli.CliTests.test_invalid_img2img_metadata_is_rejected) ... ok
+test_invalid_utf8_prompt_file_is_rejected (test_cli.CliTests.test_invalid_utf8_prompt_file_is_rejected) ... ok
+test_metrics_rejects_empty_path_before_model_loading (test_cli.CliTests.test_metrics_rejects_empty_path_before_model_loading) ... ok
+test_missing_prompt_file_is_reported_before_model_loading (test_cli.CliTests.test_missing_prompt_file_is_reported_before_model_loading) ... ok
+test_output_format_is_checked_before_model_loading (test_cli.CliTests.test_output_format_is_checked_before_model_loading) ... ok
+test_pe_cannot_change_prompt_of_precomputed_embeddings (test_cli.CliTests.test_pe_cannot_change_prompt_of_precomputed_embeddings) ... ok
+test_pe_options_require_an_explicit_model (test_cli.CliTests.test_pe_options_require_an_explicit_model) ... ok
+test_pe_rejects_infinite_temperature (test_cli.CliTests.test_pe_rejects_infinite_temperature) ... ok
+test_pe_rejects_invalid_top_p (test_cli.CliTests.test_pe_rejects_invalid_top_p) ... ok
+test_prompt_file_is_bounded_before_model_loading (test_cli.CliTests.test_prompt_file_is_bounded_before_model_loading) ... ok
+test_prompt_sources_are_mutually_exclusive (test_cli.CliTests.test_prompt_sources_are_mutually_exclusive) ... ok
+test_rectangular_request_reaches_model_validation (test_cli.CliTests.test_rectangular_request_reaches_model_validation) ... ok
+test_repeated_resolution_cannot_silently_override (test_cli.CliTests.test_repeated_resolution_cannot_silently_override) ... ok
+test_resize_requires_explicit_target (test_cli.CliTests.test_resize_requires_explicit_target) ... ok
+test_strength_zero_does_not_require_prompt (test_cli.CliTests.test_strength_zero_does_not_require_prompt) ... ok
+test_strength_zero_rejects_unused_prompt_or_pe (test_cli.CliTests.test_strength_zero_rejects_unused_prompt_or_pe) ... ok
+test_threads_are_strictly_bounded (test_cli.CliTests.test_threads_are_strictly_bounded) ... ok
+test_unsupported_text_device_is_explicit (test_cli.CliTests.test_unsupported_text_device_is_explicit) ... ok
+test_vector_reduction_flag_reaches_model_validation (test_cli.CliTests.test_vector_reduction_flag_reaches_model_validation) ... ok
+test_vector_reduction_requires_native_text (test_cli.CliTests.test_vector_reduction_requires_native_text) ... ok
+
+----------------------------------------------------------------------
+Ran 30 tests in 0.648s
+
+OK
+<end of output>
+Test time =   0.68 sec
+----------------------------------------------------------
+Test Passed.
+"cli_contract" end time: Sep 06 21:19 MSK
+"cli_contract" time elapsed: 00:00:00
+----------------------------------------------------------
+
+16/42 Testing: installed_cpp_consumer
+16/42 Test: installed_cpp_consumer
+Command: "/home/mingshi/.local/bin/python3.13" "-m" "unittest" "discover" "-s" "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/tests" "-p" "test_install.py" "-v"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"installed_cpp_consumer" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+test_relocated_installation (test_install.InstalledConsumerTest.test_relocated_installation) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 1.529s
+
+OK
+<end of output>
+Test time =   1.56 sec
+----------------------------------------------------------
+Test Passed.
+"installed_cpp_consumer" end time: Sep 06 21:19 MSK
+"installed_cpp_consumer" time elapsed: 00:00:01
+----------------------------------------------------------
+
+17/42 Testing: text_bucket_contract
+17/42 Test: text_bucket_contract
+Command: "/home/mingshi/.local/bin/python3.13" "-m" "unittest" "discover" "-s" "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/tests" "-p" "test_text_bucket.py" "-v"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"text_bucket_contract" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+test_gqa_head_count_is_not_a_token_dimension (test_text_bucket.TextBucketTests.test_gqa_head_count_is_not_a_token_dimension) ... ok
+test_independent_exports_have_identical_equations (test_text_bucket.TextBucketTests.test_independent_exports_have_identical_equations) ... ok
+test_normalization_equation_is_not_normalized_away (test_text_bucket.TextBucketTests.test_normalization_equation_is_not_normalized_away) ... ok
+test_wrong_manifest_bucket_rejected (test_text_bucket.TextBucketTests.test_wrong_manifest_bucket_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.000s
+
+OK
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"text_bucket_contract" end time: Sep 06 21:19 MSK
+"text_bucket_contract" time elapsed: 00:00:00
+----------------------------------------------------------
+
+18/42 Testing: variant_dimensions
+18/42 Test: variant_dimensions
+Command: "/home/mingshi/.local/bin/python3.13" "-m" "unittest" "discover" "-s" "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/tests" "-p" "test_variant.py" "-v"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"variant_dimensions" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+test_full_resolution_and_maximum_prompt_fit (test_variant.VariantTests.test_full_resolution_and_maximum_prompt_fit) ... ok
+test_invalid_sizes_do_not_round_or_truncate (test_variant.VariantTests.test_invalid_sizes_do_not_round_or_truncate) ... ok
+test_rectangular_axes_and_full_text_capacity (test_variant.VariantTests.test_rectangular_axes_and_full_text_capacity) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.000s
+
+OK
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"variant_dimensions" end time: Sep 06 21:19 MSK
+"variant_dimensions" time elapsed: 00:00:00
+----------------------------------------------------------
+
+19/42 Testing: latent_contract_cpu
+19/42 Test: latent_contract_cpu
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-latent-contract"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"latent_contract_cpu" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+Schedule, shape, invalid delta, BN statistics, and aliased update contracts passed
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"latent_contract_cpu" end time: Sep 06 21:19 MSK
+"latent_contract_cpu" time elapsed: 00:00:00
+----------------------------------------------------------
+
+20/42 Testing: component_files_contract_cpu
+20/42 Test: component_files_contract_cpu
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-component-files-contract"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"component_files_contract_cpu" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+Memory/file graph equivalence, lifetime and bounded component inputs passed
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"component_files_contract_cpu" end time: Sep 06 21:19 MSK
+"component_files_contract_cpu" time elapsed: 00:00:00
+----------------------------------------------------------
+
+21/42 Testing: img2img_contract_cpu
+21/42 Test: img2img_contract_cpu
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-img2img-contract"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"img2img_contract_cpu" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+Img2img endpoints, interpolation, positive rounding, rejection and no-denoise reconstruction passed
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"img2img_contract_cpu" end time: Sep 06 21:19 MSK
+"img2img_contract_cpu" time elapsed: 00:00:00
+----------------------------------------------------------
+
+22/42 Testing: image_encoder_contract_cpu
+22/42 Test: image_encoder_contract_cpu
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-image-encoder-contract"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"image_encoder_contract_cpu" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+VAE encoder request boundary contracts passed
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"image_encoder_contract_cpu" end time: Sep 06 21:19 MSK
+"image_encoder_contract_cpu" time elapsed: 00:00:00
+----------------------------------------------------------
+
+23/42 Testing: residual_contract_cpu
+23/42 Test: residual_contract_cpu
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-residual-contract"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"residual_contract_cpu" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+FP32 residual above 65504, normalized projection and finite guards passed
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"residual_contract_cpu" end time: Sep 06 21:19 MSK
+"residual_contract_cpu" time elapsed: 00:00:00
+----------------------------------------------------------
+
+24/42 Testing: residual_contract_vulkan
+24/42 Test: residual_contract_vulkan
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-residual-contract" "vulkan"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"residual_contract_vulkan" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+FP32 residual above 65504, normalized projection and finite guards passed
+<end of output>
+Test time =   0.73 sec
+----------------------------------------------------------
+Test Passed.
+"residual_contract_vulkan" end time: Sep 06 21:19 MSK
+"residual_contract_vulkan" time elapsed: 00:00:00
+----------------------------------------------------------
+
+25/42 Testing: residual_contract_vulkan_bf16
+25/42 Test: residual_contract_vulkan_bf16
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-residual-contract" "vulkan" "bf16"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"residual_contract_vulkan_bf16" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+FP32 residual above 65504, normalized projection and finite guards passed
+<end of output>
+Test time =   0.63 sec
+----------------------------------------------------------
+Test Passed.
+"residual_contract_vulkan_bf16" end time: Sep 06 21:19 MSK
+"residual_contract_vulkan_bf16" time elapsed: 00:00:00
+----------------------------------------------------------
+
+26/42 Testing: rmsnorm_range_cpu
+26/42 Test: rmsnorm_range_cpu
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-rmsnorm-probe" "cpu" "fp32"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"rmsnorm_range_cpu" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+{"backend":"cpu","precision":"fp32","native":false,"centered":false,"width":128,"scale":1,"max_abs_error":9.42942e-08,"limit":2e-06,"passed":true}
+{"backend":"cpu","precision":"fp32","native":false,"centered":false,"width":128,"scale":512,"max_abs_error":1.24853e-07,"limit":2e-06,"passed":true}
+{"backend":"cpu","precision":"fp32","native":false,"centered":false,"width":3072,"scale":1,"max_abs_error":9.42942e-08,"limit":2e-06,"passed":true}
+{"backend":"cpu","precision":"fp32","native":false,"centered":false,"width":3072,"scale":512,"max_abs_error":1.24853e-07,"limit":2e-06,"passed":true}
+{"backend":"cpu","precision":"fp32","native":false,"centered":false,"width":4096,"scale":1,"max_abs_error":9.42942e-08,"limit":2e-06,"passed":true}
+{"backend":"cpu","precision":"fp32","native":false,"centered":false,"width":4096,"scale":512,"max_abs_error":1.24853e-07,"limit":2e-06,"passed":true}
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"rmsnorm_range_cpu" end time: Sep 06 21:19 MSK
+"rmsnorm_range_cpu" time elapsed: 00:00:00
+----------------------------------------------------------
+
+27/42 Testing: layernorm_range_cpu
+27/42 Test: layernorm_range_cpu
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-rmsnorm-probe" "cpu" "fp32" "--layernorm"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"layernorm_range_cpu" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type LayerNorm
+{"backend":"cpu","precision":"fp32","native":false,"centered":true,"width":4096,"scale":1,"max_abs_error":2.05526e-07,"limit":2e-06,"passed":true}
+{"backend":"cpu","precision":"fp32","native":false,"centered":true,"width":4096,"scale":1024,"max_abs_error":2.74321e-07,"limit":2e-06,"passed":true}
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"layernorm_range_cpu" end time: Sep 06 21:19 MSK
+"layernorm_range_cpu" time elapsed: 00:00:00
+----------------------------------------------------------
+
+28/42 Testing: erf_gelu_cpu
+28/42 Test: erf_gelu_cpu
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-gelu-probe" "cpu" "fp32"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"erf_gelu_cpu" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+{"backend":"cpu","precision":"fp32","shape":0,"samples":65536,"max_abs_error":3.72798e-07,"limit":2e-06,"passed":true}
+{"backend":"cpu","precision":"fp32","shape":1,"samples":98688,"max_abs_error":3.83925e-07,"limit":2e-06,"passed":true}
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"erf_gelu_cpu" end time: Sep 06 21:19 MSK
+"erf_gelu_cpu" time elapsed: 00:00:00
+----------------------------------------------------------
+
+29/42 Testing: erf_gelu_vulkan_fp32
+29/42 Test: erf_gelu_vulkan_fp32
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-gelu-probe" "vulkan" "fp32"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"erf_gelu_vulkan_fp32" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+{"backend":"vulkan","precision":"fp32","shape":0,"samples":65536,"max_abs_error":4.17454e-07,"limit":2e-06,"passed":true}
+{"backend":"vulkan","precision":"fp32","shape":1,"samples":98688,"max_abs_error":4.04994e-07,"limit":2e-06,"passed":true}
+<end of output>
+Test time =   0.58 sec
+----------------------------------------------------------
+Test Passed.
+"erf_gelu_vulkan_fp32" end time: Sep 06 21:19 MSK
+"erf_gelu_vulkan_fp32" time elapsed: 00:00:00
+----------------------------------------------------------
+
+30/42 Testing: rmsnorm_range_vulkan_fp32
+30/42 Test: rmsnorm_range_vulkan_fp32
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-rmsnorm-probe" "vulkan" "fp32"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"rmsnorm_range_vulkan_fp32" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+{"backend":"vulkan","precision":"fp32","native":false,"centered":false,"width":128,"scale":1,"max_abs_error":9.42942e-08,"limit":2e-06,"passed":true}
+{"backend":"vulkan","precision":"fp32","native":false,"centered":false,"width":128,"scale":512,"max_abs_error":1.13088e-07,"limit":2e-06,"passed":true}
+{"backend":"vulkan","precision":"fp32","native":false,"centered":false,"width":3072,"scale":1,"max_abs_error":9.42942e-08,"limit":2e-06,"passed":true}
+{"backend":"vulkan","precision":"fp32","native":false,"centered":false,"width":3072,"scale":512,"max_abs_error":1.13088e-07,"limit":2e-06,"passed":true}
+{"backend":"vulkan","precision":"fp32","native":false,"centered":false,"width":4096,"scale":1,"max_abs_error":9.42942e-08,"limit":2e-06,"passed":true}
+{"backend":"vulkan","precision":"fp32","native":false,"centered":false,"width":4096,"scale":512,"max_abs_error":1.13088e-07,"limit":2e-06,"passed":true}
+<end of output>
+Test time =   0.66 sec
+----------------------------------------------------------
+Test Passed.
+"rmsnorm_range_vulkan_fp32" end time: Sep 06 21:19 MSK
+"rmsnorm_range_vulkan_fp32" time elapsed: 00:00:00
+----------------------------------------------------------
+
+31/42 Testing: layernorm_range_vulkan_fp32
+31/42 Test: layernorm_range_vulkan_fp32
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-rmsnorm-probe" "vulkan" "fp32" "--layernorm"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"layernorm_range_vulkan_fp32" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type LayerNorm
+{"backend":"vulkan","precision":"fp32","native":false,"centered":true,"width":4096,"scale":1,"max_abs_error":1.52102e-07,"limit":2e-06,"passed":true}
+{"backend":"vulkan","precision":"fp32","native":false,"centered":true,"width":4096,"scale":1024,"max_abs_error":8.33071e-08,"limit":2e-06,"passed":true}
+<end of output>
+Test time =   0.61 sec
+----------------------------------------------------------
+Test Passed.
+"layernorm_range_vulkan_fp32" end time: Sep 06 21:19 MSK
+"layernorm_range_vulkan_fp32" time elapsed: 00:00:00
+----------------------------------------------------------
+
+32/42 Testing: erf_gelu_vulkan_fp16
+32/42 Test: erf_gelu_vulkan_fp16
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-gelu-probe" "vulkan" "fp16"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"erf_gelu_vulkan_fp16" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+{"backend":"vulkan","precision":"fp16","shape":0,"samples":65536,"max_abs_error":0.00390625,"limit":0.008,"passed":true}
+{"backend":"vulkan","precision":"fp16","shape":1,"samples":98688,"max_abs_error":0.00390625,"limit":0.008,"passed":true}
+<end of output>
+Test time =   0.57 sec
+----------------------------------------------------------
+Test Passed.
+"erf_gelu_vulkan_fp16" end time: Sep 06 21:19 MSK
+"erf_gelu_vulkan_fp16" time elapsed: 00:00:00
+----------------------------------------------------------
+
+33/42 Testing: rmsnorm_range_vulkan_fp16
+33/42 Test: rmsnorm_range_vulkan_fp16
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-rmsnorm-probe" "vulkan" "fp16"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"rmsnorm_range_vulkan_fp16" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+{"backend":"vulkan","precision":"fp16","native":false,"centered":false,"width":128,"scale":1,"max_abs_error":0.00045227,"limit":0.002,"passed":true}
+{"backend":"vulkan","precision":"fp16","native":false,"centered":false,"width":128,"scale":512,"max_abs_error":0.00045169,"limit":0.002,"passed":true}
+{"backend":"vulkan","precision":"fp16","native":false,"centered":false,"width":3072,"scale":1,"max_abs_error":0.00045227,"limit":0.002,"passed":true}
+{"backend":"vulkan","precision":"fp16","native":false,"centered":false,"width":3072,"scale":512,"max_abs_error":0.00045169,"limit":0.002,"passed":true}
+{"backend":"vulkan","precision":"fp16","native":false,"centered":false,"width":4096,"scale":1,"max_abs_error":0.00045227,"limit":0.002,"passed":true}
+{"backend":"vulkan","precision":"fp16","native":false,"centered":false,"width":4096,"scale":512,"max_abs_error":0.00045169,"limit":0.002,"passed":true}
+<end of output>
+Test time =   0.67 sec
+----------------------------------------------------------
+Test Passed.
+"rmsnorm_range_vulkan_fp16" end time: Sep 06 21:19 MSK
+"rmsnorm_range_vulkan_fp16" time elapsed: 00:00:00
+----------------------------------------------------------
+
+34/42 Testing: layernorm_range_vulkan_fp16
+34/42 Test: layernorm_range_vulkan_fp16
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-rmsnorm-probe" "vulkan" "fp16" "--layernorm"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"layernorm_range_vulkan_fp16" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type LayerNorm
+{"backend":"vulkan","precision":"fp16","native":false,"centered":true,"width":4096,"scale":1,"max_abs_error":0.000262488,"limit":0.002,"passed":true}
+{"backend":"vulkan","precision":"fp16","native":false,"centered":true,"width":4096,"scale":1024,"max_abs_error":0.000269139,"limit":0.002,"passed":true}
+<end of output>
+Test time =   0.62 sec
+----------------------------------------------------------
+Test Passed.
+"layernorm_range_vulkan_fp16" end time: Sep 06 21:19 MSK
+"layernorm_range_vulkan_fp16" time elapsed: 00:00:00
+----------------------------------------------------------
+
+35/42 Testing: erf_gelu_vulkan_bf16
+35/42 Test: erf_gelu_vulkan_bf16
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-gelu-probe" "vulkan" "bf16"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"erf_gelu_vulkan_bf16" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+{"backend":"vulkan","precision":"bf16","shape":0,"samples":65536,"max_abs_error":0.0312481,"limit":0.064,"passed":true}
+{"backend":"vulkan","precision":"bf16","shape":1,"samples":98688,"max_abs_error":0.031168,"limit":0.064,"passed":true}
+<end of output>
+Test time =   0.56 sec
+----------------------------------------------------------
+Test Passed.
+"erf_gelu_vulkan_bf16" end time: Sep 06 21:19 MSK
+"erf_gelu_vulkan_bf16" time elapsed: 00:00:00
+----------------------------------------------------------
+
+36/42 Testing: rmsnorm_range_vulkan_bf16
+36/42 Test: rmsnorm_range_vulkan_bf16
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-rmsnorm-probe" "vulkan" "bf16"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"rmsnorm_range_vulkan_bf16" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+{"backend":"vulkan","precision":"bf16","native":false,"centered":false,"width":128,"scale":1,"max_abs_error":0.0036297,"limit":0.01,"passed":true}
+{"backend":"vulkan","precision":"bf16","native":false,"centered":false,"width":128,"scale":512,"max_abs_error":0.00362918,"limit":0.01,"passed":true}
+{"backend":"vulkan","precision":"bf16","native":false,"centered":false,"width":3072,"scale":1,"max_abs_error":0.0036297,"limit":0.01,"passed":true}
+{"backend":"vulkan","precision":"bf16","native":false,"centered":false,"width":3072,"scale":512,"max_abs_error":0.00362918,"limit":0.01,"passed":true}
+{"backend":"vulkan","precision":"bf16","native":false,"centered":false,"width":4096,"scale":1,"max_abs_error":0.0036297,"limit":0.01,"passed":true}
+{"backend":"vulkan","precision":"bf16","native":false,"centered":false,"width":4096,"scale":512,"max_abs_error":0.00362918,"limit":0.01,"passed":true}
+<end of output>
+Test time =   0.67 sec
+----------------------------------------------------------
+Test Passed.
+"rmsnorm_range_vulkan_bf16" end time: Sep 06 21:19 MSK
+"rmsnorm_range_vulkan_bf16" time elapsed: 00:00:00
+----------------------------------------------------------
+
+37/42 Testing: layernorm_range_vulkan_bf16
+37/42 Test: layernorm_range_vulkan_bf16
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-rmsnorm-probe" "vulkan" "bf16" "--layernorm"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"layernorm_range_vulkan_bf16" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type LayerNorm
+{"backend":"vulkan","precision":"bf16","native":false,"centered":true,"width":4096,"scale":1,"max_abs_error":0.00373408,"limit":0.01,"passed":true}
+{"backend":"vulkan","precision":"bf16","native":false,"centered":true,"width":4096,"scale":1024,"max_abs_error":0.00372477,"limit":0.01,"passed":true}
+<end of output>
+Test time =   0.62 sec
+----------------------------------------------------------
+Test Passed.
+"layernorm_range_vulkan_bf16" end time: Sep 06 21:19 MSK
+"layernorm_range_vulkan_bf16" time elapsed: 00:00:00
+----------------------------------------------------------
+
+38/42 Testing: shape_plan_contract
+38/42 Test: shape_plan_contract
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-shape-plan-contract"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"shape_plan_contract" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+Mathematical shape planning passed; graph generation pending
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"shape_plan_contract" end time: Sep 06 21:19 MSK
+"shape_plan_contract" time elapsed: 00:00:00
+----------------------------------------------------------
+
+39/42 Testing: shape_graph_contract
+39/42 Test: shape_graph_contract
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-shape-graph-contract"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"shape_graph_contract" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+Offline graph contract checks passed; runtime schema 3 remains unsupported
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"shape_graph_contract" end time: Sep 06 21:19 MSK
+"shape_graph_contract" time elapsed: 00:00:00
+----------------------------------------------------------
+
+40/42 Testing: text_down_contract_cpu
+40/42 Test: text_down_contract_cpu
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-text-down-contract"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"text_down_contract_cpu" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+layer load_param 1 down failed
+layer load_param 1 down failed
+layer load_param 1 down failed
+layer load_param 1 down failed
+layer load_param 1 down failed
+text_down_contract passed
+<end of output>
+Test time =   0.11 sec
+----------------------------------------------------------
+Test Passed.
+"text_down_contract_cpu" end time: Sep 06 21:19 MSK
+"text_down_contract_cpu" time elapsed: 00:00:00
+----------------------------------------------------------
+
+41/42 Testing: model_package_contract
+41/42 Test: model_package_contract
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-model-package-contract"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"model_package_contract" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+model package error contract passed
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"model_package_contract" end time: Sep 06 21:19 MSK
+"model_package_contract" time elapsed: 00:00:00
+----------------------------------------------------------
+
+42/42 Testing: execution_metrics_cpu
+42/42 Test: execution_metrics_cpu
+Command: "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/ernie-execution-metrics-contract"
+Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v5/build/linux-vulkan/tests
+"execution_metrics_cpu" start time: Sep 06 21:19 MSK
+Output:
+----------------------------------------------------------
+execution metrics CPU contracts passed
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"execution_metrics_cpu" end time: Sep 06 21:19 MSK
+"execution_metrics_cpu" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Sep 06 21:19 MSK

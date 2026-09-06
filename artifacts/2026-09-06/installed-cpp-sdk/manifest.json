@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "scope": "Linux installed public API and CPU preset evidence; no full model or external platform claim",
+  "scope": "Linux installed public API and CPU/Vulkan preset evidence; no full model or external platform claim",
   "files": [
     {
       "path": "README.md",
-      "bytes": 5241,
-      "sha256": "9226d61cf00186367de57e072a8a1d924e293701899d49cce8f38e48727c953e"
+      "bytes": 5789,
+      "sha256": "5261a18af6deea5cd10041c338defb14ada8cc6207bc82bcbe186b466f961c61"
     },
     {
       "path": "build/build-worker-v2.py",
@@ -208,6 +208,16 @@
       "sha256": "f5feeaed3ec9d89d5693e5da87a1855f5fc0b6c1b597d58e0153b31c77a4fa78"
     },
     {
+      "path": "preset/d1-preset-vulkan-test-worker-v5.py",
+      "bytes": 1853,
+      "sha256": "1e35c853089d6d21db278d7d88a7ef2928e625d9e13572d7e1c5f8a35bf3e76f"
+    },
+    {
+      "path": "preset/d1-preset-vulkan-worker-v5.py",
+      "bytes": 2472,
+      "sha256": "771e5ea77042c74c9f5242e1ce187dbc3b8c121188842e01c8249091bc124676"
+    },
+    {
       "path": "preset/independent-review.md",
       "bytes": 3395,
       "sha256": "798dee0282a1fa26123874449a9e875f1cd41f0149600b100ecfb9809487779a"
@@ -221,6 +231,51 @@
       "path": "preset/source-identity-v5.json",
       "bytes": 27997,
       "sha256": "add223535f92c501c986b6bc3e6520ec746580a776bc7e143836ec9dd253d199"
+    },
+    {
+      "path": "preset/vulkan-v5/build/build.log",
+      "bytes": 72354,
+      "sha256": "6dfd717950497b4036fa8bc11f16606b056ea1ca634195387b91fe6ca8e30a26"
+    },
+    {
+      "path": "preset/vulkan-v5/build/configure.log",
+      "bytes": 3457,
+      "sha256": "5f381e8b51c1f4e10ab5a6f0853ee4010ec017ef71a5faaef1b8e0e2a7ef9f85"
+    },
+    {
+      "path": "preset/vulkan-v5/build/identity.json",
+      "bytes": 821,
+      "sha256": "31c851397b9d71dd889e28f958c5c012316148c253685cb26ab798cacfccae74"
+    },
+    {
+      "path": "preset/vulkan-v5/build/result.json",
+      "bytes": 308,
+      "sha256": "ba83ac2b704a0cf27f84c663c9fd7653b457d9ca755e7165fcf196a21dc092df"
+    },
+    {
+      "path": "preset/vulkan-v5/independent-review.md",
+      "bytes": 2233,
+      "sha256": "6be69da1f543ce3fb7d25df5ef96969f289e8fe8a1db4027750245d9658a50e2"
+    },
+    {
+      "path": "preset/vulkan-v5/test/LastTest.log",
+      "bytes": 87362,
+      "sha256": "3ae5d2284f967beb19775168488fccb4320f2d83f37daae3e545c98049e73e24"
+    },
+    {
+      "path": "preset/vulkan-v5/test/identity.json",
+      "bytes": 3750,
+      "sha256": "3d56439ae5edf040aa9d570dbdee75c25c5cf95c17acfd01d35689061c1149c5"
+    },
+    {
+      "path": "preset/vulkan-v5/test/result.json",
+      "bytes": 119,
+      "sha256": "c377ae8e8385c01cacd4666614aae1dbbaff303717a0ccb920c95e35aaed5d91"
+    },
+    {
+      "path": "preset/vulkan-v5/test/test.log",
+      "bytes": 4825,
+      "sha256": "9bed902cc3a6b010af15fde5231d5edaf435798251f1430c6b2c511e80e76a2c"
     },
     {
       "path": "preset/worker-v5.py",

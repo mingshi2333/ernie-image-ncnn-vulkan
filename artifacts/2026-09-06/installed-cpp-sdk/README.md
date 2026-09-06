@@ -35,6 +35,6 @@ SDK 导出拒绝 allocation instrumentation、共享 ncnn，以及 Vulkan + syst
 
 CPU preset 的历史失败也被收录：v3 worker 误对未初始化的 worktree 子模块路径检查 Git，尚未配置便拒绝；v4 更正依赖路径后构建成功，但只有 25/27 CTest。两个老 CLI 断言默认 Vulkan 已编译，CPU-only 实际正确报告 `Built without Vulkan`；另一个 text bucket 用例依赖未纳入该源快照的历史 artifact。修复使用实际 diagnose 能力选择明确错误，纯尺寸测试指定 CPU FP32，并将原 32-token 图的相同字节保存在 tests/fixtures。v5 完整重建和测试通过，没有改变推理数学、跳过失败用例或放宽数值门槛。
 
-Vulkan preset 的完整 CTest 仍待 GPU 队列；前述 Clang Vulkan 安装 v2 已独立通过。固定 Rust 1.98.0 与 SDK/下载合同已接入本地 CI 配置，远程 Actions 尚未执行。Windows/MSVC、macOS/MoltenVK、实际完整模型离线安装链、第三方 notice 闭包和公开下载均需各自证据。当前 SDK 0.1.0 是源接口，不承诺跨工具链稳定二进制 ABI。
+同一 267 文件冻结源码上的 GNU 16.2.1 Vulkan preset v5 已实际配置、构建并通过 **42/42 CTest**，没有 skipped；完整 LastTest.log 确认 NVIDIA GeForce RTX 4060 Laptop GPU 上的 cache、attention、FP32/FP16/BF16 小算子执行。配置 6.36 s、构建 281.29 s、CTest 15.76 s；构建和测试独立保存 source/worker 身份，测试又绑定构建身份与全部目标二进制，前后源码与二进制不变。见 [Vulkan preset 实测](preset/vulkan-v5) 与 [独立复核](preset/vulkan-v5/independent-review.md)。这补足 Linux 预设验证，前述 Clang Vulkan 安装 v2 保留为独立隔离消费证据。固定 Rust 1.98.0 与 SDK/下载合同已接入本地 CI 配置，远程 Actions 尚未执行。Windows/MSVC、macOS/MoltenVK、实际完整模型离线安装链、第三方 notice 闭包和公开下载均需各自证据。当前 SDK 0.1.0 是源接口，不承诺跨工具链稳定二进制 ABI。
 
 原始 CPU v1 与 Vulkan v1 构建/安装记录在本地 `outputs/d1-install-*` 和 `/tmp/ernie-sdk-cpu-install-v1` 保留；本 artifact 以受审查 v2 为主。后续 preset 的成功与失败单独记录，不回写这些构建或安装结果。
