@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 #include "model_config.h"
+#include "gpu_context.h"
 #include <ernie/pipeline.h>
 #include <platform.h>
 #if NCNN_VULKAN
@@ -14,8 +15,7 @@ DiagnosticInfo diagnose(const std::string &model_directory)
     DiagnosticInfo result;
 #if NCNN_VULKAN
     result.vulkan_compiled = true;
-    ncnn::create_gpu_instance();
-    try
+    GpuContext gpu(true, -1, false);
     {
         const int count = ncnn::get_gpu_count();
         result.default_gpu_index = count ? ncnn::get_default_gpu_index() : -1;
@@ -26,12 +26,6 @@ DiagnosticInfo diagnose(const std::string &model_directory)
                 {index, info.device_name(), info.support_fp16_storage(), info.support_bf16_storage()});
         }
     }
-    catch (...)
-    {
-        ncnn::destroy_gpu_instance();
-        throw;
-    }
-    ncnn::destroy_gpu_instance();
 #endif
     if (!model_directory.empty())
     {

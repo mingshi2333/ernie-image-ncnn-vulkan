@@ -10,9 +10,19 @@
 #include "stb_image_write.h"
 #include <algorithm>
 #include <cctype>
+#include <cerrno>
+#include <cstring>
+#include <fcntl.h>
 #include <fstream>
 #include <limits>
+#include <memory>
 #include <stdexcept>
+#include <sys/stat.h>
+#ifdef _WIN32
+#include <io.h>
+#else
+#include <unistd.h>
+#endif
 namespace ernie::cli
 {
 namespace
@@ -52,23 +62,112 @@ std::string extension(const std::filesystem::path &path)
     return result;
 }
 
+struct EncodedBuffer
+{
+    std::vector<uint8_t> bytes;
+    bool failed = false;
+};
+
 void append_bytes(void *context, void *data, int size)
 {
-    auto &bytes = *static_cast<std::vector<uint8_t> *>(context);
-    if (size < 0 || bytes.size() > max_file_bytes - size_t(size))
+    auto &buffer = *static_cast<EncodedBuffer *>(context);
+    auto &bytes = buffer.bytes;
+    if (buffer.failed)
         return;
+    if (size < 0 || size_t(size) > max_file_bytes || bytes.size() > max_file_bytes - size_t(size))
+    {
+        buffer.failed = true;
+        return;
+    }
     const auto *first = static_cast<const uint8_t *>(data);
-    bytes.insert(bytes.end(), first, first + size);
+    try { bytes.insert(bytes.end(), first, first + size); }
+    catch (...) { buffer.failed = true; }
+}
+
+struct EncodedInput
+{
+    const std::vector<uint8_t> &bytes;
+    size_t position = 0;
+    bool truncated = false;
+};
+
+int input_read(void *context, char *data, int size)
+{
+    auto &input = *static_cast<EncodedInput *>(context);
+    if (size <= 0)
+    {
+        input.truncated = input.truncated || size < 0;
+        return 0;
+    }
+    const size_t count = std::min(size_t(size), input.bytes.size() - input.position);
+    // A short prefetch is legal. Requesting another byte after EOF is not:
+    // stb's memory reader otherwise supplies zero pixels for truncated BMP/TGA.
+    if (size > 0 && count == 0)
+        input.truncated = true;
+    std::memcpy(data, input.bytes.data() + input.position, count);
+    input.position += count;
+    return int(count);
+}
+
+void input_skip(void *context, int size)
+{
+    auto &input = *static_cast<EncodedInput *>(context);
+    if (size < 0 || size_t(size) > input.bytes.size() - input.position)
+    {
+        input.truncated = true;
+        input.position = input.bytes.size();
+    }
+    else
+        input.position += size_t(size);
+}
+
+int input_eof(void *context)
+{
+    const auto &input = *static_cast<EncodedInput *>(context);
+    return input.position == input.bytes.size();
+}
+
+std::runtime_error decode_error(const char *action)
+{
+    const auto *reason = stbi_failure_reason();
+    return std::runtime_error(std::string(action) + (reason ? reason : "invalid or truncated image"));
 }
 
 void save_new(const std::filesystem::path &path, const std::vector<uint8_t> &bytes)
 {
-    if (std::filesystem::exists(path))
-        throw std::invalid_argument("Output exists; use a new image path");
     if (path.has_parent_path())
         std::filesystem::create_directories(path.parent_path());
-    std::ofstream output(path, std::ios::binary | std::ios::out);
-    if (!output.write(reinterpret_cast<const char *>(bytes.data()), std::streamsize(bytes.size())))
+#ifdef _WIN32
+    const int fd = _wopen(path.c_str(), _O_BINARY | _O_WRONLY | _O_CREAT | _O_EXCL, _S_IREAD | _S_IWRITE);
+#else
+    const int fd = open(path.c_str(), O_WRONLY | O_CREAT | O_EXCL | O_CLOEXEC, 0666);
+#endif
+    if (fd < 0)
+    {
+        if (errno == EEXIST)
+            throw std::invalid_argument("Output exists; use a new image path");
+        throw std::runtime_error("Cannot create image output");
+    }
+    bool failed = false;
+    for (size_t offset = 0; offset < bytes.size();)
+    {
+        const auto count = unsigned(std::min(bytes.size() - offset, size_t(std::numeric_limits<int>::max())));
+#ifdef _WIN32
+        const auto written = _write(fd, bytes.data() + offset, count);
+#else
+        const auto written = write(fd, bytes.data() + offset, count);
+#endif
+        if (written < 0 && errno == EINTR)
+            continue;
+        if (written <= 0) { failed = true; break; }
+        offset += size_t(written);
+    }
+#ifdef _WIN32
+    const int closed = _close(fd);
+#else
+    const int closed = close(fd);
+#endif
+    if (failed || closed != 0)
         throw std::runtime_error("Image write failed");
 }
 } // namespace
@@ -104,14 +203,17 @@ RgbImage read_image(const std::filesystem::path &path, const std::array<uint8_t,
     {
         int source_channels = 0;
         if (!stbi_info_from_memory(encoded.data(), int(encoded.size()), &width, &height, &source_channels))
-            throw std::runtime_error(std::string("Image header read failed: ") + stbi_failure_reason());
+            throw decode_error("Image header read failed: ");
         image_bytes(width, height, 4);
-        stbi_uc *decoded = stbi_load_from_memory(encoded.data(), int(encoded.size()), &width, &height,
-                                                 &source_channels, 4);
+        const stbi_io_callbacks callbacks{input_read, input_skip, input_eof};
+        EncodedInput input{encoded};
+        const std::unique_ptr<stbi_uc, decltype(&stbi_image_free)> decoded(
+            stbi_load_from_callbacks(&callbacks, &input, &width, &height, &source_channels, 4), stbi_image_free);
         if (!decoded)
-            throw std::runtime_error(std::string("Image decode failed: ") + stbi_failure_reason());
-        rgba.assign(decoded, decoded + image_bytes(width, height, 4));
-        stbi_image_free(decoded);
+            throw decode_error("Image decode failed: ");
+        if (input.truncated)
+            throw std::runtime_error("Image decode failed: truncated image payload");
+        rgba.assign(decoded.get(), decoded.get() + image_bytes(width, height, 4));
     }
     RgbImage result{width, height, std::vector<uint8_t>(image_bytes(width, height, 3))};
     for (size_t source = 0, target = 0; source < rgba.size(); source += 4, target += 3)
@@ -130,7 +232,8 @@ void write_image(const std::filesystem::path &path, const RgbImage &rgb)
     if (rgb.pixels.size() != bytes)
         throw std::invalid_argument("Invalid RGB image");
     const auto kind = extension(path);
-    std::vector<uint8_t> encoded;
+    EncodedBuffer buffer;
+    auto &encoded = buffer.bytes;
     int ok = 0;
     if (kind == ".png")
     {
@@ -146,12 +249,12 @@ void write_image(const std::filesystem::path &path, const RgbImage &rgb)
         encoded.resize(size); ok = 1;
     }
     else if (kind == ".jpg" || kind == ".jpeg")
-        ok = stbi_write_jpg_to_func(append_bytes, &encoded, rgb.width, rgb.height, 3, rgb.pixels.data(), 95);
+        ok = stbi_write_jpg_to_func(append_bytes, &buffer, rgb.width, rgb.height, 3, rgb.pixels.data(), 95);
     else if (kind == ".bmp")
-        ok = stbi_write_bmp_to_func(append_bytes, &encoded, rgb.width, rgb.height, 3, rgb.pixels.data());
+        ok = stbi_write_bmp_to_func(append_bytes, &buffer, rgb.width, rgb.height, 3, rgb.pixels.data());
     else
-        ok = stbi_write_tga_to_func(append_bytes, &encoded, rgb.width, rgb.height, 3, rgb.pixels.data());
-    if (!ok || encoded.empty())
+        ok = stbi_write_tga_to_func(append_bytes, &buffer, rgb.width, rgb.height, 3, rgb.pixels.data());
+    if (!ok || buffer.failed || encoded.empty())
         throw std::runtime_error("Image encode failed");
     save_new(path, encoded);
 }

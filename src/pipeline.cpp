@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 #include "conditioning.h"
 #include "denoiser.h"
+#include "gpu_context.h"
 #include "model_config.h"
 #include "prompt_enhancer.h"
 #include "tensor_io.h"
@@ -35,39 +36,6 @@ void check(int value, const char *action)
     if (value)
         throw std::runtime_error(std::string(action) + " failed: " + std::to_string(value));
 }
-class GpuContext
-{
-  public:
-    GpuContext(bool enabled, int requested_index) : enabled_(enabled)
-    {
-        if (!enabled_)
-            return;
-#if NCNN_VULKAN
-        ncnn::create_gpu_instance();
-        const int count = ncnn::get_gpu_count();
-        if (count < 1 || (requested_index >= 0 && requested_index >= count))
-        {
-            ncnn::destroy_gpu_instance();
-            enabled_ = false;
-            if (count < 1)
-                throw std::runtime_error("No Vulkan device");
-            throw std::invalid_argument("Requested Vulkan GPU index is unavailable");
-        }
-#else
-        throw std::runtime_error("Built without Vulkan");
-#endif
-    }
-    ~GpuContext()
-    {
-#if NCNN_VULKAN
-        if (enabled_)
-            ncnn::destroy_gpu_instance();
-#endif
-    }
-
-  private:
-    bool enabled_;
-};
 void validate_request(const GenerationRequest &r)
 {
     if (r.model.empty() || r.steps < 1 || r.steps > 1000 || (r.device != "cpu" && r.device != "vulkan") ||

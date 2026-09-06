@@ -9,6 +9,12 @@
 #include <limits>
 #include <stdexcept>
 #include <vector>
+#ifndef _WIN32
+#include <csignal>
+#include <sys/resource.h>
+#include <sys/wait.h>
+#include <unistd.h>
+#endif
 
 void require(bool condition, const char *message)
 {
@@ -90,6 +96,39 @@ int main()
         ernie::cli::write_image(unicode, source);
         require(ernie::cli::read_image(unicode).pixels == source.pixels, "Unicode path roundtrip differs");
         require_error([&] { ernie::cli::write_image(unicode, source); }, "Existing output was overwritten");
+        require(ernie::cli::read_image(unicode).pixels == source.pixels, "Rejected write changed existing output");
+        // Valid headers and plausible sizes do not prove that pixels/entropy
+        // are complete. stb's unbounded memory reader formerly fabricated zeros.
+        const ernie::RgbImage small{2, 2, std::vector<uint8_t>(12, 123)};
+        for (const auto &entry : std::vector<std::pair<std::string, size_t>>{{"bmp",54},{"tga",18},{"jpg",10}})
+        {
+            const auto full = root / ("complete." + entry.first);
+            ernie::cli::write_image(full, small);
+            std::ifstream stream(full, std::ios::binary);
+            std::vector<uint8_t> bytes((std::istreambuf_iterator<char>(stream)), {});
+            const size_t cut = entry.first == "jpg" ? bytes.size() - entry.second : entry.second;
+            bytes.resize(cut);
+            const auto truncated = root / ("truncated." + entry.first);
+            save(truncated, bytes);
+            require_error([&] { ernie::cli::read_image(truncated); }, "Truncated valid image was accepted");
+        }
+#ifndef _WIN32
+        // Deterministic write failure, isolated from the test runner's limits.
+        const pid_t child = fork();
+        require(child >= 0, "Cannot fork write-failure probe");
+        if (child == 0)
+        {
+            signal(SIGXFSZ, SIG_IGN);
+            const rlimit limit{0, 0};
+            if (setrlimit(RLIMIT_FSIZE, &limit)) _exit(2);
+            try { ernie::cli::write_image(root / "write-failure.png", small); }
+            catch (const std::exception &) { _exit(0); }
+            _exit(1);
+        }
+        int status = 0;
+        require(waitpid(child, &status, 0) == child && WIFEXITED(status) && WEXITSTATUS(status) == 0,
+                "Incomplete output was reported as successfully written");
+#endif
         save(root / "broken.jpg", {0xff,0xd8,0,1,2,3});
         require_error([&] { ernie::cli::read_image(root / "broken.jpg"); }, "Corrupt image was accepted");
         std::vector<uint8_t> huge(54); huge[0]='B'; huge[1]='M'; huge[2]=54; huge[10]=54; huge[14]=40;
