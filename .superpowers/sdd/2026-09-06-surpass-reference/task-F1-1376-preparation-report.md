@@ -48,3 +48,15 @@ v3 plan给出具体systemd-run scope launcher：16GiB/swap0/CPU200%、affinity12
 保留原 venv 入口、两次 decoder forward、no pnnx、latent [1,32,96,172]、official threads2/native ncnn threads4/scope两核，16GiB/swap0/CPUQuota200%/affinity12,14/hostfloor3GiB/timeout1800。没有实际模型授权或执行。
 
 验证：12 个小型 CPU tests 通过（既有 shape/plan6 + runtime6）。新增测试验证实际新 sys.modules 文件能被枚举；完整四阶段允许项通过、删阶段拒绝；新增模拟 mapped binary 留存原字节但拒绝认证；同尺寸源码变化拒绝且保留失败报告。Python compile 检查通过。新 v4 所有 source/input/runtime identity hash 与计划一致，worker-runtime 目录尚不存在。等待独立复核后再由 root 排队模型。
+
+## 49ebc10 Important I2 修复：真实子进程绑定与必需分母（新 v5）
+
+旧 v4 保留，原 I1 四阶段采集已由独审关闭；I2 的 singleton 自洽伪报告问题本次补必需覆盖合同。新增 `outputs/f1-shape1376-s64-plan-v5`，plan SHA `bae415829ab5a6a8bf717e0f112085b9389e4f81a701ecaccaa4d2b060aaa2b5`。仅导入/输入准备 session64719 exit0，无模型构造和 forward。
+
+必需分母来自**实际 export_vae.py 子进程的 import/input-only probe**，运行同一个冻结 venv/source/参数入口，在 input 构造后、模型构造前返回。准备器记录 Popen 得到的 PID/parent PID/内核 start_ticks，并核 probe 自报值相同。本次实际 PID2198549、parent2198360、start_ticks11360666。父 import-only 与实际 worker probe 文件差集均为空；两者均 2822 个文件、137 个映射，因此可以对这个已观察的 stable mandatory set 做每阶段覆盖要求。该集合含实际 entry/collector/interpreter 与 Torch 等核心依赖；不是假设两个进程天生完全相同。allowlist 的新文件仍须原先冻结认证，运行不能自行扩授权。
+
+控制器先认证 worker probe SHA、entry/collector source SHA、实际 probe process identity 与 required 文件/映射全集一致。实际模型执行使用本组件的窄 execute_reference，沿用 check_release.execute 的 50ms host floor/timeout/cgroup 采样和进程组终止规则，额外记录 Popen 实际 PID、父 PID 与 `/proc/PID/stat` start_ticks。worker 顶层及每个阶段的 process identity 必须与控制器该值完全一致，entry SHA/path、collector SHA、venv invocation/prefix 仍逐项绑定。未修改通用 check_release.py。
+
+验证：13 个小 CPU tests 通过，包括真实小 Python 子进程 PID/start_ticks 与控制器记录交叉相同；缺必需文件/映射、错 PID、缺阶段、unknown/变化拒绝。额外对**实际 v5** 构造独审同款最小单文件、空 mappings、四阶段及身份字段自洽的 report，验证器实际拒绝 `Required runtime coverage missing: files=2821 mappings=137`。307 个冻结 source 完整 SHA、input/runtime/probe SHA 与 plan 均通过。没有真实 model worker-runtime 报告；完整 VAE执行仍待独立增量复核和资源授权。
+
+分母含义限于实际无模型 worker probe 所见稳定必需文件/映射及四个真实模型边界的增量集合。不能将静态 artifact validator 解释为对恶意同用户重写全部证据的安全证明，也不声称观察所有瞬时 load/unload。

@@ -108,7 +108,30 @@ def prepare(package, output, official_root, runner, python):
     runtime_environment.pop('PYTHONPATH',None)
     subprocess.run([python_invocation,str(snapshot/'tools/vae_reference_scope.py'),'--capture-runtime',str(output/'runtime')],
                    env=runtime_environment,check=True)
-    plan['runtime_identity_sha256']=sha256(output/'runtime/identity.json')
+    # Observe the actual exporter/import/input path without constructing a model.
+    from vae_reference_scope import process_identity
+    probe_process=subprocess.Popen(plan['steps'][0]['argv']+['--runtime-probe',str(output/'worker-import-probe')],
+                                   env=runtime_environment)
+    plan['worker_probe_process']=process_identity(probe_process.pid)
+    if probe_process.wait()!=0:raise ValueError('Worker import probe failed')
+    runtime_path=output/'runtime/identity.json'
+    runtime=json.loads(runtime_path.read_text())
+    probe=json.loads((output/'worker-import-probe/identity.json').read_text())
+    if (probe['process']!=plan['worker_probe_process'] or probe['prefix']!=runtime['prefix']
+        or probe['executable']!=runtime['executable']):
+        raise ValueError('Worker import probe interpreter differs')
+    for name,row in probe['files'].items():
+        if name in runtime['files'] and runtime['files'][name]!=row:
+            raise ValueError('Runtime changed between parent and worker probes: '+name)
+    runtime['parent_only_files']=sorted(set(runtime['files'])-set(probe['files']))
+    runtime['worker_only_files']=sorted(set(probe['files'])-set(runtime['files']))
+    runtime['files'].update(probe['files'])
+    runtime['required_files']=sorted(probe['files'])
+    runtime['required_mapped_files']=probe['mapped_files']
+    runtime['required_coverage_scope']='all files and mappings observed in actual exporter import/input probe before model construction'
+    runtime['worker_probe_sha256']=sha256(output/'worker-import-probe/identity.json')
+    runtime_path.write_text(json.dumps(runtime,indent=2)+'\n')
+    plan['runtime_identity_sha256']=sha256(runtime_path)
     launcher=['systemd-run','--user','--scope','--quiet',
               '--unit=ernie-vae1376-'+hashlib.sha256(str(output).encode()).hexdigest()[:12],
               '-p','MemoryMax=17179869184','-p','MemorySwapMax=0','-p','CPUQuota=200%',

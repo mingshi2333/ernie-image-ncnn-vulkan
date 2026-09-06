@@ -50,6 +50,7 @@ def main():
     p.add_argument('--threads',type=int,default=4)
     p.add_argument('--runtime-identity',type=Path,help='Frozen runtime allowlist for guarded reference execution')
     p.add_argument('--runtime-report',type=Path,help='New actual worker runtime inventory directory')
+    p.add_argument('--runtime-probe',type=Path,help='Import/input-only worker inventory; return before model construction')
     args=p.parse_args()
     if bool(args.runtime_identity)!=bool(args.runtime_report):p.error('Both runtime identity and report are required')
     if args.runtime_identity and not args.reference_only:p.error('Runtime inventory requires reference-only')
@@ -69,6 +70,11 @@ def main():
         x=torch.from_numpy(array)
     else:
         x=torch.randn(1,32,args.height,args.width,generator=torch.Generator().manual_seed(20260905))
+    if args.runtime_probe:
+        if not args.reference_only:p.error('Runtime probe requires reference-only')
+        from vae_reference_scope import capture
+        capture(args.runtime_probe,import_reference=False)
+        return
     collector=None
     if args.runtime_identity:
         from vae_reference_scope import WorkerRuntime
