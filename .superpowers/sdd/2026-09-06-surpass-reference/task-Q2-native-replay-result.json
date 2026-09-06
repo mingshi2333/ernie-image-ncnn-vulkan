@@ -1,0 +1,61 @@
+{
+  "protocol": "native-chinese-step6-replay-v1",
+  "native_acceptance_eligible": false,
+  "interpretation": "Exact cross-binary replay of failed native trajectory step6; no official acceptance claim",
+  "native_result": {
+    "protocol": "native-chinese-step6-replay-v1",
+    "native_acceptance_eligible": false,
+    "return_code": 0,
+    "plan_sha256": "78700f98092646f3f86d9b19ec91d22537fabb9d1f00bbeafd0e2a4a3e08a0d3",
+    "runner_sha256": "a4a80b564042d4020096edf947d30bd28a5fdf354005d1c17685fddddcdbe1fc",
+    "bitwise_equal": true,
+    "max_abs_error": 0.0,
+    "nrmse": 0.0,
+    "different_float_count": 0,
+    "actual_sha256": "622738cfeb9f811e162ac0c8053ae91917d316a1513856044a8f72539f1f3fe7",
+    "status": "reproduced_exactly"
+  },
+  "worker": {
+    "command": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-chinese-step6-native-replay-v1-execution/diagnose_native_step_replay.py",
+      "--execute",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-chinese-step6-native-replay-v1/plan.json"
+    ],
+    "cpu_affinity": [
+      0,
+      2
+    ],
+    "internal_requested_threads": 4,
+    "rss_limit_bytes": 9663676416,
+    "gpu_whole_device_limit_mib": 6144,
+    "minimum_host_available_bytes": 3221225472,
+    "scope": "Recursive descendants, including independently sessioned runner; sampled sum RSS, not unique PSS",
+    "started_unix": 1788711912.569151,
+    "passed": true,
+    "return_code": 0,
+    "stop_reason": null,
+    "peak_rss_sum_bytes": 867565568,
+    "gpu_whole_device_sampled_peak_mib": 4146,
+    "elapsed_seconds": 101.32151430399972
+  },
+  "post_run_snapshot_file_counts": {
+    "outputs/q2-chinese-step6-native-replay-v1-execution/execution-snapshot.json": 5,
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-chinese-step6-current-teacher-v1-execution/snapshot.json": 212
+  },
+  "all_bound_files_and_seven_tensor_copies_match": true,
+  "independent_three_way_bytes_equal": true,
+  "sample_count": 190,
+  "minimum_sampled_host_available_bytes": 16612691968,
+  "bound_files": {
+    "outputs/q2-chinese-step6-native-replay-v1/plan.json": "78700f98092646f3f86d9b19ec91d22537fabb9d1f00bbeafd0e2a4a3e08a0d3",
+    "outputs/q2-chinese-step6-native-replay-v1/native/result.json": "70083c0574432a2ea7c45c85dac2951fa486b60d4bfd1a24eceddb1811e729f0",
+    "outputs/q2-chinese-step6-native-replay-v1/native/actual.f32": "622738cfeb9f811e162ac0c8053ae91917d316a1513856044a8f72539f1f3fe7",
+    "outputs/q2-chinese-step6-native-replay-v1/native/runner.log": "89504a6a5df73ef62c0cfedcd24e2329fd0d0d7b7812dd39f8a7f70860490845",
+    "outputs/q2-chinese-step6-native-replay-v1/native/resources.log": "3b379fb657d40a636ca886a1e65a36da970640cf122581e22fd5fcca14d8fd0a",
+    "outputs/q2-chinese-step6-native-replay-v1-execution/worker.py": "6ea840689ec327496b709cf11287ba8eaa05be74f9ce996c9ccd4d5404e98108",
+    "outputs/q2-chinese-step6-native-replay-v1-execution/worker-result.json": "a40bcee889fada4d8b3059279cf315e2def740a8b8104936a3aa0e712faa4926",
+    "outputs/q2-chinese-step6-native-replay-v1-execution/samples.jsonl": "a711d314aa31eb72c93c137fe1c1e52e31b0455ddd645d689b6e7779312c961e",
+    "outputs/q2-chinese-step6-native-replay-v1-execution/execution-snapshot.json": "a649682bf5c2c8926b8f150c9ead26abfa577e8fe1bc53c9e6f8d79f56a9c3ee"
+  }
+}

@@ -1,6 +1,6 @@
-# Q2 实际中文 native step6 重放准备
+# Q2 实际中文 native step6 重放准备与执行
 
-仅准备，未运行GPU。目标是先验证六个实际输入能否由固定单步runner重现历史native prediction-6，不是官方数值验收；无官方gates，不将重放成功称作修复中文22/25失败。协议名 native-chinese-step6-replay-v1，以exact FP32 output bytes作为重现判据，同时保留不相等时的NRMSE/max/不同float数作为诊断信息。
+本报告前文保留运行前准备记录；已授权执行结果见末节。目标是先验证六个实际输入能否由固定单步runner重现历史native prediction-6，不是官方数值验收；无官方gates，不将重放成功称作修复中文22/25失败。协议名 native-chinese-step6-replay-v1，以exact FP32 output bytes作为重现判据，同时保留不相等时的NRMSE/max/不同float数作为诊断信息。
 
 ## 实际输入身份
 
@@ -51,3 +51,14 @@ Git d9f3b4b→27714e0之间 conditioning、denoiser、latent_ops、GELU、attent
 ```
 
 沿用递归后代9GiB RSS、整GPU6GiB、host available3GiB、两物理核0/2的guard。此次没有启动worker，不占GPU。4项专用synthetic tests通过：exact/1ULP差异且无official gate，shape/NaN拒绝，bound byte size/SHA/type拒绝，以及固定36层/heads/layout/options命令。未准备2×2网格。
+
+
+## 已授权单次执行与独立复核
+
+GPU 放行后仅运行上述封存 worker 一次，101.321514 秒完成，退出码 0；已立即通知 root 释放 GPU。结果为 `reproduced_exactly`：actual、封存 expected、历史 fullnative prediction-6 三份数据逐字节相等，max abs = 0，NRMSE = 0，不同 float 数 = 0。共同 SHA 为 `622738cfeb9f811e162ac0c8053ae91917d316a1513856044a8f72539f1f3fe7`。
+
+执行后另用独立 stdlib 检查三份 bytes 相等，重算六输入与 expected 的原始来源和副本 SHA，核对计划的全部 bound 文件、执行快照 5 项及预测器快照 212 项均一致。原生 result SHA 为 `70083c0574432a2ea7c45c85dac2951fa486b60d4bfd1a24eceddb1811e729f0`，plan SHA 为 `78700f98092646f3f86d9b19ec91d22537fabb9d1f00bbeafd0e2a4a3e08a0d3`。完整日志/输入/结果/资源身份另存 task-Q2-native-replay-result.json。执行前工具调用封存 package_model.verify_package 完整验包；执行后没有重复散列大权重。
+
+190 次资源采样：递归后代 RSS 和峰值 867565568 bytes（约 0.808 GiB），整张 GPU 已用峰值 4146 MiB，最小 host available 16612691968 bytes；无守护触发。亲和性限定物理核 0/2，runner 内部仍请求 4 线程，不将其误称 2 线程。RSS 是采样共享页可能重复计数的进程和，不是 PSS 或内核硬上限；GPU 数字为整设备占用，包含既有桌面使用。守护追踪包含另建 session 的原生进程，未仅测 Python wrapper。
+
+该结果关闭本例中“六输入/布局/选项或独立调用不能复现原失败 native 步骤”的疑问；在这一个保存输入上，跨二进制与新进程 cache/allocator 状态没有造成输出字节差异。它不证明所有步骤或其他输入等价，也不归因于某个算子。协议仍 `native_acceptance_eligible=false`，没有 official gate：原中文完整运行 22/25 及 PNG max 13 的失败没有被修复或改写。worker 的 passed 仅指重放命令退出成功。未运行 latent/text 2×2 网格，未修改 runtime、默认模式或门槛。
