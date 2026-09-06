@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "status": "independently_verified_fixed64_instrumentation_invariance",
+  "implementation_commit": "0fbd387",
+  "independent_review_commit": "c11ccb3",
+  "formal_speed_eligible": false,
+  "formal_memory_eligible": false,
+  "scope": "Actual trace-on ON/OFF preservation, partial host stages, observed ncnn Vulkan allocator lifetime",
+  "raw_root": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/execution-metrics-pipeline64-o1-v1",
+  "actual_evidence_sha256": "65a89753024d701a68f1ec272fe19f58252a221304cd6f630332d97d1bdff282",
+  "all_73_raw_records_reverified_before_archiving": true,
+  "archived_files": {
+    "result.json": {
+      "sha256": "1edfdc2a1834b0943110c958aa60c7b39b1f5c115648fe3cb9b11e0ae6769099",
+      "size_bytes": 412310
+    },
+    "actual-evidence.json": {
+      "sha256": "65a89753024d701a68f1ec272fe19f58252a221304cd6f630332d97d1bdff282",
+      "size_bytes": 10637
+    },
+    "plan.json": {
+      "sha256": "d20b6b2ec68a286dc551eec730604cbf98b5be5a9678bc2036cc5c1efe1aec39",
+      "size_bytes": 113027
+    },
+    "artifact-identity.json": {
+      "sha256": "e6095b078a651b680c4f1e329f5839f4f42f1d00437b0802480211c82773dd5e",
+      "size_bytes": 643
+    },
+    "launcher-authorization.json": {
+      "sha256": "3db6a354a1e4b2c99566a23930028e12510ca00559cbfff6ffd39c82217631a5",
+      "size_bytes": 355
+    },
+    "launcher.py": {
+      "sha256": "3cdd40d7fe7362c2907dd2095c416aad78170d4c14a9da78b6d229baff5a5abd",
+      "size_bytes": 690
+    },
+    "worker.py": {
+      "sha256": "aee653c47c0ec3cab3404d12e6ec7a70c28be627d02efec9cd2b9c1915e3a1b7",
+      "size_bytes": 1398
+    },
+    "supervisor.py": {
+      "sha256": "b1e660e6fc8391bad9ab394a1c47c49aa24c8be93b9d52305f5fba1ee49a822f",
+      "size_bytes": 3063
+    },
+    "compare.py": {
+      "sha256": "3f9555a27339748522074a4f5ee4138c6b7713f7e0d3be4d25780a70c29baefb",
+      "size_bytes": 4391
+    },
+    "invalid-preparations.json": {
+      "sha256": "6b243ba7d0a4669e107c59a01eb3e9cb3965e99743aaaa6ed3b788ffa1f46bd7",
+      "size_bytes": 677
+    },
+    "on/process.json": {
+      "sha256": "470fb1f515bb1deef91642ef156f3fd4e8ce4cd344e6db7ff7ddcad839c47e23",
+      "size_bytes": 1043
+    },
+    "off/process.json": {
+      "sha256": "95fcf81e43d24b6fae371ba59f6b5512f6daec3434c99e8793533ed684cf1a04",
+      "size_bytes": 1048
+    },
+    "on/driver.log": {
+      "sha256": "cbafbd3b007511ebe3271dba1487ba31d3f347f5e22f4ccca13110641496f085",
+      "size_bytes": 40031
+    },
+    "off/driver.log": {
+      "sha256": "76952518beb214c7d797273293dd10ae6d668ed12fad4936767cd5e91b6eda9b",
+      "size_bytes": 39947
+    },
+    "on/supervisor.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "off/supervisor.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    }
+  },
+  "limitations": [
+    "No new official quality oracle",
+    "No RSS or whole GPU allocation measurement",
+    "No per-stage GPU timing or complete transfer bytes",
+    "Combined load interval contains read/unpack/pipeline/upload/wait and inseparable head/VAE work",
+    "Historical preparation errors and earlier independent allocation-only experiment remain separate"
+  ]
+}

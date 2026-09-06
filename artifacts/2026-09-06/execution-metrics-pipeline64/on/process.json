@@ -1,0 +1,39 @@
+{
+  "side": "on",
+  "supervised_command": [
+    "systemd-run",
+    "--user",
+    "--scope",
+    "--quiet",
+    "--unit=ernie-o1-metrics64-on-481ad1b92f2d49f0bd9c655a48067bdb",
+    "--property=MemoryMax=10737418240",
+    "--property=MemorySwapMax=0",
+    "taskset",
+    "-c",
+    "4,6",
+    "/usr/bin/python3",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/execution-metrics-pipeline64-o1-v1/worker.py",
+    "on"
+  ],
+  "guard": {
+    "memory_max_bytes": 10737418240,
+    "memory_swap_max_bytes": 0,
+    "cpu_affinity": [
+      4,
+      6
+    ],
+    "minimum_host_available_bytes": 3221225472,
+    "timeout_seconds": 1800,
+    "sample_seconds": 0.05
+  },
+  "complete": true,
+  "cgroup_seen": true,
+  "peak_memory_current": 5852770304,
+  "minimum_host_available": 16308576256,
+  "failure": null,
+  "memory_max_observed": "10737418240",
+  "memory_swap_max_observed": "0",
+  "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+  "return_code": 0,
+  "wall_seconds": 388.5949039889965
+}

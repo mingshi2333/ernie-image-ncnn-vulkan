@@ -254,9 +254,12 @@ and accepts no prompt, PE, embeddings or text reduction. Positive strength uses
 the saved `--latent` as noise when supplied and executes a suffix of the original
 full schedule. A trace stores the transformed RGB, preprocessing metadata,
 encoder boundaries, saved noise and absolute schedule step filenames. The
-15-case image-to-image acceptance matrix remains pending. Current development
-evidence covers 512x384 strength zero and .5, plus 1024x1024 strength zero; these
-fixed inputs do not establish acceptance across the full matrix.
+15-case image-to-image acceptance matrix remains pending. Current passing
+development evidence covers 512x384 and 1024x1024 at strength zero and .5.
+The 1024 strength-one run completes all eight steps but passes only 24 of 29
+tensor gates: predictions 3, 4, 5, 7 and the decoded tensor fail their fixed
+maximum-error gates. Its passing PNG gate does not override those failures.
+These fixed inputs do not establish acceptance across the full matrix.
 
 The build workflow checks CPU and software Vulkan kernels and the corruption/relocation
 contracts without downloading weights. It has been prepared locally; a GitHub
@@ -264,6 +267,40 @@ Actions run has not been performed for this change. Real-weight quality acceptan
 locally with the pinned official components and saved tensors. See the dated
 artifact reports for the precise tested prompts, dimensions, and limitations.
 
+
+## Generation diagnostics
+
+A separate Linux Vulkan build can add
+`-DERNIE_ENABLE_ALLOCATION_METRICS=ON` to the build configuration above.
+Use a fresh build directory, for example `build-profile`, and leave
+`ERNIE_INSTALL_SDK=OFF`. Configuration requires Python to create an authenticated
+copy of the pinned ncnn source with allocator hooks; native inference still
+does not need Python. The diagnostic build is separate from the installed SDK.
+
+With a compatible fixed package, request a new JSON report path:
+
+```sh
+build-profile/ernie-image --model models/turbo512x384-s2048-portable \
+  --width 512 --height 384 --prompt 'A red apple on a wooden table.' \
+  --precision fp32 --output outputs/profile-new.png \
+  --metrics-json outputs/profile-new.json
+```
+
+`total.peak_bytes` records the simultaneous live Vulkan device-memory peak
+observed through ncnn allocators. It does not include every driver allocation
+or the complete GPU. `stage_times` provides partial host intervals, including a
+combined `read_prepare` interval: model reading, weight expansion, pipeline
+creation, internal uploads and waits cannot yet be separated there. GPU times,
+unobserved transfer byte counts and CPU RSS remain `null`. The JSON states its
+coverage and eligibility explicitly; adding `--trace-dir` changes the workload.
+Use an uninstrumented, trace-free paired protocol for formal speed comparisons.
+
+The fixed 64x64 instrumentation ON/OFF experiment has completed actual
+eight-step generation. All 27 trace files and the PNG are byte-identical, with
+all 25 FP32 tensors complete and finite; every observed allocator is released.
+See the [execution evidence](../artifacts/2026-09-06/execution-metrics-pipeline64/README.md)
+for exact identities, measured scope and limitations. It validates preservation
+of that fixture, without adding an official quality or performance result.
 
 ## Local Linux offline delivery checks
 
@@ -309,3 +346,9 @@ checker also has 16 small tests, including a real namespace isolation test.
 A passing local case never changes the release draft's redistribution or
 publication status; Windows, macOS, public download and the remaining delivery
 cases need their own evidence.
+
+The tested archive's executable also has an authenticated
+[final link-map inventory](../artifacts/2026-09-06/linked-binary-dependencies/README.md).
+Relinking the frozen objects to produce that map yields the exact same binary.
+Its selected archive members and final input-section contributions are recorded
+separately from dependency availability and redistribution decisions.

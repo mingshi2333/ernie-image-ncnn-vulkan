@@ -1,0 +1,14 @@
+{
+  "status": "preserved_invalid_preparation_history",
+  "revisions": [
+    {
+      "launcher_sha256": "9021309a41cc4fe8dcddba4293acae20ac287e7ddb1bd6c0946ac4edc29d8068",
+      "finding": "supervisor created samples.jsonl before worker, while worker rejected the same supervisor-owned path; every launch would fail before inference"
+    },
+    {
+      "launcher_sha256": "a0f69d8e6d464d56c1c29c86e86fe7c2343edb279923dc482bddc4a9e1a27b59",
+      "finding": "project source inventory omitted tokenizer and other build inputs; ncnn base and derived source identities were not bound; trace equality lacked sizes, finite checks, and PNG dimensions"
+    }
+  ],
+  "executed": false
+}

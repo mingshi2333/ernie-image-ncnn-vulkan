@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "status": "prepared_not_executed",
+  "authorization": {
+    "plan_sha256": "d20b6b2ec68a286dc551eec730604cbf98b5be5a9678bc2036cc5c1efe1aec39",
+    "worker_sha256": "aee653c47c0ec3cab3404d12e6ec7a70c28be627d02efec9cd2b9c1915e3a1b7",
+    "supervisor_sha256": "b1e660e6fc8391bad9ab394a1c47c49aa24c8be93b9d52305f5fba1ee49a822f",
+    "launcher_sha256": "3cdd40d7fe7362c2907dd2095c416aad78170d4c14a9da78b6d229baff5a5abd"
+  },
+  "compare_sha256": "3f9555a27339748522074a4f5ee4138c6b7713f7e0d3be4d25780a70c29baefb",
+  "source_file_count": 305,
+  "model_file_count": 233,
+  "trace_denominator": 27,
+  "f32_denominator": 25
+}
