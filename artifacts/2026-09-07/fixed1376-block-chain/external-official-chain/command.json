@@ -1,0 +1,31 @@
+{
+  "command": [
+    "systemd-run",
+    "--user",
+    "--scope",
+    "--quiet",
+    "--unit=ernie-f1-blocks1376-v1",
+    "--property=MemoryMax=16G",
+    "--property=MemorySwapMax=0",
+    "--property=CPUQuota=200%",
+    "taskset",
+    "-c",
+    "12,14",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-blocks1376-v1/run.py",
+    "--phase",
+    "official-chain",
+    "--plan-sha256",
+    "9a8b4065b07cf7e2f4bfbcdd1af23656341c633a53e3e60fd73fb324c791f1be",
+    "--reference-sha256",
+    "70486d239fa52396619579639813f608bf7caf16dea06b12da4da068b10e2627"
+  ],
+  "environment_overrides": {
+    "CUDA_VISIBLE_DEVICES": "",
+    "OMP_NUM_THREADS": "2",
+    "OPENBLAS_NUM_THREADS": "2",
+    "MKL_NUM_THREADS": "2",
+    "HF_HUB_OFFLINE": "1",
+    "TRANSFORMERS_OFFLINE": "1"
+  }
+}

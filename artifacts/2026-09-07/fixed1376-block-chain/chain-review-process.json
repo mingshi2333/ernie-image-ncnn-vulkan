@@ -1,0 +1,20 @@
+{
+  "command": [
+    "systemd-run",
+    "--user",
+    "--scope",
+    "--quiet",
+    "--unit=ernie-f1-chain-review-0907",
+    "--property=MemoryMax=4G",
+    "--property=MemorySwapMax=0",
+    "--property=CPUQuota=200%",
+    "taskset",
+    "-c",
+    "8,10",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-blocks1376-v1/compare_chain.py"
+  ],
+  "exit_code": 0,
+  "wall_seconds": 7.298193517999607,
+  "comparator_sha256": "7940ac1c36e5fdeb88cd5c77eb2e624b61179e04dfdc1757173ba8bad933ad36"
+}

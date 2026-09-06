@@ -1,0 +1,62 @@
+{
+  "status": "actual_reference_all_tensors_verified",
+  "files": [
+    {
+      "file": "in0.f32",
+      "elements": 17170432,
+      "sha256": "276d8d1bb1cd1dc9b2eee39547b77cd2e1894670389ff44d3a9e96a9d803b152"
+    },
+    {
+      "file": "in1.f32",
+      "elements": 4096,
+      "sha256": "7778477f1e1520323b4d9339fc477c5a32abbb878624aaf10b7dcd9c9b6776d6"
+    },
+    {
+      "file": "in2.f32",
+      "elements": 4096,
+      "sha256": "4335c1e23c05b4834c5912870dfa67985a50ceb83eb25cd10adda2e29457b657"
+    },
+    {
+      "file": "in3.f32",
+      "elements": 4096,
+      "sha256": "787d946d636db1eefd2cfb6a63229cfa3f15adac1279c219e490c208163e6129"
+    },
+    {
+      "file": "in4.f32",
+      "elements": 4096,
+      "sha256": "6968923cf359e70317142ae7e880840f318ce61dc33ddbf58548e17c78e38cc2"
+    },
+    {
+      "file": "in5.f32",
+      "elements": 4096,
+      "sha256": "9db2f8749310a7304bbaa3d9f1a1372916a00ba87e67c20fe0c829998afec462"
+    },
+    {
+      "file": "in6.f32",
+      "elements": 4096,
+      "sha256": "bbf7dd78bc61aaf59ec117bb7af6c9c15598a7b43b249bacc0a42f9c22351a00"
+    },
+    {
+      "file": "in7.f32",
+      "elements": 536576,
+      "sha256": "e2397fef495761c90ded511213e291afaef93a052556068044370fc286662e43"
+    },
+    {
+      "file": "in8.f32",
+      "elements": 536576,
+      "sha256": "a903c904effa26ac22b3962089dd144d4ec1a24cb62e83d8437f343be0befef5"
+    },
+    {
+      "file": "in9.f32",
+      "elements": 17572864,
+      "sha256": "16daf9bbcccc30f0844acdde78d03c2d1e48c72eb7a932642452e6fd73d6c1fb"
+    },
+    {
+      "file": "expected.f32",
+      "elements": 17170432,
+      "sha256": "5cba760471ca6f04de0d96f4c8aa6a4638b59b6eeda5ccc6be494ecc165d9a2b"
+    }
+  ],
+  "fixture_sha256": "70486d239fa52396619579639813f608bf7caf16dea06b12da4da068b10e2627",
+  "scope": "One official CPU block plus wrapper equivalence at fixed4192 tokens; not a complete image"
+}

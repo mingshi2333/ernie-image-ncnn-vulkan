@@ -1,0 +1,12 @@
+{
+  "status": "passed_complete_single_block_output",
+  "elements": 17170432,
+  "finite": true,
+  "nrmse": 2.722227869231004e-06,
+  "max_abs_error": 0.0224609375,
+  "max_abs_limit": 0.85442041015625,
+  "actual_sha256": "4f713d70aba29af21e7a31e40ee198682533498ce78f9cf658751fe23c6b0192",
+  "same_as_single_trace": true,
+  "fixture_sha256": "70486d239fa52396619579639813f608bf7caf16dea06b12da4da068b10e2627",
+  "scope": "single Vulkan FP32 block at4192 tokens, original gates"
+}

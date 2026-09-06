@@ -1,0 +1,24 @@
+{
+  "command": [
+    "systemd-run",
+    "--user",
+    "--scope",
+    "--quiet",
+    "--unit=ernie-f1-block-runner-build-0907",
+    "--property=MemoryMax=4G",
+    "--property=MemorySwapMax=0",
+    "--property=CPUQuota=200%",
+    "taskset",
+    "-c",
+    "8,10",
+    "cmake",
+    "--build",
+    "build-o2/component64-on",
+    "--target",
+    "ernie-block-sequence-runner",
+    "-j",
+    "2"
+  ],
+  "exit_code": 0,
+  "wall_seconds": 2.297876117998385
+}

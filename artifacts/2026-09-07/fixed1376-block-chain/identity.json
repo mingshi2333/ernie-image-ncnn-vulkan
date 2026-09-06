@@ -1,0 +1,23 @@
+{
+  "plan": {
+    "size_bytes": 796627,
+    "sha256": "9a8b4065b07cf7e2f4bfbcdd1af23656341c633a53e3e60fd73fb324c791f1be"
+  },
+  "controller": {
+    "size_bytes": 9514,
+    "sha256": "b363a9e0633c6f862b689cec71f8019ac5b681034768575f334082349988e823"
+  },
+  "runner": {
+    "size_bytes": 19289032,
+    "sha256": "f048861b66353faa44ff6c6817c69495ace6155802471282d70ddc7dfc19b538"
+  },
+  "common_files": 3179,
+  "phase_files": {
+    "official-single": 2,
+    "native-single": 1,
+    "official-chain": 72,
+    "native-chain": 36
+  },
+  "runtime_files": 2822,
+  "source_count": 311
+}

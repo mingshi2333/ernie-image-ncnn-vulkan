@@ -1,0 +1,59 @@
+{
+  "backend": "vulkan",
+  "precision": "fp32",
+  "policy": "stream",
+  "passed": true,
+  "command": [
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-blocks1376-v1/ernie-block-sequence-runner.snapshot",
+    "--fixture",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-blocks1376-v1/official-single/reference",
+    "--tokens",
+    "4192",
+    "--output",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-blocks1376-v1/native-single/validation/actual.f32",
+    "--backend",
+    "vulkan",
+    "--precision",
+    "fp32",
+    "--policy",
+    "stream",
+    "--trace-dir",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-blocks1376-v1/native-single/trace",
+    "--model",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-blocks1376-v1/candidates/block-00"
+  ],
+  "runner_sha256": "f048861b66353faa44ff6c6817c69495ace6155802471282d70ddc7dfc19b538",
+  "fixture_sha256": "70486d239fa52396619579639813f608bf7caf16dea06b12da4da068b10e2627",
+  "gpu_device_total_mib": {
+    "first": 1749,
+    "sampled_peak": 4073,
+    "samples": 41,
+    "scope": "Whole NVIDIA device 0 including other processes; 100 ms samples, not allocator/process peak"
+  },
+  "return_code": 0,
+  "runtime": {
+    "backend": "vulkan",
+    "precision": "fp32",
+    "policy": "stream",
+    "blocks": 1,
+    "peak_loaded_nets": 1,
+    "host_weights": false,
+    "shared_pipeline_cache": true,
+    "compute_submissions": 33,
+    "load_seconds": [
+      1.60305933
+    ],
+    "compute_seconds": [
+      1.16518575
+    ],
+    "dit_heads": false,
+    "input_head_seconds": 0,
+    "output_head_seconds": 0
+  },
+  "max_rss_kib": 949348,
+  "nrmse": 2.7222278692308636e-06,
+  "max_abs_error": 0.0224609375,
+  "max_abs_limit": 0.85442041015625,
+  "nrmse_limit": 2e-05,
+  "actual_sha256": "4f713d70aba29af21e7a31e40ee198682533498ce78f9cf658751fe23c6b0192"
+}

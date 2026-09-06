@@ -1,0 +1,30 @@
+{
+  "status": "actual_completed_pending_full_result_review",
+  "phase": "official-single",
+  "plan_sha256": "9a8b4065b07cf7e2f4bfbcdd1af23656341c633a53e3e60fd73fb324c791f1be",
+  "controls": {
+    "memory.max": "17179869184",
+    "memory.swap.max": "0",
+    "cpu.max": "200000 100000"
+  },
+  "peak_cgroup_memory_current": 5878353920,
+  "host_min_observed": 16048861184,
+  "error": null,
+  "scope_cpu_budget": 2,
+  "native_ncnn_threads": 4,
+  "official_torch_threads": 4,
+  "reference_sha256": null,
+  "sampled_whole_gpu_mib": null,
+  "command": [
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-blocks1376-v1/run.py",
+    "--phase",
+    "official-single",
+    "--plan-sha256",
+    "9a8b4065b07cf7e2f4bfbcdd1af23656341c633a53e3e60fd73fb324c791f1be",
+    "--execute"
+  ],
+  "exit_code": 0,
+  "wall_seconds": 30.970322289998876,
+  "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n"
+}

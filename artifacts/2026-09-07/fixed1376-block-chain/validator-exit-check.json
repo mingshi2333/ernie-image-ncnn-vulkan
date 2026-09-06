@@ -1,0 +1,18 @@
+{
+  "file": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tools/validate_dit.py",
+  "source_sha256": "adf01247218f28c6277c1b949df30382405720346d7c784592df26edb9c2f31c",
+  "before_failure_return_was_ignored": true,
+  "checks": [
+    {
+      "validation_result": 0,
+      "process_exit_status": 0,
+      "passed": true
+    },
+    {
+      "validation_result": 1,
+      "process_exit_status": 1,
+      "passed": true
+    }
+  ],
+  "scope": "Execute the actual script entrypoint with stubbed validation return; no model or numerical result inferred"
+}

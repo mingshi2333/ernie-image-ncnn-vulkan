@@ -2,7 +2,9 @@
 
 首版目标：官方 ERNIE-Image-Turbo 权重 → 可追溯转换 → C++ / ncnn / Vulkan → 本地 PNG。Linux、batch=1、Turbo 8 steps、CFG=1；基础路径 PE 关闭，另提供可选 CPU PE。
 
-**当前后续执行入口：** [2026-09-06 超过参考项目的计划](superpowers/plans/2026-09-06-surpass-reference.md)。顺序为对方实测基线 → 数值正确性 → 性能与内存 → 原生尺寸/图生图 → 跨平台交付 → 正式验收；目标与逐项任务均已写出，尚未实施。下面保留已有实现与证据的完成记录，新的工作顺序以该计划为准。
+**当前执行入口：** [2026-09-06 超过参考项目的计划](superpowers/plans/2026-09-06-surpass-reference.md)。原生功能、数值定位、计时、Linux 安装与离线交付均已推进，整体正式门槛仍未通过。下面保留已有实现与证据；持续更新的任务记录见[执行进度](../.superpowers/sdd/2026-09-06-surpass-reference/progress.md)。
+
+**2026-09-07 增量：** [映射加载权重](../artifacts/2026-09-07/mapped-model-loading/README.md) 已作为默认关闭的选项接入，固定 64×64 完整轨迹及 PNG 逐字节一致，单次诊断耗时下降 26.1%，伴随 cgroup 内存回收压力；尚未构成配对性能结论。[1376×768 CPU 解码器与两个 head](../artifacts/2026-09-07/fixed1376-cpu-components/README.md) 已通过组件对照，[4192-token 的 36-block 连续轨迹](../artifacts/2026-09-07/fixed1376-block-chain/README.md)也全部通过；新尺寸 8 步完整图像仍待验收。[同输入 up 投影诊断](../artifacts/2026-09-07/matched-up-projection/README.md) 得到了实际数值结果，但未关闭中文图像失败。
 
 **2026-09-06：已扩展至 2048-token 文本、UTF-8 prompt 文件、512×384 包、BF16 实验路径和真实 CPU PE，并拆出独立 C++ 流水线接口。** PE 完整 315-token greedy/EOS/logits 对照通过；连接 PE 的完整图像为 24/25 张量与 PNG 通过，解码最大误差仍超限。1080-token 完整图像也有质量门槛失败。原生生成、独立包、完整性检查、安装和 1024 对照，以及 FP32 注意力补偿/分块均保留。苹果历史对照通过全部门限；不能将已完成的功能等同于广泛数值/质量验收。最新证据见 [功能与结构交付报告](../artifacts/2026-09-06/features-and-structure/README.md)，此前的 [注意力改进报告](../artifacts/2026-09-06/attention-parity/README.md) 与 [Turbo 交付报告](../artifacts/2026-09-05/turbo-delivery/README.md) 保留。
 
@@ -15,7 +17,8 @@
 - [x] 64×64 分阶段执行的官方模块参考，保存 prompt、token IDs、embeddings、初始 latent、每步预测、最终 latent 和图片。
 - [x] 完整 1024 官方去噪参考；单块 CUDA FP32 分阶段执行，禁用 TF32，保存全轨迹。
 - [ ] 独立多提示词、多种子感知质量数据集与严格数值验收；不能由少量样本替代。
-- [ ] 历史项目相同输入的实际构建和复现；目前仅源码调查，不宣称已有速度优势。
+- [x] 固定参考项目构建及完整权重关系核对，见[权重身份记录](../artifacts/2026-09-06/reference-weight-identity/README.md)。
+- [ ] 参考项目相同输入的完整图像与正式配对实测；不宣称已有速度优势。
 
 ## 1. 真实权重与转换契约
 
@@ -62,6 +65,8 @@
 - [x] RoPE、mask、原始文本条件预计算并驻留；每步时间特征明确生成。
 - [x] 1024 单次运行的文本、逐步 DiT、VAE/PNG、总时延、峰值 RSS、整卡采样和系统 swap 前后记录。
 - [ ] 分离并减少重复的权重读取、CPU 准备与设备上传，比较受控预取和权重常驻策略。
+- [x] ncnn 原生权重映射加载的可选实现，固定完整生成逐字节回归；默认关闭，性能与内存范围见上述实际记录。
+- [x] 实际 ncnn Vulkan allocator 生命周期及组件计时采集；固定生成确认输出不变和 allocator 完整释放。组件区间不可与顶层计时相加。
 - [ ] 进一步分离文本投影、时间条件等不随相应层变化的运算，数值对照后再计算收益。
 - [x] 直接卷积降低 CPU VAE 工作区，完整 1024 苹果运行峰值 RSS 由 23.03 降至 5.82 GiB，独立 VAE 对照通过。
 - [x] FP32 attention 两处 Kahan 补偿与 128 查询行分块；合成 FP64 门限、受限工作区、真实 4160-token 完整矩阵逐位一致和长英文八步运行验证。中文完整 25 项轨迹与 PNG 也与补偿未分块版逐位一致，原有数值失败保留。
