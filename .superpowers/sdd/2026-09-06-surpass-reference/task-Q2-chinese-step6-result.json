@@ -1,0 +1,45 @@
+{
+  "scope": "Chinese official same-input step6 teacher forcing; not free-running acceptance",
+  "passed": true,
+  "native_acceptance_eligible": false,
+  "runner_sha256": "a4a80b564042d4020096edf947d30bd28a5fdf354005d1c17685fddddcdbe1fc",
+  "reference_fixture_sha256": "81a853d9db2c6aba80a3fa72abac618dd9196f8598b5055cc2a41586480580b7",
+  "package_manifest_sha256": "72bb195a2d0b3ef2a25f873666f51f4bbec4b391744518597be87206a551efc1",
+  "step": 6,
+  "timestep": 571.4285888671875,
+  "gates": {
+    "atol": 0.0002,
+    "rtol": 0.01,
+    "nrmse": 0.003
+  },
+  "metrics": {
+    "nrmse": 1.2358507024489089e-05,
+    "max_abs_error": 0.0004429817199707031,
+    "max_abs_limit": 0.054409232330322264,
+    "actual_sha256": "1a1c133a28a64362c5efb83816e5d0a390d205fc517ea86a4f4e6a7adb8d57a9",
+    "max_rss_kib": 1220268
+  },
+  "resources": {
+    "cpu_affinity": [
+      0,
+      2
+    ],
+    "internal_requested_threads": 4,
+    "peak_rss_sum_bytes": 1674084352,
+    "gpu_whole_device_sampled_peak_mib": 4068,
+    "elapsed_seconds": 101.09264781601087,
+    "stop_reason": null
+  },
+  "artifact_sha256": {
+    "outputs/q2-chinese-step6-current-teacher-v1/fixture/fixture.json": "783a7686b1fc5a45f3579fcad82089de18734586115accd8e20469df70bbb3ec",
+    "outputs/q2-chinese-step6-current-teacher-v1/native/result.json": "66f6009ecbdda647174ca5c1579a358e93906a28c8514859c7ee5806ba43b337",
+    "outputs/q2-chinese-step6-current-teacher-v1/native/actual.f32": "1a1c133a28a64362c5efb83816e5d0a390d205fc517ea86a4f4e6a7adb8d57a9",
+    "outputs/q2-chinese-step6-current-teacher-v1/native/resources.log": "1c203fc8b1654ee5a8c4e2a314cb46b9af28cd70d911cfb23f051089c93ef39e",
+    "outputs/q2-chinese-step6-current-teacher-v1/native/runner.log": "c5b064c2cc157b73000cd20bfffedecc81fcf06e76bbe07e9992184105c4c9b8",
+    "outputs/q2-chinese-step6-current-teacher-v1-execution/snapshot.json": "d4038d6bb95443fe9a81330b76bc859fb13defdd32bf16b87e367fb35cf7780f",
+    "outputs/q2-chinese-step6-current-teacher-v1-execution/worker.py": "90314d7148dc8e46378632a19a0718c639aaa092dcafcad4dfe30c8ebdbe47b1",
+    "outputs/q2-chinese-step6-current-teacher-v1-execution/worker-result.json": "22607d20b7a9573a903226435470f2f813da75f41e68f96a3d28128234057519",
+    "outputs/q2-chinese-step6-current-teacher-v1-execution/samples.jsonl": "780a37f831b237c6dd836478aef96b6e6bf9972a3efcd484b7c3fcaf197f9df6",
+    "outputs/q2-chinese-step6-current-teacher-v1-execution/worker.log": "1e42ba78391534ca257f5fbe3f1ff4f661840451239e682b57f152a6bd7fe10a"
+  }
+}
