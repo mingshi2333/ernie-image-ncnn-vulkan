@@ -10,8 +10,8 @@
 
 ## Global Constraints
 
-- 计划状态为 **待实施**。本文件中的收益、范围和通过数均为目标，不能引用为结果。
-- 工作目录为 `/home/mingshi/Project/AI/ernie-image-ncnn-vulkan`；不修改相邻 ncnn、pnnx 或其他项目。
+- 计划状态为 **实施中**。本文件中的收益、范围和通过数仍为目标，不能引用为结果；执行进度与实验证据另行记录。
+- 项目为 `/home/mingshi/Project/AI/ernie-image-ncnn-vulkan`；当前隔离实现目录为 `.worktrees/surpass-reference`，分支 `codex/surpass-reference`。不修改相邻 ncnn、pnnx 或其他项目。
 - 当前基线为本地 `44a556c`（核心代码 `9012015`）；对照项目为 `futz12/ernie-image-ncnn-vulkan@8dcd6e4411137d8abe92c9d78581c4c96d5182c6`。2026-09-06 重新查询 HEAD，无变化。
 - 运行依赖继续固定 ncnn `6a1bf000f363714839a36793addc8c879d3d899e`；对方保持原 ncnn `f6f734f44d66f469fefee9ee401fd1cb5e3d573e`。升级另立实验，不在比较中静默更换。
 - 模型基准为官方 Turbo `bc68c81e2a1730a394d5fc9fae70713dee940140`；对方转换资产固定 `140a052f7919f279de7f697fa54f33bd1c0cac2b`，需补全来源与权重等价检查。
@@ -21,7 +21,7 @@
 - GPU 重任务串行执行；先保存二进制/输入/配置散列，再开始长运行。正常质量失败、崩溃和资源不足分别记录，失败样本不从分母移除。
 - 无损 BF16 文件存储与 BF16 计算精度分开记录；完整权重重建散列和图契约检查继续执行。
 - DiT 跨步 K/V 复用与有接缝风险的 VAE tiling 不进入默认精确路径。PE 缓存继续不透明、独立 allocator、consume-and-replace。
-- 本轮只生成并提交计划。后续本地实现按计划推进；公开推送、模型上传和发布在具体交付物准备好后，按用户届时授权执行。
+- 用户于 2026-09-06 明确要求全力并行实施；独立文件的开发/测试并行推进，大型模型任务仍串行调度。公开推送、模型上传和发布在具体交付物准备好后，按用户届时授权执行。
 
 ---
 

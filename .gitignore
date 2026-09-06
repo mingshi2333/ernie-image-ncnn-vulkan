@@ -1,10 +1,10 @@
 /build*/
-/models/
-/reference/
-/outputs/
+/models
+/reference
+/outputs
 __pycache__/
 *.pyc
-/.venv/
+/.venv
 /.cache/
 /tokenizer/target/
 /.worktrees/

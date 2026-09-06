@@ -1,0 +1,252 @@
+{
+  "scope": "Four independent CPU FP32 decodes of two saved unpacked latents; diagnostic only",
+  "status": "diagnostic_completed",
+  "historical_pipeline_passed": false,
+  "historical_result_sha256": "d52aeb1c310358f332ca70de1a07ab00d6781f04be70bdb97a0afdef8e3a47be",
+  "reference_manifest_sha256": "8d7638b1808b4b435565d4045ffc39e3a06fb1de35f8a52f23de75aec2feae11",
+  "package_manifest_sha256": "ef98859ac741f6923680fb02de39e663fa3fa01943eff9d2d85c6ddaf40c9e59",
+  "native_runner_sha256": "7d1c220d9817c08a12b6b45894d7c333e24d081bbbb5b6cd4a1e3823771bd785",
+  "sources": {
+    "sources.lock.json": "f255bef56f6281e2bfea0de6461329b7f23ca5e4af88c51788a65f85d8f2607d",
+    "src/vae.cpp": "65681bbf4bd401274e5780b5adc5de113de62a03bf98b5bbc83157865ab6c596",
+    "src/ernie_groupnorm.cpp": "94d01911eff19ffdeae297bb7c9a524cdef3eaa29922c7c526a48fba4af8ca64",
+    "probes/head_runner.cpp": "1542007f8cc8f1136a97dc282165102b09fc8a92821e8ded648116f14bc698bd",
+    "tools/export_vae.py": "4a547dedbe7ede7bd32ea1709d55c9da50e10c9baf09d74180480b2c67e68913",
+    "tools/diagnose_vae_cross.py": "513a6ca8b41fb1458ca67f1f0927fd539d2dbd5d10c57485b1842ea12a040eb1"
+  },
+  "native_convolution": "direct",
+  "shape": [
+    1,
+    3,
+    384,
+    512
+  ],
+  "pipeline_gates": {
+    "nrmse": 0.003,
+    "global_rtol": 0.01,
+    "atol": 0.0002
+  },
+  "standalone_vae_gates": {
+    "nrmse": 2e-05,
+    "global_rtol": 0.0002,
+    "atol": 0.0002
+  },
+  "runs": {
+    "oo": {
+      "command": [
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tools/diagnose_vae_cross.py",
+        "--official-worker",
+        "--input",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/vae-cross-pe-v1/oo-input/in0.f32",
+        "--output",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/vae-cross-pe-v1/oo/decoded.f32",
+        "--height",
+        "48",
+        "--width",
+        "64"
+      ],
+      "status": "completed",
+      "return_code": 0,
+      "elapsed_seconds": 9.482205099004204,
+      "input_sha256": "e846dc43338227fc018dccf5ca0f36176a142f2bf509503a215a48dd99811765",
+      "output_sha256": "2e3df056fe4e182ca12a869245533ecbc310884c28c9a26ea67e462e45276db9"
+    },
+    "no": {
+      "command": [
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/vae-cross-pe-v1/snapshots/ernie-head-runner",
+        "--model",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo512x384-s2048-portable/vae",
+        "--fixture",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/vae-cross-pe-v1/no-input",
+        "--output",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/vae-cross-pe-v1/no/actual",
+        "--component",
+        "vae",
+        "--width",
+        "64",
+        "--height",
+        "48",
+        "--text-tokens",
+        "0",
+        "--backend",
+        "cpu",
+        "--precision",
+        "fp32",
+        "--vae-convolution",
+        "direct"
+      ],
+      "status": "completed",
+      "return_code": 0,
+      "elapsed_seconds": 8.12927130999742,
+      "input_sha256": "e846dc43338227fc018dccf5ca0f36176a142f2bf509503a215a48dd99811765",
+      "output_sha256": "f3ada00e5df90d39d0a430101357d998a8d1a52e3b8a773847d59afeafec6e31"
+    },
+    "on": {
+      "command": [
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tools/diagnose_vae_cross.py",
+        "--official-worker",
+        "--input",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/vae-cross-pe-v1/on-input/in0.f32",
+        "--output",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/vae-cross-pe-v1/on/decoded.f32",
+        "--height",
+        "48",
+        "--width",
+        "64"
+      ],
+      "status": "completed",
+      "return_code": 0,
+      "elapsed_seconds": 7.377445794001687,
+      "input_sha256": "24b02522344f9ab96b315ebb47f937ba92fe6d2d448bb6aa88f621e9fe7e53ce",
+      "output_sha256": "54098e36ddc507b6ea33bc0d3c1c969436cb99d5f7f81944b42a6f200d8c5f70"
+    },
+    "nn": {
+      "command": [
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/vae-cross-pe-v1/snapshots/ernie-head-runner",
+        "--model",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo512x384-s2048-portable/vae",
+        "--fixture",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/vae-cross-pe-v1/nn-input",
+        "--output",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/vae-cross-pe-v1/nn/actual",
+        "--component",
+        "vae",
+        "--width",
+        "64",
+        "--height",
+        "48",
+        "--text-tokens",
+        "0",
+        "--backend",
+        "cpu",
+        "--precision",
+        "fp32",
+        "--vae-convolution",
+        "direct"
+      ],
+      "status": "completed",
+      "return_code": 0,
+      "elapsed_seconds": 8.078584923001472,
+      "input_sha256": "24b02522344f9ab96b315ebb47f937ba92fe6d2d448bb6aa88f621e9fe7e53ce",
+      "output_sha256": "70f3ecd38771ea5907acaa938914e1105c35cd07ec7820bf4db0dc81b14dc08e"
+    }
+  },
+  "cross_terms": {
+    "decoder_on_official_max": 7.152557373046875e-06,
+    "decoder_on_native_max": 2.9206275939941406e-06,
+    "input_through_official_max": 0.011106044054031372,
+    "input_through_native_max": 0.011105209589004517,
+    "connected_max": 0.011105477809906006,
+    "interaction_max": 5.9604644775390625e-06
+  },
+  "comparisons": {
+    "decoder_on_official": {
+      "max_abs_error": 7.152557373046875e-06,
+      "nrmse": 2.5668685555158667e-07,
+      "max_abs_limit": 0.00041589753627777103,
+      "gates": {
+        "nrmse": 2e-05,
+        "global_rtol": 0.0002,
+        "atol": 0.0002
+      },
+      "max_index": [
+        0,
+        1,
+        184,
+        290
+      ],
+      "passed": true
+    },
+    "decoder_on_native": {
+      "max_abs_error": 2.9206275939941406e-06,
+      "nrmse": 2.5291233967463773e-07,
+      "max_abs_limit": 0.0004158883094787598,
+      "gates": {
+        "nrmse": 2e-05,
+        "global_rtol": 0.0002,
+        "atol": 0.0002
+      },
+      "max_index": [
+        0,
+        1,
+        181,
+        267
+      ],
+      "passed": true
+    },
+    "input_through_official": {
+      "max_abs_error": 0.011106044054031372,
+      "nrmse": 0.00010028426399443022,
+      "max_abs_limit": 0.010994876813888551,
+      "gates": {
+        "nrmse": 0.003,
+        "global_rtol": 0.01,
+        "atol": 0.0002
+      },
+      "max_index": [
+        0,
+        1,
+        88,
+        302
+      ],
+      "passed": false
+    },
+    "connected": {
+      "max_abs_error": 0.011105477809906006,
+      "nrmse": 0.00010027834945528683,
+      "max_abs_limit": 0.010994876813888551,
+      "gates": {
+        "nrmse": 0.003,
+        "global_rtol": 0.01,
+        "atol": 0.0002
+      },
+      "max_index": [
+        0,
+        1,
+        88,
+        302
+      ],
+      "passed": false
+    }
+  },
+  "historical_reproduction": {
+    "official_bitwise_equal": true,
+    "native_bitwise_equal": true,
+    "official": {
+      "max_abs_error": 0.0,
+      "nrmse": 0.0,
+      "max_abs_limit": 0.00041589753627777103,
+      "gates": {
+        "nrmse": 2e-05,
+        "global_rtol": 0.0002,
+        "atol": 0.0002
+      },
+      "max_index": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    "native": {
+      "max_abs_error": 0.0,
+      "nrmse": 0.0,
+      "max_abs_limit": 0.00041588821411132817,
+      "gates": {
+        "nrmse": 2e-05,
+        "global_rtol": 0.0002,
+        "atol": 0.0002
+      },
+      "max_index": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    }
+  }
+}
