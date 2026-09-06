@@ -10,7 +10,7 @@
 
 - Cargo.lock88项中84项在当前非dev target闭包可达，包括项目本身、build/proc宏。4项不在闭包：r-efi5.3.0、wasip2 1.0.4+wasi-0.2.12、wit-bindgen0.57.1、zerocopy-derive0.8.56。这4项未缓存不再是本Linux构建的许可缺失依据。
 - 83个registry包全部由完整.crate SHA匹配Cargo.lock认证，采得164份真实notice文本，含onig_sys/oniguruma/COPYING等嵌套原生组件许可。来源使用精确版本static.crates.io URL及archive/member/hash；本次已有本地缓存，无需网络获取。项目许可来自原delivery draft，不靠registry推断。
-- 静态archive按完整artifact ID对应57个registry crate的实际dep-info；不是只看crate名字猜版本。项目bridge相对路径dep-info暂不归入该57，明确保留unassigned；不把它误称标准库。19个实际installed Rust rlib与libonig.a逐成员重算SHA吻合：Oniguruma48个、compiler_builtins447个、其余18个rlib各1个真实对象。同名对象不同bytes会拒绝。
+- 静态archive按完整artifact ID对应57个registry crate的实际dep-info；不是只看crate名字猜版本。项目bridge相对路径dep-info暂不归入该57，明确保留unassigned；不把它误称标准库。19个实际installed Rust rlib加1个libonig.a，共20条archive association逐成员重算SHA吻合：Oniguruma48个、compiler_builtins447个、其余18个rlib各1个真实对象。同名对象不同bytes会拒绝。
 - 5份真实installed toolchain文件补入：Rust COPYRIGHT、Apache/MIT文本、rust-std-static cargo-vendor和COPYRIGHT-library.html，各保存SHA与RPM NEVRA/SOURCERPM。它们没有被当作完整Rust vendor条款审核的替代品。COPYRIGHT-library的外部依赖部分不提供足够完整的细项文本，保留阻断。
 
 实际glibc loader --list模式不进入程序main，显式清除LD_*环境，精确解析8路径，ELF64/LSB/machine62全部吻合：ld-linux、libc、libm、libpng16、libz、libstdc++、libgcc_s，以及实际LLVM18路径的libomp。每个resolved文件SHA/架构/RPM所有者保存。i686候选全部排除；不私自捆绑任何系统库。Vulkan ICD等后续dlopen不在此startup闭包，仍是运行前提。
