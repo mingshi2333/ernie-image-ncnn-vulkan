@@ -159,13 +159,13 @@ ncnn::Mat run_dit(const ModelPackage &package, const ncnn::Mat &initial, const s
         latent = ernie::denoise(dit, initial, constants, steps, cpu, stats,
                                 [&](size_t i, const ncnn::Mat &prediction, const ncnn::Mat &sample)
                                 {
+                                    metrics.denoise_step(stats.at(i-size_t(start_step)));
                                     if (!trace.empty())
                                     {
                                         write_tensor(trace / ("prediction-" + std::to_string(i) + ".f32"),
                                                      prediction);
                                         write_tensor(trace / ("step-" + std::to_string(i) + ".f32"), sample);
                                     }
-                                    metrics.denoise_step(stats.at(i-size_t(start_step)));
                                     progress(i);
                                 }, start_step);
     else
@@ -211,6 +211,7 @@ ncnn::Mat run_dit(const ModelPackage &package, const ncnn::Mat &initial, const s
             ernie::denoise(dit, gpu_initial, gpu_constants, steps, device, option, stats,
                            [&](size_t i, const ncnn::VkMat &prediction, const ncnn::VkMat &sample)
                            {
+                               metrics.denoise_step(stats.at(i-size_t(start_step)));
                                if (!trace.empty())
                                {
                                    ncnn::Mat p, x;
@@ -221,7 +222,6 @@ ncnn::Mat run_dit(const ModelPackage &package, const ncnn::Mat &initial, const s
                                    write_tensor(trace / ("prediction-" + std::to_string(i) + ".f32"), p);
                                    write_tensor(trace / ("step-" + std::to_string(i) + ".f32"), x);
                                }
-                               metrics.denoise_step(stats.at(i-size_t(start_step)));
                                progress(i);
                            }, start_step);
         ncnn::VkCompute download(device);

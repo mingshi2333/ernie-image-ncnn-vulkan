@@ -37,3 +37,18 @@ This slice establishes the interfaces and bounded accounting behavior. Actual in
 Independent review found that completed denoise statistics were initially copied only after the entire denoise and final download returned. The mapping now runs in each post-step observer, immediately after `denoise` appends the completed `DenoiseStepStats`. If a later block, step, or final download fails, every earlier completed step remains in the report. The active failed step remains absent because its child intervals are not yet complete; the JSON continues to declare partial known interval coverage. A synthetic generation failure now records a completed compute interval before throwing and proves that both it and the prior verify interval survive in the failure report.
 
 Both fresh ON/OFF CLIs were incrementally rebuilt after the fix, and the 13-case fake CLI contract passed. No model or GPU ran.
+
+### Observer ordering closure
+
+Independent review identified that completed-step metrics were still recorded after optional trace download/write. The CPU and Vulkan observers now record the completed `DenoiseStepStats` as their first action. Therefore a trace failure preserves the just-completed step; the currently executing step remains absent if denoise itself fails. The end-of-denoise aggregation remains removed, so successful steps are not counted twice.
+
+CPU-only verification after this ordering change:
+
+- `cmake --build build-dev --target ernie-execution-metrics-contract -j2`: pass
+- `ctest --test-dir build-dev -R '^execution_metrics_cpu$' --output-on-failure`: 1/1 pass
+- `cmake --build build-o1/cli-stage-contract --target allocation-cli-on allocation-cli-off -j2`: pass
+- `ctest --test-dir build-o1/cli-stage-contract -R '^allocation_cli_cpu$' --output-on-failure`: 1/1 pass, 13 Python cases
+- `cmake --build build-o1/stage-on-v2 --target ernie-image -j2`: pass
+- `cmake --build build-o1/stage-off-v2 --target ernie-image -j2`: pass
+
+No model or GPU execution was performed. The rebuilt binaries are not yet frozen as execution evidence; actual ON/OFF preparation remains gated on independent review closure and root authorization.
