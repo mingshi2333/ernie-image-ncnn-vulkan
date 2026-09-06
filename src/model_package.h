@@ -1,12 +1,10 @@
 // SPDX-License-Identifier: MIT
 #pragma once
+#include "component_files.h"
 #include "model_config.h"
 #include <filesystem>
 #include <string>
 namespace ernie {
-// ncnn::Net::load_param_mem(param_text.c_str()), then load_model(weight_path.c_str()).
-// The caller retains this object until synchronous graph/model loading completes.
-struct ComponentFiles { std::string param_text; std::string weight_path; };
 class ModelPackage {
 public:
     // WH=0 selects a sole instance. Multi-instance schema3 requires explicit WH.

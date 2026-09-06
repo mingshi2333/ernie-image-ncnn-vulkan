@@ -12,8 +12,8 @@ namespace ernie
 ncnn::Mat timestep_features(float timestep);
 struct DenoiseModel
 {
-    std::string input_head, output_head;
-    std::vector<std::string> blocks;
+    ComponentFiles input_head, output_head;
+    std::vector<ComponentFiles> blocks;
 };
 struct DenoiseStepStats
 {

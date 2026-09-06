@@ -11,6 +11,10 @@ struct DitStats
 };
 // One prediction, with caller-supplied saved time features, RoPE and mask.
 // This API does not tokenize, encode text, sample noise, run Euler, or decode VAE.
+ncnn::Mat run_dit(const ComponentFiles& input_head, const std::vector<ComponentFiles>& blocks,
+    const ComponentFiles& output_head, const std::vector<ncnn::Mat>& inputs,
+    const ncnn::Option& option, DitStats& stats, const CpuStageObserver& observer = {});
+
 ncnn::Mat run_dit(const std::string& input_head, const std::vector<std::string>& blocks,
     const std::string& output_head, const std::vector<ncnn::Mat>& inputs,
     const ncnn::Option& option, DitStats& stats, const CpuStageObserver& observer = {});
@@ -20,6 +24,11 @@ ncnn::Mat run_dit(const std::string& input_head, const std::vector<std::string>&
 // storage belongs to caller-owned allocators; no intermediate download.
 // A session-owned Option::pipeline_cache avoids rebuilding the same Vulkan
 // pipelines for each streamed Net. It must outlive every inference command.
+ncnn::VkMat run_dit(const ComponentFiles& input_head, const std::vector<ComponentFiles>& blocks,
+    const ComponentFiles& output_head, const std::vector<ncnn::VkMat>& inputs,
+    const ncnn::VulkanDevice* device, const ncnn::Option& option, DitStats& stats,
+    const VulkanStageObserver& observer = {});
+
 ncnn::VkMat run_dit(const std::string& input_head, const std::vector<std::string>& blocks,
     const std::string& output_head, const std::vector<ncnn::VkMat>& inputs,
     const ncnn::VulkanDevice* device, const ncnn::Option& option, DitStats& stats,

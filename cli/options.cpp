@@ -71,11 +71,11 @@ const char *usage()
            "Text-to-image: ernie-image --model model --prompt cat --output cat.png\n"
            "PE: ernie-image --model model --prompt cat --pe-model pe --pe-greedy --output cat.jpg\n"
            "Img2img options --input/--strength/--resize/--background are reserved until F2 is available.\n"
-           "Resolution defaults to the model bucket; explicit dimensions must match it.\n"
+           "Resolution defaults to a sole model instance; shared packages require a supported width/height.\n"
            "Prompt files: UTF-8, optional BOM, at most 1 MiB; whitespace is preserved.\n"
            "PE is optional CPU FP32, with up to 2048 output tokens by default.\n"
            "PE sampling defaults: temperature 0.6, top-p 0.95, seed 42; --pe-greedy disables sampling.\n"
-           "Experimental static model bucket; FP32 text encoder, residuals, Euler master latent and\n"
+           "Reviewed model instances; FP32 text encoder, residuals, Euler master latent and\n"
            "FP32 VAE (CPU default). CFG=1. BF16 quality is experimental.\n";
 }
 Options parse_options(int argc, char **argv)

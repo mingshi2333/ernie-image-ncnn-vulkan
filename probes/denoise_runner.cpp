@@ -41,7 +41,8 @@ static double sum(const std::vector<double> &xs) { return std::accumulate(xs.beg
 
 int main(int argc, char **argv)
 {
-    ernie::DenoiseModel model;
+    std::vector<std::string> block_directories;
+    std::string input_directory, output_directory;
     fs::path fixture, output;
     std::string backend = "cpu", precision = "fp32";
     int w = 0, h = 0, text = 0, steps = 8, status = 0;
@@ -61,11 +62,11 @@ int main(int argc, char **argv)
                 throw std::invalid_argument("Missing value for " + flag);
             const std::string value = argv[++i];
             if (flag == "--model")
-                model.blocks.push_back(value);
+                block_directories.push_back(value);
             else if (flag == "--input-head")
-                model.input_head = value;
+                input_directory = value;
             else if (flag == "--output-head")
-                model.output_head = value;
+                output_directory = value;
             else if (flag == "--fixture")
                 fixture = value;
             else if (flag == "--output")
@@ -110,13 +111,17 @@ int main(int argc, char **argv)
             return 0;
         }
         if (fixture.empty() || w < 1 || w > 256 || h < 1 || h > 256 || text < 1 || text > 2048 ||
-            w * h + text > 6144 || model.blocks.empty() || model.blocks.size() > 36 ||
-            model.input_head.empty() || model.output_head.empty() || steps < 1 || steps > 1000 ||
+            w * h + text > 6144 || block_directories.empty() || block_directories.size() > 36 ||
+            input_directory.empty() || output_directory.empty() || steps < 1 || steps > 1000 ||
             (backend != "cpu" && backend != "vulkan") ||
             (precision != "fp32" && precision != "fp16" && precision != "bf16") ||
             (backend == "cpu" && precision != "fp32"))
             throw std::invalid_argument(
                 "Require heads, blocks, fixture, dimensions and cpu/fp32 or vulkan precision");
+        ernie::DenoiseModel model{
+            ernie::component_files(fs::path(input_directory), "head"),
+            ernie::component_files(fs::path(output_directory), "head"),
+            ernie::component_files(block_directories, "block")};
         const int tokens = w * h + text;
         const auto initial = read(fixture / "in0.f32", w, h, 128);
         const std::vector<ncnn::Mat> constants{
@@ -215,7 +220,7 @@ int main(int argc, char **argv)
 #endif
         }
         write(output / "final.f32", result);
-        std::cout << "{\"complete\":true,\"steps\":" << stats.size() << ",\"blocks\":" << model.blocks.size()
+        std::cout << "{\"complete\":true,\"steps\":" << stats.size() << ",\"blocks\":" << block_directories.size()
                   << ",\"backend\":\"" << backend << "\",\"dit_storage\":\"" << precision
                   << "\",\"scheduler_storage\":\"fp32\",\"trace_downloads\":" << (trace ? "true" : "false")
                   << "}\n";

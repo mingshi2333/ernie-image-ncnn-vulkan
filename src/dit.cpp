@@ -12,19 +12,17 @@ void check(int result, const char* action)
 {
     if (result) throw std::runtime_error(std::string(action) + " failed: " + std::to_string(result));
 }
-void load(ncnn::Net& net, const std::string& path)
+void load(ncnn::Net& net, const ComponentFiles& files)
 {
     check(register_layers(net), "register layers");
-    const auto directory = std::filesystem::path(path);
-    check(net.load_param((directory / "head.ncnn.param").string().c_str()), "load head graph");
-    check(net.load_model((directory / "head.ncnn.bin").string().c_str()), "load head weights");
+    load_component(net, files);
 }
-std::vector<ncnn::Mat> head(const std::string& path, const std::vector<ncnn::Mat>& inputs,
+std::vector<ncnn::Mat> head(const ComponentFiles& files, const std::vector<ncnn::Mat>& inputs,
                             size_t outputs, const ncnn::Option& option)
 {
     ncnn::Net net;
     net.opt = option;
-    load(net, path);
+    load(net, files);
     auto extractor = net.create_extractor();
     for (size_t i = 0; i < inputs.size(); ++i)
         check(extractor.input(("in" + std::to_string(i)).c_str(), inputs[i]), "input head tensor");
@@ -34,14 +32,14 @@ std::vector<ncnn::Mat> head(const std::string& path, const std::vector<ncnn::Mat
     return result;
 }
 #if NCNN_VULKAN
-std::vector<ncnn::VkMat> head(const std::string& path, const std::vector<ncnn::VkMat>& inputs,
+std::vector<ncnn::VkMat> head(const ComponentFiles& files, const std::vector<ncnn::VkMat>& inputs,
                               size_t outputs, const ncnn::VulkanDevice* device, const ncnn::Option& option)
 {
     ncnn::Net net;
     net.opt = option;
     net.opt.blob_vkallocator = net.opt.workspace_vkallocator = net.opt.staging_vkallocator = nullptr;
     net.set_vulkan_device(device);
-    load(net, path);
+    load(net, files);
     for (const auto* layer : net.layers())
         if (!layer->support_vulkan && layer->type != "Input" && layer->type != "Split")
             throw std::runtime_error("Head has a compute layer without Vulkan support");
@@ -76,8 +74,8 @@ ncnn::VkMat modulation(const ncnn::VkMat& source, const ncnn::VulkanDevice* devi
 #endif
 } // namespace
 
-ncnn::Mat run_dit(const std::string& input_head, const std::vector<std::string>& blocks,
-    const std::string& output_head, const std::vector<ncnn::Mat>& inputs,
+ncnn::Mat run_dit(const ComponentFiles& input_head, const std::vector<ComponentFiles>& blocks,
+    const ComponentFiles& output_head, const std::vector<ncnn::Mat>& inputs,
     const ncnn::Option& option, DitStats& stats, const CpuStageObserver& observer)
 {
     if (inputs.size() != 6 || option.use_vulkan_compute) throw std::invalid_argument("Require six CPU DiT inputs");
@@ -103,8 +101,8 @@ ncnn::Mat run_dit(const std::string& input_head, const std::vector<std::string>&
 }
 
 #if NCNN_VULKAN
-ncnn::VkMat run_dit(const std::string& input_head, const std::vector<std::string>& blocks,
-    const std::string& output_head, const std::vector<ncnn::VkMat>& inputs,
+ncnn::VkMat run_dit(const ComponentFiles& input_head, const std::vector<ComponentFiles>& blocks,
+    const ComponentFiles& output_head, const std::vector<ncnn::VkMat>& inputs,
     const ncnn::VulkanDevice* device, const ncnn::Option& option, DitStats& stats,
     const VulkanStageObserver& observer)
 {
@@ -131,4 +129,21 @@ ncnn::VkMat run_dit(const std::string& input_head, const std::vector<std::string
     return result;
 }
 #endif
+ncnn::Mat run_dit(const std::string& input_head, const std::vector<std::string>& blocks,
+    const std::string& output_head, const std::vector<ncnn::Mat>& inputs,
+    const ncnn::Option& option, DitStats& stats, const CpuStageObserver& observer)
+{
+    return run_dit(component_files(std::filesystem::path(input_head), "head"), component_files(blocks, "block"),
+                   component_files(std::filesystem::path(output_head), "head"), inputs, option, stats, observer);
 }
+#if NCNN_VULKAN
+ncnn::VkMat run_dit(const std::string& input_head, const std::vector<std::string>& blocks,
+    const std::string& output_head, const std::vector<ncnn::VkMat>& inputs,
+    const ncnn::VulkanDevice* device, const ncnn::Option& option, DitStats& stats,
+    const VulkanStageObserver& observer)
+{
+    return run_dit(component_files(std::filesystem::path(input_head), "head"), component_files(blocks, "block"),
+                   component_files(std::filesystem::path(output_head), "head"), inputs, device, option, stats, observer);
+}
+#endif
+} // namespace ernie

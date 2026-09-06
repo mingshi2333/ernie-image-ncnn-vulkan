@@ -26,23 +26,17 @@ void bucket_check(int bucket)
     if (bucket < 1 || bucket > 2048)
         throw std::invalid_argument("Text bucket must be in [1,2048]");
 }
-void load(ncnn::Net &net, const std::string &path, TextDownMode mode=TextDownMode::Gemm, int bucket=0)
+void load(ncnn::Net &net, const ComponentFiles &files, TextDownMode mode=TextDownMode::Gemm, int bucket=0)
 {
     check(register_layers(net), "register text normalization");
-    const auto dir = std::filesystem::path(path);
-    if (mode==TextDownMode::Vector)
+    if (mode == TextDownMode::Vector)
     {
-        std::ifstream file(dir/"text.ncnn.param");
-        if (!file || std::filesystem::file_size(dir/"text.ncnn.param")>65536)
-            throw std::invalid_argument("Invalid text graph file");
-        const std::string graph((std::istreambuf_iterator<char>(file)),std::istreambuf_iterator<char>());
-        const auto derived=vector_text_down_graph(graph,bucket);
-        validate_text_down_weights((dir/"text.ncnn.bin").string());
-        check(register_text_down(net),"register vector text down");
-        check(net.load_param_mem(derived.c_str()),"load reviewed vector text graph");
+        const auto derived = vector_text_down_graph(files.param_text, bucket);
+        validate_text_down_weights(files.weight_path);
+        check(register_text_down(net), "register vector text down");
+        load_component(net, {derived, files.weight_path});
     }
-    else check(net.load_param((dir / "text.ncnn.param").string().c_str()), "load text graph");
-    check(net.load_model((dir / "text.ncnn.bin").string().c_str()), "load text weights");
+    else load_component(net, files);
 }
 void request_check(size_t models, size_t constants)
 {
@@ -108,7 +102,7 @@ std::vector<ncnn::Mat> text_constants(const std::string &path, int bucket)
     }
     return {cos, sin, mask};
 }
-ncnn::Mat run_text_blocks(const std::vector<std::string> &models, const ncnn::Mat &input,
+ncnn::Mat run_text_blocks(const std::vector<ComponentFiles> &models, const ncnn::Mat &input,
                           const std::vector<ncnn::Mat> &constants, const ncnn::Option &option,
                           BlockSequenceStats &stats, TextDownMode down_mode)
 {
@@ -152,7 +146,7 @@ ncnn::Mat run_text_blocks(const std::vector<std::string> &models, const ncnn::Ma
     return current;
 }
 #if NCNN_VULKAN
-ncnn::VkMat run_text_blocks(const std::vector<std::string> &models, const ncnn::VkMat &input,
+ncnn::VkMat run_text_blocks(const std::vector<ComponentFiles> &models, const ncnn::VkMat &input,
                             const std::vector<ncnn::VkMat> &constants, const ncnn::VulkanDevice *device,
                             const ncnn::Option &option, BlockSequenceStats &stats)
 {
@@ -193,6 +187,22 @@ ncnn::VkMat run_text_blocks(const std::vector<std::string> &models, const ncnn::
         stats.compute_seconds.push_back(std::chrono::duration<double>(Clock::now() - start).count());
     }
     return current;
+}
+#endif
+ncnn::Mat run_text_blocks(const std::vector<std::string> &models, const ncnn::Mat &input,
+                          const std::vector<ncnn::Mat> &constants, const ncnn::Option &option,
+                          BlockSequenceStats &stats, TextDownMode down_mode)
+{
+    request_check(models.size(), constants.size());
+    return run_text_blocks(component_files(models, "text"), input, constants, option, stats, down_mode);
+}
+#if NCNN_VULKAN
+ncnn::VkMat run_text_blocks(const std::vector<std::string> &models, const ncnn::VkMat &input,
+                            const std::vector<ncnn::VkMat> &constants, const ncnn::VulkanDevice *device,
+                            const ncnn::Option &option, BlockSequenceStats &stats)
+{
+    request_check(models.size(), constants.size());
+    return run_text_blocks(component_files(models, "text"), input, constants, device, option, stats);
 }
 #endif
 } // namespace ernie

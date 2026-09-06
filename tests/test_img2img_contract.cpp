@@ -73,7 +73,9 @@ int main()
 
         // No file in this model exists. A completed schedule must not load DiT,
         // emit a prediction or retain a stale stats entry from a prior request.
-        const ernie::DenoiseModel absent{"/nonexistent/input", "/nonexistent/output", {"/nonexistent/block"}};
+        const ernie::DenoiseModel absent{{"unloaded input graph", "/nonexistent/input.bin"},
+                                         {"unloaded output graph", "/nonexistent/output.bin"},
+                                         {{"unloaded block graph", "/nonexistent/block.bin"}}};
         const std::vector<ncnn::Mat> constants(4);
         ncnn::Option cpu; cpu.use_vulkan_compute = false;
         std::vector<ernie::DenoiseStepStats> stats(1);

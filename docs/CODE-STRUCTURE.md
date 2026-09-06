@@ -32,6 +32,9 @@ ernie-image-ncnn-vulkan/
 │   ├── vae.* / latent_ops.* # VAE 解码、latent 打包与 Euler
 │   ├── ernie_*.{h,cpp}      # 经验证的 ncnn 算子与精度修正
 │   ├── model_config.*       # 静态包尺寸与模型契约
+│   ├── model_package.*      # 原生包验证、实例选择与共享权重路径
+│   ├── component_files.*    # 内存图文本/权重对象加载，兼容旧 probe 目录入口
+│   ├── shape_graph.*        # 完整图身份与允许变化的形状字段
 │   └── tensor_io.*          # 诊断张量的读写
 ├── tokenizer/               # Rust C ABI、官方 Tokenizers、完整包校验
 ├── cmake/                   # 固定依赖与受散列约束的 shader 派生
@@ -62,6 +65,8 @@ flowchart LR
 `ernie::generate` 返回像素和实际使用的提示词，通过回调报告进度，不解析参数、不打印终端、不写 PNG。调用者通过 `GenerationRequest` 明确选择模型、设备、精度及可选 trace。Vulkan 使用 ncnn 的进程级设备上下文，当前应串行调用生成接口。
 
 PE 的 26 层和缓存全部释放后才开始图像文本编码；文本权重在 DiT 前释放；DiT 权重在 VAE 前释放。`PeSession` 只管理缓存，不负责模板、分词或采样。单 token 图使用原生不透明缓存句柄和独立 allocator，prefill 按实际 token 顺序执行，不把 padding 写入历史。
+
+图像模型包由 `ModelPackage` 在 Rust 层完整验证，随后以 `ComponentFiles` 传递内存中的图文本与权重文件路径。文本编码、DiT heads/blocks 和 VAE 解码使用同一加载边界；组件不解析 JSON，也不负责查找包。旧 probes 的目录参数通过适配器进入同一加载器。schema-3 将已审查的 512×384/s2048 与 1024×1024/s64 实例绑定到共享对象；不生成临时 param，不按尺寸复制权重。多实例生成必须指定宽高，未审查尺寸仍被拒绝。原生连接已实现，实际共享包完整图像的质量证据须单独取得，不能从静态包或小加载测试推定。
 
 构建依赖为 `ernie-image → ernie::pipeline → ernie-runtime / ernie-pe / ernie-tokenizer`。只有 CLI 链接 libpng。公共接口头文件只依赖 C++ 标准库。`tests/test_pipeline_api.cpp` 作为外部调用者编译，不包含私有 ncnn 头。
 

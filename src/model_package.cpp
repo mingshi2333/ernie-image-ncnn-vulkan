@@ -15,7 +15,7 @@ namespace ernie {
 ModelPackage::ModelPackage(const std::filesystem::path &directory,int w,int h){
     auto root=std::filesystem::absolute(directory).string();std::array<unsigned char,4096> error{};
     handle_=ernie_model_package_open(reinterpret_cast<const unsigned char*>(root.data()),root.size(),w,h,error.data(),error.size());
-    if(!handle_)throw std::runtime_error(reinterpret_cast<const char*>(error.data()));
+    if(!handle_)throw std::runtime_error(std::string("Cannot open model package: ") + reinterpret_cast<const char*>(error.data()));
     int values[4]{};schema_=ernie_model_package_config(handle_,values);
     config_={values[0],values[1],values[2],values[3]};
     try {if(schema_<1||schema_>3)throw std::runtime_error("Invalid package schema");validate_model_config(config_);}

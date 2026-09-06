@@ -28,7 +28,7 @@ struct GenerationRequest
     std::string model, prompt;
     std::string device = "vulkan", precision = "fp16";
     std::string vae_device = "cpu", vae_convolution = "direct";
-    int width = 0, height = 0; // Zero selects the model package's static size.
+    int width = 0, height = 0; // Zero selects a sole instance; shared packages may require explicit dimensions.
     int steps = 8;
     uint32_t seed = 42;
     std::string pe_model; // Empty disables optional CPU prompt enhancement.

@@ -2,7 +2,7 @@
 #include "conditioning.h"
 #include "denoiser.h"
 #include "gpu_context.h"
-#include "model_config.h"
+#include "model_package.h"
 #include "prompt_enhancer.h"
 #include "tensor_io.h"
 #include "text_encoder.h"
@@ -103,17 +103,17 @@ RgbImage rgb_image(const ncnn::Mat &decoded)
     }
     return image;
 }
-ncnn::Mat run_dit(const fs::path &root, const ncnn::Mat &initial, const std::vector<ncnn::Mat> &constants,
+ncnn::Mat run_dit(const ModelPackage &package, const ncnn::Mat &initial, const std::vector<ncnn::Mat> &constants,
                   const ncnn::Option &cpu, const GenerationRequest &request, const ProgressCallback &notify)
 {
     const auto &backend = request.device, &precision = request.precision;
     const int steps = request.steps;
     const fs::path trace(request.trace);
     ernie::DenoiseModel dit;
-    dit.input_head = (root / "dit/input").string();
-    dit.output_head = (root / "dit/output").string();
+    dit.input_head = package.component("dit/input/head.ncnn.param", "input");
+    dit.output_head = package.component("dit/output/head.ncnn.param", "output");
     for (int i = 0; i < 36; ++i)
-        dit.blocks.push_back((root / "dit" / numbered("block-", i)).string());
+        dit.blocks.push_back(package.component("dit/" + numbered("block-", i) + "/block.ncnn.param", "dit"));
     std::vector<ernie::DenoiseStepStats> stats;
     auto progress = [&](size_t i)
     {
@@ -199,7 +199,13 @@ ncnn::Mat run_dit(const fs::path &root, const ncnn::Mat &initial, const std::vec
 
 void verify_model(const std::string &directory)
 {
-    model_config(fs::path(directory) / "model.cfg");
+    const auto root = fs::path(directory);
+    if (fs::is_regular_file(root / "model.cfg"))
+        model_config(root / "model.cfg");
+    else if (fs::exists(root / "pe.cfg"))
+        throw std::invalid_argument("Use verify_pe_model for a prompt enhancer package");
+    // The verifier checks every instance of a shared package without selecting
+    // a generation resolution or reading any model weight into ncnn.
     verify_package(directory);
 }
 void verify_pe_model(const std::string &directory)
@@ -216,15 +222,12 @@ GenerationResult generate(const GenerationRequest &r, const ProgressCallback &no
     // Initialize and validate the selected device before parsing model metadata
     // or loading PE/text/image weights.
     GpuContext gpu(r.device == "vulkan" || r.vae_device == "vulkan", r.gpu_index);
-    const fs::path root(r.model), trace(r.trace);
-    const auto cfg = model_config(root / "model.cfg");
+    const fs::path trace(r.trace);
+    const ModelPackage package(r.model, r.width, r.height);
+    const auto cfg = package.config();
     const int w = cfg.packed_width, h = cfg.packed_height, bucket = cfg.text_bucket;
     if (r.text_down_vector && bucket != 64 && bucket != 2048)
         throw std::invalid_argument("Vector text reduction requires an independently reviewed 64 or 2048 token graph");
-    if (r.width && (r.width != 16 * w || r.height != 16 * h))
-        throw std::invalid_argument("Requested resolution differs from this static model bucket; "
-                                    "prepare a matching package with tools/prepare_variant.py");
-    verify_package(r.model);
     if (notify)
         notify({"verify", 1, 1, elapsed(start)});
     if (!trace.empty())
@@ -254,7 +257,8 @@ GenerationResult generate(const GenerationRequest &r, const ProgressCallback &no
             trace_text(trace / "pe-ids.txt", ids);
         }
     }
-    Tokenizer tokenizer((root / "tokenizer").string());
+    Tokenizer tokenizer(package.file("tokenizer/tokenizer.json"),
+                        package.file("tokenizer/tokenizer_config.json"));
     const auto ids = tokenizer.encode(result.prompt);
     if (ids.empty() || ids.size() > size_t(bucket))
         throw std::invalid_argument("Prompt exceeds this model's " + std::to_string(bucket) +
@@ -279,11 +283,11 @@ GenerationResult generate(const GenerationRequest &r, const ProgressCallback &no
         text = read_tensor(r.embeddings, 3072, int(ids.size())).reshape(3072, int(ids.size()));
     else
     {
-        const auto embedded = text_embeddings((root / "text/embeddings.bf16").string(), ids, bucket);
-        const auto constants = text_constants((root / "text/rope-inv-freq.f32").string(), bucket);
-        std::vector<std::string> models;
+        const auto embedded = text_embeddings(package.file("text/embeddings.bf16"), ids, bucket);
+        const auto constants = text_constants(package.file("text/rope-inv-freq.f32"), bucket);
+        std::vector<ComponentFiles> models;
         for (int i = 0; i < 25; ++i)
-            models.push_back((root / "text" / numbered("block-", i)).string());
+            models.push_back(package.component("text/" + numbered("block-", i) + "/text.ncnn.param", "text"));
         BlockSequenceStats stats;
         const auto encoded = run_text_blocks(models, embedded, constants, cpu, stats,
                                               r.text_down_vector ? TextDownMode::Vector : TextDownMode::Gemm);
@@ -295,7 +299,7 @@ GenerationResult generate(const GenerationRequest &r, const ProgressCallback &no
         write_tensor(trace / "text.f32", text);
     const auto padded = pad_text(text, cfg.dit_text_tokens);
     const auto rotary =
-        dit_constants((root / "dit/rope-inv-freq.f32").string(), w, h, int(ids.size()), cfg.dit_text_tokens);
+        dit_constants(package.file("dit/rope-inv-freq.f32"), w, h, int(ids.size()), cfg.dit_text_tokens);
     const std::vector<ncnn::Mat> constants{padded, rotary[0], rotary[1], rotary[2]};
     ncnn::Mat initial;
     if (!r.latent.empty())
@@ -321,9 +325,9 @@ GenerationResult generate(const GenerationRequest &r, const ProgressCallback &no
         for (size_t i = 0; i < rotary.size(); ++i)
             write_tensor(trace / ("constant-" + std::to_string(i) + ".f32"), rotary[i]);
     }
-    const auto latent = run_dit(root, initial, constants, cpu, r, notify);
-    const auto mean = read_tensor(root / "vae/bn-mean.f32", 128),
-               variance = read_tensor(root / "vae/bn-variance.f32", 128);
+    const auto latent = run_dit(package, initial, constants, cpu, r, notify);
+    const auto mean = read_tensor(package.file("vae/bn-mean.f32"), 128),
+               variance = read_tensor(package.file("vae/bn-variance.f32"), 128);
     const auto unpacked = unpack_for_vae(latent, mean, variance, r.threads);
     if (!trace.empty())
     {
@@ -332,7 +336,8 @@ GenerationResult generate(const GenerationRequest &r, const ProgressCallback &no
     }
     const auto vae_start = Clock::now();
     const auto decoded =
-        decode_vae((root / "vae").string(), unpacked, cpu, r.vae_device, r.vae_convolution, r.gpu_index);
+        decode_vae(package.component("vae/head.ncnn.param", "vae"), unpacked, cpu,
+                   r.vae_device, r.vae_convolution, r.gpu_index);
     if (decoded.w != w * 16 || decoded.h != h * 16)
         throw std::runtime_error("Decoded resolution differs from model");
     if (!trace.empty())

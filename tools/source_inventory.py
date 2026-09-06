@@ -4,7 +4,7 @@ from pathlib import Path
 
 def source_files(root):
     root = Path(root)
-    paths = [root/'CMakeLists.txt', root/'sources.lock.json']
+    paths = [root/'CMakeLists.txt', root/'sources.lock.json', root/'tokenizer/schema3_contract.json']
     for directory in ('include', 'cli', 'src', 'cmake', 'probes', 'tests', 'tools', 'tokenizer'):
         paths.extend(p for p in (root/directory).rglob('*') if p.is_file()
                      and not {'target', '__pycache__'}.intersection(p.parts)

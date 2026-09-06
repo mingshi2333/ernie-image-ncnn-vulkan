@@ -16,7 +16,7 @@ void check(int result, const char* action)
 }
 
 template<class Configure>
-std::unique_ptr<ncnn::Net> load(const std::string& directory, const ncnn::Option& option,
+std::unique_ptr<ncnn::Net> load(const ComponentFiles& files, const ncnn::Option& option,
                               Configure&& configure, BlockSequenceStats& stats)
 {
     const auto start = Clock::now();
@@ -29,9 +29,7 @@ std::unique_ptr<ncnn::Net> load(const std::string& directory, const ncnn::Option
 #endif
     configure(*net);
     check(register_layers(*net), "register ERNIE layers");
-    const auto path = std::filesystem::path(directory);
-    check(net->load_param((path / "block.ncnn.param").string().c_str()), "load block graph");
-    check(net->load_model((path / "block.ncnn.bin").string().c_str()), "load block weights");
+    load_component(*net, files);
     stats.load_seconds.push_back(std::chrono::duration<double>(Clock::now() - start).count());
     return net;
 }
@@ -45,7 +43,7 @@ void check_request(size_t models, size_t constants, WeightPolicy policy)
 }
 } // namespace
 
-ncnn::Mat run_block_sequence(const std::vector<std::string>& models, const ncnn::Mat& input,
+ncnn::Mat run_block_sequence(const std::vector<ComponentFiles>& models, const ncnn::Mat& input,
     const std::vector<ncnn::Mat>& constants, const ncnn::Option& option,
     WeightPolicy policy, BlockSequenceStats& stats, const CpuStageObserver& observer)
 {
@@ -79,7 +77,7 @@ ncnn::Mat run_block_sequence(const std::vector<std::string>& models, const ncnn:
 }
 
 #if NCNN_VULKAN
-ncnn::VkMat run_block_sequence(const std::vector<std::string>& models, const ncnn::VkMat& input,
+ncnn::VkMat run_block_sequence(const std::vector<ComponentFiles>& models, const ncnn::VkMat& input,
     const std::vector<ncnn::VkMat>& constants, const ncnn::VulkanDevice* device,
     const ncnn::Option& option, WeightPolicy policy, BlockSequenceStats& stats,
     const VulkanStageObserver& observer)
@@ -121,6 +119,23 @@ ncnn::VkMat run_block_sequence(const std::vector<std::string>& models, const ncn
         // current remains owned by the caller's blob allocator.
     }
     return current;
+}
+#endif
+ncnn::Mat run_block_sequence(const std::vector<std::string>& models, const ncnn::Mat& input,
+    const std::vector<ncnn::Mat>& constants, const ncnn::Option& option,
+    WeightPolicy policy, BlockSequenceStats& stats, const CpuStageObserver& observer)
+{
+    check_request(models.size(), constants.size(), policy);
+    return run_block_sequence(component_files(models, "block"), input, constants, option, policy, stats, observer);
+}
+#if NCNN_VULKAN
+ncnn::VkMat run_block_sequence(const std::vector<std::string>& models, const ncnn::VkMat& input,
+    const std::vector<ncnn::VkMat>& constants, const ncnn::VulkanDevice* device,
+    const ncnn::Option& option, WeightPolicy policy, BlockSequenceStats& stats,
+    const VulkanStageObserver& observer)
+{
+    check_request(models.size(), constants.size(), policy);
+    return run_block_sequence(component_files(models, "block"), input, constants, device, option, policy, stats, observer);
 }
 #endif
 } // namespace ernie

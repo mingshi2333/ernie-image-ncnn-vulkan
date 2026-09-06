@@ -13,10 +13,9 @@ void check(int rc, const char *action)
         throw std::runtime_error(std::string(action) + " failed: " + std::to_string(rc));
 }
 } // namespace
-ncnn::Mat decode_vae(const std::string &directory, const ncnn::Mat &unpacked, const ncnn::Option &cpu,
+ncnn::Mat decode_vae(const ComponentFiles &files, const ncnn::Mat &unpacked, const ncnn::Option &cpu,
                      const std::string &vae_backend, const std::string &vae_convolution, int gpu_index)
 {
-    const std::filesystem::path root(directory);
     ncnn::Mat decoded;
     {
         ncnn::Net vae;
@@ -39,8 +38,7 @@ ncnn::Mat decode_vae(const std::string &directory, const ncnn::Mat &unpacked, co
             throw std::runtime_error("Built without Vulkan VAE support");
 #endif
         check(ernie::register_layers(vae), "Register layers");
-        check(vae.load_param((root / "head.ncnn.param").string().c_str()), "Load VAE graph");
-        check(vae.load_model((root / "head.ncnn.bin").string().c_str()), "Load VAE weights");
+        load_component(vae, files);
         if (vae_backend == "vulkan")
             for (const auto *layer : vae.layers())
                 if (!layer->support_vulkan && layer->type != "Input" && layer->type != "Split")
@@ -50,5 +48,11 @@ ncnn::Mat decode_vae(const std::string &directory, const ncnn::Mat &unpacked, co
         check(ex.extract("out0", decoded), "Decode VAE");
     }
     return decoded;
+}
+ncnn::Mat decode_vae(const std::string &directory, const ncnn::Mat &unpacked, const ncnn::Option &cpu,
+                     const std::string &device, const std::string &convolution, int gpu_index)
+{
+    return decode_vae(component_files(std::filesystem::path(directory), "head"), unpacked, cpu,
+                      device, convolution, gpu_index);
 }
 } // namespace ernie

@@ -43,7 +43,7 @@ class CliTests(unittest.TestCase):
             self.assertIn('1 MiB', self.request('--prompt-file', str(path)))
 
     def test_valid_bf16_request_reaches_model_validation(self):
-        self.assertIn('Cannot open model.cfg', self.request('--prompt', 'cat', '--precision', 'bf16'))
+        self.assertIn('Cannot open model package', self.request('--prompt', 'cat', '--precision', 'bf16'))
 
     def test_dimensions_require_both_axes(self):
         self.assertIn('width and height together', self.request('--prompt', 'cat', '--width', '512'))
@@ -52,7 +52,7 @@ class CliTests(unittest.TestCase):
         self.assertIn('multiples of 16', self.request('--prompt', 'cat', '--width', '513', '--height', '384'))
 
     def test_rectangular_request_reaches_model_validation(self):
-        self.assertIn('Cannot open model.cfg', self.request('--prompt', 'cat', '--width', '512', '--height', '384'))
+        self.assertIn('Cannot open model package', self.request('--prompt', 'cat', '--width', '512', '--height', '384'))
 
     def test_pe_options_require_an_explicit_model(self):
         self.assertIn('PE options require --pe-model', self.request('--prompt', 'cat', '--pe-greedy'))
@@ -85,7 +85,7 @@ class CliTests(unittest.TestCase):
                                                           '--embeddings', 'unused.f32'))
 
     def test_vector_reduction_flag_reaches_model_validation(self):
-        self.assertIn('Cannot open model.cfg', self.request('--prompt', 'cat', '--device', 'cpu',
+        self.assertIn('Cannot open model package', self.request('--prompt', 'cat', '--device', 'cpu',
                                                           '--precision', 'fp32', '--text-down-vector'))
 
     def test_img2img_is_recognized_but_fail_closed(self):
