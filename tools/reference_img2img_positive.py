@@ -41,6 +41,10 @@ def validate_inputs(input_dir):
         raise ValueError("Only the reviewed 512x384 eight-step strength-0.5 contract is supported")
     if request.get("pe") != {"enabled": False} or request.get("text_precision") != "fp32" or request.get("text_reduction") != "vector":
         raise ValueError("Conditioning contract differs")
+    if (contract.get("noise", {}).get("file") != "saved-noise.f32"
+            or contract.get("start", {}).get("file") != "start-4.f32"
+            or contract.get("prompt", {}).get("file") != "prompt.txt"):
+        raise ValueError("Positive-strength input filenames are not canonical")
     fixture = input_dir / contract["encoder_fixture"]["file"]
     if digest(fixture) != REVIEWED_ENCODER_FIXTURE or contract["encoder_fixture"].get("sha256") != REVIEWED_ENCODER_FIXTURE:
         raise ValueError("Official encoder fixture is not reviewed")
@@ -75,7 +79,7 @@ def validate_inputs(input_dir):
     noise = np.fromfile(input_dir / contract["noise"]["file"], "<f4").reshape(EXPECTED_SHAPE)
     start = np.fromfile(input_dir / contract["start"]["file"], "<f4").reshape(EXPECTED_SHAPE)
     validate_start(encoded, noise, start)
-    prompt = (input_dir / contract["prompt"]["file"]).read_text().rstrip("\n")
+    prompt = (input_dir / contract["prompt"]["file"]).read_text()
     if digest(input_dir / contract["prompt"]["file"]) != contract["prompt"]["sha256"] or prompt != contract["prompt"]["text"]:
         raise ValueError("Prompt identity differs")
     return contract, prompt

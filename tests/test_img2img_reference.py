@@ -60,15 +60,15 @@ class Img2ImgReferenceTests(unittest.TestCase):
             root = Path(directory)
             fixture = root / 'fixture.json'; fixture.write_text('{}')
             values = np.zeros((1, 128, 24, 32), dtype='<f4')
-            values.tofile(root / 'noise.f32'); values.tofile(root / 'start.f32')
+            values.tofile(root / 'saved-noise.f32'); values.tofile(root / 'start-4.f32')
             prompt = root / 'prompt.txt'; prompt.write_text('apple\n')
             sha = lambda path: hashlib.sha256(path.read_bytes()).hexdigest()
             contract = {'request': {'width': 512, 'height': 384, 'steps': 8, 'strength': .5,
                                     'start_step': 4, 'denoise_steps': 4, 'pe': {'enabled': False},
                                     'text_precision': 'fp32', 'text_reduction': 'vector'},
                         'encoder_fixture': {'file': fixture.name, 'sha256': sha(fixture)},
-                        'noise': {'file': 'noise.f32', 'shape': list(values.shape), 'dtype': '<f4', 'sha256': sha(root/'noise.f32')},
-                        'start': {'file': 'start.f32', 'shape': list(values.shape), 'dtype': '<f4', 'sha256': sha(root/'start.f32')},
+                        'noise': {'file': 'saved-noise.f32', 'shape': list(values.shape), 'dtype': '<f4', 'sha256': sha(root/'saved-noise.f32')},
+                        'start': {'file': 'start-4.f32', 'shape': list(values.shape), 'dtype': '<f4', 'sha256': sha(root/'start-4.f32')},
                         'prompt': {'file': prompt.name, 'text': 'apple', 'sha256': sha(prompt)}}
             (root / 'input-contract.json').write_text(json.dumps(contract))
             with self.assertRaisesRegex(ValueError, 'not reviewed'):
@@ -96,6 +96,20 @@ class Img2ImgReferenceTests(unittest.TestCase):
         start.flat[0] = 0
         with self.assertRaisesRegex(ValueError, 'reviewed FP32 mixture'):
             validate_start(encoded, noise, start)
+
+    def test_positive_contract_requires_canonical_input_names(self):
+        import json, tempfile
+        from pathlib import Path
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / 'input-contract.json').write_text(json.dumps({
+                'request': {'width': 512, 'height': 384, 'steps': 8, 'strength': .5,
+                            'start_step': 4, 'denoise_steps': 4, 'pe': {'enabled': False},
+                            'text_precision': 'fp32', 'text_reduction': 'vector'},
+                'noise': {'file': 'alternate-noise.f32'}, 'start': {'file': 'alternate-start.f32'},
+                'prompt': {'file': 'prompt.txt'}}))
+            with self.assertRaisesRegex(ValueError, 'not canonical'):
+                validate_inputs(root)
 
 
 if __name__ == '__main__':
