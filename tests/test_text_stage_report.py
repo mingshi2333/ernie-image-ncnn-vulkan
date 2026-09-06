@@ -8,6 +8,9 @@ class TextStageTests(unittest.TestCase):
     def test_signed_zero_is_not_bitwise_equal(self):
         result=compare(np.array([0.],dtype='<f4'),np.array([-0.],dtype='<f4'))
         self.assertFalse(result['bitwise_equal']);self.assertEqual(result['max_abs_error'],0)
+    def test_fp64_difference_not_lost_in_bitwise_check(self):
+        result=compare(np.array([1.0+1e-12],dtype='<f8'),np.array([1.0],dtype='<f4'))
+        self.assertFalse(result['bitwise_equal']);self.assertGreater(result['max_abs_error'],0)
     def test_shape_finite_guards(self):
         for bad in (np.zeros(3),np.array([np.inf,np.nan])):
             with self.assertRaises(ValueError):compare(np.zeros(2),bad)

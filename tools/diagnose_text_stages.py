@@ -31,6 +31,7 @@ def sha(path):
     with Path(path).open('rb') as f:return hashlib.file_digest(f,'sha256').hexdigest()
 
 def compare(reference,actual):
+    original_reference=np.asarray(reference);original_actual=np.asarray(actual)
     a=np.asarray(reference,dtype=np.float64);b=np.asarray(actual,dtype=np.float64)
     if a.shape!=b.shape or not a.size or not np.isfinite(a).all() or not np.isfinite(b).all():
         raise ValueError('Stage tensors must have same nonempty finite shape')
@@ -38,13 +39,14 @@ def compare(reference,actual):
     return dict(nrmse=float(np.linalg.norm(delta.ravel())/max(np.linalg.norm(a.ravel()),1e-30)),
                 max_abs_error=float(np.max(np.abs(delta))),
                 max_index=list(map(int,np.unravel_index(abs(delta).argmax(),delta.shape))),
-                bitwise_equal=a.astype('<f4').tobytes()==b.astype('<f4').tobytes())
+                bitwise_equal=original_reference.dtype==original_actual.dtype and original_reference.tobytes()==original_actual.tobytes())
 
 def summarize_layers(rows):
     if [r['layer'] for r in rows]!=list(range(len(rows))):raise ValueError('Layer sequence must be contiguous from 0')
     # Report observations, not a data-selected new numerical gate or cause.
     increases=[dict(layer=r['layer'],nrmse_increase=r['free_running']['nrmse']-(rows[i-1]['free_running']['nrmse'] if i else 0)) for i,r in enumerate(rows)]
     return dict(layers=rows,largest_nrmse_increase=max(increases,key=lambda x:x['nrmse_increase']) if increases else None,
+                largest_increase_after_first=max(increases[1:],key=lambda x:x['nrmse_increase']) if len(increases)>1 else None,
                 scope='free-running observations; teacher-forced metrics are separate and cannot close trajectory quality')
 
 def verify_blob_map(param):
@@ -151,6 +153,8 @@ def load(path,shape):
 
 def orchestrate(args):
     root=args.project;out=args.output;out.mkdir(parents=True,exist_ok=False)
+    from source_inventory import source_files
+    sources={str(path.relative_to(root)):sha(path) for path in source_files(root)}
     snapshots=out/'snapshots';snapshots.mkdir();script=snapshots/'diagnose_text_stages.py';shutil.copy2(__file__,script)
     runner=snapshots/'ernie-text-runner';shutil.copy2(args.runner,runner)
     ids=out/'ids.txt';shutil.copy2(args.ids,ids);count=len(ids.read_text().split())
@@ -166,7 +170,7 @@ def orchestrate(args):
         hashes[name]=manifest['files'][name]
     report=dict(status='running',scope='text-stage diagnostic only; not full image quality',runner_sha256=sha(runner),
                 script_sha256=sha(script),ids_sha256=sha(ids),package_manifest_sha256=sha(package/'manifest.json'),native_files=hashes,
-                model_revision=manifest['official_model_revision'],processes={})
+                model_revision=manifest['official_model_revision'],sources=sources,processes={})
     (out/'result.json').write_text(json.dumps(report,indent=2))
     try:
         command=[sys.executable,str(script),'--worker','--project',str(root),'--ids',str(ids),'--output',str(out/'official'),
@@ -204,13 +208,92 @@ def orchestrate(args):
         report.update(status='failed',failure=str(exc));raise
     finally:(out/'result.json').write_text(json.dumps(report,indent=2))
 
+def local_worker(args):
+    """Read-only FP64 oracle on identical real inputs; no proposed runtime patch."""
+    import inspect
+    import torch
+    from safetensors.torch import load_file
+    from transformers import Mistral3Config
+    from transformers.models.mistral.modeling_mistral import MistralDecoderLayer,MistralRotaryEmbedding
+    torch.set_num_threads(4);torch.set_grad_enabled(False)
+    spec=json.loads(args.local_spec.read_text());inputs=args.local_spec.parent
+    out=args.output;out.mkdir(parents=True,exist_ok=False)
+    count=spec['valid_tokens'];layer=spec['layer'];root=args.project
+    cfg=Mistral3Config.from_dict(json.loads((root/'models/official/text_encoder-config.json').read_text())).text_config
+    cfg._attn_implementation='sdpa';cfg.use_cache=False
+    path=root/f'models/official/text-block-{layer:02d}.safetensors';manifest=json.loads(path.with_suffix('.manifest.json').read_text())
+    if sha(path)!=manifest['sha256'] or manifest['revision']!=json.loads((root/'sources.lock.json').read_text())['official_model']['revision']:raise ValueError('Weight mismatch')
+    with torch.device('meta'):block=MistralDecoderLayer(cfg,layer)
+    state={k.removeprefix(f'language_model.model.layers.{layer}.'):v.float() for k,v in load_file(path).items()}
+    block.load_state_dict(state,strict=True,assign=True);del state;block.eval().requires_grad_(False)
+    values={}
+    for name,entry in spec['files'].items():
+        if sha(inputs/entry['file'])!=entry['sha256']:raise ValueError('Input changed: '+name)
+        values[name]=torch.from_numpy(load(inputs/entry['file'],entry['shape']))
+    # Crossed native upstream input is fed into the unchanged official decoder layer.
+    x=values['native_previous'];positions=torch.arange(count)[None]
+    cos,sin=MistralRotaryEmbedding(cfg)(x,positions)
+    mask=torch.full((count,count),torch.finfo(torch.float32).min).triu(1)[None,None]
+    on=block(x,attention_mask=mask,position_ids=positions,position_embeddings=(cos,sin),use_cache=False)
+    save(out/'official-on-native.f32',on.numpy())
+    oo=values['official_output'].numpy();nn=values['native_output'].numpy();no=values['teacher_output'].numpy()
+    cross=dict(decoder_on_official=compare(oo,no),input_through_official=compare(oo,on.numpy()),
+               decoder_on_native=compare(on.numpy(),nn),connected=compare(oo,nn),
+               interaction_max=float(np.max(np.abs(nn.astype('float64')-on.numpy().astype('float64')-no.astype('float64')+oo.astype('float64')))))
+    local={};rows={}
+    def record(name,actual,fp32,fp64):
+        # FP64 reference remains FP64 for numerical metrics; only saved display
+        # rows use FP32, with their dtype explicitly stated by save().
+        actual=actual.numpy();a=fp32.numpy();b=fp64.numpy()
+        local[name]=dict(native_vs_fp64=compare(b,actual),torch_fp32_vs_fp64=compare(b,a),native_vs_torch_fp32=compare(a,actual),
+                         scope='same exact native stage input; independent read-only reference')
+        rows[name]=dict(native=save(out/(name+'-native-row0.f32'),actual[:,0,:]),
+                        torch_fp32=save(out/(name+'-torch-row0.f32'),a[:,0,:]))
+        raw=np.ascontiguousarray(b[:,0,:],dtype='<f8')
+        with (out/(name+'-fp64-row0.f64')).open('xb') as f:raw.tofile(f)
+        rows[name]['fp64']=dict(dtype='<f8',shape=list(raw.shape),sha256=sha(out/(name+'-fp64-row0.f64')))
+    residual=values['attention_residual'];weight=block.post_attention_layernorm.weight
+    float_norm=(residual*torch.rsqrt(residual.square().mean(-1,keepdim=True)+cfg.rms_norm_eps))*weight
+    double=residual.double();double_norm=(double*torch.rsqrt(double.square().mean(-1,keepdim=True)+cfg.rms_norm_eps))*weight.double()
+    record('norm',values['post_norm'],float_norm,double_norm);del double,double_norm,float_norm
+    norm=values['post_norm']
+    for name,module in [('gate',block.mlp.gate_proj),('up',block.mlp.up_proj)]:
+        float_result=module(norm);double_result=torch.nn.functional.linear(norm.double(),module.weight.double())
+        record(name,values[name],float_result,double_result);del float_result,double_result
+    gate=values['gate'];float_silu=torch.nn.functional.silu(gate);double_silu=gate.double()*torch.sigmoid(gate.double())
+    record('silu',values['silu'],float_silu,double_silu);del float_silu,double_silu
+    product=values['gated'];module=block.mlp.down_proj
+    record('down',values['down'],module(product),torch.nn.functional.linear(product.double(),module.weight.double()))
+    report=dict(status='diagnostic_completed',scope='official cross and same-input FP64 references only; no default math change or quality closure',
+                layer=layer,input_spec_sha256=sha(args.local_spec),source_sha256=sha(__file__),weights_sha256=manifest['sha256'],
+                config_sha256=sha(root/'models/official/text_encoder-config.json'),official_class_sha256=sha(inspect.getfile(MistralDecoderLayer)),
+                torch_version=torch.__version__,cross=cross,local=local,rows=rows)
+    (out/'result.json').write_text(json.dumps(report,indent=2))
+
+def run_local(args):
+    out=args.output;out.mkdir(parents=True,exist_ok=False);snapshot=out/'diagnose_text_stages.py.snapshot'
+    shutil.copy2(__file__,snapshot);inputs=out/'inputs';inputs.mkdir()
+    spec=json.loads(args.local_spec.read_text());frozen=dict(spec);frozen['files']={}
+    for name,entry in spec['files'].items():
+        source=Path(entry['file']).resolve()
+        if sha(source)!=entry['sha256']:raise ValueError('Local source checksum differs')
+        target=inputs/(name+'.f32');shutil.copy2(source,target)
+        frozen['files'][name]={**entry,'file':target.name}
+    fixed=inputs/'spec.json';fixed.write_text(json.dumps(frozen,indent=2))
+    command=[sys.executable,str(snapshot),'--project',str(args.project),'--ids',str(args.ids),'--output',str(out/'reference'),
+             '--local-worker','--local-spec',str(fixed)]
+    execute(command,out/'process')
+
+
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--project',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--ids',type=Path,required=True)
-    p.add_argument('--package',type=Path);p.add_argument('--runner',type=Path);p.add_argument('--tokens',type=int,default=2048);p.add_argument('--layers',type=int,default=25);p.add_argument('--stage-layer',type=int,default=0);p.add_argument('--historical-text',type=Path);p.add_argument('--worker',action='store_true');a=p.parse_args()
-    for name in ('project','output','ids','package','runner','historical_text'):
+    p.add_argument('--package',type=Path);p.add_argument('--runner',type=Path);p.add_argument('--tokens',type=int,default=2048);p.add_argument('--layers',type=int,default=25);p.add_argument('--stage-layer',type=int,default=0);p.add_argument('--historical-text',type=Path);p.add_argument('--worker',action='store_true');p.add_argument('--local-spec',type=Path);p.add_argument('--local-worker',action='store_true');a=p.parse_args()
+    for name in ('project','output','ids','package','runner','historical_text','local_spec'):
         if getattr(a,name) is not None:setattr(a,name,getattr(a,name).resolve())
     if a.output.exists() or not 0<=a.stage_layer<a.layers<=25:p.error('Use new output and stage-layer in [0,layers)')
-    if a.worker:official_worker(a)
+    if a.local_worker:local_worker(a)
+    elif a.local_spec:run_local(a)
+    elif a.worker:official_worker(a)
     else:
         if not a.runner or not a.package:p.error('Require runner/package')
         orchestrate(a)
