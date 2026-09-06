@@ -19,6 +19,13 @@ encoder BatchNorm epsilon `1e-4` without affine parameters, and records decoder 
 It authenticates the same pinned official encoder/quant/BN modules through `load_encoder`. The 512×384 producer,
 fixture and trusted package entry remain unchanged.
 
+The 1024 file is deliberately a thin reviewed configuration entry: deterministic input preparation, fixed dimensions,
+resource guard and invocation of `reference_vae_encoder_large.run_reference`. All model loading, official source
+authentication, normalization, posterior selection, packing, BN and tensor serialization remain in that shared
+producer. Likewise, both 512×384 and proposed 1024×1024 records use
+`specialize_vae_encoder.specialize_lines`; the 1024 wrapper only selects its explicit registered replacement.
+No second implementation of encoder mathematics was introduced.
+
 ## Frozen development input
 
 `outputs/img2img-encoder-preparation-1024x1024-v1` contains a new deterministic development-only RGB input;
