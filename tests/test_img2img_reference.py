@@ -4,7 +4,7 @@ import numpy as np
 
 from tools.reference_img2img import make_start, strength_plan, turbo_sigmas
 from tools.reference_img2img_positive import reviewed_profile, validate_inputs, validate_start, validate_suffix
-from tools.validate_img2img_positive_result import metrics
+from tools.validate_img2img_positive_result import metrics, validate_process
 
 
 class Img2ImgReferenceTests(unittest.TestCase):
@@ -137,6 +137,18 @@ class Img2ImgReferenceTests(unittest.TestCase):
             np.array([0, np.nan], dtype='<f4').tofile(root / 'reference.f32')
             with self.assertRaisesRegex(ValueError, 'size or finite'):
                 metrics(root / 'candidate.f32', root / 'reference.f32')
+
+    def test_result_process_requires_actual_resource_guards(self):
+        valid = {'complete': True, 'return_code': 0, 'cgroup_seen': True,
+                 'memory_max_bytes': 10, 'memory_max_observed': '10',
+                 'memory_swap_max_observed': '0', 'minimum_host_available': 4,
+                 'min_available_bytes': 3,
+                 'memory_events': 'low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\n'}
+        validate_process(valid)
+        for change in ({'memory_max_observed': 'max'}, {'minimum_host_available': 2},
+                       {'failure': 'guard stopped'}, {'memory_events': 'oom 1\noom_kill 1\n'}):
+            with self.subTest(change=change), self.assertRaisesRegex(ValueError, 'resource guard'):
+                validate_process({**valid, **change})
 
 
 if __name__ == '__main__':

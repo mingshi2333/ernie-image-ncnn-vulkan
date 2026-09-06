@@ -31,20 +31,59 @@ def metrics(candidate, reference):
             "nrmse": rmse / norm if norm else (0. if rmse == 0 else math.inf)}
 
 
+def validate_identity(base, name):
+    identity_path = base / name / "identity.json"
+    identity = json.loads(identity_path.read_text())
+    root = base / name / "source"
+    for relative, expected in identity.get("source_files", {}).items():
+        path = root / relative
+        if not path.is_file() or digest(path) != expected:
+            raise ValueError(f"{name} source identity differs")
+    if name == "native-plan":
+        if (digest(base / name / "ernie-image") != identity.get("runner_sha256")
+                or digest(Path("outputs/f2-production-img2img-package-1024-v1/manifest.json")) !=
+                identity.get("package_manifest_sha256")):
+            raise ValueError("Native runner or package identity differs")
+    return identity
+
+
+def validate_process(process):
+    if (process.get("complete") is not True or process.get("return_code") != 0 or "failure" in process
+            or process.get("cgroup_seen") is not True or process.get("memory_swap_max_observed") != "0"
+            or process.get("memory_max_observed") != str(process.get("memory_max_bytes"))
+            or process.get("minimum_host_available", 0) < process.get("min_available_bytes", math.inf)
+            or process.get("memory_events", "").find("oom 0\n") < 0
+            or process.get("memory_events", "").find("oom_kill 0\n") < 0):
+        raise ValueError("Execution process or resource guard is incomplete")
+
+
 def audit(base):
     base = Path(base); inputs = base / "inputs"; native = base / "native-execution"; trace = native / "trace"
     official_execution = base / "official-execution-v3"; official = official_execution / "oracle"; suffix = official / "suffix"
     contract, prompt, _ = validate_inputs(inputs)
+    native_identity = validate_identity(base, "native-plan")
+    official_identity_path = base / "official-plan/identity-v3.json"
+    official_identity = json.loads(official_identity_path.read_text())
+    snapshot = base / "official-plan/snapshot"
+    for relative, expected in official_identity.get("source_files", {}).items():
+        path = snapshot / relative
+        if not path.is_file() or digest(path) != expected:
+            raise ValueError("Official source identity differs")
+    for relative, expected in official_identity.get("snapshot_root_files", {}).items():
+        if digest(snapshot / relative) != expected:
+            raise ValueError("Official snapshot root identity differs")
+    if digest(Path("models/turbo1024-s64-portable/manifest.json")) != official_identity.get("model_manifest_sha256"):
+        raise ValueError("Official package identity differs")
+    runtime = json.loads((base / "official-plan/runtime-identity.json").read_text())
+    for item in runtime.get("sources", {}).values():
+        if digest(item["path"]) != item.get("sha256"):
+            raise ValueError("Official installed runtime identity differs")
     fixture = json.loads((suffix / "fixture.json").read_text())
     if validate_suffix(suffix, fixture, prompt, contract["start"]["sha256"], 1024, 1024) != 17:
         raise ValueError("Official suffix denominator differs")
     for process_path in (official_execution / "process.json", native / "process.json"):
         process = json.loads(process_path.read_text())
-        if (process.get("complete") is not True or process.get("return_code") != 0
-                or process.get("cgroup_seen") is not True or process.get("memory_swap_max_observed") != "0"
-                or process.get("memory_events", "").find("oom 0\n") < 0
-                or process.get("memory_events", "").find("oom_kill 0\n") < 0):
-            raise ValueError("Execution process or resource guard is incomplete")
+        validate_process(process)
     if ((trace / "prompt.txt").read_bytes() != (inputs / "prompt.txt").read_bytes()
             or [int(v) for v in (trace / "ids.txt").read_text().split()] != fixture["ids"]
             or (trace / "input.rgb").read_bytes() != (inputs / "input.rgb").read_bytes()):
@@ -88,7 +127,7 @@ def audit(base):
               "complete_execution": True, "quality_gate_passed": passed,
               "scope": "One fixed public development 1024x1024 strength-0.5 case; not formal15/72",
               "input_contract_sha256": digest(inputs / "input-contract.json"),
-              "official_identity_sha256": digest(base / "official-plan/identity-v3.json"),
+              "official_identity_sha256": digest(official_identity_path),
               "official_runtime_identity_sha256": digest(base / "official-plan/runtime-identity.json"),
               "official_process_sha256": digest(official_execution / "process.json"),
               "official_reference_sha256": digest(official / "reference.json"),
