@@ -1,0 +1,38 @@
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+{"ncnn_revision":"6a1bf000f363714839a36793addc8c879d3d899e","q_heads":32,"kv_heads":8,"head_dim":128,"backend":"vulkan","runtime_layer":true}
+Vulkan device: NVIDIA GeForce RTX 4060 Laptop GPU
+overwrite built-in layer type SDPA
+overwrite built-in layer type SDPA
+overwrite built-in layer type SDPA
+overwrite built-in layer type SDPA
+overwrite built-in layer type SDPA
+overwrite built-in layer type SDPA
+{"configuration":"vulkan_fp32_dedicated","case":"prefill_decode_reuse","tokens":40,"steps":9,"hint":128,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":1.1920929e-07,"nrmse":8.50290218e-08,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"vulkan_fp32_dedicated","case":"reset_and_growth","tokens":65,"steps":7,"hint":8,"key_backing_allocations":4,"value_backing_allocations":4,"max_abs_error":1.78813934e-07,"nrmse":8.89914578e-08,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"vulkan_fp32_dedicated","case":"fresh_prompt_after_reset","tokens":9,"steps":3,"hint":16,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":1.49011612e-07,"nrmse":7.22445137e-08,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"vulkan_fp32_default","case":"prefill_decode_reuse","tokens":40,"steps":9,"hint":128,"key_backing_allocations":9,"value_backing_allocations":9,"max_abs_error":1.1920929e-07,"nrmse":8.50290218e-08,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"vulkan_fp32_default","case":"reset_and_growth","tokens":65,"steps":7,"hint":8,"key_backing_allocations":7,"value_backing_allocations":7,"max_abs_error":1.78813934e-07,"nrmse":8.89914578e-08,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"vulkan_fp32_default","case":"fresh_prompt_after_reset","tokens":9,"steps":3,"hint":16,"key_backing_allocations":3,"value_backing_allocations":3,"max_abs_error":1.49011612e-07,"nrmse":7.22445137e-08,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"vulkan_fp16_dedicated","case":"prefill_decode_reuse","tokens":40,"steps":9,"hint":128,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":0.00047814846,"nrmse":0.000299650544,"atol":0.002,"nrmse_limit":0.005,"passed":true}
+{"configuration":"vulkan_fp16_dedicated","case":"reset_and_growth","tokens":65,"steps":7,"hint":8,"key_backing_allocations":4,"value_backing_allocations":4,"max_abs_error":0.000543236732,"nrmse":0.000309597437,"atol":0.002,"nrmse_limit":0.005,"passed":true}
+{"configuration":"vulkan_fp16_dedicated","case":"fresh_prompt_after_reset","tokens":9,"steps":3,"hint":16,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":0.000584125519,"nrmse":0.000279038385,"atol":0.002,"nrmse_limit":0.005,"passed":true}
+{"configuration":"vulkan_fp16_default","case":"prefill_decode_reuse","tokens":40,"steps":9,"hint":128,"key_backing_allocations":9,"value_backing_allocations":9,"max_abs_error":0.00047814846,"nrmse":0.000299650544,"atol":0.002,"nrmse_limit":0.005,"passed":true}
+{"configuration":"vulkan_fp16_default","case":"reset_and_growth","tokens":65,"steps":7,"hint":8,"key_backing_allocations":7,"value_backing_allocations":7,"max_abs_error":0.000543236732,"nrmse":0.000309597437,"atol":0.002,"nrmse_limit":0.005,"passed":true}
+{"configuration":"vulkan_fp16_default","case":"fresh_prompt_after_reset","tokens":9,"steps":3,"hint":16,"key_backing_allocations":3,"value_backing_allocations":3,"max_abs_error":0.000584125519,"nrmse":0.000279038385,"atol":0.002,"nrmse_limit":0.005,"passed":true}
+{"configuration":"vulkan_bf16_dedicated","case":"prefill_decode_reuse","tokens":40,"steps":9,"hint":128,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":0.00453811884,"nrmse":0.00242157887,"atol":0.015,"nrmse_limit":0.03,"passed":true}
+{"configuration":"vulkan_bf16_dedicated","case":"reset_and_growth","tokens":65,"steps":7,"hint":8,"key_backing_allocations":4,"value_backing_allocations":4,"max_abs_error":0.00429242849,"nrmse":0.00247968627,"atol":0.015,"nrmse_limit":0.03,"passed":true}
+{"configuration":"vulkan_bf16_dedicated","case":"fresh_prompt_after_reset","tokens":9,"steps":3,"hint":16,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":0.00431728363,"nrmse":0.00224450165,"atol":0.015,"nrmse_limit":0.03,"passed":true}
+{"configuration":"vulkan_bf16_default","case":"prefill_decode_reuse","tokens":40,"steps":9,"hint":128,"key_backing_allocations":9,"value_backing_allocations":9,"max_abs_error":0.00453811884,"nrmse":0.00242157887,"atol":0.015,"nrmse_limit":0.03,"passed":true}
+{"configuration":"vulkan_bf16_default","case":"reset_and_growth","tokens":65,"steps":7,"hint":8,"key_backing_allocations":7,"value_backing_allocations":7,"max_abs_error":0.00429242849,"nrmse":0.00247968627,"atol":0.015,"nrmse_limit":0.03,"passed":true}
+{"configuration":"vulkan_bf16_default","case":"fresh_prompt_after_reset","tokens":9,"steps":3,"hint":16,"key_backing_allocations":3,"value_backing_allocations":3,"max_abs_error":0.00431728363,"nrmse":0.00224450165,"atol":0.015,"nrmse_limit":0.03,"passed":true}

@@ -1,0 +1,75 @@
+e5e8d449ddb09e2183faca8be4ab535899ff8bc463665fea209c9b05604ef4d5
+-- CMAKE_INSTALL_PREFIX = /usr/local
+-- NCNN_VERSION_STRING = 1.0.20260907
+-- Target arch: x86 64bit
+-- Configuring done (0.8s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-o2/component64-on
+[  1%] Built target SPIRV
+[  2%] Built target ernie-execution-metrics
+[ 34%] Built target ncnn-generate-spirv
+[ 35%] Built target ernie-tokenizer-rust
+[ 35%] Built target ernie-allocation-metrics
+[ 41%] Built target glslang
+[ 41%] Built target ernie-tokenizer
+[ 41%] Built target ernie-shape-graph
+[ 41%] Built target ernie-model-package
+[ 93%] Built target ncnn
+[ 93%] Building CXX object src/CMakeFiles/ernie-runtime.dir/ernie_gelu.cpp.o
+[ 93%] Building CXX object src/CMakeFiles/ernie-runtime.dir/ernie_rmsnorm.cpp.o
+[ 94%] Building CXX object src/CMakeFiles/ernie-runtime.dir/ernie_residual.cpp.o
+[ 94%] Building CXX object src/CMakeFiles/ernie-runtime.dir/ernie_groupnorm.cpp.o
+[ 94%] Building CXX object src/CMakeFiles/ernie-runtime.dir/ernie_attention.cpp.o
+[ 94%] Building CXX object src/CMakeFiles/ernie-runtime.dir/latent_ops.cpp.o
+[ 94%] Building CXX object src/CMakeFiles/ernie-runtime.dir/img2img.cpp.o
+[ 94%] Building CXX object src/CMakeFiles/ernie-runtime.dir/image_encoder.cpp.o
+[ 94%] Building CXX object src/CMakeFiles/ernie-runtime.dir/component_files.cpp.o
+[ 95%] Building CXX object src/CMakeFiles/ernie-runtime.dir/block_sequence.cpp.o
+[ 95%] Building CXX object src/CMakeFiles/ernie-runtime.dir/dit.cpp.o
+[ 95%] Building CXX object src/CMakeFiles/ernie-runtime.dir/denoiser.cpp.o
+[ 95%] Building CXX object src/CMakeFiles/ernie-runtime.dir/text_encoder.cpp.o
+[ 95%] Building CXX object src/CMakeFiles/ernie-runtime.dir/ernie_text_down.cpp.o
+[ 95%] Building CXX object src/CMakeFiles/ernie-runtime.dir/conditioning.cpp.o
+[ 96%] Building CXX object src/CMakeFiles/ernie-runtime.dir/pe_session.cpp.o
+[ 96%] Linking CXX static library libernie-runtime.a
+[ 96%] Built target ernie-runtime
+[ 97%] Built target ernie-pe
+[ 98%] Built target ernie-pipeline
+[ 98%] Linking CXX executable ../ernie-image
+[100%] Built target ernie-image
+[  1%] Built target SPIRV
+[  2%] Built target ernie-execution-metrics
+[ 35%] Built target ncnn-generate-spirv
+[ 42%] Built target glslang
+[ 42%] Built target ernie-allocation-metrics
+[ 96%] Built target ncnn
+[100%] Built target ernie-runtime
+[100%] Linking CXX executable ../ernie-block-sequence-runner
+[100%] Built target ernie-block-sequence-runner
+[  1%] Built target SPIRV
+[  2%] Built target ernie-execution-metrics
+[ 35%] Built target ncnn-generate-spirv
+[ 42%] Built target glslang
+[ 42%] Built target ernie-allocation-metrics
+[ 95%] Built target ncnn
+[ 98%] Built target ernie-runtime
+[100%] Linking CXX executable ../ernie-attention-accuracy-probe
+[100%] Built target ernie-attention-accuracy-probe
+[  1%] Built target SPIRV
+[  2%] Built target ernie-execution-metrics
+[ 35%] Built target ncnn-generate-spirv
+[ 42%] Built target glslang
+[ 42%] Built target ernie-allocation-metrics
+[ 96%] Built target ncnn
+[100%] Built target ernie-runtime
+[100%] Linking CXX executable ../ernie-attention-workspace-probe
+[100%] Built target ernie-attention-workspace-probe
+[  1%] Built target SPIRV
+[  2%] Built target ernie-execution-metrics
+[ 35%] Built target ncnn-generate-spirv
+[ 42%] Built target glslang
+[ 42%] Built target ernie-allocation-metrics
+[ 96%] Built target ncnn
+[100%] Built target ernie-runtime
+[100%] Linking CXX executable ../ernie-attention-probe
+[100%] Built target ernie-attention-probe

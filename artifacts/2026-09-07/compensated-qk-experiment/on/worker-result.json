@@ -1,0 +1,45 @@
+[
+  {
+    "command": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-compensated-qk-v1/on/ernie-attention-accuracy-probe"
+    ],
+    "return_code": 0
+  },
+  {
+    "command": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-compensated-qk-v1/on/ernie-attention-workspace-probe"
+    ],
+    "return_code": 0
+  },
+  {
+    "command": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-compensated-qk-v1/on/ernie-attention-probe",
+      "--backend",
+      "vulkan",
+      "--runtime-layer"
+    ],
+    "return_code": 0
+  },
+  {
+    "command": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-compensated-qk-v1/on/ernie-block-sequence-runner",
+      "--fixture",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-chinese-step0-block15-official-input-v1/fixture",
+      "--tokens",
+      "4160",
+      "--output",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-compensated-qk-v1/on/actual.f32",
+      "--backend",
+      "vulkan",
+      "--precision",
+      "fp32",
+      "--policy",
+      "stream",
+      "--trace-dir",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-compensated-qk-v1/on/trace",
+      "--model",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/models/turbo1024-s64-portable/dit/block-15"
+    ],
+    "return_code": 0
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "production_source_diff_empty": true,
+  "restored_binaries_bitwise_equal_to_off": {
+    "ernie-image": "5d1612cb2a4208a87d6741137571bc8153767f04334e9dffd31ac959c448ca10",
+    "ernie-block-sequence-runner": "f048861b66353faa44ff6c6817c69495ace6155802471282d70ddc7dfc19b538",
+    "ernie-attention-accuracy-probe": "7e1570b563369d8911b25ffc62530002158354cee43d79e91f1c66633295110b",
+    "ernie-attention-workspace-probe": "8e5dd013ca3d6af868adc28a665781e52c3fc28d88389d151eda2dd0d41b60fb",
+    "ernie-attention-probe": "9d88eeb91b556e8d12dd9ed63d3059e324022457eef3454d71bffde0f829ae93"
+  },
+  "bound_entries_unchanged": 353,
+  "model_jobs_finished": true
+}

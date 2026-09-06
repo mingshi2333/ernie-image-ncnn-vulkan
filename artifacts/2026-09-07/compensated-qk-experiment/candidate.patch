@@ -1,0 +1,54 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 11ddec5..afddb83 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -8,6 +8,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
+ include(CTest)
+ option(ERNIE_ENABLE_VULKAN "Build Vulkan support" ON)
+ option(ERNIE_EXPERIMENT_MAPPED_MODEL_LOADING "Request ncnn mapped model loading in the generation pipeline" OFF)
++option(ERNIE_EXPERIMENT_COMPENSATED_QK "Evaluate compensated FP32 attention scores (quality validation required)" OFF)
+ option(ERNIE_MINIMAL_NCNN "Build only layers required by ERNIE" ON)
+ option(ERNIE_ALLOW_UNPINNED_NCNN "Allow an explicitly selected experimental ncnn revision" OFF)
+ option(ERNIE_BUILD_TOKENIZER "Build the native tokenizer bridge (requires Cargo)" OFF)
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 00cec81..00df98d 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -6,6 +6,9 @@ target_include_directories(ernie-runtime PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRE
+ if(ERNIE_ENABLE_VULKAN)
+     include("${PROJECT_SOURCE_DIR}/cmake/ErnieAttentionShader.cmake")
+     target_include_directories(ernie-runtime PRIVATE "${ERNIE_NCNN_SOURCE_DIR}/src/layer" "${CMAKE_CURRENT_BINARY_DIR}/generated")
++    if(ERNIE_EXPERIMENT_COMPENSATED_QK)
++        target_compile_definitions(ernie-runtime PRIVATE ERNIE_EXPERIMENT_COMPENSATED_QK=1)
++    endif()
+ endif()
+ if(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
+     set_source_files_properties(latent_ops.cpp img2img.cpp denoiser.cpp PROPERTIES COMPILE_OPTIONS "-ffp-contract=off")
+diff --git a/src/ernie_attention.cpp b/src/ernie_attention.cpp
+index cdca4fb..a632674 100644
+--- a/src/ernie_attention.cpp
++++ b/src/ernie_attention.cpp
+@@ -52,6 +52,23 @@ public:
+         if (created) return created;
+         delete pipeline_sdpa_qkv_cross;
+         pipeline_sdpa_qkv_cross = replacement.release();
++#if ERNIE_EXPERIMENT_COMPENSATED_QK
++        // Experimental DiT-only score reduction. Reuse the authenticated
++        // shader with native Q/K transpose, scale, mask and GQA conventions.
++        // Leave autoregressive cache arithmetic unchanged.
++        if (!kv_cache)
++        {
++            specs.assign(13, {});
++            specs[0].i = attn_mask;
++            specs[6].i = 1;
++            replacement = std::make_unique<ncnn::Pipeline>(vkdev);
++            replacement->set_local_size_xyz(8, 8, 1);
++            const int score_created = replacement->create(spirv.data(), spirv.size()*sizeof(uint32_t), specs);
++            if (score_created) return score_created;
++            delete pipeline_sdpa_qk_cross;
++            pipeline_sdpa_qk_cross = replacement.release();
++        }
++#endif
+         spirv.clear();
+         const int sum_compiled = ncnn::compile_spirv_module(ernie_softmax_sum_shader, opt, spirv);
+         if (sum_compiled) return sum_compiled;

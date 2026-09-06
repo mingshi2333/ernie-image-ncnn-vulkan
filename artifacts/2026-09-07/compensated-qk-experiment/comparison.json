@@ -1,0 +1,22 @@
+{
+  "off": {
+    "sha256": "175bfa394aec3b7e576caaea3fd897cf84db122d4cd9378d7d72dfe704df68a3",
+    "nrmse": 6.011371945074345e-07,
+    "error_l2": 0.1987765447421232,
+    "reference_l2": 330667.5190927066,
+    "max_abs_error": 0.006591796875,
+    "operator_cases": 23
+  },
+  "on": {
+    "sha256": "f3b57bc276ae2f6bcf0d8dcfb796f7b217b38815b4e524685899c2b82c17a6a8",
+    "nrmse": 5.865782620340838e-07,
+    "error_l2": 0.19396237866052207,
+    "reference_l2": 330667.5190927066,
+    "max_abs_error": 0.0068359375,
+    "operator_cases": 23
+  },
+  "values": 17039360,
+  "baseline_exact": true,
+  "advance_full_image": false,
+  "initial_review_note": "Two parser errors included the non-case cache metadata record in23 expected cases. Fixed explicit metadata/case enumeration; no model rerun."
+}
