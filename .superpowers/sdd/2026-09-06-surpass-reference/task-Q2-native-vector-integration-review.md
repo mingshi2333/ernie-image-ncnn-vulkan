@@ -48,3 +48,7 @@
 ## 验证边界
 
 本审查没有build、没有完整模型运行、没有GPU推理、没有改实现或历史证据。两次saved trajectory复算只读取已有张量。没有把原有工具之外的潜在泛化问题列为当前新增diff缺陷。后续schema3/ComponentFiles加载器胶合需独立审查，本报告不覆盖它。
+
+## 修复复核补充
+
+M1 closed：README现明确“执行目录中封存的62个Python脚本”，并说明不表示全部导入执行。M2 closed：新result在reference/diagnostic embeddings时写bypassed，否则明确vector/gemm。独立抽取实际AST表达式遍历8种组合，全部符合预期。旧冻结result未改写。两项Minor均关闭；原审查的固定快照/实际证据与完整原生链路pending边界继续保留。
