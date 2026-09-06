@@ -46,6 +46,11 @@ def transform(text):
 namespace {
 template<class T> std::uint64_t ernie_metric_id(T value) noexcept { return (std::uint64_t)value; }
 std::uint64_t ernie_metric_device(const ncnn::VkAllocator* owner) noexcept { return owner->vkdev ? ernie_metric_id(owner->vkdev->vkdevice()) : 0; }
+void ernie_metric_identify(const ncnn::VkAllocator* owner) noexcept {
+    if (!owner->vkdev) return;
+    const auto& info=owner->vkdev->info;
+    ernie::allocation_device_identified(ernie_metric_device(owner),info.device_index(),info.vendor_id(),info.device_id(),info.api_version(),info.driver_version(),info.device_name(),info.pipeline_cache_uuid());
+}
 void ernie_metric_alloc(const ncnn::VkAllocator* owner, VkDeviceMemory memory, std::uint64_t bytes, std::uint32_t type, bool imported) noexcept {
     const auto& properties=owner->vkdev->info.physical_device_memory_properties();
     // Vulkan validated this memoryTypeIndex before allocation succeeded.
@@ -64,7 +69,7 @@ void ernie_metric_alloc(const ncnn::VkAllocator* owner, VkDeviceMemory memory, s
  if count!=10:raise ValueError('Unexpected free call count '+str(count))
  text=re.sub(pattern,lambda m:m[0]+'\n        ernie::allocation_memory_destroyed(ernie_metric_device(this),ernie_metric_id(this),ernie_metric_id('+m[1]+'));',text)
  for name,code in [
-  ('VkAllocator::VkAllocator(const VulkanDevice* _vkdev)','ernie::allocation_allocator_created(ernie_metric_device(this),ernie_metric_id(this));'),
+  ('VkAllocator::VkAllocator(const VulkanDevice* _vkdev)','ernie_metric_identify(this);\n    ernie::allocation_allocator_created(ernie_metric_device(this),ernie_metric_id(this));'),
   ('VkAllocator::~VkAllocator()','ernie::allocation_allocator_destroyed(ernie_metric_device(this),ernie_metric_id(this));')]:
   a,b=function_body(text,name);text=text[:b-1]+'    '+code+'\n'+text[b-1:]
  for cls,role in [('VkBlobAllocator','Blob'),('VkWeightAllocator','Weight'),('VkStagingAllocator','Staging'),('VkWeightStagingAllocator','Staging')]:

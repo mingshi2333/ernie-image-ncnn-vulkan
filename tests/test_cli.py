@@ -20,6 +20,10 @@ class CliTests(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         return result.stderr
 
+    def test_metrics_rejects_empty_path_before_model_loading(self):
+        error = self.request('--prompt', 'cat', '--metrics-json', '')
+        self.assertTrue('no allocation instrumentation' in error or 'empty' in error, error)
+
     def test_prompt_sources_are_mutually_exclusive(self):
         self.assertIn('one prompt source', self.request('--prompt', 'cat', '--prompt-file', 'absent.txt'))
 

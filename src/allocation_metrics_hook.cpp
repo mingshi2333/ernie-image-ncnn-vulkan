@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 #include "allocation_metrics_hook.h"
 #include <limits>
+#include <algorithm>
 #include <atomic>
 #include <type_traits>
 #include <mutex>
@@ -28,6 +29,7 @@ struct AllocationMeasurementSession::State {
     // Device+VkDeviceMemory is unique even when allocator pointers are reused.
     std::map<Key,Memory> memories;
     AllocationTotals total;
+    std::map<std::uint64_t,AllocationDeviceIdentity> devices;
     std::map<std::pair<std::uint64_t,VulkanMemoryClass>,AllocationTotals> classes;
 };
 struct AllocationHookAccess {
@@ -54,9 +56,25 @@ AllocationHookSnapshot AllocationMeasurementSession::snapshot() const {
     if (r.available) {
         if(state_->observed)r.all_memory=state_->total;
         r.by_device_memory_class=state_->classes;
+        r.devices=state_->devices;
         r.allocator_metrics=state_->metrics.snapshot();
     }
     return r;
+}
+void allocation_device_identified(std::uint64_t device,int index,std::uint32_t vendor_id,
+    std::uint32_t device_id,std::uint32_t api_version,std::uint32_t driver_version,
+    const char* name,const std::uint8_t* uuid) noexcept {
+    AllocationHookAccess::observe([&](auto& s){
+        if(!device || index<0 || !name || !uuid)throw std::invalid_argument("invalid device identity");
+        size_t length=0;while(length<256 && name[length])++length;
+        if(length==0 || length==256)throw std::invalid_argument("invalid device name");
+        AllocationDeviceIdentity value;value.index=index;value.vendor_id=vendor_id;value.device_id=device_id;
+        value.api_version=api_version;value.driver_version=driver_version;value.name.assign(name,length);
+        std::copy(uuid,uuid+16,value.pipeline_cache_uuid.begin());
+        auto found=s.devices.find(device);
+        if(found!=s.devices.end() && !(found->second==value))throw std::logic_error("conflicting device identity");
+        s.devices.emplace(device,std::move(value));
+    });
 }
 void allocation_allocator_created(std::uint64_t device,std::uint64_t allocator) noexcept {
     AllocationHookAccess::observe([&](auto& s){

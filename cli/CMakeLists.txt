@@ -6,3 +6,9 @@ include(GNUInstallDirs)
 install(TARGETS ernie-image RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(FILES "${PROJECT_SOURCE_DIR}/LICENSE" "${PROJECT_SOURCE_DIR}/sources.lock.json"
               "${PROJECT_SOURCE_DIR}/docs/RUNNING.md" DESTINATION ${CMAKE_INSTALL_DATADIR}/ernie-image)
+
+if(ERNIE_ENABLE_ALLOCATION_METRICS)
+    target_sources(ernie-image PRIVATE allocation_report.cpp)
+    target_compile_definitions(ernie-image PRIVATE ERNIE_CLI_ALLOCATION_METRICS=1)
+    target_link_libraries(ernie-image PRIVATE ernie-allocation-metrics ncnn)
+endif()

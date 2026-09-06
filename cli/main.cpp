@@ -3,9 +3,18 @@
 #include "options.h"
 #include <chrono>
 #include <iostream>
+#ifdef ERNIE_CLI_ALLOCATION_METRICS
+#include "allocation_report.h"
+#include <gpu.h>
+#include <memory>
+#endif
 
 int main(int argc, char **argv)
 {
+#ifdef ERNIE_CLI_ALLOCATION_METRICS
+    std::unique_ptr<ernie::cli::AllocationReport> metrics;
+    const char* failure_phase="input_preparation_failed";
+#endif
     try
     {
         const auto options = ernie::cli::parse_options(argc, argv);
@@ -46,6 +55,11 @@ int main(int argc, char **argv)
             std::cout << "Model verified\n";
             return 0;
         }
+#ifdef ERNIE_CLI_ALLOCATION_METRICS
+        std::cerr << "Allocation instrumentation enabled; timings are diagnostic, not formal speed measurements\n";
+        if (!options.metrics_json.empty())
+            metrics=std::make_unique<ernie::cli::AllocationReport>(options.metrics_json,!request.trace.empty(),ncnn::get_gpu_instance()!=VK_NULL_HANDLE);
+#endif
         if (!options.input.empty())
         {
             auto image = ernie::cli::read_image(options.input, options.background);
@@ -63,6 +77,9 @@ int main(int argc, char **argv)
             }
             request.input_image = std::move(image);
         }
+#ifdef ERNIE_CLI_ALLOCATION_METRICS
+        failure_phase="generation_failed";
+#endif
         const auto result = ernie::generate(
             request,
             [&](const ernie::Progress &p)
@@ -79,9 +96,16 @@ int main(int argc, char **argv)
                 std::cout << std::endl;
             });
         const auto write_start = std::chrono::steady_clock::now();
+#ifdef ERNIE_CLI_ALLOCATION_METRICS
+        failure_phase="image_write_failed";
+#endif
         ernie::cli::write_image(options.output, result.image);
         const auto write_seconds =
             std::chrono::duration<double>(std::chrono::steady_clock::now() - write_start).count();
+#ifdef ERNIE_CLI_ALLOCATION_METRICS
+        failure_phase="report_write_failed";
+        if (metrics)metrics->finish("success","",ncnn::get_gpu_instance()!=VK_NULL_HANDLE);
+#endif
         if (!request.pe_model.empty())
             std::cout << "PE generated " << result.pe_generated_tokens << " tokens, "
                       << (result.pe_eos ? "EOS reached" : "token limit reached")
@@ -95,6 +119,13 @@ int main(int argc, char **argv)
     catch (const std::exception &error)
     {
         std::cerr << error.what() << '\n';
+#ifdef ERNIE_CLI_ALLOCATION_METRICS
+        if (metrics && !metrics->attempted())
+        {
+            try {metrics->finish(failure_phase,error.what(),ncnn::get_gpu_instance()!=VK_NULL_HANDLE);}
+            catch(const std::exception& report_error) {std::cerr << "Allocation report also failed: " << report_error.what() << '\n';}
+        }
+#endif
         return 1;
     }
 }

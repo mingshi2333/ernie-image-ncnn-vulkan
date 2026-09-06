@@ -65,6 +65,7 @@ const char *usage()
            "            [--vae-device cpu|vulkan] [--vae-convolution direct|sgemm]\n"
            "            [--pe-model DIR] [--pe-max-tokens N] [--pe-greedy]\n"
            "            [--pe-temperature N] [--pe-top-p N] [--pe-seed N]\n"
+           "            [--metrics-json NEW.json] (allocation diagnostic build only; not a speed round)\n"
            "            [--latent FILE.f32] [--embeddings FILE.f32] [--trace-dir NEWDIR]\n"
            "            [--input IMAGE --strength 0..1 [--resize stretch|fit|crop] [--background #RRGGBB]]\n"
            "ernie-image (--model DIR | --pe-model DIR) --verify-model\n"
@@ -131,6 +132,8 @@ Options parse_options(int argc, char **argv)
             r.model = value;
         else if (flag == "--output")
             out.output = value;
+        else if (flag == "--metrics-json")
+            out.metrics_json = value;
         else if (flag == "--input")
             out.input = value;
         else if (flag == "--prompt")
@@ -230,6 +233,18 @@ Options parse_options(int argc, char **argv)
         }
         else
             throw std::invalid_argument("Unknown argument: " + flag);
+    }
+    if (seen.count("--metrics-json"))
+    {
+#ifndef ERNIE_CLI_ALLOCATION_METRICS
+        throw std::invalid_argument("This build has no allocation instrumentation; --metrics-json requires an ON build");
+#else
+        if (out.metrics_json.empty())throw std::invalid_argument("Allocation report path is empty");
+        if (out.verify_only || out.diagnose_only)throw std::invalid_argument("--metrics-json requires generation");
+        if (fs::exists(fs::symlink_status(out.metrics_json)))throw std::invalid_argument("Use a new allocation report path");
+        if (!out.output.empty() && fs::absolute(out.metrics_json).lexically_normal()==fs::absolute(out.output).lexically_normal())
+            throw std::invalid_argument("Allocation report and image paths must differ");
+#endif
     }
     if (bool(r.width) != bool(r.height))
         throw std::invalid_argument("Specify width and height together");
