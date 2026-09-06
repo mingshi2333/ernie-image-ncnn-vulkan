@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 #include "net.h"
+#include "ernie_attention.h"
 #if NCNN_VULKAN
 #include "command.h"
 #include "gpu.h"
@@ -152,11 +153,12 @@ struct CpuSession final : Session {
     ncnn::Mat key, value;
     bool dedicated;
 
-    explicit CpuSession(bool use_allocator) : dedicated(use_allocator)
+    explicit CpuSession(bool use_allocator, bool runtime_layer = false) : dedicated(use_allocator)
     {
         allocator.set_size_compare_ratio(0.f);
         configure(net.opt, "fp32");
         net.opt.use_vulkan_compute = false;
+        if (runtime_layer) check(ernie::register_attention(net), "register CPU runtime attention");
         check(net.load_param_mem(graph), "load CPU graph");
         check(net.load_model(reinterpret_cast<const unsigned char*>(empty_model)), "load CPU model");
     }
@@ -206,12 +208,13 @@ struct GpuSession final : Session {
     ncnn::VkMat key, value;
     bool dedicated;
 
-    GpuSession(ncnn::VulkanDevice* dev, const std::string& precision, bool use_allocator)
+    GpuSession(ncnn::VulkanDevice* dev, const std::string& precision, bool use_allocator, bool runtime_layer = false)
         : device(dev), blob_allocator(dev), cache_allocator(dev), staging_allocator(dev), dedicated(use_allocator)
     {
         configure(net.opt, precision);
         net.opt.use_vulkan_compute = true;
         net.set_vulkan_device(device);
+        if (runtime_layer) check(ernie::register_attention(net), "register Vulkan runtime attention");
         check(net.load_param_mem(graph), "load Vulkan graph");
         check(net.load_model(reinterpret_cast<const unsigned char*>(empty_model)), "load Vulkan model");
     }
@@ -332,24 +335,26 @@ void suite(Session& session, const std::string& label, const std::string& precis
 
 int main(int argc, char** argv)
 {
-    if (argc != 3 || std::string(argv[1]) != "--backend"
+    if ((argc != 3 && argc != 4) || std::string(argv[1]) != "--backend"
+        || (argc == 4 && std::string(argv[3]) != "--runtime-layer")
         || (std::string(argv[2]) != "cpu" && std::string(argv[2]) != "vulkan"))
     {
-        std::cerr << "Usage: ernie-attention-probe --backend cpu|vulkan\n";
+        std::cerr << "Usage: ernie-attention-probe --backend cpu|vulkan [--runtime-layer]\n";
         return 2;
     }
     const std::string backend = argv[2];
+    const bool runtime_layer = argc == 4;
     std::cout << "{\"ncnn_revision\":\"" << ERNIE_NCNN_REVISION
               << "\",\"q_heads\":32,\"kv_heads\":8,\"head_dim\":128,\"backend\":\""
-              << backend << "\"}\n";
+              << backend << "\",\"runtime_layer\":" << (runtime_layer ? "true" : "false") << "}\n";
     int result = 0;
     try
     {
         if (backend == "cpu")
         {
-            CpuSession dedicated(true);
+            CpuSession dedicated(true, runtime_layer);
             suite(dedicated, "cpu_fp32_dedicated", "fp32", true);
-            CpuSession automatic(false);
+            CpuSession automatic(false, runtime_layer);
             suite(automatic, "cpu_fp32_default", "fp32", false);
         }
         else
@@ -376,9 +381,9 @@ int main(int argc, char** argv)
                     std::cerr << "SKIP: bf16 storage unavailable\n";
                     continue;
                 }
-                GpuSession dedicated(device, precision, true);
+                GpuSession dedicated(device, precision, true, runtime_layer);
                 suite(dedicated, "vulkan_" + precision + "_dedicated", precision, true);
-                GpuSession baseline(device, precision, false);
+                GpuSession baseline(device, precision, false, runtime_layer);
                 suite(baseline, "vulkan_" + precision + "_default", precision, false);
             }
 #else

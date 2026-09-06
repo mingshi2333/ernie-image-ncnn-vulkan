@@ -78,13 +78,15 @@ ncnn::VkMat modulation(const ncnn::VkMat& source, const ncnn::VulkanDevice* devi
 
 ncnn::Mat run_dit(const std::string& input_head, const std::vector<std::string>& blocks,
     const std::string& output_head, const std::vector<ncnn::Mat>& inputs,
-    const ncnn::Option& option, DitStats& stats)
+    const ncnn::Option& option, DitStats& stats, const CpuStageObserver& observer)
 {
     if (inputs.size() != 6 || option.use_vulkan_compute) throw std::invalid_argument("Require six CPU DiT inputs");
     stats = {};
     auto start = Clock::now();
     auto projected = head(input_head, {inputs[0], inputs[1], inputs[2]}, 8, option);
     stats.input_head_seconds = std::chrono::duration<double>(Clock::now() - start).count();
+    if (observer)
+        for (size_t i = 0; i < projected.size(); ++i) observer("head-" + std::to_string(i), projected[i]);
     std::vector<ncnn::Mat> constants;
     for (size_t i = 2; i < 8; ++i)
     {
@@ -93,7 +95,7 @@ ncnn::Mat run_dit(const std::string& input_head, const std::vector<std::string>&
         constants.push_back(value);
     }
     constants.insert(constants.end(), inputs.begin() + 3, inputs.end());
-    const auto current = run_block_sequence(blocks, projected[0], constants, option, WeightPolicy::Stream, stats.blocks);
+    const auto current = run_block_sequence(blocks, projected[0], constants, option, WeightPolicy::Stream, stats.blocks, observer);
     start = Clock::now();
     auto result = head(output_head, {current, projected[1]}, 1, option)[0];
     stats.output_head_seconds = std::chrono::duration<double>(Clock::now() - start).count();
@@ -103,7 +105,8 @@ ncnn::Mat run_dit(const std::string& input_head, const std::vector<std::string>&
 #if NCNN_VULKAN
 ncnn::VkMat run_dit(const std::string& input_head, const std::vector<std::string>& blocks,
     const std::string& output_head, const std::vector<ncnn::VkMat>& inputs,
-    const ncnn::VulkanDevice* device, const ncnn::Option& option, DitStats& stats)
+    const ncnn::VulkanDevice* device, const ncnn::Option& option, DitStats& stats,
+    const VulkanStageObserver& observer)
 {
     if (inputs.size() != 6 || !device || !option.use_vulkan_compute
         || !option.blob_vkallocator || !option.staging_vkallocator)
@@ -112,6 +115,8 @@ ncnn::VkMat run_dit(const std::string& input_head, const std::vector<std::string
     auto start = Clock::now();
     auto projected = head(input_head, {inputs[0], inputs[1], inputs[2]}, 8, device, option);
     stats.input_head_seconds = std::chrono::duration<double>(Clock::now() - start).count();
+    if (observer)
+        for (size_t i = 0; i < projected.size(); ++i) observer("head-" + std::to_string(i), projected[i]);
     std::vector<ncnn::VkMat> constants;
     {
         ncnn::VkCompute command(device);
@@ -119,7 +124,7 @@ ncnn::VkMat run_dit(const std::string& input_head, const std::vector<std::string
         check(command.submit_and_wait(), "prepare shared modulation");
     }
     constants.insert(constants.end(), inputs.begin() + 3, inputs.end());
-    const auto current = run_block_sequence(blocks, projected[0], constants, device, option, WeightPolicy::Stream, stats.blocks);
+    const auto current = run_block_sequence(blocks, projected[0], constants, device, option, WeightPolicy::Stream, stats.blocks, observer);
     start = Clock::now();
     auto result = head(output_head, {current, projected[1]}, 1, device, option)[0];
     stats.output_head_seconds = std::chrono::duration<double>(Clock::now() - start).count();

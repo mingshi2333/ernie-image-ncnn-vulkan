@@ -111,10 +111,14 @@ def main():
     p.add_argument('--steps',type=int,default=8)
     p.add_argument('--vae-convolution',choices=['direct','sgemm'],default='direct')
     p.add_argument('--reference',type=Path,help='Reuse a complete, checksum-verified reference with identical configuration')
+    p.add_argument('--reference-embeddings',action='store_true',
+                   help='Diagnostic only: read saved official embeddings instead of running the native text encoder')
     p.add_argument('--reference-device',choices=['cpu','cuda'],default='cpu',help='Device for one streamed official FP32 DiT block; other official modules stay on CPU')
     p.add_argument('--latent',type=Path,help='Use these saved FP32 initial latents for both implementations')
     p.add_argument('--reference-only',action='store_true',help='Save the official fixture without launching the native candidate')
     args=p.parse_args()
+    if args.reference_embeddings and args.reference_only:
+        p.error('Reference embeddings diagnose a native trajectory; do not combine with --reference-only')
     if args.output.exists() or not 1<=args.steps<=1000 or (args.device=='cpu' and args.precision!='fp32'):
         p.error('Use a new output path and supported device/precision/steps')
     if not args.reference and args.reference_device=='cuda' and not torch.cuda.is_available():
@@ -177,7 +181,13 @@ def main():
              '--output',str((args.output/'native.png').resolve()),'--device',args.device,'--precision',args.precision,
              '--steps',str(args.steps),'--latent',str((ref/'initial.f32').resolve()),'--trace-dir',str(trace.resolve()),
              '--vae-convolution',args.vae_convolution]
-    result={'scope':fixture['scope'],'runner_sha256':sha256(runner),'validator_sha256':validator_hash,
+    scope=fixture['scope']
+    if args.reference_embeddings:
+        command+=['--embeddings',str((ref/fixture['inputs']['text']['file']).resolve())]
+        scope=('Diagnostic free-running DiT and VAE with saved official text embeddings; '
+               'native text encoder bypassed; not complete native prompt-to-PNG acceptance')
+    result={'scope':scope,'conditioning_source':'saved_reference_diagnostic' if args.reference_embeddings else 'native_text_encoder',
+            'runner_sha256':sha256(runner),'validator_sha256':validator_hash,
             'source_snapshot':{path.name:sha256(path) for path in sorted(scripts.iterdir())},
             'package_manifest_sha256':sha256(args.model/'manifest.json'),'reference_fixture_sha256':sha256(ref/'fixture.json'),
             'device':args.device,'dit_precision':args.precision,'text_scheduler_vae_precision':'fp32',

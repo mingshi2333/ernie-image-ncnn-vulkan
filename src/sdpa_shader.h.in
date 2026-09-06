@@ -1,0 +1,9 @@
+// Derived from Tencent ncnn sdpa_cross.comp, BSD-3-Clause (copyright below).
+// ERNIE changes preserve FP32 low-order accumulation bits; see the CMake recipe.
+#pragma once
+constexpr const char* ernie_sdpa_shader = R"ernie_shader(
+@ERNIE_SDPA_SHADER_SOURCE@
+)ernie_shader";
+constexpr const char* ernie_softmax_sum_shader = R"ernie_shader(
+@ERNIE_SOFTMAX_SHADER_SOURCE@
+)ernie_shader";

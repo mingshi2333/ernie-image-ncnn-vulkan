@@ -41,7 +41,7 @@ static ncnn::Mat read_tensor(const fs::path& path, int w, int h = 0)
 int main(int argc, char** argv)
 {
     fs::path model, fixture, output;
-    std::string backend = "cpu", precision = "fp32";
+    std::string backend = "cpu", precision = "fp32", output_blob = "out0";
     int tokens = 0, threads = 4, repeat = 1;
     bool host_weights = false, device_io = false, trace_attention = false;
     for (int i = 1; i < argc; ++i)
@@ -63,6 +63,7 @@ int main(int argc, char** argv)
         if (flag == "--model") model = value;
         else if (flag == "--fixture") fixture = value;
         else if (flag == "--output") output = value;
+        else if (flag == "--output-blob") output_blob = value;
         else if (flag == "--backend") backend = value;
         else if (flag == "--precision") precision = value;
         else if (flag == "--tokens") tokens = std::atoi(value.c_str());
@@ -80,12 +81,13 @@ int main(int argc, char** argv)
         || (precision != "fp32" && precision != "fp16" && precision != "bf16"))
     {
         std::cerr << "Usage: ernie-block-runner --model DIR --fixture DIR --tokens N --output FILE "
-                     "[--backend cpu|vulkan] [--precision fp32|fp16|bf16] [--threads N] [--host-weights] [--device-io] [--repeat N] [--trace-attention]\n";
+                     "[--backend cpu|vulkan] [--precision fp32|fp16|bf16] [--threads N] [--host-weights] [--device-io] [--repeat N] [--trace-attention] [--output-blob NAME]\n";
         return 2;
     }
     int status = 0;
     try
     {
+        if (fs::exists(output)) throw std::runtime_error("Output exists; use a new path");
         std::vector<ncnn::Mat> inputs;
         inputs.push_back(read_tensor(fixture / "in0.f32", 4096, tokens));
         for (int i = 1; i <= 6; ++i)
@@ -174,7 +176,7 @@ int main(int argc, char** argv)
                     check(ex.input(("in" + std::to_string(i)).c_str(), device_inputs[i]), "input VkMat");
                 ncnn::VkCompute cmd(net.vulkan_device());
                 ncnn::VkMat out_gpu;
-                check(ex.extract("out0", out_gpu, cmd), "extract VkMat");
+                check(ex.extract(output_blob.c_str(), out_gpu, cmd), "extract VkMat");
                 ncnn::Option download = transfer;
                 download.use_packing_layout = false;
                 cmd.record_download(out_gpu, result, download);
@@ -185,28 +187,35 @@ int main(int argc, char** argv)
             {
                 for (size_t i = 0; i < inputs.size(); ++i)
                     check(ex.input(("in" + std::to_string(i)).c_str(), inputs[i]), "input Mat");
-                check(ex.extract("out0", result), "run block");
+                check(ex.extract(output_blob.c_str(), result), "run block");
             }
             run_seconds.push_back(std::chrono::duration<double>(Clock::now() - start).count());
-            if (result.w != 4096 || result.h != tokens || result.elemsize != 4 || result.elempack != 1)
+            if (result.empty() || result.elemsize != 4 || result.elempack != 1
+                || (output_blob == "out0" && (result.w != 4096 || result.h != tokens || result.c != 1)))
                 throw std::runtime_error("Unexpected output layout");
             if (iteration == 0) first_result = result.clone();
             else
-                for (int y = 0; y < tokens; ++y)
-                    for (int x = 0; x < 4096; ++x)
-                        repeat_max_abs = std::max(repeat_max_abs, std::abs(double(result.row(y)[x]) - first_result.row(y)[x]));
+                for (int c = 0; c < result.c; ++c)
+                    for (int i = 0; i < result.w * result.h * result.d; ++i)
+                        repeat_max_abs = std::max(repeat_max_abs, std::abs(
+                            double(static_cast<const float*>(result.channel(c))[i]) - static_cast<const float*>(first_result.channel(c))[i]));
         }
         if (repeat_max_abs != 0) throw std::runtime_error("Repeated same-input execution changed output");
-        if (result.w != 4096 || result.h != tokens || result.c != 1 || result.elempack != 1 || result.elemsize != 4)
+        if ((output_blob == "out0" && (result.w != 4096 || result.h != tokens || result.c != 1))
+            || result.elempack != 1 || result.elemsize != 4)
             throw std::runtime_error("Unexpected block output shape: " + std::to_string(result.w) + ","
                                      + std::to_string(result.h) + "," + std::to_string(result.c));
         if (output.has_parent_path()) fs::create_directories(output.parent_path());
+        if (fs::exists(output)) throw std::runtime_error("Output exists; use a new path");
         std::ofstream file(output, std::ios::binary);
-        for (int y = 0; y < tokens; ++y)
-            file.write(reinterpret_cast<const char*>(result.row(y)), 4096 * sizeof(float));
+        for (int c = 0; c < result.c; ++c)
+            file.write(reinterpret_cast<const char*>(static_cast<const float*>(result.channel(c))),
+                       size_t(result.w) * result.h * result.d * sizeof(float));
         if (!file) throw std::runtime_error("Failed to write block output");
         std::cout << "{\"backend\":\"" << backend << "\",\"precision\":\"" << precision
-                  << "\",\"tokens\":" << tokens << ",\"load_seconds\":"
+                  << "\",\"output_blob\":" << std::quoted(output_blob)
+                  << ",\"output_shape_whdc\":[" << result.w << ',' << result.h << ',' << result.d << ',' << result.c << ']'
+                  << ",\"tokens\":" << tokens << ",\"load_seconds\":"
                   << std::chrono::duration<double>(load_end - load_start).count()
                   << ",\"first_run_seconds\":" << run_seconds[0] << ",\"run_seconds\":[";
         for (size_t i = 0; i < run_seconds.size(); ++i) std::cout << (i ? "," : "") << run_seconds[i];

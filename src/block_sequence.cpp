@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 #include "block_sequence.h"
 #include "ernie_gelu.h"
+#include "ernie_attention.h"
 #include <chrono>
 #include <filesystem>
 #include <memory>
@@ -46,7 +47,7 @@ void check_request(size_t models, size_t constants, WeightPolicy policy)
 
 ncnn::Mat run_block_sequence(const std::vector<std::string>& models, const ncnn::Mat& input,
     const std::vector<ncnn::Mat>& constants, const ncnn::Option& option,
-    WeightPolicy policy, BlockSequenceStats& stats)
+    WeightPolicy policy, BlockSequenceStats& stats, const CpuStageObserver& observer)
 {
     check_request(models.size(), constants.size(), policy);
     if (option.use_vulkan_compute) throw std::invalid_argument("CPU sequence requires CPU options");
@@ -72,6 +73,7 @@ ncnn::Mat run_block_sequence(const std::vector<std::string>& models, const ncnn:
         // storage independently of Net, so it survives streamed destruction.
         current = next;
         stats.compute_seconds.push_back(std::chrono::duration<double>(Clock::now() - start).count());
+        if (observer) observer("block-" + std::to_string(i), current);
     }
     return current;
 }
@@ -79,7 +81,8 @@ ncnn::Mat run_block_sequence(const std::vector<std::string>& models, const ncnn:
 #if NCNN_VULKAN
 ncnn::VkMat run_block_sequence(const std::vector<std::string>& models, const ncnn::VkMat& input,
     const std::vector<ncnn::VkMat>& constants, const ncnn::VulkanDevice* device,
-    const ncnn::Option& option, WeightPolicy policy, BlockSequenceStats& stats)
+    const ncnn::Option& option, WeightPolicy policy, BlockSequenceStats& stats,
+    const VulkanStageObserver& observer)
 {
     check_request(models.size(), constants.size(), policy);
     if (!device || !option.use_vulkan_compute || !option.blob_vkallocator || !option.staging_vkallocator)
@@ -110,9 +113,10 @@ ncnn::VkMat run_block_sequence(const std::vector<std::string>& models, const ncn
         ncnn::VkMat next;
         check(extractor.extract("out0", next, command), "extract device block output");
         check(command.submit_and_wait(), "complete block before releasing weights");
-        ++stats.compute_submissions;
+        stats.compute_submissions += 1 + attention_internal_submissions(net);
         current = next;
         stats.compute_seconds.push_back(std::chrono::duration<double>(Clock::now() - start).count());
+        if (observer) observer("block-" + std::to_string(i), current);
         // command, extractor, then the streamed Net are destroyed in this order.
         // current remains owned by the caller's blob allocator.
     }

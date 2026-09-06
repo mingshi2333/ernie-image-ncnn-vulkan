@@ -4,7 +4,7 @@ ERNIE-Image-Turbo 本地文生图的 C++ / ncnn / Vulkan 实现。**可以离线
 
 2026-09-05，本机 RTX 4060 Laptop 8GB / Ryzen 7745HX / 32GB RAM 实测：苹果提示词的完整 1024 官方模块对照通过，默认直接卷积将完整生成的峰值进程 RSS 从 **23.03 GiB 降到 5.82 GiB**。新运行耗时 **617.18 秒**，包含约 19.12 秒的全模型散列检查和中间张量记录；这是单次观测，不是受控速度基准。文本、Euler 主 latent 和 VAE 使用 FP32；DiT 默认 Vulkan FP16，并保留 FP32 残差。
 
-**数值验收有通过和失败结果。** 苹果样本通过全部 25 项张量比较与 PNG 门限；40-token 长英文样本的 FP16 和 FP32 成图均通过各自像素门限，但后几步张量未全部通过。中文样本的两种精度均有张量及局部最大像素差超限；FP32 平均像素误差降至 0.03838/255，仍未通过全部门限。所有门限和失败记录均保留。这三条固定提示词不构成广泛的感知质量评估。
+**2026-09-06：FP32 注意力已加入补偿累加和查询分块。** 40-token 长英文的完整对照由 20/25 项张量通过提升到 **24/25**，PNG 平均误差由 0.01891 降至 **0.00268/255**、最大差为 **1/255**；最后一步预测的最大张量误差仍超限。中文在补偿累加后的完整运行由 17/25 提升到 **21/25**，PNG 平均误差由 0.03838 降至 **0.02263/255**，最大差 13 仍超过门限 2。苹果历史 FP16 对照通过全部门限，长英文和中文的历史低精度失败保留。这三条固定提示词不构成广泛的感知质量评估。
 
 | 模块 | 已完成的验证 |
 |---|---|
@@ -14,13 +14,14 @@ ERNIE-Image-Turbo 本地文生图的 C++ / ncnn / Vulkan 实现。**可以离线
 | 64×64 完整 prompt → PNG | 同一份保存的初始 latent，对照分阶段执行的官方模块；最终 latent NRMSE 0.05244，PNG 平均误差 1.465/255，全部预设门槛通过 |
 | 1024×1024 VAE | 直接卷积、独立官方参考，CPU NRMSE 9.41e-7，固定门槛 2e-5；单独解码峰值 RSS 5.42 GiB |
 | 1024×1024 苹果完整对照 | 36 层、8 步、15 tokens；最终 latent NRMSE 0.01112、PNG MAE 0.10760/255，全部门限通过 |
-| 1024×1024 长英文完整对照 | 40 tokens；FP16 / FP32 张量门限均有失败，PNG MAE 分别 0.53214 / 0.01891，各自像素门限通过 |
-| 1024×1024 中文完整对照 | 32 tokens；FP16 / FP32 PNG MAE 分别 1.00000 / 0.03838，但最大像素差 145 / 23 均超过各自门限，整体未通过 |
+| 1024×1024 长英文完整对照 | 40 tokens；最新 FP32 24/25 张量通过，PNG MAE 0.00268、最大差 1，图片通过；整体仍未通过 |
+| 1024×1024 中文完整对照 | 32 tokens；FP32 补偿累加 21/25 张量通过，PNG MAE 0.02263、最大差 13；整体未通过 |
 | 独立模型包 | 136 个运行文件、约 21.67 GiB；原生 SHA256/文件大小检查，损坏、缺文件、目录搬移检查 |
 | 历史独立 DiT block 矩阵 | CPU FP32 / Vulkan FP32 / FP16 各 36/36，BF16 33/36；第 31、33、35 号失败保留 |
+| FP32 注意力工作区 | 查询分块与完整修正版在真实 4160-token Q/K/V 上逐位一致；最新长英文整卡 200 ms 采样峰值 4098 MiB，含其他进程 |
 | 原生 KV cache | CPU/Vulkan 24 个合成 GQA 场景通过，用于后续 PE / 自回归路径 |
 
-最新证据、固定门槛、失败记录及适用范围见 [Turbo 交付报告](artifacts/2026-09-05/turbo-delivery/README.md)。历史 [pipeline 报告](artifacts/2026-09-05/pipeline/README.md)、[组件报告](artifacts/2026-09-05/components/README.md) 和 [单 block 报告](artifacts/2026-09-05/dit-block/README.md) 保留各自的输入与代码版本，不能混作同一轮结果。
+最新证据、固定门槛、失败记录及适用范围见 [注意力改进报告](artifacts/2026-09-06/attention-parity/README.md) 和 [数值诊断说明](docs/NUMERICAL-DIAGNOSTICS.md)。初次交付见 [Turbo 交付报告](artifacts/2026-09-05/turbo-delivery/README.md)。历史 [pipeline 报告](artifacts/2026-09-05/pipeline/README.md)、[组件报告](artifacts/2026-09-05/components/README.md) 和 [单 block 报告](artifacts/2026-09-05/dit-block/README.md) 保留各自的输入与代码版本，不能混作同一轮结果。
 
 ## 构建
 
@@ -36,7 +37,7 @@ ctest --test-dir build --output-on-failure
 cmake --install build --prefix "$PWD/outputs/install"
 ```
 
-也可使用系统 glslang 开发库并指定 `-DNCNN_SYSTEM_GLSLANG=ON`。仅 CPU 构建使用独立目录并加 `-DERNIE_ENABLE_VULKAN=OFF`。本机 NVIDIA Vulkan 19/19、CPU 8/8 CTest 和 Python 34/34 通过；这些算子与契约检查不需要权重，真实模型对照另行执行。本地 GCC + 固定 glslang 构建成功，软件 Vulkan 16 项通过、3 项 BF16 因驱动不支持跳过。Linux CPU/Vulkan 工作流已写入，尚未推送触发 GitHub Actions。安装后的二进制仍需要兼容的系统库，详见 [运行说明](docs/RUNNING.md)。
+也可使用系统 glslang 开发库并指定 `-DNCNN_SYSTEM_GLSLANG=ON`。仅 CPU 构建使用独立目录并加 `-DERNIE_ENABLE_VULKAN=OFF`。本机 NVIDIA Vulkan 23/23、CPU 9/9 CTest 和 Python 34/34 通过；这些算子与契约检查不需要权重，真实模型对照另行执行。本地 GCC + 固定 glslang 构建成功，软件 Vulkan 20 项通过、3 项 BF16 因驱动不支持跳过。Linux CPU/Vulkan 工作流已写入，尚未推送触发 GitHub Actions。安装后的二进制仍需要兼容的系统库，详见 [运行说明](docs/RUNNING.md)。
 
 ## 转换与生成
 
@@ -63,13 +64,13 @@ build/ernie-image --model models/turbo1024-s64-portable \
 
 DiT 保留三轴 RoPE、erf GELU、shared AdaLN 和最终非 affine LayerNorm。真实文本条件下，残差激活可超过 FP16 的 65504 上限。两个残差相加点使用 `ErnieResidualAdd` 保持 FP32，RMSNorm / LayerNorm 临时计算也使用 FP32，归一化后的投影输入返回模型存储精度。每步 Euler 检查有限值，Vulkan 仅下载 128 个状态浮点数。CPU VAE 的 GroupNorm 使用 FP64 均值与中心方差归约，其余激活和 affine 运算为 FP32。
 
-36 层 DiT 每次只加载一块，GPU 中间激活保留在设备上，调用方共享 Vulkan pipeline cache。模型文件的 BF16 表示无损保存官方 BF16 权重，每块约 416MiB，36 块共约 14.63GiB；加载仍会展开和准备权重，文件缩小不代表内存同比缩小。
+36 层 DiT 每次只加载一块，GPU 中间激活保留在设备上，调用方共享 Vulkan pipeline cache。FP32 注意力对 softmax 分母和概率乘 V 使用 Kahan 累加；查询按最多 128 行处理，每行保留全部 K/V。4160-token、32 头的单个分数矩阵由约 2.06 GiB 降至 65 MiB，代价是增加同步提交；FP16 Flash 和原生 KV cache 路径保留。模型文件的 BF16 表示无损保存官方 BF16 权重，每块约 416MiB，36 块共约 14.63GiB；加载仍会展开和准备权重，文件缩小不代表内存同比缩小。
 
 高分辨率 VAE 使用完整图指纹约束下的两处空间 reshape 特化，并通过独立执行的目标分辨率官方参考。原先整图 pnnx 转换因主机内存持续增长而停止，失败记录保留；不把特化后的成功写成整图导出成功。
 
 ## 下一步优化
 
-VAE 直接卷积和 64-token 桶已经完成。后续优先扩大独立提示词与种子数据集，研究已记录的长文本跨步误差累积，处理 DiT 每步重复的权重准备与上传、受控预取，以及按依赖关系复用文本投影和小型条件张量。FP32 attention 当前会构造完整注意力矩阵，显存成本明显高于 FP16；需单独评估 FP32 分块 attention。冷启动、重复运行和精确 allocator 测量仍待补充。
+VAE 直接卷积、64-token 桶和 FP32 查询分块已经完成。后续优先扩大独立提示词与种子数据集，研究已记录的长文本跨步误差累积，处理 DiT 每步重复的权重准备与上传、受控预取，以及按依赖关系复用文本投影和小型条件张量。FP32 分块已在真实模型上降低工作区并完成长英文生成；还需评估更少同步的实现和更多设备，不把整卡采样当作本进程精确显存。冷启动、重复运行和精确 allocator 测量仍待补充。
 
 新版 ncnn 已有原生 KV cache、专用 allocator 和容量管理。它对后续 PE 自回归路径有用；图文联合 DiT 每步的隐藏状态都会变化，跨去噪步复用其 K/V 需要单独的近似算法与质量门槛。量化、PE、近似缓存和其他平台都保留为独立验收项。
 

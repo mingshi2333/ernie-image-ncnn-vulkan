@@ -3,6 +3,7 @@
 #include "ernie_rmsnorm.h"
 #include "ernie_residual.h"
 #include "ernie_groupnorm.h"
+#include "ernie_attention.h"
 #include <cmath>
 #include <vector>
 
@@ -110,6 +111,7 @@ int register_layers(ncnn::Net& net)
     if (!result) result = register_rmsnorm(net);
     if (!result) result = register_layernorm(net);
     if (!result) result = register_residual(net);
+    if (!result) result = register_attention(net);
     return result ? result : register_groupnorm(net);
 }
 } // namespace ernie

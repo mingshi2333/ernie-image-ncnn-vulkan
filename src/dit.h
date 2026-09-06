@@ -13,7 +13,7 @@ struct DitStats
 // This API does not tokenize, encode text, sample noise, run Euler, or decode VAE.
 ncnn::Mat run_dit(const std::string& input_head, const std::vector<std::string>& blocks,
     const std::string& output_head, const std::vector<ncnn::Mat>& inputs,
-    const ncnn::Option& option, DitStats& stats);
+    const ncnn::Option& option, DitStats& stats, const CpuStageObserver& observer = {});
 #if NCNN_VULKAN
 // Inputs: packed latent NCHW, text matrix, time features, cosine, sine, mask.
 // Heads and individual blocks release weights between stages. All activation
@@ -22,6 +22,7 @@ ncnn::Mat run_dit(const std::string& input_head, const std::vector<std::string>&
 // pipelines for each streamed Net. It must outlive every inference command.
 ncnn::VkMat run_dit(const std::string& input_head, const std::vector<std::string>& blocks,
     const std::string& output_head, const std::vector<ncnn::VkMat>& inputs,
-    const ncnn::VulkanDevice* device, const ncnn::Option& option, DitStats& stats);
+    const ncnn::VulkanDevice* device, const ncnn::Option& option, DitStats& stats,
+    const VulkanStageObserver& observer = {});
 #endif
 }

@@ -22,10 +22,21 @@ static ncnn::Mat read(const fs::path& path, int width, int height)
     return result;
 }
 
+static void write_stage(const fs::path& path, const ncnn::Mat& value)
+{
+    if (value.empty() || value.elempack != 1 || value.elemsize != 4u || fs::exists(path))
+        throw std::runtime_error("Invalid stage tensor or existing output");
+    std::ofstream file(path, std::ios::binary);
+    for (int c = 0; c < value.c; ++c)
+        file.write(reinterpret_cast<const char*>(static_cast<const float*>(value.channel(c))),
+                   size_t(value.w) * value.h * value.d * sizeof(float));
+    if (!file) throw std::runtime_error("Cannot write stage tensor");
+}
+
 int main(int argc, char** argv)
 {
     std::vector<std::string> models;
-    fs::path fixture, output, input_head, output_head;
+    fs::path fixture, output, input_head, output_head, trace;
     std::string backend = "cpu", precision = "fp32", policy = "stream";
     int tokens = 0, status = 0;
     int width = 0, height = 0, text_tokens = 0;
@@ -45,6 +56,7 @@ int main(int argc, char** argv)
             else if (flag == "--output") output = value;
             else if (flag == "--input-head") input_head = value;
             else if (flag == "--output-head") output_head = value;
+            else if (flag == "--trace-dir") trace = value;
             else if (flag == "--backend") backend = value;
             else if (flag == "--precision") precision = value;
             else if (flag == "--policy") policy = value;
@@ -67,6 +79,11 @@ int main(int argc, char** argv)
             throw std::invalid_argument("Require repeated --model DIR, --fixture DIR, --tokens N, --output FILE "
                 "[--backend cpu|vulkan] [--precision fp32|fp16|bf16] [--policy stream|resident] [--host-weights]");
         if (fs::exists(output)) throw std::invalid_argument("Output exists; use a new path");
+        if (!trace.empty())
+        {
+            if (fs::exists(trace)) throw std::invalid_argument("Trace exists; use a new path");
+            fs::create_directories(trace);
+        }
         const bool dit = !input_head.empty() || !output_head.empty();
         if (dit && (input_head.empty() || output_head.empty() || policy != "stream"
             || width < 1 || width > 256 || height < 1 || height > 256 || text_tokens < 1
@@ -98,14 +115,18 @@ int main(int argc, char** argv)
         ncnn::Mat result;
         if (backend == "cpu")
         {
+            ernie::CpuStageObserver observer;
+            if (!trace.empty()) observer = [&](const std::string& name, const ncnn::Mat& value) {
+                write_stage(trace / (name + ".f32"), value);
+            };
             if (dit)
             {
                 std::vector<ncnn::Mat> inputs{input};
                 inputs.insert(inputs.end(), constants.begin(), constants.end());
-                result = ernie::run_dit(input_head.string(), models, output_head.string(), inputs, option, dit_stats);
+                result = ernie::run_dit(input_head.string(), models, output_head.string(), inputs, option, dit_stats, observer);
                 stats = dit_stats.blocks;
             }
-            else result = ernie::run_block_sequence(models, input, constants, option, weight_policy, stats);
+            else result = ernie::run_block_sequence(models, input, constants, option, weight_policy, stats, observer);
         }
         else
         {
@@ -135,14 +156,24 @@ int main(int argc, char** argv)
                 if (upload.submit_and_wait()) throw std::runtime_error("Initial upload failed");
             }
             ncnn::VkMat gpu_result;
+            ernie::VulkanStageObserver observer;
+            if (!trace.empty()) observer = [&](const std::string& name, const ncnn::VkMat& value) {
+                ncnn::Mat host;
+                ncnn::Option plain = option;
+                plain.use_packing_layout = false;
+                ncnn::VkCompute download(device);
+                download.record_download(value, host, plain);
+                if (download.submit_and_wait()) throw std::runtime_error("Stage download failed");
+                write_stage(trace / (name + ".f32"), host);
+            };
             if (dit)
             {
                 std::vector<ncnn::VkMat> inputs{gpu_input};
                 inputs.insert(inputs.end(), gpu_constants.begin(), gpu_constants.end());
-                gpu_result = ernie::run_dit(input_head.string(), models, output_head.string(), inputs, device, option, dit_stats);
+                gpu_result = ernie::run_dit(input_head.string(), models, output_head.string(), inputs, device, option, dit_stats, observer);
                 stats = dit_stats.blocks;
             }
-            else gpu_result = ernie::run_block_sequence(models, gpu_input, gpu_constants, device, option, weight_policy, stats);
+            else gpu_result = ernie::run_block_sequence(models, gpu_input, gpu_constants, device, option, weight_policy, stats, observer);
             ncnn::VkCompute download(device);
             ncnn::Option plain = option;
             plain.use_packing_layout = false;

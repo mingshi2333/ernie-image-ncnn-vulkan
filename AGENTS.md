@@ -4,7 +4,7 @@
 
 - This is the standalone ERNIE-Image-Turbo ncnn/Vulkan project. Do not modify sibling ncnn or pnnx workspaces as a side effect.
 - Start with `README.md`, `sources.lock.json`, `docs/ROADMAP.md`, and the latest artifact report.
-- The experimental native generator has passed complete 64x64 and 1024x1024 apple comparisons against staged official modules. The 40-token 1024 English fixture fails some late tensor gates in both FP16 and FP32, although its PNG comparisons pass. The 32-token Chinese scene fails tensor and maximum-pixel gates in both precisions; FP32 PNG MAE is 0.03838 but maximum error 23 exceeds 2. Read artifacts/2026-09-05/turbo-delivery/README.md for current limits; do not call this broad quality acceptance.
+- The experimental native generator has passed complete 64x64 and 1024x1024 apple comparisons against staged official modules. After FP32 attention compensation and query chunking, the 40-token English fixture passes 24/25 tensors and PNG (MAE 0.00268, max 1); prediction-7 still fails its maximum-error gate. Chinese compensation passes 21/25 tensors; PNG MAE 0.02263, max 13 still fails. Read artifacts/2026-09-06/attention-parity/README.md and docs/NUMERICAL-DIAGNOSTICS.md for current limits. Historical low-precision failures remain; do not call this broad quality acceptance.
 - Use Chinese for progress and technical reports unless the user asks otherwise.
 
 ## Evidence and correctness
@@ -28,6 +28,8 @@
 - Treat BF16 ModelBin packing as lossless on-disk storage only when the full reconstructed FP32 stream hash matches. Loading still expands data and does not establish a peak memory reduction.
 - Export a separate static graph for each token bucket. A matching operator list does not prove shape compatibility.
 - VAE spatial specialization is limited to the full-hash-reviewed flatten/unflatten pair, and requires an independently executed target-resolution official fixture. Preserve the failed high-resolution whole-graph pnnx conversion; do not re-run its unbounded memory expansion.
+- FP32 non-Flash attention uses compensated softmax/P@V reductions and at most 128 query rows per chunk, retaining all K/V. Check both pinned shader SHA256 values; never bypass a hash failure when updating ncnn. Chunk completions count as compute submissions and do not download activations. Preserve native cache and low-storage Flash paths.
+- Reference-embedding runs bypass the native text encoder and are diagnostics even if they pass. The CPU FP64 RMSNorm candidate was rejected: its first-layer gain did not improve the complete text encoder. Do not promote local operator improvements to full-model acceptance.
 - Record failures and skipped tests. Avoid repeating passing checks without a change or unresolved concern.
 
 ## Resource use and delivery
@@ -37,4 +39,5 @@
 - Schema-2 portable packages contain all 136 runtime files with no internal symlinks. Both native and Python checks cover every runtime checksum, file size, revision and model.cfg agreement. Keep schema-1 development package compatibility.
 - Snapshot runner binaries before long validation jobs. A concurrent build can temporarily remove or replace its executable; the first batch recorded this failure.
 - Run large GPU jobs sequentially. Overlapping a VAE test and DiT generation caused allocation failures and a SIGSEGV; that run does not establish an isolated-device capacity limit.
+- The isolated full-matrix FP32 compensation long run also hit allocation failure and SIGSEGV during step 3. Preserve it separately from the earlier overlapping-job failure. Query chunking subsequently completed all eight steps with a 4098 MiB whole-device sampled peak; this is not an allocator peak guarantee.
 - External publication, push and release require user authorization. Local construction and tests are within the approved project scope.

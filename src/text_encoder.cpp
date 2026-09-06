@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 #include "text_encoder.h"
 #include "ernie_gelu.h"
+#include "ernie_attention.h"
 #include <chrono>
 #include <cmath>
 #include <cstring>
@@ -163,7 +164,7 @@ ncnn::VkMat run_text_blocks(const std::vector<std::string> &models, const ncnn::
         check(extractor.extract("out0", next, command), "extract device text hidden state");
         check(command.submit_and_wait(), "finish text block before releasing weights");
         current = next;
-        ++stats.compute_submissions;
+        stats.compute_submissions += 1 + attention_internal_submissions(net);
         stats.compute_seconds.push_back(std::chrono::duration<double>(Clock::now() - start).count());
     }
     return current;
