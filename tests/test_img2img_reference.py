@@ -4,6 +4,7 @@ import numpy as np
 
 from tools.reference_img2img import make_start, strength_plan, turbo_sigmas
 from tools.reference_img2img_positive import reviewed_profile, validate_inputs, validate_start, validate_suffix
+from tools.validate_img2img_positive_result import metrics
 
 
 class Img2ImgReferenceTests(unittest.TestCase):
@@ -123,6 +124,19 @@ class Img2ImgReferenceTests(unittest.TestCase):
                 'prompt': {'file': 'prompt.txt'}}))
             with self.assertRaisesRegex(ValueError, 'not canonical'):
                 validate_inputs(root)
+
+    def test_result_metrics_reject_bad_denominator(self):
+        import tempfile
+        from pathlib import Path
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            np.zeros(2, dtype='<f4').tofile(root / 'candidate.f32')
+            np.zeros(3, dtype='<f4').tofile(root / 'reference.f32')
+            with self.assertRaisesRegex(ValueError, 'size or finite'):
+                metrics(root / 'candidate.f32', root / 'reference.f32')
+            np.array([0, np.nan], dtype='<f4').tofile(root / 'reference.f32')
+            with self.assertRaisesRegex(ValueError, 'size or finite'):
+                metrics(root / 'candidate.f32', root / 'reference.f32')
 
 
 if __name__ == '__main__':

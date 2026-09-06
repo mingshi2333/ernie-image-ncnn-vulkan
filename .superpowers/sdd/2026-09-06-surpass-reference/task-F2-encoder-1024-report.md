@@ -149,3 +149,17 @@ the earlier result JSON is preserved as `result-source-incomplete-official-v1.js
 1024 固定图序列长度为 `64*64+64=4160`；旧 512×384/2048-token 图是 `32*24+2048=2816`，attention 元素比约 2.1823。旧有效 512 official suffix 峰 RSS 3,322,816 KiB、93.88 秒只能作为下界/参考，不能推导 1024 GPU 成功。`prep-identity.json` SHA `0527f8d8...` 保存了输入、准备源码和执行计划；状态明确为 `prepared_pending_independent_review_and_gpu_execution`。GPU 当前仍由 frozen 的 opt-in downGemm 候选独占，本轮未启动 official/native DiT，也未触碰 formal15/72。
 
 小型验证：`.venv/bin/python -m unittest tests.test_img2img_reference -v`，9/9 PASS。新增测试固定 1024 profile/shape/source identity，拒绝未审查尺寸并验证错误 latent shape 在模型加载前失败。
+
+## 固定 1024×1024 strength=0.5 实际执行
+
+前置独立审查提交 `f04546f` 核对10个输入和10个准备源码、PNG decoded RGB、精确31-byte LF prompt、固定source manifest，并独立逐位重算524288个start元素；无阻断，只批准准备态。
+
+两次冻结布局失败均原样保留且不算模型结果：`official-execution` 在2.62秒因snapshot层级令ROOT指错tokenizer而exit1；`official-execution-v2` 在4.18秒因repo-shape snapshot根缺`sources.lock.json`而exit1。两者均未进入DiT。v3仅补齐相同85个工具字节的repo目录形状、实际models绝对symlink及固定lock，identity SHA `a353965c...`。
+
+有效official在`official-execution-v3`：exit0，wall181.194秒，10GiB cgroup实际可见，swap0，OOM/max events均0，peak memory.current 8,690,458,624 bytes，host available最低10,926,256,128 bytes。绝对步4/5/6/7全部执行；reference SHA `911bf45d...`，suffix fixture SHA `f62c9f9c...`，PNG SHA `d249bd95...`，validator确认17张量完整分母及精确token IDs末尾1626。
+
+随后同一GPU串行运行冻结production runner `ca2ed9dd...`，证据在`native-execution`。命令显式使用同一PNG、LF prompt file、saved noise、strength0.5、8 steps、1024²、Vulkan FP32、Vector FP32 text、CPU direct VAE、threads2和新trace。exit0，wall494.307秒，peak memory.current 6,679,691,264 bytes，host available最低11,049,607,168 bytes，swap0/OOM0；四步及VAE/PNG完成。GPU随后明确释放给frozen。
+
+新增`validate_img2img_positive_result.py`重新认证输入合同、official 17分母、两侧process/cgroup、prompt bytes/token IDs/RGB，并对encoder三边界、noise和17个suffix边界共21张量及PNG重算既定预注册FP32/conditioning/pixel gate。`result.json` SHA `94fdea75...`状态pass，comparison SHA `1ee35e56...`。最差张量是prediction-6 NRMSE `9.15499e-6`；final NRMSE `4.23103e-6`，decoded `7.70356e-6`；PNG max 1、MAE `0.000256856`，全部通过。该结果只覆盖一个固定公开development输入，不代表formal15/72或任意1024输入质量。
+
+验证：`.venv/bin/python -m unittest tests.test_img2img_reference -v`，10/10 PASS；`.venv/bin/python tools/validate_img2img_positive_result.py outputs/f2-positive05-1024x1024-v1`，exit0/status pass。独立最终artifact复核仍待reference_adapter完成。

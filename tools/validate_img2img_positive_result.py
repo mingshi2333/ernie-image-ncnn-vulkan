@@ -1,0 +1,116 @@
+#!/usr/bin/env python3
+"""Fail-closed post-audit for the fixed 1024 positive-strength execution."""
+import argparse, hashlib, json, math
+from pathlib import Path
+
+import numpy as np
+from PIL import Image
+
+try:
+    from reference_img2img_positive import validate_inputs, validate_suffix
+except ImportError:
+    from tools.reference_img2img_positive import validate_inputs, validate_suffix
+
+
+def digest(path):
+    with Path(path).open("rb") as stream:
+        return hashlib.file_digest(stream, "sha256").hexdigest()
+
+
+def metrics(candidate, reference):
+    candidate = np.memmap(candidate, "<f4", "r")
+    reference = np.memmap(reference, "<f4", "r")
+    if candidate.size != reference.size or not np.isfinite(candidate).all() or not np.isfinite(reference).all():
+        raise ValueError("Tensor size or finite contract differs")
+    delta = np.asarray(candidate, dtype=np.float64) - np.asarray(reference, dtype=np.float64)
+    rmse = math.sqrt(float(np.mean(delta * delta)))
+    norm = math.sqrt(float(np.mean(np.asarray(reference, dtype=np.float64) ** 2)))
+    return {"native_sha256": digest(candidate.filename), "official_sha256": digest(reference.filename),
+            "elements": int(candidate.size), "max_abs": float(np.max(np.abs(delta))),
+            "mean_abs": float(np.mean(np.abs(delta))), "reference_max_abs": float(np.max(np.abs(reference))),
+            "nrmse": rmse / norm if norm else (0. if rmse == 0 else math.inf)}
+
+
+def audit(base):
+    base = Path(base); inputs = base / "inputs"; native = base / "native-execution"; trace = native / "trace"
+    official_execution = base / "official-execution-v3"; official = official_execution / "oracle"; suffix = official / "suffix"
+    contract, prompt, _ = validate_inputs(inputs)
+    fixture = json.loads((suffix / "fixture.json").read_text())
+    if validate_suffix(suffix, fixture, prompt, contract["start"]["sha256"], 1024, 1024) != 17:
+        raise ValueError("Official suffix denominator differs")
+    for process_path in (official_execution / "process.json", native / "process.json"):
+        process = json.loads(process_path.read_text())
+        if (process.get("complete") is not True or process.get("return_code") != 0
+                or process.get("cgroup_seen") is not True or process.get("memory_swap_max_observed") != "0"
+                or process.get("memory_events", "").find("oom 0\n") < 0
+                or process.get("memory_events", "").find("oom_kill 0\n") < 0):
+            raise ValueError("Execution process or resource guard is incomplete")
+    if ((trace / "prompt.txt").read_bytes() != (inputs / "prompt.txt").read_bytes()
+            or [int(v) for v in (trace / "ids.txt").read_text().split()] != fixture["ids"]
+            or (trace / "input.rgb").read_bytes() != (inputs / "input.rgb").read_bytes()):
+        raise ValueError("Native input, prompt, or token identity differs")
+    pairs = {
+        "encoder-mean.f32": (trace / "encoder-mean.f32", official / "out0.f32"),
+        "encoder-packed.f32": (trace / "encoder-packed.f32", official / "out1.f32"),
+        "encoder-normalized.f32": (trace / "encoder-normalized.f32", official / "out2.f32"),
+        "noise.f32": (trace / "noise.f32", official / "saved-noise.f32"),
+        "initial.f32": (trace / "initial.f32", suffix / "initial-input.f32"),
+        "text.f32": (trace / "text.f32", suffix / "text.f32"),
+        "padded-text.f32": (trace / "padded-text.f32", suffix / "padded-text.f32"),
+        **{f"constant-{i}.f32": (trace / f"constant-{i}.f32", suffix / f"constant-{i}.f32") for i in range(3)},
+        **{f"{kind}-{i}.f32": (trace / f"{kind}-{i}.f32", suffix / f"{kind}-{i}.f32")
+           for i in range(4, 8) for kind in ("prediction", "step")},
+        "final.f32": (trace / "final.f32", suffix / "final.f32"),
+        "unpacked.f32": (trace / "unpacked.f32", suffix / "unpacked.f32"),
+        "decoded.f32": (trace / "decoded.f32", suffix / "decoded.f32"),
+    }
+    comparison = {name: metrics(*paths) for name, paths in pairs.items()}
+    fp32 = {"nrmse": .003, "global_rtol": .01, "atol": .0002}
+    conditioning = {"nrmse": .0002, "global_rtol": .0002, "atol": .0002}
+    for name, item in comparison.items():
+        gate = conditioning if name.startswith(("text", "padded-text", "constant")) else fp32
+        item["gate"] = gate
+        item["passed"] = bool(item["nrmse"] <= gate["nrmse"] and item["max_abs"] <=
+                              gate["atol"] + gate["global_rtol"] * item["reference_max_abs"])
+    candidate = np.asarray(Image.open(native / "output.png").convert("RGB"), dtype=np.int16)
+    reference = np.asarray(Image.open(suffix / "reference.png").convert("RGB"), dtype=np.int16)
+    if candidate.shape != (1024, 1024, 3) or reference.shape != candidate.shape:
+        raise ValueError("PNG shape differs")
+    delta = np.abs(candidate - reference)
+    comparison["png"] = {"native_sha256": digest(native / "output.png"),
+                         "official_sha256": digest(suffix / "reference.png"), "shape": list(candidate.shape),
+                         "max_abs": int(delta.max()), "mean_abs": float(delta.mean()),
+                         "different_values": int(np.count_nonzero(delta)),
+                         "gate": {"pixel_mae": .1, "pixel_max": 2},
+                         "passed": bool(delta.mean() <= .1 and delta.max() <= 2)}
+    passed = all(item["passed"] for item in comparison.values())
+    result = {"schema_version": 1, "status": "pass" if passed else "quality_gate_failed",
+              "complete_execution": True, "quality_gate_passed": passed,
+              "scope": "One fixed public development 1024x1024 strength-0.5 case; not formal15/72",
+              "input_contract_sha256": digest(inputs / "input-contract.json"),
+              "official_identity_sha256": digest(base / "official-plan/identity-v3.json"),
+              "official_runtime_identity_sha256": digest(base / "official-plan/runtime-identity.json"),
+              "official_process_sha256": digest(official_execution / "process.json"),
+              "official_reference_sha256": digest(official / "reference.json"),
+              "official_suffix_fixture_sha256": digest(suffix / "fixture.json"),
+              "native_identity_sha256": digest(base / "native-plan/identity.json"),
+              "native_process_sha256": digest(native / "process.json"),
+              "boundaries_compared": len(pairs), "official_suffix_denominator": 17,
+              "prompt_bytes_equal": True, "token_ids": fixture["ids"]}
+    return comparison, result
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("base", type=Path)
+    args = parser.parse_args()
+    comparison, result = audit(args.base)
+    (args.base / "comparison.json").write_text(json.dumps(comparison, indent=2) + "\n")
+    result["comparison_sha256"] = digest(args.base / "comparison.json")
+    (args.base / "result.json").write_text(json.dumps(result, indent=2) + "\n")
+    print(json.dumps(result))
+    return 0 if result["quality_gate_passed"] else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
