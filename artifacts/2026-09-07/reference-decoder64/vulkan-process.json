@@ -1,0 +1,40 @@
+{
+  "phase": "vulkan",
+  "command": [
+    "systemd-run",
+    "--user",
+    "--scope",
+    "--quiet",
+    "--unit=ernie-peer-decoder64-v1-vulkan",
+    "--property=MemoryMax=17179869184",
+    "--property=MemorySwapMax=0",
+    "--property=CPUQuota=200%",
+    "taskset",
+    "-c",
+    "4,6",
+    "/usr/bin/python3",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/reference-port-v1/decoder64-v1/run.py",
+    "vulkan",
+    "a161fa7a274a45394fe641289ea18b7a6eb0be6049d2cfb2ab9bed92830f8a2b"
+  ],
+  "plan_sha256": "a161fa7a274a45394fe641289ea18b7a6eb0be6049d2cfb2ab9bed92830f8a2b",
+  "limits": {
+    "memory_max_bytes": 17179869184,
+    "host_available_min_bytes": 3221225472,
+    "gpu_whole_device_max_mib": 6144,
+    "timeout_seconds_per_phase": 1800
+  },
+  "peak_memory_current": 332132352,
+  "minimum_host_available": 17736593408,
+  "peak_gpu_whole_device_mib": 1917,
+  "complete": true,
+  "cgroup_seen": true,
+  "observed_limits": {
+    "memory.max": "17179869184",
+    "memory.swap.max": "0",
+    "cpu.max": "200000 100000"
+  },
+  "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+  "return_code": 0,
+  "wall_seconds": 2.4196557410032256
+}

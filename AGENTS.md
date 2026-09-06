@@ -22,6 +22,7 @@
 
 ## Evidence and correctness
 
+- Numerical tolerances and concrete S/M/blind-review targets were selected by the assistant for this project, not supplied as ERNIE/ncnn/futz12 standards or exact user requirements. The original pixel gates were small-fixture diagnostics and remain uncalibrated for broad perceptual quality or backend variation. Read docs/NUMERICAL-DIAGNOSTICS.md for provenance. Preserve old values/results. Do not infer execution failure, visible quality loss or memory exhaustion from a numerical threshold alone. Any recalibration needs a new reasoned protocol version and must not use the frozen formal cases for tuning.
 - Pin upstream revisions. A feature in a local modified ncnn checkout is not evidence that upstream has it.
 - Preserve official ERNIE mathematics: tokenizer behavior, hidden-state selection, YaRN, DiT RoPE, shared AdaLN, GELU gating, latent packing, BN normalization, and sigma schedule.
 - Keep CPU and Vulkan cache handles opaque. CPU extraction uses `type=1`. Use a distinct session cache allocator, consume-and-replace handles, and release caches before allocator destruction. Do not use shallow copies as independent session snapshots.

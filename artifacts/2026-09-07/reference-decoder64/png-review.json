@@ -1,0 +1,170 @@
+{
+  "scope": "Original pinned peer VAE-only CPU/Vulkan FP32, same saved official final latent; product/component comparison, not full image pipeline, S or M",
+  "plan_sha256": "a161fa7a274a45394fe641289ea18b7a6eb0be6049d2cfb2ab9bed92830f8a2b",
+  "verified_plan_bindings": 326,
+  "input_sha256": "872f39cc2cbbfcbe9b78ca7da5f1ee0f2437d18360679ff20840e21bd9b33948",
+  "official_png_sha256": "837868a00082554df67221294c76fd30f0d416daa1c0ba9567f95bc71cb7fbe3",
+  "official_decoded_finite": true,
+  "official_png_quantization_exact": true,
+  "historical_gate": {
+    "origin": "assistant_selected_engineering_threshold_not_official_or_peer_standard",
+    "calibration_status": "not_calibrated_for_perceptual_quality_or_cross_backend_variation",
+    "pixel_mae": 0.1,
+    "pixel_max": 2
+  },
+  "official_round_even_vs_half_up": {
+    "shape": [
+      64,
+      64,
+      3
+    ],
+    "channel_samples": 12288,
+    "mae": 0.0,
+    "max_abs": 0,
+    "different_channels": 0,
+    "different_pixels": 0,
+    "histogram": {
+      "0": 12288
+    },
+    "historical_pixel_gate_passed": true
+  },
+  "phases": {
+    "cpu": {
+      "output_sha256": "b48f9680d0f6fccd5bd99a1e2868a847544f6221b7f3d1095414e52e51f0c695",
+      "versus_official": {
+        "shape": [
+          64,
+          64,
+          3
+        ],
+        "channel_samples": 12288,
+        "mae": 0.000732421875,
+        "max_abs": 1,
+        "different_channels": 9,
+        "different_pixels": 9,
+        "histogram": {
+          "0": 12279,
+          "1": 9
+        },
+        "historical_pixel_gate_passed": true
+      },
+      "process": {
+        "phase": "cpu",
+        "command": [
+          "systemd-run",
+          "--user",
+          "--scope",
+          "--quiet",
+          "--unit=ernie-peer-decoder64-v1-cpu",
+          "--property=MemoryMax=17179869184",
+          "--property=MemorySwapMax=0",
+          "--property=CPUQuota=200%",
+          "taskset",
+          "-c",
+          "4,6",
+          "/usr/bin/python3",
+          "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/reference-port-v1/decoder64-v1/run.py",
+          "cpu",
+          "a161fa7a274a45394fe641289ea18b7a6eb0be6049d2cfb2ab9bed92830f8a2b"
+        ],
+        "plan_sha256": "a161fa7a274a45394fe641289ea18b7a6eb0be6049d2cfb2ab9bed92830f8a2b",
+        "limits": {
+          "memory_max_bytes": 17179869184,
+          "host_available_min_bytes": 3221225472,
+          "gpu_whole_device_max_mib": 6144,
+          "timeout_seconds_per_phase": 1800
+        },
+        "peak_memory_current": 446013440,
+        "minimum_host_available": 18211405824,
+        "peak_gpu_whole_device_mib": 2095,
+        "complete": true,
+        "cgroup_seen": true,
+        "observed_limits": {
+          "memory.max": "17179869184",
+          "memory.swap.max": "0",
+          "cpu.max": "200000 100000"
+        },
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "return_code": 0,
+        "wall_seconds": 1.0471269490080886
+      }
+    },
+    "vulkan": {
+      "output_sha256": "9aeb6f022c1c74781043522f02b03dff892fe60f6b41034bd2382ffdbb8da381",
+      "versus_official": {
+        "shape": [
+          64,
+          64,
+          3
+        ],
+        "channel_samples": 12288,
+        "mae": 0.000732421875,
+        "max_abs": 1,
+        "different_channels": 9,
+        "different_pixels": 9,
+        "histogram": {
+          "0": 12279,
+          "1": 9
+        },
+        "historical_pixel_gate_passed": true
+      },
+      "process": {
+        "phase": "vulkan",
+        "command": [
+          "systemd-run",
+          "--user",
+          "--scope",
+          "--quiet",
+          "--unit=ernie-peer-decoder64-v1-vulkan",
+          "--property=MemoryMax=17179869184",
+          "--property=MemorySwapMax=0",
+          "--property=CPUQuota=200%",
+          "taskset",
+          "-c",
+          "4,6",
+          "/usr/bin/python3",
+          "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/reference-port-v1/decoder64-v1/run.py",
+          "vulkan",
+          "a161fa7a274a45394fe641289ea18b7a6eb0be6049d2cfb2ab9bed92830f8a2b"
+        ],
+        "plan_sha256": "a161fa7a274a45394fe641289ea18b7a6eb0be6049d2cfb2ab9bed92830f8a2b",
+        "limits": {
+          "memory_max_bytes": 17179869184,
+          "host_available_min_bytes": 3221225472,
+          "gpu_whole_device_max_mib": 6144,
+          "timeout_seconds_per_phase": 1800
+        },
+        "peak_memory_current": 332132352,
+        "minimum_host_available": 17736593408,
+        "peak_gpu_whole_device_mib": 1917,
+        "complete": true,
+        "cgroup_seen": true,
+        "observed_limits": {
+          "memory.max": "17179869184",
+          "memory.swap.max": "0",
+          "cpu.max": "200000 100000"
+        },
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "return_code": 0,
+        "wall_seconds": 2.4196557410032256
+      }
+    }
+  },
+  "cpu_vs_vulkan": {
+    "shape": [
+      64,
+      64,
+      3
+    ],
+    "channel_samples": 12288,
+    "mae": 0.00016276041666666666,
+    "max_abs": 1,
+    "different_channels": 2,
+    "different_pixels": 2,
+    "histogram": {
+      "0": 12286,
+      "1": 2
+    },
+    "historical_pixel_gate_passed": true
+  }
+}

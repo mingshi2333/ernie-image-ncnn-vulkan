@@ -1,0 +1,22 @@
+{
+  "scope": "Post-run identity verification, in addition to per-phase verification of the 326 plan bindings",
+  "peer_ncnn_source_files_verified": 4083,
+  "identity_file": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/reference-port-v1/decoder64-v1/peer-source-identity.json",
+  "identity_sha256": "b45cd75ce79259d7623c43d052a12766dc7111e03128113dc779439274d2c0e9",
+  "repositories": {
+    "peer": {
+      "directory": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/reference-port-v1/source",
+      "commit": "8dcd6e4411137d8abe92c9d78581c4c96d5182c6",
+      "tree": "e2025cf81e01b092d77cb5b105710b4686d8fcdf",
+      "status_porcelain": ""
+    },
+    "ncnn": {
+      "directory": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/reference-port-v1/source/src/ncnn",
+      "commit": "f6f734f44d66f469fefee9ee401fd1cb5e3d573e",
+      "tree": "2deb1cd29402a4b5e36b296c6b8ad9ef9d8c968f",
+      "status_porcelain": ""
+    }
+  },
+  "sealed_driver_and_dynamic_library_closure": false,
+  "recomputed_png_review_matches_initial_review": true
+}

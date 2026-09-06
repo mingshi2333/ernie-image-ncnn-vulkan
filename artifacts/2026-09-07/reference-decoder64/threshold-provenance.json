@@ -1,0 +1,19 @@
+{
+  "scope": "Historical source provenance; thresholds are assistant-selected engineering choices",
+  "first_validator_commit": "39678e86f61a66da41204690cd71f34f38f01a42",
+  "first_validator_date": "2026-09-05",
+  "source_path": "tools/validate_pipeline.py",
+  "source_sha256": "0eda11e87a003c198cae92292c182210dfe17819f037d999d7d22b3bb96ed608",
+  "excerpt_line_start": 91,
+  "excerpt_lines": [
+    "    # Gates are fixed before both reference and candidate execution. Pixel",
+    "    # gates diagnose a small fixture; they are not a perceptual quality claim.",
+    "    gates={'fp32':{'nrmse':.003,'global_rtol':.01,'atol':.0002,'pixel_mae':.1,'pixel_max':2},",
+    "           'fp16':{'nrmse':.15,'global_rtol':.25,'atol':.03,'pixel_mae':12,'pixel_max':80},",
+    "           'conditioning':{'nrmse':.0002,'global_rtol':.0002,'atol':.0002}}",
+    "    (args.output/'gates.json').write_text(json.dumps(gates,indent=2)+'\\n')"
+  ],
+  "calibration_for_broad_perceptual_quality": "not_established",
+  "current_validator_changed_in_this_turn": false,
+  "acceptance_json_changed_in_this_turn": false
+}

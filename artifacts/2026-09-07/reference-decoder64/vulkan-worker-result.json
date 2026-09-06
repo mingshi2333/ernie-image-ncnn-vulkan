@@ -1,0 +1,27 @@
+[
+  {
+    "command": [
+      "/usr/bin/time",
+      "-v",
+      "-o",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/reference-port-v1/decoder64-v1/vulkan/resource.txt",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/reference-port-v1/decoder64-v1/peer.snapshot",
+      "--model",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/reference-port-v1/assets",
+      "--decode-latents",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/reference-port-v1/decoder64-v1/input.f32",
+      "--output",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/reference-port-v1/decoder64-v1/vulkan/image.png",
+      "--width",
+      "64",
+      "--height",
+      "64",
+      "--fp32-storage",
+      "--threads",
+      "4",
+      "--gpu",
+      "0"
+    ],
+    "return_code": 0
+  }
+]

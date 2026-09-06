@@ -1,0 +1,3 @@
+using cpu
+decode latents: model=/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/reference-port-v1/assets latents=/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/reference-port-v1/decoder64-v1/input.f32 output=/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/reference-port-v1/decoder64-v1/cpu/image.png size=64x64 bf16=0 low_vram=1 packing=1
+decoded latents /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/reference-port-v1/decoder64-v1/input.f32 -> /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/reference-port-v1/decoder64-v1/cpu/image.png shape=(4,4,128) gpu-id=-1 vulkan=0 bf16_storage=0 packing=1

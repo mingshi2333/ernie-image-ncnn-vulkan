@@ -1,0 +1,89 @@
+{
+  "scope": "Actual original-peer 64x64 VAE CPU/Vulkan component execution and threshold provenance; no full pipeline or S/M verdict",
+  "files": {
+    "README.md": {
+      "bytes": 5359,
+      "sha256": "8ae64bdd20f9d568a0c684cd3935dc89670aca2d68e41460a0a9c459c2a967b1"
+    },
+    "cpu-command-0.log": {
+      "bytes": 647,
+      "sha256": "ffba66c1ead6ac731b85e775fd4383a56fc3db937e7392f0a5848346aa3c6798"
+    },
+    "cpu-process.json": {
+      "bytes": 1192,
+      "sha256": "b557e0acf7fba3af428a5ea8e202114b22a11bbbd749247f8e72e224a616bb5c"
+    },
+    "cpu-resource.txt": {
+      "bytes": 1201,
+      "sha256": "f65882d670e6cfc72d2accfef89dac6f1660373c5d667a71bd574294b456de6c"
+    },
+    "cpu-runner.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "cpu-samples.jsonl": {
+      "bytes": 1879,
+      "sha256": "440f1be9e795da6c7984527f8f7d2fc37ef08e627c98c8d455f214677ac59b26"
+    },
+    "cpu-worker-result.json": {
+      "bytes": 826,
+      "sha256": "c38ecacb1821d8914db2caa7681980309976cea8759ea2236ccbda8be553b4d0"
+    },
+    "official-fixture.json": {
+      "bytes": 7311,
+      "sha256": "09b1b569430b98d76f745bb1f8c1c8d0d645509693d6e4ac8ceaca99d83c9d04"
+    },
+    "plan.json": {
+      "bytes": 82012,
+      "sha256": "a161fa7a274a45394fe641289ea18b7a6eb0be6049d2cfb2ab9bed92830f8a2b"
+    },
+    "png-review.json": {
+      "bytes": 5284,
+      "sha256": "743b5c2551287f8c0047f6d24dad30c804d39cb718f67e1c4ef29ee991c1961f"
+    },
+    "review_png.py": {
+      "bytes": 3895,
+      "sha256": "3a81584f165b4836d5ed97d0131140701a759e147dc4637fbf28f6898a1b330c"
+    },
+    "run.py": {
+      "bytes": 1157,
+      "sha256": "d1b7c8077e46dcc710b5d3c4ece06285512d7e3548fbb7fc822eebc97c9c6190"
+    },
+    "source-review.json": {
+      "bytes": 1067,
+      "sha256": "67d9e555208f35f0c5a56cce6eea4bd547c5206e7265284f52182a91a490ca07"
+    },
+    "supervisor.py": {
+      "bytes": 4391,
+      "sha256": "8a7223681b65b61422506f527ed73a693fef91931515908ea708b9e227d30d2d"
+    },
+    "threshold-provenance.json": {
+      "bytes": 1099,
+      "sha256": "e742944cbad415d8842d0d1bf606257f973408c7e3e95afce236c48f95073a2d"
+    },
+    "vulkan-command-0.log": {
+      "bytes": 1776,
+      "sha256": "b44f36fb1152549fcaa20c44386607a35f44b7f2adaecf47f73e49f1862e18c2"
+    },
+    "vulkan-process.json": {
+      "bytes": 1201,
+      "sha256": "8537de38b6e8bec9601c53ce7edeba74394985f51a7a1b28d3616b4d108b8f70"
+    },
+    "vulkan-resource.txt": {
+      "bytes": 1205,
+      "sha256": "55c364c88696a3cf7cf72fa8139771cc624dac7125c5553120c6144a00d2a580"
+    },
+    "vulkan-runner.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "vulkan-samples.jsonl": {
+      "bytes": 4602,
+      "sha256": "4b1edcae2b803cc2285df8a0bcc1f00eab251ad45ad78309713dd9874b973eba"
+    },
+    "vulkan-worker-result.json": {
+      "bytes": 843,
+      "sha256": "43eb4e4ef70c43646345569854b8888547aea98bdc195bc6ccab0ebc86ce44e2"
+    }
+  }
+}
