@@ -296,6 +296,11 @@ GenerationResult generate_impl(const GenerationRequest &r, const ProgressCallbac
     result.prompt = r.prompt;
     ncnn::Option cpu;
     cpu.num_threads = r.threads;
+#if defined(ERNIE_EXPERIMENT_MAPPED_MODEL_LOADING)
+    // The pinned ncnn keeps the file mapping alive for the owning Net.
+    // GPU stage options inherit this request; ncnn may fall back to file reads.
+    cpu.use_mapped_model_loading = true;
+#endif
     cpu.use_vulkan_compute = false;
     cpu.use_fp16_storage = cpu.use_fp16_packed = cpu.use_fp16_arithmetic = cpu.use_bf16_storage =
         cpu.use_bf16_packed = false;

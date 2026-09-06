@@ -1,0 +1,60 @@
+{
+  "scope": "Selected actual fixed64 mapped-loading records; all model, binary and tensor data remain at authenticated local paths",
+  "files": {
+    "plan.json": {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/execution-metrics-mapped64-o2-v1/plan.json",
+      "size_bytes": 111276,
+      "sha256": "34978c974d8a9840e6563b60a3341a226c49cae82c4b7c62a2762690c7634ba3"
+    },
+    "identity.json": {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/execution-metrics-mapped64-o2-v1/identity.json",
+      "size_bytes": 1585,
+      "sha256": "6f2f9dc54cad195e348330c2cbab2d03ae0b459a2b16b851ae3285c6ef0ddf79"
+    },
+    "worker.py": {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/execution-metrics-mapped64-o2-v1/worker.py",
+      "size_bytes": 1537,
+      "sha256": "ed31024e588c9a8884c77b3c98c658431eafbc1b67096ef297317cbd89ac8192"
+    },
+    "supervisor.py": {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/execution-metrics-mapped64-o2-v1/supervisor.py",
+      "size_bytes": 4515,
+      "sha256": "6f143a31f80a054005c8f95944663f1bb7053d41365806f5ebcba33d906964a0"
+    },
+    "actual-review.json": {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/execution-metrics-mapped64-o2-v1/actual-review.json",
+      "size_bytes": 9635,
+      "sha256": "34cc0090e069ee79dceaf7d864dd5247c06a3d984e484ba3e1e3b94401929393"
+    },
+    "external-result.json": {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/execution-metrics-mapped64-o2-v1/external-result.json",
+      "size_bytes": 303,
+      "sha256": "62a75454ac19337c89166c81bec9e72122f1f1f6c4e1c032e100dc921b8b31e2"
+    },
+    "on/metrics.json": {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/execution-metrics-mapped64-o2-v1/on/metrics.json",
+      "size_bytes": 421673,
+      "sha256": "efe74ed5d3c2693d827374084f05207d10f825caed0ee3f5debf713cd6d77181"
+    },
+    "on/process.json": {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/execution-metrics-mapped64-o2-v1/on/process.json",
+      "size_bytes": 18345,
+      "sha256": "17f7c6c6910f0abc35af260be4f08dfdb5054c8523b6a08fa12f5ff96f69df66"
+    },
+    "build.exit": {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/execution-metrics-mapped64-o2-v1/build.exit",
+      "size_bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "build.log": {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/execution-metrics-mapped64-o2-v1/build.log",
+      "size_bytes": 21856,
+      "sha256": "29371afc51abbb2775e38d13f49341e17626408e62fa348bf7f6fa513fe59713"
+    },
+    "configure.log": {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/execution-metrics-mapped64-o2-v1/configure.log",
+      "size_bytes": 358,
+      "sha256": "0f31fa1d776d3a09742e32fd049dce66074a5c047e2aee1e522f2bae9cb9be0b"
+    }
+  }
+}

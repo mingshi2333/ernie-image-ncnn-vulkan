@@ -1,0 +1,10 @@
+{
+  "command": [
+    "python3",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/execution-metrics-mapped64-o2-v1/supervisor.py",
+    "on"
+  ],
+  "exit_code": 0,
+  "wall_seconds": 300.59889530700457,
+  "identity_sha256": "6f2f9dc54cad195e348330c2cbab2d03ae0b459a2b16b851ae3285c6ef0ddf79"
+}

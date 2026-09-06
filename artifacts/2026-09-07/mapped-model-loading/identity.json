@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "status": "prepared_not_executed",
+  "plan": {
+    "sha256": "34978c974d8a9840e6563b60a3341a226c49cae82c4b7c62a2762690c7634ba3",
+    "size": 111276
+  },
+  "worker": {
+    "sha256": "ed31024e588c9a8884c77b3c98c658431eafbc1b67096ef297317cbd89ac8192",
+    "size": 1537
+  },
+  "supervisor": {
+    "sha256": "6f143a31f80a054005c8f95944663f1bb7053d41365806f5ebcba33d906964a0",
+    "size": 4515
+  },
+  "binary": {
+    "sha256": "1b31d164cebc0f3a81d349bc9778526b28f292a1863e703c39ba045659b80e2e",
+    "size": 36835320
+  },
+  "source_count": 311,
+  "baseline": {
+    "directory": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/execution-metrics-component64-o2-v1",
+    "binary": {
+      "path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/execution-metrics-component64-o2-v1/ernie-image-on",
+      "sha256": "a336a60620489a890c7c5d32a594af5480b268a6eb9c51179fc19bee30bb147a",
+      "size": 36835320
+    },
+    "metrics": {
+      "path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/execution-metrics-component64-o2-v1/on/metrics.json",
+      "sha256": "8d246dfcde2c6871fa578f3670596410a2e38004b6ec1d5f4bd0ee104b160198",
+      "size": 436587
+    },
+    "process": {
+      "path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/execution-metrics-component64-o2-v1/on/process.json",
+      "sha256": "23ad59f49b2b43fa5aef668d7337f86338e8bc4ee07211c5bc21c31756a7aadd",
+      "size": 1225
+    },
+    "comparison": "all 27 trace files and PNG bitwise; 25 complete F32 tensors finite; component metrics diagnostic only"
+  }
+}

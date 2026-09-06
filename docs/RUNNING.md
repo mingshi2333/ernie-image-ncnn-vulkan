@@ -302,6 +302,30 @@ See the [execution evidence](../artifacts/2026-09-06/execution-metrics-pipeline6
 for exact identities, measured scope and limitations. It validates preservation
 of that fixture, without adding an official quality or performance result.
 
+## Experimental mapped model loading
+
+`-DERNIE_EXPERIMENT_MAPPED_MODEL_LOADING=ON` requests the pinned ncnn's
+file mapping loader for the image pipeline's text encoder, DiT and VAE. The
+option is **OFF by default** and does not change precision or model equations.
+Each `ncnn::Net` owns its mapping until destruction; ncnn can fall back to its
+ordinary file reader when mapping is unavailable. The separate prompt enhancer
+does not use this option.
+
+Add the option to a separate build configuration and rebuild `ernie-image`.
+The usual model checksum verification still runs before inference. Mapping
+does not eliminate BF16-to-FP32 expansion or Vulkan weight uploads.
+
+One fixed 64x64, eight-step FP32 diagnostic observed 64 mapped model files and
+retained all 27 trace files and the final PNG byte for byte. Its CLI interval was
+275.76 seconds versus 373.09 seconds for the saved preceding non-mapped run,
+a 26.1% reduction in this single observation. This was a trace-on internal
+comparison with uncontrolled file-cache state, not a formal paired benchmark.
+The mapped run reached its 10 GiB cgroup limit and recorded 466,562 `max`
+events in `memory.events` without OOM; these page-cache-inclusive measurements do not establish
+lower process RSS. Vulkan allocation counts and peak were unchanged. Keep the
+option experimental pending representative quality, resource and paired timing
+checks. See the [actual mapped-loading records](../artifacts/2026-09-07/mapped-model-loading/README.md).
+
 ## Local Linux offline delivery checks
 
 `tools/check_release.py` verifies a locally built runtime archive against its

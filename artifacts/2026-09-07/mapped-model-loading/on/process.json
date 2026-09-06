@@ -1,0 +1,560 @@
+{
+  "side": "on",
+  "supervised_command": [
+    "systemd-run",
+    "--user",
+    "--scope",
+    "--quiet",
+    "--unit=ernie-o2-mapped64-on-d432a19e0f5b488ebe631cbb3409c2dc",
+    "--property=MemoryMax=10737418240",
+    "--property=MemorySwapMax=0",
+    "--property=CPUQuota=200%",
+    "taskset",
+    "-c",
+    "4,6",
+    "/usr/bin/python3",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/execution-metrics-mapped64-o2-v1/worker.py",
+    "on"
+  ],
+  "guard": {
+    "memory_max_bytes": 10737418240,
+    "memory_swap_max_bytes": 0,
+    "cpu_affinity": [
+      4,
+      6
+    ],
+    "minimum_host_available_bytes": 3221225472,
+    "timeout_seconds": 1800,
+    "sample_seconds": 0.05,
+    "cpu_quota_percent": 200
+  },
+  "complete": true,
+  "cgroup_seen": true,
+  "peak_memory_current": 10737418240,
+  "minimum_host_available": 17325006848,
+  "failure": null,
+  "cpu_max_observed": "200000 100000",
+  "memory_max_observed": "10737418240",
+  "memory_swap_max_observed": "0",
+  "memory_events": "low 0\nhigh 0\nmax 466562\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+  "return_code": 0,
+  "observed_native_pids": [
+    2320232
+  ],
+  "observed_model_mappings": {
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/text-s32-v1/block-00/text.ncnn.bin": {
+      "first_seconds": 46.24619382798846,
+      "last_seconds": 46.49916620099975,
+      "observations": 2,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/text-s32-v2/block-01/text.ncnn.bin": {
+      "first_seconds": 46.751766942994436,
+      "last_seconds": 47.00463958099135,
+      "observations": 2,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/text-s32-v2/block-02/text.ncnn.bin": {
+      "first_seconds": 47.25752527899749,
+      "last_seconds": 47.510482216996024,
+      "observations": 2,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/text-s32-v2/block-03/text.ncnn.bin": {
+      "first_seconds": 47.76334654400125,
+      "last_seconds": 48.0163652219926,
+      "observations": 2,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/text-s32-v2/block-04/text.ncnn.bin": {
+      "first_seconds": 48.26916187099414,
+      "last_seconds": 48.26916187099414,
+      "observations": 1,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/text-s32-v2/block-05/text.ncnn.bin": {
+      "first_seconds": 48.52208081498975,
+      "last_seconds": 48.77497244998813,
+      "observations": 2,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/text-s32-v2/block-06/text.ncnn.bin": {
+      "first_seconds": 49.02774891498848,
+      "last_seconds": 49.28064055000141,
+      "observations": 2,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/text-s32-v2/block-07/text.ncnn.bin": {
+      "first_seconds": 49.533590362989344,
+      "last_seconds": 49.7867515199905,
+      "observations": 2,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/text-s32-v2/block-08/text.ncnn.bin": {
+      "first_seconds": 50.039747638991685,
+      "last_seconds": 50.29234838100092,
+      "observations": 2,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/text-s32-v2/block-09/text.ncnn.bin": {
+      "first_seconds": 50.54538605599373,
+      "last_seconds": 50.798225448990706,
+      "observations": 2,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/text-s32-v2/block-10/text.ncnn.bin": {
+      "first_seconds": 51.051339112993446,
+      "last_seconds": 51.051339112993446,
+      "observations": 1,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/text-s32-v2/block-11/text.ncnn.bin": {
+      "first_seconds": 51.55707251498825,
+      "last_seconds": 51.55707251498825,
+      "observations": 1,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/text-s32-v2/block-12/text.ncnn.bin": {
+      "first_seconds": 51.809781302988995,
+      "last_seconds": 52.06275961299252,
+      "observations": 2,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/text-s32-v2/block-13/text.ncnn.bin": {
+      "first_seconds": 52.31575098200119,
+      "last_seconds": 52.56882902600046,
+      "observations": 2,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/text-s32-v2/block-14/text.ncnn.bin": {
+      "first_seconds": 52.821520004989,
+      "last_seconds": 53.074281034991145,
+      "observations": 2,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/text-s32-v2/block-15/text.ncnn.bin": {
+      "first_seconds": 53.32718098099576,
+      "last_seconds": 53.32718098099576,
+      "observations": 1,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/text-s32-v2/block-16/text.ncnn.bin": {
+      "first_seconds": 53.58000612599426,
+      "last_seconds": 53.83278021699516,
+      "observations": 2,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/text-s32-v2/block-17/text.ncnn.bin": {
+      "first_seconds": 54.08539401899907,
+      "last_seconds": 54.33812061700155,
+      "observations": 2,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/text-s32-v2/block-18/text.ncnn.bin": {
+      "first_seconds": 54.590910143000656,
+      "last_seconds": 54.84371035499498,
+      "observations": 2,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/text-s32-v2/block-19/text.ncnn.bin": {
+      "first_seconds": 55.09662692299753,
+      "last_seconds": 55.34968122099235,
+      "observations": 2,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/text-s32-v2/block-20/text.ncnn.bin": {
+      "first_seconds": 55.602557420992525,
+      "last_seconds": 55.602557420992525,
+      "observations": 1,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/text-s32-v2/block-21/text.ncnn.bin": {
+      "first_seconds": 55.85528876799799,
+      "last_seconds": 56.1083786849922,
+      "observations": 2,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/text-s32-v2/block-22/text.ncnn.bin": {
+      "first_seconds": 56.361011485001654,
+      "last_seconds": 56.86613579299592,
+      "observations": 3,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/text-s32-v2/block-23/text.ncnn.bin": {
+      "first_seconds": 57.11911410299945,
+      "last_seconds": 57.11911410299945,
+      "observations": 1,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/text-s32-v2/block-24/text.ncnn.bin": {
+      "first_seconds": 57.37165904098947,
+      "last_seconds": 57.624351205988205,
+      "observations": 2,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-heads-s288-v1/input/head.ncnn.bin": {
+      "first_seconds": 58.382202112989035,
+      "last_seconds": 270.00077008899825,
+      "observations": 22,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v2/block-00/runtime/block.ncnn.bin": {
+      "first_seconds": 59.6463397119951,
+      "last_seconds": 270.75933603999147,
+      "observations": 26,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v2/block-01/runtime/block.ncnn.bin": {
+      "first_seconds": 60.911292998993304,
+      "last_seconds": 271.77049451399944,
+      "observations": 25,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v2/block-02/runtime/block.ncnn.bin": {
+      "first_seconds": 61.67010563299118,
+      "last_seconds": 272.5291613869922,
+      "observations": 24,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v2/block-03/runtime/block.ncnn.bin": {
+      "first_seconds": 62.42922934399394,
+      "last_seconds": 273.2874388189957,
+      "observations": 25,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v2/block-04/runtime/block.ncnn.bin": {
+      "first_seconds": 63.440477682990604,
+      "last_seconds": 274.298809822998,
+      "observations": 27,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v2/block-05/runtime/block.ncnn.bin": {
+      "first_seconds": 64.1991205309896,
+      "last_seconds": 275.0573069099919,
+      "observations": 25,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v2/block-06/runtime/block.ncnn.bin": {
+      "first_seconds": 64.95804595999653,
+      "last_seconds": 275.81602127499355,
+      "observations": 25,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v2/block-07/runtime/block.ncnn.bin": {
+      "first_seconds": 65.71637891799037,
+      "last_seconds": 276.82799543699366,
+      "observations": 25,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v2/block-08/runtime/block.ncnn.bin": {
+      "first_seconds": 66.47504194999055,
+      "last_seconds": 277.5870933069964,
+      "observations": 30,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-09/runtime/block.ncnn.bin": {
+      "first_seconds": 67.9972858849942,
+      "last_seconds": 278.34589790800237,
+      "observations": 25,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-10/runtime/block.ncnn.bin": {
+      "first_seconds": 69.00826232798863,
+      "last_seconds": 279.10512638300133,
+      "observations": 24,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-11/runtime/block.ncnn.bin": {
+      "first_seconds": 69.76673182699597,
+      "last_seconds": 280.11734750699543,
+      "observations": 24,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-12/runtime/block.ncnn.bin": {
+      "first_seconds": 70.52535805299703,
+      "last_seconds": 280.87569261599856,
+      "observations": 26,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-13/runtime/block.ncnn.bin": {
+      "first_seconds": 71.28426685900195,
+      "last_seconds": 281.63403060199926,
+      "observations": 24,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-14/runtime/block.ncnn.bin": {
+      "first_seconds": 72.0434155039984,
+      "last_seconds": 282.39229378598975,
+      "observations": 26,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-15/runtime/block.ncnn.bin": {
+      "first_seconds": 72.8026187659998,
+      "last_seconds": 283.1506139619887,
+      "observations": 25,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-16/runtime/block.ncnn.bin": {
+      "first_seconds": 73.81440733499767,
+      "last_seconds": 284.1614304889954,
+      "observations": 25,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-17/runtime/block.ncnn.bin": {
+      "first_seconds": 74.5728637729917,
+      "last_seconds": 284.9196604280005,
+      "observations": 28,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-18/runtime/block.ncnn.bin": {
+      "first_seconds": 75.33204803799163,
+      "last_seconds": 285.67800909899233,
+      "observations": 25,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-19/runtime/block.ncnn.bin": {
+      "first_seconds": 76.09054721999564,
+      "last_seconds": 286.4366356029932,
+      "observations": 25,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-20/runtime/block.ncnn.bin": {
+      "first_seconds": 76.8492601189937,
+      "last_seconds": 287.19504957699974,
+      "observations": 24,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-21/runtime/block.ncnn.bin": {
+      "first_seconds": 77.60848119099683,
+      "last_seconds": 287.95353241499106,
+      "observations": 27,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-22/runtime/block.ncnn.bin": {
+      "first_seconds": 78.61995274599758,
+      "last_seconds": 288.71182528299687,
+      "observations": 24,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-23/runtime/block.ncnn.bin": {
+      "first_seconds": 79.37794969198876,
+      "last_seconds": 289.72640798399516,
+      "observations": 24,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-24/runtime/block.ncnn.bin": {
+      "first_seconds": 80.13618172799761,
+      "last_seconds": 290.4852292079886,
+      "observations": 26,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-25/runtime/block.ncnn.bin": {
+      "first_seconds": 81.14794061299472,
+      "last_seconds": 291.49692197599506,
+      "observations": 25,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-26/runtime/block.ncnn.bin": {
+      "first_seconds": 81.90692659599881,
+      "last_seconds": 292.2556529639987,
+      "observations": 28,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-27/runtime/block.ncnn.bin": {
+      "first_seconds": 82.91926370500005,
+      "last_seconds": 293.0138579689956,
+      "observations": 24,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-28/runtime/block.ncnn.bin": {
+      "first_seconds": 83.6778305649932,
+      "last_seconds": 293.7720463529986,
+      "observations": 24,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-29/runtime/block.ncnn.bin": {
+      "first_seconds": 84.4365517749975,
+      "last_seconds": 294.78313002600044,
+      "observations": 26,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-30/runtime/block.ncnn.bin": {
+      "first_seconds": 85.19517918799829,
+      "last_seconds": 295.5418194579979,
+      "observations": 25,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v3/block-31/runtime/block.ncnn.bin": {
+      "first_seconds": 86.20694282300246,
+      "last_seconds": 296.2999330399907,
+      "observations": 26,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v4/block-32/runtime/block.ncnn.bin": {
+      "first_seconds": 86.96521047799615,
+      "last_seconds": 297.0583137689973,
+      "observations": 24,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v4/block-33/runtime/block.ncnn.bin": {
+      "first_seconds": 87.72325729099975,
+      "last_seconds": 297.81685597299656,
+      "observations": 26,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v4/block-34/runtime/block.ncnn.bin": {
+      "first_seconds": 88.48118656099541,
+      "last_seconds": 298.82809162299964,
+      "observations": 26,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-s288-v4/block-35/runtime/block.ncnn.bin": {
+      "first_seconds": 89.49188873299863,
+      "last_seconds": 299.5867941159959,
+      "observations": 25,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/dit-heads-s288-v2/output/head.ncnn.bin": {
+      "first_seconds": 90.25053989198932,
+      "last_seconds": 269.4950697460008,
+      "observations": 5,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/vae-8x8-v1/head.ncnn.bin": {
+      "first_seconds": 299.8395231809991,
+      "last_seconds": 300.0923887879908,
+      "observations": 2,
+      "permissions": [
+        "r--p"
+      ]
+    }
+  },
+  "mapping_sample_seconds": 0.25,
+  "wall_seconds": 300.5474120009894
+}
