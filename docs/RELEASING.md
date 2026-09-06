@@ -77,3 +77,43 @@ Download integrity is separate from model semantics. After bytes are obtained,
 run the installed native model/package verifier and the relevant PE verifier.
 The downloader does not establish model quality, feature support, provenance
 beyond the supplied authenticated manifest, or redistribution permission.
+
+## Inspecting the actual Linux dependency closure
+
+`release_dependencies.py` produces a separate evidence supplement for a fixed
+Linux x86_64 installation. It does not modify a draft archive or make it
+redistributable. Run it with Python 3.11+, Cargo, binutils and RPM available:
+
+```sh
+python3 tools/release_dependencies.py --source /fixed/source \
+  --build /fixed/build --binary /fixed/install/bin/ernie-image \
+  --cargo-cache "$HOME/.cargo/registry/cache" --output /new/dependency-evidence
+```
+
+The supported build contract is Cargo `build --release --locked` with the
+implicit x86_64 GNU host target, default feature selection and a recorded target
+directory. A different build needs a separately reviewed contract. The tool
+checks the generated CMake build command and cached compiler host, runs only
+`cargo metadata --locked --offline --filter-platform`, and hashes Cargo.lock
+before and after. No crates are compiled or downloaded. It distinguishes
+non-dev reachable packages from lock entries excluded for this target. Enabled
+packages still include build/proc-macro dependencies; they are not all claimed
+to contribute executable objects.
+
+Archive member IDs are cross-checked against Cargo dep-info and exact bytes in
+installed Rust runtime archives and the native Oniguruma build archive. Archive
+membership is a conservative bound because the final linker may discard
+sections. A relative-only project dep-info entry can remain unassigned; the
+report does not guess its origin. Authenticated crate archives supply nested
+license/notice files, including vendored native components. Installed toolchain
+notices retain their RPM ownership and hashes. Missing vendor terms or uncertain
+license interpretation remain blockers even when an archive member matches.
+
+The fixed glibc interpreter's `--list` mode resolves the selected executable's
+startup dependencies in a clean environment without entering its main program.
+Only ELF64 x86_64 results are accepted; exact resolved paths, library hashes and
+RPM owners are recorded. These shared libraries remain external requirements,
+not bundled files. This describes the current host, including its loader cache;
+it does not cover later `dlopen` libraries such as Vulkan ICDs or portability to
+another distribution. Neither loader success nor collected notice text is a
+redistribution approval.
