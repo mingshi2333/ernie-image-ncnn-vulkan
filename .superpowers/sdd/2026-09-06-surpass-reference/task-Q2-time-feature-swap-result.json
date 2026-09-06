@@ -1,0 +1,62 @@
+{
+  "scope": "Single native-time feature substitution on exact official Chinese step6 latent/text/RoPE/mask; not full trajectory acceptance",
+  "native_acceptance_eligible": false,
+  "passed": true,
+  "metrics": {
+    "nrmse": 1.0669699034454898e-05,
+    "max_abs_error": 0.00036537647247314453,
+    "error_l2": 0.008806189114863194,
+    "vs_official_time_prediction_max": 0.00033986568450927734,
+    "vs_official_time_prediction_l2": 0.004470913446434758,
+    "vs_official_time_prediction_relative_to_oracle_l2": 5.41701980962936e-06
+  },
+  "official_time_baseline": {
+    "nrmse": 1.2358507024489089e-05,
+    "max_abs_error": 0.0004429817199707031,
+    "actual_sha256": "1a1c133a28a64362c5efb83816e5d0a390d205fc517ea86a4f4e6a7adb8d57a9"
+  },
+  "native_time_candidate": {
+    "runner_sha256": "a4a80b564042d4020096edf947d30bd28a5fdf354005d1c17685fddddcdbe1fc",
+    "actual_sha256": "979e5ffd2d9cfcfba8f40ebd00f7a2e67025972f365f073b2b360762d5821446",
+    "max_abs_limit": 0.054409232330322264,
+    "nrmse_limit": 0.003,
+    "max_rss_kib": 1219964
+  },
+  "resource_guard": {
+    "command": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-chinese-step6-native-time-swap-v1-execution/diagnose_time_feature_swap.py",
+      "--execute",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-chinese-step6-native-time-swap-v1/plan.json"
+    ],
+    "cpu_affinity": [
+      0,
+      2
+    ],
+    "internal_requested_threads": 4,
+    "rss_limit_bytes": 9663676416,
+    "gpu_whole_device_limit_mib": 6144,
+    "minimum_host_available_bytes": 3221225472,
+    "scope": "Recursive descendants, including independently sessioned runner; sampled sum RSS, not unique PSS",
+    "started_unix": 1788711114.0601287,
+    "passed": true,
+    "return_code": 0,
+    "stop_reason": null,
+    "peak_rss_sum_bytes": 1630887936,
+    "gpu_whole_device_sampled_peak_mib": 3997,
+    "elapsed_seconds": 106.86849038400396
+  },
+  "artifact_sha256": {
+    "outputs/q2-chinese-step6-native-time-swap-v1/native/result.json": "606fc42b3020899cb50d70d2201af1f29db60d72c9d441f40dd437c51764988e",
+    "outputs/q2-chinese-step6-native-time-swap-v1/native/actual.f32": "979e5ffd2d9cfcfba8f40ebd00f7a2e67025972f365f073b2b360762d5821446",
+    "outputs/q2-chinese-step6-native-time-swap-v1/fixture/fixture.json": "59ec37b4a796122afb78a78ef77febbe2de401018a50d1bf621eb5f20bc39eba",
+    "outputs/q2-chinese-step6-native-time-swap-v1/plan.json": "2e2dbaf5753d4810487ea46a593717d78c4093c5b56ac95f2da5f2cccf567cbd",
+    "outputs/q2-chinese-step6-native-time-swap-v1/native/resources.log": "1813955506efae6fa46c65bbd65340f51a045df72a7c1f0543c00024b20c7142",
+    "outputs/q2-chinese-step6-native-time-swap-v1/native/runner.log": "ca73b8a743fdc2b5f7592d85b35c9f88c3a02f5d788fddb0ad4a8ab27f5c1e2d",
+    "outputs/q2-chinese-step6-native-time-swap-v1-execution/execution-snapshot.json": "8461270d774b4c98acb6a6f6f19d7028f51af9c07da07d85dcb2a862da387d63",
+    "outputs/q2-chinese-step6-native-time-swap-v1-execution/worker-result.json": "a100c51c7538713f6777caf77807270fd9cc0e859e0b1928cc8c5832666cd785",
+    "outputs/q2-chinese-step6-native-time-swap-v1-execution/samples.jsonl": "dbde149b612ec8aa7516e6b4a59ede1c0a9f7079037808713f4430e680635737",
+    "outputs/q2-chinese-step6-native-time-swap-v1-execution/worker.py": "4625d43e1acea2645721cd8f25dad33f83e792ebd954da7f2ef5bd7a39bd53c1",
+    "outputs/q2-chinese-step6-native-time-swap-v1-execution/diagnose_time_feature_swap.py": "0184577059e637afa30973250132695b3dfac9af2c41d464931eb40bf84f3020"
+  }
+}

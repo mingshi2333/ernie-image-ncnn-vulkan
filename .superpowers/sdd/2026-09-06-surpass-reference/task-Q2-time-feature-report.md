@@ -44,3 +44,23 @@ taskset -c 0,2 .venv/bin/python tools/diagnose_time_feature_swap.py \
 ## 测试
 
 4项专用 synthetic tests PASS：只有 in2 改变且 gates 保留；修改任一基线 tensor 拒绝且不创建 output；错误feature长度/NaN拒绝；缺输入/path traversal拒绝。CPU helper 已编译并运行、两种 CLI decimal feature 输出已运行比较；未构建共享 build-dev，未运行任何模型/GPU。保持所有原始数据不变。
+
+## GPU 单因素执行完成
+
+在 root 明确释放 GPU 后，仅执行了已准备的一项 time-feature swap，未启动其他网格。实际入口为 `outputs/q2-chinese-step6-native-time-swap-v1-execution/worker.py`，执行该目录封存的 diagnose_time_feature_swap.py，预测仍使用基线冻结 a4a80b... runner。结束后重新核验 plan 所有绑定和 execution snapshot，无差异；另外五个inputs、expected与gates仍逐字节一致。进程退出后立即通知 root GPU 已释放。
+
+| 同一 runner、同一官方 latent/text/RoPE/mask | NRMSE | max absolute | gate |
+|---|---:|---:|---|
+| 官方 time feature 基线 | 0.0000123585070 | 0.000442981720 | PASS |
+| native time feature 单独替换 | 0.0000106696990 | 0.000365376472 | PASS |
+
+固定门槛仍为 NRMSE .003、max .054409232330322264。独立读取实际 FP32 output/expected 后用 FP64重新计算，与result完全一致：candidate error L2 `0.008806189114863194`；两次预测之间max `0.00033986568450927734`、L2 `0.004470913446434758`、相对oracle L2 `5.41701980962936e-6`。
+
+该受控对比不支持“step6 time-feature 小差异本身足以造成现有中文自由运行失败”这一具体假设。相同官方输入下换为native时间特征仍远低于门槛，误差略小。不能将偶然较小误差称作优化，也不能由单步结论排除其他步骤时间特征误差与latent/text偏差的交互或累积；没有据此修改runtime或默认设置。
+
+- candidate actual SHA `979e5ffd2d9cfcfba8f40ebd00f7a2e67025972f365f073b2b360762d5821446`。
+- native result SHA `606fc42b3020899cb50d70d2201af1f29db60d72c9d441f40dd437c51764988e`。
+- 106.87s，return0，guard stop_reason=null；递归后代采样RSS峰 `1,630,887,936` bytes（1.52 GiB），整GPU峰3997MiB。结束回落1644MiB。两物理核0/2 affinity；内部4线程请求如实保留。CPU并行审计的其他进程不计入本任务RSS树，整GPU读数包含整卡背景。
+- `task-Q2-time-feature-swap-result.json` 绑定新结果、基线metrics、fixture、plan、guard/snapshot/worker/log的SHA，明确 native_acceptance_eligible=false。
+
+本实验只验证一个实现差异因素，不改变此前中文完整轨迹22/25+PNG max13失败，未再运行完整图像或其他反事实组合。
