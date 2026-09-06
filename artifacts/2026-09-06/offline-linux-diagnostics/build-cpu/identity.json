@@ -1,0 +1,44 @@
+{
+  "commands": [
+    [
+      "cmake",
+      "--preset",
+      "linux-cpu",
+      "-DERNIE_NCNN_SOURCE_DIR=/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/third_party/ncnn",
+      "-DCMAKE_C_COMPILER=/usr/bin/clang",
+      "-DCMAKE_CXX_COMPILER=/usr/bin/clang++"
+    ],
+    [
+      "cmake",
+      "--build",
+      "--preset",
+      "linux-cpu"
+    ],
+    [
+      "ctest",
+      "--test-dir",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d3-runtime-source-v3/build/linux-cpu",
+      "-R",
+      "^(pipeline_api_contract|request_validation_contract|gpu_context_contract|gpu_context_missing_driver|cli_contract|installed_cpp_consumer)$",
+      "--output-on-failure",
+      "--no-tests=error"
+    ]
+  ],
+  "source_identity_sha256": "3a112e7b9df9bb5be02ff21529773966a596d6563dfb694bf50892cec9fa3a27",
+  "worker_sha256": "366b8cad97b185f9bef55be1b67efd49ae2ded1b0f8a1f6e4ea04341deba4a0f",
+  "ncnn_revision": "6a1bf000f363714839a36793addc8c879d3d899e",
+  "ncnn_submodules": " 780b6a209132dc74e99458f62ebe5fa7e57c41cf glslang (780b6a2)\n-d03662f0984f652b60e7ddce53d3868002275197 python/pybind11\n",
+  "resource_controls": {
+    "memory.max": "4294967296",
+    "memory.swap.max": "0",
+    "cpu.max": "200000 100000"
+  },
+  "cpu_affinity": [
+    8,
+    10
+  ],
+  "clang++": "clang version 22.1.8 (Fedora 22.1.8-4.fc44)",
+  "rustc": "rustc 1.98.0 (88d9e12ae 2026-08-18) (Fedora 1.98.0-1.fc44)",
+  "cargo": "cargo 1.98.0 (797e8a9bc 2026-08-05) (Fedora 1.98.0-1.fc44)",
+  "cmake": "cmake version 4.3.0"
+}

@@ -1,0 +1,759 @@
+[1/674] Building CXX object ncnn/glslang/SPIRV/CMakeFiles/SPIRV.dir/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/third_party/ncnn/glslang/glslang/stub.cpp.o
+[2/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/GenericCodeGen/CodeGen.cpp.o
+[3/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/GenericCodeGen/Link.cpp.o
+[4/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/OSDependent/Unix/ossource.cpp.o
+[5/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/CInterface/glslang_c_interface.cpp.o
+[6/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/MachineIndependent/attribute.cpp.o
+[7/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/MachineIndependent/Constant.cpp.o
+[8/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/MachineIndependent/glslang_tab.cpp.o
+[9/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/MachineIndependent/InfoSink.cpp.o
+[10/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/MachineIndependent/iomapper.cpp.o
+[11/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/MachineIndependent/IntermTraverse.cpp.o
+[12/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/MachineIndependent/Intermediate.cpp.o
+[13/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/MachineIndependent/ParseContextBase.cpp.o
+[14/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/MachineIndependent/Initialize.cpp.o
+[15/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/MachineIndependent/PoolAlloc.cpp.o
+[16/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/MachineIndependent/RemoveTree.cpp.o
+[17/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/MachineIndependent/Scan.cpp.o
+[18/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/MachineIndependent/ParseHelper.cpp.o
+[19/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/MachineIndependent/ShaderLang.cpp.o
+[20/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/MachineIndependent/SpirvIntrinsics.cpp.o
+[21/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/MachineIndependent/SymbolTable.cpp.o
+[22/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/MachineIndependent/Versions.cpp.o
+[23/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/MachineIndependent/limits.cpp.o
+[24/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/MachineIndependent/intermOut.cpp.o
+[25/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/MachineIndependent/parseConst.cpp.o
+[26/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/MachineIndependent/reflection.cpp.o
+[27/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/MachineIndependent/linkValidate.cpp.o
+[28/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/MachineIndependent/preprocessor/PpAtom.cpp.o
+[29/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/MachineIndependent/preprocessor/Pp.cpp.o
+[30/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/MachineIndependent/preprocessor/PpContext.cpp.o
+[31/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/MachineIndependent/preprocessor/PpScanner.cpp.o
+[32/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/MachineIndependent/preprocessor/PpTokens.cpp.o
+[33/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/MachineIndependent/propagateNoContraction.cpp.o
+[34/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/third_party/ncnn/glslang/SPIRV/InReadableOrder.cpp.o
+[35/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/third_party/ncnn/glslang/SPIRV/Logger.cpp.o
+[36/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/third_party/ncnn/glslang/SPIRV/SpvBuilder.cpp.o
+[37/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/third_party/ncnn/glslang/SPIRV/GlslangToSpv.cpp.o
+[38/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/third_party/ncnn/glslang/SPIRV/SpvPostProcess.cpp.o
+[39/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/third_party/ncnn/glslang/SPIRV/SpvTools.cpp.o
+[40/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/third_party/ncnn/glslang/SPIRV/doc.cpp.o
+[41/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/third_party/ncnn/glslang/SPIRV/CInterface/spirv_c_interface.cpp.o
+[42/674] Linking CXX static library ncnn/glslang/SPIRV/libSPIRV.a
+[43/674] Preprocessing shader source batchnorm.comp
+[44/674] Preprocessing shader source batchnorm_pack4.comp
+[45/674] Preprocessing shader source binaryop.comp
+[46/674] Preprocessing shader source binaryop_broadcast.comp
+[47/674] Preprocessing shader source binaryop_broadcast_pack1to4.comp
+[48/674] Preprocessing shader source binaryop_broadcast_pack4.comp
+[49/674] Preprocessing shader source binaryop_pack4.comp
+[50/674] Preprocessing shader source cast_fp16_to_fp32.comp
+[51/674] Preprocessing shader source cast_fp16_to_fp32_pack4.comp
+[52/674] Preprocessing shader source cast_fp32_to_fp16.comp
+[53/674] Preprocessing shader source cast_fp32_to_fp16_pack4.comp
+[54/674] Preprocessing shader source concat.comp
+[55/674] Preprocessing shader source concat_pack4.comp
+[56/674] Preprocessing shader source concat_pack4to1.comp
+[57/674] Preprocessing shader source convert_ycbcr.comp
+[58/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang.dir/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/third_party/ncnn/glslang/SPIRV/disassemble.cpp.o
+[59/674] Preprocessing shader source convolution_1x1s1d1_cm.comp
+[60/674] Preprocessing shader source convolution_1x1s1d1_int8_cm.comp
+[61/674] Linking CXX static library ncnn/glslang/glslang/libglslang.a
+[62/674] Preprocessing shader source convolution_3x3s1d1_winograd23_transform_input.comp
+[63/674] Preprocessing shader source convolution_3x3s1d1_winograd23_transform_input_int8.comp
+[64/674] Preprocessing shader source convolution_3x3s1d1_winograd23_transform_output.comp
+[65/674] Preprocessing shader source convolution_3x3s1d1_winograd23_transform_input_int8_cm.comp
+[66/674] Preprocessing shader source convolution_3x3s1d1_winograd23_transform_output_int8.comp
+[67/674] Preprocessing shader source convolution_3x3s1d1_winograd43_transform_input.comp
+[68/674] Preprocessing shader source convolution_3x3s1d1_winograd43_transform_input_int8.comp
+[69/674] Preprocessing shader source convolution_3x3s1d1_winograd43_transform_input_int8_cm.comp
+[70/674] Preprocessing shader source convolution_3x3s1d1_winograd43_transform_output.comp
+[71/674] Preprocessing shader source convolution_3x3s1d1_winograd_gemm.comp
+[72/674] Preprocessing shader source convolution_3x3s1d1_winograd43_transform_output_int8.comp
+[73/674] Preprocessing shader source convolution_3x3s1d1_winograd_gemm_int8.comp
+[74/674] Preprocessing shader source convolution_3x3s1d1_winograd_gemm_int8_cm.comp
+[75/674] Preprocessing shader source convolution_gemm_cm.comp
+[76/674] Preprocessing shader source convolution_gemm_int8_cm.comp
+[77/674] Preprocessing shader source convolution_pack1to4_3x3s1d1_winograd_gemm.comp
+[78/674] Preprocessing shader source convolution_pack4_3x3s1d1_winograd23_transform_input.comp
+[79/674] Preprocessing shader source convolution_pack4_3x3s1d1_winograd23_transform_input_int8.comp
+[80/674] Preprocessing shader source convolution_pack4_3x3s1d1_winograd23_transform_input_int8_cm.comp
+[81/674] Preprocessing shader source convolution_pack4_3x3s1d1_winograd23_transform_output.comp
+[82/674] Preprocessing shader source convolution_pack4_3x3s1d1_winograd23_transform_output_int8.comp
+[83/674] Preprocessing shader source convolution_pack4_3x3s1d1_winograd43_transform_input.comp
+[84/674] Preprocessing shader source convolution_pack4_3x3s1d1_winograd43_transform_input_int8.comp
+[85/674] Preprocessing shader source convolution_pack4_3x3s1d1_winograd43_transform_output.comp
+[86/674] Preprocessing shader source convolution_pack4_3x3s1d1_winograd43_transform_input_int8_cm.comp
+[87/674] Preprocessing shader source convolution_pack4_3x3s1d1_winograd_gemm.comp
+[88/674] Preprocessing shader source convolution_pack4_3x3s1d1_winograd43_transform_output_int8.comp
+[89/674] Preprocessing shader source convolution_pack4to1_3x3s1d1_winograd_gemm.comp
+[90/674] Preprocessing shader source convolution_packed.comp
+[91/674] Preprocessing shader source convolution_packed_1x1s1d1.comp
+[92/674] Preprocessing shader source convolution_packed_1x1s1d1_int8.comp
+[93/674] Preprocessing shader source convolution_packed_gemm.comp
+[94/674] Preprocessing shader source convolution_packed_int8.comp
+[95/674] Preprocessing shader source convolution_packed_gemm_int8.comp
+[96/674] Preprocessing shader source crop.comp
+[97/674] Preprocessing shader source crop_pack1to4.comp
+[98/674] Preprocessing shader source convolution_winograd_gemm_cm.comp
+[99/674] Preprocessing shader source crop_pack4.comp
+[100/674] Preprocessing shader source crop_pack4to1.comp
+[101/674] Preprocessing shader source flatten.comp
+[102/674] Preprocessing shader source flatten_int8.comp
+[103/674] Preprocessing shader source flatten_pack1to4_int8.comp
+[104/674] Preprocessing shader source flatten_pack1to4.comp
+[105/674] Preprocessing shader source flatten_pack4.comp
+[106/674] Preprocessing shader source flatten_pack4_int8.comp
+[107/674] Preprocessing shader source gelu.comp
+[108/674] Preprocessing shader source gemm.comp
+[109/674] Preprocessing shader source gemm_int8.comp
+[110/674] Preprocessing shader source gemm_int8_cm.comp
+[111/674] Preprocessing shader source gemm_cm.comp
+[112/674] Preprocessing shader source gemm_quantize_A_int8.comp
+[113/674] Preprocessing shader source gemm_quantize_A_packed_int8.comp
+[114/674] Preprocessing shader source gemm_quantize_B_absmax_int8.comp
+[115/674] Preprocessing shader source gemm_quantize_B_descale_int8.comp
+[116/674] Preprocessing shader source gemm_quantize_B_int8.comp
+[117/674] Preprocessing shader source gemm_quantize_B_packed_int8.comp
+[118/674] Preprocessing shader source groupnorm_coeffs.comp
+[119/674] Preprocessing shader source gemm_sg.comp
+[120/674] Preprocessing shader source groupnorm_coeffs_pack4.comp
+[121/674] Preprocessing shader source groupnorm_norm.comp
+[122/674] Preprocessing shader source groupnorm_norm_pack4.comp
+[123/674] Preprocessing shader source groupnorm_reduce_mean.comp
+[124/674] Preprocessing shader source groupnorm_reduce_mean_pack4.comp
+[125/674] Preprocessing shader source groupnorm_reduce_sum4_fp16_to_fp32.comp
+[126/674] Preprocessing shader source groupnorm_reduce_sum4_fp16_to_fp32_pack4.comp
+[127/674] Preprocessing shader source groupnorm_reduce_sum4_fp32.comp
+[128/674] Preprocessing shader source groupnorm_reduce_sum4_fp32_pack4.comp
+[129/674] Preprocessing shader source groupnorm_sub_mean_square.comp
+[130/674] Preprocessing shader source groupnorm_sub_mean_square_pack4.comp
+[131/674] Preprocessing shader source innerproduct.comp
+[132/674] Preprocessing shader source innerproduct_gemm.comp
+[133/674] Preprocessing shader source innerproduct_gemm_wp1to4.comp
+[134/674] Preprocessing shader source innerproduct_gemm_int8.comp
+[135/674] Preprocessing shader source innerproduct_gemm_wp4.comp
+[136/674] Preprocessing shader source innerproduct_gemm_wp4to1.comp
+[137/674] Preprocessing shader source innerproduct_int8.comp
+[138/674] Preprocessing shader source innerproduct_pack1to4.comp
+[139/674] Preprocessing shader source innerproduct_pack4.comp
+[140/674] Preprocessing shader source innerproduct_pack4to1.comp
+[141/674] Preprocessing shader source innerproduct_reduce_sum8.comp
+[142/674] Preprocessing shader source innerproduct_reduce_sum8_int8.comp
+[143/674] Preprocessing shader source innerproduct_reduce_sum8_pack4.comp
+[144/674] Preprocessing shader source innerproduct_sum8.comp
+[145/674] Preprocessing shader source innerproduct_sum8_int8.comp
+[146/674] Preprocessing shader source innerproduct_sum8_pack1to4.comp
+[147/674] Preprocessing shader source innerproduct_sum8_pack4.comp
+[148/674] Preprocessing shader source innerproduct_sum8_pack4to1.comp
+[149/674] Preprocessing shader source interp_bicubic.comp
+[150/674] Preprocessing shader source interp.comp
+[151/674] Preprocessing shader source interp_bicubic_coeffs.comp
+[152/674] Preprocessing shader source interp_bicubic_pack4.comp
+[153/674] Preprocessing shader source layernorm_coeffs.comp
+[154/674] Preprocessing shader source interp_pack4.comp
+[155/674] Preprocessing shader source layernorm_coeffs_pack4.comp
+[156/674] Preprocessing shader source layernorm_norm.comp
+[157/674] Preprocessing shader source layernorm_norm_pack4.comp
+[158/674] Preprocessing shader source layernorm_reduce_mean.comp
+[159/674] Preprocessing shader source layernorm_reduce_mean_pack4.comp
+[160/674] Preprocessing shader source layernorm_reduce_sum4_fp16_to_fp32.comp
+[161/674] Preprocessing shader source layernorm_reduce_sum4_fp16_to_fp32_pack4.comp
+[162/674] Preprocessing shader source layernorm_reduce_sum4_fp32.comp
+[163/674] Preprocessing shader source layernorm_reduce_sum4_fp32_pack4.comp
+[164/674] Preprocessing shader source layernorm_sub_mean_square.comp
+[165/674] Preprocessing shader source multiheadattention_kvcache_append.comp
+[166/674] Preprocessing shader source layernorm_sub_mean_square_pack4.comp
+[167/674] Preprocessing shader source multiheadattention_kvcache_copy.comp
+[168/674] Preprocessing shader source multiheadattention_kvcache_qk.comp
+[169/674] Preprocessing shader source multiheadattention_kvcache_qkv.comp
+[170/674] Preprocessing shader source multiheadattention_qk_cross.comp
+[171/674] Preprocessing shader source multiheadattention_qk_cross_pack1to4.comp
+[172/674] Preprocessing shader source multiheadattention_qk_cross_pack4.comp
+[173/674] Preprocessing shader source multiheadattention_qk_cross_pack4to1.comp
+[174/674] Preprocessing shader source multiheadattention_qkv_cross.comp
+[175/674] Preprocessing shader source multiheadattention_qkv_cross_pack1to4.comp
+[176/674] Preprocessing shader source multiheadattention_qkv_cross_pack4.comp
+[177/674] Preprocessing shader source multiheadattention_qkv_cross_pack4to1.comp
+[178/674] Preprocessing shader source packing.comp
+[179/674] Preprocessing shader source ncnn_glsl_ext.comp
+[180/674] Preprocessing shader source packing_int8.comp
+[181/674] Preprocessing shader source packing_pack1to4.comp
+[182/674] Preprocessing shader source packing_pack1to4_int8.comp
+[183/674] Preprocessing shader source packing_pack4to1.comp
+[184/674] Preprocessing shader source packing_pack4to1_int8.comp
+[185/674] Preprocessing shader source padding_3d.comp
+[186/674] Preprocessing shader source padding.comp
+[187/674] Preprocessing shader source padding_3d_int8.comp
+[188/674] Preprocessing shader source padding_3d_pack4.comp
+[189/674] Preprocessing shader source padding_3d_pack4_int8.comp
+[190/674] Preprocessing shader source padding_int8.comp
+[191/674] Preprocessing shader source padding_pack1to4.comp
+[192/674] Preprocessing shader source padding_pack1to4_int8.comp
+[193/674] Preprocessing shader source padding_pack4.comp
+[194/674] Preprocessing shader source padding_pack4_int8.comp
+[195/674] Preprocessing shader source padding_pack4to1_int8.comp
+[196/674] Preprocessing shader source padding_pack4to1.comp
+[197/674] Preprocessing shader source permute.comp
+[198/674] Preprocessing shader source permute_pack1to4.comp
+[199/674] Preprocessing shader source permute_pack4.comp
+[200/674] Preprocessing shader source permute_pack4to1.comp
+[201/674] Preprocessing shader source reorg.comp
+[202/674] Preprocessing shader source reduction.comp
+[203/674] Preprocessing shader source reorg_pack1to4.comp
+[204/674] Preprocessing shader source reorg_pack4.comp
+[205/674] Preprocessing shader source reshape.comp
+[206/674] Preprocessing shader source reshape_batch_reorder.comp
+[207/674] Preprocessing shader source reshape_batch_reorder_pack1to4.comp
+[208/674] Preprocessing shader source reshape_batch_reorder_pack4.comp
+[209/674] Preprocessing shader source reshape_batch_reorder_pack4to1.comp
+[210/674] Preprocessing shader source reshape_pack1to4.comp
+[211/674] Preprocessing shader source reshape_pack4.comp
+[212/674] Preprocessing shader source reshape_pack4to1.comp
+[213/674] Preprocessing shader source rmsnorm_coeffs.comp
+[214/674] Preprocessing shader source rmsnorm_coeffs_pack4.comp
+[215/674] Preprocessing shader source rmsnorm_norm.comp
+[216/674] Preprocessing shader source rmsnorm_norm_pack4.comp
+[217/674] Preprocessing shader source rmsnorm_square.comp
+[218/674] Preprocessing shader source rmsnorm_square_pack4.comp
+[219/674] Preprocessing shader source sdpa_cross.comp
+[220/674] Preprocessing shader source sdpa_fa.comp
+[221/674] Preprocessing shader source sdpa_cross_cm.comp
+[222/674] Preprocessing shader source sdpa_fa_cm.comp
+[223/674] Preprocessing shader source sdpa_kvcache_append.comp
+[224/674] Preprocessing shader source sdpa_kvcache_copy.comp
+[225/674] Preprocessing shader source slice.comp
+[226/674] Preprocessing shader source slice_pack1to4.comp
+[227/674] Preprocessing shader source slice_pack4.comp
+[228/674] Preprocessing shader source softmax_div_sum.comp
+[229/674] Preprocessing shader source softmax_div_sum_pack4.comp
+[230/674] Preprocessing shader source softmax_exp_sub_max.comp
+[231/674] Preprocessing shader source softmax_exp_sub_max_pack4.comp
+[232/674] Preprocessing shader source softmax_reduce_max.comp
+[233/674] Preprocessing shader source softmax_reduce_max_pack4.comp
+[234/674] Preprocessing shader source softmax_reduce_sum.comp
+[235/674] Preprocessing shader source swish.comp
+[236/674] Preprocessing shader source softmax_reduce_sum_pack4.comp
+[237/674] Preprocessing shader source unaryop.comp
+[238/674] Preprocessing shader source vulkan_activation.comp
+[239/674] Generating source batchnorm_x86_avx512.h
+[240/674] Generating source batchnorm_x86_avx512.cpp
+[241/674] Generating source batchnorm_x86_avx.h
+[242/674] Generating source batchnorm_x86_avx.cpp
+[243/674] Generating source concat_x86_avx512.h
+[244/674] Generating source concat_x86_avx512.cpp
+[245/674] Generating source concat_x86_avx.h
+[246/674] Generating source concat_x86_avx.cpp
+[247/674] Generating source convolution_x86_avx512.h
+[248/674] Generating source convolution_x86_avx512.cpp
+[249/674] Generating source convolution_x86_avx.h
+[250/674] Generating source convolution_x86_avx.cpp
+[251/674] Generating source crop_x86_avx512.h
+[252/674] Generating source crop_x86_avx512.cpp
+[253/674] Generating source crop_x86_avx.h
+[254/674] Generating source crop_x86_avx.cpp
+[255/674] Generating source flatten_x86_avx512.h
+[256/674] Generating source flatten_x86_avx512.cpp
+[257/674] Generating source flatten_x86_avx.h
+[258/674] Generating source flatten_x86_avx.cpp
+[259/674] Generating source innerproduct_x86_avx512.h
+[260/674] Generating source innerproduct_x86_avx512.cpp
+[261/674] Generating source innerproduct_x86_avx.h
+[262/674] Generating source innerproduct_x86_avx.cpp
+[263/674] Generating source reshape_x86_avx512.h
+[264/674] Generating source reshape_x86_avx512.cpp
+[265/674] Generating source reshape_x86_avx.h
+[266/674] Generating source reshape_x86_avx.cpp
+[267/674] Generating source slice_x86_avx512.h
+[268/674] Generating source slice_x86_avx512.cpp
+[269/674] Generating source slice_x86_avx.h
+[270/674] Generating source slice_x86_avx.cpp
+[271/674] Generating source softmax_x86_avx512.h
+[272/674] Generating source softmax_x86_avx512.cpp
+[273/674] Generating source softmax_x86_avx.h
+[274/674] Generating source softmax_x86_avx.cpp
+[275/674] Generating source binaryop_x86_avx512.h
+[276/674] Generating source binaryop_x86_avx512.cpp
+[277/674] Generating source binaryop_x86_avx.h
+[278/674] Generating source binaryop_x86_avx.cpp
+[279/674] Generating source unaryop_x86_avx512.h
+[280/674] Generating source unaryop_x86_avx512.cpp
+[281/674] Generating source unaryop_x86_avx.h
+[282/674] Generating source unaryop_x86_avx.cpp
+[283/674] Generating source padding_x86_avx512.h
+[284/674] Generating source padding_x86_avx512.cpp
+[285/674] Generating source padding_x86_avx.h
+[286/674] Generating source padding_x86_avx.cpp
+[287/674] Generating source interp_x86_avx512.h
+[288/674] Generating source interp_x86_avx512.cpp
+[289/674] Generating source interp_x86_avx.h
+[290/674] Generating source interp_x86_avx.cpp
+[291/674] Generating source packing_x86_avx512.h
+[292/674] Generating source packing_x86_avx512.cpp
+[293/674] Generating source packing_x86_avx.h
+[294/674] Generating source packing_x86_avx.cpp
+[295/674] Generating source cast_x86_avx512.h
+[296/674] Generating source cast_x86_avx512.cpp
+[297/674] Generating source cast_x86_avx.h
+[298/674] Generating source cast_x86_avx.cpp
+[299/674] Generating source swish_x86_avx512.h
+[300/674] Generating source swish_x86_avx512.cpp
+[301/674] Generating source swish_x86_avx.h
+[302/674] Generating source swish_x86_avx.cpp
+[303/674] Generating source gemm_x86_avx512.h
+[304/674] Generating source gemm_x86_avx512.cpp
+[305/674] Generating source gemm_x86_avx.h
+[306/674] Generating source gemm_x86_avx.cpp
+[307/674] Generating source groupnorm_x86_avx512.h
+[308/674] Generating source groupnorm_x86_avx512.cpp
+[309/674] Generating source groupnorm_x86_avx.h
+[310/674] Generating source groupnorm_x86_avx.cpp
+[311/674] Generating source layernorm_x86_avx512.h
+[312/674] Generating source layernorm_x86_avx512.cpp
+[313/674] Generating source layernorm_x86_avx.h
+[314/674] Generating source layernorm_x86_avx.cpp
+[315/674] Generating source multiheadattention_x86_avx512.h
+[316/674] Generating source multiheadattention_x86_avx512.cpp
+[317/674] Generating source multiheadattention_x86_avx.h
+[318/674] Generating source multiheadattention_x86_avx.cpp
+[319/674] Generating source gelu_x86_avx512.h
+[320/674] Generating source gelu_x86_avx512.cpp
+[321/674] Generating source gelu_x86_avx.h
+[322/674] Generating source gelu_x86_avx.cpp
+[323/674] Generating source rmsnorm_x86_avx512.h
+[324/674] Generating source rmsnorm_x86_avx512.cpp
+[325/674] Generating source rmsnorm_x86_avx.h
+[326/674] Generating source rmsnorm_x86_avx.cpp
+[327/674] Generating source sdpa_x86_avx512.h
+[328/674] Generating source sdpa_x86_avx512.cpp
+[329/674] Generating source sdpa_x86_avx.h
+[330/674] Generating source sdpa_x86_avx.cpp
+[331/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/allocator.cpp.o
+[332/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/benchmark.cpp.o
+[333/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/blob.cpp.o
+[334/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/c_api.cpp.o
+[335/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/command.cpp.o
+[336/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/cpu.cpp.o
+[337/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/datareader.cpp.o
+[338/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/expression.cpp.o
+[339/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/gpu.cpp.o
+[340/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer.cpp.o
+[341/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/mat.cpp.o
+[342/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/mat_pixel.cpp.o
+[343/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/mat_pixel_affine.cpp.o
+[344/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/mat_pixel_drawing.cpp.o
+[345/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/mat_pixel_resize.cpp.o
+[346/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/mat_pixel_rotate.cpp.o
+[347/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/modelbin.cpp.o
+[348/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/net.cpp.o
+[349/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/option.cpp.o
+[350/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/paramdict.cpp.o
+[351/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/pipeline.cpp.o
+[352/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/pipelinecache.cpp.o
+[353/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/simpleocv.cpp.o
+[354/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/simpleomp.cpp.o
+[355/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/simplestl.cpp.o
+[356/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/simplemath.cpp.o
+[357/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/simplevk.cpp.o
+[358/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/batchnorm.cpp.o
+[359/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/batchnorm_x86.cpp.o
+[360/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/batchnorm_vulkan.cpp.o
+[361/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/batchnorm_x86_avx512.cpp.o
+[362/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/batchnorm_x86_fma.cpp.o
+[363/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/batchnorm_x86_fma4.cpp.o
+[364/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/batchnorm_x86_avx.cpp.o
+[365/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/batchnorm_x86_avx512bf16.cpp.o
+[366/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/batchnorm_x86_avx2.cpp.o
+[367/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/concat.cpp.o
+[368/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/concat_x86.cpp.o
+[369/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/concat_vulkan.cpp.o
+[370/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/concat_x86_avx512.cpp.o
+[371/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/concat_x86_avx.cpp.o
+[372/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/convolution.cpp.o
+[373/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/convolution_x86.cpp.o
+[374/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/convolution_vulkan.cpp.o
+[375/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/convolution_x86_avx512.cpp.o
+[376/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/convolution_x86_fma.cpp.o
+[377/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/convolution_x86_fma4.cpp.o
+[378/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/convolution_x86_avx.cpp.o
+[379/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/convolution_x86_avx512vnni.cpp.o
+[380/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/convolution_x86_avx512bf16.cpp.o
+[381/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/convolution_x86_avxvnni.cpp.o
+[382/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/convolution_x86_avxvnniint8.cpp.o
+[383/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/convolution_x86_avx2.cpp.o
+[384/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/convolution_x86_xop.cpp.o
+[385/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/crop.cpp.o
+[386/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/crop_x86.cpp.o
+[387/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/crop_vulkan.cpp.o
+[388/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/crop_x86_avx512.cpp.o
+[389/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/crop_x86_avx.cpp.o
+[390/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/flatten.cpp.o
+[391/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/flatten_x86.cpp.o
+[392/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/flatten_vulkan.cpp.o
+[393/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/flatten_x86_avx512.cpp.o
+[394/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/flatten_x86_avx.cpp.o
+[395/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/innerproduct.cpp.o
+[396/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/innerproduct_x86.cpp.o
+[397/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/innerproduct_vulkan.cpp.o
+[398/674] Building pinned native Tokenizers bridge
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.24
+   Compiling version_check v0.9.5
+   Compiling serde_core v1.0.229
+   Compiling syn v2.0.119
+   Compiling syn v3.0.5
+   Compiling crossbeam-utils v0.8.22
+   Compiling cfg-if v1.0.4
+   Compiling libc v0.2.189
+   Compiling fnv v1.0.7
+   Compiling typenum v1.18.0
+   Compiling serde v1.0.229
+   Compiling ident_case v1.0.1
+   Compiling crossbeam-epoch v0.9.20
+   Compiling strsim v0.11.1
+   Compiling getrandom v0.3.4
+   Compiling zerocopy v0.8.56
+   Compiling memchr v2.8.3
+   Compiling darling_core v0.20.11
+   Compiling serde_derive v1.0.229
+   Compiling generic-array v0.14.7
+   Compiling crossbeam-deque v0.8.7
+   Compiling find-msvc-tools v0.1.12
+   Compiling shlex v2.0.1
+   Compiling cc v1.4.5
+   Compiling darling_macro v0.20.11
+   Compiling rustversion v1.0.23
+   Compiling rayon-core v1.13.0
+   Compiling pkg-config v0.3.34
+   Compiling onig_sys v69.9.3
+   Compiling darling v0.20.11
+   Compiling either v1.18.0
+   Compiling zmij v1.0.23
+   Compiling ppv-lite86 v0.2.21
+   Compiling derive_builder_core v0.20.2
+   Compiling rand_core v0.9.5
+   Compiling aho-corasick v1.1.5
+   Compiling ahash v0.8.12
+   Compiling paste v1.0.15
+   Compiling esaxx-rs v0.1.10
+   Compiling regex-syntax v0.8.11
+   Compiling serde_json v1.0.151
+   Compiling minimal-lexical v0.2.1
+   Compiling itoa v1.0.18
+   Compiling thiserror v2.0.20
+   Compiling once_cell v1.21.4
+   Compiling nom v7.1.3
+   Compiling regex-automata v0.4.18
+   Compiling rand_chacha v0.9.0
+   Compiling castaway v0.2.4
+   Compiling derive_builder_macro v0.20.2
+   Compiling rayon v1.12.0
+   Compiling itertools v0.14.0
+   Compiling crypto-common v0.1.6
+   Compiling block-buffer v0.10.4
+   Compiling thiserror-impl v2.0.20
+   Compiling monostate-impl v0.1.18
+   Compiling macro_rules_attribute-proc_macro v0.2.3
+   Compiling bitflags v2.13.1
+   Compiling pastey v0.2.3
+   Compiling unicode-segmentation v1.13.3
+   Compiling smallvec v1.16.0
+   Compiling ryu v1.0.23
+   Compiling static_assertions v1.1.0
+   Compiling base64 v0.13.1
+   Compiling compact_str v0.9.1
+   Compiling spm_precompiled v0.1.4
+   Compiling unicode-normalization-alignments v0.1.12
+   Compiling macro_rules_attribute v0.2.3
+   Compiling onig v6.5.3
+   Compiling monostate v0.1.18
+   Compiling digest v0.10.7
+   Compiling rayon-cond v0.4.0
+   Compiling derive_builder v0.20.2
+   Compiling regex v1.13.1
+   Compiling rand v0.9.5
+   Compiling dary_heap v0.3.9
+   Compiling cpufeatures v0.2.17
+   Compiling unicode_categories v0.1.1
+   Compiling log v0.4.34
+   Compiling tokenizers v0.22.2
+   Compiling sha2 v0.10.9
+   Compiling ernie-tokenizer-bridge v0.1.0 (/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d3-runtime-source-v3/tokenizer)
+    Finished `release` profile [optimized] target(s) in 1m 05s
+[399/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/innerproduct_x86_avx512.cpp.o
+[400/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/innerproduct_x86_fma.cpp.o
+[401/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/innerproduct_x86_fma4.cpp.o
+[402/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/innerproduct_x86_avx.cpp.o
+[403/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/innerproduct_x86_avx2.cpp.o
+[404/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/innerproduct_x86_avx512bf16.cpp.o
+[405/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/input.cpp.o
+[406/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/memorydata.cpp.o
+[407/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/innerproduct_x86_f16c.cpp.o
+[408/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/memorydata_vulkan.cpp.o
+[409/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/reduction_vulkan.cpp.o
+[410/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/reduction.cpp.o
+[411/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/reshape.cpp.o
+[412/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/reshape_x86.cpp.o
+[413/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/reshape_vulkan.cpp.o
+[414/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/reshape_x86_avx.cpp.o
+[415/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/reshape_x86_avx512.cpp.o
+[416/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/slice.cpp.o
+[417/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/slice_x86.cpp.o
+[418/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/slice_vulkan.cpp.o
+[419/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/slice_x86_avx.cpp.o
+[420/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/slice_x86_avx512.cpp.o
+[421/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/softmax.cpp.o
+[422/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/softmax_vulkan.cpp.o
+[423/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/softmax_x86.cpp.o
+[424/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/softmax_x86_fma.cpp.o
+[425/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/softmax_x86_avx512.cpp.o
+[426/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/softmax_x86_fma4.cpp.o
+[427/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/softmax_x86_avx.cpp.o
+[428/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/softmax_x86_avx512bf16.cpp.o
+[429/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/softmax_x86_avx2.cpp.o
+[430/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/split.cpp.o
+[431/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/split_vulkan.cpp.o
+[432/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/binaryop.cpp.o
+[433/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/binaryop_vulkan.cpp.o
+[434/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/binaryop_x86.cpp.o
+[435/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/binaryop_x86_fma.cpp.o
+[436/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/binaryop_x86_avx512.cpp.o
+[437/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/binaryop_x86_fma4.cpp.o
+[438/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/binaryop_x86_avx.cpp.o
+[439/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/binaryop_x86_avx2.cpp.o
+[440/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/unaryop.cpp.o
+[441/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/binaryop_x86_avx512bf16.cpp.o
+[442/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/unaryop_vulkan.cpp.o
+[443/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/unaryop_x86.cpp.o
+[444/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/unaryop_x86_avx512.cpp.o
+[445/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/unaryop_x86_fma.cpp.o
+[446/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/unaryop_x86_fma4.cpp.o
+[447/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/unaryop_x86_avx.cpp.o
+[448/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/unaryop_x86_avx512bf16.cpp.o
+[449/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/unaryop_x86_avx2.cpp.o
+[450/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/padding.cpp.o
+[451/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/padding_vulkan.cpp.o
+[452/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/padding_x86.cpp.o
+[453/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/padding_x86_avx512.cpp.o
+[454/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/padding_x86_avx.cpp.o
+[455/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/squeeze.cpp.o
+[456/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/expanddims.cpp.o
+[457/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/permute_vulkan.cpp.o
+[458/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/permute.cpp.o
+[459/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/interp.cpp.o
+[460/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/interp_vulkan.cpp.o
+[461/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/interp_x86.cpp.o
+[462/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/interp_x86_fma.cpp.o
+[463/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/interp_x86_avx512.cpp.o
+[464/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/interp_x86_fma4.cpp.o
+[465/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/interp_x86_avx.cpp.o
+[466/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/interp_x86_avx512bf16.cpp.o
+[467/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/reorg.cpp.o
+[468/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/interp_x86_avx2.cpp.o
+[469/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/reorg_vulkan.cpp.o
+[470/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/packing.cpp.o
+[471/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/packing_vulkan.cpp.o
+[472/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/packing_x86.cpp.o
+[473/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/packing_x86_avx512.cpp.o
+[474/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/packing_x86_avx.cpp.o
+[475/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/cast.cpp.o
+[476/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/cast_x86.cpp.o
+[477/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/cast_vulkan.cpp.o
+[478/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/cast_x86_avx512.cpp.o
+[479/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/cast_x86_avx.cpp.o
+[480/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/cast_x86_avx512bf16.cpp.o
+[481/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/cast_x86_avx2.cpp.o
+[482/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/swish.cpp.o
+[483/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/cast_x86_f16c.cpp.o
+[484/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/swish_x86.cpp.o
+[485/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/swish_vulkan.cpp.o
+[486/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/swish_x86_avx512.cpp.o
+[487/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/swish_x86_fma.cpp.o
+[488/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/swish_x86_fma4.cpp.o
+[489/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/swish_x86_avx.cpp.o
+[490/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/swish_x86_avx512bf16.cpp.o
+[491/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/swish_x86_avx2.cpp.o
+[492/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/gemm.cpp.o
+[493/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/gemm_vulkan.cpp.o
+[494/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gemm_x86.cpp.o
+[495/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gemm_x86_fma.cpp.o
+[496/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gemm_x86_fma4.cpp.o
+[497/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gemm_x86_avx512.cpp.o
+[498/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gemm_x86_avx512vnni.cpp.o
+[499/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gemm_x86_avx.cpp.o
+[500/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gemm_x86_avx512vnni_avx512bf16.cpp.o
+[501/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gemm_x86_avx512bf16.cpp.o
+[502/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gemm_x86_avxvnni.cpp.o
+[503/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gemm_x86_avxvnniint8.cpp.o
+[504/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gemm_x86_xop.cpp.o
+[505/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/groupnorm.cpp.o
+[506/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gemm_x86_avx2.cpp.o
+[507/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/groupnorm_x86.cpp.o
+[508/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/groupnorm_vulkan.cpp.o
+[509/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/groupnorm_x86_avx512.cpp.o
+[510/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/groupnorm_x86_fma.cpp.o
+[511/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/groupnorm_x86_fma4.cpp.o
+[512/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/groupnorm_x86_avx.cpp.o
+[513/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/groupnorm_x86_avx512bf16.cpp.o
+[514/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/groupnorm_x86_avx2.cpp.o
+[515/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/layernorm.cpp.o
+[516/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/layernorm_x86.cpp.o
+[517/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/layernorm_vulkan.cpp.o
+[518/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/layernorm_x86_fma.cpp.o
+[519/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/layernorm_x86_avx512.cpp.o
+[520/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/layernorm_x86_fma4.cpp.o
+[521/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/layernorm_x86_avx.cpp.o
+[522/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/layernorm_x86_avx2.cpp.o
+[523/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/layernorm_x86_avx512bf16.cpp.o
+[524/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/multiheadattention.cpp.o
+[525/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/multiheadattention_x86.cpp.o
+[526/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/multiheadattention_vulkan.cpp.o
+[527/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/multiheadattention_x86_avx512.cpp.o
+[528/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/gelu.cpp.o
+[529/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/multiheadattention_x86_avx.cpp.o
+[530/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gelu_x86.cpp.o
+[531/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/gelu_vulkan.cpp.o
+[532/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gelu_x86_avx512.cpp.o
+[533/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gelu_x86_fma.cpp.o
+[534/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gelu_x86_fma4.cpp.o
+[535/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gelu_x86_avx.cpp.o
+[536/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gelu_x86_avx512bf16.cpp.o
+[537/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gelu_x86_avx2.cpp.o
+[538/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/rmsnorm.cpp.o
+[539/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/rmsnorm_x86.cpp.o
+[540/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/rmsnorm_vulkan.cpp.o
+[541/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/rmsnorm_x86_avx512.cpp.o
+[542/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/rmsnorm_x86_fma.cpp.o
+[543/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/rmsnorm_x86_fma4.cpp.o
+[544/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/rmsnorm_x86_avx.cpp.o
+[545/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/rmsnorm_x86_avx512bf16.cpp.o
+[546/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/rmsnorm_x86_avx2.cpp.o
+[547/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/sdpa.cpp.o
+[548/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/sdpa_vulkan.cpp.o
+[549/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/sdpa_x86.cpp.o
+[550/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/sdpa_x86_fma.cpp.o
+[551/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/sdpa_x86_avx512.cpp.o
+[552/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/sdpa_x86_fma4.cpp.o
+[553/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/sdpa_x86_avx.cpp.o
+[554/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/sdpa_x86_avx2.cpp.o
+[555/674] Building CXX object tokenizer/CMakeFiles/ernie-tokenizer.dir/__/src/tokenizer.cpp.o
+[556/674] Linking CXX static library tokenizer/libernie-tokenizer.a
+[557/674] Building CXX object src/CMakeFiles/ernie-runtime.dir/ernie_gelu.cpp.o
+[558/674] Building CXX object src/CMakeFiles/ernie-runtime.dir/ernie_rmsnorm.cpp.o
+[559/674] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/sdpa_x86_avx512bf16.cpp.o
+[560/674] Linking CXX static library ncnn/src/libncnn.a
+[561/674] Building CXX object src/CMakeFiles/ernie-runtime.dir/ernie_residual.cpp.o
+[562/674] Building CXX object src/CMakeFiles/ernie-runtime.dir/ernie_groupnorm.cpp.o
+[563/674] Building CXX object src/CMakeFiles/ernie-runtime.dir/latent_ops.cpp.o
+[564/674] Building CXX object src/CMakeFiles/ernie-runtime.dir/ernie_attention.cpp.o
+[565/674] Building CXX object src/CMakeFiles/ernie-runtime.dir/img2img.cpp.o
+[566/674] Building CXX object src/CMakeFiles/ernie-runtime.dir/image_encoder.cpp.o
+[567/674] Building CXX object src/CMakeFiles/ernie-runtime.dir/component_files.cpp.o
+[568/674] Building CXX object src/CMakeFiles/ernie-runtime.dir/block_sequence.cpp.o
+[569/674] Building CXX object src/CMakeFiles/ernie-runtime.dir/dit.cpp.o
+[570/674] Building CXX object src/CMakeFiles/ernie-runtime.dir/denoiser.cpp.o
+[571/674] Building CXX object src/CMakeFiles/ernie-runtime.dir/text_encoder.cpp.o
+[572/674] Building CXX object src/CMakeFiles/ernie-runtime.dir/ernie_text_down.cpp.o
+[573/674] Building CXX object src/CMakeFiles/ernie-runtime.dir/conditioning.cpp.o
+[574/674] Building CXX object src/CMakeFiles/ernie-runtime.dir/pe_session.cpp.o
+[575/674] Building CXX object src/CMakeFiles/ernie-shape-graph.dir/model_config.cpp.o
+[576/674] Linking CXX static library src/libernie-runtime.a
+[577/674] Building CXX object src/CMakeFiles/ernie-shape-graph.dir/shape_graph.cpp.o
+[578/674] Linking CXX static library src/libernie-shape-graph.a
+[579/674] Building CXX object src/CMakeFiles/ernie-model-package.dir/model_package.cpp.o
+[580/674] Building CXX object src/CMakeFiles/ernie-pe.dir/prompt_enhancer.cpp.o
+[581/674] Linking CXX static library src/libernie-pe.a
+[582/674] Building CXX object src/CMakeFiles/ernie-pipeline.dir/model_config.cpp.o
+[583/674] Building CXX object src/CMakeFiles/ernie-pipeline.dir/runtime_info.cpp.o
+[584/674] Building CXX object src/CMakeFiles/ernie-pipeline.dir/pipeline.cpp.o
+[585/674] Building CXX object src/CMakeFiles/ernie-pipeline.dir/gpu_context.cpp.o
+[586/674] Building CXX object src/CMakeFiles/ernie-pipeline.dir/tensor_io.cpp.o
+[587/674] Building CXX object src/CMakeFiles/ernie-shape-plan.dir/shape_plan.cpp.o
+[588/674] Linking CXX static library src/libernie-model-package.a
+[589/674] Building CXX object src/CMakeFiles/ernie-pipeline.dir/vae.cpp.o
+[590/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/GenericCodeGen.dir/stub.cpp.o
+[591/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/MachineIndependent.dir/stub.cpp.o
+[592/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang-default-resource-limits.dir/ResourceLimits/ResourceLimits.cpp.o
+[593/674] Building CXX object ncnn/glslang/glslang/CMakeFiles/glslang-default-resource-limits.dir/ResourceLimits/resource_limits_c.cpp.o
+[594/674] Building CXX object src/CMakeFiles/ernie-execution-metrics.dir/execution_metrics.cpp.o
+[595/674] Building CXX object ncnn/glslang/glslang/OSDependent/Unix/CMakeFiles/OSDependent.dir/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/third_party/ncnn/glslang/glslang/stub.cpp.o
+[596/674] Linking CXX static library src/libernie-pipeline.a
+[597/674] Linking CXX static library src/libernie-shape-plan.a
+[598/674] Linking CXX static library src/libernie-execution-metrics.a
+[599/674] Building CXX object cli/CMakeFiles/ernie-image.dir/main.cpp.o
+[600/674] Building CXX object cli/CMakeFiles/ernie-image.dir/options.cpp.o
+[601/674] Building CXX object cli/CMakeFiles/ernie-image.dir/prompt_file.cpp.o
+[602/674] Building CXX object probes/CMakeFiles/ernie-attention-probe.dir/attention_probe.cpp.o
+[603/674] Building CXX object cli/CMakeFiles/ernie-image.dir/image_io.cpp.o
+[604/674] Building CXX object probes/CMakeFiles/ernie-block-runner.dir/block_runner.cpp.o
+[605/674] Building CXX object probes/CMakeFiles/ernie-block-runner.dir/attention_diagnostic.cpp.o
+[606/674] Building CXX object probes/CMakeFiles/ernie-attention-accuracy-probe.dir/attention_accuracy_probe.cpp.o
+[607/674] Building CXX object probes/CMakeFiles/ernie-attention-workspace-probe.dir/attention_workspace_probe.cpp.o
+[608/674] Building CXX object probes/CMakeFiles/ernie-gelu-probe.dir/gelu_probe.cpp.o
+[609/674] Building CXX object probes/CMakeFiles/ernie-latent-runner.dir/latent_runner.cpp.o
+[610/674] Building CXX object probes/CMakeFiles/ernie-block-sequence-runner.dir/block_sequence_runner.cpp.o
+[611/674] Building CXX object probes/CMakeFiles/ernie-head-runner.dir/head_runner.cpp.o
+[612/674] Building CXX object probes/CMakeFiles/ernie-img2img-runner.dir/img2img_runner.cpp.o
+[613/674] Building CXX object probes/CMakeFiles/ernie-denoise-runner.dir/denoise_runner.cpp.o
+[614/674] Building CXX object probes/CMakeFiles/ernie-text-runner.dir/text_runner.cpp.o
+[615/674] Building CXX object probes/CMakeFiles/ernie-pe-block-runner.dir/pe_block_runner.cpp.o
+[616/674] Building CXX object probes/CMakeFiles/ernie-rmsnorm-probe.dir/rmsnorm_probe.cpp.o
+[617/674] Building CXX object probes/CMakeFiles/ernie-tokenize.dir/tokenizer_runner.cpp.o
+[618/674] Building CXX object probes/CMakeFiles/ernie-text-gemm-diagnostic.dir/text_gemm_diagnostic.cpp.o
+[619/674] Building CXX object probes/CMakeFiles/ernie-pe-runner.dir/pe_runner.cpp.o
+[620/674] Building CXX object tests/CMakeFiles/ernie-pipeline-api-contract.dir/test_pipeline_api.cpp.o
+[621/674] Building CXX object tests/CMakeFiles/ernie-request-validation-contract.dir/test_request_validation.cpp.o
+[622/674] Building CXX object tests/CMakeFiles/ernie-prompt-file-contract.dir/test_prompt_file.cpp.o
+[623/674] Building CXX object tests/CMakeFiles/ernie-gpu-context-contract.dir/test_gpu_context.cpp.o
+[624/674] Building CXX object tests/CMakeFiles/ernie-prompt-file-contract.dir/__/cli/prompt_file.cpp.o
+[625/674] Building CXX object tests/CMakeFiles/ernie-image-io-contract.dir/test_image_io.cpp.o
+[626/674] Building CXX object tests/CMakeFiles/ernie-pe-sampling-contract.dir/test_pe_sampling.cpp.o
+[627/674] Building CXX object tests/CMakeFiles/ernie-latent-contract.dir/test_latent_contract.cpp.o
+[628/674] Building CXX object tests/CMakeFiles/ernie-image-io-contract.dir/__/cli/image_io.cpp.o
+[629/674] Building CXX object tests/CMakeFiles/ernie-component-files-contract.dir/test_component_files.cpp.o
+[630/674] Building CXX object tests/CMakeFiles/ernie-img2img-contract.dir/test_img2img_contract.cpp.o
+[631/674] Building CXX object tests/CMakeFiles/ernie-image-encoder-contract.dir/test_image_encoder.cpp.o
+[632/674] Building CXX object tests/CMakeFiles/ernie-shape-plan-contract.dir/test_shape_plan.cpp.o
+[633/674] Building CXX object tests/CMakeFiles/ernie-residual-contract.dir/test_residual_contract.cpp.o
+[634/674] Building CXX object tests/CMakeFiles/ernie-shape-graph-contract.dir/test_shape_graph.cpp.o
+[635/674] Building CXX object tests/CMakeFiles/ernie-model-package-contract.dir/test_model_package.cpp.o
+[636/674] Building CXX object tests/CMakeFiles/ernie-text-down-contract.dir/test_text_down.cpp.o
+[637/674] Linking CXX static library ncnn/glslang/glslang/libGenericCodeGen.a
+[638/674] Linking CXX static library ncnn/glslang/glslang/libMachineIndependent.a
+[639/674] Linking CXX static library ncnn/glslang/glslang/libglslang-default-resource-limits.a
+[640/674] Linking CXX static library ncnn/glslang/glslang/OSDependent/Unix/libOSDependent.a
+[641/674] Building CXX object tests/CMakeFiles/ernie-execution-metrics-contract.dir/test_execution_metrics.cpp.o
+[642/674] Linking CXX executable ernie-attention-probe
+[643/674] Linking CXX executable ernie-image
+[644/674] Linking CXX executable ernie-block-runner
+[645/674] Linking CXX executable ernie-attention-accuracy-probe
+[646/674] Linking CXX executable ernie-attention-workspace-probe
+[647/674] Linking CXX executable ernie-gelu-probe
+[648/674] Linking CXX executable ernie-latent-runner
+[649/674] Linking CXX executable ernie-block-sequence-runner
+[650/674] Linking CXX executable ernie-head-runner
+[651/674] Linking CXX executable ernie-img2img-runner
+[652/674] Linking CXX executable ernie-denoise-runner
+[653/674] Linking CXX executable ernie-text-runner
+[654/674] Linking CXX executable ernie-pe-block-runner
+[655/674] Linking CXX executable ernie-rmsnorm-probe
+[656/674] Linking CXX executable ernie-tokenize
+[657/674] Linking CXX executable ernie-text-gemm-diagnostic
+[658/674] Linking CXX executable ernie-pe-runner
+[659/674] Linking CXX executable ernie-pipeline-api-contract
+[660/674] Linking CXX executable ernie-request-validation-contract
+[661/674] Linking CXX executable ernie-prompt-file-contract
+[662/674] Linking CXX executable ernie-image-io-contract
+[663/674] Linking CXX executable ernie-gpu-context-contract
+[664/674] Linking CXX executable ernie-latent-contract
+[665/674] Linking CXX executable ernie-component-files-contract
+[666/674] Linking CXX executable ernie-pe-sampling-contract
+[667/674] Linking CXX executable ernie-img2img-contract
+[668/674] Linking CXX executable ernie-image-encoder-contract
+[669/674] Linking CXX executable ernie-shape-plan-contract
+[670/674] Linking CXX executable ernie-residual-contract
+[671/674] Linking CXX executable ernie-text-down-contract
+[672/674] Linking CXX executable ernie-shape-graph-contract
+[673/674] Linking CXX executable ernie-execution-metrics-contract
+[674/674] Linking CXX executable ernie-model-package-contract

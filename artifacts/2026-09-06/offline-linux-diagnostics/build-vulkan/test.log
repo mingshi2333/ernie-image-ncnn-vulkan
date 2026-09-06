@@ -1,0 +1,17 @@
+Test project /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d3-runtime-source-v3/build/linux-vulkan
+    Start  7: pipeline_api_contract
+1/6 Test  #7: pipeline_api_contract ............   Passed    0.33 sec
+    Start  8: request_validation_contract
+2/6 Test  #8: request_validation_contract ......   Passed    0.35 sec
+    Start  9: gpu_context_contract
+3/6 Test  #9: gpu_context_contract .............   Passed    0.49 sec
+    Start 10: gpu_context_missing_driver
+4/6 Test #10: gpu_context_missing_driver .......   Passed    0.01 sec
+    Start 16: cli_contract
+5/6 Test #16: cli_contract .....................   Passed    0.77 sec
+    Start 17: installed_cpp_consumer
+6/6 Test #17: installed_cpp_consumer ...........   Passed    1.67 sec
+
+100% tests passed, 0 tests failed out of 6
+
+Total Test time (real) =   3.62 sec

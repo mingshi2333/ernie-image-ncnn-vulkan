@@ -1,0 +1,194 @@
+{
+  "build-cpu/LastTest.log": {
+    "sha256": "315b06ace85eb6f33e4d72e3895cf94da891afd78a91fdeda51a12f32998b5b4",
+    "size": 7937
+  },
+  "build-cpu/build.log": {
+    "sha256": "dd1680afa8e5deeb5ea48a12ae9f706a538adcf32c66f2e8b9141143aa0dba07",
+    "size": 33030
+  },
+  "build-cpu/configure.log": {
+    "sha256": "69e8827e75af66ca93f3e5c522df06f2ecf3e2094306e9fa25d558fe77f5d0f5",
+    "size": 3480
+  },
+  "build-cpu/identity.json": {
+    "sha256": "f6e4c0c58eee3300d6496c25c2c4535547da35e9b89dcc66cb1e609f2dd9530a",
+    "size": 1512
+  },
+  "build-cpu/result.json": {
+    "sha256": "54836df5b54fb1301bdd3ba448e94fcc7dea7c9c62ecafa4893572c0420864ce",
+    "size": 4058
+  },
+  "build-cpu/test.log": {
+    "sha256": "c036eb83066613616741fdea28bd4828c476325e1dd3c28b863c13df82ccdbab",
+    "size": 715
+  },
+  "build-vulkan/LastTest.log": {
+    "sha256": "c83087459138158c584e2ad1f4712f108813151cc5b80d7731bc595c3effeec4",
+    "size": 15745
+  },
+  "build-vulkan/build.log": {
+    "sha256": "f4d0eb1f0e61f292398848b54e6f47f988db8af46e90803297223dcb6902a7e4",
+    "size": 55215
+  },
+  "build-vulkan/configure.log": {
+    "sha256": "b90bc5194e6a35541a58ac549f2e54a2c7c8a32d6ad2e60d10653621621a9aa4",
+    "size": 3483
+  },
+  "build-vulkan/identity.json": {
+    "sha256": "2647e30ffb299fbd2752761ecc8562fcc7e8c0e11dc119213a326ebbc9dbd375",
+    "size": 1521
+  },
+  "build-vulkan/result.json": {
+    "sha256": "2b1a00c25fe6082593ab067f00fb8c514bb4dd595768208ad9f7e7e6d0cc9ce2",
+    "size": 4058
+  },
+  "build-vulkan/test.log": {
+    "sha256": "6b35bac4778e9c73e328d54e8e090e540adf6c94bf0fe7bd9cf252b19a85f176",
+    "size": 829
+  },
+  "build-worker.py": {
+    "sha256": "366b8cad97b185f9bef55be1b67efd49ae2ded1b0f8a1f6e4ea04341deba4a0f",
+    "size": 3319
+  },
+  "independent-review.md": {
+    "sha256": "05d980b8820d4b5e4ba3fefdfd1ebf5268f489e5af9127d8367342181867b1c0",
+    "size": 3954
+  },
+  "isolated-install/consumer-build.log": {
+    "sha256": "75ec53a97612c7bc3fcf8a0c27a475acceb1cfb4f0c3d0610c228983776eb4bc",
+    "size": 127
+  },
+  "isolated-install/consumer-configure.log": {
+    "sha256": "475a59479fa12c9f5d9706e7c949841018023b13f77fc764e5dbcfe887cbc981",
+    "size": 740
+  },
+  "isolated-install/consumer-test.log": {
+    "sha256": "0fa881d995cde4284fb22602e693820191d1eb7ef75258d3d97a4e0aebd3cc1e",
+    "size": 246
+  },
+  "isolated-install/install.log": {
+    "sha256": "c5afa7d9e648b31e3b8d2b9bd237ea2ae633d3fbbf51476b353f74d72e7db91b",
+    "size": 6991
+  },
+  "isolated-install/installed-corrupt-package.log": {
+    "sha256": "8e7a25d7c3e074aa8311ea93e96ff63a432b227efb8f8581874b630a5e8932a6",
+    "size": 27
+  },
+  "isolated-install/installed-diagnose.log": {
+    "sha256": "c2f2e2398c970ba73ffab258b46192c012182358acc64744563849b2ad8e471c",
+    "size": 1485
+  },
+  "isolated-install/installed-help.log": {
+    "sha256": "3ce954fb4545e768c933086ba2d9e3aded52d03608dc18d4a54a7a3706c83b9d",
+    "size": 1656
+  },
+  "isolated-install/isolation-preflight.log": {
+    "sha256": "8e0fd685bc3eb11ad1b334e2e4ef519068789897d94072165d716d1882cd48d2",
+    "size": 1135
+  },
+  "isolated-install/result.json": {
+    "sha256": "f385bc2d3c340af6cfa1e4b2287ed1229c49cca0cf99183cf79717b233dda59f",
+    "size": 18261
+  },
+  "prior-offline-failure/case.json": {
+    "sha256": "8b0bc60b96ac8b34dfcf6b3d4487dc9b849f70e8690851de199ba30d7f892f2d",
+    "size": 2314
+  },
+  "prior-offline-failure/launcher-identity.json": {
+    "sha256": "606d3be25fbbc2d88eb336d89d43619ba74e6a691d2c32c8f6752e9649021a7e",
+    "size": 758
+  },
+  "prior-offline-failure/launcher-result.json": {
+    "sha256": "cadc6a262b408350f8a0b9ec28620e5e091e9c9efdaa543b0d322517a2480d2b",
+    "size": 239
+  },
+  "prior-offline-failure/launcher.log": {
+    "sha256": "638c53e5959c466595d383da5c2fa42fa46a42dc16b1025698b4ff26100c8d0a",
+    "size": 69
+  },
+  "prior-offline-failure/preparation.json": {
+    "sha256": "7d099bf5742b5a8730000ab7a7a33ff08a0b02bce8baeed9b3aaa2f0e7805b32",
+    "size": 27281
+  },
+  "prior-offline-failure/result.json": {
+    "sha256": "fcdd04b1ddd3aa3526343da061771223419181e5aca15c615a415dc2fc63eadf",
+    "size": 7586
+  },
+  "prior-offline-failure/results/diagnose.json": {
+    "sha256": "447d08332f3f7e16aebc4821624b5251ee5f6cfd4307824582c3c8ae2162cba7",
+    "size": 1393
+  },
+  "prior-offline-failure/results/diagnose.log": {
+    "sha256": "c2f2e2398c970ba73ffab258b46192c012182358acc64744563849b2ad8e471c",
+    "size": 1485
+  },
+  "prior-offline-failure/results/help.json": {
+    "sha256": "8dd8c6adda5dde4ffb4a4f5d21dc7b995d2e77dbbdf89c55ee34bac40b4efb09",
+    "size": 1390
+  },
+  "prior-offline-failure/results/help.log": {
+    "sha256": "3ce954fb4545e768c933086ba2d9e3aded52d03608dc18d4a54a7a3706c83b9d",
+    "size": 1656
+  },
+  "prior-offline-failure/results/isolation.json": {
+    "sha256": "d7126b1effbc8177fb67dc13f605fb6a4f7dd01cb269acc7363cb35c199327d8",
+    "size": 1626
+  },
+  "prior-offline-failure/results/isolation.log": {
+    "sha256": "2fd7d1f7f6a50931e7c373106a1e8d4e4f93fb53238680afab6af16393c0a87d",
+    "size": 17
+  },
+  "prior-offline-failure/results/no-gpu-diagnose.json": {
+    "sha256": "8d156266c8c026a3ef6271bed01308831304157dc4e0132c53328f054c9dd3c7",
+    "size": 1570
+  },
+  "prior-offline-failure/results/no-gpu-diagnose.log": {
+    "sha256": "237cebb7dd71f0769d4bac3b35fabdc9544998ec7d6fddb8d88ee46b91545af3",
+    "size": 52
+  },
+  "prior-offline-failure/results/verify-model.json": {
+    "sha256": "85e4747c13faaa4c48e930aa4ce27d9a496d753faebe7fe20c85895fc56c3020",
+    "size": 1474
+  },
+  "prior-offline-failure/results/verify-model.log": {
+    "sha256": "afa9438a6c5b5ac0a395cf417c0b21c3c4460b6f1e7fa8cebf3b863d6ceece95",
+    "size": 15
+  },
+  "source-identity.json": {
+    "sha256": "3a112e7b9df9bb5be02ff21529773966a596d6563dfb694bf50892cec9fa3a27",
+    "size": 29836
+  },
+  "source-overlays/cli/main.cpp": {
+    "sha256": "8b07d9f445bc51edd53ffe7cb8ec8a23ecf2a35dd819c6d6c521bdf8b7fb5408",
+    "size": 6270
+  },
+  "source-overlays/include/ernie/pipeline.h": {
+    "sha256": "3c8e0085f78ba882e9dbd7cbbf6aa643752c04ec2d7e7a973ccd1c2e7b6263c6",
+    "size": 3682
+  },
+  "source-overlays/src/gpu_context.cpp": {
+    "sha256": "93ec97c18dd52283ede33b8a941820a0151d907611c8423cbf7a2f18f5275277",
+    "size": 2098
+  },
+  "source-overlays/src/gpu_context.h": {
+    "sha256": "f787518b4ba078b6345fea6289ae01671e8531f1274d99db478430f1dbd8a1e2",
+    "size": 1116
+  },
+  "source-overlays/src/runtime_info.cpp": {
+    "sha256": "592da8bd61adba64624d927313b80e18cca677e36a9bcc9ff1516e131ef04b4a",
+    "size": 1472
+  },
+  "source-overlays/tests/CMakeLists.txt": {
+    "sha256": "5ff37ce7fc9b9250a1f51456c7e7575efde00e9a162a1832793d239022f46ca5",
+    "size": 9485
+  },
+  "source-overlays/tests/test_cli.py": {
+    "sha256": "91fbf4884ca2ec8660741b4afaf8f8badbcde2c82c7f4599dfba65545aa3857c",
+    "size": 11254
+  },
+  "source-overlays/tests/test_gpu_context.cpp": {
+    "sha256": "334565c31c423801c00e2e4cd21ce5dd28dbed181c4b041aca3c403dcf042c45",
+    "size": 3941
+  }
+}

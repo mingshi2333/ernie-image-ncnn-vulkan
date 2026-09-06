@@ -1,0 +1,61 @@
+{
+  "exit_code": 0,
+  "commands": [
+    {
+      "name": "configure",
+      "exit_code": 0,
+      "wall_seconds": 3.5778580159967532,
+      "log_sha256": "69e8827e75af66ca93f3e5c522df06f2ecf3e2094306e9fa25d558fe77f5d0f5"
+    },
+    {
+      "name": "build",
+      "exit_code": 0,
+      "wall_seconds": 127.06472873699386,
+      "log_sha256": "dd1680afa8e5deeb5ea48a12ae9f706a538adcf32c66f2e8b9141143aa0dba07"
+    },
+    {
+      "name": "test",
+      "exit_code": 0,
+      "wall_seconds": 1.306854442009353,
+      "log_sha256": "c036eb83066613616741fdea28bd4828c476325e1dd3c28b863c13df82ccdbab"
+    }
+  ],
+  "source_changes_after_build": [],
+  "ncnn_changes_after": "",
+  "binaries": {
+    "ernie-attention-accuracy-probe": "9dd7876e79afaef768b50c0bd24287dbb30a1bd00108ef71a636c4fc15ef101a",
+    "ernie-attention-probe": "f7895fc6bc54c6705760902708ee8e1b7c7fd20d4232b778276dc58ba7b1af8f",
+    "ernie-attention-workspace-probe": "e71b1fe5063988d1cac5057565ec9d1dc9155024de17bea6455f873c5858707c",
+    "ernie-block-runner": "e60845b2d6fa32d193c6bb66ddfdaebb765b207e122d22c5360c1b920449f8ff",
+    "ernie-block-sequence-runner": "0c8209a6d916ffd3588ef3e7b55bc277ae6c0339a701d55c266be05ba3cc86bf",
+    "ernie-component-files-contract": "16d6ba316bfa954abe6030969193d567e1f00c5f8787dd25175cd94d9cdaca0c",
+    "ernie-denoise-runner": "41ff7f77283221ce37b77b218d204b57b372b508c88ba6cf1b7fe6ac26571cea",
+    "ernie-execution-metrics-contract": "821dbac3e2be4e029feb502d4f886c187697ccb49296db0c4626596d9c91bb88",
+    "ernie-gelu-probe": "ba8a96a756824fd82abffdb87632cd6100798ef7d34520debe5783c7b7f4a23d",
+    "ernie-gpu-context-contract": "4b1d21d31e2d85452823db758381b4c97fea090db084b3d0fcb7ee19753de7fa",
+    "ernie-head-runner": "0790fd316537023ac24379e1c3f383acc46d07849e2b26f9d1e4aac048a46702",
+    "ernie-image": "0d638bdebacdf737c85a8fd1e80f4678e2af5a1e6f7c4058a37770531051f627",
+    "ernie-image-encoder-contract": "fde6a64e06fb7c8496efc2d19f0b3780a6c638535e6b70a3793a9d379c331db5",
+    "ernie-image-io-contract": "a8e8569816363c959ad98c476d3e40bb7fa9daac90888b041fb17508a3ad22f4",
+    "ernie-img2img-contract": "18e8e699b157dee9c60f23d05db54d72c35ab1d7c532167a52cedb22dc1fd403",
+    "ernie-img2img-runner": "0dc1c64c262d46a14f0982eb3fbdc100009a9e195340ca2c25fe72599d04ab11",
+    "ernie-latent-contract": "617205afb365bad75e9de2bf73903ef852b0dc32926f45fce0aac284efd0dbbb",
+    "ernie-latent-runner": "7140a732e5c1bbfa3ee0971b2b28af32c681aa24a7a9111f6c14af6487f72595",
+    "ernie-model-package-contract": "78fe0d6d4eb5088621d3cc903b2b2c842460fe0c64be8a2621e47e1f480467a8",
+    "ernie-pe-block-runner": "905298090b74b8ca3cf736fdd06f526532a975bef064e2712387d048e7bf5961",
+    "ernie-pe-runner": "333fbcf051a0c6157bc91b3a2e1c16b8b2dccc78dd9d88435dd00f4fb2170089",
+    "ernie-pe-sampling-contract": "77fe6705d35405449f2e88abe30c0f223e2256653567d033c430cc96f4b5dc35",
+    "ernie-pipeline-api-contract": "cc3cb76d3f1b31a250670b034a5d0c887b75fa796afa0d68bacc8cd149e28dd5",
+    "ernie-prompt-file-contract": "ebe58b91972ed764bc65f32ff2a9e92da747145c0b93a791f5eef6dd709253b6",
+    "ernie-request-validation-contract": "06b096b162bdae5c11f51d973caad081977b7ac6f56de2fbe799b399def2d83e",
+    "ernie-residual-contract": "484b4c5ccfc2e10c3e793462afcf97fcf6691305f74397b6f8231fe0a705b528",
+    "ernie-rmsnorm-probe": "4fb6307576303b37b67d281e0f5827b44b989f18e2e77073132f49e2317fba73",
+    "ernie-shape-graph-contract": "619c9b3b0c07cacead872de6982f79e45c5eb8edcd8b0ffb447911df3571bdf8",
+    "ernie-shape-plan-contract": "5fb88f0936eed7ae1ff2a5ab2ce40ea09d1bc925fb8ed6d456571fef45105e66",
+    "ernie-text-down-contract": "6bb5904c12633f6a23bc2bef73f45c48ef7bb572469c1a05d3eefc3ebf4cf653",
+    "ernie-text-gemm-diagnostic": "2db9e938e629472db38980893d9fdb0c6a931637592c2a2098e816b9ed756276",
+    "ernie-text-runner": "8852ed8f170607dd51fe5cf715ec1495c56fcd39101d065decae61092c181984",
+    "ernie-tokenize": "ab42af1421628906648ce6a16d2406ec651debf142dc1adb2aa067270d1b13e4"
+  },
+  "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n"
+}

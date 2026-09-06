@@ -292,6 +292,12 @@ the frozen native PNG byte for byte. Existing output must be refused and remain
 unchanged. The supervisor samples the entire cgroup and host memory at 50 ms;
 these measurements are neither exact GPU allocation peaks nor a speed test.
 
+With a missing or unusable Vulkan driver, `--diagnose` reports `gpu_count=0`,
+`default_gpu_index=-1` and a `vulkan_error` reason while still reading requested
+model configuration metadata. An explicit Vulkan generation request continues
+to fail. This behavior has actual CPU/Vulkan regression and relocated Linux
+installation evidence in `artifacts/2026-09-06/offline-linux-diagnostics/`.
+
 The checker and fixed 1024 strength=0.5 preparation have passed independent
 review and 16 small tests, including a real namespace isolation test. Full-model
 offline execution is recorded separately when completed. A passing local case
