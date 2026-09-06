@@ -1,0 +1,58 @@
+{
+  "run": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pipeline512x384-shared-pe-native-vector-fp32-v1",
+  "scope": "Native CPU greedy PE, text encoder, DiT and VAE versus staged pinned official FP32 modules; CFG=1; identical saved initial latent; complete enhanced prompt and IDs must match",
+  "conditioning_source": "native_text_encoder",
+  "prompt": "一张高清写实摄影照片。画面中心是一颗饱满、鲜红的苹果，静静地放置在纹理清晰的深色实木桌面上。苹果表皮呈现出深红色与亮红色的渐变，表面带有细微的自然光泽和几颗晶莹剔透的小水珠，顶部保留着一小段棕色的果梗。木质桌面展现出深褐色的木纹，带有自然的磨损痕迹和细腻的木质纤维感。光线从画面侧方柔和地照入，在苹果的一侧形成明亮的高光，并在桌面上投射出淡淡的阴影，增强了物体的立体感。背景采用了浅景深处理，呈现出模糊的室内环境，隐约可见温暖的色调，使视觉焦点完全集中在红苹果上。整体构图简洁，色彩浓郁且自然，画面比例为 512x384，呈现出一种宁静、质朴的生活美学风格。",
+  "tokens": 315,
+  "config": {
+    "packed_width": 32,
+    "packed_height": 24,
+    "text_bucket": 2048,
+    "dit_text_tokens": 2048,
+    "text_layers": 25,
+    "dit_layers": 36
+  },
+  "precision": "fp32",
+  "steps": 8,
+  "passed": true,
+  "comparisons": 25,
+  "passed_comparisons": 25,
+  "failed_tensors": [],
+  "final_latent": {
+    "tensor": "final",
+    "max_abs_error": 0.0028285980224609375,
+    "nrmse": 9.332130593510917e-05,
+    "reference_max_abs": 5.346341609954834,
+    "passed": true,
+    "sha256": "256578314bba022dbd634bdf7f477b4557dc67be75e7ccb47938c23091f9cdf4"
+  },
+  "decoded": {
+    "tensor": "decoded",
+    "max_abs_error": 0.0057846009731292725,
+    "nrmse": 5.303196946965941e-05,
+    "reference_max_abs": 1.079487681388855,
+    "passed": true,
+    "sha256": "ccf30cb5d6459a451a4176ff61fe36bf8f7799928cb2dbd92f3f3c98842f4fa1"
+  },
+  "png": {
+    "shape": [
+      384,
+      512,
+      3
+    ],
+    "mae": 0.001559787326388889,
+    "max_abs": 1.0,
+    "sha256": "24353ce4881e0f6f3a5b116d93fa7d898cbda885847a2b6b7e80da411eb90f85",
+    "passed": true
+  },
+  "resources": {
+    "scope": "One native run including SHA256 verification and trace; not a controlled performance comparison",
+    "max_rss_kib": 13749060,
+    "total_seconds": 721.751,
+    "model_verification_seconds": 17.5197
+  },
+  "runner_sha256": "6a3481e558a003e3f6fad6d8a9bc2ff903216d539c7ce2b86b352c19befaecbc",
+  "validator_sha256": "19c51c4f9b82926b0a80fa7c05f53ac6e7371ddd05b947b4f46c16ae1f441f46",
+  "source_snapshot_coverage": "per_run_scripts",
+  "independently_recomputed": true
+}

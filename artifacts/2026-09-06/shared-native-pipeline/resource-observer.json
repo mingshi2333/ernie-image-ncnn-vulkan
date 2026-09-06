@@ -1,0 +1,52 @@
+{
+  "command": [
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-shared-native-worker-v1/validation-source/tools/validate_pipeline.py",
+    "--model",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/shared-runtime-schema3-probe-v1",
+    "--output",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pipeline512x384-shared-pe-native-vector-fp32-v1",
+    "--runner",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-shared-native-worker-v1/ernie-image",
+    "--prompt-file",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-shared-native-worker-v1/prompt.txt",
+    "--width",
+    "512",
+    "--height",
+    "384",
+    "--precision",
+    "fp32",
+    "--text-down-vector",
+    "--pe-model",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/pe-cpu-v1",
+    "--pe-reference",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pe-apple-reference-v2",
+    "--reference",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pipeline512x384-pe-fp32-v1/oracle/reference"
+  ],
+  "scope": "Recursive descendant RSS sum, including independently sessioned native process; not unique PSS or actual Vulkan allocation; trace enabled",
+  "cpu_affinity": [
+    0,
+    2,
+    4,
+    6
+  ],
+  "rss_limit_bytes": 19327352832,
+  "minimum_host_available_bytes": 1073741824,
+  "gpu_whole_device_limit_mib": 6144,
+  "elapsed_limit_seconds": 2400,
+  "status": "completed",
+  "started_unix": 1788710269.1611044,
+  "rss_peak_bytes": 14389813248,
+  "gpu_peak_mib": 3510,
+  "host_available_min_bytes": 6548779008,
+  "pid": 1768039,
+  "create_time": 1788710269.12,
+  "elapsed_seconds": 745.4804967279924,
+  "observed_pids": [
+    1768039
+  ],
+  "return_code": 0,
+  "stop_reason": null,
+  "finished_unix": 1788711014.6416163
+}

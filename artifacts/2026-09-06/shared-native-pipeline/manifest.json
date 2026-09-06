@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "scope": "Immutable small evidence copies for shared512 native pipeline; execution identities remain in their own snapshots",
+  "files": [
+    {
+      "file": "auditor-source-snapshot.json",
+      "sha256": "3fcc0106b57d8ff0b04385ce030827ec11336ed583e7524e78004ee47f1894d5",
+      "bytes": 22372
+    },
+    {
+      "file": "bridge.json",
+      "sha256": "19abdc733283095d38476d76904d5be54d5d1d768c53b1991be86489b1be9b43",
+      "bytes": 6920
+    },
+    {
+      "file": "execution-snapshot.json",
+      "sha256": "70d1a9a0aa43f852f4afcade5a06d8c3831dcc19b54e0f5077895840725e5569",
+      "bytes": 23273
+    },
+    {
+      "file": "gates.json",
+      "sha256": "be88323367c98e75bb4a5d8fa172565371f3c3c98fb9e6c81af7659d89c04a0e",
+      "bytes": 338
+    },
+    {
+      "file": "independent-audit.json",
+      "sha256": "ad71b17c7382ee68db29ebabed2a4fc0db0fa8b3087df50ab8e2f55e5663e02b",
+      "bytes": 2767
+    },
+    {
+      "file": "native-source-snapshot.json",
+      "sha256": "a21e83bb909078e28fed3897230ce0a4f6ce8d257e844cc5c1537429cb6b618f",
+      "bytes": 22122
+    },
+    {
+      "file": "resource-observer.json",
+      "sha256": "4b73759294eb532703a18d3e9641c86489035d1b180f09b628989e5822a7cd6b",
+      "bytes": 1904
+    },
+    {
+      "file": "result.json",
+      "sha256": "f455c8c6c54bf9401bb466c3420ac13967d1edba08ad73e745259e38d0f13442",
+      "bytes": 30879
+    }
+  ]
+}

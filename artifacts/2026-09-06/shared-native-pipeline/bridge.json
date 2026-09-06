@@ -1,0 +1,161 @@
+{
+  "scope": "Two actual complete native PE/text/vector/DiT/VAE runs, selected shared512 instance versus original fixed package; same saved noise/reference",
+  "tensors": [
+    {
+      "tensor": "initial",
+      "shared_sha256": "954333d9dad2fca3a09e5ad630e1aceb5a951a592c2789489f64a40bf0e3a146",
+      "legacy_sha256": "954333d9dad2fca3a09e5ad630e1aceb5a951a592c2789489f64a40bf0e3a146",
+      "bitwise_equal": true
+    },
+    {
+      "tensor": "text",
+      "shared_sha256": "433ae46eaa1c8b831fa273f68b8345646d6ddfdb56695b4d3286b4964bca294a",
+      "legacy_sha256": "433ae46eaa1c8b831fa273f68b8345646d6ddfdb56695b4d3286b4964bca294a",
+      "bitwise_equal": true
+    },
+    {
+      "tensor": "padded-text",
+      "shared_sha256": "b673bece61e77245e65a0e56810d07aabdfa417f707c78f629bf17cd224bf373",
+      "legacy_sha256": "b673bece61e77245e65a0e56810d07aabdfa417f707c78f629bf17cd224bf373",
+      "bitwise_equal": true
+    },
+    {
+      "tensor": "constant-0",
+      "shared_sha256": "063c0986f9efbdebf6a54292a9ebdd0fa89000651392ba6f98136f21886089a6",
+      "legacy_sha256": "063c0986f9efbdebf6a54292a9ebdd0fa89000651392ba6f98136f21886089a6",
+      "bitwise_equal": true
+    },
+    {
+      "tensor": "constant-1",
+      "shared_sha256": "d5f07676b0a6014cc63bcc37655ca192855833d681fb66236455b4860e605d3b",
+      "legacy_sha256": "d5f07676b0a6014cc63bcc37655ca192855833d681fb66236455b4860e605d3b",
+      "bitwise_equal": true
+    },
+    {
+      "tensor": "constant-2",
+      "shared_sha256": "6f036182d55b454f845a8f8623c1686c8e6bc1e7d91d1dec6750df0a76e78a03",
+      "legacy_sha256": "6f036182d55b454f845a8f8623c1686c8e6bc1e7d91d1dec6750df0a76e78a03",
+      "bitwise_equal": true
+    },
+    {
+      "tensor": "prediction-0",
+      "shared_sha256": "3f4ccd236bf1aa6c670756087eff91d7bfcc991447f7a9cb98df9ef8e4ed7758",
+      "legacy_sha256": "3f4ccd236bf1aa6c670756087eff91d7bfcc991447f7a9cb98df9ef8e4ed7758",
+      "bitwise_equal": true
+    },
+    {
+      "tensor": "step-0",
+      "shared_sha256": "9da1417ba1da6e8357c64a0dc06afbbe82b4767cc4a4d74d0636ecc47cc5d688",
+      "legacy_sha256": "9da1417ba1da6e8357c64a0dc06afbbe82b4767cc4a4d74d0636ecc47cc5d688",
+      "bitwise_equal": true
+    },
+    {
+      "tensor": "prediction-1",
+      "shared_sha256": "5416b738b724a19a7ccb7637760d5d893120e163cee2076c22c63d55feb66618",
+      "legacy_sha256": "5416b738b724a19a7ccb7637760d5d893120e163cee2076c22c63d55feb66618",
+      "bitwise_equal": true
+    },
+    {
+      "tensor": "step-1",
+      "shared_sha256": "99a839fe088a2b9e2c015e3e6ae372ac571ba8a137b2c7cf7c979d1cadc9506f",
+      "legacy_sha256": "99a839fe088a2b9e2c015e3e6ae372ac571ba8a137b2c7cf7c979d1cadc9506f",
+      "bitwise_equal": true
+    },
+    {
+      "tensor": "prediction-2",
+      "shared_sha256": "519f0bb378ff1e533f5504a6065ffb52becf9cbf55dca454cb00fe971fb01592",
+      "legacy_sha256": "519f0bb378ff1e533f5504a6065ffb52becf9cbf55dca454cb00fe971fb01592",
+      "bitwise_equal": true
+    },
+    {
+      "tensor": "step-2",
+      "shared_sha256": "96059c1b8dd0c85d7848d545b5671b2cc180fdabeaf0ea5604afba925527a17d",
+      "legacy_sha256": "96059c1b8dd0c85d7848d545b5671b2cc180fdabeaf0ea5604afba925527a17d",
+      "bitwise_equal": true
+    },
+    {
+      "tensor": "prediction-3",
+      "shared_sha256": "7f36574b1ca42f99ca0473110f21513e578f6829a8e8c98e0f6eb9622f7c7431",
+      "legacy_sha256": "7f36574b1ca42f99ca0473110f21513e578f6829a8e8c98e0f6eb9622f7c7431",
+      "bitwise_equal": true
+    },
+    {
+      "tensor": "step-3",
+      "shared_sha256": "a2a55158ae7456b6367c861437cd5c0bb112329b6f8e4b7799caea6c01f77263",
+      "legacy_sha256": "a2a55158ae7456b6367c861437cd5c0bb112329b6f8e4b7799caea6c01f77263",
+      "bitwise_equal": true
+    },
+    {
+      "tensor": "prediction-4",
+      "shared_sha256": "baadee52024a8ad859a3f2cff30df11739bc06200d2b34626c15872e9518a499",
+      "legacy_sha256": "baadee52024a8ad859a3f2cff30df11739bc06200d2b34626c15872e9518a499",
+      "bitwise_equal": true
+    },
+    {
+      "tensor": "step-4",
+      "shared_sha256": "0996c441dd63f126aa5abb71c3ad88f7b45694719bd44ada8115063b7ddd75f3",
+      "legacy_sha256": "0996c441dd63f126aa5abb71c3ad88f7b45694719bd44ada8115063b7ddd75f3",
+      "bitwise_equal": true
+    },
+    {
+      "tensor": "prediction-5",
+      "shared_sha256": "3c7b66959b0aef31661c58b02b00f4bb5795323e97a7fc56d4860d8f44b062a7",
+      "legacy_sha256": "3c7b66959b0aef31661c58b02b00f4bb5795323e97a7fc56d4860d8f44b062a7",
+      "bitwise_equal": true
+    },
+    {
+      "tensor": "step-5",
+      "shared_sha256": "5653ef548c8998ce73eab611affdd08b40b559e8640750e187b3cb611587124a",
+      "legacy_sha256": "5653ef548c8998ce73eab611affdd08b40b559e8640750e187b3cb611587124a",
+      "bitwise_equal": true
+    },
+    {
+      "tensor": "prediction-6",
+      "shared_sha256": "2c50691c97a1b2d2f8f6ca392d2396eb92c8c0c5a5377df81ef31609db650da9",
+      "legacy_sha256": "2c50691c97a1b2d2f8f6ca392d2396eb92c8c0c5a5377df81ef31609db650da9",
+      "bitwise_equal": true
+    },
+    {
+      "tensor": "step-6",
+      "shared_sha256": "6aaa0674d4863d3140b673c96aead4369da42fddb0b0ebcdc36df8deca6b4f3d",
+      "legacy_sha256": "6aaa0674d4863d3140b673c96aead4369da42fddb0b0ebcdc36df8deca6b4f3d",
+      "bitwise_equal": true
+    },
+    {
+      "tensor": "prediction-7",
+      "shared_sha256": "b3169f7b062c210c9af97d682bd222365d2abc54e02446892dc9c688d8e10ff5",
+      "legacy_sha256": "b3169f7b062c210c9af97d682bd222365d2abc54e02446892dc9c688d8e10ff5",
+      "bitwise_equal": true
+    },
+    {
+      "tensor": "step-7",
+      "shared_sha256": "256578314bba022dbd634bdf7f477b4557dc67be75e7ccb47938c23091f9cdf4",
+      "legacy_sha256": "256578314bba022dbd634bdf7f477b4557dc67be75e7ccb47938c23091f9cdf4",
+      "bitwise_equal": true
+    },
+    {
+      "tensor": "final",
+      "shared_sha256": "256578314bba022dbd634bdf7f477b4557dc67be75e7ccb47938c23091f9cdf4",
+      "legacy_sha256": "256578314bba022dbd634bdf7f477b4557dc67be75e7ccb47938c23091f9cdf4",
+      "bitwise_equal": true
+    },
+    {
+      "tensor": "unpacked",
+      "shared_sha256": "43e1c0bf43e93d77d97bc318c39af2f1e475123c31f0136c786f18dfce1942a4",
+      "legacy_sha256": "43e1c0bf43e93d77d97bc318c39af2f1e475123c31f0136c786f18dfce1942a4",
+      "bitwise_equal": true
+    },
+    {
+      "tensor": "decoded",
+      "shared_sha256": "ccf30cb5d6459a451a4176ff61fe36bf8f7799928cb2dbd92f3f3c98842f4fa1",
+      "legacy_sha256": "ccf30cb5d6459a451a4176ff61fe36bf8f7799928cb2dbd92f3f3c98842f4fa1",
+      "bitwise_equal": true
+    }
+  ],
+  "png_bitwise_equal": true,
+  "all_tensors_bitwise_equal": true,
+  "shared_result_sha256": "f455c8c6c54bf9401bb466c3420ac13967d1edba08ad73e745259e38d0f13442",
+  "legacy_result_sha256": "f978ab99c710da7363b1bfd48050bf7cb02131e3af96b7d799d220fbecb12090",
+  "independent_auditor_sha256": "d6fa8621f53282bf1cc7da62f94d14cf7308a807072d618829163a5d33ee1510",
+  "auditor_snapshot_sha256": "3fcc0106b57d8ff0b04385ce030827ec11336ed583e7524e78004ee47f1894d5"
+}
