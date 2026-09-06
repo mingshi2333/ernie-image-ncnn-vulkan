@@ -44,6 +44,10 @@ int main() {
     m.record_interval(5,ExecutionPhase::Upload,0,0);check(!m.snapshot().phases[4]->gpu_nanoseconds);
     fails([&]{m.record_io(1,1,2,3);});fails([&]{m.record_interval(7,ExecutionPhase::Wait,20,10);});
     m.record_io(7,0,0,0);check(m.snapshot().submissions==0);m.record_io(8,2,30,40);check(m.snapshot().upload_bytes==30 && m.snapshot().download_bytes==40);
+    ExecutionMetrics submission_only;submission_only.record_submissions(1,7);
+    auto submission_snapshot=submission_only.snapshot();check(submission_snapshot.submissions==7);
+    check(!submission_snapshot.upload_bytes && !submission_snapshot.download_bytes);
+    fails([&]{submission_only.record_submissions(1,1);});
     fails([&]{m.record_interval(9,static_cast<ExecutionPhase>(99),0,1);});
     // Overflow must preserve earlier totals and permit a corrected retry with the same event ID.
     m.record_io(9,std::numeric_limits<std::uint64_t>::max()-2,0,0);

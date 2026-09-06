@@ -44,7 +44,7 @@ void write_new(const std::filesystem::path& path,const std::string& data) {
 }
 }
 std::string allocation_report_json(const AllocationHookSnapshot& s,bool initial,bool final,bool trace,
-    const char* status,const std::string& error,std::uint64_t ns) {
+    const char* status,const std::string& error,std::uint64_t ns,const MetricsSnapshot* execution) {
     bool released=s.all_memory && s.all_memory->live_bytes==0;
     bool identities=true;
     for(const auto& item:s.allocator_metrics.allocators) {
@@ -62,9 +62,23 @@ std::string allocation_report_json(const AllocationHookSnapshot& s,bool initial,
         << ",\"valid\":" << boolean(s.valid) << ",\"coverage_complete\":" << boolean(complete)
         << ",\"initial_instance_present\":" << boolean(initial) << ",\"final_instance_present\":" << boolean(final)
         << ",\"device_identity_complete\":" << boolean(identities)
+        << ",\"execution_finished_successfully\":" << boolean(std::string(status)=="success")
         << ",\"run_status\":" << quoted(status) << ",\"primary_error\":" << quoted(error)
         << ",\"host_time_scope\":\"cli_generation_and_image_write\",\"host_nanoseconds\":" << ns
-        << ",\"cpu_rss\":null,\"gpu_time\":null,\"stage_times\":null,\"total\":";
+        << ",\"cpu_rss\":null,\"gpu_time\":null,\"stage_coverage\":\"partial_known_intervals\",\"stage_time_scope\":\"non_overlapping host intervals; read_prepare includes ncnn load_model read, unpack, pipeline creation and upload plus inseparable head/VAE load-and-compute; PE and text preparation outside block execution are currently unclassified\","
+        << "\"submission_scope\":\"observed block attention submissions and top-level initial/final transfers; other internal submissions unavailable\","
+        << "\"stage_times\":";
+    if(execution) {
+        static const char* names[]={"verify","read","prepare","read_prepare","upload","compute","wait","download"};
+        out << '{';for(size_t i=0;i<8;++i){if(i)out << ',';out << quoted(names[i]) << ':';
+            if((*execution).phases[i]) {const auto& p=*(*execution).phases[i];out << "{\"host_nanoseconds\":" << p.host_nanoseconds
+                << ",\"samples\":" << p.samples << ",\"gpu_nanoseconds\":";
+                if(p.gpu_nanoseconds)out << *p.gpu_nanoseconds;else out << "null";out << '}';} else out << "null";}
+        out << ",\"submissions\":";if(execution->submissions)out << *execution->submissions;else out << "null";
+        out << ",\"upload_bytes\":";if(execution->upload_bytes)out << *execution->upload_bytes;else out << "null";
+        out << ",\"download_bytes\":";if(execution->download_bytes)out << *execution->download_bytes;else out << "null";out << '}';
+    } else out << "null";
+    out << ",\"total\":";
     if(s.available && s.all_memory)totals(out,*s.all_memory);else out << "null";
     out << ",\"devices\":[";bool first=true;
     for(const auto& item:s.devices) {
@@ -103,6 +117,7 @@ void AllocationReport::finish(const char* status,const std::string& error,bool f
     if(attempted_)throw std::logic_error("Allocation report already attempted");
     attempted_=true;
     const auto ns=std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now()-start_).count();
-    write_new(path_,allocation_report_json(session_.snapshot(),initial_instance_,final,trace_,status,error,std::uint64_t(ns)));
+    const auto execution=execution_.snapshot();
+    write_new(path_,allocation_report_json(session_.snapshot(),initial_instance_,final,trace_,status,error,std::uint64_t(ns),&execution));
 }
 }

@@ -20,7 +20,7 @@ if(ERNIE_BUILD_GENERATOR)
     target_include_directories(ernie-pe PUBLIC "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>")
     add_library(ernie-pipeline STATIC pipeline.cpp model_config.cpp runtime_info.cpp gpu_context.cpp tensor_io.cpp vae.cpp)
     add_library(ernie::pipeline ALIAS ernie-pipeline)
-    target_link_libraries(ernie-pipeline PRIVATE ernie-runtime ernie-tokenizer ernie-pe ernie-model-package)
+    target_link_libraries(ernie-pipeline PRIVATE ernie-runtime ernie-tokenizer ernie-pe ernie-model-package ernie-execution-metrics)
     target_include_directories(ernie-pipeline PUBLIC
         "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
         "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")

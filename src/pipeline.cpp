@@ -6,6 +6,7 @@
 #include "img2img.h"
 #include "model_package.h"
 #include "prompt_enhancer.h"
+#include "pipeline_metrics.h"
 #include "tensor_io.h"
 #include "text_encoder.h"
 #include "tokenizer.h"
@@ -33,6 +34,21 @@ double elapsed(Clock::time_point start)
 {
     return std::chrono::duration<double>(Clock::now() - start).count();
 }
+struct MetricsRecorder {
+    ExecutionMetrics* metrics=nullptr;std::uint64_t event=1;
+    void seconds(ExecutionPhase phase,double value) {
+        if(!metrics || !(value>=0))return;
+        const auto ns=std::uint64_t(value*1000000000.0);
+        metrics->record_interval(event++,phase,0,ns);
+    }
+    void since(ExecutionPhase phase,Clock::time_point start) {if(metrics)seconds(phase,elapsed(start));}
+    void submissions(std::uint64_t count) {if(metrics && count)metrics->record_submissions(event++,count);}
+    void blocks(const BlockSequenceStats& stats) {
+        for(double x:stats.load_seconds)seconds(ExecutionPhase::ReadPrepare,x);
+        for(double x:stats.compute_seconds)seconds(ExecutionPhase::Compute,x);
+        submissions(std::uint64_t(stats.compute_submissions));
+    }
+};
 void check(int value, const char *action)
 {
     if (value)
@@ -112,7 +128,7 @@ RgbImage rgb_image(const ncnn::Mat &decoded)
 }
 ncnn::Mat run_dit(const ModelPackage &package, const ncnn::Mat &initial, const std::vector<ncnn::Mat> &constants,
                   const ncnn::Option &cpu, const GenerationRequest &request, const ProgressCallback &notify,
-                  int start_step = 0)
+                  int start_step, MetricsRecorder& metrics)
 {
     const auto &backend = request.device, &precision = request.precision;
     const int steps = request.steps;
@@ -172,6 +188,7 @@ ncnn::Mat run_dit(const ModelPackage &package, const ncnn::Mat &initial, const s
         ncnn::VkMat gpu_initial;
         std::vector<ncnn::VkMat> gpu_constants(constants.size());
         {
+            Clock::time_point transfer_start;if(metrics.metrics)transfer_start=Clock::now();
             ncnn::VkCompute upload(device);
             ncnn::VkMat packed;
             upload.record_upload(initial, packed, high);
@@ -179,6 +196,7 @@ ncnn::Mat run_dit(const ModelPackage &package, const ncnn::Mat &initial, const s
             for (size_t i = 0; i < constants.size(); ++i)
                 upload.record_upload(constants[i], gpu_constants[i], option);
             check(upload.submit_and_wait(), "Upload conditioning");
+            metrics.since(ExecutionPhase::Upload,transfer_start);metrics.submissions(1);
         }
         const auto gpu_latent =
             ernie::denoise(dit, gpu_initial, gpu_constants, steps, device, option, stats,
@@ -197,11 +215,21 @@ ncnn::Mat run_dit(const ModelPackage &package, const ncnn::Mat &initial, const s
                                progress(i);
                            }, start_step);
         ncnn::VkCompute download(device);
+        Clock::time_point transfer_start;if(metrics.metrics)transfer_start=Clock::now();
         download.record_download(gpu_latent, latent, high);
         check(download.submit_and_wait(), "Download final latent");
+        metrics.since(ExecutionPhase::Download,transfer_start);metrics.submissions(1);
 #else
         throw std::runtime_error("Built without Vulkan");
 #endif
+    }
+    for(const auto& step:stats) {
+        metrics.blocks(step.dit.blocks);
+        metrics.seconds(ExecutionPhase::ReadPrepare,step.dit.input_head_seconds+step.dit.output_head_seconds);
+        double accounted=step.dit.input_head_seconds+step.dit.output_head_seconds;
+        for(double x:step.dit.blocks.load_seconds)accounted+=x;
+        for(double x:step.dit.blocks.compute_seconds)accounted+=x;
+        metrics.seconds(ExecutionPhase::Compute,std::max(0.,step.elapsed_seconds-accounted));
     }
     return latent;
 }
@@ -225,8 +253,9 @@ void verify_pe_model(const std::string &directory)
     verify_package(directory);
 }
 
-GenerationResult generate(const GenerationRequest &r, const ProgressCallback &notify)
+GenerationResult generate_impl(const GenerationRequest &r, const ProgressCallback &notify,ExecutionMetrics* collected)
 {
+    MetricsRecorder metrics{collected};
     validate_request(r);
     const auto start = Clock::now();
     const bool img2img = r.input_image.has_value();
@@ -244,6 +273,7 @@ GenerationResult generate(const GenerationRequest &r, const ProgressCallback &no
         throw std::invalid_argument("Vector text reduction requires an independently reviewed 64 or 2048 token graph");
     if (notify)
         notify({"verify", 1, 1, elapsed(start)});
+    metrics.since(ExecutionPhase::Verify,start);
     if (!trace.empty())
         fs::create_directories(trace);
     GenerationResult result;
@@ -264,6 +294,7 @@ GenerationResult generate(const GenerationRequest &r, const ProgressCallback &no
         const auto encoder_start=Clock::now();
         const auto encoding=encode_vae(package.component("vae/encoder.ncnn.param","vae-encoder"),*r.input_image,cpu);
         encoder_seconds=elapsed(encoder_start);
+        metrics.seconds(ExecutionPhase::ReadPrepare,encoder_seconds);
         encoded=encoding.normalized;
         if (!trace.empty())
         {
@@ -291,6 +322,7 @@ GenerationResult generate(const GenerationRequest &r, const ProgressCallback &no
             const auto vae_start=Clock::now();
             const auto decoded=decode_vae(package.component("vae/head.ncnn.param","vae"),unpacked,cpu,
                                           r.vae_device,r.vae_convolution,r.gpu_index);
+            metrics.seconds(ExecutionPhase::ReadPrepare,elapsed(vae_start));
             if (decoded.w!=w*16 || decoded.h!=h*16)throw std::runtime_error("Decoded resolution differs from model");
             if (!trace.empty()){write_tensor(trace/"final.f32",encoded);write_tensor(trace/"unpacked.f32",unpacked);write_tensor(trace/"decoded.f32",decoded);}
             result.image=rgb_image(decoded);result.vae_seconds=encoder_seconds+elapsed(vae_start);result.elapsed_seconds=elapsed(start);
@@ -349,6 +381,7 @@ GenerationResult generate(const GenerationRequest &r, const ProgressCallback &no
         BlockSequenceStats stats;
         const auto encoded = run_text_blocks(models, embedded, constants, cpu, stats,
                                               r.text_down_vector ? TextDownMode::Vector : TextDownMode::Gemm);
+        metrics.blocks(stats);
         text = encoded.row_range(0, int(ids.size())).clone();
     }
     if (notify)
@@ -391,7 +424,7 @@ GenerationResult generate(const GenerationRequest &r, const ProgressCallback &no
         for (size_t i = 0; i < rotary.size(); ++i)
             write_tensor(trace / ("constant-" + std::to_string(i) + ".f32"), rotary[i]);
     }
-    const auto latent = run_dit(package, initial, constants, cpu, r, notify, start_step);
+    const auto latent = run_dit(package, initial, constants, cpu, r, notify, start_step,metrics);
     const auto mean = read_tensor(package.file("vae/bn-mean.f32"), 128),
                variance = read_tensor(package.file("vae/bn-variance.f32"), 128);
     const auto unpacked = unpack_for_vae(latent, mean, variance, r.threads);
@@ -404,6 +437,7 @@ GenerationResult generate(const GenerationRequest &r, const ProgressCallback &no
     const auto decoded =
         decode_vae(package.component("vae/head.ncnn.param", "vae"), unpacked, cpu,
                    r.vae_device, r.vae_convolution, r.gpu_index);
+    metrics.seconds(ExecutionPhase::ReadPrepare,elapsed(vae_start));
     if (decoded.w != w * 16 || decoded.h != h * 16)
         throw std::runtime_error("Decoded resolution differs from model");
     if (!trace.empty())
@@ -412,5 +446,13 @@ GenerationResult generate(const GenerationRequest &r, const ProgressCallback &no
     result.vae_seconds = encoder_seconds + elapsed(vae_start);
     result.elapsed_seconds = elapsed(start);
     return result;
+}
+GenerationResult generate(const GenerationRequest &r, const ProgressCallback &notify)
+{
+    return generate_impl(r,notify,nullptr);
+}
+GenerationResult generate_with_metrics(const GenerationRequest &r,const ProgressCallback& notify,ExecutionMetrics& metrics)
+{
+    return generate_impl(r,notify,&metrics);
 }
 } // namespace ernie

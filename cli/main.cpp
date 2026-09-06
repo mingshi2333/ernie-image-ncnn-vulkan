@@ -5,6 +5,7 @@
 #include <iostream>
 #ifdef ERNIE_CLI_ALLOCATION_METRICS
 #include "allocation_report.h"
+#include "pipeline_metrics.h"
 #include <gpu.h>
 #include <memory>
 #endif
@@ -82,9 +83,7 @@ int main(int argc, char **argv)
 #ifdef ERNIE_CLI_ALLOCATION_METRICS
         failure_phase="generation_failed";
 #endif
-        const auto result = ernie::generate(
-            request,
-            [&](const ernie::Progress &p)
+        const ernie::ProgressCallback progress = [&](const ernie::Progress &p)
             {
                 if (p.stage == "verify")
                     std::cout << "Model verified: " << p.seconds << " s";
@@ -96,7 +95,13 @@ int main(int argc, char **argv)
                 else
                     std::cout << p.stage << ' ' << p.current << '/' << p.total;
                 std::cout << std::endl;
-            });
+            };
+#ifdef ERNIE_CLI_ALLOCATION_METRICS
+        const auto result = metrics ? ernie::generate_with_metrics(request,progress,metrics->execution_metrics())
+                                    : ernie::generate(request,progress);
+#else
+        const auto result = ernie::generate(request,progress);
+#endif
         const auto write_start = std::chrono::steady_clock::now();
 #ifdef ERNIE_CLI_ALLOCATION_METRICS
         failure_phase="image_write_failed";

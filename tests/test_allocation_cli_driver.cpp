@@ -38,6 +38,13 @@ GenerationResult generate(const GenerationRequest& r,const ProgressCallback&) {
     if(r.model.find("generation")!=std::string::npos)throw std::runtime_error("original generation failure");
     GenerationResult out;out.image={1,1,{2,4,6}};return out;
 }
+#ifdef ERNIE_CLI_ALLOCATION_METRICS
+GenerationResult generate_with_metrics(const GenerationRequest& r,const ProgressCallback& callback,ExecutionMetrics& metrics) {
+    metrics.record_interval(1,ExecutionPhase::Verify,10,20);
+    metrics.record_submissions(2,3);
+    return generate(r,callback);
+}
+#endif
 }
 namespace ernie::cli {
 RgbImage read_image(const std::filesystem::path&,const std::array<uint8_t,3>&){throw std::runtime_error("original input failure");}

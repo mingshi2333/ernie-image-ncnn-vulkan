@@ -15,10 +15,14 @@ class AllocationCliTests(unittest.TestCase):
   r,p=self.run_case();self.assertEqual(r.returncode,0,r.stderr);v=json.loads(p.read_text())
   self.assertEqual(v['total'],dict(live_bytes=0,peak_bytes=35,allocations=1));self.assertTrue(v['coverage_complete'])
   self.assertTrue(v['valid']);self.assertFalse(v['trace_enabled']);self.assertFalse(v['formal_speed_eligible']);self.assertFalse(v['formal_memory_eligible'])
+  self.assertEqual(v['stage_times']['verify']['host_nanoseconds'],10);self.assertEqual(v['stage_times']['submissions'],3)
+  self.assertIsNone(v['stage_times']['upload_bytes']);self.assertIsNone(v['stage_times']['verify']['gpu_nanoseconds'])
   self.assertEqual(v['devices'][0]['name'],'fake "device"\n');self.assertEqual(v['run_status'],'success');self.assertNotIn('schema_version',r.stdout)
+  self.assertTrue(v['execution_finished_successfully'])
  def test_generation_error_survives_cleanup(self):
   r,p=self.run_case('generation-failure');self.assertEqual(r.returncode,1);self.assertIn('original generation failure',r.stderr)
   v=json.loads(p.read_text());self.assertEqual(v['run_status'],'generation_failed');self.assertTrue(v['coverage_complete']);self.assertEqual(v['total']['live_bytes'],0)
+  self.assertFalse(v['execution_finished_successfully']);self.assertEqual(v['stage_times']['verify']['host_nanoseconds'],10)
  def test_image_error_is_distinct(self):
   r,p=self.run_case(image='image-failure.png');self.assertEqual(r.returncode,1);self.assertIn('original image failure',r.stderr)
   self.assertEqual(json.loads(p.read_text())['run_status'],'image_write_failed')

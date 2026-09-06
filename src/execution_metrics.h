@@ -56,6 +56,8 @@ public:
                          std::uint64_t finish_ns, std::optional<std::uint64_t> gpu_ns={});
     void record_io(std::uint64_t event, std::uint64_t submissions,
                    std::uint64_t upload_bytes, std::uint64_t download_bytes);
+    // Submission count can be observed when transfer byte counts cannot.
+    void record_submissions(std::uint64_t event, std::uint64_t submissions);
     MetricsSnapshot snapshot() const;
 private:
     struct Allocator { AllocationRole role; AllocationDomain domain; std::string scope;

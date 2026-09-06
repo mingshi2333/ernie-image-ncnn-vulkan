@@ -84,6 +84,13 @@ void ExecutionMetrics::record_io(std::uint64_t event,std::uint64_t submissions,s
     auto d=add(totals_.download_bytes.value_or(0),download);
     events_.insert(event);totals_.submissions=s;totals_.upload_bytes=u;totals_.download_bytes=d;
 }
+void ExecutionMetrics::record_submissions(std::uint64_t event,std::uint64_t submissions) {
+    if(!event) throw std::invalid_argument("missing submission event identity");
+    std::lock_guard<std::mutex> lock(mutex_);
+    if(events_.count(event)) throw std::invalid_argument("duplicate metrics event");
+    totals_.submissions=add(totals_.submissions.value_or(0),submissions);
+    events_.insert(event);
+}
 MetricsSnapshot ExecutionMetrics::snapshot() const {
     std::lock_guard<std::mutex> lock(mutex_);auto result=totals_;result.allocators=history_;
     for (const auto& a:allocators_) result.allocators.at(a.first).live=a.second.live;
