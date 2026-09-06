@@ -1,0 +1,25 @@
+{
+  "status": "prepared_delta_independently_verified",
+  "previous_plan": "b69caa2b2e1d33025e2c76088d80876bb2a331e284de9b7367cab7099765c82a",
+  "new_plan": "a06a043311cd85ebdcf1c551fbcc9adadc4253140c538b17130d0155bc88ea89",
+  "launcher": "63fe37905daf4cad497eb5a3033c941c810f24508702f73f67c274e7b0e1d09d",
+  "old_bindings_unchanged": 6251,
+  "new_bindings_full_sha_verified": 61,
+  "changed_plan_fields": [
+    "bound",
+    "discovery_evidence",
+    "loader_inventory",
+    "native_command",
+    "output",
+    "previous_attempt",
+    "scope_unit"
+  ],
+  "max_forwards": {
+    "native_full_block": 1,
+    "official_full_block": 0,
+    "official_mlp_only": 1
+  },
+  "discovery_environment_limit": "Four CUDA/OMP/BLAS/MKL child overrides were absent from initialization-only probe; Vulkan selection and device unchanged. No complete-env replay claim. Unknown model mappings still rejected.",
+  "runtime_math_unchanged": true,
+  "model_executed": false
+}
