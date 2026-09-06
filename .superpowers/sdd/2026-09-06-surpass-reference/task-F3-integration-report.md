@@ -36,6 +36,8 @@ ERNIE_TEST_RUNNER=$PWD/build-dev/ernie-image python3 -m unittest tests.test_cli 
 Result: 21/21 passed.
 ```
 
+After moving the new public members to the end of the request structure, the pipeline API target was rebuilt and executed again successfully.
+
 The request-validation contract covers thread bounds, GPU range/device compatibility, CPU-only text, finite strength, RGB byte length, input/request dimension mismatch, valid img2img fail-closed behavior, and the explicit-GPU/Vulkan-VAE limitation. The API contract also compiles an older positional aggregate initializer. Image format round trips remain covered by the codec contract.
 
 ## Remaining work
