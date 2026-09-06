@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Build/verify an OFFLINE shared-weight candidate, not a runnable schema-3 package.
+"""Build/verify shared-weight packages; --schema3 enables the native static protocol.
 
-contract.json deliberately replaces manifest.json. Native runtime validation still
-rejects schema 3. Only two pinned portable static instances may be represented;
-schema-1 migration and new dynamic shapes remain pending independent evidence.
-Encoder components are intentionally absent. Adding encoder inventory, posterior/packing,
-and separate encoder/decoder BN epsilon identities requires a new format revision.
+Without --schema3, contract.json retains the offline candidate format. With
+--schema3, manifest.json selects the native shared-object protocol for the two
+pinned portable static sources. This does not imply a complete generation quality
+gate or authorize arbitrary shapes. Encoder weights remain explicitly unavailable;
+the shared native/Python contract records mode, packing and asymmetric BN epsilons.
 """
 import argparse
 import hashlib
@@ -15,10 +15,10 @@ import re
 import shutil
 try:
     from audit_shape_contract import audit_package, normalize_graph, CONTRACT_HASHES, PINNED_MANIFESTS, graph_files
-    from package_model import verify_package, runtime_files, sha256
+    from package_model import ROOT, verify_package, runtime_files, sha256
 except ImportError:
     from tools.audit_shape_contract import audit_package, normalize_graph, CONTRACT_HASHES, PINNED_MANIFESTS, graph_files
-    from tools.package_model import verify_package, runtime_files, sha256
+    from tools.package_model import ROOT, verify_package, runtime_files, sha256
 
 FORMAT='ernie-shared-weights-offline-candidate-v1'
 POLICY={'candidate_schema':3,'runtime_supported':False,'quality_status':'pending',
@@ -58,11 +58,11 @@ def verify_graph(path,kind,config):
     if canonical!=CONTRACT_HASHES[kind]:raise ValueError('Unknown complete graph hash')
 
 
-def verify_candidate(root):
+def verify_candidate(root, _runtime=None):
     root=Path(root)
-    if (root/'manifest.json').exists():raise ValueError('Offline candidate must not masquerade as a runtime package')
+    if _runtime is None and (root/'manifest.json').exists():raise ValueError('Offline candidate must not masquerade as a runtime package')
     if (root/'contract.json').is_symlink():raise ValueError('Nonportable contract')
-    c=read_json(root/'contract.json')
+    c=read_json(root/'contract.json') if _runtime is None else _runtime
     if (set(c)!={'format','policy','instances','objects'} or c['format']!=FORMAT or c['policy']!=POLICY
             or not isinstance(c['policy'],dict) or any(type(c['policy'][k]) is not type(v) for k,v in POLICY.items())):
         raise ValueError('Invalid offline candidate policy/schema')
@@ -96,7 +96,7 @@ def verify_candidate(root):
     if used!=set(c['objects']):raise ValueError('Unbound objects in candidate inventory')
     # Object store is entirely sealed. Reports belong beside, not inside, this package candidate.
     if {p.name for p in (root/'objects').iterdir()}!=used:raise ValueError('Unlisted object files')
-    if {p.name for p in root.iterdir()}!={'contract.json','objects'}:raise ValueError('Unlisted candidate files')
+    if {p.name for p in root.iterdir()}!={('contract.json' if _runtime is None else 'manifest.json'),'objects'}:raise ValueError('Unlisted candidate files')
     return c
 
 
@@ -130,10 +130,44 @@ def build_candidate(sources,output):
     return verify_candidate(output)
 
 
+def shared_contract():
+    return read_json(ROOT/'tokenizer/schema3_contract.json')
+
+
+def verify_shared_package(root):
+    """Runnable package protocol for pinned static instances; no new quality claim."""
+    root=Path(root);m=read_json(root/'manifest.json');contract=shared_contract()
+    if (root/'manifest.json').is_symlink() or set(m)!={'schema_version','format','instances','objects','math','encoder','generation_quality_status'}:
+        raise ValueError('Invalid schema-3 metadata')
+    for key in ['schema_version','format','math','encoder','generation_quality_status']:
+        # JSON canonical bytes also distinguish bool from integer/float.
+        if json.dumps(m[key],sort_keys=True)!=json.dumps(contract[key],sort_keys=True):raise ValueError('Unreviewed schema-3 '+key)
+    for instance in m['instances']:
+        pinned=contract['source_manifests'].get(instance.get('source_manifest_sha256'))
+        if pinned is None or instance.get('config')!=pinned:raise ValueError('Unknown schema-3 source/config')
+    offline=dict(format=FORMAT,policy=POLICY,instances=m['instances'],objects=m['objects'])
+    verify_candidate(root,_runtime=offline)
+    return m
+
+
+def build_shared_package(sources,output):
+    """Reuse validated static inputs, copy each unique weight once, emit native schema3."""
+    contract=shared_contract()
+    for source in sources:
+        if sha256(Path(source)/'manifest.json') not in contract['source_manifests']:raise ValueError('Unknown schema-3 source')
+    candidate=build_candidate(sources,output)
+    m={k:contract[k] for k in ['schema_version','format','math','encoder','generation_quality_status']}
+    m.update(instances=candidate['instances'],objects=candidate['objects'])
+    output=Path(output)
+    (output/'manifest.json').write_text(json.dumps(m,indent=2)+'\n')
+    (output/'contract.json').unlink()
+    return verify_shared_package(output)
+
+
 def main():
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--source',type=Path,action='append');p.add_argument('--output',type=Path);p.add_argument('--verify',type=Path);a=p.parse_args()
-    if a.verify and not a.source and not a.output:c=verify_candidate(a.verify)
-    elif a.source and a.output and not a.verify:c=build_candidate(a.source,a.output)
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--schema3',action='store_true');p.add_argument('--source',type=Path,action='append');p.add_argument('--output',type=Path);p.add_argument('--verify',type=Path);a=p.parse_args()
+    if a.verify and not a.source and not a.output:c=(verify_shared_package if a.schema3 else verify_candidate)(a.verify)
+    elif a.source and a.output and not a.verify:c=(build_shared_package if a.schema3 else build_candidate)(a.source,a.output)
     else:p.error('Use --source/--output or --verify')
-    print(json.dumps({'offline_candidate_verified':True,'runtime_supported':False,'quality_status':'pending','instances':len(c['instances']),'shared_objects':len(c['objects'])}))
+    print(json.dumps({'offline_candidate_verified':not a.schema3,'native_package_protocol':a.schema3,'quality_status':'pending','instances':len(c['instances']),'shared_objects':len(c['objects'])}))
 if __name__=='__main__':main()

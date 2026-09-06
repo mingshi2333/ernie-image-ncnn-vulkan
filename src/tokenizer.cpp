@@ -6,6 +6,7 @@ extern "C"
 {
     int ernie_package_verify(const unsigned char *, size_t, unsigned char *, size_t);
     void *ernie_tok_create(const unsigned char *, size_t, unsigned char *, size_t);
+    void *ernie_tok_create_files(const unsigned char *, size_t, const unsigned char *, size_t, unsigned char *, size_t);
     size_t ernie_tok_maximum(const void *);
     int ernie_tok_encode(const void *, const unsigned char *, size_t, uint32_t *, size_t, size_t *,
                          unsigned char *, size_t);
@@ -35,6 +36,15 @@ Tokenizer::Tokenizer(const std::string &directory)
                                error, sizeof(error));
     if (!handle_)
         throw std::runtime_error(reinterpret_cast<const char *>(error));
+    maximum_ = ernie_tok_maximum(handle_);
+}
+Tokenizer::Tokenizer(const std::string &json, const std::string &config)
+{
+    unsigned char error[1024] = {};
+    handle_ = ernie_tok_create_files(reinterpret_cast<const unsigned char *>(json.data()), json.size(),
+                                   reinterpret_cast<const unsigned char *>(config.data()), config.size(),
+                                   error, sizeof(error));
+    if (!handle_) throw std::runtime_error(reinterpret_cast<const char *>(error));
     maximum_ = ernie_tok_maximum(handle_);
 }
 Tokenizer::~Tokenizer()

@@ -1,0 +1,34 @@
+{
+  "format": "ernie-shared-weight-package-v1",
+  "schema_version": 3,
+  "source_manifests": {
+    "ef98859ac741f6923680fb02de39e663fa3fa01943eff9d2d85c6ddaf40c9e59": {
+      "packed_width": 32,
+      "packed_height": 24,
+      "text_bucket": 2048,
+      "dit_text_tokens": 2048,
+      "text_layers": 25,
+      "dit_layers": 36
+    },
+    "72bb195a2d0b3ef2a25f873666f51f4bbec4b391744518597be87206a551efc1": {
+      "packed_width": 64,
+      "packed_height": 64,
+      "text_bucket": 64,
+      "dit_text_tokens": 64,
+      "text_layers": 25,
+      "dit_layers": 36
+    }
+  },
+  "math": {
+    "encoder_posterior": "mode_first_32_channels_no_sampling",
+    "packing": "pixel_unshuffle_2",
+    "encoder_bn_eps": 0.0001,
+    "encoder_bn_affine": false,
+    "decoder_inverse_bn_eps": 1e-05
+  },
+  "encoder": {
+    "status": "unavailable",
+    "files": {}
+  },
+  "generation_quality_status": "pending_existing_static_gates"
+}

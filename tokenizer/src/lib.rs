@@ -30,30 +30,38 @@ unsafe fn text<'a>(bytes: *const u8, length: usize) -> Result<&'a str, String> {
     str::from_utf8(slice::from_raw_parts(bytes, length)).map_err(|e| e.to_string())
 }
 
-#[no_mangle]
-pub unsafe extern "C" fn ernie_tok_create(directory: *const u8, length: usize,
-    error: *mut u8, error_capacity: usize) -> *mut Handle {
-    let result = catch_unwind(AssertUnwindSafe(|| -> Result<Handle, String> {
-        let path = Path::new(text(directory, length)?);
+fn create_tokenizer(tokenizer_path: &Path, config_path: &Path) -> Result<Handle,String> {
         let config: serde_json::Value = serde_json::from_slice(
-            &std::fs::read(path.join("tokenizer_config.json")).map_err(|e| e.to_string())?
+            &std::fs::read(config_path).map_err(|e| e.to_string())?
         ).map_err(|e| e.to_string())?;
         let maximum = config["model_max_length"].as_u64().ok_or("Missing model_max_length")? as usize;
         if maximum != 2048 || config["tokenizer_class"].as_str() != Some("TokenizersBackend") {
             return Err("Tokenizer configuration differs from the reviewed ERNIE contract".into());
         }
         let bos_token = config["bos_token"].as_str().ok_or("Missing BOS token")?;
-        let mut tokenizer = Tokenizer::from_file(path.join("tokenizer.json")).map_err(|e| e.to_string())?;
+        let mut tokenizer = Tokenizer::from_file(tokenizer_path).map_err(|e| e.to_string())?;
         let bos = tokenizer.token_to_id(bos_token).ok_or("BOS token absent from vocabulary")?;
         tokenizer.with_padding(None);
         tokenizer.with_truncation(Some(TruncationParams { max_length: maximum, ..Default::default() }))
             .map_err(|e| e.to_string())?;
         Ok(Handle { tokenizer, maximum, bos })
-    }));
+}
+#[no_mangle]
+pub unsafe extern "C" fn ernie_tok_create(directory:*const u8,length:usize,error:*mut u8,error_capacity:usize)->*mut Handle {
+    finish_tokenizer(catch_unwind(AssertUnwindSafe(|| {
+        let path=Path::new(text(directory,length)?);
+        create_tokenizer(&path.join("tokenizer.json"),&path.join("tokenizer_config.json"))
+    })),error,error_capacity)
+}
+#[no_mangle]
+pub unsafe extern "C" fn ernie_tok_create_files(tokenizer:*const u8,tokenizer_length:usize,config:*const u8,config_length:usize,error:*mut u8,error_capacity:usize)->*mut Handle {
+    finish_tokenizer(catch_unwind(AssertUnwindSafe(||create_tokenizer(Path::new(text(tokenizer,tokenizer_length)?),Path::new(text(config,config_length)?)))),error,error_capacity)
+}
+unsafe fn finish_tokenizer(result:std::thread::Result<Result<Handle,String>>,error:*mut u8,error_capacity:usize)->*mut Handle {
     match result {
-        Ok(Ok(handle)) => Box::into_raw(Box::new(handle)),
-        Ok(Err(message)) => { write_error(error, error_capacity, &message); std::ptr::null_mut() },
-        Err(_) => { write_error(error, error_capacity, "Tokenizer initialization panicked"); std::ptr::null_mut() }
+        Ok(Ok(handle))=>Box::into_raw(Box::new(handle)),
+        Ok(Err(message))=>{write_error(error,error_capacity,&message);std::ptr::null_mut()},
+        Err(_)=>{write_error(error,error_capacity,"Tokenizer initialization panicked");std::ptr::null_mut()}
     }
 }
 
@@ -172,4 +180,30 @@ pub unsafe extern "C" fn ernie_shape_sha256(bytes: *const u8, length: usize, out
         let digest = Sha256::digest(data);
         std::ptr::copy_nonoverlapping(digest.as_ptr(), output, 32);
     })) { Ok(()) => 0, Err(_) => -1 }
+}
+
+mod shared_package;
+#[no_mangle]
+pub unsafe extern "C" fn ernie_model_package_open(directory:*const u8,length:usize,width:i32,height:i32,error:*mut u8,capacity:usize)->*mut shared_package::ResolvedPackage{
+    match catch_unwind(AssertUnwindSafe(||shared_package::open(Path::new(text(directory,length)?),width,height))){
+        Ok(Ok(p))=>Box::into_raw(Box::new(p)),
+        Ok(Err(e))=>{write_error(error,capacity,&e);std::ptr::null_mut()},
+        Err(_)=>{write_error(error,capacity,"Package open panicked");std::ptr::null_mut()}
+    }
+}
+#[no_mangle]
+pub unsafe extern "C" fn ernie_model_package_destroy(handle:*mut shared_package::ResolvedPackage){if !handle.is_null(){drop(Box::from_raw(handle));}}
+#[no_mangle]
+pub unsafe extern "C" fn ernie_model_package_config(handle:*const shared_package::ResolvedPackage,config:*mut i32)->i32{
+    match handle.as_ref(){Some(p) if !config.is_null()=>{std::ptr::copy_nonoverlapping(p.config.as_ptr(),config,4);p.schema as i32},_=>-1}
+}
+#[no_mangle]
+pub unsafe extern "C" fn ernie_model_package_file(handle:*const shared_package::ResolvedPackage,name:*const u8,length:usize,output:*mut u8,capacity:usize)->i32{
+    let result=catch_unwind(AssertUnwindSafe(||->Result<(),String>{
+        let p=handle.as_ref().ok_or("Null package handle")?;
+        let path=p.files.get(text(name,length)?).ok_or("Unknown logical package file")?;
+        let value=path.to_str().ok_or("NonUTF8 object path")?;
+        if output.is_null()||value.len()>=capacity{return Err("Object path buffer too small".into());}
+        write_error(output,capacity,value);Ok(())
+    }));if matches!(result,Ok(Ok(()))){0}else{-1}
 }

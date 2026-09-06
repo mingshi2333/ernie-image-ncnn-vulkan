@@ -5,12 +5,13 @@ use serde_json::Value;
 use sha2::{Digest, Sha256};
 use std::{collections::{BTreeMap, BTreeSet}, fs, io::Read, path::{Component, Path}};
 
-fn read_json(path: &Path) -> Result<Value, String> {
+pub(super) fn read_json(path: &Path) -> Result<Value, String> {
+    if fs::metadata(path).map_err(|e| e.to_string())?.len() > 4 * 1024 * 1024 { return Err("Package metadata exceeds 4MiB".into()); }
     serde_json::from_slice(&fs::read(path).map_err(|e| format!("{}: {e}", path.display()))?)
         .map_err(|e| format!("{}: {e}", path.display()))
 }
 
-fn hash(path: &Path) -> Result<String, String> {
+pub(super) fn hash(path: &Path) -> Result<String, String> {
     let mut file = fs::File::open(path).map_err(|e| format!("{}: {e}", path.display()))?;
     let mut digest = Sha256::new();
     let mut buffer = vec![0u8; 1024 * 1024];
@@ -43,7 +44,7 @@ fn digests(value: &Value) -> Result<BTreeMap<String, String>, String> {
     Ok(result)
 }
 
-fn required_files() -> BTreeSet<String> {
+pub(super) fn required_files() -> BTreeSet<String> {
     let mut names: BTreeSet<String> = ["model.cfg", "text/embeddings.bf16", "text/rope-inv-freq.f32",
         "dit/rope-inv-freq.f32", "vae/bn-mean.f32", "vae/bn-variance.f32",
         "tokenizer/tokenizer.json", "tokenizer/tokenizer_config.json", "vae/head.ncnn.param", "vae/head.ncnn.bin"]
@@ -63,6 +64,7 @@ fn required_files() -> BTreeSet<String> {
 
 pub fn verify(root: &Path) -> Result<(), String> {
     let manifest = read_json(&root.join("manifest.json"))?;
+    if manifest["schema_version"].as_u64() == Some(3) { return crate::shared_package::verify(root).map(|_| ()); }
     let lock: Value = serde_json::from_str(include_str!("../../sources.lock.json")).map_err(|e| e.to_string())?;
     if manifest["kind"].as_str() == Some("prompt_enhancer") {
         return verify_pe(root, &manifest, &lock);

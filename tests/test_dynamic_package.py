@@ -62,3 +62,39 @@ class DynamicPackageTests(unittest.TestCase):
     def test_cannot_overwrite_existing_candidate(self):
         with self.assertRaises(ValueError):dynamic.build_candidate([self.source],self.output)
 if __name__=='__main__':unittest.main()
+
+class SharedRuntimePackageTests(unittest.TestCase):
+    def setUp(self):
+        self.fixture=DynamicPackageTests();self.fixture.setUp()
+        self.output=self.fixture.output
+        source=sha256(self.fixture.source/'manifest.json')
+        self.contract=dynamic.shared_contract()
+        self.contract['source_manifests']={source:self.fixture.m['config']}
+        self.mock=patch.object(dynamic,'shared_contract',return_value=self.contract);self.mock.start()
+        old=json.loads((self.output/'contract.json').read_text())
+        self.manifest={k:self.contract[k] for k in ['schema_version','format','math','encoder','generation_quality_status']}
+        self.manifest.update(instances=old['instances'],objects=old['objects'])
+        (self.output/'contract.json').unlink();self.save()
+    def tearDown(self):self.mock.stop();self.fixture.tearDown()
+    def save(self):(self.output/'manifest.json').write_text(json.dumps(self.manifest))
+    def test_runtime_resolves_complete_shared_inventory(self):
+        value=dynamic.verify_shared_package(self.output)
+        self.assertEqual(value['schema_version'],3)
+        self.assertEqual(len(value['instances'][0]['runtime_bindings']),136)
+        self.assertEqual(len(value['objects']),3)
+    def test_tail_layer_missing(self):
+        self.manifest['instances'][0]['runtime_bindings'].pop('dit/block-35/block.ncnn.bin');self.save()
+        with self.assertRaises(ValueError):dynamic.verify_shared_package(self.output)
+    def test_unreviewed_source_and_shape(self):
+        self.manifest['instances'][0]['source_manifest_sha256']='0'*64;self.save()
+        with self.assertRaises(ValueError):dynamic.verify_shared_package(self.output)
+    def test_size_and_graph_corruption_rejected(self):
+        digest=self.fixture.m['files']['vae/head.ncnn.param'];self.manifest['objects'][digest]=0;self.save()
+        with self.assertRaises(ValueError):dynamic.verify_shared_package(self.output)
+    def test_bn_identity_or_encoder_claim_rejected(self):
+        self.manifest['math']=dict(self.manifest['math'],decoder_inverse_bn_eps=1e-4);self.save()
+        with self.assertRaises(ValueError):dynamic.verify_shared_package(self.output)
+    def test_shared_builder_emits_native_manifest_only(self):
+        target=self.fixture.base/'runtime-new'
+        value=dynamic.build_shared_package([self.fixture.source],target)
+        self.assertEqual(value['schema_version'],3);self.assertFalse((target/'contract.json').exists())

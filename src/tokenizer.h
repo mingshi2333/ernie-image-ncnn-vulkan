@@ -17,6 +17,8 @@ class Tokenizer
 {
   public:
     explicit Tokenizer(const std::string &model_directory);
+    // Shared-object package paths; preserves the directory constructor.
+    Tokenizer(const std::string &tokenizer_json, const std::string &config_json);
     ~Tokenizer();
     Tokenizer(const Tokenizer &) = delete;
     Tokenizer &operator=(const Tokenizer &) = delete;
