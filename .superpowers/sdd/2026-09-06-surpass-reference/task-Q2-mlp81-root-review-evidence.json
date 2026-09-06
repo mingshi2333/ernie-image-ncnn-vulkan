@@ -1,0 +1,291 @@
+{
+  "status": "independently_verified_fixed_diagnostic",
+  "scope": "Read-only CPU reconstruction; no model forward or GPU call",
+  "script_sha256": "ed0328cf1a9338452eba20338656356b10010d041604d62142b08b86f3a478b9",
+  "evidence_sha256": "0892e52ed79e5b5de6f66b65f40022163d3718baa250a2460e84191a30e3a50b",
+  "plan_sha256": "38f2f50d52cf7c67e942ae7753509f1d91a5128275fdb531bbbed43bd9f5e5f9",
+  "verified_hash_entries": 16909,
+  "unique_inodes_hashed": 3816,
+  "bound_entries": 5905,
+  "runtime_counts": {
+    "before": 2743,
+    "after": 2743
+  },
+  "input_identity": {
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-block15-mlp81-official-v5/official/75.f32": {
+      "sha256": "09189225db6307daa124c88dce40dfc257e8af49d9cea125b44c6c64072b69af",
+      "elements": 17039360,
+      "shape": [
+        4160,
+        4096
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-block15-mlp81-official-v5/official/81.f32": {
+      "sha256": "744be265796164ce51d15ac22513870bee07c794f30a5c9089b0f6af2c90f1a6",
+      "elements": 17039360,
+      "shape": [
+        4160,
+        4096
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-block15-mlp81-official-v5/official/87.f32": {
+      "sha256": "384328e7033248ef5c43d1a9494d4f93c7e13556bd0913bdda786cfc1f1f10dd",
+      "elements": 51118080,
+      "shape": [
+        4160,
+        12288
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-block15-mlp81-official-v5/official/88.f32": {
+      "sha256": "3a1eb976b4772659e9461745bb21ec9fa92582adfd98d90f728aab83d8375ab8",
+      "elements": 17039360,
+      "shape": [
+        4160,
+        4096
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-block15-mlp81-official-v5/official/out0.f32": {
+      "sha256": "a3f77e846934a6fe7085bf366dd21ef78aa779b702c5c97ba237834a0635a197",
+      "elements": 17039360,
+      "shape": [
+        4160,
+        4096
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-block15-mlp81-official-v5/official/native81-87.f32": {
+      "sha256": "9a34cfce2296c4f2b3ef7f48aad848faf7362d349ee3ae4b7fcb0719ce0ba3c1",
+      "elements": 51118080,
+      "shape": [
+        4160,
+        12288
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-block15-mlp81-official-v5/official/native81-88.f32": {
+      "sha256": "5b0f3edbb3c641a4826da737016b59f4d6eee1f708b919298a883234d4e2eba7",
+      "elements": 17039360,
+      "shape": [
+        4160,
+        4096
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-block15-mlp81-official-v5/native/boundary.f32": {
+      "sha256": "da8bc040080f6674042c860a372c8f004041dae617a0cdeffae96f3c2be61d54",
+      "elements": 17039360,
+      "shape": [
+        4160,
+        4096
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-block15-mlp81-official-v5/native/out0.f32": {
+      "sha256": "175bfa394aec3b7e576caaea3fd897cf84db122d4cd9378d7d72dfe704df68a3",
+      "elements": 17039360,
+      "shape": [
+        4160,
+        4096
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-block15-boundary-v1/official/boundary.f32": {
+      "sha256": "762941a013ce27957c6b123985eb7ef1dd36fafe7c79c7f08cb7569ac154c1bd",
+      "elements": 17039360,
+      "shape": [
+        4160,
+        4096
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-block15-boundary87-v1/official/boundary.f32": {
+      "sha256": "a951b1ed772d5a53c0b30ba8a1d1882c52491f6c564cb9f70b09ec6ef4cd3c46",
+      "elements": 51118080,
+      "shape": [
+        4160,
+        12288
+      ]
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-block15-boundary88-v1/official/boundary.f32": {
+      "sha256": "b1d26a4acc2c44d7864c25ba59c821ded6fb8e8c34575d7b35d0ca9586b95cbf",
+      "elements": 17039360,
+      "shape": [
+        4160,
+        4096
+      ]
+    }
+  },
+  "comparisons": {
+    "75": {
+      "elements": 17039360,
+      "l2": 0.10482090639324775,
+      "max_abs": 0.0029296875,
+      "nrmse": 2.5446571542813486e-07,
+      "changed_elements": 14926143,
+      "top_l2_rows": [
+        2481,
+        1325,
+        3148,
+        3079,
+        2844,
+        1289,
+        1869,
+        1876
+      ]
+    },
+    "81": {
+      "elements": 17039360,
+      "l2": 0.00027125736069869954,
+      "max_abs": 3.337860107421875e-06,
+      "nrmse": 6.65595882647376e-07,
+      "changed_elements": 14986735,
+      "top_l2_rows": [
+        2481,
+        912,
+        2434,
+        148,
+        488,
+        421,
+        1289,
+        82
+      ]
+    },
+    "87": {
+      "elements": 51118080,
+      "l2": 0.007343783342773384,
+      "max_abs": 0.000152587890625,
+      "nrmse": 1.242109086290185e-06,
+      "changed_elements": 50283148,
+      "top_l2_rows": [
+        1613,
+        488,
+        2481,
+        1354,
+        4099,
+        1667,
+        107,
+        210
+      ]
+    },
+    "88": {
+      "elements": 17039360,
+      "l2": 0.07692567834458297,
+      "max_abs": 0.000335693359375,
+      "nrmse": 1.6256994282125854e-06,
+      "changed_elements": 16779170,
+      "top_l2_rows": [
+        1613,
+        488,
+        4099,
+        1360,
+        1667,
+        1495,
+        852,
+        1354
+      ]
+    },
+    "out0": {
+      "elements": 17039360,
+      "l2": 0.19877654474212317,
+      "max_abs": 0.006591796875,
+      "nrmse": 6.011371945074347e-07,
+      "changed_elements": 15761882,
+      "top_l2_rows": [
+        1613,
+        2481,
+        718,
+        212,
+        741,
+        1748,
+        2057,
+        1521
+      ]
+    }
+  },
+  "decomposition": {
+    "87": {
+      "elements": 51118080,
+      "total": {
+        "l2": 0.007343783342773384,
+        "max_abs": 0.000152587890625
+      },
+      "propagated_input": {
+        "l2": 0.010226259107749252,
+        "max_abs": 0.0003814697265625
+      },
+      "matched_implementation": {
+        "l2": 0.009102706388573075,
+        "max_abs": 0.00038909912109375
+      },
+      "propagation_local_cosine": -0.7170980368145736,
+      "sum_identity_max_abs": 0.0,
+      "squared_norm_identity_residual": -5.421010862427522e-20,
+      "largest_local_rows": [
+        467,
+        32,
+        4099,
+        1613,
+        1667,
+        852,
+        107,
+        1495
+      ]
+    },
+    "88": {
+      "elements": 17039360,
+      "total": {
+        "l2": 0.07692567834458297,
+        "max_abs": 0.000335693359375
+      },
+      "propagated_input": {
+        "l2": 0.09310154087313083,
+        "max_abs": 0.00038909912109375
+      },
+      "matched_implementation": {
+        "l2": 0.08230527505257437,
+        "max_abs": 0.0003662109375
+      },
+      "propagation_local_cosine": -0.6214803953772793,
+      "sum_identity_max_abs": 0.0,
+      "squared_norm_identity_residual": -8.673617379884035e-18,
+      "largest_local_rows": [
+        467,
+        4099,
+        32,
+        1360,
+        852,
+        1667,
+        1613,
+        1250
+      ]
+    }
+  },
+  "actual_execution_resource_audit": {
+    "samples": 71,
+    "peak_rss_sum_bytes": 1370578944,
+    "peak_cgroup_current_bytes": 6919081984,
+    "whole_gpu_mib": 3929,
+    "min_host_available": 18358583296,
+    "all_swap_and_memory_events_zero": true
+  },
+  "review_process": {
+    "scope": "/user.slice/user-1000.slice/user@1000.service/app.slice/ernie-q2-root-review-v1.scope",
+    "affinity": [
+      8,
+      10
+    ],
+    "cgroup_before": {
+      "memory.max": "4294967296",
+      "memory.swap.max": "0",
+      "memory.current": "17104896",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "cpu.max": "200000 100000"
+    },
+    "cgroup_after": {
+      "memory.max": "4294967296",
+      "memory.swap.max": "0",
+      "memory.current": "238829568",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "cpu.max": "200000 100000"
+    },
+    "maxrss_kib": 1269516,
+    "wall_seconds": 5.095489566010656
+  },
+  "formal_acceptance": false
+}
