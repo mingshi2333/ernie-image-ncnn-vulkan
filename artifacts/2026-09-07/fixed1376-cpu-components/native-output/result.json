@@ -1,0 +1,93 @@
+{
+  "status": "passed_fixed_head_pending_independent_review",
+  "phase": "native-output",
+  "controls": {
+    "memory.max": "17179869184",
+    "memory.swap.max": "0",
+    "cpu.max": "200000 100000"
+  },
+  "scope_cpu_budget": 2,
+  "native_ncnn_threads": 4,
+  "official_torch_threads": 2,
+  "plan_sha256": "79d8b3927194f2fdfae2b5329b3a2bc78ad7603629032e2b21a48ba5a308bb13",
+  "error": null,
+  "exit_code": 0,
+  "host_min_observed": 18085642240,
+  "peak_cgroup_memory_current": 394432512,
+  "started_monotonic_ns": 117404866146869,
+  "reference_sha256": "41ce07f321a0deee2d01023ac32c2a5533764b7890e00b44a2a32ea99d0d79bf",
+  "argv": [
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-heads1376-preparation-v1/source/tools/validate_dit_heads.py",
+    "--model",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-heads1376-preparation-v1/native-output/candidate",
+    "--runner",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-shape1376-s64-plan-v5/head-runner.snapshot",
+    "--output",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-heads1376-preparation-v1/native-output/validation",
+    "--cpu-only",
+    "--vae-convolution",
+    "direct"
+  ],
+  "worker_pid": 2297592,
+  "outputs": {
+    "candidate/head.ncnn.param": {
+      "sha256": "705e2b51bf761b48fea81dbf1894e4f92d7d6077d82e70ee110c1c5628fcbda6",
+      "size_bytes": 577
+    },
+    "candidate/head.ncnn.bin": {
+      "sha256": "dd92f84a863ca32c5ed68fc7f20755c53e9021b206bb4894899725d3fce1cef4",
+      "size_bytes": 136348172
+    },
+    "candidate/fixture.json": {
+      "sha256": "41ce07f321a0deee2d01023ac32c2a5533764b7890e00b44a2a32ea99d0d79bf",
+      "size_bytes": 2058
+    },
+    "candidate/in0.f32": {
+      "sha256": "228136cd8225f7732617a861593b0f59990bfd80c89ff109b912a10279d0ccbb",
+      "size_bytes": 68681728
+    },
+    "candidate/in1.f32": {
+      "sha256": "1a6a675434cd973f0cf67f41add57f2ff496e50a0f99bc1f322b55ab110c1da1",
+      "size_bytes": 16384
+    },
+    "candidate/out0.f32": {
+      "sha256": "a35af1d87e899dca5c44a5fd0b5dd1e87d25ef910750a9b8e85bfc7eb817a3e9",
+      "size_bytes": 2113536
+    },
+    "candidate/model.json": {
+      "sha256": "d9dee46693702daf8f7d6a3cf60a82d318fae078a63f7e38541a593064f83ed2",
+      "size_bytes": 1282
+    },
+    "validation/ernie-head-runner.snapshot": {
+      "sha256": "dbd6d9d057737dc1d7a55f4c4062cc1b85f9653d4de00d2551cc2b212d62caba",
+      "size_bytes": 16192808
+    },
+    "validation/matrix.json": {
+      "sha256": "a90cb0a16f1a275be555512a72a9ffa3d657a1d443b6b87bce9a2394275ee0fc",
+      "size_bytes": 1673
+    },
+    "validation/cpu-fp32/runner.log": {
+      "sha256": "f558092396eb98ecbf24e0e7998e2f9b4fa7a501555296058e0788b6f79233e9",
+      "size_bytes": 194
+    },
+    "validation/cpu-fp32/resources.log": {
+      "sha256": "ded48a839b05b355dd9ac1adc31f1c78c0c41e0178a082a215c3f39eae2e7793",
+      "size_bytes": 1349
+    },
+    "validation/cpu-fp32/result.json": {
+      "sha256": "d1a5ad2e48dfdc596878b5d5b11364e916e69691b400a7de87afb5a67f240495",
+      "size_bytes": 1581
+    },
+    "validation/cpu-fp32/actual/out0.f32": {
+      "sha256": "289fdf96e86478d65f298894cecb8933d3e22c7be1cfa5c8f161083869d5fc56",
+      "size_bytes": 2113536
+    }
+  },
+  "finished_monotonic_ns": 117411012768265,
+  "wall_seconds": 6.146621396,
+  "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+  "remaining_scope_pids": [
+    "2297508"
+  ]
+}

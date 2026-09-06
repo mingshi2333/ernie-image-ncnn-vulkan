@@ -1,0 +1,78 @@
+{
+  "height": 48,
+  "width": 86,
+  "text_tokens": 64,
+  "tokens": 4192,
+  "seed": 20260905,
+  "weights": {
+    "x_embedder": "c7e838e73eacab54d637c3a12ff7e8a74723ce4ad30918033d6d4c4350505b8c",
+    "text_proj": "2392a8d33d7732567dde863708a0dd1cb86c55324ac6f4857479dbb80af693f4",
+    "time_embedding": "e114660cfd93e12c6844967c5b39ae43d195ef86ffcf0eb90c69bccbd114320a",
+    "adaLN_modulation": "a888b409adbe9b9558b8c7aafe41595ecce730ef850a2aac4232f49b5031bc49",
+    "final_norm": "12fa6e315102b34387b8790eb4f59adcfbe83187bcc8a734f5146b4646ee2067",
+    "final_linear": "80e961c277a916f9bcb584ab347cacac764a95b0abae3d55bd69a33af31322b2"
+  },
+  "official_revision": "bc68c81e2a1730a394d5fc9fae70713dee940140",
+  "reference_source_sha256": "0f1814f63008298707afea5d7bd22d0a16073f0a8e858037c198faa28027e926",
+  "scope": "Real projection/conditioning weights and synthetic inputs; no text encoder or denoising loop",
+  "component": "output",
+  "activation_scale": 512,
+  "wrapper_vs_official": [
+    {
+      "max_abs_error": 0.0,
+      "nrmse": 0.0,
+      "reference_max_abs": 96.0012435913086
+    }
+  ],
+  "inputs": {
+    "in0": {
+      "file": "in0.f32",
+      "shape": [
+        1,
+        4192,
+        4096
+      ],
+      "dtype": "float32_le",
+      "sha256": "228136cd8225f7732617a861593b0f59990bfd80c89ff109b912a10279d0ccbb"
+    },
+    "in1": {
+      "file": "in1.f32",
+      "shape": [
+        1,
+        4096
+      ],
+      "dtype": "float32_le",
+      "sha256": "1a6a675434cd973f0cf67f41add57f2ff496e50a0f99bc1f322b55ab110c1da1"
+    }
+  },
+  "expected": {
+    "out0": {
+      "file": "out0.f32",
+      "shape": [
+        1,
+        128,
+        48,
+        86
+      ],
+      "dtype": "float32_le",
+      "sha256": "a35af1d87e899dca5c44a5fd0b5dd1e87d25ef910750a9b8e85bfc7eb817a3e9"
+    }
+  },
+  "gates": {
+    "fp32": {
+      "atol": 0.0002,
+      "rtol": 0.0002,
+      "nrmse": 2e-05
+    },
+    "fp16": {
+      "atol": 0.03,
+      "rtol": 0.03,
+      "nrmse": 0.02
+    },
+    "bf16": {
+      "atol": 0.2,
+      "rtol": 0.2,
+      "nrmse": 0.1
+    }
+  }
+}

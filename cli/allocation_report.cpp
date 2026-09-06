@@ -67,7 +67,7 @@ std::string allocation_report_json(const AllocationHookSnapshot& s,bool initial,
         << ",\"host_time_scope\":\"cli_generation_and_image_write\",\"host_nanoseconds\":" << ns
         << ",\"cpu_rss\":null,\"gpu_time\":null,\"stage_coverage\":\"partial_known_intervals\",\"stage_time_scope\":\"non_overlapping host intervals; read_prepare includes ncnn load_model read, unpack, pipeline creation and upload plus inseparable head/VAE load-and-compute; PE and text preparation outside block execution are currently unclassified\","
         << "\"submission_scope\":\"observed block attention submissions and top-level initial/final transfers; other internal submissions unavailable\","
-        << "\"component_interval_scope\":\"diagnostic child intervals nested inside top-level phases; never add to stage_times\","
+        << "\"component_interval_scope\":\"diagnostic component lifecycle intervals; overlap stage_times and unclassified host time; never add to stage_times\","
         << "\"stage_times\":";
     if(execution) {
         static const char* names[]={"verify","read","prepare","read_prepare","upload","compute","wait","download"};

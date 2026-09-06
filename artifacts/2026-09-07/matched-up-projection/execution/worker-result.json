@@ -1,0 +1,21 @@
+{
+  "status": "completed",
+  "return_code": 0,
+  "stop_reason": null,
+  "elapsed_seconds": 62.36356429499574,
+  "peak_rss_sum_bytes": 1253306368,
+  "peak_whole_gpu_mib": 4140,
+  "scope": "/user.slice/user-1000.slice/user@1000.service/app.slice/ernie-q2-up84-v5.scope",
+  "memory_max_bytes": 10737418240,
+  "rss_limit_bytes": 9663676416,
+  "swap_max_bytes": 0,
+  "cpu_quota_percent": 200,
+  "cpu_affinity": [
+    0,
+    2
+  ],
+  "minimum_host_available_bytes": 3221225472,
+  "gpu_limit_mib": 6144,
+  "native_forwards_this_attempt_max": 1,
+  "formal_acceptance": false
+}

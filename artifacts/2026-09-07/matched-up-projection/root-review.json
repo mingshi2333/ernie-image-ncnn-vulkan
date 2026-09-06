@@ -1,0 +1,22 @@
+{
+  "status": "actual_independently_recomputed",
+  "elements": 51118080,
+  "differing_elements": 49730987,
+  "max_abs_error": 4.00543212890625e-05,
+  "max_error_flat_index": 31038882,
+  "max_error_row": 2525,
+  "max_error_channel": 11682,
+  "l2_error": 0.0076767669518343455,
+  "nrmse": 1.0643538842853389e-06,
+  "native_sha256": "08a04efd1011deab21bd492a4521e3f0cf7f2eea7f34816e2c168144eaa66602",
+  "official_sha256": "218e7f8d3d9908a6845d189ccbe9d355bd610c7663e472067fa7ae17fb91b6c7",
+  "same_input_sha256": "da8bc040080f6674042c860a372c8f004041dae617a0cdeffae96f3c2be61d54",
+  "native_out0_reproduced": true,
+  "forward_counts": {
+    "native_full_block": 1,
+    "official_full_block": 0,
+    "official_mlp_only": 1
+  },
+  "formal_acceptance": false,
+  "scope": "Same-input up projection only; does not prove complete MLP or image fix"
+}

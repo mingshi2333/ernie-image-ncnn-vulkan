@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "status": "prepared_not_executed",
+  "plan": {
+    "sha256": "f27951bd1c6df21b39b7adada94f1a1a9b1297c2a90a6d450e9578aac221357f",
+    "size": 111119
+  },
+  "worker": {
+    "sha256": "c5de4e0fbc4ec1d97e5aa068a85c15f4d1ff87a1f1ff2cfba1065c4318ae6e9b",
+    "size": 1392
+  },
+  "supervisor": {
+    "sha256": "ffd53a8b998c09d9f821d145471a79f0eccf696d2fd258404ccb0f3bb93ce00b",
+    "size": 3340
+  },
+  "binary": {
+    "sha256": "a336a60620489a890c7c5d32a594af5480b268a6eb9c51179fc19bee30bb147a",
+    "size": 36835320
+  },
+  "o1_off_result": {
+    "sha256": "1edfdc2a1834b0943110c958aa60c7b39b1f5c115648fe3cb9b11e0ae6769099",
+    "size": 412310
+  },
+  "o1_off_process": {
+    "sha256": "95fcf81e43d24b6fae371ba59f6b5512f6daec3434c99e8793533ed684cf1a04",
+    "size": 1048
+  },
+  "o1_off_png": {
+    "sha256": "fdd6e29e33800b7ca025d43f488b71499dac1cbfea099e1d96c09f31257e8fd7",
+    "size": 7420
+  },
+  "root_review": "305 source entries checked; two O2 code review findings closed; only metadata note and explicit CPU quota added to inherited supervisor. No numerical change."
+}

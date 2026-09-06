@@ -1,0 +1,66 @@
+{
+  "launcher": "3c374295af87870761cda6838bdc5e08d5390a0d573843f1decad3ba868cb965",
+  "plan": "71e36a2afae1a2f10442fbbfabbbd223cfc08ee158c0e8086da2c2fb8d32f25f",
+  "old_count": 6312,
+  "bound_count": 6342,
+  "added_sha256": {
+    "/usr/lib64/llvm18/lib/libarcher.so": "579c306c4f3ea11c8d7c7b8f3cac46cdc3ad3960bbd9ae5927faef6786ad3d06",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v5/execution/runner": "ec5de0277fb94beab136877253b44873aa44e0285a145c50598cc51981c5f720",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v5/execution/libncnn.a": "6b2a30d80585ae7075511f769263f5a3f93b65b38c6683b5654e9acdc53b7885",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v5/execution/diagnose_official_block_hooks.py": "28b44db3c270b52b597a7af6dd4f5d1cbf00c13327726aff44811c9970119785",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v5/execution/diagnose_up84_official.py": "ba08f5af9914f475bb93b9a011c03be4707ce6e154c4bd67d447c6bd79d0f630",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v5/execution/diagnose_up84_sequence.py": "6c44698d50cb9cab988cb877605683c9660d8b3125b533983add5b5972ffc578",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v5/execution/diagnose_up84_scope_guard.py": "86b50e9d9024ea2f533d5b2ccb1a437bdfb43ab6594ec7bbf01f52e3d07b0193",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v5/execution/diagnose_vulkan_inventory.py": "593e4b0e01b203847ddb492c2e23d8c9b07e82cdfa2e2e43d7979d840ac2bc5d",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v5/execution/loader-inventory.json": "bd639a19dc37bbc013a9e14f8f471b274bb0dbddf4416d0d069269eca0c890b1",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v5/execution/hardware.json": "c4fcc181ea2297b82f68e8a94d30c6ab3c2b1599026b99a4d628737304962899",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v5/execution/archer-closure.json": "133252910e700b9f1a0ba065115ff8da5040c7c6efcef1592eccbb7c3151e17e",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v5/execution/source/ernie_gelu.cpp": "7f995432188c01c26f3b5a353eec321713d269b38062336eaf2b0548f0e7fbf9",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v5/execution/source/ernie_gelu.h": "266da54a4815feb46ff7a5713b1d7ff661579e30ec34693c31c63ea699911d43",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v5/execution/source/ernie_attention.cpp": "56889eab40586f6913cb611dbe64bf976aba250b01d95553fb3ce01fb11d33f4",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v5/execution/source/ernie_attention.h": "ec0e750d1e891edcf7a1b2eb35674221e8643f83cf8544652cdcaac497fd2a76",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v5/execution/source/ernie_rmsnorm.cpp": "6e9c8974e734c522a898c709aa8ae38beebfbea6564179b9187a107ae34dd726",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v5/execution/source/ernie_rmsnorm.h": "3cf5dd044216e8524309cc5f828fe1f47e66ee76a85af04180182de12e671552",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v5/execution/source/ernie_residual.cpp": "c91a038bf3d3e183cb4c8193fe29f2f9369fe0339f108f7062a9e5329b3082fc",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v5/execution/source/ernie_residual.h": "961a70bc0b800b5bf123a3b60785f24909c25f722f36f600a35198fa2f450e0d",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v5/execution/source/ernie_groupnorm.cpp": "94d01911eff19ffdeae297bb7c9a524cdef3eaa29922c7c526a48fba4af8ca64",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v5/execution/source/ernie_groupnorm.h": "182ee12b0aaaf8b25099016ebe627777f462087b611476ca72e77528d07799e3",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v5/execution/source/diagnose_block_boundary.cpp": "5bcd8c74fb99828326f61cf7b3f6a97a4ff64f6ea6437bde62b939abb69a0a1c",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v5/execution/source/sdpa_shader.h": "1fb515243c588c5b77df3ece7d47dcf5e81e604cef442cffe12fe5e3d9e49e65",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v5/execution/imports/export_dit_block.py": "cc2957037b80cce840a0c09e2646c9290d66e7ce6907d57bc14c18978f49a12d",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v5/execution/imports/prepare_block.py": "8efa0964ab40017f9ba346979c8efe6ad50e6a4ac5a2dd961d59e8a59e779ff8",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v5/execution/loader-docs/LoaderDriverInterface.md": "6d30a1cf7c154932ac8356eef1d0c36c157cf2cba0f351c9116fee5a543eff54",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v5/execution/loader-docs/LoaderLayerInterface.md": "aeeb96c4c48107d63a9cf8115fa0b4d005563001df2b1bbd1c689d993d96928e",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v5/execution/loader-docs/LoaderSettingsFile.md": "2c614af0e7a7bf46cc5c32d7148562d584364df01b05c426a15e280f4dc99cac",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v5/execution/loader-docs/loader.c": "8c1feb7f3d29bdf4e6a404f5ddef76316c2e9af7c1c7b7e31be268305e1a229e",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v5/input81.f32": "da8bc040080f6674042c860a372c8f004041dae617a0cdeffae96f3c2be61d54"
+  },
+  "archer_closure": {
+    "/usr/lib64/llvm18/lib/libarcher.so": {
+      "sha256": "579c306c4f3ea11c8d7c7b8f3cac46cdc3ad3960bbd9ae5927faef6786ad3d06",
+      "ldd": "\tlinux-vdso.so.1 (0x00007f0fd158c000)\n\tlibstdc++.so.6 => /lib64/libstdc++.so.6 (0x00007f0fd1200000)\n\tlibgcc_s.so.1 => /lib64/libgcc_s.so.1 (0x00007f0fd150f000)\n\tlibc.so.6 => /lib64/libc.so.6 (0x00007f0fd1007000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007f0fd158e000)\n\tlibm.so.6 => /lib64/libm.so.6 (0x00007f0fd0ef0000)\n"
+    },
+    "/usr/lib64/libm.so.6": {
+      "sha256": "6f7365a58fc0778dbc8869d70cdd4822ab93d879c29e84bb491d447961735e56",
+      "ldd": "\tlinux-vdso.so.1 (0x00007f8b9d39a000)\n\tlibc.so.6 => /lib64/libc.so.6 (0x00007f8b9d044000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007f8b9d39c000)\n"
+    },
+    "/usr/lib64/ld-linux-x86-64.so.2": {
+      "sha256": "f0949392f14253241540dfeb152f5bd3cbd75f8a3e4f8d3fabc286a2daa27a68",
+      "ldd": "\tstatically linked\n"
+    },
+    "/usr/lib64/libc.so.6": {
+      "sha256": "01cccbe278d898add05282986a9346d4dda4b3d2b84bc496f9c04c66016528db",
+      "ldd": "\t/lib64/ld-linux-x86-64.so.2 (0x00007fe8d0982000)\n\tlinux-vdso.so.1 (0x00007fe8d0980000)\n"
+    },
+    "/usr/lib64/libgcc_s-16-20260819.so.1": {
+      "sha256": "c71a62b5ef442ab8cf4470874dee6f2383d73a744f0006b6d287412f131c2e09",
+      "ldd": "\tlinux-vdso.so.1 (0x00007f3f17503000)\n\tlibc.so.6 => /lib64/libc.so.6 (0x00007f3f17297000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007f3f17505000)\n"
+    },
+    "/usr/lib64/libstdc++.so.6.0.36": {
+      "sha256": "fc224ee3cc56b9b3e58453bfb9a0cac3a696e60fd33ba48b6a30eb22b76cc867",
+      "ldd": "\tlinux-vdso.so.1 (0x00007f477e333000)\n\tlibm.so.6 => /lib64/libm.so.6 (0x00007f477dee9000)\n\tlibc.so.6 => /lib64/libc.so.6 (0x00007f477dcf0000)\n\tlibgcc_s.so.1 => /lib64/libgcc_s.so.1 (0x00007f477e2c0000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007f477e335000)\n"
+    }
+  },
+  "old_entries_unchanged": true,
+  "runtime_bytes_unchanged": true
+}

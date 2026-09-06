@@ -1,0 +1,94 @@
+{
+  "status": "completed_pending_independent_reference_review",
+  "phase": "official-input",
+  "controls": {
+    "memory.max": "17179869184",
+    "memory.swap.max": "0",
+    "cpu.max": "200000 100000"
+  },
+  "scope_cpu_budget": 2,
+  "native_ncnn_threads": 4,
+  "official_torch_threads": 2,
+  "plan_sha256": "79d8b3927194f2fdfae2b5329b3a2bc78ad7603629032e2b21a48ba5a308bb13",
+  "error": null,
+  "exit_code": 0,
+  "host_min_observed": 16810020864,
+  "peak_cgroup_memory_current": 4713254912,
+  "started_monotonic_ns": 116959349734157,
+  "argv": [
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-heads1376-preparation-v1/source/tools/export_dit_heads.py",
+    "--output",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-heads1376-preparation-v1/official-input/reference",
+    "--height",
+    "48",
+    "--width",
+    "86",
+    "--text-tokens",
+    "64",
+    "--only",
+    "input",
+    "--reference-only",
+    "--threads",
+    "2",
+    "--official-root",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/official"
+  ],
+  "worker_pid": 2289327,
+  "outputs": {
+    "reference/input/in0.f32": {
+      "sha256": "b2a384ece486abdaa5cd3a110307f8a9b1b934c591e4a8bbcaa82902876ffe20",
+      "size_bytes": 2113536
+    },
+    "reference/input/in1.f32": {
+      "sha256": "2e9a8e2b1ec88ecf5c0a55b22ffe5059d62bf0e06ab2b0c095dba4ba2ffe5571",
+      "size_bytes": 786432
+    },
+    "reference/input/in2.f32": {
+      "sha256": "cbdb74f8ed28761a4f99c179b272f8182f9bae2a3b6243e971b3334d68d00b6d",
+      "size_bytes": 16384
+    },
+    "reference/input/out0.f32": {
+      "sha256": "60bb57ec45de3747b29fa7dd7110994163990a57e63f9e07e47b4ded5ca5942d",
+      "size_bytes": 68681728
+    },
+    "reference/input/out1.f32": {
+      "sha256": "1a6a675434cd973f0cf67f41add57f2ff496e50a0f99bc1f322b55ab110c1da1",
+      "size_bytes": 16384
+    },
+    "reference/input/out2.f32": {
+      "sha256": "19f47df5a55c12f7000aaa4099e8ac71f8345650632c0165ae0371e9a081b5bd",
+      "size_bytes": 16384
+    },
+    "reference/input/out3.f32": {
+      "sha256": "6b26a45f5da7109cfa183e5b2e19b81d71879b2e2c2d4c214a8fdba118a1d4d7",
+      "size_bytes": 16384
+    },
+    "reference/input/out4.f32": {
+      "sha256": "91ba320da8653f2b35e71534e87fd58c1c71181d299c41848a26e920c033b93b",
+      "size_bytes": 16384
+    },
+    "reference/input/out5.f32": {
+      "sha256": "ef0a7df2eb337885382867900ae2f2a39bf17247817b5b07599e4b30cee8a7fa",
+      "size_bytes": 16384
+    },
+    "reference/input/out6.f32": {
+      "sha256": "878938fe3180021eeef73684e6c5828421e9a4f0bba1ba03b5c6f68095112062",
+      "size_bytes": 16384
+    },
+    "reference/input/out7.f32": {
+      "sha256": "07eea455cbb723c2e5b3d8d762b8454836201762286de010de4aa0bb8a5614b9",
+      "size_bytes": 16384
+    },
+    "reference/input/fixture.json": {
+      "sha256": "f0b9d7150a872a9090065bd28132e8ceeba477bd8cc9e91b3c3c8146bc30e825",
+      "size_bytes": 4524
+    }
+  },
+  "finished_monotonic_ns": 116971289762848,
+  "wall_seconds": 11.940028691,
+  "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+  "remaining_scope_pids": [
+    "2289162"
+  ]
+}

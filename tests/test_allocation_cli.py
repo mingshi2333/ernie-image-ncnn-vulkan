@@ -17,7 +17,7 @@ class AllocationCliTests(unittest.TestCase):
   self.assertTrue(v['valid']);self.assertFalse(v['trace_enabled']);self.assertFalse(v['formal_speed_eligible']);self.assertFalse(v['formal_memory_eligible'])
   self.assertEqual(v['stage_times']['verify']['host_nanoseconds'],10);self.assertEqual(v['stage_times']['submissions'],3)
   self.assertIsNone(v['stage_times']['upload_bytes']);self.assertIsNone(v['stage_times']['verify']['gpu_nanoseconds'])
-  self.assertEqual(v['component_interval_scope'],'diagnostic child intervals nested inside top-level phases; never add to stage_times')
+  self.assertEqual(v['component_interval_scope'],'diagnostic component lifecycle intervals; overlap stage_times and unclassified host time; never add to stage_times')
   self.assertEqual(v['stage_times']['component_intervals'][0],{'component':'dit/block','absolute_step':2,'block':7,'boundary':'net_setup_param','host_nanoseconds':4,'status':'complete'})
   self.assertEqual(v['devices'][0]['name'],'fake "device"\n');self.assertEqual(v['run_status'],'success');self.assertNotIn('schema_version',r.stdout)
   self.assertTrue(v['execution_finished_successfully'])

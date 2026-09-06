@@ -1,0 +1,55 @@
+{
+  "scope": "Selected actual records; large model, binary, tensor and source archives remain at authenticated local paths",
+  "files": {
+    "actual-review.json": {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/execution-metrics-component64-o2-v1/actual-review.json",
+      "size_bytes": 5996,
+      "sha256": "d75a71bba627784b730c77a9c9cd64667c9fac7616e9062bfb3b4da84cefe0bc"
+    },
+    "identity.json": {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/execution-metrics-component64-o2-v1/identity.json",
+      "size_bytes": 1096,
+      "sha256": "8482bef75decd79ce5968a41c67118baf1f1c6c1574840b6920aff78067b09e6"
+    },
+    "plan.json": {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/execution-metrics-component64-o2-v1/plan.json",
+      "size_bytes": 111119,
+      "sha256": "f27951bd1c6df21b39b7adada94f1a1a9b1297c2a90a6d450e9578aac221357f"
+    },
+    "worker.py": {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/execution-metrics-component64-o2-v1/worker.py",
+      "size_bytes": 1392,
+      "sha256": "c5de4e0fbc4ec1d97e5aa068a85c15f4d1ff87a1f1ff2cfba1065c4318ae6e9b"
+    },
+    "supervisor.py": {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/execution-metrics-component64-o2-v1/supervisor.py",
+      "size_bytes": 3340,
+      "sha256": "ffd53a8b998c09d9f821d145471a79f0eccf696d2fd258404ccb0f3bb93ce00b"
+    },
+    "external-result.json": {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/execution-metrics-component64-o2-v1/external-result.json",
+      "size_bytes": 148,
+      "sha256": "6c92ec159ac1d1ec5e2329c1c588f7f6577bb545e82c39d9323d8f46f2acda8f"
+    },
+    "on/process.json": {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/execution-metrics-component64-o2-v1/on/process.json",
+      "size_bytes": 1225,
+      "sha256": "23ad59f49b2b43fa5aef668d7337f86338e8bc4ee07211c5bc21c31756a7aadd"
+    },
+    "on/metrics.json": {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/execution-metrics-component64-o2-v1/on/metrics.json",
+      "size_bytes": 436587,
+      "sha256": "8d246dfcde2c6871fa578f3670596410a2e38004b6ec1d5f4bd0ee104b160198"
+    },
+    "label-correction-check/result.json": {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/execution-metrics-component64-o2-v1/label-correction-check/result.json",
+      "size_bytes": 128,
+      "sha256": "0329ed11ed7948ab6c982794e838688ccb7cb500f7ba15bcbd75ffc6f4a3aa0c"
+    },
+    "label-correction-check/test.log": {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/execution-metrics-component64-o2-v1/label-correction-check/test.log",
+      "size_bytes": 301,
+      "sha256": "1e04f68e8faf35bc580d5b3b704aa0338ab9a3fcea1c047d8fc726067017c25c"
+    }
+  }
+}

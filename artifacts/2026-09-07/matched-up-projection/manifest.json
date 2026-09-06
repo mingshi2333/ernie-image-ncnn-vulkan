@@ -1,0 +1,30 @@
+{
+  "scope": "Selected actual records; large model, binary, tensor and source archives remain at authenticated local paths",
+  "files": {
+    "result.json": {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-up84-v5/result.json",
+      "size_bytes": 707,
+      "sha256": "d1dfc360c8bde415339c7a219922c5e28001c9e271dce4a12c15b837d6c69ff3"
+    },
+    "official-observation.json": {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-up84-v5/official-observation.json",
+      "size_bytes": 410,
+      "sha256": "25ced22958a37cf1b919084c83aaa85b17075deb67f0d5b7058612dc6ac510f8"
+    },
+    "execution/worker-result.json": {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-up84-v5/execution/worker-result.json",
+      "size_bytes": 569,
+      "sha256": "aeeaa9a410dd118da16990aa0ee53a1e6c477009d851128a807836739a82e42f"
+    },
+    "delta-review.json": {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-up84-v5/delta-review.json",
+      "size_bytes": 7437,
+      "sha256": "aeffd68456d4e55d8562aef7fe778b79841700f4a698796440bda48980262aee"
+    },
+    "root-review.json": {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.superpowers/sdd/2026-09-06-surpass-reference/task-Q2-up84-v5-root-result-review.json",
+      "size_bytes": 841,
+      "sha256": "8c75064a1e30fda287ad6f1986a28da24790a4015be2b1429c41145fc07abb3e"
+    }
+  }
+}

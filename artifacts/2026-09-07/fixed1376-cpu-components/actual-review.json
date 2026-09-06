@@ -1,0 +1,185 @@
+{
+  "status": "passed_fixed_cpu_heads_full_output_review",
+  "shape": {
+    "height": 48,
+    "width": 86,
+    "text_tokens": 64
+  },
+  "pipeline_tokens": 4192,
+  "expected_outputs": 9,
+  "outputs": {
+    "input/out0": {
+      "elements": 17170432,
+      "shape": [
+        1,
+        4192,
+        4096
+      ],
+      "max_abs_error": 0.00014495849609375,
+      "max_abs_limit": 0.01859576416015625,
+      "nrmse": 2.2488584735590084e-07,
+      "nrmse_limit": 2e-05,
+      "actual_sha256": "ed999740b31407060390da1481089fefe5045672b935101725397db8ca385ed5",
+      "reference_sha256": "60bb57ec45de3747b29fa7dd7110994163990a57e63f9e07e47b4ded5ca5942d",
+      "passed": true
+    },
+    "input/out1": {
+      "elements": 4096,
+      "shape": [
+        1,
+        4096
+      ],
+      "max_abs_error": 2.6226043701171875e-06,
+      "max_abs_limit": 0.0009518899440765381,
+      "nrmse": 4.65748488715702e-07,
+      "nrmse_limit": 2e-05,
+      "actual_sha256": "d6a964b07652f214b6cff7c180b1bba9be4eaf9680b50c6bbfde8791b7b8e892",
+      "reference_sha256": "1a6a675434cd973f0cf67f41add57f2ff496e50a0f99bc1f322b55ab110c1da1",
+      "passed": true
+    },
+    "input/out2": {
+      "elements": 4096,
+      "shape": [
+        1,
+        1,
+        4096
+      ],
+      "max_abs_error": 1.6689300537109375e-06,
+      "max_abs_limit": 0.001161923885345459,
+      "nrmse": 4.4555066721404607e-07,
+      "nrmse_limit": 2e-05,
+      "actual_sha256": "1e8ce19b70ff965673b3ca6f6735e74a8dabe3fb588cc477c63d11845d54f305",
+      "reference_sha256": "19f47df5a55c12f7000aaa4099e8ac71f8345650632c0165ae0371e9a081b5bd",
+      "passed": true
+    },
+    "input/out3": {
+      "elements": 4096,
+      "shape": [
+        1,
+        1,
+        4096
+      ],
+      "max_abs_error": 3.933906555175781e-06,
+      "max_abs_limit": 0.0008890304565429688,
+      "nrmse": 5.834697686805924e-07,
+      "nrmse_limit": 2e-05,
+      "actual_sha256": "0c6aa1085669f3bea0caee9fcf3c88e4d12985c786120d8ea1f18a64b7995076",
+      "reference_sha256": "6b26a45f5da7109cfa183e5b2e19b81d71879b2e2c2d4c214a8fdba118a1d4d7",
+      "passed": true
+    },
+    "input/out4": {
+      "elements": 4096,
+      "shape": [
+        1,
+        1,
+        4096
+      ],
+      "max_abs_error": 5.7220458984375e-06,
+      "max_abs_limit": 0.0018358360290527346,
+      "nrmse": 3.994805343743853e-07,
+      "nrmse_limit": 2e-05,
+      "actual_sha256": "44b64fadad73c8c7252d059c73f5dd563c774c38fdd6af852acd650c7745269a",
+      "reference_sha256": "91ba320da8653f2b35e71534e87fd58c1c71181d299c41848a26e920c033b93b",
+      "passed": true
+    },
+    "input/out5": {
+      "elements": 4096,
+      "shape": [
+        1,
+        1,
+        4096
+      ],
+      "max_abs_error": 1.1920928955078125e-06,
+      "max_abs_limit": 0.0015410469055175784,
+      "nrmse": 2.7421244444602525e-07,
+      "nrmse_limit": 2e-05,
+      "actual_sha256": "3a8aaca206193eb29533664a28abac6f5514370d13259ce8878a29be4a630c19",
+      "reference_sha256": "ef0a7df2eb337885382867900ae2f2a39bf17247817b5b07599e4b30cee8a7fa",
+      "passed": true
+    },
+    "input/out6": {
+      "elements": 4096,
+      "shape": [
+        1,
+        1,
+        4096
+      ],
+      "max_abs_error": 1.4901161193847656e-06,
+      "max_abs_limit": 0.00044951701164245607,
+      "nrmse": 5.593460768747086e-07,
+      "nrmse_limit": 2e-05,
+      "actual_sha256": "4ef33932e8b6393f4faf0ededfa37db1c2dd21f35849191b42049fb0b6186cc4",
+      "reference_sha256": "878938fe3180021eeef73684e6c5828421e9a4f0bba1ba03b5c6f68095112062",
+      "passed": true
+    },
+    "input/out7": {
+      "elements": 4096,
+      "shape": [
+        1,
+        1,
+        4096
+      ],
+      "max_abs_error": 1.33514404296875e-05,
+      "max_abs_limit": 0.004699652862548828,
+      "nrmse": 5.093464676845732e-07,
+      "nrmse_limit": 2e-05,
+      "actual_sha256": "f60ee63005e85f5da6c8082130258aa5530a9b3a16aa270cb09e3ff501043f21",
+      "reference_sha256": "07eea455cbb723c2e5b3d8d762b8454836201762286de010de4aa0bb8a5614b9",
+      "passed": true
+    },
+    "output/out0": {
+      "elements": 528384,
+      "shape": [
+        1,
+        128,
+        48,
+        86
+      ],
+      "max_abs_error": 0.00030517578125,
+      "max_abs_limit": 0.01940024871826172,
+      "nrmse": 1.3024054540611917e-06,
+      "nrmse_limit": 2e-05,
+      "actual_sha256": "289fdf96e86478d65f298894cecb8933d3e22c7be1cfa5c8f161083869d5fc56",
+      "reference_sha256": "a35af1d87e899dca5c44a5fd0b5dd1e87d25ef910750a9b8e85bfc7eb817a3e9",
+      "passed": true
+    }
+  },
+  "phases": {
+    "official-input": {
+      "wall_seconds": 11.940028691,
+      "sampled_cgroup_peak_bytes": 4713254912,
+      "host_min_bytes": 16810020864,
+      "samples": 90,
+      "exit_code": 0,
+      "result_sha256": "f0ed659bbfe19927dab2e3871efd3bb5a49ebbab6f75d4abc85b3ab2bc496848"
+    },
+    "native-input": {
+      "wall_seconds": 9.73467815,
+      "sampled_cgroup_peak_bytes": 1753591808,
+      "host_min_bytes": 17541914624,
+      "samples": 64,
+      "exit_code": 0,
+      "result_sha256": "806cbb8d8c91aa4cb83accddbcf14fc83e20fa11f8004a40be23302e20545cdf"
+    },
+    "official-output": {
+      "wall_seconds": 9.899217849,
+      "sampled_cgroup_peak_bytes": 1997340672,
+      "host_min_bytes": 16907591680,
+      "samples": 88,
+      "exit_code": 0,
+      "result_sha256": "c7ec15d9d104ee32c73d9f57ad32b14b99232eafbf87c6a3f7c6c8c2686ab4e8"
+    },
+    "native-output": {
+      "wall_seconds": 6.146621396,
+      "sampled_cgroup_peak_bytes": 394432512,
+      "host_min_bytes": 18085642240,
+      "samples": 13,
+      "exit_code": 0,
+      "result_sha256": "3c43c4afc00a51518c8585401e4e9473f4c850ffd91fa9e94117997da7a549e1"
+    }
+  },
+  "production_registry_changed": false,
+  "complete_image_validated": false,
+  "formal_eligible": false,
+  "runtime_scope": "Source/weights and previously authenticated runtime file identities were fully checked before and after each phase by the reused guard. No new transient loader discovery is claimed."
+}

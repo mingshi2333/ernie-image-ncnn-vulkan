@@ -1,0 +1,168 @@
+{
+  "status": "passed_fixed64_component_metrics_regression",
+  "trace_files": {
+    "prompt.txt": {
+      "sha256": "e631f4e8903437dc03ed25b2186468983bd29d13a59b86b6b5b251bae4ec7ac6",
+      "size_bytes": 62
+    },
+    "ids.txt": {
+      "sha256": "306c32c4d1a66c6cd3cfdeb1579b686c63be71387bee9f30e90fbbed3c4fdba9",
+      "size_bytes": 77
+    },
+    "text.f32": {
+      "sha256": "10321b1d3eae2796260db030408bf58c025c74612945717efbd3551c91c522f1",
+      "size_bytes": 184320
+    },
+    "initial.f32": {
+      "sha256": "4b6fbf045688cc0ed9c9e589b9dc0cd2955f2ac9847a581357c4fc16d4c204e1",
+      "size_bytes": 8192
+    },
+    "padded-text.f32": {
+      "sha256": "e880685c75722a4bf7ac325fe2dd59b62dd652ed68d12564f09cfb89f5cda83f",
+      "size_bytes": 3342336
+    },
+    "constant-0.f32": {
+      "sha256": "b52049d9ec27dac514ee69bf62b799edb8e45191ad5522e817d1e7705412dbc1",
+      "size_bytes": 147456
+    },
+    "constant-1.f32": {
+      "sha256": "71cd9d25c3fc3fbf646dcff91e298b15fcf3c415eb79462d81e9cfd964bcc04b",
+      "size_bytes": 147456
+    },
+    "constant-2.f32": {
+      "sha256": "71ba600d0841d55b95bea94c0e17b5edb3311e1dfc56cda0723894ac1015d0a3",
+      "size_bytes": 331776
+    },
+    "prediction-0.f32": {
+      "sha256": "22c10242185eac5bf8408f0ef738c2efb6e9667b28540e4b71bcd541e7015211",
+      "size_bytes": 8192
+    },
+    "step-0.f32": {
+      "sha256": "7a362569cef6fb43718acaf273218d8c534c5099505090f4f26019ac1183cea7",
+      "size_bytes": 8192
+    },
+    "prediction-1.f32": {
+      "sha256": "879429115cfe583b6d43b43595f08ced21cd93d6ae6e2d2a8bf6392c222d774c",
+      "size_bytes": 8192
+    },
+    "step-1.f32": {
+      "sha256": "c19ec72053b8c41f2eaf268049c6b5f0447f6551b5ced3d397ca68696d3c8821",
+      "size_bytes": 8192
+    },
+    "prediction-2.f32": {
+      "sha256": "d8c7ef0dd6db9dfde67a71ee971a2bca34f29b042faab44f538ed3b950aeacb4",
+      "size_bytes": 8192
+    },
+    "step-2.f32": {
+      "sha256": "92d06dce1772bd8eed4dce1987e445f22a25e74cc4b33390a75f7665b22da7ba",
+      "size_bytes": 8192
+    },
+    "prediction-3.f32": {
+      "sha256": "cd035715f842ef44bd1d450d72f138f32e99ee2c02b62cc7d4d3500b325ca2fa",
+      "size_bytes": 8192
+    },
+    "step-3.f32": {
+      "sha256": "9d0621ef2a4180c2452aeba9ae6837183bee6a77d7d2a57772c7116a9173c3ce",
+      "size_bytes": 8192
+    },
+    "prediction-4.f32": {
+      "sha256": "06b0f1911b2b00ee809744a3226c5c62b9b4b8e5542295566ed4b1b5747e9191",
+      "size_bytes": 8192
+    },
+    "step-4.f32": {
+      "sha256": "c0d75e8850b4d34d0d73a921c45f0fe15e5a8a8b908a295cd6a483b48f3d0309",
+      "size_bytes": 8192
+    },
+    "prediction-5.f32": {
+      "sha256": "5179f9221201df478fa3da1132191bdd3b98b784f4717679ca36b77c113ad60f",
+      "size_bytes": 8192
+    },
+    "step-5.f32": {
+      "sha256": "7a50c00ca3ce0cfff59846c305cd3ab19eadb192735ce7b676edc581fa4b5613",
+      "size_bytes": 8192
+    },
+    "prediction-6.f32": {
+      "sha256": "75844c5393cfc09440e990be46e7000d3d2628dee009b405619a04dd9f604d64",
+      "size_bytes": 8192
+    },
+    "step-6.f32": {
+      "sha256": "a72795349728e720a4c2858cdc68fbc67a1feaf5b5837139c75750ad2d8659e2",
+      "size_bytes": 8192
+    },
+    "prediction-7.f32": {
+      "sha256": "1eb3a7a2ddb22dce7c6072162f856acd666dd61c87dc2703029508e21d16016e",
+      "size_bytes": 8192
+    },
+    "step-7.f32": {
+      "sha256": "745615a20316c18b442ee6d6fc6ca222964cebb5c1357e0c11443f60677d9c8f",
+      "size_bytes": 8192
+    },
+    "final.f32": {
+      "sha256": "745615a20316c18b442ee6d6fc6ca222964cebb5c1357e0c11443f60677d9c8f",
+      "size_bytes": 8192
+    },
+    "unpacked.f32": {
+      "sha256": "95f00a0d8633a346a50f281cde6579dd693d46365968fac2baf3118f07028c69",
+      "size_bytes": 8192
+    },
+    "decoded.f32": {
+      "sha256": "1bbbd9576c34d2493fc101e92e513ea6f40c7c489b96ef263494c284d4139cdb",
+      "size_bytes": 49152
+    }
+  },
+  "finite_f32_files": 25,
+  "png_sha256": "fdd6e29e33800b7ca025d43f488b71499dac1cbfea099e1d96c09f31257e8fd7",
+  "all_traces_and_png_bitwise_equal_to_preserved_o1_off": true,
+  "component_intervals": 1320,
+  "component_coordinates": 330,
+  "component_nanoseconds": {
+    "text": {
+      "net_setup_param": 5137528,
+      "model_load_composite": 13993036769,
+      "extract_compute_composite": 829516589,
+      "net_destroy": 823391216
+    },
+    "dit/block": {
+      "net_setup_param": 67541795,
+      "model_load_composite": 303815138898,
+      "extract_compute_composite": 22536519689,
+      "net_destroy": 3019124459
+    },
+    "dit/input-head": {
+      "net_setup_param": 634027,
+      "model_load_composite": 6323674415,
+      "extract_compute_composite": 53753475,
+      "net_destroy": 49862632
+    },
+    "dit/output-head": {
+      "net_setup_param": 699328,
+      "model_load_composite": 1547849108,
+      "extract_compute_composite": 15235672,
+      "net_destroy": 13540182
+    },
+    "vae/decode": {
+      "net_setup_param": 3907464,
+      "model_load_composite": 104913848,
+      "extract_compute_composite": 289965766,
+      "net_destroy": 109233
+    }
+  },
+  "top_phase_sum_nanoseconds": 371513184120,
+  "host_nanoseconds": 373090690131,
+  "unclassified_host_nanoseconds": 1577506011,
+  "allocation_total": {
+    "live_bytes": 0,
+    "peak_bytes": 968724992,
+    "allocations": 2375
+  },
+  "allocator_generations_all_closed": 1254,
+  "process_wall_seconds": 393.6473785989947,
+  "sample_count": 7809,
+  "sampled_cgroup_peak_bytes": 9592795136,
+  "host_min_bytes": 16788799488,
+  "sample_memory_scope": "memory_current field stores cumulative observed scope peak, not per-process RSS",
+  "phase_label_correction": "Recorded raw component_interval_scope was too broad. Text Net destruction belongs to unclassified host time. Source label corrected after this run; duration records are unchanged and never added to stage_times.",
+  "formal_speed_eligible": false,
+  "formal_memory_eligible": false,
+  "interpretation": "DiT model_load_composite dominates this trace diagnostic. It includes load/read/unpack/pipeline creation/upload/waits, not pure file IO."
+}

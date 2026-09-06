@@ -1,0 +1,43 @@
+{
+  "argv": [
+    "systemd-run",
+    "--user",
+    "--scope",
+    "--quiet",
+    "--unit=ernie-native-heads1376-v1",
+    "-p",
+    "MemoryMax=17179869184",
+    "-p",
+    "MemorySwapMax=0",
+    "-p",
+    "CPUQuota=200%",
+    "taskset",
+    "-c",
+    "12,14",
+    "env",
+    "-u",
+    "PYTHONPATH",
+    "CUDA_VISIBLE_DEVICES=",
+    "OMP_NUM_THREADS=2",
+    "OPENBLAS_NUM_THREADS=2",
+    "MKL_NUM_THREADS=2",
+    "HF_HUB_OFFLINE=1",
+    "TRANSFORMERS_OFFLINE=1",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-heads1376-preparation-v1/run.py",
+    "--phase",
+    "official-input",
+    "--plan-sha256",
+    "79d8b3927194f2fdfae2b5329b3a2bc78ad7603629032e2b21a48ba5a308bb13"
+  ],
+  "identity": {
+    "plan_sha256": "79d8b3927194f2fdfae2b5329b3a2bc78ad7603629032e2b21a48ba5a308bb13",
+    "run_sha256": "cdfdf58c27805d835b22c3d5f38a15cbf157996d45cd346c6c9958498e2a322a",
+    "source_count": 307,
+    "runtime_file_count": 2822,
+    "bindings": 3152,
+    "binding_bytes": 5063407290,
+    "gates_unchanged": true,
+    "model_executed": false
+  }
+}
