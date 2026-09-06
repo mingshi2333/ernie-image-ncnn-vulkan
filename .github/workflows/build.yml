@@ -31,15 +31,15 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y cmake ninja-build g++ libpng-dev libvulkan-dev mesa-vulkan-drivers
-          rustup update stable --no-self-update
-          rustup default stable
+          rustup toolchain install 1.98.0 --profile minimal --no-self-update
+          rustup default 1.98.0
           rustc --version
       - name: Configure pinned ncnn and native tokenizer
         run: >-
           cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
           -DERNIE_ENABLE_VULKAN=${{ matrix.vulkan }}
-          -DERNIE_BUILD_TOKENIZER=ON -DERNIE_BUILD_GENERATOR=ON
-          -DNCNN_SYSTEM_GLSLANG=OFF -DNCNN_INT8=OFF
+          -DERNIE_BUILD_TOKENIZER=ON -DERNIE_BUILD_GENERATOR=ON -DERNIE_INSTALL_SDK=ON
+          -DNCNN_SYSTEM_GLSLANG=OFF -DNCNN_INT8=OFF -DNCNN_WEIGHT_QUANT=OFF
       - name: Build
         run: cmake --build build --parallel 2
       - name: Model-free runtime and package contracts
@@ -50,3 +50,5 @@ jobs:
         run: |
           cmake --install build --prefix "$RUNNER_TEMP/ernie-install"
           "$RUNNER_TEMP/ernie-install/bin/ernie-image" --help
+      - name: Model download contracts with local HTTP fixtures
+        run: python3 -W error::ResourceWarning -m unittest tests.test_model_download tests.test_release_manifest -v

@@ -29,10 +29,41 @@ binary distribution.
 The root CMake file delegates targets to their owning directories. A CLI-only
 configuration can add `-DBUILD_TESTING=OFF -DERNIE_BUILD_PROBES=OFF`. Conversion
 and diagnostic runners still use the documented `build/ernie-*-runner` paths
-when enabled. Applications can link the source-tree target `ernie::pipeline`
-and include `ernie/pipeline.h`; generation returns RGB pixels and uses a progress
-callback, without requiring command-line parsing or libpng. See
-`docs/CODE-STRUCTURE.md` in the source repository.
+when enabled. Applications can link `ernie::pipeline` and include
+`ernie/pipeline.h`; generation returns RGB pixels and uses a progress callback,
+without requiring command-line parsing or libpng. For a separate C++ application,
+configure the producer with `-DERNIE_INSTALL_SDK=ON` and install it. This installs
+the public header, pipeline archives, native tokenizer and the same pinned ncnn
+used by the executable. Vulkan SDK builds use `NCNN_SYSTEM_GLSLANG=OFF` so the
+shader compiler archives move with the prefix. Allocation-instrumented builds
+remain separate diagnostic builds.
+
+The external application's CMake file only needs:
+
+```cmake
+find_package(Ernie 0.1.0 EXACT CONFIG REQUIRED)
+add_executable(my-app main.cpp)
+target_link_libraries(my-app PRIVATE ernie::pipeline)
+```
+
+Configure that application with `-DCMAKE_PREFIX_PATH=/path/to/installation`.
+It needs a compatible C++/OpenMP toolchain and the system libraries described
+above; it does not need this checkout, Cargo, Python, PNG headers or ncnn headers
+in its own source. The installed configuration always imports the bundled ncnn,
+so load Ernie before a separate ncnn package. The public interface is a source
+API; version 0.1.0 does not promise a stable binary ABI across toolchains.
+
+Linux presets additionally include SDK installation and model-free tests
+(CMake 3.21+ and Ninja): `cmake --preset linux-cpu` or
+`cmake --preset linux-vulkan`, followed by the same `cmake --build --preset` and
+`ctest --preset` name. Manual configuration above still supports CMake 3.19.
+The installation consumer test moves the prefix into a path with spaces and
+Chinese characters, builds a separate application, and checks package rejection.
+The explicit Linux evidence command `python3 tests/test_install.py --build BUILD
+--output NEW_DIRECTORY --isolate-source` additionally uses bubblewrap to hide the
+checkout/build paths and disable networking. Its output must be outside the
+checkout. These small installation checks do not execute ERNIE model inference
+or establish Windows/macOS support. See `docs/CODE-STRUCTURE.md` for ownership.
 
 Convert and assemble the official components using `docs/REPRODUCE-PIPELINE.md`
 in the source repository. To turn an existing local symlink package into a portable model:
@@ -182,8 +213,8 @@ bucket. The official tokenizer's 2048-token maximum still applies.
 ## Reviewed image-to-image package and CLI
 
 Schema-3 packages remain text-to-image compatible when their `encoder` entry is
-`unavailable`. The single reviewed 512x384 encoder can be added while assembling
-its matching static source:
+`unavailable`. The reviewed 512x384 or 1024x1024 encoder can be added while
+assembling its matching static source. For the 512x384 instance:
 
 ```sh
 python tools/package_dynamic_model.py --schema3 \
@@ -196,7 +227,11 @@ build/ernie-image --model models/turbo512x384-img2img-shared --verify-model
 The builder checks the exact encoder graph, weights, official fixture,
 specialization record, source manifests, posterior mode, packing and asymmetric
 BN constants before copying encoder bytes into the package object store. The
-reviewed shape is only 512x384; 1024 and arbitrary encoder claims are rejected.
+reviewed shapes are exactly 512x384 and 1024x1024, each bound to its own graph and
+official/native evidence. Other encoder shapes are rejected. The 1024 encoder
+uses the same learned weights and only the reviewed spatial reshapes; its
+production strength-zero reconstruction has passed all six tensor boundaries
+and PNG max1. Positive-strength 1024 validation is still pending.
 
 ```sh
 build/ernie-image --model models/turbo512x384-img2img-shared \
@@ -217,8 +252,9 @@ and accepts no prompt, PE, embeddings or text reduction. Positive strength uses
 the saved `--latent` as noise when supplied and executes a suffix of the original
 full schedule. A trace stores the transformed RGB, preprocessing metadata,
 encoder boundaries, saved noise and absolute schedule step filenames. The
-15-case image-to-image acceptance matrix remains pending; current evidence covers
-one 512x384 development reconstruction.
+15-case image-to-image acceptance matrix remains pending. Current development
+evidence covers 512x384 strength zero and .5, plus 1024x1024 strength zero; these
+fixed inputs do not establish acceptance across the full matrix.
 
 The build workflow checks CPU and software Vulkan kernels and the corruption/relocation
 contracts without downloading weights. It has been prepared locally; a GitHub

@@ -39,7 +39,7 @@ ernie-image-ncnn-vulkan/
 │   ├── shape_graph.*        # 完整图身份与允许变化的形状字段
 │   └── tensor_io.*          # 诊断张量的读写
 ├── tokenizer/               # Rust C ABI、官方 Tokenizers、完整包校验
-├── cmake/                   # 固定依赖与受散列约束的 shader 派生
+├── cmake/                   # 固定依赖、shader 派生与安装包导出
 ├── probes/                  # 转换/诊断用原生程序
 ├── tools/                   # 下载、转换、打包、官方参考与验收脚本
 ├── tests/                   # 不需要下载权重的回归检查及小型 fixtures
@@ -69,7 +69,7 @@ flowchart LR
 
 PE 的 26 层和缓存全部释放后才开始图像文本编码；文本权重在 DiT 前释放；DiT 权重在 VAE 前释放。`PeSession` 只管理缓存，不负责模板、分词或采样。单 token 图使用原生不透明缓存句柄和独立 allocator，prefill 按实际 token 顺序执行，不把 padding 写入历史。
 
-图像模型包由 `ModelPackage` 在 Rust 层完整验证，随后以 `ComponentFiles` 传递内存中的图文本与权重文件路径。文本编码、DiT heads/blocks、VAE encoder 和 VAE 解码使用同一加载边界；组件不解析 JSON，也不负责查找包。旧 probes 的目录参数通过适配器进入同一加载器。schema-3 将已审查的 512×384/s2048 与 1024×1024/s64 实例绑定到共享对象；不生成临时 param，不按尺寸复制权重。当前只有 512×384 实例允许附加经固定证据认证的 encoder，旧包继续显式报告 encoder unavailable，1024 和其他未审查形状拒绝图生图。多实例生成必须指定宽高。512×384 共享实例的完整原生 PE→图像已经通过[独立质量复核](../artifacts/2026-09-06/shared-native-pipeline/README.md)，全部 25 个边界及 PNG 与原固定包逐位一致；其他实例和新形状仍需各自的实际验证。
+图像模型包由 `ModelPackage` 在 Rust 层完整验证，随后以 `ComponentFiles` 传递内存中的图文本与权重文件路径。文本编码、DiT heads/blocks、VAE encoder 和 VAE 解码使用同一加载边界；组件不解析 JSON，也不负责查找包。旧 probes 的目录参数通过适配器进入同一加载器。schema-3 将已审查的 512×384/s2048 与 1024×1024/s64 实例绑定到共享对象；不生成临时 param，不按尺寸复制权重。两个固定尺寸现在均允许附加经目标尺寸证据认证的 encoder；旧包继续显式报告 encoder unavailable，其他形状拒绝图生图。多实例生成必须指定宽高。512×384 共享实例的完整原生 PE→图像已经通过[独立质量复核](../artifacts/2026-09-06/shared-native-pipeline/README.md)，全部 25 个边界及 PNG 与原固定包逐位一致。1024×1024 生产 strength=0 重建的六个边界与 PNG 已通过[独立复核](../.superpowers/sdd/2026-09-06-surpass-reference/task-F2-strength0-1024-review.md)；此证据不覆盖正 strength 去噪或其他输入。
 
 构建依赖为 `ernie-image → ernie::pipeline → ernie-runtime / ernie-pe / ernie-tokenizer`。只有 CLI 链接 libpng。公共接口头文件只依赖 C++ 标准库。`tests/test_pipeline_api.cpp` 作为外部调用者编译，不包含私有 ncnn 头。
 
@@ -81,6 +81,6 @@ PE 的 26 层和缓存全部释放后才开始图像文本编码；文本权重�
 -DBUILD_TESTING=OFF -DERNIE_BUILD_PROBES=OFF
 ```
 
-未来 GUI 或服务可以链接 `ernie::pipeline`。当前支持源码树内的 CMake target；没有声明稳定的二进制 ABI 或已发布的 SDK。
+未来 GUI 或服务可以链接 `ernie::pipeline`。`ERNIE_INSTALL_SDK=ON` 同时提供安装后的 `find_package(Ernie CONFIG REQUIRED)` 入口、公共头文件和必需的静态实现库。Linux CPU/Vulkan 均已在迁移前缀、隐藏源码与原构建、禁网后完成外部消费者链接及 API 检查，见[安装验证](../artifacts/2026-09-06/installed-cpp-sdk/README.md)。公共头文件不引入 ncnn/PNG，内部归档通过链接依赖保留；安装配置只使用同前缀固定 ncnn。尚未声明跨工具链稳定二进制 ABI、已公开发行的 SDK 或 Windows/macOS 安装通过。
 
 新增推理功能先进入对应组件，再由流水线连接；CLI 只增加参数映射。转换和诊断脚本的任务入口见 [tools/README.md](../tools/README.md)。证据收集器统一使用 `tools/source_inventory.py`，记录 `include`、`cli`、所有子目录构建文件及实现源码，避免重构后遗漏版本信息。

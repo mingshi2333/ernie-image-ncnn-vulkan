@@ -1,0 +1,231 @@
+{
+  "schema_version": 1,
+  "scope": "Linux installed public API and CPU preset evidence; no full model or external platform claim",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 5241,
+      "sha256": "9226d61cf00186367de57e072a8a1d924e293701899d49cce8f38e48727c953e"
+    },
+    {
+      "path": "build/build-worker-v2.py",
+      "bytes": 1587,
+      "sha256": "296cee864033eb1ff16d66ceda4bc56d27e38e84937e5ecc8fa9a19d2403f37a"
+    },
+    {
+      "path": "build/cpu/build.log",
+      "bytes": 28734,
+      "sha256": "4b72c0e8803c01a043ebac4b46ca7a28d89131bd1deb1665a7f9d55c395d8fdb"
+    },
+    {
+      "path": "build/cpu/identity.json",
+      "bytes": 622,
+      "sha256": "38f96edf22af1c886d9aaf9cc6f433d4422d54ccd5280b2d8af14398c6598990"
+    },
+    {
+      "path": "build/cpu/result.json",
+      "bytes": 51,
+      "sha256": "f6ee61584f975343fd6d092dac6f5406a1b7eba5a24ba9b1be722f988d74a9f7"
+    },
+    {
+      "path": "build/source-identity-v2.json",
+      "bytes": 9459,
+      "sha256": "70faadbee76bc31f7728c010d1e9371d99a2e2aefa8e7bdc74ef60847645c811"
+    },
+    {
+      "path": "build/vulkan/build.log",
+      "bytes": 50829,
+      "sha256": "9559ac2558d0faf20fcbf9652e9b603372d79d3b76ddcffbf5130c6128c9d335"
+    },
+    {
+      "path": "build/vulkan/identity.json",
+      "bytes": 629,
+      "sha256": "b9a98c2f079c856b3c0f55c770c13526e1ee31affe4e7225bcc620a31022aff5"
+    },
+    {
+      "path": "build/vulkan/result.json",
+      "bytes": 51,
+      "sha256": "f6ee61584f975343fd6d092dac6f5406a1b7eba5a24ba9b1be722f988d74a9f7"
+    },
+    {
+      "path": "independent-review.md",
+      "bytes": 6711,
+      "sha256": "1ea38a113012abf77f34553b0987d8dc3b09d4c9542740cdf08acd3136dca98f"
+    },
+    {
+      "path": "install/cpu/consumer-build.log",
+      "bytes": 127,
+      "sha256": "75ec53a97612c7bc3fcf8a0c27a475acceb1cfb4f0c3d0610c228983776eb4bc"
+    },
+    {
+      "path": "install/cpu/consumer-compile-commands.json",
+      "bytes": 460,
+      "sha256": "fe61b2a9dc82237b2970a778c14c714c98381747e9902507aadc2e4b8954d280"
+    },
+    {
+      "path": "install/cpu/consumer-configure.log",
+      "bytes": 738,
+      "sha256": "ccac22b37a2ffc3e6fd5149f7af24eac7f7735c8bf883d59743be2fd6e6809fc"
+    },
+    {
+      "path": "install/cpu/consumer-test.log",
+      "bytes": 244,
+      "sha256": "7c27cd15ae9447e4e4756fbf18baa0982148320b78a2983bccb9d1c1c52cb625"
+    },
+    {
+      "path": "install/cpu/install.log",
+      "bytes": 4499,
+      "sha256": "e98106d6b78ab8f35ad588f223098b104e775e0708ced05459b4b9acb0138e8b"
+    },
+    {
+      "path": "install/cpu/installed-corrupt-package.log",
+      "bytes": 27,
+      "sha256": "8e7a25d7c3e074aa8311ea93e96ff63a432b227efb8f8581874b630a5e8932a6"
+    },
+    {
+      "path": "install/cpu/installed-diagnose.log",
+      "bytes": 55,
+      "sha256": "31f732d92031bb514f46616fa7533691f6c14c9cd4729fd89449f7a838810cee"
+    },
+    {
+      "path": "install/cpu/installed-help.log",
+      "bytes": 1656,
+      "sha256": "3ce954fb4545e768c933086ba2d9e3aded52d03608dc18d4a54a7a3706c83b9d"
+    },
+    {
+      "path": "install/cpu/isolation-preflight.log",
+      "bytes": 1135,
+      "sha256": "8e0fd685bc3eb11ad1b334e2e4ef519068789897d94072165d716d1882cd48d2"
+    },
+    {
+      "path": "install/cpu/result.json",
+      "bytes": 14094,
+      "sha256": "ebff6876c1f781ce5a2c5c122cedb7e792419eb8e4db53934ffa7e63d85dd44f"
+    },
+    {
+      "path": "install/vulkan/consumer-build.log",
+      "bytes": 127,
+      "sha256": "75ec53a97612c7bc3fcf8a0c27a475acceb1cfb4f0c3d0610c228983776eb4bc"
+    },
+    {
+      "path": "install/vulkan/consumer-compile-commands.json",
+      "bytes": 475,
+      "sha256": "feafe6137a2b24253cfdebb11370e4a1c29416b18059e7811867b08b1b955956"
+    },
+    {
+      "path": "install/vulkan/consumer-configure.log",
+      "bytes": 741,
+      "sha256": "c80e9463c0b838f7b8a98e379ee031c82bad1f6e9385ec9b5e45d80532af5503"
+    },
+    {
+      "path": "install/vulkan/consumer-test.log",
+      "bytes": 247,
+      "sha256": "b59572e53b236ac18226b3345ebf825abc141669e962ab8eafb9ffe8c39303be"
+    },
+    {
+      "path": "install/vulkan/install.log",
+      "bytes": 7066,
+      "sha256": "b704cd64ad112386c1d791a1837ba35b863319c138a9cd762d2147553779907f"
+    },
+    {
+      "path": "install/vulkan/installed-corrupt-package.log",
+      "bytes": 27,
+      "sha256": "8e7a25d7c3e074aa8311ea93e96ff63a432b227efb8f8581874b630a5e8932a6"
+    },
+    {
+      "path": "install/vulkan/installed-diagnose.log",
+      "bytes": 1485,
+      "sha256": "c2f2e2398c970ba73ffab258b46192c012182358acc64744563849b2ad8e471c"
+    },
+    {
+      "path": "install/vulkan/installed-help.log",
+      "bytes": 1656,
+      "sha256": "3ce954fb4545e768c933086ba2d9e3aded52d03608dc18d4a54a7a3706c83b9d"
+    },
+    {
+      "path": "install/vulkan/isolation-preflight.log",
+      "bytes": 1135,
+      "sha256": "8e0fd685bc3eb11ad1b334e2e4ef519068789897d94072165d716d1882cd48d2"
+    },
+    {
+      "path": "install/vulkan/result.json",
+      "bytes": 18298,
+      "sha256": "eeeaea5a3be983389a0673a4872eed07593e6d35a39a73fee1bf21d2a97e1694"
+    },
+    {
+      "path": "preset/cpu-v3/result.json",
+      "bytes": 380,
+      "sha256": "a4737473e2b1d4e4f8d5584e26ed3533b761ff36e5623b333d0ea62467fde5bb"
+    },
+    {
+      "path": "preset/cpu-v4/build.log",
+      "bytes": 33029,
+      "sha256": "ff0d8ae5bec6b7d6c67f5d773cc7762035cc3f1db5f1d2f75c471aafeaf50a81"
+    },
+    {
+      "path": "preset/cpu-v4/configure.log",
+      "bytes": 3454,
+      "sha256": "c5fdcdd98a8b053eb59b7a1e4b7e6660844cb105106e67eb6d205bddeeba3947"
+    },
+    {
+      "path": "preset/cpu-v4/identity.json",
+      "bytes": 905,
+      "sha256": "ace9dd796ade30e0a3a1a3f595f37dae025c11d9e7e6a9ee9a78dabe13a820d2"
+    },
+    {
+      "path": "preset/cpu-v4/result.json",
+      "bytes": 406,
+      "sha256": "4ff4a74f849b1bdefd2a103aedf8c517e16ea6dd52b7161223e13d5a2fbab07d"
+    },
+    {
+      "path": "preset/cpu-v4/test.log",
+      "bytes": 10717,
+      "sha256": "b1c3795fcb417085069c3932d52e157b88443971cb42582ff480bbf13160b8f7"
+    },
+    {
+      "path": "preset/cpu-v5/build.log",
+      "bytes": 33029,
+      "sha256": "0302001912817c03fc52c6b69c4a2d9480660e9e5296848bbf76bc9b66c04b92"
+    },
+    {
+      "path": "preset/cpu-v5/configure.log",
+      "bytes": 3454,
+      "sha256": "073876a137d4e38b42cc1065ff0985b6da906e3d9973ff363fda4b86313ffc33"
+    },
+    {
+      "path": "preset/cpu-v5/identity.json",
+      "bytes": 905,
+      "sha256": "9a3c4266c6d71ccb3450e18d927e1d64ff8f177f5b22440594e77ceb6bbb85da"
+    },
+    {
+      "path": "preset/cpu-v5/result.json",
+      "bytes": 405,
+      "sha256": "6e0f4556cf624d05f4bfabd560adc219a3319060bf638eec10ba587491565bf5"
+    },
+    {
+      "path": "preset/cpu-v5/test.log",
+      "bytes": 3124,
+      "sha256": "f5feeaed3ec9d89d5693e5da87a1855f5fc0b6c1b597d58e0153b31c77a4fa78"
+    },
+    {
+      "path": "preset/independent-review.md",
+      "bytes": 3395,
+      "sha256": "798dee0282a1fa26123874449a9e875f1cd41f0149600b100ecfb9809487779a"
+    },
+    {
+      "path": "preset/source-identity-v3.json",
+      "bytes": 27654,
+      "sha256": "df6e764a3ce18bf668e7f9fa268b1e98f9c4b760af31789c5c2409ec0147246e"
+    },
+    {
+      "path": "preset/source-identity-v5.json",
+      "bytes": 27997,
+      "sha256": "add223535f92c501c986b6bc3e6520ec746580a776bc7e143836ec9dd253d199"
+    },
+    {
+      "path": "preset/worker-v5.py",
+      "bytes": 2516,
+      "sha256": "3f54cb9b62ab688ffc225deda88b9e0bdcefb554d3f928cf36be14e4fb7b2c9e"
+    }
+  ]
+}

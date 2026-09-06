@@ -1,0 +1,12 @@
+cmake_minimum_required(VERSION 3.19)
+project(ernie_install_consumer LANGUAGES CXX)
+enable_testing()
+find_package(Ernie 0.1.0 EXACT CONFIG REQUIRED)
+# Repeated lookup must be harmless, including without a package version.
+find_package(Ernie CONFIG REQUIRED)
+if(TARGET PNG::PNG OR TARGET JPEG::JPEG)
+    message(FATAL_ERROR "The pipeline SDK unexpectedly imported image file libraries")
+endif()
+add_executable(ernie-install-consumer main.cpp)
+target_link_libraries(ernie-install-consumer PRIVATE ernie::pipeline)
+add_test(NAME installed_pipeline_api COMMAND ernie-install-consumer)

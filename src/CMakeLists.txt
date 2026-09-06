@@ -2,7 +2,7 @@ add_library(ernie-runtime STATIC
     ernie_gelu.cpp ernie_rmsnorm.cpp ernie_residual.cpp ernie_groupnorm.cpp ernie_attention.cpp
     latent_ops.cpp img2img.cpp image_encoder.cpp component_files.cpp block_sequence.cpp dit.cpp denoiser.cpp text_encoder.cpp ernie_text_down.cpp conditioning.cpp pe_session.cpp)
 target_link_libraries(ernie-runtime PUBLIC ncnn)
-target_include_directories(ernie-runtime PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
+target_include_directories(ernie-runtime PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>")
 if(ERNIE_ENABLE_VULKAN)
     include("${PROJECT_SOURCE_DIR}/cmake/ErnieAttentionShader.cmake")
     target_include_directories(ernie-runtime PRIVATE "${ERNIE_NCNN_SOURCE_DIR}/src/layer" "${CMAKE_CURRENT_BINARY_DIR}/generated")
@@ -17,11 +17,14 @@ if(ERNIE_BUILD_GENERATOR)
     endif()
     add_library(ernie-pe STATIC prompt_enhancer.cpp)
     target_link_libraries(ernie-pe PUBLIC ernie-runtime ernie-tokenizer)
-    target_include_directories(ernie-pe PUBLIC "${PROJECT_SOURCE_DIR}/include")
+    target_include_directories(ernie-pe PUBLIC "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>")
     add_library(ernie-pipeline STATIC pipeline.cpp model_config.cpp runtime_info.cpp gpu_context.cpp tensor_io.cpp vae.cpp)
     add_library(ernie::pipeline ALIAS ernie-pipeline)
     target_link_libraries(ernie-pipeline PRIVATE ernie-runtime ernie-tokenizer ernie-pe ernie-model-package)
-    target_include_directories(ernie-pipeline PUBLIC "${PROJECT_SOURCE_DIR}/include")
+    target_include_directories(ernie-pipeline PUBLIC
+        "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
+        "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
+    target_compile_features(ernie-pipeline PUBLIC cxx_std_17)
     if(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
         target_compile_options(ernie-pipeline PRIVATE -ffp-contract=off)
     endif()
@@ -34,13 +37,13 @@ target_include_directories(ernie-shape-plan PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}"
 if(ERNIE_BUILD_TOKENIZER)
     # Full graph allowlist used by offline checks and shared-package generation.
     add_library(ernie-shape-graph STATIC shape_graph.cpp model_config.cpp)
-    target_include_directories(ernie-shape-graph PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
+    target_include_directories(ernie-shape-graph PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>")
     target_link_libraries(ernie-shape-graph PUBLIC ernie-tokenizer)
 endif()
 
 if(ERNIE_BUILD_TOKENIZER)
     add_library(ernie-model-package STATIC model_package.cpp)
-    target_include_directories(ernie-model-package PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
+    target_include_directories(ernie-model-package PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>")
     target_link_libraries(ernie-model-package PUBLIC ernie-shape-graph ernie-tokenizer)
 endif()
 

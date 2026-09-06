@@ -46,8 +46,19 @@ class CliTests(unittest.TestCase):
                 file.truncate(1024*1024 + 1)
             self.assertIn('1 MiB', self.request('--prompt-file', str(path)))
 
-    def test_valid_bf16_request_reaches_model_validation(self):
-        self.assertIn('Cannot open model package', self.request('--prompt', 'cat', '--precision', 'bf16'))
+    def test_bf16_request_obeys_compiled_device_support(self):
+        diagnostic = subprocess.run([str(RUNNER), '--diagnose'], text=True,
+                                    capture_output=True, timeout=10)
+        self.assertEqual(diagnostic.returncode, 0, diagnostic.stderr)
+        fields = dict(line.split('=', 1) for line in diagnostic.stdout.splitlines() if '=' in line)
+        self.assertIn(fields.get('vulkan_compiled'), ('true', 'false'))
+        if fields['vulkan_compiled'] == 'false':
+            expected = 'Built without Vulkan'
+        elif int(fields['gpu_count']) == 0:
+            expected = 'No Vulkan device'
+        else:
+            expected = 'Cannot open model package'
+        self.assertIn(expected, self.request('--prompt', 'cat', '--device', 'vulkan', '--precision', 'bf16'))
 
     def test_dimensions_require_both_axes(self):
         self.assertIn('width and height together', self.request('--prompt', 'cat', '--width', '512'))
@@ -56,7 +67,8 @@ class CliTests(unittest.TestCase):
         self.assertIn('multiples of 16', self.request('--prompt', 'cat', '--width', '513', '--height', '384'))
 
     def test_rectangular_request_reaches_model_validation(self):
-        self.assertIn('Cannot open model package', self.request('--prompt', 'cat', '--width', '512', '--height', '384'))
+        self.assertIn('Cannot open model package', self.request('--prompt', 'cat', '--device', 'cpu',
+                                                               '--precision', 'fp32', '--width', '512', '--height', '384'))
 
     def test_pe_options_require_an_explicit_model(self):
         self.assertIn('PE options require --pe-model', self.request('--prompt', 'cat', '--pe-greedy'))

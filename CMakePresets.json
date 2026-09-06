@@ -1,0 +1,34 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": {"major": 3, "minor": 21, "patch": 0},
+  "configurePresets": [
+    {
+      "name": "linux-sdk",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "condition": {"type": "equals", "lhs": "${hostSystemName}", "rhs": "Linux"},
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "ERNIE_BUILD_TOKENIZER": "ON",
+        "ERNIE_BUILD_GENERATOR": "ON",
+        "ERNIE_INSTALL_SDK": "ON",
+        "ERNIE_ENABLE_ALLOCATION_METRICS": "OFF",
+        "NCNN_SHARED_LIB": "OFF",
+        "NCNN_SYSTEM_GLSLANG": "OFF",
+        "NCNN_INT8": "OFF",
+        "NCNN_WEIGHT_QUANT": "OFF"
+      }
+    },
+    {"name": "linux-cpu", "inherits": "linux-sdk", "cacheVariables": {"ERNIE_ENABLE_VULKAN": "OFF"}},
+    {"name": "linux-vulkan", "inherits": "linux-sdk", "cacheVariables": {"ERNIE_ENABLE_VULKAN": "ON"}}
+  ],
+  "buildPresets": [
+    {"name": "linux-cpu", "configurePreset": "linux-cpu", "jobs": 2},
+    {"name": "linux-vulkan", "configurePreset": "linux-vulkan", "jobs": 2}
+  ],
+  "testPresets": [
+    {"name": "linux-cpu", "configurePreset": "linux-cpu", "output": {"outputOnFailure": true}},
+    {"name": "linux-vulkan", "configurePreset": "linux-vulkan", "output": {"outputOnFailure": true}}
+  ]
+}

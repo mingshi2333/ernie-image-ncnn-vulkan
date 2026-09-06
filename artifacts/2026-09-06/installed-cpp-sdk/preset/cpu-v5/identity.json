@@ -1,0 +1,35 @@
+{
+  "commands": [
+    [
+      "cmake",
+      "--preset",
+      "linux-cpu",
+      "-DERNIE_NCNN_SOURCE_DIR=/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/third_party/ncnn"
+    ],
+    [
+      "cmake",
+      "--build",
+      "--preset",
+      "linux-cpu"
+    ],
+    [
+      "ctest",
+      "--preset",
+      "linux-cpu",
+      "--no-tests=error"
+    ]
+  ],
+  "source_identity_sha256": "add223535f92c501c986b6bc3e6520ec746580a776bc7e143836ec9dd253d199",
+  "worker_sha256": "3f54cb9b62ab688ffc225deda88b9e0bdcefb554d3f928cf36be14e4fb7b2c9e",
+  "ncnn_revision": "6a1bf000f363714839a36793addc8c879d3d899e",
+  "dependencies": " 780b6a209132dc74e99458f62ebe5fa7e57c41cf glslang (780b6a2)\n-d03662f0984f652b60e7ddce53d3868002275197 python/pybind11\n",
+  "resource_controls": {
+    "memory.max": "4294967296",
+    "memory.swap.max": "0",
+    "cpu.max": "200000 100000"
+  },
+  "cpu_affinity": [
+    8,
+    10
+  ]
+}

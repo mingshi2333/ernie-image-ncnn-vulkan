@@ -1,0 +1,27 @@
+{
+  "command": [
+    "systemd-run",
+    "--user",
+    "--scope",
+    "--unit=ernie-d1-install-cpu-v2",
+    "-p",
+    "MemoryMax=4G",
+    "-p",
+    "MemorySwapMax=0",
+    "-p",
+    "CPUQuota=200%",
+    "/usr/bin/time",
+    "-v",
+    "taskset",
+    "-c",
+    "8,10",
+    "cmake",
+    "--build",
+    "build-install-cpu-v2",
+    "--parallel",
+    "2"
+  ],
+  "source_identity_sha256": "70faadbee76bc31f7728c010d1e9371d99a2e2aefa8e7bdc74ef60847645c811",
+  "worker_sha256": "296cee864033eb1ff16d66ceda4bc56d27e38e84937e5ecc8fa9a19d2403f37a",
+  "cache_sha256": "ae24ef1f9eade9d1b5b271dea996edef9f879b049fe8a862c29261e1ce08acf2"
+}

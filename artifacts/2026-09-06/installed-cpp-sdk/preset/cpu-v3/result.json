@@ -1,0 +1,7 @@
+{
+  "status": "invalid_preflight_dependency_resolution",
+  "exit_code": 1,
+  "scope": "No configure or build started",
+  "error": "The uninitialized worktree submodule directory made git resolve the parent project; use the separately pinned root ncnn checkout already selected by v2 builds",
+  "worker_sha256": "dec9bdb987aed16bb57f754b840f41e8339e3339e013da9ec91d4115ffbfd7d7"
+}

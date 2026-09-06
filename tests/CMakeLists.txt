@@ -44,6 +44,13 @@ if(ERNIE_BUILD_GENERATOR)
         add_test(NAME cli_contract COMMAND "${Python3_EXECUTABLE}"
                  -m unittest discover -s "${CMAKE_CURRENT_SOURCE_DIR}" -p test_cli.py -v)
         set_tests_properties(cli_contract PROPERTIES ENVIRONMENT "ERNIE_TEST_RUNNER=$<TARGET_FILE:ernie-image>")
+        if(ERNIE_INSTALL_SDK)
+            add_test(NAME installed_cpp_consumer COMMAND "${Python3_EXECUTABLE}"
+                -m unittest discover -s "${CMAKE_CURRENT_SOURCE_DIR}" -p test_install.py -v)
+            set_tests_properties(installed_cpp_consumer PROPERTIES
+                ENVIRONMENT "ERNIE_INSTALL_BUILD=${CMAKE_BINARY_DIR};ERNIE_INSTALL_CONFIG=$<CONFIG>"
+                RUN_SERIAL TRUE TIMEOUT 900)
+        endif()
         add_test(NAME text_bucket_contract COMMAND "${Python3_EXECUTABLE}"
                  -m unittest discover -s "${CMAKE_CURRENT_SOURCE_DIR}" -p test_text_bucket.py -v)
         add_test(NAME variant_dimensions COMMAND "${Python3_EXECUTABLE}"

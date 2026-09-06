@@ -1,0 +1,22 @@
+{
+  "commands": [
+    {
+      "name": "configure",
+      "exit_code": 0,
+      "wall_seconds": 5.441289214999415
+    },
+    {
+      "name": "build",
+      "exit_code": 0,
+      "wall_seconds": 191.65300874700188
+    },
+    {
+      "name": "test",
+      "exit_code": 8,
+      "wall_seconds": 1.9235394639981678
+    }
+  ],
+  "exit_code": 8,
+  "source_changes_after": [],
+  "ncnn_tracked_changes_after": ""
+}

@@ -1,0 +1,146 @@
+Test project /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v3/build/linux-cpu
+      Start  1: native_cache_cpu
+ 1/27 Test  #1: native_cache_cpu .................   Passed    0.03 sec
+      Start  2: runtime_cache_cpu
+ 2/27 Test  #2: runtime_cache_cpu ................   Passed    0.03 sec
+      Start  3: pipeline_api_contract
+ 3/27 Test  #3: pipeline_api_contract ............   Passed    0.00 sec
+      Start  4: request_validation_contract
+ 4/27 Test  #4: request_validation_contract ......   Passed    0.00 sec
+      Start  5: gpu_context_contract
+ 5/27 Test  #5: gpu_context_contract .............   Passed    0.00 sec
+      Start  6: prompt_file_contract
+ 6/27 Test  #6: prompt_file_contract .............   Passed    0.00 sec
+      Start  7: image_io_contract
+ 7/27 Test  #7: image_io_contract ................   Passed    0.00 sec
+      Start  8: pe_sampling_contract
+ 8/27 Test  #8: pe_sampling_contract .............   Passed    0.01 sec
+      Start  9: pe_package_integrity
+ 9/27 Test  #9: pe_package_integrity .............   Passed    0.13 sec
+      Start 10: package_integrity
+10/27 Test #10: package_integrity ................   Passed    0.30 sec
+      Start 11: cli_contract
+11/27 Test #11: cli_contract .....................***Failed    0.07 sec
+test_diagnose_lists_runtime_without_loading_a_model (test_cli.CliTests.test_diagnose_lists_runtime_without_loading_a_model) ... ok
+test_diagnose_reads_only_bounded_model_config_metadata (test_cli.CliTests.test_diagnose_reads_only_bounded_model_config_metadata) ... ok
+test_diagnose_rejects_generation_options (test_cli.CliTests.test_diagnose_rejects_generation_options) ... ok
+test_dimensions_must_be_multiples_of_sixteen (test_cli.CliTests.test_dimensions_must_be_multiples_of_sixteen) ... ok
+test_dimensions_require_both_axes (test_cli.CliTests.test_dimensions_require_both_axes) ... ok
+test_duplicate_prompt_cannot_silently_replace_first (test_cli.CliTests.test_duplicate_prompt_cannot_silently_replace_first) ... ok
+test_gpu_requires_a_vulkan_stage (test_cli.CliTests.test_gpu_requires_a_vulkan_stage) ... ok
+test_img2img_only_options_require_input (test_cli.CliTests.test_img2img_only_options_require_input) ... ok
+test_img2img_reads_input_before_model_loading (test_cli.CliTests.test_img2img_reads_input_before_model_loading) ... ok
+test_invalid_img2img_metadata_is_rejected (test_cli.CliTests.test_invalid_img2img_metadata_is_rejected) ... ok
+test_invalid_utf8_prompt_file_is_rejected (test_cli.CliTests.test_invalid_utf8_prompt_file_is_rejected) ... ok
+test_metrics_rejects_empty_path_before_model_loading (test_cli.CliTests.test_metrics_rejects_empty_path_before_model_loading) ... ok
+test_missing_prompt_file_is_reported_before_model_loading (test_cli.CliTests.test_missing_prompt_file_is_reported_before_model_loading) ... ok
+test_output_format_is_checked_before_model_loading (test_cli.CliTests.test_output_format_is_checked_before_model_loading) ... ok
+test_pe_cannot_change_prompt_of_precomputed_embeddings (test_cli.CliTests.test_pe_cannot_change_prompt_of_precomputed_embeddings) ... ok
+test_pe_options_require_an_explicit_model (test_cli.CliTests.test_pe_options_require_an_explicit_model) ... ok
+test_pe_rejects_infinite_temperature (test_cli.CliTests.test_pe_rejects_infinite_temperature) ... ok
+test_pe_rejects_invalid_top_p (test_cli.CliTests.test_pe_rejects_invalid_top_p) ... ok
+test_prompt_file_is_bounded_before_model_loading (test_cli.CliTests.test_prompt_file_is_bounded_before_model_loading) ... ok
+test_prompt_sources_are_mutually_exclusive (test_cli.CliTests.test_prompt_sources_are_mutually_exclusive) ... ok
+test_rectangular_request_reaches_model_validation (test_cli.CliTests.test_rectangular_request_reaches_model_validation) ... FAIL
+test_repeated_resolution_cannot_silently_override (test_cli.CliTests.test_repeated_resolution_cannot_silently_override) ... ok
+test_resize_requires_explicit_target (test_cli.CliTests.test_resize_requires_explicit_target) ... ok
+test_strength_zero_does_not_require_prompt (test_cli.CliTests.test_strength_zero_does_not_require_prompt) ... ok
+test_strength_zero_rejects_unused_prompt_or_pe (test_cli.CliTests.test_strength_zero_rejects_unused_prompt_or_pe) ... ok
+test_threads_are_strictly_bounded (test_cli.CliTests.test_threads_are_strictly_bounded) ... ok
+test_unsupported_text_device_is_explicit (test_cli.CliTests.test_unsupported_text_device_is_explicit) ... ok
+test_valid_bf16_request_reaches_model_validation (test_cli.CliTests.test_valid_bf16_request_reaches_model_validation) ... FAIL
+test_vector_reduction_flag_reaches_model_validation (test_cli.CliTests.test_vector_reduction_flag_reaches_model_validation) ... ok
+test_vector_reduction_requires_native_text (test_cli.CliTests.test_vector_reduction_requires_native_text) ... ok
+
+======================================================================
+FAIL: test_rectangular_request_reaches_model_validation (test_cli.CliTests.test_rectangular_request_reaches_model_validation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v3/tests/test_cli.py", line 59, in test_rectangular_request_reaches_model_validation
+    self.assertIn('Cannot open model package', self.request('--prompt', 'cat', '--width', '512', '--height', '384'))
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'Cannot open model package' not found in 'Built without Vulkan\n'
+
+======================================================================
+FAIL: test_valid_bf16_request_reaches_model_validation (test_cli.CliTests.test_valid_bf16_request_reaches_model_validation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v3/tests/test_cli.py", line 50, in test_valid_bf16_request_reaches_model_validation
+    self.assertIn('Cannot open model package', self.request('--prompt', 'cat', '--precision', 'bf16'))
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'Cannot open model package' not found in 'Built without Vulkan\n'
+
+----------------------------------------------------------------------
+Ran 30 tests in 0.042s
+
+FAILED (failures=2)
+
+      Start 12: installed_cpp_consumer
+12/27 Test #12: installed_cpp_consumer ...........   Passed    1.11 sec
+      Start 13: text_bucket_contract
+13/27 Test #13: text_bucket_contract .............***Failed    0.03 sec
+test_gqa_head_count_is_not_a_token_dimension (test_text_bucket.TextBucketTests.test_gqa_head_count_is_not_a_token_dimension) ... ok
+test_independent_exports_have_identical_equations (test_text_bucket.TextBucketTests.test_independent_exports_have_identical_equations) ... ERROR
+test_normalization_equation_is_not_normalized_away (test_text_bucket.TextBucketTests.test_normalization_equation_is_not_normalized_away) ... ok
+test_wrong_manifest_bucket_rejected (test_text_bucket.TextBucketTests.test_wrong_manifest_bucket_rejected) ... ok
+
+======================================================================
+ERROR: test_independent_exports_have_identical_equations (test_text_bucket.TextBucketTests.test_independent_exports_have_identical_equations)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v3/tests/test_text_bucket.py", line 17, in test_independent_exports_have_identical_equations
+    self.assertEqual(graph_hash(path.read_text(), tokens), GRAPH_SHA256)
+                                ~~~~~~~~~~~~~~^^
+  File "/home/mingshi/.local/share/uv/python/cpython-3.13.12-linux-x86_64-gnu/lib/python3.13/pathlib/_local.py", line 546, in read_text
+    return PathBase.read_text(self, encoding, errors, newline)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mingshi/.local/share/uv/python/cpython-3.13.12-linux-x86_64-gnu/lib/python3.13/pathlib/_abc.py", line 632, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mingshi/.local/share/uv/python/cpython-3.13.12-linux-x86_64-gnu/lib/python3.13/pathlib/_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d1-preset-source-v3/artifacts/2026-09-05/pipeline/models/text-s32-v1/block-00/text.ncnn.param'
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.002s
+
+FAILED (errors=1)
+
+      Start 14: variant_dimensions
+14/27 Test #14: variant_dimensions ...............   Passed    0.03 sec
+      Start 15: latent_contract_cpu
+15/27 Test #15: latent_contract_cpu ..............   Passed    0.00 sec
+      Start 16: component_files_contract_cpu
+16/27 Test #16: component_files_contract_cpu .....   Passed    0.00 sec
+      Start 17: img2img_contract_cpu
+17/27 Test #17: img2img_contract_cpu .............   Passed    0.00 sec
+      Start 18: image_encoder_contract_cpu
+18/27 Test #18: image_encoder_contract_cpu .......   Passed    0.00 sec
+      Start 19: residual_contract_cpu
+19/27 Test #19: residual_contract_cpu ............   Passed    0.00 sec
+      Start 20: rmsnorm_range_cpu
+20/27 Test #20: rmsnorm_range_cpu ................   Passed    0.00 sec
+      Start 21: layernorm_range_cpu
+21/27 Test #21: layernorm_range_cpu ..............   Passed    0.00 sec
+      Start 22: erf_gelu_cpu
+22/27 Test #22: erf_gelu_cpu .....................   Passed    0.01 sec
+      Start 23: shape_plan_contract
+23/27 Test #23: shape_plan_contract ..............   Passed    0.00 sec
+      Start 24: shape_graph_contract
+24/27 Test #24: shape_graph_contract .............   Passed    0.00 sec
+      Start 25: text_down_contract_cpu
+25/27 Test #25: text_down_contract_cpu ...........   Passed    0.12 sec
+      Start 26: model_package_contract
+26/27 Test #26: model_package_contract ...........   Passed    0.00 sec
+      Start 27: execution_metrics_cpu
+27/27 Test #27: execution_metrics_cpu ............   Passed    0.00 sec
+
+93% tests passed, 2 tests failed out of 27
+
+Total Test time (real) =   1.91 sec
+
+The following tests FAILED:
+	 11 - cli_contract (Failed)
+	 13 - text_bucket_contract (Failed)
+Errors while running CTest

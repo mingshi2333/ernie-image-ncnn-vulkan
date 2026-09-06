@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/tmp/ernie-sdk-vulkan-install-v2/consumer-build",
+  "command": "/usr/bin/clang++ -isystem \"/tmp/ernie-sdk-vulkan-install-v2/移动 installation/include\" -O3 -DNDEBUG -o CMakeFiles/ernie-install-consumer.dir/main.cpp.o -c /tmp/ernie-sdk-vulkan-install-v2/consumer/main.cpp",
+  "file": "/tmp/ernie-sdk-vulkan-install-v2/consumer/main.cpp",
+  "output": "/tmp/ernie-sdk-vulkan-install-v2/consumer-build/CMakeFiles/ernie-install-consumer.dir/main.cpp.o"
+}
+]

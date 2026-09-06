@@ -11,5 +11,8 @@ add_library(ernie-tokenizer-native STATIC IMPORTED GLOBAL)
 set_target_properties(ernie-tokenizer-native PROPERTIES IMPORTED_LOCATION "${tokenizer_library}")
 add_dependencies(ernie-tokenizer-native ernie-tokenizer-rust)
 add_library(ernie-tokenizer STATIC "${PROJECT_SOURCE_DIR}/src/tokenizer.cpp")
-target_include_directories(ernie-tokenizer PUBLIC "${PROJECT_SOURCE_DIR}/src")
-target_link_libraries(ernie-tokenizer PUBLIC ernie-tokenizer-native Threads::Threads ${CMAKE_DL_LIBS} m)
+target_include_directories(ernie-tokenizer PUBLIC "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>")
+target_link_libraries(ernie-tokenizer PRIVATE
+    "$<BUILD_INTERFACE:ernie-tokenizer-native>"
+    "$<INSTALL_INTERFACE:ernie::tokenizer-native>"
+    Threads::Threads ${CMAKE_DL_LIBS} m)
