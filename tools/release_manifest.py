@@ -26,12 +26,19 @@ def safe_path(value):
     p = PurePosixPath(value)
     if not p.parts or p.is_absolute() or str(p) != value or any(x in ('.', '..') for x in p.parts):
         raise ValueError('Unsafe relative path')
-    if any('\\' in x or ':' in x or x.endswith(('.', ' ')) for x in p.parts):
-        raise ValueError('Unsafe path component')
-    if any(x.lower().split('.')[0] in {'con', 'prn', 'aux', 'nul', *('com'+str(i) for i in range(1,10)), *('lpt'+str(i) for i in range(1,10))} for x in p.parts):
-        raise ValueError('Reserved path component')
-    if any(x.endswith(('.part', '.part.json')) or x == '.download.lock' for x in p.parts):
-        raise ValueError('Reserved downloader path')
+    forbidden = set('<>:"\\|?*')
+    device_names = {'con', 'prn', 'aux', 'nul', 'clock$', 'conin$', 'conout$'}
+    device_names.update(prefix+str(i) for prefix in ('com','lpt') for i in range(1,10))
+    # Win32 also treats these superscript digit spellings as DOS device aliases.
+    device_names.update(prefix+digit for prefix in ('com','lpt') for digit in '¹²³')
+    for component in p.parts:
+        folded = component.casefold()
+        if any(c in forbidden for c in component) or component.endswith(('.', ' ')):
+            raise ValueError('Unsafe path component')
+        if folded.split('.')[0].rstrip(' ') in device_names:
+            raise ValueError('Reserved path component')
+        if folded.endswith(('.part', '.part.json')) or folded == '.download.lock':
+            raise ValueError('Reserved downloader path')
     return value
 
 

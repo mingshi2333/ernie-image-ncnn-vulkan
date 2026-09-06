@@ -19,3 +19,7 @@
 ## 未完成项
 
 返回结果仅 `download_integrity_verified` 与 `model_semantics=not_verified`。没有调用native `--verify-model`或PE语义校验，不宣称规范化全权重审计、模型质量、运行能力或完整D2结束。暂无获确认的正式发行资产URL，未生成虚构manifest；现有example.invalid仅测试字符串，不是发布地址。平台归档、许可证法律依据/完整notices、发行草稿与迁移回归由后续切片完成。旧组件Range/safetensors工具与peer下载历史已阅读作参考，保持不变；此工具不依赖其中的专用模型提取逻辑。
+
+## Root 独立审查修复
+
+初始67cdafb保留。root独立20/20测试之外复现uppercase内部文件/锁名与Windows禁止字符仍被接受：LOCK.PART、.DOWNLOAD.LOCK、a?.bin、a|b.bin。此为清单路径契约缺口，现按casefold检查内部保留后缀/名字，拒绝Windows禁止字符<>:"\\|?*，补CONIN$/CONOUT$/CLOCK$与COM/LPT superscript1/2/3设备别名（含扩展名和设备基本名尾空格）。测试包含同目录payload/data.bin与payload/DATA.BIN.PART冲突。22/22原有加新增测试通过；仅Linux上执行路径合同测试，没有虚构Windows实际下载验收。

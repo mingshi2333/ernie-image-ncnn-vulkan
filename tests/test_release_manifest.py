@@ -23,6 +23,18 @@ class ManifestTests(unittest.TestCase):
             with self.subTest(path=path):
                 m=manifest();m['files'][0]['path']=path
                 with self.assertRaises(ValueError):validate_manifest(m)
+    def test_windows_reserved_spellings_and_characters(self):
+        for path in ['weights/LOCK.PART', '.DOWNLOAD.LOCK', 'weights/LOCK.PART.JSON',
+                     'weights/a?.bin', 'weights/a|b.bin', 'a<b', 'a>b', 'a"b',
+                     'CONIN$', 'ConOut$.txt', 'CLOCK$', 'COM¹.bin', 'lpt².txt', 'COM³', 'NUL .txt']:
+            with self.subTest(path=path):
+                m=manifest();m['files'][0]['path']=path
+                with self.assertRaises(ValueError):validate_manifest(m)
+    def test_payload_cannot_claim_other_files_resume_name(self):
+        m=manifest();m['files'][0]['path']='payload/data.bin'
+        f=copy.deepcopy(m['files'][0]);f['path']='payload/DATA.BIN.PART'
+        m['files'].append(f)
+        with self.assertRaisesRegex(ValueError,'Reserved downloader'):validate_manifest(m)
     def test_duplicate_and_parent_paths(self):
         for path in ['WEIGHTS/data.bin','weights','weights/data.bin/sub']:
             m=manifest();f=copy.deepcopy(m['files'][0]);f['path']=path;m['files'].append(f)
