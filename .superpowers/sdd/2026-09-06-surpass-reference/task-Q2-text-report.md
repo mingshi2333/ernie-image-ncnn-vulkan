@@ -82,3 +82,21 @@ SiLU native/Torch FP32直接比较max1.1920929e-7，几乎同一准确度；不�
 - 最后扩展了后续执行的完整`source_inventory`和严格dtype/bytes bitwise判定；历史执行各自snapshot保留。上表实际结果来自对应运行snapshot，不冒称旧结果来自最终工具版本。
 
 该工作为诊断，尚无默认数学修复或完整PE质量关闭。官方text注入曾让decoded最大差通过，但final/decoded NRMSE并未整体下降，不能据此写“文本是唯一原因”或“全部链路误差改善”。root保留该图像级结果与负面变化。peer下载仍由root监督，本任务没有重启下载。
+
+## 2026-09-06：改变 down 归约顺序的两项候选
+
+**InnerProduct 二维 batch 图替换为负结果。** 固定图的 Gemm 为动态 A、transA=0、constant B、transB=1、C broadcast=-1、alpha/beta默认1。上游 Gemm 读取 `(K,N)`，InnerProduct 读取 `N*K`，不带bias，两者消耗同一权重流；本包为BF16标记的无损磁盘存储，FP32运行时展开。仅替换第2层 down，原bin硬链接、SHA相同，其他图行不变。真实teacher输入下 gated72、down73、out0 全部逐字节等于原Gemm（session98251 exit0，外部4.875秒，含多次trace提取，不是投影计时）。同一输入的FP64差当然不变，不重复全25层。`innerproduct_gemm_fp.h`二维路径的多个sum对应不同batch/output，并非对同一点积K分段，仍是长FMA链。
+
+`outputs/q2-innerproduct-layer2-v1/`保存派生图、runner、prepare snapshot、输入/权重身份与运行记录。`layout-v2/result.json`补充M=256/2048、K=3072、N=16的稀疏选列小型契约：Gemm/InnerProduct四项均与精确预期逐字节相等，CHW输出为[1,M,16]；只证明二维布局。第一次`layout/`因当前build未启用Noop而失败，保留失败log；改为Reshape后通过，不删失败。
+
+**InnerProduct 一维逐行路径取得单算子局部收益，尚未验证完整25层。** 新`ernie-text-gemm-diagnostic`只加载一次真实down权重，每次将一行[9216]作为dims=1输入，315行串行，ncnn CPU2线程。`innerproduct_fp.h`向量路径按K使用多个partial sums并归并，真实改变归约次序。没有tokenID特判，没有修改ncnn源或默认runtime。
+
+| 同一真实gated输入，对FP64投影 | NRMSE | 最大绝对差 |
+|---|---:|---:|
+| 原Gemm batch | 2.9500388839e-6 | 0.0017668166795 |
+| InnerProduct vector逐行 | 6.1454721144e-7 | 0.00036300808574 |
+| Torch FP32 | 1.1335290585e-7 | 0.000064238008008 |
+
+vector对Torch FP32最大差0.00042724609375。vector仍比Torch FP32误差大，不称最优或质量关闭。解包后的每一个down权重FP32值与官方safetensors完全一致；原封不动的gated输入SHA `d04861b7da004d0181360a6f7477f3677fdcf4d7c4eaa8fb21a425393c28a347`。runner SHA `a71f362569a7b7c2241c886231a918eba57f776864ad9804eaf56eb518c30af6`。CPU记录load0.161125秒、compute+I/O0.591890秒、进程peakRSS229220KiB；外部wall0.824707秒；session37967 exit0。该计时没有与相同scope的Gemm计时配对，不能给speedup结论。
+
+证据`outputs/q2-innerproduct-vector-layer2-v2/{identity.json,result.json,process/,prepare.py.snapshot,evaluate.py.snapshot}`。首次`...-v1/`提取错误地假设磁盘FP32标记，assert失败且未运行，保留零字节目标；v2正确使用BF16标记，随后与官方完整矩阵逐元素检查。构建第一次因CMake尚未重新生成新target失败，保存`q2-text-gemm-diagnostic-build-v1.log`；配置后`-j2`单target成功，日志v2。下一步需要把同一逐行策略放入仅诊断的完整25层路径；本报告时未执行，未晋升默认。

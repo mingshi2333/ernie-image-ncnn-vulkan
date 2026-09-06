@@ -27,3 +27,6 @@ if(ERNIE_BUILD_GENERATOR)
     add_executable(ernie-pe-runner pe_runner.cpp)
     target_link_libraries(ernie-pe-runner PRIVATE ernie-pe)
 endif()
+
+# Explicit CPU-only diagnostic; does not change the text runtime.
+ernie_probe(ernie-text-gemm-diagnostic text_gemm_diagnostic.cpp)

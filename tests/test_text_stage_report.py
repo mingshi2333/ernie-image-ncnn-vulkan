@@ -1,3 +1,6 @@
+import os
+import subprocess
+import struct
 import tempfile
 import unittest
 from pathlib import Path
@@ -26,4 +29,23 @@ class TextStageTests(unittest.TestCase):
             self.assertEqual(verify_blob_map(p)['norm'],'6')
             p.write_text(p.read_text().replace('RMSNorm','Gemm'))
             with self.assertRaises(ValueError):verify_blob_map(p)
+@unittest.skipUnless(os.environ.get('ERNIE_TEXT_GEMM_DIAGNOSTIC'), 'set diagnostic runner for C++ integration')
+class TextVectorRunnerTests(unittest.TestCase):
+    def test_exact_rows_and_failure_guards(self):
+        with tempfile.TemporaryDirectory() as temp:
+            p=Path(temp);runner=os.environ['ERNIE_TEXT_GEMM_DIAGNOSTIC']
+            (p/'graph').write_text('7767517\n2 2\nInput input 0 1 in0\nInnerProduct down 1 1 in0 out0 0=8 1=0 2=128\n')
+            w=np.eye(8,16,dtype='<f4');(p/'weights').write_bytes(struct.pack('<I',0)+w.tobytes())
+            x=np.arange(48,dtype='<f4').reshape(3,16);x.tofile(p/'input')
+            cmd=[runner,str(p/'graph'),str(p/'weights'),str(p/'input'),str(p/'output'),'3','16','8']
+            good=subprocess.run(cmd,capture_output=True,text=True)
+            self.assertEqual(good.returncode,0,good.stderr)
+            np.testing.assert_array_equal(np.fromfile(p/'output',dtype='<f4').reshape(3,8),x[:,:8])
+            self.assertNotEqual(subprocess.run(cmd,capture_output=True).returncode,0)
+            cmd[4]=str(p/'invalid');cmd[5]='4'
+            self.assertNotEqual(subprocess.run(cmd,capture_output=True).returncode,0)
+            self.assertFalse((p/'invalid').exists())
+            cmd[5]='3';x[0,0]=np.nan;x.tofile(p/'input')
+            self.assertNotEqual(subprocess.run(cmd,capture_output=True).returncode,0)
+
 if __name__=='__main__':unittest.main()
