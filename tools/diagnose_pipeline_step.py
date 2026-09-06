@@ -24,7 +24,7 @@ def main():
     parser.add_argument('--reference', type=Path, required=True)
     parser.add_argument('--step', type=int, required=True, help='Zero-based step index')
     parser.add_argument('--output', type=Path, required=True)
-    parser.add_argument('--precision', choices=['fp32', 'fp16'], default='fp32')
+    parser.add_argument('--precision', choices=['fp32', 'fp16', 'bf16'], default='fp32')
     parser.add_argument('--runner', type=Path, default=ROOT/'build/ernie-block-sequence-runner')
     args = parser.parse_args()
     package, _ = verify_package(args.model)
@@ -75,7 +75,8 @@ def main():
         'source_snapshot': {p.name: sha256(p) for p in sorted(scripts.iterdir())},
         # The existing full-pipeline tensor gates, unchanged.
         'gates': {'fp32': {'atol': .0002, 'rtol': .01, 'nrmse': .003},
-                  'fp16': {'atol': .03, 'rtol': .25, 'nrmse': .15}},
+                  'fp16': {'atol': .03, 'rtol': .25, 'nrmse': .15},
+                  'bf16': {'atol': .03, 'rtol': .25, 'nrmse': .15}},
     }
     (fixture_dir/'fixture.json').write_text(json.dumps(fixture, indent=2)+'\n')
     extra = ['--input-head', str((args.model/'dit/input').resolve()),

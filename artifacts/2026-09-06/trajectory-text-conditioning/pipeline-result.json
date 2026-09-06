@@ -1,0 +1,319 @@
+{
+  "scope": "Diagnostic free-running DiT and VAE with saved official text embeddings; native text encoder bypassed; not complete native prompt-to-PNG acceptance",
+  "conditioning_source": "saved_reference_diagnostic",
+  "runner_sha256": "c8ee48c0253032b6d79b636e9992f7314868d510624c5d9e3df39ff3a770a49f",
+  "validator_sha256": "eca9052ce513d82bee4a48698725f13df19c9c765118b1588fe0368b032ea363",
+  "source_snapshot": {
+    "acceptance_manifest.py": "fbecbc9aeba07918214755c886fbbdb50b76a402aea32dd7f5b0ecefa2f4cd79",
+    "audit_port_weights.py": "01f8650ca8ba8c20e08f2a72777a0267ca79203e2d25f5b6ab2e374ff3742db2",
+    "audit_text_selection.py": "01fbe97dc10716d3d0b57f0174532d61ecd0ee42e9a54cbbfae58933b65b5d8a",
+    "benchmark_pipeline.py": "973eca80a090cd14dc2d82e156ab5b702ea56e23d844989a914dbbc1689e952c",
+    "build_dit_weights.py": "9a1bd308601051e5d0f780309ed402dd7b00847f9434863070c9671432ed1dac",
+    "build_pe_model.py": "e780b66cb2ae18b0055a1c7d247959f5e9e40aa49cf921fcade556f8660e04b6",
+    "build_text_weights.py": "ab6ff40f7a66ffc126ba20f158dab015014ab2d8f31510f51b2958db801aa43a",
+    "collect_component_evidence.py": "c89c6068ac3f324ab844280d3e8a13e6fa4108bc30e53f4e9d37935e01ff7b12",
+    "collect_delivery_evidence.py": "fc19e399ef79c3c46a157fb52e1e11e6fac6f84e302324d1de9bc6dc1f223e12",
+    "collect_parity_evidence.py": "b4b3af15f22e1152529c3f6d0c528475c938fc7ec94bcc7b470033815796571b",
+    "collect_pipeline_evidence.py": "f5228714bd492b2034519a0ceec7f291b587d9a8c1010121e5a1f39d5c3d6e92",
+    "compare_pipeline_cache.py": "f9d68c6658124aa1f582ef7637c050f33702fda082b864a2aa8c8a874c403d59",
+    "compare_ports.py": "1fc2d6669a7580de9759220aa0ca04254e8a90761c3e2e3807242b0df9db3df6",
+    "compare_reference_backends.py": "1cd28228ec736ac2d3f2da613915ba8322885a09cbaf8873c86004657ff5bf17",
+    "convert_dit_blocks.py": "bd818f0c9c85caeba3f379bda08546facb0a0cfd56e705bdeb40c1aa2c1bd0d8",
+    "diagnose_dit_stages.py": "404c074ca2c0a5bf8ac38c8c2aad1849b2e3b703c4a7ee8bd824ea11f7e2d150",
+    "diagnose_pipeline_step.py": "ba9ff185379abcd4b12200346c85ec31cd06bea968bb0bf0c5261cc518f078e7",
+    "diagnose_vae_cross.py": "513a6ca8b41fb1458ca67f1f0927fd539d2dbd5d10c57485b1842ea12a040eb1",
+    "export_dit_block.py": "cc2957037b80cce840a0c09e2646c9290d66e7ce6907d57bc14c18978f49a12d",
+    "export_dit_heads.py": "96742706fb26ff64fe002f00aba436c12c074a7ef48b05894afd384ba1375a09",
+    "export_pe_block.py": "03c46d6697f832dfee5eb307f3efcb6e279c139e9d62b372c81393ad303ee067",
+    "export_text_block.py": "e6b5c3131b6d121c2bf008e9f3fbf8a6400b97ec5e4f1f24623093e6c0727e31",
+    "export_vae.py": "4a547dedbe7ede7bd32ea1709d55c9da50e10c9baf09d74180480b2c67e68913",
+    "fetch_component.py": "b08fa7fe4c350edca66a9f4154b623ac7b33653476eed4a3f715cb000b361604",
+    "fetch_pe_components.py": "580ea883a4f316ee5e01ceb9264c98308f203f476fa9e56c8df879ad45da1f58",
+    "fetch_pipeline_components.py": "6467b3cc89ec796b12c4d8d4a9024a35f1ccec350dc1f04ec6d0b92a80c69661",
+    "fetch_tokenizer.py": "9a4e0524182c9f87889c4dcdf408e97eed6257fdf7634be86c8eb743e9ab2aad",
+    "pack_block_weights.py": "7057668992e3520ef435c697198797905b563897c3f2d1227166b777329259f8",
+    "package_model.py": "aaf385193ac7d40506ddd428ceab2602cb1233ea0412972a004490c25f9b6f74",
+    "pe_package.py": "2f6e8de9c8c5f8e31b30870b0d3f182a3dae5bca9d6a3abe044dfabe3684b193",
+    "port_adapters.py": "76e4fac0ed44a6010fcefe44c0202229f26809b3f61aa07c5119cb43669b0f88",
+    "port_metrics.py": "74e92b55c121fb8350c0f95cd45a3344d79f277b42e3b461d5cd59fdc436a56a",
+    "prepare_block.py": "8efa0964ab40017f9ba346979c8efe6ad50e6a4ac5a2dd961d59e8a59e779ff8",
+    "prepare_pipeline.py": "49606b905c9426bd98daca007b49cb8905ff8db8ec55a3d8841dc5090f835b95",
+    "prepare_variant.py": "0cbdba3f711063f137a90925cf522d3b0b13165535ec00f92216bfd487f5438d",
+    "prompt_io.py": "5f6b16abe2939eb28b78b2357b618f09c3cab8f7682c338de3a56fe58af47ca4",
+    "rebucket_dit.py": "fb5420cb036f7b52d50390ee02ecdaf5835185739eab2f813dc05425031a6ae7",
+    "rebucket_text.py": "ed548e91c257dbe19dcc0172f47286cbc82e58e0bb31d2b61c05a707b97ae41b",
+    "reference_pe.py": "80ea8f5c90a794b4aabc968d150e7fa70c024410b17d06aa840b347dea189906",
+    "run_block_matrix.py": "323f8691075c2e32b673f5bca0c02ddc29bfb944f9e15bc38d1a50873e986906",
+    "run_probes.py": "943dcc738520548c7327d37b6ae8eb63694349b8a7b8c10f0ecd0a170b3aa561",
+    "source_inventory.py": "57ea101489bd51acb336430c374055f0ed053a5385d6f98e1b0c946f54ce07c2",
+    "specialize_vae.py": "6e07c606782ca3128e148e1e273ee4d150aed0d3b1c5d933b012fe01b0d5a6dd",
+    "validate_block_sequence.py": "8c097f77a87a287d094c01cdd82a444e93061364cb6c8b9ea3478e861f3dd1ad",
+    "validate_denoiser.py": "a93c24203f999e421cedec578fea6f9f2ae768d550354afe45b8d18c5b761fc1",
+    "validate_dit.py": "3ba3af5af4deb693a642e92bc744f75a1823bcafea882c8b4908e58e5b6b9c1b",
+    "validate_dit_block.py": "e2b2a6c257d1eb4c490d0f34e51de43febe738eaded2d78b5e6d4789710f6cb2",
+    "validate_dit_heads.py": "d47056504fbca0a758cb6a28f3f50e35e02d807889001dc8de9499e90c455510",
+    "validate_latent_ops.py": "e1e0ee6901eb22d919428f96aebfe6f64bfea716f8472d58fa9d224d54ef11ed",
+    "validate_pe.py": "2e63597ca02a7b328e5957b5095e80b29ceec1ce233a104ac8322d0cfa475223",
+    "validate_pe_block.py": "5672e726a6352ce1d670c373a6cbf146344827d85ebb29ddc3c877125dfa59a7",
+    "validate_pe_tokenizer.py": "08e44eeb33c9d750108888ed006d31def30607238a024fd6d4f94018aaa8fe93",
+    "validate_pipeline.py": "eca9052ce513d82bee4a48698725f13df19c9c765118b1588fe0368b032ea363",
+    "validate_text.py": "9ea45a8f5747615468c29a64f81f3e6d4bd02e60c294efa9369af4ce5ca08362",
+    "validate_time_features.py": "3b26234d277eb0ee9c1fa577d9ffaaa112b008cd1b34a046e970c1e2c15c2019",
+    "validate_tokenizer.py": "90e2feca55db888479ca3d92cb043cb6e3de98dcb5f2b44a81c071228f72f78c"
+  },
+  "package_manifest_sha256": "ef98859ac741f6923680fb02de39e663fa3fa01943eff9d2d85c6ddaf40c9e59",
+  "reference_fixture_sha256": "8d7638b1808b4b435565d4045ffc39e3a06fb1de35f8a52f23de75aec2feae11",
+  "device": "vulkan",
+  "dit_precision": "fp32",
+  "text_scheduler_vae_precision": "fp32",
+  "command": [
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pipeline512x384-pe-officialtext-fp32-v1/ernie-image.snapshot",
+    "--model",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo512x384-s2048-portable",
+    "--prompt-file",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pipeline512x384-pe-officialtext-fp32-v1/input-prompt.txt",
+    "--output",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pipeline512x384-pe-officialtext-fp32-v1/native.png",
+    "--device",
+    "vulkan",
+    "--precision",
+    "fp32",
+    "--width",
+    "512",
+    "--height",
+    "384",
+    "--steps",
+    "8",
+    "--latent",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pipeline512x384-pe-fp32-v1/oracle/reference/initial.f32",
+    "--trace-dir",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pipeline512x384-pe-officialtext-fp32-v1/trace",
+    "--vae-convolution",
+    "direct",
+    "--embeddings",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pipeline512x384-pe-fp32-v1/oracle/reference/text.f32"
+  ],
+  "passed": true,
+  "comparisons": [
+    {
+      "tensor": "initial",
+      "max_abs_error": 0.0,
+      "nrmse": 0.0,
+      "reference_max_abs": 4.426186561584473,
+      "passed": true,
+      "sha256": "954333d9dad2fca3a09e5ad630e1aceb5a951a592c2789489f64a40bf0e3a146"
+    },
+    {
+      "tensor": "text",
+      "max_abs_error": 0.0,
+      "nrmse": 0.0,
+      "reference_max_abs": 598.9039916992188,
+      "passed": true,
+      "sha256": "2ef687ce362212b6dec95f953f7465d2131972b072ab7ed3e5b2ee39e420d01e"
+    },
+    {
+      "tensor": "padded-text",
+      "max_abs_error": 0.0,
+      "nrmse": 0.0,
+      "reference_max_abs": 598.9039916992188,
+      "passed": true,
+      "sha256": "a9d50bb59c8836700924257932cfc68721d1a5cf8d613bf1c581571a9b6f415f"
+    },
+    {
+      "tensor": "constant-0",
+      "max_abs_error": 5.960464477539063e-08,
+      "nrmse": 9.27552772435881e-09,
+      "reference_max_abs": 1.0,
+      "passed": true,
+      "sha256": "063c0986f9efbdebf6a54292a9ebdd0fa89000651392ba6f98136f21886089a6"
+    },
+    {
+      "tensor": "constant-1",
+      "max_abs_error": 5.960464477539063e-08,
+      "nrmse": 1.7574231081984038e-08,
+      "reference_max_abs": 1.0,
+      "passed": true,
+      "sha256": "d5f07676b0a6014cc63bcc37655ca192855833d681fb66236455b4860e605d3b"
+    },
+    {
+      "tensor": "constant-2",
+      "max_abs_error": 0.0,
+      "nrmse": 0.0,
+      "reference_max_abs": 1.0000000150474662e+30,
+      "passed": true,
+      "sha256": "6f036182d55b454f845a8f8623c1686c8e6bc1e7d91d1dec6750df0a76e78a03"
+    },
+    {
+      "tensor": "prediction-0",
+      "max_abs_error": 0.0006489753723144531,
+      "nrmse": 2.4725693969764877e-05,
+      "reference_max_abs": 8.224310874938965,
+      "passed": true,
+      "sha256": "d0a12c284acc432c9b3d2de37b2fc17d4b245a2fdbc3b1d460267e2c6ea83004"
+    },
+    {
+      "tensor": "step-0",
+      "max_abs_error": 2.2411346435546875e-05,
+      "nrmse": 1.2948726335013025e-06,
+      "reference_max_abs": 4.275111675262451,
+      "passed": true,
+      "sha256": "db000cfe6fb8f75cacdd23d117c515b86bcfd91800987c56f41f0e9d05779b01"
+    },
+    {
+      "tensor": "prediction-1",
+      "max_abs_error": 0.0013146549463272095,
+      "nrmse": 5.92889893603777e-05,
+      "reference_max_abs": 7.66325044631958,
+      "passed": true,
+      "sha256": "2f2c45e7414d0965a7edeaae0e65a0619f26afec1c0411ed5c46a46e9d706bd5"
+    },
+    {
+      "tensor": "step-1",
+      "max_abs_error": 5.540996789932251e-05,
+      "nrmse": 4.07183505821279e-06,
+      "reference_max_abs": 4.095314979553223,
+      "passed": true,
+      "sha256": "67339dde10f2ce511d571cc311dc8f193e2e1d9e5da7d4e4702548ccdea9a125"
+    },
+    {
+      "tensor": "prediction-2",
+      "max_abs_error": 0.0005166530609130859,
+      "nrmse": 3.0623247217622134e-05,
+      "reference_max_abs": 7.538926124572754,
+      "passed": true,
+      "sha256": "72223bf967ecd6edbd5eddcbc436d6aa5a30980d9cdd4b0b02f384b6a7ccd0c0"
+    },
+    {
+      "tensor": "step-2",
+      "max_abs_error": 5.510449409484863e-05,
+      "nrmse": 5.115731200253061e-06,
+      "reference_max_abs": 3.87448787689209,
+      "passed": true,
+      "sha256": "5c46fb3ff76b5e9d474b5bdda9f85c2a2819c471818f6625e071441e20f73be4"
+    },
+    {
+      "tensor": "prediction-3",
+      "max_abs_error": 0.005576670169830322,
+      "nrmse": 7.347329606256569e-05,
+      "reference_max_abs": 7.05732536315918,
+      "passed": true,
+      "sha256": "58cf3cd53770d0f0ec362a7a236e66f34e6e4e502e641e0701efa99e466db1b7"
+    },
+    {
+      "tensor": "step-3",
+      "max_abs_error": 0.0003883838653564453,
+      "nrmse": 1.030972678334102e-05,
+      "reference_max_abs": 3.6934921741485596,
+      "passed": true,
+      "sha256": "5f4498b4e66f5f37e9794fd96c64955f137b8347d3245417bbdea85851f770d6"
+    },
+    {
+      "tensor": "prediction-4",
+      "max_abs_error": 0.00513613224029541,
+      "nrmse": 0.00012208382649567403,
+      "reference_max_abs": 6.510837078094482,
+      "passed": true,
+      "sha256": "12345edf6cfabd5b5edf011fd8276ea954bfc63499c47ed826d7dafaf1286e4e"
+    },
+    {
+      "tensor": "step-4",
+      "max_abs_error": 0.000498652458190918,
+      "nrmse": 2.3491231818068016e-05,
+      "reference_max_abs": 3.591517686843872,
+      "passed": true,
+      "sha256": "00b20e1759ee23b8bffc94029a5f44554fc01f1ef04def56c422e599d7b2eb51"
+    },
+    {
+      "tensor": "prediction-5",
+      "max_abs_error": 0.012007355690002441,
+      "nrmse": 0.00023946739689710905,
+      "reference_max_abs": 6.458651542663574,
+      "passed": true,
+      "sha256": "b3c68452501c34731febda020b0d25abdca8eb583a66451b8e8a15189f897ebe"
+    },
+    {
+      "tensor": "step-5",
+      "max_abs_error": 0.001834094524383545,
+      "nrmse": 7.270454652782731e-05,
+      "reference_max_abs": 3.5675222873687744,
+      "passed": true,
+      "sha256": "3fa601371df9b87a008fba66283cf0f16c3f35a70be1130b6343ead306aa2fd8"
+    },
+    {
+      "tensor": "prediction-6",
+      "max_abs_error": 0.0481591522693634,
+      "nrmse": 0.0005722825483080598,
+      "reference_max_abs": 6.168899059295654,
+      "passed": true,
+      "sha256": "9f5084bf8531be6536a16a4356e09f6090d8630ad014cdd09e5e85c30239ca11"
+    },
+    {
+      "tensor": "step-6",
+      "max_abs_error": 0.010459423065185547,
+      "nrmse": 0.00022393546938480655,
+      "reference_max_abs": 3.777982711791992,
+      "passed": true,
+      "sha256": "d415adfa62e2a0d1c815e419c00bb478612adb1353d0f431bd2e85279f994026"
+    },
+    {
+      "tensor": "prediction-7",
+      "max_abs_error": 0.019005656242370605,
+      "nrmse": 0.0004855708243565802,
+      "reference_max_abs": 5.605832576751709,
+      "passed": true,
+      "sha256": "f5ff5ffde31d6f5f8b918092a7ead5733d504598043a4364592b716d66b08da6"
+    },
+    {
+      "tensor": "step-7",
+      "max_abs_error": 0.009224385023117065,
+      "nrmse": 0.0002877447045438177,
+      "reference_max_abs": 5.346341609954834,
+      "passed": true,
+      "sha256": "d36f84cca8aa9b6d2a7d359d67b2f60fb648b2d465543a03cb35f9771da42f5d"
+    },
+    {
+      "tensor": "final",
+      "max_abs_error": 0.009224385023117065,
+      "nrmse": 0.0002877447045438177,
+      "reference_max_abs": 5.346341609954834,
+      "passed": true,
+      "sha256": "d36f84cca8aa9b6d2a7d359d67b2f60fb648b2d465543a03cb35f9771da42f5d"
+    },
+    {
+      "tensor": "unpacked",
+      "max_abs_error": 0.017180025577545166,
+      "nrmse": 0.00028849453550274857,
+      "reference_max_abs": 9.380813598632812,
+      "passed": true,
+      "sha256": "fd2dc4eef39534cef8ce9dcad73e6ce94c9158ea39f18368916029521237a0c9"
+    },
+    {
+      "tensor": "decoded",
+      "max_abs_error": 0.003773808479309082,
+      "nrmse": 0.00012256958523638068,
+      "reference_max_abs": 1.079487681388855,
+      "passed": true,
+      "sha256": "d1c0548c090e8af6db7829bc961d1416615479256d1098c6c2c04458255ab0a1"
+    }
+  ],
+  "return_code": 0,
+  "png": {
+    "shape": [
+      384,
+      512,
+      3
+    ],
+    "mae": 0.002999199761284722,
+    "max_abs": 1.0,
+    "sha256": "e67a181e8ed4572b9edf43f2c056e029c36ecf7a2bcced28cdfee1a0caf8ae0b",
+    "passed": true
+  },
+  "native_png_quantization_exact": true,
+  "resources": {
+    "scope": "One native run including SHA256 verification and trace; not a controlled performance comparison",
+    "max_rss_kib": 1732616,
+    "total_seconds": 539.735,
+    "model_verification_seconds": 17.4081,
+    "vae_and_png_seconds": 9.25661
+  }
+}
