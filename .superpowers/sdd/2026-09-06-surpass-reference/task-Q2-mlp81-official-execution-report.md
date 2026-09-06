@@ -68,3 +68,18 @@ CPU分析v2：6.76s，RSS1,298,020KiB，CPU0/2、BLAS2、CUDA不可见、swap0�
 它先把线性投影误差与gate/GELU分支拆开：若84逐位一致，则87局部差异必须在另一个分支或最终乘法中；若84不同，则至少确认ungated Gemm本身贡献实现差异，再根据真实84误差选择下一步。**只有84仍不足以量化它对87的贡献**，因为另一个乘数86尚未取得；不能凭84不同比例给up/gate排序。相比继续调down，这一步测试的是已有全分母证据指向的81→87上游部分，且不把FP64更准当作自动晋级条件。
 
 当前只提交这个具体后续观察建议，未准备新的GPU运行或修改数学。正式中文free-running/质量验收仍未关闭。
+
+## 独立加法重建补充与小重算入口
+
+新增独立CPU入口 `tools/diagnose_mlp81_sumcheck.py` 再次逐文件认证六个完整张量，并先把N、O、M**分别从保存的little-endian FP32转换为FP64**，再做D=N−O、U=M−O、E=N−M和R=D−(U+E)。没有拟合系数，全部行分块64计算。
+
+实测87全部51,118,080和88全部17,039,360元素：**重建最大绝对残差均0，非零残差元素均0**。这是该FP64分解的算术恒等，不是因果分摊；两个相反方向的向量不可写成独立贡献百分比。
+
+`outputs/q2-block15-mlp81-official-v5/sumcheck.json` SHA `b6d2712d5dd34dd5c6c6c57cd9f2b3f97069822f7ffe893d1b5c5ad4377a454a`，工具/封存source SHA `f63d098aa7b9215f6fdad514e069fa014cef63319f280d4d3739e05aacb8ba65`。保留分析v1/v2及结果不变。
+
+工作树cwd下可独立重算，输出须为新路径，不运行模型：
+
+```sh
+CUDA_VISIBLE_DEVICES=-1 OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 taskset -c 0,2 .venv/bin/python tools/diagnose_mlp81_sumcheck.py /tmp/mlp81-independent-sumcheck.json
+CUDA_VISIBLE_DEVICES=-1 OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 taskset -c 0,2 .venv/bin/python tools/diagnose_mlp81_analysis.py /tmp/mlp81-independent-full-analysis.json
+```

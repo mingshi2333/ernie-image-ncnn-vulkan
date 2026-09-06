@@ -283,5 +283,25 @@
     "outputs/q2-block15-mlp81-official-v5/execution/gpu-before-forward-runtime.json": "7508e12c26ad5202de7848e004e5d830aeb2133bb2d7e049974d42482386703c",
     "outputs/q2-block15-mlp81-official-v5/execution/gpu-after-forward-runtime.json": "8b229eba431583870aadf602ccbd187048e2a3f90d547156a3dd573aeea92007",
     "outputs/q2-block15-mlp81-official-v5/execution/analysis-v2.py": "0cc4d61b67f5f87148e01e131e0c16bfee721a3893bc4a8cdaab46b4d413fed5"
-  }
+  },
+  "sumcheck": {
+    "source_sha256": "f63d098aa7b9215f6fdad514e069fa014cef63319f280d4d3739e05aacb8ba65",
+    "analysis_sha256": "d19c2b2900f2355f87348aa1e052cb77cfd143bae1e1efd469fca8ba569d6814",
+    "arithmetic": "Load saved little-endian FP32 bytes. Independently cast N,O,M to FP64 before subtraction. Compute D=N-O, U=M-O, E=N-M and R=D-(U+E), no fitted coefficients. Finite checks and all rows, chunks64. No model execution.",
+    "results": {
+      "87": {
+        "elements": 51118080,
+        "max_abs_reconstruction_residual": 0.0,
+        "nonzero_residual_elements": 0
+      },
+      "88": {
+        "elements": 17039360,
+        "max_abs_reconstruction_residual": 0.0,
+        "nonzero_residual_elements": 0
+      }
+    },
+    "scope": "Arithmetic reconstruction, not causal contribution percentages",
+    "formal_acceptance": false
+  },
+  "sumcheck_sha256": "b6d2712d5dd34dd5c6c6c57cd9f2b3f97069822f7ffe893d1b5c5ad4377a454a"
 }
