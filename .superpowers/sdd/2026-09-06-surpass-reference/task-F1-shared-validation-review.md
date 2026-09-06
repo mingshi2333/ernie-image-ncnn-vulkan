@@ -59,3 +59,38 @@ for label, fixture in [
 实际 command 指向 `validation-source/tools/validate_pipeline.py`；Python 正常 script 目录查找导入相邻 validation-source/tools，prepare_block ROOT 为 validation-source 根。代码收集 scripts 使用 Path(__file__).parent，而非资产根，符合这次封存路径。run_guarded.py 没有添加 live tools 路径或运行时模块替换。metadata 中两runner SHA 为 image `6a3481e558a003e3f6fad6d8a9bc2ff903216d539c7ce2b86b352c19befaecbc`、denoise `f16a9689615b3023cb83f24404dda1a4f551ae934b22bd31483602904c3e55a2`；本轮按限制未重新读取大二进制，仅核对source与metadata链接，不能把该SHA称为本轮独立重散列结果。
 
 scripts 目录封存所有 *.py，并不意味着全部模块都实际导入。source snapshot 的目录完整性与编译/导入依赖覆盖是不同结论，应继续保持此前报告的表述边界。当前运行未结束，本报告没有给其最终质量/性能 verdict。
+
+## 第一轮修复复审
+
+执行前路径的 I1 CLOSED、I2 CLOSED。独立运行 pipeline_reference 6项 + pipeline_package 4项，共10/10 PASS。实际封存fixture通过 full_reference_contract，返回25；原 outputs=[] 反例现在被完整合同拒绝，原 source_sha256=0 反例被 whole-fixture registry 拒绝。明确 suffix/bool step、缺键、步骤长度、文件顺序、shape/dtype/ID 等已检查。registry 的 8d7638... → ef98859... 映射亦与 artifacts/2026-09-06/native-vector-pipeline/result.json 的实际二元身份一致，不只是凭字段命名推定来源。旧已运行验证器未改写；此处为修复后独立 metadata/代码复审。
+
+### 新增独立审计 I3 Important — shared manifest 的自洽绑定仍不等于固定 source 认证
+
+位置：tools/pipeline_reference.py:81–92；tools/collect_parity_evidence.py:60–65（该轮内容）。
+
+新 reviewed_shared_reference(path,binding,package_manifest) 正确认证 oracle 整份SHA，但 shared package侧仅验证 manifest hash与binding一致、selected config与fixture一致、runtime_bindings与binding一致。没有读取并认证 source_manifest 对应CAS对象，也没有验证其完整files与 runtime_bindings一致。独立 collector 只调用此函数，未调用 verify_shared_package。
+
+实际小反例：使用真实已registry认证的fixture，临时manifest只有schema_version=3、一个instance，source_manifest_sha256写可信ef98859...、config复制fixture、runtime_bindings={'invented-file':'0'*64}；没有objects目录。binding使用同一runtime_bindings并重算 shared_manifest_sha256。当前 reviewed_shared_reference(...) 成功返回reviewed身份。collector前置manifest hash也只来自同一result，可同步重签。故该独立审计不能证明“真实共享绑定来自固定源”，即使入口validator本身仍有完整包验证而不受影响。
+
+建议最低限度独立认证 source CAS metadata：根据可信source_manifest SHA定位对象，核对其原始bytes SHA，再要求selected config与完整runtime_bindings严格等于固定source manifest的config/files，并检查完整预期库存和声明大小。若独立audit不重新散列全部weight bytes，应明确标注“source metadata绑定已验证；当前CAS内容认证沿用/另行执行”，不能称已独立重新认证所有CAS。原始包无需修改。
+
+无torch/无权重的复现核心：
+
+```python
+import hashlib, json, pathlib, tempfile
+from pipeline_reference import reviewed_shared_reference
+oracle = pathlib.Path('outputs/pipeline512x384-pe-fp32-v1/oracle/reference/fixture.json')
+f = json.loads(oracle.read_text())
+source = 'ef98859ac741f6923680fb02de39e663fa3fa01943eff9d2d85c6ddaf40c9e59'
+with tempfile.TemporaryDirectory() as d:
+    p = pathlib.Path(d)/'manifest.json'
+    instance = dict(source_manifest_sha256=source, config=f['config'],
+                    runtime_bindings={'invented-file':'0'*64})
+    p.write_text(json.dumps(dict(schema_version=3, instances=[instance])))
+    binding = dict(source_manifest_sha256=source,
+                   shared_manifest_sha256=hashlib.sha256(p.read_bytes()).hexdigest(),
+                   runtime_bindings=instance['runtime_bindings'])
+    print(reviewed_shared_reference(oracle, binding, p))  # 本轮修复仍接受
+```
+
+I3 OPEN，已即时报告 root；本轮无实际共享包损坏证据。
