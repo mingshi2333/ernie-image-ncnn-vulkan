@@ -1,5 +1,8 @@
 // SPDX-License-Identifier: MIT
 #include "text_encoder.h"
+#include "ernie_gelu.h"
+#include <cctype>
+#include <algorithm>
 #if NCNN_VULKAN
 #include "pipelinecache.h"
 #endif
@@ -22,11 +25,70 @@ static ncnn::Mat read(const fs::path &path, int w, int h)
         throw std::runtime_error("Input read failed");
     return value;
 }
+// Diagnostic-only CPU extraction. No change to the production text path.
+static void dump_trace(const fs::path &directory, const std::string &name,
+                       const ncnn::Mat &tensor, int tokens, int valid)
+{
+    ncnn::Mat plain;
+    ncnn::Option unpack;
+    unpack.use_packing_layout = false;
+    unpack.num_threads = 4;
+    ncnn::convert_packing(tensor, plain, 1, unpack);
+    if (plain.empty() || plain.elemsize != 4u || plain.elempack != 1 || plain.dims > 3)
+        throw std::runtime_error("Unsupported trace layout");
+    const int rows = plain.h == tokens ? valid : plain.h;
+    const auto path = directory / (name + ".f32");
+    if (fs::exists(path)) throw std::runtime_error("Trace exists");
+    std::ofstream out(path, std::ios::binary);
+    for (int c = 0; c < plain.c; ++c)
+        out.write(static_cast<const char *>(plain.channel(c).data), size_t(plain.w) * rows * 4);
+    if (!out) throw std::runtime_error("Trace write failed");
+    std::ofstream meta(directory / (name + ".json"));
+    meta << "{\"layout\":\"CHW\",\"shape\":[" << plain.c << "," << rows << "," << plain.w
+         << "],\"storage_rows\":" << plain.h << ",\"valid_tokens\":" << valid << "}\n";
+}
+static ncnn::Mat trace_cpu(const std::vector<std::string> &models, const ncnn::Mat &input,
+                          const std::vector<ncnn::Mat> &constants, const ncnn::Option &option,
+                          const fs::path &directory, const std::vector<std::string> &blobs,
+                          int tokens, int valid)
+{
+    fs::create_directories(directory);
+    dump_trace(directory, "embedding", input, tokens, valid);
+    for (size_t j = 0; j < constants.size(); ++j)
+        dump_trace(directory, "constant-" + std::to_string(j), constants[j], tokens, valid);
+    ncnn::Mat current = input;
+    for (size_t i = 0; i < models.size(); ++i)
+    {
+        ncnn::Net net;
+        net.opt = option;
+        if (ernie::register_layers(net) ||
+            net.load_param((fs::path(models[i]) / "text.ncnn.param").string().c_str()) ||
+            net.load_model((fs::path(models[i]) / "text.ncnn.bin").string().c_str()))
+            throw std::runtime_error("Trace model load failed");
+        auto extract = [&](const std::string &name) {
+            auto ex = net.create_extractor();
+            if (ex.input("in0", current.clone())) throw std::runtime_error("Trace activation input failed");
+            for (size_t j = 0; j < constants.size(); ++j)
+                if (ex.input(("in" + std::to_string(j+1)).c_str(), constants[j]))
+                    throw std::runtime_error("Trace constant input failed");
+            ncnn::Mat value;
+            if (ex.extract(name.c_str(), value)) throw std::runtime_error("Trace extraction failed: " + name);
+            return value;
+        };
+        // Each requested internal blob uses a fresh extractor, so inspection
+        // cannot change the free-running out0 extraction or allocator reuse.
+        for (const auto &blob : blobs) dump_trace(directory, "blob-" + blob, extract(blob), tokens, valid);
+        current = extract("out0");
+        dump_trace(directory, "layer-" + std::to_string(i), current, tokens, valid);
+    }
+    return current;
+}
 int main(int argc, char **argv)
 {
     std::vector<std::string> models;
-    fs::path fixture, output, ids_path, embeddings, frequencies;
-    int tokens = 0, valid = 0, status = 0;
+    fs::path fixture, output, ids_path, embeddings, frequencies, trace;
+    std::vector<std::string> trace_blobs;
+    int tokens = 0, valid = 0, requested_valid = 0, status = 0;
     std::string backend = "cpu", precision = "fp32";
     try
     {
@@ -36,7 +98,15 @@ int main(int argc, char **argv)
             if (++i == argc)
                 throw std::invalid_argument("Missing argument value");
             const std::string value = argv[i];
-            if (flag == "--model")
+            if (flag == "--trace-dir")
+                trace = value;
+            else if (flag == "--trace-blob")
+            {
+                if (value.empty() || !std::all_of(value.begin(), value.end(), [](unsigned char c) { return std::isalnum(c) || c == '_'; }))
+                    throw std::invalid_argument("Unsafe trace blob name");
+                trace_blobs.push_back(value);
+            }
+            else if (flag == "--model")
                 models.push_back(value);
             else if (flag == "--fixture")
                 fixture = value;
@@ -52,6 +122,8 @@ int main(int argc, char **argv)
                 backend = value;
             else if (flag == "--precision")
                 precision = value;
+            else if (flag == "--valid-tokens")
+                requested_valid = std::stoi(value);
             else if (flag == "--tokens")
             {
                 size_t n = 0;
@@ -68,6 +140,9 @@ int main(int argc, char **argv)
             (backend == "cpu" && precision != "fp32") || (fixture.empty() == ids_path.empty()))
             throw std::invalid_argument(
                 "Require models, new output, token bucket and exactly one fixture/ids source");
+        if ((!trace.empty() && (backend != "cpu" || fs::exists(trace))) ||
+            (!trace_blobs.empty() && (trace.empty() || models.size() != 1)))
+            throw std::invalid_argument("Trace requires new CPU directory; internal blobs require one model");
         ncnn::Mat input;
         std::vector<ncnn::Mat> constants;
         if (!fixture.empty())
@@ -75,7 +150,9 @@ int main(int argc, char **argv)
             input = read(fixture / "in0.f32", 3072, tokens);
             constants = {read(fixture / "in1.f32", 128, tokens), read(fixture / "in2.f32", 128, tokens),
                          read(fixture / "in3.f32", tokens, tokens)};
-            valid = tokens;
+            if (requested_valid < 0 || requested_valid > tokens)
+                throw std::invalid_argument("Invalid valid-token prefix");
+            valid = requested_valid ? requested_valid : tokens;
         }
         else
         {
@@ -106,7 +183,9 @@ int main(int argc, char **argv)
         option.use_fp16_packed = option.use_fp16_arithmetic = option.use_bf16_packed = false;
         ernie::BlockSequenceStats stats;
         ncnn::Mat result;
-        if (backend == "cpu")
+        if (!trace.empty())
+            result = trace_cpu(models, input, constants, option, trace, trace_blobs, tokens, valid);
+        else if (backend == "cpu")
             result = ernie::run_text_blocks(models, input, constants, option, stats);
         else
         {
