@@ -4,6 +4,7 @@
 #include "command.h"
 #include <cstdint>
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <stdexcept>
 #include <string>
@@ -56,6 +57,23 @@ void snapshot(Session& s, std::ostream& out, const char* phase) {
             << ",\"live_bytes\":" << t.live_bytes << ",\"peak_bytes\":" << t.peak_bytes
             << ",\"allocations\":" << t.allocations << '}';
     }
+    out << "],\"device_identities\":[";
+    first=true;
+    for(const auto& item:x.devices) {
+        if(!first)out << ','; first=false;
+        const auto& d=item.second;
+        require(d.index>=0 && !d.name.empty(),"missing actual device identity");
+        out << "{\"handle\":" << item.first << ",\"index\":" << d.index
+            << ",\"vendor_id\":" << d.vendor_id << ",\"device_id\":" << d.device_id
+            << ",\"api_version\":" << d.api_version << ",\"driver_version\":" << d.driver_version
+            << ",\"name_utf8_hex\":\"";
+        for(unsigned char c:d.name)out << std::hex << std::setw(2) << std::setfill('0') << unsigned(c);
+        out << "\",\"pipeline_cache_uuid\":\"";
+        for(auto c:d.pipeline_cache_uuid)out << std::hex << std::setw(2) << std::setfill('0') << unsigned(c);
+        out << std::dec << "\"}";
+    }
+    for(const auto& item:x.allocator_metrics.allocators)
+        require(x.devices.count(item.first.device)==1,"allocator device identity unobserved");
     out << "],\"allocators\":[";
     first=true;
     for(const auto& item:x.allocator_metrics.allocators) {
