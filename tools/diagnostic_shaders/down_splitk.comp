@@ -1,0 +1,23 @@
+#version 450
+layout(binding=0) readonly buffer Input { float x[]; };
+layout(binding=1) readonly buffer Weight { float w[]; };
+layout(binding=2) writeonly buffer Partial { float y[]; };
+layout(push_constant) uniform Shape { uint m; uint n; uint k; uint splits; } p;
+void main() {
+ uint col=gl_GlobalInvocationID.x, row=gl_GlobalInvocationID.y, split=gl_GlobalInvocationID.z;
+ if(col>=p.n || row>=p.m || split>=p.splits) return;
+ precise float sum=0.0; precise float correction=0.0;
+ uint width=p.k/p.splits;
+ for(uint t=split*width;t<(split+1)*width;++t) {
+  float a=x[row*p.k+t], b=w[t*p.n+col];
+  precise float product=a*b;
+  precise float next=sum+product;
+  precise float lost=abs(sum)>=abs(product) ? (sum-next)+product : (product-next)+sum;
+  correction=correction+lost;
+  // Retain the exact-product residual available from IEEE FMA.
+  correction=correction+fma(a,b,-product);
+  sum=next;
+ }
+ uint index=(row*p.splits+split)*p.n+col;
+ y[index*2]=sum; y[index*2+1]=correction;
+}

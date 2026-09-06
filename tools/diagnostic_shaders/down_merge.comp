@@ -1,0 +1,16 @@
+#version 450
+layout(binding=0) readonly buffer Partial { float x[]; };
+layout(binding=1) writeonly buffer Output { float y[]; };
+layout(push_constant) uniform Shape { uint m; uint n; uint k; uint splits; } p;
+void main() {
+ uint col=gl_GlobalInvocationID.x,row=gl_GlobalInvocationID.y;
+ if(col>=p.n || row>=p.m) return;
+ precise float sum=0.0; precise float correction=0.0;
+ for(uint split=0;split<p.splits;++split) for(uint limb=0;limb<2;++limb) {
+  float value=x[((row*p.splits+split)*p.n+col)*2+limb];
+  precise float next=sum+value;
+  precise float lost=abs(sum)>=abs(value) ? (sum-next)+value : (value-next)+sum;
+  correction=correction+lost;sum=next;
+ }
+ y[row*p.n+col]=sum+correction;
+}
