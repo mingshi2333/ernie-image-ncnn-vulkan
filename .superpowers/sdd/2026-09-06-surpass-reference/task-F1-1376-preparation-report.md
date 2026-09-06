@@ -22,3 +22,15 @@
 3. 使用同snapshot `tools/specialize_vae.py --template models/vae-8x8-v1 --reference <v2>/official-vae --output <v2>/vae-candidate --fixed-1376x768`；完整模板/bin流hash与参考文件绑定后，`validate_dit_heads.py` 配冻结runner、backend cpu、precision fp32、vae-convolution direct验证全分母。这里只验证unpacked latent→decoder，不包含BN/unpack，仍需后续packed128×48×86→32×96×172及inverseBN eps1e-5边界。
 4. Heads分别以packed H48/W86/text64制作官方fixture和native完整输出对照，input head8outputs、output head1output；保持精确权重和全部head图规范SHA。随后一个4192token DiT block同输入官方对照，再36块轨迹。未生成假的官方head/block输出或给未执行任务预填pass。
 5. 组件真实正确性+发展整链闭环后，另行审核新schema2完整来源清单及生产registry/shape whitelist；没有在本切片自动批准。资源容量、正式F1、S/M均未评估。
+
+## 准备修正与实际 import-only runtime 冻结
+
+Root发现并复现v2错误：`Path(python).resolve()` 使计划从项目 `.venv/bin/python` 变成 `/usr/bin/python3.14`，两者虽指向相同可执行文件bytes，但prefix/site-packages不同。这是实际依赖来源改变，v2作为未执行的错误准备保留，不再选择。工具现在保留绝对venv invocation，单独记录resolved executable/hash，并以同入口读取prefix、Torch/Diffusers/Safetensors实际origin/version/direct_url；不得以binary SHA替代Python环境身份。
+
+最新计划 `outputs/f1-shape1376-s64-plan-v3`。已核对其invocation仍为worktree `.venv/bin/python`，runtime prefix为该`.venv`、Torch origin在`.venv/lib64/python3.14/site-packages`，resolved仅作记录为`/usr/bin/python3.14`。native验证说明修为实际支持的 `validate_dit_heads.py --cpu-only --vae-convolution direct`。冻结head-runner普通decoder内部num_threads=4保持不变；计划明确official_torch_threads=2、native_ncnn_threads=4、scope_cpu_budget=2/affinity12,14，不能把CPU预算误说成原生内部线程数。
+
+新增 `tools/vae_reference_scope.py`：本次只执行capture-runtime，导入未来官方worker依赖但不加载模型。冻结2822个实际已导入文件/当前映射文件的大小与流SHA（含137个mapped files），复制Python源码到runtime/sources；记录真实package元数据、prefix。此scope明确仅实际imported/mapped集合，后续lazy-load新增依赖需要另外记录，不能声称整个环境完全封闭。源码identity另绑定官方VAE config和decoder/postquant manifest SHA；未来load_vae仍全流核验实际官方权重。
+
+v3 plan给出具体systemd-run scope launcher：16GiB/swap0/CPU200%、affinity12,14，保留venv invocation、CUDA_VISIBLE_DEVICES为空、禁HF联网并固定线程环境。guard在模型运行前认证源/runtime/input/官方metadata和实际cgroup配置、venv prefix、affinity；只接受固定96×172/reference-only/threads2 argv；借用已审check_release.execute的50ms hostfloor/timeout监控，完成后核runtime/input/metadata及OOM，保留独立process/result。guard/launcher未执行，模型输出仍不存在。
+
+新增runtime文件同size篡改及venv路径语义小测试2/2，其余6/6重跑通过、工具py_compile通过。v3源/input/runner/runtime identity绑定已复核；只做了轻量runtime导入与流哈希，未进行官方forward/native推理/导出/GPU。

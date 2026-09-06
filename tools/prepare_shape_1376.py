@@ -7,6 +7,8 @@ from pathlib import Path
 import shutil
 import random
 import struct
+import subprocess
+import os
 from audit_shape_contract import audit_package, normalize_graph, CONTRACT_HASHES, RULES, dimensions
 from prepare_block import ROOT, sha256
 from source_inventory import source_files
@@ -62,9 +64,14 @@ def prepare(package, output, official_root, runner, python):
         graphs.append({'path':row['path'],'kind':row['kind'],'source_sha256':row['sha256'],
                        'candidate_sha256':sha256(dest),'contract_sha256':row['contract_sha256']})
     lock=json.loads((snapshot/'sources.lock.json').read_text())
+    python_invocation=os.path.abspath(python)
+    environment=json.loads(subprocess.check_output([python_invocation,'-c',
+        "import sys,json,importlib.util,importlib.metadata as m; print(json.dumps({'prefix':sys.prefix,'base_prefix':sys.base_prefix,'executable':sys.executable,'packages':{n:{'origin':importlib.util.find_spec(n).origin,'version':m.version(n),'direct_url':m.distribution(n).read_text('direct_url.json')} for n in ('torch','diffusers','safetensors')}}))"],text=True))
+    official_metadata={name:sha256(Path(official_root)/name) for name in ('vae-config.json','vae-decoder.manifest.json','vae-post-quant.manifest.json')}
     sources={'files':records,'head_runner_sha256':sha256(frozen_runner),
-             'python':str(Path(python).resolve()),'python_sha256':sha256(python),
-             'official_root':str(Path(official_root).resolve()),
+             'python':python_invocation,'python_resolved_executable':str(Path(python).resolve()),
+             'python_sha256':sha256(python),'python_environment':environment,
+             'official_root':str(Path(official_root).resolve()),'official_metadata_sha256':official_metadata,
              'official_revision':lock['official_model']['revision'],'ncnn_revision':lock['ncnn']['revision']}
     (output/'source-identity.json').write_text(json.dumps(sources,indent=2)+'\n')
     reference=output/'official-vae';candidate=output/'vae-candidate'
@@ -77,23 +84,37 @@ def prepare(package, output, official_root, runner, python):
           'image_tokens':4128,'sequence_tokens':4192,'source_identity_sha256':sha256(output/'source-identity.json'),
           'graphs':graphs,'weights_expected_sha256':weights,'weights_content_verified':False,
           'weights_policy':'No bin rewritten; stream every selected component bin against source manifest before execution',
-          'resources':{'cpu_threads':2,'cpu_affinity':[12,14],'memory_max_bytes':16*1024**3,
+          'resources':{'official_torch_threads':2,'native_ncnn_threads':4,'scope_cpu_budget':2,'cpu_affinity':[12,14],'memory_max_bytes':16*1024**3,
                        'swap_max_bytes':0,'host_available_min_bytes':3*1024**3,'gpu_authorized':False,
                        'guard_status':'required_external_supervisor_not_started','timeout_seconds':1800},
           'steps':[
               {'id':'official_vae','status':'requires_resource_slot_and_installed_runtime_freeze',
-               'argv':[str(Path(python).resolve()),str(snapshot/'tools/export_vae.py'),'--output',str(reference),
+               'argv':[python_invocation,str(snapshot/'tools/export_vae.py'),'--output',str(reference),
                        '--height','96','--width','172','--reference-only','--fixed-1376x768','--threads','2',
                        '--official-root',str(Path(official_root).resolve()),'--input-f32',str(input_path)]},
               {'id':'native_vae','status':'requires_official_fixture_then_specialize_vae_full_template_and_bin_hash_audit',
                'candidate_directory':str(candidate),'runner':str(frozen_runner),
-               'validation':'validate_dit_heads.py --backend cpu --precision fp32 --vae-convolution direct; unchanged fixture gates'},
+               'validation':'validate_dit_heads.py --cpu-only --vae-convolution direct; unchanged fixture gates'},
               {'id':'heads','status':'requires_frozen_official_and_native_input_output_fixtures',
                'shape':{'height':48,'width':86,'text_tokens':64},
                'tool':'export_dit_heads.py; export one component at a time under guard; verify all input head 8 outputs and output head 1 output'},
               {'id':'dit','status':'requires_single_block_then_full_36_block_same_input_official_validation',
                'sequence_tokens':4192,'bins':'same source bytes; no numerical changes'},
               {'id':'pipeline','status':'blocked_until_components_pass_and_new_source_registry_independently_reviewed'}]}
+    runtime_environment={**os.environ,'CUDA_VISIBLE_DEVICES':'','OMP_NUM_THREADS':'2','OPENBLAS_NUM_THREADS':'2',
+                         'MKL_NUM_THREADS':'2','HF_HUB_OFFLINE':'1','TRANSFORMERS_OFFLINE':'1'}
+    runtime_environment.pop('PYTHONPATH',None)
+    subprocess.run([python_invocation,str(snapshot/'tools/vae_reference_scope.py'),'--capture-runtime',str(output/'runtime')],
+                   env=runtime_environment,check=True)
+    plan['runtime_identity_sha256']=sha256(output/'runtime/identity.json')
+    launcher=['systemd-run','--user','--scope','--quiet',
+              '--unit=ernie-vae1376-'+hashlib.sha256(str(output).encode()).hexdigest()[:12],
+              '-p','MemoryMax=17179869184','-p','MemorySwapMax=0','-p','CPUQuota=200%',
+              'taskset','-c','12,14','env','-u','PYTHONPATH','CUDA_VISIBLE_DEVICES=',
+              'OMP_NUM_THREADS=2','OPENBLAS_NUM_THREADS=2','MKL_NUM_THREADS=2','HF_HUB_OFFLINE=1',
+              'TRANSFORMERS_OFFLINE=1',python_invocation,str(snapshot/'tools/vae_reference_scope.py'),
+              '--run-plan',str(output/'plan.json')]
+    plan['launcher_argv']=launcher
     (output/'plan.json').write_text(json.dumps(plan,indent=2)+'\n')
     return plan
 
