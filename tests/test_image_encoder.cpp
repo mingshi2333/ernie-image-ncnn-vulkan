@@ -9,6 +9,17 @@ template<class F> void rejects(F f)
     throw std::runtime_error("Invalid encoder request accepted");
 }
 
+template<class F> void rejects_with(F f, const std::string &message)
+{
+    try { f(); }
+    catch (const std::exception &e)
+    {
+        if (e.what() == message) return;
+        throw std::runtime_error("Unexpected rejection: " + std::string(e.what()));
+    }
+    throw std::runtime_error("Invalid encoder request accepted");
+}
+
 int main()
 {
     try
@@ -25,10 +36,12 @@ int main()
         auto candidate = rgb; candidate.width = candidate.height = 1024;
         candidate.pixels.resize(size_t(1024) * 1024 * 3);
         // Production remains closed until the separately recorded candidate is reviewed.
-        rejects([&] { ernie::encode_vae({"7767517\n0 0\n", "/missing"}, candidate, cpu); });
+        rejects_with([&] { ernie::encode_vae({"7767517\n0 0\n", "/missing"}, candidate, cpu); },
+                     "RGB shape has no reviewed VAE encoder graph");
         // The evidence-only entry is fixed to 1024 and must reject every other shape
         // before it attempts to load a graph or weights.
-        rejects([&] { ernie::encode_vae_candidate_1024({"7767517\n0 0\n", "/missing"}, rgb, cpu); });
+        rejects_with([&] { ernie::encode_vae_candidate_1024({"7767517\n0 0\n", "/missing"}, rgb, cpu); },
+                     "Encoder evidence candidate is pinned to 1024x1024");
         auto short_rgb = rgb; short_rgb.pixels.pop_back();
         rejects([&] { ernie::encode_vae({"7767517\n0 0\n", "/missing"}, short_rgb, cpu); });
         auto vulkan = cpu; vulkan.use_vulkan_compute = true;
