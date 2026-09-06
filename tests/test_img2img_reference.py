@@ -66,7 +66,8 @@ class Img2ImgReferenceTests(unittest.TestCase):
             sha = lambda path: hashlib.sha256(path.read_bytes()).hexdigest()
             contract = {'request': {'width': 512, 'height': 384, 'steps': 8, 'strength': .5,
                                     'start_step': 4, 'denoise_steps': 4, 'pe': {'enabled': False},
-                                    'text_precision': 'fp32', 'text_reduction': 'vector'},
+                                    'text_precision': 'fp32', 'text_reduction': 'vector',
+                                    'sigma': float(np.float32(.8))},
                         'encoder_fixture': {'file': fixture.name, 'sha256': sha(fixture)},
                         'noise': {'file': 'saved-noise.f32', 'shape': list(values.shape), 'dtype': '<f4', 'sha256': sha(root/'saved-noise.f32')},
                         'start': {'file': 'start-4.f32', 'shape': list(values.shape), 'dtype': '<f4', 'sha256': sha(root/'start-4.f32')},
@@ -85,7 +86,7 @@ class Img2ImgReferenceTests(unittest.TestCase):
                                   'dit_text_tokens': 2048, 'text_layers': 25, 'dit_layers': 36},
                        'inputs': {}, 'outputs': [], 'final': {}}
             (root / 'fixture.json').write_text(json.dumps(fixture))
-            with self.assertRaisesRegex(ValueError, 'four complete'):
+            with self.assertRaisesRegex(ValueError, '4 complete'):
                 validate_suffix(root, fixture, 'apple', '0' * 64)
 
     def test_positive_start_must_be_recomputed_from_official_encoder(self):
@@ -95,8 +96,33 @@ class Img2ImgReferenceTests(unittest.TestCase):
         start = np.float32(.8) * noise + (np.float32(1) - np.float32(.8)) * encoded
         validate_start(encoded, noise, start)
         start.flat[0] = 0
-        with self.assertRaisesRegex(ValueError, 'reviewed FP32 mixture'):
+        with self.assertRaisesRegex(ValueError, 'reviewed FP32 endpoint'):
             validate_start(encoded, noise, start)
+
+    def test_strength_one_start_is_bitwise_saved_noise(self):
+        shape = (1, 128, 2, 3)
+        encoded = np.full(shape, np.float32(2), dtype=np.float32)
+        noise = np.arange(np.prod(shape), dtype=np.float32).reshape(shape)
+        start = noise.copy()
+        validate_start(encoded, noise, start, shape, 1.)
+        start.flat[-1] = np.nextafter(start.flat[-1], np.float32(np.inf))
+        with self.assertRaisesRegex(ValueError, 'reviewed FP32 endpoint'):
+            validate_start(encoded, noise, start, shape, 1.)
+        with self.assertRaisesRegex(ValueError, 'Unreviewed positive strength'):
+            validate_start(encoded, noise, noise, shape, .75)
+
+    def test_strength_one_suffix_requires_all_eight_absolute_steps(self):
+        import json, tempfile
+        from pathlib import Path
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            fixture = {'complete': True, 'prompt': 'apple', 'steps': 8, 'start_step': 0, 'ids': [1],
+                       'config': {'packed_width': 32, 'packed_height': 24, 'text_bucket': 2048,
+                                  'dit_text_tokens': 2048, 'text_layers': 25, 'dit_layers': 36},
+                       'inputs': {}, 'outputs': [{} for _ in range(4)], 'final': {}}
+            (root / 'fixture.json').write_text(json.dumps(fixture))
+            with self.assertRaisesRegex(ValueError, '8 complete denoising steps'):
+                validate_suffix(root, fixture, 'apple', '0' * 64, start_step=0)
 
     def test_positive_profiles_are_fixed_and_shape_specific(self):
         profile = reviewed_profile(1024, 1024)
@@ -119,7 +145,8 @@ class Img2ImgReferenceTests(unittest.TestCase):
             (root / 'input-contract.json').write_text(json.dumps({
                 'request': {'width': 512, 'height': 384, 'steps': 8, 'strength': .5,
                             'start_step': 4, 'denoise_steps': 4, 'pe': {'enabled': False},
-                            'text_precision': 'fp32', 'text_reduction': 'vector'},
+                            'text_precision': 'fp32', 'text_reduction': 'vector',
+                            'sigma': float(np.float32(.8))},
                 'noise': {'file': 'alternate-noise.f32'}, 'start': {'file': 'alternate-start.f32'},
                 'prompt': {'file': 'prompt.txt'}}))
             with self.assertRaisesRegex(ValueError, 'not canonical'):

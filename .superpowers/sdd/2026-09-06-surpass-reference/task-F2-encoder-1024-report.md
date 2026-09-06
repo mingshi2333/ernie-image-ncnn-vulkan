@@ -140,7 +140,7 @@ are identical. V2 completed in 55.25 seconds with observed peak cgroup memory 4,
 available memory 11,154,571,264 bytes, swap limit zero and no OOM/max event. The production result now binds v2;
 the earlier result JSON is preserved as `result-source-incomplete-official-v1.json`.
 
-## 固定 1024×1024 strength=0.5 准备（GPU 执行 pending）
+## 固定 1024×1024 strength=0.5 准备与执行
 
 在既有 `reference_img2img_positive.py` 中加入受信 profile registry，复用同一套输入认证、官方 text/DiT/decoder 数学和 17 张量 suffix 分母，没有复制第二套 1024 模型实现。registry 只允许已经独立审查的 512×384 和 1024×1024；1024 固定绑定 encoder fixture `88f2e8b7...`、schema-2 官方源 manifest `72bb195a...`、latent `[1,128,64,64]`、64-token text/DiT 图。任意其他尺寸 fail closed。
 
@@ -162,6 +162,16 @@ the earlier result JSON is preserved as `result-source-incomplete-official-v1.js
 
 新增`validate_img2img_positive_result.py`重新认证输入合同、official 17分母、两侧process/cgroup、prompt bytes/token IDs/RGB，并对encoder三边界、noise和17个suffix边界共21张量及PNG重算既定预注册FP32/conditioning/pixel gate。`result.json` SHA `94fdea75...`状态pass，comparison SHA `1ee35e56...`。最差张量是prediction-6 NRMSE `9.15499e-6`；final NRMSE `4.23103e-6`，decoded `7.70356e-6`；PNG max 1、MAE `0.000256856`，全部通过。该结果只覆盖一个固定公开development输入，不代表formal15/72或任意1024输入质量。
 
-验证：`.venv/bin/python -m unittest tests.test_img2img_reference -v`，10/10 PASS；`.venv/bin/python tools/validate_img2img_positive_result.py outputs/f2-positive05-1024x1024-v1`，exit0/status pass。独立最终artifact复核仍待reference_adapter完成。
+验证：`.venv/bin/python -m unittest tests.test_img2img_reference -v`，10/10 PASS；`.venv/bin/python tools/validate_img2img_positive_result.py outputs/f2-positive05-1024x1024-v1`，exit0/status pass。
 
 独立末审指出首版post-audit未重新验证identity内容及完整资源字段。修复后会逐文件核对official 85源码+lock、installed runtime源码、schema2 manifest，以及native 249源码、runner和schema3 package manifest；process必须满足实际memory.max等于10GiB、swap0、host最低值不低于门槛、无failure且OOM为0。资源越界/failure小反例已加入。实际artifact在更严格validator下仍pass，11/11 unit PASS；没有重跑模型。
+
+最终独立复核提交`c2a9ef6`重新计算完整21张量和PNG，并核对两侧执行源码、runner、runtime、package与guard。结论为该固定公开development样例PASS且无剩余阻断；不覆盖formal15/72、其他shape/strength、PE、低精度、性能或其他平台。
+
+## 固定 1024×1024 strength=1 准备（未执行模型）
+
+下一最小端点复用完全相同的公开图片、31-byte LF prompt、seed 20260906 saved noise、encoder fixture和受信package。输入合同SHA为`a269a01c...`；`steps=8`、`start_step=0`、`denoise_steps=8`、`sigma=1`，`start-0.f32`与`saved-noise.f32`均为2,097,152 bytes且SHA同为`9e11124f...`，并已逐字节确认相同。
+
+工具仅把已有固定positive reference合同推广到两个显式允许值`.5/1`。strength1要求绝对步0..7；official suffix完整分母为25（6 conditioning输入、8组prediction/step、3最终输出），加encoder三边界与noise后端到端张量分母为29，另比较PNG。13/13 CPU小测试通过，覆盖bitwise noise端点和缺少任一八步时fail closed。
+
+准备证据位于`outputs/f2-positive1-1024x1024-v1`，`prep-identity.json` SHA为`6b1f555f...`，状态明确为`prepared_pending_independent_review_and_gpu_execution`。未读取formal输入、未加载模型、未使用GPU；必须先经独立准备复核，随后才可按10GiB/swap0/连续3GiB host floor/1800秒guard排队执行official与native。
