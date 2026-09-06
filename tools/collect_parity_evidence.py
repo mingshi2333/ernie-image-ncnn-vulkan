@@ -9,6 +9,7 @@ import subprocess
 
 from collect_delivery_evidence import recheck_metrics
 from package_model import ROOT, sha256
+from pipeline_reference import full_reference_contract, reviewed_shared_reference
 
 # These are the existing, pre-experiment pipeline gates, not fitted to a run.
 GATES = {
@@ -56,6 +57,19 @@ def audit(run):
     check_hash(run/'native.png', result['png']['sha256'])
     package = Path(result['command'][result['command'].index('--model')+1])
     check_hash(package/'manifest.json', result['package_manifest_sha256'])
+    full_reference_contract(fixture, fixture['config'], fixture['prompt'], fixture['steps'])
+    model_manifest=json.loads((package/'manifest.json').read_text())
+    if model_manifest.get('schema_version')==3:
+        if 'package_binding' not in result:
+            raise ValueError('Shared result lacks an instance binding')
+        from package_dynamic_model import verify_shared_package
+        verify_shared_package(package)
+        reviewed_shared_reference(run/'reference/fixture.json',result['package_binding'],package/'manifest.json')
+    expected_names=set(fixture['inputs'])|set(fixture['final'])
+    for i in range(fixture['steps']):expected_names.update((f'prediction-{i}',f'step-{i}'))
+    names=[row['tensor'] for row in result['comparisons']]
+    if len(names)!=len(expected_names) or set(names)!=expected_names:
+        raise ValueError('Result lacks the complete comparison denominator')
     if 'prompt_enhancer' in result:
         pe=result['prompt_enhancer']
         pe_model=Path(result['command'][result['command'].index('--pe-model')+1])

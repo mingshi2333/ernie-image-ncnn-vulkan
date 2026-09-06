@@ -22,6 +22,8 @@ from export_vae import load_vae
 from prepare_block import ROOT,sha256
 from validate_text import real_reference
 from prompt_io import read_prompt
+from pipeline_package import validation_package
+from pipeline_reference import full_reference_contract, reviewed_shared_reference
 
 def reference(package,prompt,output,steps,device='cpu',initial_path=None,start_step=0):
     if type(start_step) is not int or start_step < 0 or start_step > steps:
@@ -145,6 +147,8 @@ def main():
     p.add_argument('--device',choices=['cpu','vulkan'],default='vulkan')
     p.add_argument('--precision',choices=['fp32','fp16','bf16'],default='fp16')
     p.add_argument('--steps',type=int,default=8)
+    p.add_argument('--width',type=int,help='Select a supported shared-package instance')
+    p.add_argument('--height',type=int,help='Select a supported shared-package instance')
     p.add_argument('--vae-convolution',choices=['direct','sgemm'],default='direct')
     p.add_argument('--reference',type=Path,help='Reuse a complete, checksum-verified reference with identical configuration')
     p.add_argument('--reference-embeddings',action='store_true',
@@ -157,6 +161,10 @@ def main():
     args=p.parse_args()
     try:check_conditioning_options(args)
     except ValueError as error:p.error(str(error))
+    try:
+        config,package_binding=validation_package(args.model,args.width,args.height,
+            reference=args.reference,reference_only=args.reference_only)
+    except (OSError,KeyError,ValueError) as error:p.error(str(error))
     if args.prompt_file is not None:args.prompt=read_prompt(args.prompt_file)
     elif args.prompt is None:args.prompt='A red apple on a wooden table, soft daylight, realistic photo.'
     reference_prompt=args.prompt
@@ -165,7 +173,6 @@ def main():
         p.error('PE requires both --pe-model and --pe-reference, without reference embeddings')
     if args.pe_reference:
         pe_reference=json.loads((args.pe_reference/'reference.json').read_text())
-        config=json.loads((args.model/'manifest.json').read_text())['config']
         if (pe_reference['input_prompt']!=args.prompt or pe_reference['width']!=config['packed_width']*16
             or pe_reference['height']!=config['packed_height']*16):
             raise ValueError('PE reference request differs')
@@ -219,10 +226,10 @@ def main():
     if args.reference:
         source=args.reference.resolve()
         fixture=json.loads((source/'fixture.json').read_text())
-        config=json.loads((args.model/'manifest.json').read_text())['config']
-        if (not fixture.get('complete') or fixture['prompt']!=reference_prompt
-            or fixture['steps']!=args.steps or fixture['config']!=config):
-            raise ValueError('Saved reference configuration differs or is incomplete')
+        full_reference_contract(fixture,config,reference_prompt,args.steps)
+        if package_binding:
+            package_binding['reviewed_reference']=reviewed_shared_reference(source/'fixture.json',
+                package_binding,args.model/'manifest.json')
         entries=[*fixture['inputs'].values(),*fixture['final'].values()]
         for step in fixture['outputs']:entries.extend(step.values())
         for entry in entries:
@@ -276,6 +283,7 @@ def main():
             'device':args.device,'dit_precision':args.precision,'text_scheduler_vae_precision':'fp32',
             'text_down_reduction':'bypassed' if (args.reference_embeddings or diagnostic_input) else 'vector' if args.text_down_vector else 'gemm',
             'command':command,'passed':False,'comparisons':[]}
+    if package_binding:result['package_binding']=package_binding
     if diagnostic_input:result['diagnostic_embeddings']=diagnostic_input
     if args.pe_reference:
         result['prompt_enhancer']={'reference_manifest_sha256':sha256(args.pe_reference/'reference.json'),
