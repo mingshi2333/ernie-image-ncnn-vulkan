@@ -1,0 +1,62 @@
+[
+  {
+    "memory.max": "4294967296",
+    "memory.swap.max": "0",
+    "cpu.max": "200000 100000",
+    "memory.current": "8163328",
+    "memory.swap.current": "0",
+    "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+    "seconds": 0.088078871005564,
+    "host_available": 17578078208
+  },
+  {
+    "memory.max": "4294967296",
+    "memory.swap.max": "0",
+    "cpu.max": "200000 100000",
+    "memory.current": "82919424",
+    "memory.swap.current": "0",
+    "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+    "seconds": 0.18842393399972934,
+    "host_available": 17502875648
+  },
+  {
+    "memory.max": "4294967296",
+    "memory.swap.max": "0",
+    "cpu.max": "200000 100000",
+    "memory.current": "99491840",
+    "memory.swap.current": "0",
+    "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+    "seconds": 0.28878799300582614,
+    "host_available": 17486426112
+  },
+  {
+    "memory.max": "4294967296",
+    "memory.swap.max": "0",
+    "cpu.max": "200000 100000",
+    "memory.current": "123752448",
+    "memory.swap.current": "0",
+    "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+    "seconds": 0.3892411010019714,
+    "host_available": 17478782976
+  },
+  {
+    "memory.max": "4294967296",
+    "memory.swap.max": "0",
+    "cpu.max": "200000 100000",
+    "memory.current": "143155200",
+    "memory.swap.current": "0",
+    "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+    "seconds": 0.489598037005635,
+    "host_available": 17469009920
+  },
+  {
+    "memory.max": "4294967296",
+    "memory.swap.max": "0",
+    "cpu.max": "200000 100000",
+    "memory.current": "56049664",
+    "memory.swap.current": "0",
+    "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+    "seconds": 0.5899882170051569,
+    "host_available": 17549357056
+  }
+]

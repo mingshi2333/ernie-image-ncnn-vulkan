@@ -1,0 +1,82 @@
+{
+  "status": "passed_identical_binary_link_map",
+  "return_code": 0,
+  "failure": null,
+  "wall_seconds": 0.6614268160046777,
+  "inputs_unchanged": true,
+  "post_sha256": {
+    "/usr/lib64/crt1.o": "4e9a130ba3b87b2373a09366a48fc9364fa422ca09c9a44371d498d083d0d51b",
+    "/usr/lib64/crti.o": "b353a9c2d05f5c4b7689e95a81c0d9b2e66525b479964c8b66db634a56523be0",
+    "/usr/lib/gcc/x86_64-redhat-linux/16/crtbegin.o": "02d51cb9913c507560c61b7597d55758b44c459e36ef005b3fbbfce1968e0540",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d3-runtime-source-v3/build/linux-vulkan/cli/CMakeFiles/ernie-image.dir/main.cpp.o": "a4484842831e764fd2a507ae898deccd27840db3582c73a2ff9e8bb8fe2f1929",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d3-runtime-source-v3/build/linux-vulkan/cli/CMakeFiles/ernie-image.dir/options.cpp.o": "19b44cba165b4b5fc7b562d26db3625dad5cfb382eeeb442e9352c5ebdd0a8bb",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d3-runtime-source-v3/build/linux-vulkan/cli/CMakeFiles/ernie-image.dir/prompt_file.cpp.o": "4ff0201bf85e9fb5b834eef081d59d91309021198c35e372afabe21670592ef7",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d3-runtime-source-v3/build/linux-vulkan/cli/CMakeFiles/ernie-image.dir/image_io.cpp.o": "c0aa54ad49280b71a3e8253b1e7bcc7ef0188b8570834044064d470495c8ac89",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d3-runtime-source-v3/build/linux-vulkan/src/libernie-pipeline.a": "f7690d9b27251d3be956c4effc99c18416204e7db99e211fb3492b0c5635c766",
+    "/usr/lib64/libpng.so": "65cb04d6c4ec5c031f2f43a58ec5adc4bc9652be5703bb9fa1178f84a2e40446",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d3-runtime-source-v3/build/linux-vulkan/src/libernie-pe.a": "304db89dbcbdca9579d6b3f9b431eb5f5fc57422af674107c0273d89d13ad521",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d3-runtime-source-v3/build/linux-vulkan/src/libernie-runtime.a": "5ada5c950457c077dfd47ef0876dc90ddbb49d593a9bde360ea2d0ae91c9779a",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d3-runtime-source-v3/build/linux-vulkan/ncnn/src/libncnn.a": "5f0af82dae31a7c802784420162e6b7192b27562c235a36949054966b84eb2e8",
+    "/usr/lib64/libomp.so": "74e53bb8e1a0cf9ce7cd28f8f078ddac07c2833f539b28e7aef3774e407afa3a",
+    "/usr/lib64/libpthread.a": "f0a17a43c74d2fe5474fa2fd29c8f14799e777d7d75a2cc4d11c20a6e7b161c5",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d3-runtime-source-v3/build/linux-vulkan/ncnn/glslang/SPIRV/libSPIRV.a": "aac3745ef731e89669dd6618f2769fddeace2fb89f0b5033b4f31d88788eb13b",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d3-runtime-source-v3/build/linux-vulkan/ncnn/glslang/glslang/libglslang.a": "8a3f9c8930f34e8d7a72f9a76e85696c39e57142f666f82d1a36c91f68ccfa7a",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d3-runtime-source-v3/build/linux-vulkan/src/libernie-model-package.a": "cf180e942a659e3c596bd0283b061a92e41c7b80198580dcc4716d991aae39ac",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d3-runtime-source-v3/build/linux-vulkan/src/libernie-shape-graph.a": "05b7a3d831e3ed52e42b9ec5fc0706fe71fd7a1053e0a444ceae65c9b042e42e",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d3-runtime-source-v3/build/linux-vulkan/tokenizer/libernie-tokenizer.a": "cf917b67f99f772d6349703ed9988ba25c7fbdd4150b958605a30b22703f647e",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d3-runtime-source-v3/build/linux-vulkan/cargo/release/libernie_tokenizer_bridge.a": "6276b2862ebde256a0d1722d06f4f4c4767455b8b574be69641b05bb32af13c5",
+    "/usr/lib64/libdl.a": "f0a17a43c74d2fe5474fa2fd29c8f14799e777d7d75a2cc4d11c20a6e7b161c5",
+    "/usr/lib64/libm.so": "3909eca9423e2f5b5cb5ed20b1a56f840efea4e94d0f17930f1c4e373179e670",
+    "/lib64/libm.so.6": "6f7365a58fc0778dbc8869d70cdd4822ab93d879c29e84bb491d447961735e56",
+    "/lib64/libmvec.so.1": "e2689c36ae73a8cda4cdc864528cec4be1ce563dee954c7a4f4fa19c615e1e55",
+    "/usr/lib64/libz.so": "bbde8faec092a7c67b8bd76bbba4a826e61b05c171b97004ce6b308c5a090351",
+    "/usr/lib/gcc/x86_64-redhat-linux/16/libstdc++.so": "fc224ee3cc56b9b3e58453bfb9a0cac3a696e60fd33ba48b6a30eb22b76cc867",
+    "/usr/lib/gcc/x86_64-redhat-linux/16/libgcc_s.so": "1f0e19cc3d3eea1bdcf0a8469f651cd57190ce969e4c6b75c5ad523acdefb459",
+    "/lib64/libgcc_s.so.1": "c71a62b5ef442ab8cf4470874dee6f2383d73a744f0006b6d287412f131c2e09",
+    "/usr/lib/gcc/x86_64-redhat-linux/16/libgcc.a": "a7b090cd3eaaed87ff5bab9dfd508a70c33d842347cb9218e4f2bd86c4b571e0",
+    "/usr/lib64/libc.so": "bc8e2fd8ffcf12e2156395df0a2ea6a0a139937ac835cdc1395b525ded29d7bb",
+    "/lib64/libc.so.6": "01cccbe278d898add05282986a9346d4dda4b3d2b84bc496f9c04c66016528db",
+    "/usr/lib64/libc_nonshared.a": "d609567752192d6ed742265737e0475ee4f7c307461c56849837514e204c4048",
+    "/lib64/ld-linux-x86-64.so.2": "f0949392f14253241540dfeb152f5bd3cbd75f8a3e4f8d3fabc286a2daa27a68",
+    "/usr/lib/gcc/x86_64-redhat-linux/16/crtend.o": "d2d8f57eaa598e63c9a2ea1f3f21e33e2234b97fe803734234d969414b5db26b",
+    "/usr/lib64/crtn.o": "25d8d2d696c8107e5cedbdc6297739feec89ec4a6f67c0577e3df4b1ee030de0",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d3-runtime-source-v3/build/linux-vulkan/ernie-image": "d366c835fe8d8a7de06db804cae094a4b81b1c64ccdbb005551d8942aee7c267",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d3-runtime-source-v3/build/linux-vulkan/build.ninja": "23142f64a638adcab9408fe16fdf26a4be14496317721686ec39fc8cb64acd9f",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/d3-runtime-source-v3/build/linux-vulkan/CMakeCache.txt": "24f8bd260faca8c1919c0f27d53c26eb6831906ad7594ef568078257ea25888d",
+    "/usr/bin/clang++": "4ea85504401d9f5c05109d6cb05778b241aa8d56fde1da2e5bc7ba46cffd44f5",
+    "/usr/bin/ld": "eccfdb2b11bcae1ca6e2915a40db609299f46d7def305dab744c0da0aaf54370"
+  },
+  "memory_max": 4294967296,
+  "scope": "/user.slice/user-1000.slice/user@1000.service/app.slice/ernie-d2-linkmap-v1.scope",
+  "max_sampled_memory_current": 143155200,
+  "min_host_available": 17469009920,
+  "outputs": {
+    "ernie-image.relinked": {
+      "sha256": "d366c835fe8d8a7de06db804cae094a4b81b1c64ccdbb005551d8942aee7c267",
+      "size_bytes": 33742088
+    },
+    "link.map": {
+      "sha256": "c59eb4c8c1b06f7a2ec9294f4c4c555b5116fdb6f5e35db24e7800b8f35d0cd9",
+      "size_bytes": 14229920
+    },
+    "link.d": {
+      "sha256": "a2b897f974c73b0b0b34ae543a6e58588513483d5e345413dae83ccd157f17e4",
+      "size_bytes": 5065
+    },
+    "link.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "samples.json": {
+      "sha256": "dc18cfb99e3803ef900a8903eed5460b0d34a5addb98398b65db8904256382a8",
+      "size_bytes": 2020
+    },
+    "preflight.json": {
+      "sha256": "b427e2c935d37f5d5bb1e1ba0824463cc367fbcc423e52f2af17c449352cf9aa",
+      "size_bytes": 480
+    }
+  },
+  "distributable": false,
+  "licenses_complete": false,
+  "same_binary_as_d3": true
+}
