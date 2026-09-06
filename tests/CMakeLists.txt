@@ -102,3 +102,8 @@ if(ERNIE_BUILD_TOKENIZER)
     target_link_libraries(ernie-model-package-contract PRIVATE ernie-model-package)
     add_test(NAME model_package_contract COMMAND ernie-model-package-contract)
 endif()
+
+find_package(Threads REQUIRED)
+add_executable(ernie-execution-metrics-contract test_execution_metrics.cpp)
+target_link_libraries(ernie-execution-metrics-contract PRIVATE ernie-execution-metrics Threads::Threads)
+add_test(NAME execution_metrics_cpu COMMAND ernie-execution-metrics-contract)

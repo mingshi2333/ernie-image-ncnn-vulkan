@@ -43,3 +43,7 @@ if(ERNIE_BUILD_TOKENIZER)
     target_include_directories(ernie-model-package PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
     target_link_libraries(ernie-model-package PUBLIC ernie-shape-graph ernie-tokenizer)
 endif()
+
+# Standalone host-side accounting; no ncnn dependency or runtime instrumentation.
+add_library(ernie-execution-metrics STATIC execution_metrics.cpp)
+target_include_directories(ernie-execution-metrics PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
