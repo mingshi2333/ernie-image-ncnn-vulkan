@@ -122,3 +122,22 @@ noise/start、conditioning、prediction-4..7、step-4..7、final/unpacked/decode
 已改为 `status=invalid_comparison_prompt_bytes`、`quality_gate_passed=null`。修复后的官方 CPU text IDs
 与 native 均以 1626 结束。必须用精确 prompt bytes 重跑官方四步 suffix 后才能给 parity 结论；native
 执行可以复用。正式 15/72 输入未触碰。
+
+## Exact-prompt v2 有效比较
+
+独立复审提交 `791ed83` 确认 `bbdba1c/260f222` 已关闭原两个 Important 和 alternate filename
+缺口；旧 trimmed-prompt suffix 会被当前合同拒绝。随后只重跑官方 oracle 到新目录
+`official-exact-prompt-v2`，没有覆盖或重解释旧无效目录，也没有重跑冻结 native。
+
+v2 官方 fixture SHA 为 `1f0ab9d5...`，composite reference SHA `46c3ec0d...`，PNG SHA
+`532868d2...`；token IDs 与 native 精确一致，最后为 1626。17 张量完整分母通过 post-audit。官方
+CUDA worker exit 0，wall 93.88 秒，峰值 RSS 3,322,816 KiB，swap 0，完成绝对步 4/5/6/7。
+
+`comparison-v2.json` 将该新 oracle 与冻结 native runner/trace 独立绑定，结果通过全部既定 FP32 gate：
+text NRMSE `1.73028e-6`，prediction-4 `3.79338e-6`，final `1.23456e-5`，decoded
+`2.23708e-5`；PNG 最大通道差 1、MAE `0.000803630`。`result-v2.json` 明确记录
+`status=pass`、`complete_execution=true`、`quality_gate_passed=true`，并引用旧 invalid result。
+
+因此这一条 512×384、短 prompt、PE off、Vector FP32、saved-noise、strength 0.5 的四步 suffix
+development case 已完成有效端到端 parity。它仍只是一条 development case，不代表 formal 15/72、
+PE-on、其他 prompt/shape 或总体质量验收。
