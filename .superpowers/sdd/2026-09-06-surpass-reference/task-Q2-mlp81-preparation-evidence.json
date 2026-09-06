@@ -1,0 +1,34 @@
+{
+  "scope": "CPU prepared only; GPU not started",
+  "plan_sha256": "c7447c7150838dba7d98adf1a8dbca572b857511a341b505d4ac7e35077e1b02",
+  "worker_sha256": "2ac4e0c9610b2521784fea8b3ab7c664fcf91e6830e16434b4639de1a557b931",
+  "runner_sha256": "3689bfc291423a691e88b43041ef8ad3c6b8e171a907a4758202f78f98bc99c9",
+  "contract_sha256": "4fe716ab8f4f02206c64bc8e7f4315a953d9fa5f2811284209312596b5f71df4",
+  "freeze_script_sha256": "83d6ac77e6722ddee6d3dc75a76308fa810a3fd7ba5f0289ccd8e4c9c5f73b4f",
+  "old_observer_source_equality": {
+    "ernie_gelu.cpp": true,
+    "ernie_gelu.h": true,
+    "ernie_attention.cpp": true,
+    "ernie_attention.h": true,
+    "ernie_rmsnorm.cpp": true,
+    "ernie_rmsnorm.h": true,
+    "ernie_residual.cpp": true,
+    "ernie_residual.h": true,
+    "ernie_groupnorm.cpp": true,
+    "ernie_groupnorm.h": true,
+    "diagnose_block_boundary.cpp": false,
+    "sdpa_shader.h": true
+  },
+  "observer_only_delta": "allowlist adds 81",
+  "old_libncnn_equal": true,
+  "upstream_response_result_sha256": "aa7c011f1681ca958e4a69b8e3835d1705db0ad4d0587ca10779c06adcc118c5",
+  "source": {
+    "tools/diagnose_mlp81_contract.py": "4953f8fe31cc989a2717f82d0986df9632c0058e87e7bef3810ec56d2953aa45",
+    "tools/diagnose_mlp81_official.py": "192c2fc84516e12b7c1a420cfcc57aa8197f47cd0847d818da939e2547a1ca56",
+    "tools/diagnose_mlp81_sequence.py": "b4e9ee34bc614d2aa48f89e8644782c8f0b837b189b61990c26f93e75a1398d9",
+    "tools/diagnose_mlp81_boundary.cpp": "9b3762af5658908e4bd99ee94401286487802136b78e4a11baea95d1e5f8d755",
+    "tools/diagnose_q2_upstream_branch.py": "60a3b18968381a273c721e8a38b4f7ea46808a2d99eb0bc8510d1603d82ab84c"
+  },
+  "tests": "3 contract negative/skip cases + 2 CPU analysis cases passed",
+  "execution_pending": true
+}
