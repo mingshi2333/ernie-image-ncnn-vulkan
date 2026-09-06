@@ -1,0 +1,314 @@
+{
+  "scope": "Four independent CPU FP32 decodes of two saved unpacked latents; diagnostic only",
+  "status": "diagnostic_completed",
+  "historical_pipeline_passed": false,
+  "historical_result_sha256": "d52aeb1c310358f332ca70de1a07ab00d6781f04be70bdb97a0afdef8e3a47be",
+  "reference_manifest_sha256": "8d7638b1808b4b435565d4045ffc39e3a06fb1de35f8a52f23de75aec2feae11",
+  "package_manifest_sha256": "ef98859ac741f6923680fb02de39e663fa3fa01943eff9d2d85c6ddaf40c9e59",
+  "native_runner_sha256": "7d1c220d9817c08a12b6b45894d7c333e24d081bbbb5b6cd4a1e3823771bd785",
+  "sources": {
+    "sources.lock.json": "f255bef56f6281e2bfea0de6461329b7f23ca5e4af88c51788a65f85d8f2607d",
+    "src/vae.cpp": "65681bbf4bd401274e5780b5adc5de113de62a03bf98b5bbc83157865ab6c596",
+    "src/ernie_groupnorm.cpp": "94d01911eff19ffdeae297bb7c9a524cdef3eaa29922c7c526a48fba4af8ca64",
+    "probes/head_runner.cpp": "1542007f8cc8f1136a97dc282165102b09fc8a92821e8ded648116f14bc698bd",
+    "tools/export_vae.py": "4a547dedbe7ede7bd32ea1709d55c9da50e10c9baf09d74180480b2c67e68913",
+    "tools/diagnose_vae_cross.py": "564c56f0492f5a9d319e709c8b8d635e5438ec7e92bb53bbd9759400c5b7d92a"
+  },
+  "worker_sources": {
+    "acceptance_manifest.py": "b49c807c608fa340524908d612104d6ae4bf120909ce27f597b1995a12eaac5f",
+    "audit_port_weights.py": "b94ab204ea872e471eb53b14791548dcf2a1c610861ec541175fe1bc73b8791d",
+    "audit_text_selection.py": "01fbe97dc10716d3d0b57f0174532d61ecd0ee42e9a54cbbfae58933b65b5d8a",
+    "benchmark_pipeline.py": "633a9cabbbbc68578180e0f9c612cd3fc03fce4e5d7535c16001d5ce750ab00f",
+    "build_dit_weights.py": "9a1bd308601051e5d0f780309ed402dd7b00847f9434863070c9671432ed1dac",
+    "build_pe_model.py": "e780b66cb2ae18b0055a1c7d247959f5e9e40aa49cf921fcade556f8660e04b6",
+    "build_text_weights.py": "ab6ff40f7a66ffc126ba20f158dab015014ab2d8f31510f51b2958db801aa43a",
+    "collect_component_evidence.py": "c89c6068ac3f324ab844280d3e8a13e6fa4108bc30e53f4e9d37935e01ff7b12",
+    "collect_delivery_evidence.py": "fc19e399ef79c3c46a157fb52e1e11e6fac6f84e302324d1de9bc6dc1f223e12",
+    "collect_parity_evidence.py": "b4b3af15f22e1152529c3f6d0c528475c938fc7ec94bcc7b470033815796571b",
+    "collect_pipeline_evidence.py": "f5228714bd492b2034519a0ceec7f291b587d9a8c1010121e5a1f39d5c3d6e92",
+    "compare_pipeline_cache.py": "f9d68c6658124aa1f582ef7637c050f33702fda082b864a2aa8c8a874c403d59",
+    "compare_ports.py": "329b21a365678619cc01060dd81508fd077c6aa1687285455bb53da8dc052416",
+    "compare_reference_backends.py": "1cd28228ec736ac2d3f2da613915ba8322885a09cbaf8873c86004657ff5bf17",
+    "convert_dit_blocks.py": "bd818f0c9c85caeba3f379bda08546facb0a0cfd56e705bdeb40c1aa2c1bd0d8",
+    "diagnose_dit_stages.py": "404c074ca2c0a5bf8ac38c8c2aad1849b2e3b703c4a7ee8bd824ea11f7e2d150",
+    "diagnose_pipeline_step.py": "ba9ff185379abcd4b12200346c85ec31cd06bea968bb0bf0c5261cc518f078e7",
+    "diagnose_vae_cross.py": "564c56f0492f5a9d319e709c8b8d635e5438ec7e92bb53bbd9759400c5b7d92a",
+    "export_dit_block.py": "cc2957037b80cce840a0c09e2646c9290d66e7ce6907d57bc14c18978f49a12d",
+    "export_dit_heads.py": "96742706fb26ff64fe002f00aba436c12c074a7ef48b05894afd384ba1375a09",
+    "export_pe_block.py": "03c46d6697f832dfee5eb307f3efcb6e279c139e9d62b372c81393ad303ee067",
+    "export_text_block.py": "e6b5c3131b6d121c2bf008e9f3fbf8a6400b97ec5e4f1f24623093e6c0727e31",
+    "export_vae.py": "4a547dedbe7ede7bd32ea1709d55c9da50e10c9baf09d74180480b2c67e68913",
+    "fetch_component.py": "b08fa7fe4c350edca66a9f4154b623ac7b33653476eed4a3f715cb000b361604",
+    "fetch_pe_components.py": "580ea883a4f316ee5e01ceb9264c98308f203f476fa9e56c8df879ad45da1f58",
+    "fetch_pipeline_components.py": "6467b3cc89ec796b12c4d8d4a9024a35f1ccec350dc1f04ec6d0b92a80c69661",
+    "fetch_tokenizer.py": "9a4e0524182c9f87889c4dcdf408e97eed6257fdf7634be86c8eb743e9ab2aad",
+    "pack_block_weights.py": "7057668992e3520ef435c697198797905b563897c3f2d1227166b777329259f8",
+    "package_model.py": "aaf385193ac7d40506ddd428ceab2602cb1233ea0412972a004490c25f9b6f74",
+    "pe_package.py": "2f6e8de9c8c5f8e31b30870b0d3f182a3dae5bca9d6a3abe044dfabe3684b193",
+    "port_adapters.py": "11b257b1c339e45d517ecea07dfa430ea59eb4ee9bb690bf7335ce51bf7838a4",
+    "port_metrics.py": "dd631b3dfd6923183b9d8d5f7debeb40988878fd4d97556fc26e3a3b83915aad",
+    "prepare_block.py": "8efa0964ab40017f9ba346979c8efe6ad50e6a4ac5a2dd961d59e8a59e779ff8",
+    "prepare_pipeline.py": "49606b905c9426bd98daca007b49cb8905ff8db8ec55a3d8841dc5090f835b95",
+    "prepare_variant.py": "0cbdba3f711063f137a90925cf522d3b0b13165535ec00f92216bfd487f5438d",
+    "prompt_io.py": "5f6b16abe2939eb28b78b2357b618f09c3cab8f7682c338de3a56fe58af47ca4",
+    "rebucket_dit.py": "fb5420cb036f7b52d50390ee02ecdaf5835185739eab2f813dc05425031a6ae7",
+    "rebucket_text.py": "ed548e91c257dbe19dcc0172f47286cbc82e58e0bb31d2b61c05a707b97ae41b",
+    "reference_pe.py": "80ea8f5c90a794b4aabc968d150e7fa70c024410b17d06aa840b347dea189906",
+    "run_block_matrix.py": "323f8691075c2e32b673f5bca0c02ddc29bfb944f9e15bc38d1a50873e986906",
+    "run_probes.py": "943dcc738520548c7327d37b6ae8eb63694349b8a7b8c10f0ecd0a170b3aa561",
+    "source_inventory.py": "57ea101489bd51acb336430c374055f0ed053a5385d6f98e1b0c946f54ce07c2",
+    "specialize_vae.py": "6e07c606782ca3128e148e1e273ee4d150aed0d3b1c5d933b012fe01b0d5a6dd",
+    "validate_block_sequence.py": "8c097f77a87a287d094c01cdd82a444e93061364cb6c8b9ea3478e861f3dd1ad",
+    "validate_denoiser.py": "a93c24203f999e421cedec578fea6f9f2ae768d550354afe45b8d18c5b761fc1",
+    "validate_dit.py": "3ba3af5af4deb693a642e92bc744f75a1823bcafea882c8b4908e58e5b6b9c1b",
+    "validate_dit_block.py": "e2b2a6c257d1eb4c490d0f34e51de43febe738eaded2d78b5e6d4789710f6cb2",
+    "validate_dit_heads.py": "d47056504fbca0a758cb6a28f3f50e35e02d807889001dc8de9499e90c455510",
+    "validate_latent_ops.py": "e1e0ee6901eb22d919428f96aebfe6f64bfea716f8472d58fa9d224d54ef11ed",
+    "validate_pe.py": "2e63597ca02a7b328e5957b5095e80b29ceec1ce233a104ac8322d0cfa475223",
+    "validate_pe_block.py": "5672e726a6352ce1d670c373a6cbf146344827d85ebb29ddc3c877125dfa59a7",
+    "validate_pe_tokenizer.py": "08e44eeb33c9d750108888ed006d31def30607238a024fd6d4f94018aaa8fe93",
+    "validate_pipeline.py": "eca9052ce513d82bee4a48698725f13df19c9c765118b1588fe0368b032ea363",
+    "validate_text.py": "9ea45a8f5747615468c29a64f81f3e6d4bd02e60c294efa9369af4ce5ca08362",
+    "validate_time_features.py": "3b26234d277eb0ee9c1fa577d9ffaaa112b008cd1b34a046e970c1e2c15c2019",
+    "validate_tokenizer.py": "90e2feca55db888479ca3d92cb043cb6e3de98dcb5f2b44a81c071228f72f78c"
+  },
+  "native_convolution": "direct",
+  "shape": [
+    1,
+    3,
+    384,
+    512
+  ],
+  "pipeline_gates": {
+    "nrmse": 0.003,
+    "global_rtol": 0.01,
+    "atol": 0.0002
+  },
+  "standalone_vae_gates": {
+    "nrmse": 2e-05,
+    "global_rtol": 0.0002,
+    "atol": 0.0002
+  },
+  "runs": {
+    "oo": {
+      "command": [
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/vae-cross-pe-v2/snapshots/diagnose_vae_cross.py",
+        "--official-worker",
+        "--source-root",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference",
+        "--input",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/vae-cross-pe-v2/oo-input/in0.f32",
+        "--output",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/vae-cross-pe-v2/oo/decoded.f32",
+        "--height",
+        "48",
+        "--width",
+        "64"
+      ],
+      "status": "completed",
+      "return_code": 0,
+      "elapsed_seconds": 8.38083131199528,
+      "input_sha256": "e846dc43338227fc018dccf5ca0f36176a142f2bf509503a215a48dd99811765",
+      "output_sha256": "2e3df056fe4e182ca12a869245533ecbc310884c28c9a26ea67e462e45276db9"
+    },
+    "no": {
+      "command": [
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/vae-cross-pe-v2/snapshots/ernie-head-runner",
+        "--model",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo512x384-s2048-portable/vae",
+        "--fixture",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/vae-cross-pe-v2/no-input",
+        "--output",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/vae-cross-pe-v2/no/actual",
+        "--component",
+        "vae",
+        "--width",
+        "64",
+        "--height",
+        "48",
+        "--text-tokens",
+        "0",
+        "--backend",
+        "cpu",
+        "--precision",
+        "fp32",
+        "--vae-convolution",
+        "direct"
+      ],
+      "status": "completed",
+      "return_code": 0,
+      "elapsed_seconds": 8.32918181399873,
+      "input_sha256": "e846dc43338227fc018dccf5ca0f36176a142f2bf509503a215a48dd99811765",
+      "output_sha256": "f3ada00e5df90d39d0a430101357d998a8d1a52e3b8a773847d59afeafec6e31"
+    },
+    "on": {
+      "command": [
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/vae-cross-pe-v2/snapshots/diagnose_vae_cross.py",
+        "--official-worker",
+        "--source-root",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference",
+        "--input",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/vae-cross-pe-v2/on-input/in0.f32",
+        "--output",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/vae-cross-pe-v2/on/decoded.f32",
+        "--height",
+        "48",
+        "--width",
+        "64"
+      ],
+      "status": "completed",
+      "return_code": 0,
+      "elapsed_seconds": 8.378963661991293,
+      "input_sha256": "24b02522344f9ab96b315ebb47f937ba92fe6d2d448bb6aa88f621e9fe7e53ce",
+      "output_sha256": "54098e36ddc507b6ea33bc0d3c1c969436cb99d5f7f81944b42a6f200d8c5f70"
+    },
+    "nn": {
+      "command": [
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/vae-cross-pe-v2/snapshots/ernie-head-runner",
+        "--model",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo512x384-s2048-portable/vae",
+        "--fixture",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/vae-cross-pe-v2/nn-input",
+        "--output",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/vae-cross-pe-v2/nn/actual",
+        "--component",
+        "vae",
+        "--width",
+        "64",
+        "--height",
+        "48",
+        "--text-tokens",
+        "0",
+        "--backend",
+        "cpu",
+        "--precision",
+        "fp32",
+        "--vae-convolution",
+        "direct"
+      ],
+      "status": "completed",
+      "return_code": 0,
+      "elapsed_seconds": 8.530217225008528,
+      "input_sha256": "24b02522344f9ab96b315ebb47f937ba92fe6d2d448bb6aa88f621e9fe7e53ce",
+      "output_sha256": "70f3ecd38771ea5907acaa938914e1105c35cd07ec7820bf4db0dc81b14dc08e"
+    }
+  },
+  "cross_terms": {
+    "decoder_on_official_max": 7.152557373046875e-06,
+    "decoder_on_native_max": 2.9206275939941406e-06,
+    "input_through_official_max": 0.011106044054031372,
+    "input_through_native_max": 0.011105209589004517,
+    "connected_max": 0.011105477809906006,
+    "interaction_max": 5.9604644775390625e-06
+  },
+  "comparisons": {
+    "decoder_on_official": {
+      "max_abs_error": 7.152557373046875e-06,
+      "nrmse": 2.5668685555158667e-07,
+      "max_abs_limit": 0.00041589753627777103,
+      "gates": {
+        "nrmse": 2e-05,
+        "global_rtol": 0.0002,
+        "atol": 0.0002
+      },
+      "max_index": [
+        0,
+        1,
+        184,
+        290
+      ],
+      "passed": true
+    },
+    "decoder_on_native": {
+      "max_abs_error": 2.9206275939941406e-06,
+      "nrmse": 2.5291233967463773e-07,
+      "max_abs_limit": 0.0004158883094787598,
+      "gates": {
+        "nrmse": 2e-05,
+        "global_rtol": 0.0002,
+        "atol": 0.0002
+      },
+      "max_index": [
+        0,
+        1,
+        181,
+        267
+      ],
+      "passed": true
+    },
+    "input_through_official": {
+      "max_abs_error": 0.011106044054031372,
+      "nrmse": 0.00010028426399443022,
+      "max_abs_limit": 0.010994876813888551,
+      "gates": {
+        "nrmse": 0.003,
+        "global_rtol": 0.01,
+        "atol": 0.0002
+      },
+      "max_index": [
+        0,
+        1,
+        88,
+        302
+      ],
+      "passed": false
+    },
+    "connected": {
+      "max_abs_error": 0.011105477809906006,
+      "nrmse": 0.00010027834945528683,
+      "max_abs_limit": 0.010994876813888551,
+      "gates": {
+        "nrmse": 0.003,
+        "global_rtol": 0.01,
+        "atol": 0.0002
+      },
+      "max_index": [
+        0,
+        1,
+        88,
+        302
+      ],
+      "passed": false
+    }
+  },
+  "historical_reproduction": {
+    "official_bitwise_equal": true,
+    "native_bitwise_equal": true,
+    "official": {
+      "max_abs_error": 0.0,
+      "nrmse": 0.0,
+      "max_abs_limit": 0.00041589753627777103,
+      "gates": {
+        "nrmse": 2e-05,
+        "global_rtol": 0.0002,
+        "atol": 0.0002
+      },
+      "max_index": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    "native": {
+      "max_abs_error": 0.0,
+      "nrmse": 0.0,
+      "max_abs_limit": 0.00041588821411132817,
+      "gates": {
+        "nrmse": 2e-05,
+        "global_rtol": 0.0002,
+        "atol": 0.0002
+      },
+      "max_index": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    }
+  }
+}

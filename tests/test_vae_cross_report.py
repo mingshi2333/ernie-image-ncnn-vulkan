@@ -1,15 +1,41 @@
 """Crossed decoders must distinguish decoder error from upstream latent drift."""
 from pathlib import Path
 import sys
+import tempfile
 import unittest
 
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
-from diagnose_vae_cross import cross_terms, compare_arrays
+from diagnose_vae_cross import cross_terms, compare_arrays, bitwise_equal, snapshot_tools, verify_snapshot
 
 
 class CrossedVaeTests(unittest.TestCase):
+    def test_bitwise_comparison_preserves_signed_zero_and_dtype(self):
+        positive = np.array([0.0, 1.0], dtype='<f4')
+        negative = np.array([-0.0, 1.0], dtype='<f4')
+        self.assertTrue(np.array_equal(positive, negative))
+        self.assertFalse(bitwise_equal(positive, negative))
+        self.assertTrue(bitwise_equal(positive, positive.copy()))
+        self.assertFalse(bitwise_equal(positive, positive.astype('<f8')))
+        self.assertFalse(bitwise_equal(positive, positive.reshape(1, 2)))
+
+    def test_official_dependencies_stay_fixed_when_live_tree_changes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            tools = root/'live/tools'
+            tools.mkdir(parents=True)
+            for name in ('diagnose_vae_cross.py', 'export_vae.py', 'prepare_block.py', 'helper.py'):
+                (tools/name).write_text('original = True\n')
+            saved = root/'snapshot'
+            sources = snapshot_tools(root/'live', saved)
+            (tools/'export_vae.py').write_text('original = False\n')
+            verify_snapshot(saved, sources)
+            self.assertEqual((saved/'export_vae.py').read_text(), 'original = True\n')
+            (saved/'helper.py').write_text('original = False\n')
+            with self.assertRaisesRegex(ValueError, 'snapshot changed'):
+                verify_snapshot(saved, sources)
+
     def test_decoder_and_input_error_are_separate(self):
         z = np.zeros((3, 2, 2), dtype=np.float64)
         terms = cross_terms(z, z + .01, z + .1, z + .11)
