@@ -9,3 +9,15 @@ New Important I2 — self-consistent incomplete report accepted (`tools/vae_refe
 Add an explicit required observed coverage contract (collector/entry/interpreter and stable mandatory imported/mapped runtime set, with genuine actual-worker identity), and reject complete-set truncation or empty mappings rather than merely checking provided rows. Add the above deletion/re-signing regression. An arbitrary hostile same-user process is outside this review, but an incomplete report must not pass the independent artifact validator. Keep v4 unchanged if refreezing.
 
 Reproduction construction: choose `name=min(runtime["files"],key=lambda n:runtime["files"][n]["size"])`; set every phase.files and report.files to `{name:runtime["files"][name]}` and every phase.mapped_files to `[]`; retain the accepted identity/status fields; call validate_worker_runtime with actual v4 expected SHA values. Observed result: accepted. No model required.
+
+## I2 closure — 941a127, frozen v5
+
+Independently reviewed frozen plan `bae415829ab5a6a8bf717e0f112085b9389e4f81a701ecaccaa4d2b060aaa2b5`. All307 frozen source SHA values checked. Actual exporter import/input-only probe contains2822 files and137 mappings; mandatory files/maps exactly equal the probe. Parent-only and worker-only sets are empty. Probe PID2198549, parent2198360, start_ticks11360666 matches the preparer Popen identity saved in plan. Probe entry path, entry SHA, collector SHA, runtime and probe manifest SHA all match.
+
+The actual worker command gains no additional forward. The probe path returns before load_vae. Actual execution uses a controller-observed Popen PID/parent/startticks captured before waiting, and independently compares that identity to report and every checkpoint. /proc/stat starttime indexing is correct after separating the parenthesized process name. Four checkpoints retain required files and mappings; a report cannot shrink the mandatory denominator.
+
+Re-ran the exact previous singleton counterexample against actual v5 metadata while supplying correct new identity fields: rejected `Required runtime coverage missing: files=2821 mappings=137`. Independently changed start_ticks: rejected as unauthenticated. Seven worker-runtime unit tests passed. Missing report naturally fails opening, missing/incorrect phases and identities fail before accepting output. Required-set integrity is checked against the actual authenticated probe before launching the model.
+
+Resource contract remains16GiB/swap0/CPU200% with affinity12,14, host floor3GiB and1800s; execute_reference retains the previous50ms host/cgroup polling and session kill on failure. `_decode` and Decode wrapper calls and parameters are unchanged. This review did not import torch, build a model, hash the full model package or execute GPU work.
+
+I2 CLOSED; original I1 remains CLOSED. No remaining Important preparation finding. Root may schedule the concrete frozen run. This is readiness review, not proof of model execution or native/dynamic-shape quality; boundary inventories still explicitly exclude transient load/unload between checkpoints.
