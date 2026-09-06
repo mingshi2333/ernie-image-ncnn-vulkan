@@ -12,6 +12,8 @@ class TextStageTests(unittest.TestCase):
         original='Gemm gemm_6 1 1 72 73 10=-1 2=0 3=1 4=0 5=1 6=1 7=2048 8=3072 9=9216'
         self.assertEqual(derive_vector_down_graph('unchanged\n'+original).splitlines()[0],'unchanged')
         self.assertIn('DiagnosticVectorDown',derive_vector_down_graph(original))
+        self.assertIn('DiagnosticVectorDown',derive_vector_down_graph(original.replace('7=2048','7=64'),bucket=64))
+        with self.assertRaises(ValueError):derive_vector_down_graph(original,bucket=256)
         for bad in (original.replace('3=1','3=0'),original.replace('7=2048','7=256'),original+' 0=2',original+'\n'+original,''):
             with self.assertRaises(ValueError):derive_vector_down_graph(bad)
     def test_signed_zero_is_not_bitwise_equal(self):

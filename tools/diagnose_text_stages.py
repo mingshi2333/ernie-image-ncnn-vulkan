@@ -57,8 +57,9 @@ def verify_blob_map(param):
         if producers.get(blob)!=kind:raise ValueError('Unexpected graph producer for '+blob)
     return dict(BLOBS)
 
-def derive_vector_down_graph(text):
+def derive_vector_down_graph(text,bucket=2048):
     """Replace only the proven MLP down contract in an explicit diagnostic graph."""
+    if bucket not in (64,2048):raise ValueError("Unreviewed text bucket")
     lines=[];matches=0
     for line in text.splitlines():
         t=line.split()
@@ -66,7 +67,7 @@ def derive_vector_down_graph(text):
             if t[:6]!=['Gemm','gemm_6','1','1','72','73']:
                 raise ValueError('Unexpected MLP down producer or edges')
             params=dict(item.split('=') for item in t[6:])
-            expected={'10':'-1','2':'0','3':'1','4':'0','5':'1','6':'1','7':'2048','8':'3072','9':'9216'}
+            expected={'10':'-1','2':'0','3':'1','4':'0','5':'1','6':'1','7':str(bucket),'8':'3072','9':'9216'}
             if params!=expected or len(t[6:])!=len(expected):
                 raise ValueError('Unproven MLP down parameters')
             line='DiagnosticVectorDown gemm_6 1 1 72 73 0=3072 1=0 2=28311552'
@@ -104,7 +105,7 @@ def official_worker(args):
     from safetensors.torch import load_file
     from transformers import Mistral3Config
     from transformers.models.mistral.modeling_mistral import MistralDecoderLayer,MistralRotaryEmbedding,apply_rotary_pos_emb
-    torch.set_num_threads(4);torch.set_grad_enabled(False)
+    torch.set_num_threads(args.threads);torch.set_grad_enabled(False)
     root=args.project;out=args.output;out.mkdir(parents=True,exist_ok=False)
     config_path=root/'models/official/text_encoder-config.json'
     cfg=Mistral3Config.from_dict(json.loads(config_path.read_text())).text_config
@@ -156,7 +157,8 @@ def official_worker(args):
                 value=value.squeeze(0) if value.ndim==4 else value
                 stages[name]=save(out/(name+'.f32'),value.numpy())
         for hook in hooks:hook.remove()
-        del block,captured
+        if index==args.stage_layer:del modules,module,q,k
+        del block,captured,hooks
     report=dict(status='completed',scope='official free-running valid-prefix only',tokens=count,bucket=args.tokens,
                 tensors=tensors,stages=stages,weights=weight_hashes,
                 source_sha256=sha(__file__),official_source_sha256=sha(inspect.getfile(MistralDecoderLayer)),
@@ -305,10 +307,11 @@ def run_local(args):
 
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--project',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--ids',type=Path,required=True)
-    p.add_argument('--package',type=Path);p.add_argument('--runner',type=Path);p.add_argument('--tokens',type=int,default=2048);p.add_argument('--layers',type=int,default=25);p.add_argument('--stage-layer',type=int,default=0);p.add_argument('--historical-text',type=Path);p.add_argument('--worker',action='store_true');p.add_argument('--local-spec',type=Path);p.add_argument('--local-worker',action='store_true');a=p.parse_args()
+    p.add_argument('--threads',type=int,choices=[1,2,4],default=4);p.add_argument('--package',type=Path);p.add_argument('--runner',type=Path);p.add_argument('--tokens',type=int,default=2048);p.add_argument('--layers',type=int,default=25);p.add_argument('--stage-layer',type=int,default=0);p.add_argument('--historical-text',type=Path);p.add_argument('--worker',action='store_true');p.add_argument('--local-spec',type=Path);p.add_argument('--local-worker',action='store_true');a=p.parse_args()
     for name in ('project','output','ids','package','runner','historical_text','local_spec'):
         if getattr(a,name) is not None:setattr(a,name,getattr(a,name).resolve())
-    if a.output.exists() or not 0<=a.stage_layer<a.layers<=25:p.error('Use new output and stage-layer in [0,layers)')
+    if a.output.exists() or not 1<=a.layers<=25 or not (0<=a.stage_layer<a.layers or (a.worker and a.stage_layer==-1)):
+        p.error('Use new output and stage-layer in [0,layers); official worker also permits -1 for layer outputs only')
     if a.local_worker:local_worker(a)
     elif a.local_spec:run_local(a)
     elif a.worker:official_worker(a)
