@@ -3,6 +3,7 @@ import unittest
 import numpy as np
 
 from tools.reference_img2img import make_start, strength_plan, turbo_sigmas
+from tools.reference_img2img_positive import validate_inputs
 
 
 class Img2ImgReferenceTests(unittest.TestCase):
@@ -51,6 +52,27 @@ class Img2ImgReferenceTests(unittest.TestCase):
             strength_plan(True, .5)
         with self.assertRaises(ValueError):
             strength_plan(8, True)
+
+    def test_positive_input_contract_rejects_self_attested_encoder(self):
+        import hashlib, json, tempfile
+        from pathlib import Path
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            fixture = root / 'fixture.json'; fixture.write_text('{}')
+            values = np.zeros((1, 128, 24, 32), dtype='<f4')
+            values.tofile(root / 'noise.f32'); values.tofile(root / 'start.f32')
+            prompt = root / 'prompt.txt'; prompt.write_text('apple\n')
+            sha = lambda path: hashlib.sha256(path.read_bytes()).hexdigest()
+            contract = {'request': {'width': 512, 'height': 384, 'steps': 8, 'strength': .5,
+                                    'start_step': 4, 'denoise_steps': 4, 'pe': {'enabled': False},
+                                    'text_precision': 'fp32', 'text_reduction': 'vector'},
+                        'encoder_fixture': {'file': fixture.name, 'sha256': sha(fixture)},
+                        'noise': {'file': 'noise.f32', 'shape': list(values.shape), 'dtype': '<f4', 'sha256': sha(root/'noise.f32')},
+                        'start': {'file': 'start.f32', 'shape': list(values.shape), 'dtype': '<f4', 'sha256': sha(root/'start.f32')},
+                        'prompt': {'file': prompt.name, 'text': 'apple', 'sha256': sha(prompt)}}
+            (root / 'input-contract.json').write_text(json.dumps(contract))
+            with self.assertRaisesRegex(ValueError, 'not reviewed'):
+                validate_inputs(root)
 
 
 if __name__ == '__main__':
