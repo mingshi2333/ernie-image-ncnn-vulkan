@@ -46,7 +46,9 @@ struct GenerationRequest
     // Informational img2img preprocessing identity. API callers normally use
     // "none" because their RGB buffer already has the requested dimensions.
     std::string input_resize = "none";
-    std::array<uint8_t, 3> input_background{255, 255, 255};
+    int input_source_width = 0, input_source_height = 0;
+    std::array<uint8_t, 3> input_alpha_background{255, 255, 255};
+    std::array<uint8_t, 3> input_resize_background{0, 0, 0};
 };
 
 struct GenerationResult

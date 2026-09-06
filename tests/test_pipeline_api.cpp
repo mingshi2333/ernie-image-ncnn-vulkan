@@ -11,7 +11,9 @@ int main()
         ernie::GenerationRequest request;
         if (request.threads != 4 || request.gpu_index != -1 || request.text_device != "cpu" ||
             request.input_image || request.strength != .5f || request.input_resize != "none" ||
-            request.input_background != std::array<uint8_t,3>{255,255,255})
+            request.input_source_width || request.input_source_height ||
+            request.input_alpha_background != std::array<uint8_t,3>{255,255,255} ||
+            request.input_resize_background != std::array<uint8_t,3>{0,0,0})
             throw std::runtime_error("Public request defaults changed unexpectedly");
         ernie::GenerationRequest legacy{"model", "prompt", "cpu", "fp32", "cpu", "direct", 0, 0,
                                         8,       42,       "",    {},     "",    "",       ""};

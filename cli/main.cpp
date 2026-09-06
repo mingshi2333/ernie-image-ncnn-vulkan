@@ -49,6 +49,9 @@ int main(int argc, char **argv)
         if (!options.input.empty())
         {
             auto image = ernie::cli::read_image(options.input, options.background);
+            request.input_source_width = image.width;
+            request.input_source_height = image.height;
+            request.input_alpha_background = options.background;
             if (!options.resize.empty())
             {
                 const std::array<uint8_t, 3> fill = options.background_explicit
@@ -56,7 +59,7 @@ int main(int argc, char **argv)
                                                         : std::array<uint8_t, 3>{0, 0, 0};
                 image = ernie::cli::resize_image(image, request.width, request.height, options.resize, fill);
                 request.input_resize = options.resize;
-                request.input_background = fill;
+                request.input_resize_background = fill;
             }
             request.input_image = std::move(image);
         }

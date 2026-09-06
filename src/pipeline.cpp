@@ -271,11 +271,14 @@ GenerationResult generate(const GenerationRequest &r, const ProgressCallback &no
             if (!input.write(reinterpret_cast<const char *>(r.input_image->pixels.data()),
                              std::streamsize(r.input_image->pixels.size())))
                 throw std::runtime_error("Cannot write img2img input trace");
-            trace_text(trace / "img2img.txt", "width=" + std::to_string(r.input_image->width) +
-                       "\nheight=" + std::to_string(r.input_image->height) + "\nstrength=" +
+            trace_text(trace / "img2img.txt", "source_width=" + std::to_string(r.input_source_width ? r.input_source_width : r.input_image->width) +
+                       "\nsource_height=" + std::to_string(r.input_source_height ? r.input_source_height : r.input_image->height) +
+                       "\nwidth=" + std::to_string(r.input_image->width) + "\nheight=" + std::to_string(r.input_image->height) + "\nstrength=" +
                        std::to_string(r.strength) + "\nresize=" + r.input_resize + "\nbackground=" +
-                       std::to_string(r.input_background[0]) + "," + std::to_string(r.input_background[1]) +
-                       "," + std::to_string(r.input_background[2]) + "\n");
+                       std::to_string(r.input_resize_background[0]) + "," + std::to_string(r.input_resize_background[1]) +
+                       "," + std::to_string(r.input_resize_background[2]) + "\nalpha_background=" +
+                       std::to_string(r.input_alpha_background[0]) + "," + std::to_string(r.input_alpha_background[1]) +
+                       "," + std::to_string(r.input_alpha_background[2]) + "\n");
             write_tensor(trace / "encoder-mean.f32",encoding.mean);
             write_tensor(trace / "encoder-packed.f32",encoding.packed);
             write_tensor(trace / "encoder-normalized.f32",encoded);
