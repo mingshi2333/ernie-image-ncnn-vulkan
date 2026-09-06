@@ -34,6 +34,24 @@ Against the final official 32x32 reconstruction oracle:
 
 All are far inside the pinned FP32 gates `atol=2e-4`, `rtol=2e-4`, `nrmse=2e-5`. They are not bitwise identical to the earlier runner snapshot, so this report records numerical gates rather than inventing a bitwise claim.
 
-## Incomplete boundary
+## Completed strength-zero reconstruction
 
-The native strength-zero `make_img2img_start -> unpack_for_vae -> decode_vae` continuation is not yet executed in this slice because no reviewed 32x32 decoder param was present in the available outputs. The repository only exposed the existing 512x384 VAE param. A shape-edited decoder graph must be independently pinned before it can be used as evidence. Therefore this commit establishes the real native encoder component and its three official boundary comparisons, but does not claim the requested native reconstruction loop, schema3 production integration, or 15-case completion.
+The reviewed decoder template `models/vae-8x8-v1/head.ncnn.param` was rehashed as `6ecb591c473c56f3d9e923c845be2125e6e42b33ee2cd8d4d1783db68e32c4c5`. A new official reference-only 4x4 latent fixture was produced under the same 2 GiB/no-swap scope. `specialize_vae.py` then changed exactly the two reviewed absolute-shape parameters: `reshape_99` flatten `64 -> 16`, and `reshape_100` spatial `8,8 -> 4,4`. The resulting graph SHA-256 is `c0186972d563fec0bd189eaff72f69a6ff3726720a3b5730b0bfb7e4aad57394`; its model manifest is `482a97d0a475bd3188b0613fc332cfa86e300e32dd42cbb4b0e35c3485773981`, and the independent official fixture is `915cf88c10a3cd8a9179edfba02f3f279232ed48a5d93f3a681d53206118d8b5`.
+
+The rebuilt runner (SHA-256 `47f309cfe73b649da9ae7c980ab86f64be8806c39b7ddaa31fc5aa888b5f905f`) executed the complete small native chain under a 2 GiB/no-swap scope:
+
+`RGB bytes -> encode_vae -> make_img2img_start(strength=0) -> unpack_for_vae(eps=1e-5) -> decode_vae(direct)`
+
+The start hash equals the normalized encoder hash, as required at strength zero. Against the final official reconstruction oracle, the additional boundaries were:
+
+| boundary | max abs | mean abs | NRMSE | cosine |
+| --- | ---: | ---: | ---: | ---: |
+| start | 1.90735e-6 | 4.03386e-7 | 6.11701e-7 | 0.999999999999815 |
+| unpacked | 3.33786e-6 | 7.15074e-7 | 6.11717e-7 | 0.999999999999815 |
+| decoded | 3.57628e-6 | 6.48047e-7 | 1.59423e-6 | 0.999999999998737 |
+
+The native decoded PNG is pixel-identical to the official PNG: max/mean pixel error `0/0`, with shared SHA-256 `af9609799e485e39cd8f5eda50dd8c4684c5bfaabca0e8d595a9ea950a95b2f9`.
+
+The copied runner, six native raw boundaries, reconstructed PNG, and exact encoder/runner/specializer source snapshots are frozen under `outputs/img2img-native-reconstruction-32-v1`; its inventory manifest SHA-256 is `00aacbf726c2165f7bdb239aa336bc562a020eac14a81e05ed05326eb605fa3b`.
+
+This completes the requested small strength-zero native reconstruction component loop. It does not establish schema3 production integration, positive-strength DiT behavior, arbitrary-shape decoder specialization, or 15-case completion.

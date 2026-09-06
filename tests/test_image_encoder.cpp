@@ -23,6 +23,8 @@ int main()
         rejects([&] { ernie::encode_vae({"7767517\n0 0\n", "/missing"}, short_rgb, cpu); });
         auto vulkan = cpu; vulkan.use_vulkan_compute = true;
         rejects([&] { ernie::encode_vae({"7767517\n0 0\n", "/missing"}, rgb, vulkan); });
+        auto sgemm = cpu; sgemm.use_sgemm_convolution = true;
+        rejects([&] { ernie::encode_vae({"7767517\n0 0\n", "/missing"}, rgb, sgemm); });
         std::cout << "VAE encoder request boundary contracts passed\n";
     }
     catch (const std::exception &e) { std::cerr << e.what() << '\n'; return 1; }

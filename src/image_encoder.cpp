@@ -34,7 +34,7 @@ VaeEncoding encode_vae(const ComponentFiles &component, const RgbImage &rgb,
     if (component.param_text.empty() || component.param_text.find('\0') != std::string::npos ||
         component.weight_path.empty())
         throw std::invalid_argument("Invalid authenticated VAE encoder component");
-    if (requested.use_vulkan_compute || requested.use_fp16_storage || requested.use_bf16_storage ||
+    if (requested.use_vulkan_compute || requested.use_sgemm_convolution || requested.use_fp16_storage || requested.use_bf16_storage ||
         requested.use_fp16_arithmetic || requested.use_fp16_packed || requested.use_bf16_packed)
         throw std::invalid_argument("VAE encoder contract requires CPU FP32");
 
