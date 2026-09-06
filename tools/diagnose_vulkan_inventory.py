@@ -73,11 +73,33 @@ def inspect_manifest(path,cache,env):
   rows.append({'kind':kind,'name':item.get('name'),'declared':item['library_path'],'path':str(lib) if lib else None,'status':'ELF64' if lib else 'excluded_ELF32'})
  return rows
 
+def loader_configuration(etc=Path('/etc')):
+ # ld.so.conf include globs are loader-cache generation inputs. Capture their
+ # parent membership as well as currently matched files; never execute config.
+ import glob
+ bound={};patterns={};queue=[etc/'ld.so.conf'];seen=set()
+ for f in (etc/'ld.so.cache',etc/'ld.so.preload'):
+  patterns[str(f)]={'matches':[str(f)] if f.is_file() else []}
+  if f.is_file():bound[str(f.resolve())]=sha(f)
+ while queue:
+  f=queue.pop()
+  if not f.is_file() or f.resolve() in seen:continue
+  seen.add(f.resolve());bound[str(f.resolve())]=sha(f)
+  for line in f.read_text().splitlines():
+   line=line.split('#',1)[0].strip()
+   if line.startswith('include '):
+    pattern=line.split(None,1)[1]
+    if not Path(pattern).is_absolute():pattern=str(f.parent/pattern)
+    matches=sorted(glob.glob(pattern));patterns[pattern]={'matches':matches}
+    queue.extend(Path(x) for x in matches if Path(x).is_file())
+ patterns[str(etc/'ld.so.conf')]={'matches':[str(etc/'ld.so.conf')] if (etc/'ld.so.conf').is_file() else []}
+ return {'kind':'dynamic_loader_cache_and_configuration_not_ELF','etc':str(etc),'patterns':patterns,'bound':bound}
+
 def build(env):
  ld=subprocess.run(['ldconfig','-p'],capture_output=True,text=True,check=True).stdout;cache={}
  for line in ld.splitlines():
   if '=>' in line:cache.setdefault(line.split()[0],[]).append(line.split('=>')[1].strip())
- roots=search_roots(env);membership,files=manifests(roots);bound={};records={};failures=[];libs=set();layer_env=set()
+ configuration=loader_configuration();roots=search_roots(env);membership,files=manifests(roots);bound={};records={};failures=[];libs=set();layer_env=set()
  for name in files:
   p=Path(name);bound[name]=sha(p)
   try:
@@ -97,10 +119,12 @@ def build(env):
   for name in re.findall(r'(?:=>\s*)?(/[^\s()]+)',r.stdout):
    d=Path(name).resolve()
    if d.is_file() and elf_bits(d)==64 and str(d) not in closure:queue.append(d)
- return {'status':'cpu_catalogued_with_unresolved' if failures else 'cpu_catalogued_not_execution_validated','scope':'documented Linux search-root superset; no driver filtering or model execution','environment':{k:v for k,v in env.items() if k.startswith(('VK_','XDG_','LD_')) or k=='HOME'},'layer_environment':{k:env.get(k) for k in sorted(layer_env)},'roots':roots,'directory_membership':membership,'manifests':records,'unresolved':failures,'dependency_closure':closure,'ldconfig_stdout':ld,'bound':bound}
+ bound.update(configuration['bound'])
+ return {'loader_configuration':configuration,'status':'cpu_catalogued_with_unresolved' if failures else 'cpu_catalogued_not_execution_validated','scope':'documented Linux search-root superset; no driver filtering or model execution','environment':{k:v for k,v in env.items() if k.startswith(('VK_','XDG_','LD_')) or k=='HOME'},'layer_environment':{k:env.get(k) for k in sorted(layer_env)},'roots':roots,'directory_membership':membership,'manifests':records,'unresolved':failures,'dependency_closure':closure,'ldconfig_stdout':ld,'bound':bound}
 
 def verify_inventory(catalog,env,require_resolved=False):
  observed={k:v for k,v in env.items() if k.startswith(('VK_','XDG_','LD_')) or k=='HOME'}
+ if loader_configuration(Path(catalog['loader_configuration']['etc']))!=catalog['loader_configuration']:raise ValueError('Loader cache/configuration changed')
  if observed!=catalog['environment']:raise ValueError('Loader environment changed')
  if any(env.get(k)!=v for k,v in catalog.get('layer_environment',{}).items()):raise ValueError('Layer activation environment changed')
  if manifests(catalog['roots'])[0]!=catalog['directory_membership']:raise ValueError('Loader directory membership changed')
