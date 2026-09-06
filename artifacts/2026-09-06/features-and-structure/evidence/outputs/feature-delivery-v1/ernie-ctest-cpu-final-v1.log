@@ -1,0 +1,35 @@
+Test project /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/build-cpu
+      Start  1: native_cache_cpu
+ 1/15 Test  #1: native_cache_cpu .................   Passed    0.03 sec
+      Start  2: runtime_cache_cpu
+ 2/15 Test  #2: runtime_cache_cpu ................   Passed    0.03 sec
+      Start  3: pipeline_api_contract
+ 3/15 Test  #3: pipeline_api_contract ............   Passed    0.00 sec
+      Start  4: prompt_file_contract
+ 4/15 Test  #4: prompt_file_contract .............   Passed    0.00 sec
+      Start  5: pe_sampling_contract
+ 5/15 Test  #5: pe_sampling_contract .............   Passed    0.00 sec
+      Start  6: pe_package_integrity
+ 6/15 Test  #6: pe_package_integrity .............   Passed    0.12 sec
+      Start  7: package_integrity
+ 7/15 Test  #7: package_integrity ................   Passed    0.34 sec
+      Start  8: cli_contract
+ 8/15 Test  #8: cli_contract .....................   Passed    0.05 sec
+      Start  9: text_bucket_contract
+ 9/15 Test  #9: text_bucket_contract .............   Passed    0.03 sec
+      Start 10: variant_dimensions
+10/15 Test #10: variant_dimensions ...............   Passed    0.04 sec
+      Start 11: latent_contract_cpu
+11/15 Test #11: latent_contract_cpu ..............   Passed    0.00 sec
+      Start 12: residual_contract_cpu
+12/15 Test #12: residual_contract_cpu ............   Passed    0.00 sec
+      Start 13: rmsnorm_range_cpu
+13/15 Test #13: rmsnorm_range_cpu ................   Passed    0.00 sec
+      Start 14: layernorm_range_cpu
+14/15 Test #14: layernorm_range_cpu ..............   Passed    0.00 sec
+      Start 15: erf_gelu_cpu
+15/15 Test #15: erf_gelu_cpu .....................   Passed    0.01 sec
+
+100% tests passed, 0 tests failed out of 15
+
+Total Test time (real) =   0.68 sec

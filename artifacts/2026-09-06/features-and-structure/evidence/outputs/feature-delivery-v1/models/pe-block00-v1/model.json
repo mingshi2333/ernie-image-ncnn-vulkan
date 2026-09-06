@@ -1,0 +1,14 @@
+{
+  "block": 0,
+  "tokens_per_call": 1,
+  "capacity": 4096,
+  "weights_sha256": "ae187d91e48154599504d30e778254cd297417b554a4b7c7795f98f4dfbeb48d",
+  "files": {
+    "pe.ncnn.param": "aa068ca4377987878f758359289907a86a3a592132fa6f6b3dadce79f5f1f265",
+    "pe.uncached.ncnn.param": "f3a16bf145f2e61d5cf3aea77ff221a914aa3460b02badf58cc3f775effe892a",
+    "pe.ncnn.bin": "67b4fe0a447e791823f82b24f2a41725f588da187ffa993ca9e74301559a17c7",
+    "fixture.json": "28cb108e36c76699bff99c367dd774b8c21cd9ba7da18a8fa2ac100199e0ce85",
+    "conversion.json": "e3d6ff77cca0cef8055daddea48223d976e54add847c50c4c388ba544798bb02",
+    "rope-inv-freq.f32": "a736a0fd458aada260a1106b3d23f9e7593f258b09ab54ece95eda02b8f455d2"
+  }
+}

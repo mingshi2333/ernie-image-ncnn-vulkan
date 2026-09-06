@@ -1,0 +1,8 @@
+[1/6] Building pinned native Tokenizers bridge
+   Compiling ernie-tokenizer-bridge v0.1.0 (/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/tokenizer)
+    Finished `release` profile [optimized] target(s) in 8.00s
+[2/6] Linking CXX executable ernie-tokenize
+[3/6] Linking CXX executable ernie-image
+[4/6] Linking CXX executable ernie-pe-runner
+[5/6] Linking CXX executable ernie-pipeline-api-contract
+[6/6] Linking CXX executable ernie-pe-sampling-contract

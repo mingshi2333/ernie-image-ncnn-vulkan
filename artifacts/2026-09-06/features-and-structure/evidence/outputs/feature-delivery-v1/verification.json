@@ -1,0 +1,19 @@
+{
+  "vulkan_ctest": {
+    "passed": 30,
+    "total": 30
+  },
+  "cpu_ctest": {
+    "passed": 15,
+    "total": 15
+  },
+  "python_unittest": {
+    "passed": 66,
+    "total": 66
+  },
+  "public_api_links_png": false,
+  "cli_only_excludes_tests_and_probes": true,
+  "installed_cli_help_passed": true,
+  "portable_image_native_verify_passed": true,
+  "caveat": "Model-free tests are separate from real-weight quality gates; native image and PE timings are single observations."
+}

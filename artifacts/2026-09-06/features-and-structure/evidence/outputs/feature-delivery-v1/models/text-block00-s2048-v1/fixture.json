@@ -1,0 +1,86 @@
+{
+  "block": 0,
+  "tokens": 2048,
+  "scope": "Official Mistral text block weights, synthetic activation, causal YaRN prefill",
+  "weights_sha256": "292fba9a9ce542a1534716ac394070655f1f3c38120578fce5bb4ad10542161d",
+  "official_model_revision": "bc68c81e2a1730a394d5fc9fae70713dee940140",
+  "effective_class": "MistralDecoderLayer",
+  "llama4_attention_scaling": false,
+  "rope_attention_scaling": 1.0,
+  "wrapper_vs_official": {
+    "max_abs_error": 0.0,
+    "nrmse": 0.0,
+    "reference_max_abs": 1.5397478342056274
+  },
+  "config_sha256": "2c975219345634ee6b5d47172267b530f32f55ca02fef0787eb45285418e3614",
+  "official_source_sha256": "d107da5e9193805b886e518d5d05abbf2dd54eda6df5f3656ae140fe08a1421f",
+  "exporter_sha256": "e6b5c3131b6d121c2bf008e9f3fbf8a6400b97ec5e4f1f24623093e6c0727e31",
+  "inputs": {
+    "in0": {
+      "file": "in0.f32",
+      "shape": [
+        1,
+        2048,
+        3072
+      ],
+      "dtype": "float32_le",
+      "sha256": "b1bd7102e08c82288494c1b0d9dbef1771fe97ccfb3dd17b97b44afe0019da8d"
+    },
+    "in1": {
+      "file": "in1.f32",
+      "shape": [
+        1,
+        2048,
+        128
+      ],
+      "dtype": "float32_le",
+      "sha256": "a65e04e39d7292435f008c8660e0f7768e0b420e6f73a8bffafab632c4fa3566"
+    },
+    "in2": {
+      "file": "in2.f32",
+      "shape": [
+        1,
+        2048,
+        128
+      ],
+      "dtype": "float32_le",
+      "sha256": "3511c43ba6e3433a311d4baa3283ad31aa25d96a8200aabe5403759b1df582b6"
+    },
+    "in3": {
+      "file": "in3.f32",
+      "shape": [
+        2048,
+        2048
+      ],
+      "dtype": "float32_le",
+      "sha256": "5751cce91b1b9c70bcb622bfa27363e611657408d0fd5608a930633b9e5b90ab"
+    }
+  },
+  "expected": {
+    "file": "out0.f32",
+    "shape": [
+      1,
+      2048,
+      3072
+    ],
+    "dtype": "float32_le",
+    "sha256": "6e39437ab3f971ea1771ba5510dac5bc606114b23fbfda643bd76f263fcf64fc"
+  },
+  "gates": {
+    "fp32": {
+      "nrmse": 2e-05,
+      "atol": 0.0002,
+      "rtol": 0.0002
+    },
+    "fp16": {
+      "nrmse": 0.02,
+      "atol": 0.03,
+      "rtol": 0.03
+    },
+    "bf16": {
+      "nrmse": 0.1,
+      "atol": 0.2,
+      "rtol": 0.2
+    }
+  }
+}

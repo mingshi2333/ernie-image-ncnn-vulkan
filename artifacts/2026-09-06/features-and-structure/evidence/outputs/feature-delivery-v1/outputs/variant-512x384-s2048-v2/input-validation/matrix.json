@@ -1,0 +1,102 @@
+[
+  {
+    "component": "input",
+    "backend": "cpu",
+    "precision": "fp32",
+    "passed": true,
+    "command": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/variant-512x384-s2048-v2/input-validation/ernie-head-runner.snapshot",
+      "--model",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/variant-512x384-s2048-v2/heads/input",
+      "--fixture",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/variant-512x384-s2048-v2/heads/input",
+      "--output",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/variant-512x384-s2048-v2/input-validation/cpu-fp32/actual",
+      "--component",
+      "input",
+      "--height",
+      "24",
+      "--width",
+      "32",
+      "--text-tokens",
+      "2048",
+      "--backend",
+      "cpu",
+      "--precision",
+      "fp32",
+      "--vae-convolution",
+      "sgemm"
+    ],
+    "runner_sha256": "7d1c220d9817c08a12b6b45894d7c333e24d081bbbb5b6cd4a1e3823771bd785",
+    "model_manifest_sha256": "e9ca07a46c96e7ec8654f4ebf5e6f4a814e67105b4abe66e16557882d7db3d34",
+    "validator_sha256": "d47056504fbca0a758cb6a28f3f50e35e02d807889001dc8de9499e90c455510",
+    "scope": "Real projection/conditioning weights and synthetic inputs; no text encoder or denoising loop",
+    "outputs": {
+      "out0": {
+        "nrmse": 9.935017673393564e-07,
+        "max_abs_error": 0.00029754638671875,
+        "max_abs_limit": 0.022906829833984375,
+        "nrmse_limit": 2e-05,
+        "actual_sha256": "492885636c4a4d2ebf3224907c4220a8733686e7503bcb66f026e72c81488ea1",
+        "passed": true
+      },
+      "out1": {
+        "nrmse": 4.65748488715702e-07,
+        "max_abs_error": 2.6226043701171875e-06,
+        "max_abs_limit": 0.0009518899440765381,
+        "nrmse_limit": 2e-05,
+        "actual_sha256": "d6a964b07652f214b6cff7c180b1bba9be4eaf9680b50c6bbfde8791b7b8e892",
+        "passed": true
+      },
+      "out2": {
+        "nrmse": 4.455506672140461e-07,
+        "max_abs_error": 1.6689300537109375e-06,
+        "max_abs_limit": 0.001161923885345459,
+        "nrmse_limit": 2e-05,
+        "actual_sha256": "1e8ce19b70ff965673b3ca6f6735e74a8dabe3fb588cc477c63d11845d54f305",
+        "passed": true
+      },
+      "out3": {
+        "nrmse": 5.834697686805924e-07,
+        "max_abs_error": 3.933906555175781e-06,
+        "max_abs_limit": 0.0008890304565429688,
+        "nrmse_limit": 2e-05,
+        "actual_sha256": "0c6aa1085669f3bea0caee9fcf3c88e4d12985c786120d8ea1f18a64b7995076",
+        "passed": true
+      },
+      "out4": {
+        "nrmse": 3.994805343743853e-07,
+        "max_abs_error": 5.7220458984375e-06,
+        "max_abs_limit": 0.0018358360290527346,
+        "nrmse_limit": 2e-05,
+        "actual_sha256": "44b64fadad73c8c7252d059c73f5dd563c774c38fdd6af852acd650c7745269a",
+        "passed": true
+      },
+      "out5": {
+        "nrmse": 2.742124444460252e-07,
+        "max_abs_error": 1.1920928955078125e-06,
+        "max_abs_limit": 0.0015410469055175784,
+        "nrmse_limit": 2e-05,
+        "actual_sha256": "3a8aaca206193eb29533664a28abac6f5514370d13259ce8878a29be4a630c19",
+        "passed": true
+      },
+      "out6": {
+        "nrmse": 5.593460768747086e-07,
+        "max_abs_error": 1.4901161193847656e-06,
+        "max_abs_limit": 0.00044951701164245607,
+        "nrmse_limit": 2e-05,
+        "actual_sha256": "4ef33932e8b6393f4faf0ededfa37db1c2dd21f35849191b42049fb0b6186cc4",
+        "passed": true
+      },
+      "out7": {
+        "nrmse": 5.093464676845732e-07,
+        "max_abs_error": 1.33514404296875e-05,
+        "max_abs_limit": 0.004699652862548828,
+        "nrmse_limit": 2e-05,
+        "actual_sha256": "f60ee63005e85f5da6c8082130258aa5530a9b3a16aa270cb09e3ff501043f21",
+        "passed": true
+      }
+    },
+    "return_code": 0
+  }
+]

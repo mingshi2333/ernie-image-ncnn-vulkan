@@ -1,0 +1,262 @@
+[
+  {
+    "run": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pipeline512x384-prompt1080-fp32-v1",
+    "scope": "Native prompt-to-PNG versus staged pinned official FP32 modules; PE off, CFG=1; identical saved initial latent",
+    "conditioning_source": "native_text_encoder",
+    "prompt": "一张彩色手绘风格的二次元Q版LINE表情包贴纸合集图。画面采用4行6列的网格布局，总共展示了24个半身像表情包。整体画风为可爱的日系Q版，线条简洁圆润，色彩明快，底色为纯白。所有表情包的主角为同一名二次元少女，她有着浅粉色的齐刘海短发，头顶戴着标志性的头饰：一对白色的毛茸茸猫耳，以及一个显眼的红色十字架蝴蝶结发带。她身穿简单的蓝白相间水手服。每个表情包旁边都配有手写体简体中文字符，文字带有白色描边或黑底，清晰可见。\n\n第一行从左至右依次为：1. 少女面带微笑，举起右手挥手打招呼，旁边写着'早上好'。2. 少女戴着睡帽闭眼睡觉，鼻尖冒着睡眠泡泡，配文'晚安'。3. 少女歪着头，头上冒出巨大的红色问号，配文'啊？'。4. 少女双手合十，眼泪汪汪地看着前方，配文'拜托拜托'。5. 少女双手握拳，眼神坚定，背景带有集中线，配文'冲鸭！'。6. 少女无奈地摊开双手，叹了一口气，配文'绝了'。\n\n第二行从左至右依次为：1. 少女单手捂嘴偷笑，周围有小花朵特效，配文'嘿嘿嘿'。2. 少女愤怒地拍打面前的桌子，头上带有生气的井字号，配文'生气了！'。3. 少女脸颊通红，双手捂住脸庞，头上冒着蒸汽，配文'太害羞了吧'。4. 少女戴着黑色像素风墨镜，双手抱胸，配文'无所畏惧'。5. 少女手里拿着一把放大镜凑近观察，配文'让我康康'。6. 少女双手捧着一杯珍珠奶茶用吸管喝，表情十分满足，配文'续命成功'。\n\n第三行从左至右依次为：1. 少女平躺在地上，嘴里吐出白色的半透明灵魂，配文'不想努力了'。2. 少女满脸笑容，向前方举起大拇指点赞，配文'绝绝子'。3. 少女坐在地上，抱着一根虚线柱子大哭，眼泪飞溅，配文'带带我'。4. 少女手里拿着一把玩具塑料刀，嘴角露出黑化的腹黑笑容，配文'你再说一遍'。5. 少女全身变成灰色的石像状态，并带有裂纹，配文'心态崩了'。6. 少女开心地向上抛洒彩纸和花瓣，配文'好耶！'。\n\n第四行从左至右依次为：1. 少女双手捧着手机快速打字，满头大汗，黑眼圈明显，配文'在肝了在肝了'。2. 少女双手递出一大束红玫瑰，脸颊微红，配文'送给你'。3. 少女惊恐地双手抱头，瞳孔缩小，背景变暗，配文'危！'。4. 少女双眼变成黄色的星星形状，充满期待，配文'尊嘟假嘟'。5. 少女单手托腮，眼神呆滞，嘴角流出一滴口水，配文'阿巴阿巴'。6. 少女背对画面挥手告别，转头流下一滴眼泪，配文'溜了溜了'。",
+    "tokens": 1080,
+    "config": {
+      "packed_width": 32,
+      "packed_height": 24,
+      "text_bucket": 2048,
+      "dit_text_tokens": 2048,
+      "text_layers": 25,
+      "dit_layers": 36
+    },
+    "precision": "fp32",
+    "steps": 8,
+    "passed": false,
+    "comparisons": 25,
+    "passed_comparisons": 19,
+    "failed_tensors": [
+      "prediction-6",
+      "prediction-7",
+      "step-7",
+      "final",
+      "unpacked",
+      "decoded"
+    ],
+    "final_latent": {
+      "tensor": "final",
+      "max_abs_error": 0.13099178671836853,
+      "nrmse": 0.0029738048050985647,
+      "reference_max_abs": 6.475400924682617,
+      "passed": false,
+      "sha256": "28ab33d44f6cd1866f5250a8570c1205cedef9507bf6f86f1bc23808021cfee8"
+    },
+    "decoded": {
+      "tensor": "decoded",
+      "max_abs_error": 0.1380249261856079,
+      "nrmse": 0.003057754036227427,
+      "reference_max_abs": 1.3556549549102783,
+      "passed": false,
+      "sha256": "6469c133bf42c113597a524ff529456e30f154743891f209d936faeccb7da51a"
+    },
+    "png": {
+      "shape": [
+        384,
+        512,
+        3
+      ],
+      "mae": 0.0821261935763889,
+      "max_abs": 17.0,
+      "sha256": "6b2ac7661b00c9a77cfe40e0e7b5c28bc421a457976796e69cc7ec78e2847e30",
+      "passed": false
+    },
+    "resources": {
+      "scope": "One native run including SHA256 verification and trace; not a controlled performance comparison",
+      "max_rss_kib": 1746160,
+      "total_seconds": 603.559,
+      "model_verification_seconds": 20.2768,
+      "vae_and_png_seconds": 9.17223
+    },
+    "runner_sha256": "76d4393bfd937ed7b1c46d6f6df750d3a9835b7d244f0a86572716a3f36e7c86",
+    "validator_sha256": "527c269f9037b414f0c23fbbc071a7a749b088c9399451e521b5d538d3528a6a",
+    "source_snapshot_coverage": "per_run_scripts",
+    "independently_recomputed": true
+  },
+  {
+    "run": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pipeline512x384-prompt1080-bf16-v1",
+    "scope": "Native prompt-to-PNG versus staged pinned official FP32 modules; PE off, CFG=1; identical saved initial latent",
+    "conditioning_source": "native_text_encoder",
+    "prompt": "一张彩色手绘风格的二次元Q版LINE表情包贴纸合集图。画面采用4行6列的网格布局，总共展示了24个半身像表情包。整体画风为可爱的日系Q版，线条简洁圆润，色彩明快，底色为纯白。所有表情包的主角为同一名二次元少女，她有着浅粉色的齐刘海短发，头顶戴着标志性的头饰：一对白色的毛茸茸猫耳，以及一个显眼的红色十字架蝴蝶结发带。她身穿简单的蓝白相间水手服。每个表情包旁边都配有手写体简体中文字符，文字带有白色描边或黑底，清晰可见。\n\n第一行从左至右依次为：1. 少女面带微笑，举起右手挥手打招呼，旁边写着'早上好'。2. 少女戴着睡帽闭眼睡觉，鼻尖冒着睡眠泡泡，配文'晚安'。3. 少女歪着头，头上冒出巨大的红色问号，配文'啊？'。4. 少女双手合十，眼泪汪汪地看着前方，配文'拜托拜托'。5. 少女双手握拳，眼神坚定，背景带有集中线，配文'冲鸭！'。6. 少女无奈地摊开双手，叹了一口气，配文'绝了'。\n\n第二行从左至右依次为：1. 少女单手捂嘴偷笑，周围有小花朵特效，配文'嘿嘿嘿'。2. 少女愤怒地拍打面前的桌子，头上带有生气的井字号，配文'生气了！'。3. 少女脸颊通红，双手捂住脸庞，头上冒着蒸汽，配文'太害羞了吧'。4. 少女戴着黑色像素风墨镜，双手抱胸，配文'无所畏惧'。5. 少女手里拿着一把放大镜凑近观察，配文'让我康康'。6. 少女双手捧着一杯珍珠奶茶用吸管喝，表情十分满足，配文'续命成功'。\n\n第三行从左至右依次为：1. 少女平躺在地上，嘴里吐出白色的半透明灵魂，配文'不想努力了'。2. 少女满脸笑容，向前方举起大拇指点赞，配文'绝绝子'。3. 少女坐在地上，抱着一根虚线柱子大哭，眼泪飞溅，配文'带带我'。4. 少女手里拿着一把玩具塑料刀，嘴角露出黑化的腹黑笑容，配文'你再说一遍'。5. 少女全身变成灰色的石像状态，并带有裂纹，配文'心态崩了'。6. 少女开心地向上抛洒彩纸和花瓣，配文'好耶！'。\n\n第四行从左至右依次为：1. 少女双手捧着手机快速打字，满头大汗，黑眼圈明显，配文'在肝了在肝了'。2. 少女双手递出一大束红玫瑰，脸颊微红，配文'送给你'。3. 少女惊恐地双手抱头，瞳孔缩小，背景变暗，配文'危！'。4. 少女双眼变成黄色的星星形状，充满期待，配文'尊嘟假嘟'。5. 少女单手托腮，眼神呆滞，嘴角流出一滴口水，配文'阿巴阿巴'。6. 少女背对画面挥手告别，转头流下一滴眼泪，配文'溜了溜了'。",
+    "tokens": 1080,
+    "config": {
+      "packed_width": 32,
+      "packed_height": 24,
+      "text_bucket": 2048,
+      "dit_text_tokens": 2048,
+      "text_layers": 25,
+      "dit_layers": 36
+    },
+    "precision": "bf16",
+    "steps": 8,
+    "passed": false,
+    "comparisons": 25,
+    "passed_comparisons": 11,
+    "failed_tensors": [
+      "prediction-0",
+      "prediction-1",
+      "prediction-2",
+      "prediction-3",
+      "prediction-4",
+      "prediction-5",
+      "step-5",
+      "prediction-6",
+      "step-6",
+      "prediction-7",
+      "step-7",
+      "final",
+      "unpacked",
+      "decoded"
+    ],
+    "final_latent": {
+      "tensor": "final",
+      "max_abs_error": 6.524937868118286,
+      "nrmse": 0.26192138466161086,
+      "reference_max_abs": 6.475400924682617,
+      "passed": false,
+      "sha256": "43342b4a935498496a569a80d7de99f01518764851be83b774b1e9b1224eb5d2"
+    },
+    "decoded": {
+      "tensor": "decoded",
+      "max_abs_error": 2.393828272819519,
+      "nrmse": 0.29087913129207676,
+      "reference_max_abs": 1.3556549549102783,
+      "passed": false,
+      "sha256": "e5fa4ccfb0d844bd73912b5b98fe54b0bd887eaac53cdf5c2ab9d5cba6407330"
+    },
+    "png": {
+      "shape": [
+        384,
+        512,
+        3
+      ],
+      "mae": 10.376324123806423,
+      "max_abs": 255.0,
+      "sha256": "644c822e4c25d824c3d6beafa9ef8edabdc1a30c438abab3e067b407554bf4ac",
+      "passed": false
+    },
+    "resources": {
+      "scope": "One native run including SHA256 verification and trace; not a controlled performance comparison",
+      "max_rss_kib": 1858764,
+      "total_seconds": 591.4,
+      "model_verification_seconds": 23.5226,
+      "vae_and_png_seconds": 9.22848
+    },
+    "runner_sha256": "76d4393bfd937ed7b1c46d6f6df750d3a9835b7d244f0a86572716a3f36e7c86",
+    "validator_sha256": "527c269f9037b414f0c23fbbc071a7a749b088c9399451e521b5d538d3528a6a",
+    "source_snapshot_coverage": "per_run_scripts",
+    "independently_recomputed": true
+  },
+  {
+    "run": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pipeline64-structure-fp32-v1",
+    "scope": "Native prompt-to-PNG versus staged pinned official FP32 modules; PE off, CFG=1; identical saved initial latent",
+    "conditioning_source": "native_text_encoder",
+    "prompt": "A red apple on a wooden table, soft daylight, realistic photo.",
+    "tokens": 15,
+    "config": {
+      "packed_width": 4,
+      "packed_height": 4,
+      "text_bucket": 32,
+      "dit_text_tokens": 272,
+      "text_layers": 25,
+      "dit_layers": 36
+    },
+    "precision": "fp32",
+    "steps": 8,
+    "passed": true,
+    "comparisons": 25,
+    "passed_comparisons": 25,
+    "failed_tensors": [],
+    "final_latent": {
+      "tensor": "final",
+      "max_abs_error": 0.0018881559371948242,
+      "nrmse": 0.000408568177930449,
+      "reference_max_abs": 4.635237693786621,
+      "passed": true,
+      "sha256": "e62903dde8cc72598156ea50c97c5205dcea01728c024104c02d1083d69802ea"
+    },
+    "decoded": {
+      "tensor": "decoded",
+      "max_abs_error": 0.0016741156578063965,
+      "nrmse": 0.00021773841305793509,
+      "reference_max_abs": 1.2242813110351562,
+      "passed": true,
+      "sha256": "e3a57bca8d1d008100563c70963a37f9b8c86317c9faf0f7a13b740a8351281e"
+    },
+    "png": {
+      "shape": [
+        64,
+        64,
+        3
+      ],
+      "mae": 0.011393229166666666,
+      "max_abs": 1.0,
+      "sha256": "44ea37d9f2f73dc64a4c510d9fc262c7b02dffb689f67010bb34c676025f81ba",
+      "passed": true
+    },
+    "resources": {
+      "scope": "One native run including SHA256 verification and trace; not a controlled performance comparison",
+      "max_rss_kib": 1151116,
+      "total_seconds": 428.832,
+      "model_verification_seconds": 19.5827,
+      "vae_and_png_seconds": 0.382119
+    },
+    "runner_sha256": "800865e6946da60d648affd5f06334ff2f441c6c046677d430be1723fe390cb7",
+    "validator_sha256": "527c269f9037b414f0c23fbbc071a7a749b088c9399451e521b5d538d3528a6a",
+    "source_snapshot_coverage": "per_run_scripts",
+    "independently_recomputed": true
+  },
+  {
+    "run": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pipeline512x384-pe-fp32-v1",
+    "scope": "Native CPU greedy PE, text encoder, DiT and VAE versus staged pinned official FP32 modules; CFG=1; identical saved initial latent; complete enhanced prompt and IDs must match",
+    "conditioning_source": "native_text_encoder",
+    "prompt": "一张高清写实摄影照片。画面中心是一颗饱满、鲜红的苹果，静静地放置在纹理清晰的深色实木桌面上。苹果表皮呈现出深红色与亮红色的渐变，表面带有细微的自然光泽和几颗晶莹剔透的小水珠，顶部保留着一小段棕色的果梗。木质桌面展现出深褐色的木纹，带有自然的磨损痕迹和细腻的木质纤维感。光线从画面侧方柔和地照入，在苹果的一侧形成明亮的高光，并在桌面上投射出淡淡的阴影，增强了物体的立体感。背景采用了浅景深处理，呈现出模糊的室内环境，隐约可见温暖的色调，使视觉焦点完全集中在红苹果上。整体构图简洁，色彩浓郁且自然，画面比例为 512x384，呈现出一种宁静、质朴的生活美学风格。",
+    "tokens": 315,
+    "config": {
+      "packed_width": 32,
+      "packed_height": 24,
+      "text_bucket": 2048,
+      "dit_text_tokens": 2048,
+      "text_layers": 25,
+      "dit_layers": 36
+    },
+    "precision": "fp32",
+    "steps": 8,
+    "passed": false,
+    "comparisons": 25,
+    "passed_comparisons": 24,
+    "failed_tensors": [
+      "decoded"
+    ],
+    "final_latent": {
+      "tensor": "final",
+      "max_abs_error": 0.005950927734375,
+      "nrmse": 0.00018825589570902815,
+      "reference_max_abs": 5.346341609954834,
+      "passed": true,
+      "sha256": "cc0c6e19b36bb16c46546978dd57f847e19a5cae3336c53f4f2a65a9c738318d"
+    },
+    "decoded": {
+      "tensor": "decoded",
+      "max_abs_error": 0.011105477809906006,
+      "nrmse": 0.0001002783494552868,
+      "reference_max_abs": 1.079487681388855,
+      "passed": false,
+      "sha256": "70f3ecd38771ea5907acaa938914e1105c35cd07ec7820bf4db0dc81b14dc08e"
+    },
+    "png": {
+      "shape": [
+        384,
+        512,
+        3
+      ],
+      "mae": 0.0024871826171875,
+      "max_abs": 2.0,
+      "sha256": "7b9504af81bc5758d424293f17775a732344d72bdf996214024780f0595d14d7",
+      "passed": true
+    },
+    "resources": {
+      "scope": "One native run including SHA256 verification and trace; not a controlled performance comparison",
+      "max_rss_kib": 15422112,
+      "total_seconds": 533.044,
+      "model_verification_seconds": 16.3511,
+      "vae_and_png_seconds": 8.32077
+    },
+    "runner_sha256": "c8ee48c0253032b6d79b636e9992f7314868d510624c5d9e3df39ff3a770a49f",
+    "validator_sha256": "eca9052ce513d82bee4a48698725f13df19c9c765118b1588fe0368b032ea363",
+    "source_snapshot_coverage": "per_run_scripts",
+    "independently_recomputed": true
+  }
+]

@@ -1,0 +1,63 @@
+{
+  "block": 0,
+  "tokens": 17,
+  "capacity": 4096,
+  "scope": "Real PE weights, synthetic 17-token input, official full causal attention versus native incremental cache",
+  "official_model_revision": "bc68c81e2a1730a394d5fc9fae70713dee940140",
+  "weights_sha256": "ae187d91e48154599504d30e778254cd297417b554a4b7c7795f98f4dfbeb48d",
+  "official_source_sha256": "a53e3a0f351e6ea0eb66bd1097034dfac6c7f76fbfac0ed98126fbad50a70d26",
+  "config_sha256": "b6be6b7104d8d5bd8180401b8ce8585f5a03f8bdb346dc89fdfc784beba83287",
+  "exporter_sha256": "03c46d6697f832dfee5eb307f3efcb6e279c139e9d62b372c81393ad303ee067",
+  "wrapper_vs_official": {
+    "max_abs_error": 0.0,
+    "nrmse": 0.0,
+    "reference_max_abs": 1.0144808292388916
+  },
+  "inputs": {
+    "x": {
+      "file": "x.f32",
+      "shape": [
+        1,
+        17,
+        3072
+      ],
+      "dtype": "float32_le",
+      "sha256": "4f50f6c0c47a4ceb517408a4971ae8b0b530600ef178ddf719e11b4c84b407e4"
+    },
+    "cos": {
+      "file": "cos.f32",
+      "shape": [
+        1,
+        17,
+        128
+      ],
+      "dtype": "float32_le",
+      "sha256": "59c371a15ac4a67e25d33fe456af4cd7365f07dc24a08299d00a7fd0340df1f5"
+    },
+    "sin": {
+      "file": "sin.f32",
+      "shape": [
+        1,
+        17,
+        128
+      ],
+      "dtype": "float32_le",
+      "sha256": "e1cf5e833bd695c2cebbcfd67b523fc5dc3ed329bc6038b9ed7d443d3b0143c8"
+    }
+  },
+  "expected": {
+    "file": "expected.f32",
+    "shape": [
+      1,
+      17,
+      3072
+    ],
+    "dtype": "float32_le",
+    "sha256": "94c9b265169c1eab0360072bf11ed718cfe4595aef7236dfca57b5566ea3d01f"
+  },
+  "gates": {
+    "nrmse": 0.0002,
+    "atol": 0.0002,
+    "rtol": 0.0002
+  }
+}

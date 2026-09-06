@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "return_code": 0,
+  "scope": "Real PE weights, synthetic 17-token input, official full causal attention versus native incremental cache",
+  "command": [
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pe-block00-validation-v2/runner.snapshot",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/pe-block00-v1",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/pe-block00-v1",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pe-block00-validation-v2/actual.f32"
+  ],
+  "model_manifest_sha256": "28995619487d7da96c79c03dd75d5c29c77ec316e658457021d348c7f0a34391",
+  "fixture_sha256": "28cb108e36c76699bff99c367dd774b8c21cd9ba7da18a8fa2ac100199e0ce85",
+  "runner_sha256": "46ccff9effd1da68320bc73d40ebbbd059d046c3df617b3b574c0bb8fdc6665d",
+  "validator_sha256": "5672e726a6352ce1d670c373a6cbf146344827d85ebb29ddc3c877125dfa59a7",
+  "nrmse": 9.568019802560616e-08,
+  "max_abs_error": 3.5762786865234375e-07,
+  "max_abs_limit": 0.00040289616584777835,
+  "nrmse_limit": 0.0002,
+  "actual_sha256": "ae59c5357b3ecc7c04f17baaa7835a92e50e3e84cd65ccdb411501f1899ee0d3"
+}

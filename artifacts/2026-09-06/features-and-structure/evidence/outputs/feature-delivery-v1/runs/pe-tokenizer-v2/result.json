@@ -1,0 +1,86 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "case": 0,
+      "tokens": 139,
+      "return_code": 0,
+      "exact": {
+        "format": true,
+        "ids": true,
+        "decode": true
+      },
+      "passed": true
+    },
+    {
+      "case": 1,
+      "tokens": 150,
+      "return_code": 0,
+      "exact": {
+        "format": true,
+        "ids": true,
+        "decode": true
+      },
+      "passed": true
+    },
+    {
+      "case": 2,
+      "tokens": 143,
+      "return_code": 0,
+      "exact": {
+        "format": true,
+        "ids": true,
+        "decode": true
+      },
+      "passed": true
+    },
+    {
+      "case": 3,
+      "tokens": 131,
+      "return_code": 0,
+      "exact": {
+        "format": true,
+        "ids": true,
+        "decode": true
+      },
+      "passed": true
+    },
+    {
+      "case": 4,
+      "tokens": 145,
+      "return_code": 0,
+      "exact": {
+        "format": true,
+        "ids": true,
+        "decode": true
+      },
+      "passed": true
+    },
+    {
+      "case": 5,
+      "tokens": 2232,
+      "over_capacity": true,
+      "return_code": 1,
+      "passed": true
+    }
+  ],
+  "sources": {
+    "tokenizer.json": {
+      "url": "https://huggingface.co/baidu/ERNIE-Image-Turbo/resolve/bc68c81e2a1730a394d5fc9fae70713dee940140/pe_tokenizer/tokenizer.json",
+      "revision": "bc68c81e2a1730a394d5fc9fae70713dee940140",
+      "sha256": "286acad9b0e27fce778ac429763536accf618ccb6ed72963b6f94685e531c5c7"
+    },
+    "tokenizer_config.json": {
+      "url": "https://huggingface.co/baidu/ERNIE-Image-Turbo/resolve/bc68c81e2a1730a394d5fc9fae70713dee940140/pe_tokenizer/tokenizer_config.json",
+      "revision": "bc68c81e2a1730a394d5fc9fae70713dee940140",
+      "sha256": "95a353ec6c5c22537125c6a8b8afae0775c89411d84321329d5234c90d8d47ee"
+    },
+    "chat_template.jinja": {
+      "url": "https://huggingface.co/baidu/ERNIE-Image-Turbo/resolve/bc68c81e2a1730a394d5fc9fae70713dee940140/pe_tokenizer/chat_template.jinja",
+      "revision": "bc68c81e2a1730a394d5fc9fae70713dee940140",
+      "sha256": "0c859484eecf01db103acd02c332610163ee425cd46866d6cb126ee1bee974ea"
+    }
+  },
+  "validator_sha256": "08e44eeb33c9d750108888ed006d31def30607238a024fd6d4f94018aaa8fe93",
+  "runner_sha256": "0945c6de25b8c0ebfad4cba5c9326c16103bca5066e6073d6e8881e2ea4dd27d"
+}

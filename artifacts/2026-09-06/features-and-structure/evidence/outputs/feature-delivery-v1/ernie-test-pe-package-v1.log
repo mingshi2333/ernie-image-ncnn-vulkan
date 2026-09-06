@@ -1,0 +1,15 @@
+test_complete_package (test_pe_package.PePackageTests.test_complete_package) ... ok
+test_missing_head (test_pe_package.PePackageTests.test_missing_head) ... ok
+test_move_without_source (test_pe_package.PePackageTests.test_move_without_source) ... ok
+test_omitted_tail_checksum (test_pe_package.PePackageTests.test_omitted_tail_checksum) ... ok
+test_portable_package_rejects_external_link (test_pe_package.PePackageTests.test_portable_package_rejects_external_link) ... ok
+test_resealed_changed_chat_template (test_pe_package.PePackageTests.test_resealed_changed_chat_template) ... ok
+test_resealed_configuration_disagreement (test_pe_package.PePackageTests.test_resealed_configuration_disagreement) ... ok
+test_resealed_wrong_capacity (test_pe_package.PePackageTests.test_resealed_wrong_capacity) ... ok
+test_revision_mismatch (test_pe_package.PePackageTests.test_revision_mismatch) ... ok
+test_tail_block_corruption (test_pe_package.PePackageTests.test_tail_block_corruption) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.080s
+
+OK

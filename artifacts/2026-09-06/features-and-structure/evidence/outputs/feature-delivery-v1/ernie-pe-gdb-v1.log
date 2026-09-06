@@ -1,0 +1,55 @@
+Python Exception <class 'ModuleNotFoundError'>: No module named 'UEPrinters'
+/home/mingshi/.gdbinit:10: Error in sourced command file:
+Error occurred in Python: No module named 'UEPrinters'
+
+This GDB supports auto-downloading debuginfo from the following URLs:
+  <ima:enforcing>
+  <https://debuginfod.fedoraproject.org/>
+  <ima:ignore>
+Enable debuginfod for this session? (y or [n]) [answered N; input not from terminal]
+Debuginfod has been disabled.
+To make this setting permanent, add 'set debuginfod enabled off' to .gdbinit.
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib64/libthread_db.so.1".
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+[New Thread 0x7ffff0dc7b40 (LWP 829360)]
+[New Thread 0x7fffe83febc0 (LWP 829361)]
+[New Thread 0x7fffebffec40 (LWP 829362)]
+
+Thread 1 "ernie-pe-block-" received signal SIGSEGV, Segmentation fault.
+0x00000000004618a9 in ncnn::NetPrivate::do_forward_layer(ncnn::Layer const*, std::vector<ncnn::Mat, std::allocator<ncnn::Mat> >&, ncnn::Option const&) const ()
+
+Thread 4 (Thread 0x7fffebffec40 (LWP 829362) "ernie-pe-block-"):
+#0  0x00007ffff76e412b in sched_yield () from /lib64/libc.so.6
+#1  0x00007ffff7edc250 in kmp_flag_64<false, true>::wait(kmp_info*, int, void*) () from /usr/lib64/llvm18/lib/libomp.so
+#2  0x00007ffff7ed70d9 in __kmp_hyper_barrier_release(barrier_type, kmp_info*, int, int, int, void*) [clone .llvm.5579124533807652902] () from /usr/lib64/llvm18/lib/libomp.so
+#3  0x00007ffff7edb708 in __kmp_fork_barrier(int, int) () from /usr/lib64/llvm18/lib/libomp.so
+#4  0x00007ffff7ea45ad in __kmp_launch_thread () from /usr/lib64/llvm18/lib/libomp.so
+#5  0x00007ffff7f0d6f8 in __kmp_launch_worker(void*) () from /usr/lib64/llvm18/lib/libomp.so
+
+Thread 3 (Thread 0x7fffe83febc0 (LWP 829361) "ernie-pe-block-"):
+#0  0x00007ffff7f33112 in __kmp_hardware_timestamp () from /usr/lib64/llvm18/lib/libomp.so
+#1  0x00007ffff7edc2c8 in kmp_flag_64<false, true>::wait(kmp_info*, int, void*) () from /usr/lib64/llvm18/lib/libomp.so
+#2  0x00007ffff7ed70d9 in __kmp_hyper_barrier_release(barrier_type, kmp_info*, int, int, int, void*) [clone .llvm.5579124533807652902] () from /usr/lib64/llvm18/lib/libomp.so
+#3  0x00007ffff7edb708 in __kmp_fork_barrier(int, int) () from /usr/lib64/llvm18/lib/libomp.so
+#4  0x00007ffff7ea45ad in __kmp_launch_thread () from /usr/lib64/llvm18/lib/libomp.so
+#5  0x00007ffff7f0d6f8 in __kmp_launch_worker(void*) () from /usr/lib64/llvm18/lib/libomp.so
+
+Thread 2 (Thread 0x7ffff0dc7b40 (LWP 829360) "ernie-pe-block-"):
+#0  0x00007ffff76e412b in sched_yield () from /lib64/libc.so.6
+#1  0x00007ffff7edc250 in kmp_flag_64<false, true>::wait(kmp_info*, int, void*) () from /usr/lib64/llvm18/lib/libomp.so
+#2  0x00007ffff7ed70d9 in __kmp_hyper_barrier_release(barrier_type, kmp_info*, int, int, int, void*) [clone .llvm.5579124533807652902] () from /usr/lib64/llvm18/lib/libomp.so
+#3  0x00007ffff7edb708 in __kmp_fork_barrier(int, int) () from /usr/lib64/llvm18/lib/libomp.so
+#4  0x00007ffff7ea45ad in __kmp_launch_thread () from /usr/lib64/llvm18/lib/libomp.so
+#5  0x00007ffff7f0d6f8 in __kmp_launch_worker(void*) () from /usr/lib64/llvm18/lib/libomp.so
+
+Thread 1 (Thread 0x7ffff7b63800 (LWP 829357) "ernie-pe-block-"):
+#0  0x00000000004618a9 in ncnn::NetPrivate::do_forward_layer(ncnn::Layer const*, std::vector<ncnn::Mat, std::allocator<ncnn::Mat> >&, ncnn::Option const&) const ()
+#1  0x00000000004616ce in ncnn::NetPrivate::forward_layer(int, std::vector<ncnn::Mat, std::allocator<ncnn::Mat> >&, ncnn::Option const&) const ()
+#2  0x00000000004616ce in ncnn::NetPrivate::forward_layer(int, std::vector<ncnn::Mat, std::allocator<ncnn::Mat> >&, ncnn::Option const&) const ()
+#3  0x00000000004616ce in ncnn::NetPrivate::forward_layer(int, std::vector<ncnn::Mat, std::allocator<ncnn::Mat> >&, ncnn::Option const&) const ()
+#4  0x00000000004616ce in ncnn::NetPrivate::forward_layer(int, std::vector<ncnn::Mat, std::allocator<ncnn::Mat> >&, ncnn::Option const&) const ()
+#5  0x00000000004616ce in ncnn::NetPrivate::forward_layer(int, std::vector<ncnn::Mat, std::allocator<ncnn::Mat> >&, ncnn::Option const&) const ()

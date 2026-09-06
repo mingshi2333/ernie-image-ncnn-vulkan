@@ -1,0 +1,45 @@
+[1/43] Building CXX object src/CMakeFiles/ernie-runtime.dir/pe_session.cpp.o
+[2/43] Linking CXX static library src/libernie-runtime.a
+[3/43] Building CXX object probes/CMakeFiles/ernie-pe-block-runner.dir/pe_block_runner.cpp.o
+[4/43] Building CXX object tests/CMakeFiles/ernie-prompt-file-contract.dir/__/cli/prompt_file.cpp.o
+[5/43] Building CXX object tests/CMakeFiles/ernie-prompt-file-contract.dir/test_prompt_file.cpp.o
+[6/43] Linking CXX executable ernie-attention-probe
+[7/43] Linking CXX executable ernie-block-runner
+[8/43] Linking CXX executable ernie-attention-accuracy-probe
+[9/43] Linking CXX executable ernie-attention-workspace-probe
+[10/43] Linking CXX executable ernie-gelu-probe
+[11/43] Linking CXX executable ernie-latent-runner
+[12/43] Linking CXX executable ernie-block-sequence-runner
+[13/43] Linking CXX executable ernie-head-runner
+[14/43] Linking CXX executable ernie-denoise-runner
+[15/43] Linking CXX executable ernie-text-runner
+[16/43] Linking CXX executable ernie-pe-block-runner
+[17/43] Linking CXX executable ernie-rmsnorm-probe
+[18/43] Linking CXX executable ernie-prompt-file-contract
+[19/43] Linking CXX executable ernie-latent-contract
+[20/43] Linking CXX executable ernie-residual-contract
+[21/43] Building pinned native Tokenizers bridge
+   Compiling ernie-tokenizer-bridge v0.1.0 (/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/tokenizer)
+    Finished `release` profile [optimized] target(s) in 9.10s
+[22/43] Building CXX object tokenizer/CMakeFiles/ernie-tokenizer.dir/__/src/tokenizer.cpp.o
+[23/43] Linking CXX static library tokenizer/libernie-tokenizer.a
+[24/43] Building CXX object src/CMakeFiles/ernie-pipeline.dir/model_config.cpp.o
+[25/43] Building CXX object src/CMakeFiles/ernie-pipeline.dir/tensor_io.cpp.o
+[26/43] Building CXX object src/CMakeFiles/ernie-pe.dir/prompt_enhancer.cpp.o
+[27/43] Linking CXX static library src/libernie-pe.a
+[28/43] Building CXX object src/CMakeFiles/ernie-pipeline.dir/pipeline.cpp.o
+[29/43] Building CXX object cli/CMakeFiles/ernie-image.dir/main.cpp.o
+[30/43] Building CXX object src/CMakeFiles/ernie-pipeline.dir/vae.cpp.o
+[31/43] Linking CXX static library src/libernie-pipeline.a
+[32/43] Building CXX object cli/CMakeFiles/ernie-image.dir/prompt_file.cpp.o
+[33/43] Building CXX object cli/CMakeFiles/ernie-image.dir/options.cpp.o
+[34/43] Building CXX object cli/CMakeFiles/ernie-image.dir/image_io.cpp.o
+[35/43] Building CXX object probes/CMakeFiles/ernie-tokenize.dir/tokenizer_runner.cpp.o
+[36/43] Building CXX object tests/CMakeFiles/ernie-pipeline-api-contract.dir/test_pipeline_api.cpp.o
+[37/43] Building CXX object tests/CMakeFiles/ernie-pe-sampling-contract.dir/test_pe_sampling.cpp.o
+[38/43] Linking CXX executable ernie-image
+[39/43] Building CXX object probes/CMakeFiles/ernie-pe-runner.dir/pe_runner.cpp.o
+[40/43] Linking CXX executable ernie-tokenize
+[41/43] Linking CXX executable ernie-pipeline-api-contract
+[42/43] Linking CXX executable ernie-pe-runner
+[43/43] Linking CXX executable ernie-pe-sampling-contract

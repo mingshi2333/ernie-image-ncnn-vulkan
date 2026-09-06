@@ -1,0 +1,36 @@
+[
+  {
+    "run": "outputs/pe-apple-validation-v1",
+    "tokens": 256,
+    "eos": false,
+    "passed": true,
+    "exact_ids_and_text": true,
+    "logits_recomputed": 256,
+    "worst_nrmse": 5.952997833642228e-06,
+    "reference_and_native_hashes_checked": 520,
+    "result_sha256": "46c5c3022c430a962f541e640449159068999e13ea3321966c444beedaa2aca6",
+    "gates": {
+      "nrmse": 0.0002,
+      "atol": 0.0002,
+      "rtol": 0.0002
+    },
+    "cache_buffer_changes": 52
+  },
+  {
+    "run": "outputs/pe-apple-validation-v2",
+    "tokens": 315,
+    "eos": true,
+    "passed": true,
+    "exact_ids_and_text": true,
+    "logits_recomputed": 315,
+    "worst_nrmse": 5.952997833642228e-06,
+    "reference_and_native_hashes_checked": 638,
+    "result_sha256": "f6358fcb3a2dd40ca898809ff364d829a037a8bd3507213bcbdfacd14a33c17c",
+    "gates": {
+      "nrmse": 0.0002,
+      "atol": 0.0002,
+      "rtol": 0.0002
+    },
+    "cache_buffer_changes": 52
+  }
+]

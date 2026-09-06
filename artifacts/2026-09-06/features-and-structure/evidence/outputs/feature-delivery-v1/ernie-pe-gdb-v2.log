@@ -1,0 +1,51 @@
+
+This GDB supports auto-downloading debuginfo from the following URLs:
+  <ima:enforcing>
+  <https://debuginfod.fedoraproject.org/>
+  <ima:ignore>
+Enable debuginfod for this session? (y or [n]) [answered N; input not from terminal]
+Debuginfod has been disabled.
+To make this setting permanent, add 'set debuginfod enabled off' to .gdbinit.
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib64/libthread_db.so.1".
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+[New Thread 0x7ffff0dc7b40 (LWP 830396)]
+[New Thread 0x7fffe83febc0 (LWP 830397)]
+[New Thread 0x7fffebffec40 (LWP 830398)]
+
+Thread 1 "ernie-pe-block-" received signal SIGSEGV, Segmentation fault.
+0x00000000004618a9 in ncnn::NetPrivate::do_forward_layer(ncnn::Layer const*, std::vector<ncnn::Mat, std::allocator<ncnn::Mat> >&, ncnn::Option const&) const ()
+rax            0x0                 0
+rbx            0x8                 8
+rcx            0x1a9b9a0           27900320
+rdi            0x1a95950           27875664
+rsi            0x1a9b510           27899152
+   0x461895 <_ZNK4ncnn10NetPrivate16do_forward_layerEPKNS_5LayerERSt6vectorINS_3MatESaIS5_EERKNS_6OptionE+133>:	add    %al,(%rax)
+   0x461897 <_ZNK4ncnn10NetPrivate16do_forward_layerEPKNS_5LayerERSt6vectorINS_3MatESaIS5_EERKNS_6OptionE+135>:	add    %al,-0x80(%rcx)
+   0x46189a <_ZNK4ncnn10NetPrivate16do_forward_layerEPKNS_5LayerERSt6vectorINS_3MatESaIS5_EERKNS_6OptionE+138>:	(bad)
+   0x46189b <_ZNK4ncnn10NetPrivate16do_forward_layerEPKNS_5LayerERSt6vectorINS_3MatESaIS5_EERKNS_6OptionE+139>:	add    %esi,0x14(%rbp)
+   0x46189e <_ZNK4ncnn10NetPrivate16do_forward_layerEPKNS_5LayerERSt6vectorINS_3MatESaIS5_EERKNS_6OptionE+142>:	cmpb   $0x1,0x9(%rax)
+   0x4618a2 <_ZNK4ncnn10NetPrivate16do_forward_layerEPKNS_5LayerERSt6vectorINS_3MatESaIS5_EERKNS_6OptionE+146>:	jne    0x4618b2 <_ZNK4ncnn10NetPrivate16do_forward_layerEPKNS_5LayerERSt6vectorINS_3MatESaIS5_EERKNS_6OptionE+162>
+   0x4618a4 <_ZNK4ncnn10NetPrivate16do_forward_layerEPKNS_5LayerERSt6vectorINS_3MatESaIS5_EERKNS_6OptionE+148>:	mov    0x8(%r12),%rax
+=> 0x4618a9 <_ZNK4ncnn10NetPrivate16do_forward_layerEPKNS_5LayerERSt6vectorINS_3MatESaIS5_EERKNS_6OptionE+153>:	cmpl   $0x1,(%rax)
+   0x4618ac <_ZNK4ncnn10NetPrivate16do_forward_layerEPKNS_5LayerERSt6vectorINS_3MatESaIS5_EERKNS_6OptionE+156>:	jne    0x461f0f <_ZNK4ncnn10NetPrivate16do_forward_layerEPKNS_5LayerERSt6vectorINS_3MatESaIS5_EERKNS_6OptionE+1791>
+   0x4618b2 <_ZNK4ncnn10NetPrivate16do_forward_layerEPKNS_5LayerERSt6vectorINS_3MatESaIS5_EERKNS_6OptionE+162>:	xor    %eax,%eax
+   0x4618b4 <_ZNK4ncnn10NetPrivate16do_forward_layerEPKNS_5LayerERSt6vectorINS_3MatESaIS5_EERKNS_6OptionE+164>:	lea    0x20(%rsp),%rcx
+   0x4618b9 <_ZNK4ncnn10NetPrivate16do_forward_layerEPKNS_5LayerERSt6vectorINS_3MatESaIS5_EERKNS_6OptionE+169>:	cmp    %r12,%rcx
+#0  0x00000000004618a9 in ncnn::NetPrivate::do_forward_layer(ncnn::Layer const*, std::vector<ncnn::Mat, std::allocator<ncnn::Mat> >&, ncnn::Option const&) const ()
+#1  0x00000000004616ce in ncnn::NetPrivate::forward_layer(int, std::vector<ncnn::Mat, std::allocator<ncnn::Mat> >&, ncnn::Option const&) const ()
+#2  0x00000000004616ce in ncnn::NetPrivate::forward_layer(int, std::vector<ncnn::Mat, std::allocator<ncnn::Mat> >&, ncnn::Option const&) const ()
+#3  0x00000000004616ce in ncnn::NetPrivate::forward_layer(int, std::vector<ncnn::Mat, std::allocator<ncnn::Mat> >&, ncnn::Option const&) const ()
+#4  0x00000000004616ce in ncnn::NetPrivate::forward_layer(int, std::vector<ncnn::Mat, std::allocator<ncnn::Mat> >&, ncnn::Option const&) const ()
+#5  0x00000000004616ce in ncnn::NetPrivate::forward_layer(int, std::vector<ncnn::Mat, std::allocator<ncnn::Mat> >&, ncnn::Option const&) const ()
+#6  0x00000000004616ce in ncnn::NetPrivate::forward_layer(int, std::vector<ncnn::Mat, std::allocator<ncnn::Mat> >&, ncnn::Option const&) const ()
+#7  0x00000000004616ce in ncnn::NetPrivate::forward_layer(int, std::vector<ncnn::Mat, std::allocator<ncnn::Mat> >&, ncnn::Option const&) const ()
+#8  0x00000000004616ce in ncnn::NetPrivate::forward_layer(int, std::vector<ncnn::Mat, std::allocator<ncnn::Mat> >&, ncnn::Option const&) const ()
+#9  0x00000000004616ce in ncnn::NetPrivate::forward_layer(int, std::vector<ncnn::Mat, std::allocator<ncnn::Mat> >&, ncnn::Option const&) const ()
+#10 0x00000000004616ce in ncnn::NetPrivate::forward_layer(int, std::vector<ncnn::Mat, std::allocator<ncnn::Mat> >&, ncnn::Option const&) const ()
+#11 0x000000000046f648 in ncnn::Extractor::extract(int, ncnn::Mat&, int) ()
+#12 0x0000000000413baf in ernie::PeSession::step(ncnn::Mat const&, ncnn::Mat const&, ncnn::Mat const&) ()
+#13 0x0000000000410ca9 in main ()

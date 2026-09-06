@@ -1,0 +1,69 @@
+Test project /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/build
+      Start  1: native_cache_cpu
+ 1/29 Test  #1: native_cache_cpu .................   Passed    0.05 sec
+      Start  2: runtime_cache_cpu
+ 2/29 Test  #2: runtime_cache_cpu ................   Passed    0.04 sec
+      Start  3: native_cache_vulkan
+ 3/29 Test  #3: native_cache_vulkan ..............   Passed    2.05 sec
+      Start  4: runtime_cache_vulkan
+ 4/29 Test  #4: runtime_cache_vulkan .............   Passed    1.42 sec
+      Start  5: attention_long_fp32_accuracy
+ 5/29 Test  #5: attention_long_fp32_accuracy .....   Passed    0.92 sec
+      Start  6: attention_bounded_workspace
+ 6/29 Test  #6: attention_bounded_workspace ......   Passed    2.31 sec
+      Start  7: prompt_file_contract
+ 7/29 Test  #7: prompt_file_contract .............   Passed    0.00 sec
+      Start  8: pe_sampling_contract
+ 8/29 Test  #8: pe_sampling_contract .............***Failed    0.00 sec
+PE logits must be an FP32 vector
+
+      Start  9: pe_package_integrity
+ 9/29 Test  #9: pe_package_integrity .............   Passed    0.17 sec
+      Start 10: package_integrity
+10/29 Test #10: package_integrity ................   Passed    0.35 sec
+      Start 11: cli_contract
+11/29 Test #11: cli_contract .....................   Passed    0.07 sec
+      Start 12: text_bucket_contract
+12/29 Test #12: text_bucket_contract .............   Passed    0.03 sec
+      Start 13: variant_dimensions
+13/29 Test #13: variant_dimensions ...............   Passed    0.03 sec
+      Start 14: latent_contract_cpu
+14/29 Test #14: latent_contract_cpu ..............   Passed    0.00 sec
+      Start 15: residual_contract_cpu
+15/29 Test #15: residual_contract_cpu ............   Passed    0.00 sec
+      Start 16: residual_contract_vulkan
+16/29 Test #16: residual_contract_vulkan .........   Passed    0.85 sec
+      Start 17: residual_contract_vulkan_bf16
+17/29 Test #17: residual_contract_vulkan_bf16 ....   Passed    0.80 sec
+      Start 18: rmsnorm_range_cpu
+18/29 Test #18: rmsnorm_range_cpu ................   Passed    0.01 sec
+      Start 19: layernorm_range_cpu
+19/29 Test #19: layernorm_range_cpu ..............   Passed    0.00 sec
+      Start 20: erf_gelu_cpu
+20/29 Test #20: erf_gelu_cpu .....................   Passed    0.03 sec
+      Start 21: erf_gelu_vulkan_fp32
+21/29 Test #21: erf_gelu_vulkan_fp32 .............   Passed    0.64 sec
+      Start 22: rmsnorm_range_vulkan_fp32
+22/29 Test #22: rmsnorm_range_vulkan_fp32 ........   Passed    0.80 sec
+      Start 23: layernorm_range_vulkan_fp32
+23/29 Test #23: layernorm_range_vulkan_fp32 ......   Passed    0.73 sec
+      Start 24: erf_gelu_vulkan_fp16
+24/29 Test #24: erf_gelu_vulkan_fp16 .............   Passed    0.63 sec
+      Start 25: rmsnorm_range_vulkan_fp16
+25/29 Test #25: rmsnorm_range_vulkan_fp16 ........   Passed    0.76 sec
+      Start 26: layernorm_range_vulkan_fp16
+26/29 Test #26: layernorm_range_vulkan_fp16 ......   Passed    0.72 sec
+      Start 27: erf_gelu_vulkan_bf16
+27/29 Test #27: erf_gelu_vulkan_bf16 .............   Passed    0.65 sec
+      Start 28: rmsnorm_range_vulkan_bf16
+28/29 Test #28: rmsnorm_range_vulkan_bf16 ........   Passed    0.83 sec
+      Start 29: layernorm_range_vulkan_bf16
+29/29 Test #29: layernorm_range_vulkan_bf16 ......   Passed    0.76 sec
+
+97% tests passed, 1 tests failed out of 29
+
+Total Test time (real) =  15.69 sec
+
+The following tests FAILED:
+	  8 - pe_sampling_contract (Failed)
+Errors while running CTest
