@@ -1,6 +1,6 @@
 add_library(ernie-runtime STATIC
     ernie_gelu.cpp ernie_rmsnorm.cpp ernie_residual.cpp ernie_groupnorm.cpp ernie_attention.cpp
-    latent_ops.cpp block_sequence.cpp dit.cpp denoiser.cpp text_encoder.cpp conditioning.cpp pe_session.cpp)
+    latent_ops.cpp img2img.cpp block_sequence.cpp dit.cpp denoiser.cpp text_encoder.cpp conditioning.cpp pe_session.cpp)
 target_link_libraries(ernie-runtime PUBLIC ncnn)
 target_include_directories(ernie-runtime PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
 if(ERNIE_ENABLE_VULKAN)
@@ -8,7 +8,7 @@ if(ERNIE_ENABLE_VULKAN)
     target_include_directories(ernie-runtime PRIVATE "${ERNIE_NCNN_SOURCE_DIR}/src/layer" "${CMAKE_CURRENT_BINARY_DIR}/generated")
 endif()
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
-    set_source_files_properties(latent_ops.cpp denoiser.cpp PROPERTIES COMPILE_OPTIONS "-ffp-contract=off")
+    set_source_files_properties(latent_ops.cpp img2img.cpp denoiser.cpp PROPERTIES COMPILE_OPTIONS "-ffp-contract=off")
 endif()
 
 if(ERNIE_BUILD_GENERATOR)

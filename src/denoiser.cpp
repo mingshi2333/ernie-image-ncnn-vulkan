@@ -39,9 +39,11 @@ ncnn::Mat timestep_features(float timestep)
 
 ncnn::Mat denoise(const DenoiseModel &model, const ncnn::Mat &initial,
                   const std::vector<ncnn::Mat> &constants, int steps, const ncnn::Option &option,
-                  std::vector<DenoiseStepStats> &stats, const CpuStepObserver &observer)
+                  std::vector<DenoiseStepStats> &stats, const CpuStepObserver &observer, int start_step)
 {
     check_request(model, initial, constants.size());
+    if (start_step < 0 || start_step > steps)
+        throw std::invalid_argument("Denoising start step must be in [0,steps]");
     if (option.use_vulkan_compute)
         throw std::invalid_argument("CPU denoiser requires CPU options");
     const auto schedule = FlowSchedule::turbo(steps);
@@ -49,7 +51,7 @@ ncnn::Mat denoise(const DenoiseModel &model, const ncnn::Mat &initial,
     ncnn::Mat sample = initial;
     if (!finite_latent(sample))
         throw std::invalid_argument("Initial latent is not finite");
-    for (int i = 0; i < steps; ++i)
+    for (int i = start_step; i < steps; ++i)
     {
         const auto start = Clock::now();
         DenoiseStepStats step;
@@ -77,9 +79,11 @@ ncnn::Mat denoise(const DenoiseModel &model, const ncnn::Mat &initial,
 ncnn::VkMat denoise(const DenoiseModel &model, const ncnn::VkMat &initial,
                     const std::vector<ncnn::VkMat> &constants, int steps, const ncnn::VulkanDevice *device,
                     const ncnn::Option &option, std::vector<DenoiseStepStats> &stats,
-                    const VulkanStepObserver &observer)
+                    const VulkanStepObserver &observer, int start_step)
 {
     check_request(model, initial, constants.size());
+    if (start_step < 0 || start_step > steps)
+        throw std::invalid_argument("Denoising start step must be in [0,steps]");
     if (!device || !option.use_vulkan_compute || !option.blob_vkallocator || !option.staging_vkallocator)
         throw std::invalid_argument("Vulkan denoiser requires a device and session allocators");
     const auto schedule = FlowSchedule::turbo(steps);
@@ -88,7 +92,7 @@ ncnn::VkMat denoise(const DenoiseModel &model, const ncnn::VkMat &initial,
     ncnn::VkMat sample = initial;
     if (!latent_ops.finite_latent(sample, device, option))
         throw std::invalid_argument("Initial latent is not finite");
-    for (int i = 0; i < steps; ++i)
+    for (int i = start_step; i < steps; ++i)
     {
         const auto start = Clock::now();
         DenoiseStepStats step;
