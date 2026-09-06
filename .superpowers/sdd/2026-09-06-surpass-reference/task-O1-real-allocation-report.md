@@ -2,7 +2,7 @@
 
 ## 当前状态
 
-新增真实 Vulkan 合同 `tests/test_allocation_metrics_vulkan.cpp`，独立目标 `ernie-allocation-vulkan-contract`，由默认关闭的 `ERNIE_BUILD_ALLOCATION_PROBE` 启用。**当前仅 ON/OFF 严格编译语法检查与 CMake 配置成功；ON 完整 ncnn 构建在 87% 由 root 的 F1 资源排队指令冻结，真实 GPU 合同和 ON/OFF 逐位比较均未执行。不得称 O1 完成。**
+新增真实 Vulkan 合同 `tests/test_allocation_metrics_vulkan.cpp`，独立目标 `ernie-allocation-vulkan-contract`，由默认关闭的 `ERNIE_BUILD_ALLOCATION_PROBE` 启用。**ON/OFF 完整 ncnn 与 probe 均已链接成功并封存；真实 GPU 合同和 ON/OFF 逐位比较仍未执行。不得称 O1 完成。**
 
 独立目录 `build-o1/on` 与 `build-o1/off`；原始 ncnn 仍为 pin `6a1bf000f363714839a36793addc8c879d3d899e`。ON 使用认证派生副本，OFF 直接原始源。Release、`/usr/bin/clang{,++}`、system glslang 16.2.0 与 build-dev 配置匹配，保留项目当前 minimal layer inventory。没有改写/配置/构建 build-dev，也没有加载正式模型。
 
@@ -30,3 +30,16 @@
 继续 ON 后仅构建同一 target；随后在相同 3 GiB/swap0 资源合同下构建 OFF。二进制固定复制到新 evidence snapshot，保存完整 source/CMake/derived provenance/runner SHA。实际 GPU 必须等 root 独占时段，再串行执行 ON、OFF，同输入/output-byte oracle、全部事件检查通过后比较 SHA 与 bytes。
 
 本合同仅证明受测 allocator 和小 GPU 运算的事件覆盖与插桩透明性；不能将其外推为完整模型性能证据、driver 总显存或任意进程的峰值。完整端到端指标胶合与真实模型覆盖仍由后续 O1 切片完成。
+
+## 完整链接续接与身份封存
+
+root 通知 F1 已完成 PE/text、host available 17 GiB 后，thaw 原 `ernie-o1-build-on`，没有重新启动。ON session 59085 exit0，CPU 3m6.129s、峰 597.4 MiB/swap0；wall 9m42.810s 包含冻结时间，不能作编译性能比较。OFF 在独立 unit `ernie-o1-build-off`、session 53153 中完成，exit0，CPU 3m25.844s、wall 1m44.323s、峰 599.7 MiB/swap0。均为2 jobs/3 GiB限制。
+
+固定 runner：
+
+- `outputs/allocation-real-o1-v1/snapshot/on/runner`，SHA256 `e2d0e552abcdcecba89886684d2fbb8ddd6c35ef92a3e421eb62a09a1b1906b4`。
+- `outputs/allocation-real-o1-v1/snapshot/off/runner`，SHA256 `fb82ee70125e3aacbae916f8aafafbba41b7e2979149c4eefbbc4da092e3c464`。
+
+`identity.json` 保存 ON/OFF 实际 `.o.d` 中1202/1168项编译依赖SHA（项目/ncnn/生成源复制封存，系统header记录SHA），实际 linker dependency 文件中的31/29项链接依赖SHA、CMakeCache/flags/link命令、派生源码完整provenance/差异、配置脚本快照和固定输入文件SHA。`seal.py` 与其SHA一起保存。两runner均只执行无参数用法路径并确认exit2，不创建GPU。原始 ncnn checkout仍clean。
+
+真实GPU执行继续等待root F1/Q2独占队列。此时无本agent活动CPU构建/模型会话。
