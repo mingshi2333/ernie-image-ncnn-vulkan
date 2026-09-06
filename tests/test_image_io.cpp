@@ -92,6 +92,10 @@ int main()
         require(ernie::cli::read_image(alpha, {0,0,0}).pixels == std::vector<uint8_t>({128,0,0,0,0,0}),
                 "Explicit alpha background differs");
         const ernie::RgbImage wide{2,1,{255,0,0,0,0,255}};
+        const auto stretched=ernie::cli::resize_image(wide,4,1,"stretch");
+        require(stretched.pixels[0]==255 && stretched.pixels[1]==0 && stretched.pixels[2]==0 &&
+                stretched.pixels[9]==0 && stretched.pixels[10]==0 && stretched.pixels[11]==255,
+                "Bilinear resize did not clamp edge samples");
         const auto fitted=ernie::cli::resize_image(wide,4,4,"fit",{3,4,5});
         require(fitted.width==4 && fitted.height==4 && fitted.pixels[0]==3 && fitted.pixels[1]==4 && fitted.pixels[2]==5,
                 "Fit resize did not letterbox with the explicit background");

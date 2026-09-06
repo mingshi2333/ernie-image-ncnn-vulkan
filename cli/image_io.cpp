@@ -288,9 +288,11 @@ RgbImage resize_image(const RgbImage &source, int width, int height, const std::
         {
             const float fx = (float(x - offset_x) + .5f) * source.width / scaled_width - .5f;
             const float fy = (float(y - offset_y) + .5f) * source.height / scaled_height - .5f;
-            const int ax = std::clamp(int(std::floor(fx)), 0, source.width - 1);
-            const int ay = std::clamp(int(std::floor(fy)), 0, source.height - 1);
-            const int bx = std::min(ax + 1, source.width - 1), by = std::min(ay + 1, source.height - 1);
+            const int floor_x=int(std::floor(fx)),floor_y=int(std::floor(fy));
+            const int ax = std::clamp(floor_x, 0, source.width - 1);
+            const int ay = std::clamp(floor_y, 0, source.height - 1);
+            const int bx = std::clamp(floor_x + 1, 0, source.width - 1);
+            const int by = std::clamp(floor_y + 1, 0, source.height - 1);
             const float wx = std::clamp(fx - std::floor(fx), 0.f, 1.f);
             const float wy = std::clamp(fy - std::floor(fy), 0.f, 1.f);
             for (int c = 0; c < 3; ++c)

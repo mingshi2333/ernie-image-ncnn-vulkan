@@ -114,6 +114,7 @@ fn verify_contract(root:&Path,contract:&Value)->Result<Vec<ResolvedPackage>,Stri
         // C++ additionally enforces the canonical full-graph allowlist before instantiation.
         out.push(ResolvedPackage{config:config(pinned)?,files,schema:3});
     }
+    if encoder_source.is_some_and(|source|!seen.contains(source)) {return Err("Reviewed encoder source instance is absent".into());}
     if used!=objects.keys().cloned().collect(){return Err("Unbound shared objects".into());}
     let entries=fs::read_dir(root.join("objects")).map_err(|e|e.to_string())?.map(|e| e.map_err(|e|e.to_string()).and_then(|e|e.file_name().into_string().map_err(|_|"Invalid object name".into()))).collect::<Result<BTreeSet<_>,String>>()?;
     if entries!=used{return Err("Unlisted shared objects".into());}
@@ -168,6 +169,10 @@ mod corruption_tests {
         let files=declared["files"].as_object().unwrap().iter().map(|(n,v)|(n.clone(),v["sha256"].clone())).collect();
         declared["files"]=Value::Object(files);m["encoder"]=declared;save(&m);
         let resolved=verify_contract(&root,&contract).unwrap();assert_eq!(resolved[0].files.len(),138);
+        let trusted=contract["reviewed_encoders"][&digest].clone();
+        contract["reviewed_encoders"]=serde_json::json!({"0".repeat(64):trusted});
+        assert!(verify_contract(&root,&contract).is_err());
+        contract["reviewed_encoders"]=serde_json::json!({digest.clone():available});
         m["encoder"]["width"]=32.into();save(&m);assert!(verify_contract(&root,&contract).is_err());
         m["encoder"]=contract["encoder"].clone();save(&m);
         let original=m.clone();m["instances"][0]["runtime_bindings"].as_object_mut().unwrap().remove("dit/block-35/block.ncnn.bin");save(&m);assert!(verify_contract(&root,&contract).is_err());
