@@ -48,7 +48,11 @@ def main():
     p.add_argument('--official-root',type=Path,default=ROOT/'models/official')
     p.add_argument('--input-f32',type=Path,help='Saved finite FP32 little-endian unpacked latent, exact selected shape')
     p.add_argument('--threads',type=int,default=4)
+    p.add_argument('--runtime-identity',type=Path,help='Frozen runtime allowlist for guarded reference execution')
+    p.add_argument('--runtime-report',type=Path,help='New actual worker runtime inventory directory')
     args=p.parse_args()
+    if bool(args.runtime_identity)!=bool(args.runtime_report):p.error('Both runtime identity and report are required')
+    if args.runtime_identity and not args.reference_only:p.error('Runtime inventory requires reference-only')
     if args.output.exists():p.error('Use a new output directory')
     if not 1<=args.threads<=4:p.error('Use 1..4 CPU threads')
     try:
@@ -65,18 +69,31 @@ def main():
         x=torch.from_numpy(array)
     else:
         x=torch.randn(1,32,args.height,args.width,generator=torch.Generator().manual_seed(20260905))
-    model,manifests=load_vae(official_root)
-    expected=model._decode(x,return_dict=False)[0]
-    metadata={'component':'vae','height':args.height,'width':args.width,'text_tokens':0,'tokens':0,
-        'weights':{k:v['sha256'] for k,v in manifests.items()},
-        'official_revision':next(iter(manifests.values()))['revision'],
-        'saved_input_sha256':hashlib.sha256(raw).hexdigest() if args.input_f32 else None,
-        'input_generation':'saved_FP32_bytes' if args.input_f32 else 'torch_seed_20260905',
-        'fixed_1376x768_candidate':args.fixed_1376x768,
-        'threads':args.threads,'native_acceptance_eligible':False,
-        'scope':'Official VAE decoder with synthetic unpacked latent; BN/unpack happens before this component',
-        'official_source_sha256':sha256(inspect.getfile(AutoencoderKLFlux2)),
-        'vae_config_sha256':sha256(official_root/'vae-config.json')}
-    export_component(Decode(model),(x,),(expected,),args.output.resolve(),metadata,args.reference_only)
+    collector=None
+    if args.runtime_identity:
+        from vae_reference_scope import WorkerRuntime
+        collector=WorkerRuntime(args.runtime_identity,args.runtime_report)
+    success=False
+    try:
+        if collector:collector.checkpoint('before_model')
+        model,manifests=load_vae(official_root)
+        if collector:collector.checkpoint('after_model')
+        expected=model._decode(x,return_dict=False)[0]
+        if collector:collector.checkpoint('after_first_forward')
+        metadata={'component':'vae','height':args.height,'width':args.width,'text_tokens':0,'tokens':0,
+            'weights':{k:v['sha256'] for k,v in manifests.items()},
+            'official_revision':next(iter(manifests.values()))['revision'],
+            'saved_input_sha256':hashlib.sha256(raw).hexdigest() if args.input_f32 else None,
+            'input_generation':'saved_FP32_bytes' if args.input_f32 else 'torch_seed_20260905',
+            'fixed_1376x768_candidate':args.fixed_1376x768,
+            'threads':args.threads,'native_acceptance_eligible':False,
+            'scope':'Official VAE decoder with synthetic unpacked latent; BN/unpack happens before this component',
+            'official_source_sha256':sha256(inspect.getfile(AutoencoderKLFlux2)),
+            'vae_config_sha256':sha256(official_root/'vae-config.json')}
+        export_component(Decode(model),(x,),(expected,),args.output.resolve(),metadata,args.reference_only)
+        if collector:collector.checkpoint('after_second_forward')
+        success=True
+    finally:
+        if collector:collector.finish(success)
 
 if __name__=='__main__':main()

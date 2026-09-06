@@ -34,3 +34,17 @@ Root发现并复现v2错误：`Path(python).resolve()` 使计划从项目 `.venv
 v3 plan给出具体systemd-run scope launcher：16GiB/swap0/CPU200%、affinity12,14，保留venv invocation、CUDA_VISIBLE_DEVICES为空、禁HF联网并固定线程环境。guard在模型运行前认证源/runtime/input/官方metadata和实际cgroup配置、venv prefix、affinity；只接受固定96×172/reference-only/threads2 argv；借用已审check_release.execute的50ms hostfloor/timeout监控，完成后核runtime/input/metadata及OOM，保留独立process/result。guard/launcher未执行，模型输出仍不存在。
 
 新增runtime文件同size篡改及venv路径语义小测试2/2，其余6/6重跑通过、工具py_compile通过。v3源/input/runner/runtime identity绑定已复核；只做了轻量runtime导入与流哈希，未进行官方forward/native推理/导出/GPU。
+
+## 6167d50 Important I1 修复：实际 worker runtime 认证（新 v4，未执行模型）
+
+旧 `outputs/f1-shape1376-s64-plan-v3` 保留。新增 `outputs/f1-shape1376-s64-plan-v4`，plan SHA `5d38b7e0847ba1859b0127ca809c59389540bbf35e7e1552fa13beed4f87a4b0`；305 个 source snapshot 完整 SHA 已验证，导入准备仍为 2822 文件/137 mapped 文件。session 81433 已 exit0，只执行导入准备，无模型构造、forward、pnnx 或 GPU。
+
+实际 `export_vae.py` 的 guarded reference-only 路径新增 `--runtime-identity` / `--runtime-report` 成对参数。WorkerRuntime 在 before_model、after_model、after_first_forward、after_second_forward 四个真实模型进程边界采集 sys.modules 文件及 `/proc/self/maps` 中实际文件映射，记录真实路径、完整流 SHA、大小和每边界全量清单。固定 allowlist 来自独立导入准备；已知文件必须与其一致，同文件跨边界变化/消失也失败。新增文件归档到实际报告目录的 SHA objects 后显式列 unknown，不能自动扩充授权。即使两次 forward 已完成，只要 unknown/changed/缺边界，身份仍为 unaccepted，控制器不能报告 completed_reference。
+
+监督器要求新的 actual report 存在、四边界完整、所有实际文件属于原 allowlist、report union 一致、collector source SHA 与冻结源码一致、venv invocation/prefix 相同，并重新检查实际依赖文件完整 SHA。实际报告 SHA 写入 supervisor result；模型本身发生异常时保留原异常与 partial runtime 报告。新 runtime 未认证时可能已留下 fixture，但这些输出不能用作已认证参考，也不能晋升生产 shape。
+
+这解决的是实际模型进程的**边界依赖身份**；不是声称能观测两个边界之间瞬时加载后卸载的所有代码。准备清单仍诚实标 import-only，不冒称真实两次 forward 的全集。未知依赖必须经独立审查和新准备授权，不能从运行结果自动认可。
+
+保留原 venv 入口、两次 decoder forward、no pnnx、latent [1,32,96,172]、official threads2/native ncnn threads4/scope两核，16GiB/swap0/CPUQuota200%/affinity12,14/hostfloor3GiB/timeout1800。没有实际模型授权或执行。
+
+验证：12 个小型 CPU tests 通过（既有 shape/plan6 + runtime6）。新增测试验证实际新 sys.modules 文件能被枚举；完整四阶段允许项通过、删阶段拒绝；新增模拟 mapped binary 留存原字节但拒绝认证；同尺寸源码变化拒绝且保留失败报告。Python compile 检查通过。新 v4 所有 source/input/runtime identity hash 与计划一致，worker-runtime 目录尚不存在。等待独立复核后再由 root 排队模型。

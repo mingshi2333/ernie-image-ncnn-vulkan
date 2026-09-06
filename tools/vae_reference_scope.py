@@ -12,21 +12,107 @@ from check_release import cgroup, execute
 from prepare_block import sha256
 
 
+
+def runtime_files():
+    """Inventory actual Python modules and file-backed mappings at this boundary."""
+    paths=set()
+    for module in list(sys.modules.values()):
+        name=getattr(module,'__file__',None)
+        if name and Path(name).is_absolute():
+            if not Path(name).is_file():
+                raise ValueError('Missing loaded module: '+name)
+            paths.add(str(Path(name).resolve()))
+    mapped=set()
+    for line in Path('/proc/self/maps').read_text().splitlines():
+        parts=line.split(maxsplit=5)
+        if len(parts)==6 and parts[5].startswith('/'):
+            name=parts[5]
+            if not Path(name).is_file():
+                raise ValueError('Missing/deleted file-backed mapping: '+name)
+            mapped.add(str(Path(name).resolve()))
+    paths.update(mapped)
+    return {name:{'size':Path(name).stat().st_size,'sha256':sha256(Path(name))}
+            for name in sorted(paths)},sorted(mapped)
+
+
+class WorkerRuntime:
+    """Keep actual model-process boundary inventories; unknown files never authenticate."""
+    phases=['before_model','after_model','after_first_forward','after_second_forward']
+
+    def __init__(self,identity_path,output):
+        self.identity_path=Path(identity_path);self.output=Path(output)
+        self.allowed=json.loads(self.identity_path.read_text())
+        self.output.mkdir(parents=True,exist_ok=False)
+        self.files={};self.unknown=set();self.checkpoints=[];self.error=None
+
+    def checkpoint(self,phase):
+        files,mapped=runtime_files()
+        if phase!=self.phases[len(self.checkpoints)]:raise ValueError('Runtime phase order differs')
+        for name,row in files.items():
+            if name in self.files and self.files[name]!=row:
+                raise ValueError('Loaded runtime changed during model execution: '+name)
+            if name in self.allowed['files']:
+                if self.allowed['files'][name]!=row:
+                    raise ValueError('Loaded runtime differs from frozen allowlist: '+name)
+            else:
+                self.unknown.add(name)
+                # New code is retained for review, but cannot silently extend authorization.
+                archive=self.output/'objects'/row['sha256']
+                archive.parent.mkdir(exist_ok=True)
+                if not archive.exists():shutil.copyfile(name,archive)
+                if sha256(archive)!=row['sha256'] or sha256(Path(name))!=row['sha256']:
+                    raise ValueError('Runtime changed while archiving: '+name)
+            self.files[name]=row
+        self.checkpoints.append({'phase':phase,'files':files,'mapped_files':mapped})
+
+    def finish(self,success):
+        original_error=sys.exc_info()[1]
+        if original_error is not None:self.error=str(original_error)
+        try:
+            verify_files(self.files)
+        except BaseException as error:
+            self.error=str(error)
+        valid=(success and self.error is None and not self.unknown
+               and [x['phase'] for x in self.checkpoints]==self.phases
+               and sys.prefix==self.allowed['prefix']
+               and os.path.abspath(sys.executable)==os.path.abspath(self.allowed['executable']))
+        report={'schema_version':1,'status':'authenticated' if valid else 'unaccepted_runtime_identity',
+                'model_execution_completed':success,'authenticated':valid,'error':self.error,
+                'allowlist_sha256':sha256(self.identity_path),'collector_sha256':sha256(Path(__file__)),
+                'prefix':sys.prefix,'executable':sys.executable,'files':self.files,
+                'unknown_files':sorted(self.unknown),'checkpoints':self.checkpoints,
+                'scope':'actual model-process module and mapped-file inventories at four boundaries; '
+                        'not a claim to observe transient load/unload between boundaries'}
+        (self.output/'identity.json').write_text(json.dumps(report,indent=2)+'\n')
+        if not valid and original_error is None:raise ValueError('Actual worker runtime identity was not authenticated; see '+str(self.output))
+
+
+def validate_worker_runtime(path,runtime,expected_sha,collector_sha):
+    report=json.loads(Path(path).read_text())
+    if (report['status']!='authenticated' or report['authenticated'] is not True
+        or report['model_execution_completed'] is not True or report['unknown_files']
+        or report['allowlist_sha256']!=expected_sha or report['collector_sha256']!=collector_sha
+        or report['prefix']!=runtime['prefix'] or report['executable']!=runtime['executable']
+        or [x['phase'] for x in report['checkpoints']]!=WorkerRuntime.phases):
+        raise ValueError('Actual worker runtime report is incomplete or unauthenticated')
+    union={}
+    for point in report['checkpoints']:
+        if not point['files'] or not set(point['mapped_files'])<=set(point['files']):
+            raise ValueError('Actual worker runtime boundary inventory is incomplete')
+        for name,row in point['files'].items():
+            if runtime['files'].get(name)!=row:
+                raise ValueError('Actual worker runtime file was not authorized: '+name)
+            union[name]=row
+    if union!=report['files']:raise ValueError('Worker runtime union differs')
+    verify_files(union)
+    return report
+
+
 def capture(output):
     if output.exists():raise ValueError('Use a new runtime snapshot')
     # Import exactly the future reference worker dependencies; no model is loaded.
     import export_vae
-    files={}
-    for module in list(sys.modules.values()):
-        name=getattr(module,'__file__',None)
-        if name and Path(name).is_file():
-            path=Path(name).resolve();files[str(path)]={'size':path.stat().st_size,'sha256':sha256(path)}
-    mapped=set()
-    for line in Path('/proc/self/maps').read_text().splitlines():
-        parts=line.split(maxsplit=5)
-        if len(parts)==6 and parts[5].startswith('/') and Path(parts[5]).is_file():mapped.add(parts[5])
-    for name in sorted(mapped):
-        path=Path(name);files[name]={'size':path.stat().st_size,'sha256':sha256(path)}
+    files,mapped=runtime_files()
     output.mkdir(parents=True);sources=output/'sources';sources.mkdir()
     for name,row in files.items():
         if name.endswith('.py'):
@@ -75,7 +161,8 @@ def run(plan_path):
     argv=plan['steps'][0]['argv']
     expected=[identity['python'],str(base/'source/tools/export_vae.py'),'--output',str(base/'official-vae'),
               '--height','96','--width','172','--reference-only','--fixed-1376x768','--threads','2',
-              '--official-root',identity['official_root'],'--input-f32',plan['input']['path']]
+              '--official-root',identity['official_root'],'--input-f32',plan['input']['path'],
+              '--runtime-identity',str(base/'runtime/identity.json'),'--runtime-report',str(base/'worker-runtime')]
     if argv!=expected:raise ValueError('Official command differs from fixed CPU-only plan')
     start={'plan_sha256':sha256(plan_path),'runtime_sha256':plan['runtime_identity_sha256'],
            'resource_controls':controls,'cpu_affinity':sorted(os.sched_getaffinity(0)),
@@ -84,6 +171,9 @@ def run(plan_path):
     result={'status':'running'}
     try:
         result['process']=execute(argv,out,limits,'official',cg)
+        validate_worker_runtime(base/'worker-runtime/identity.json',runtime,plan['runtime_identity_sha256'],
+                                identity['files']['tools/vae_reference_scope.py'])
+        result['worker_runtime_sha256']=sha256(base/'worker-runtime/identity.json')
         verify_files(runtime['files'])
         for name,digest in identity['official_metadata_sha256'].items():
             if sha256(Path(identity['official_root'])/name)!=digest:raise ValueError('Official metadata changed during run')
@@ -94,6 +184,8 @@ def run(plan_path):
     except BaseException as error:
         result.update(status='failed',error=str(error));raise
     finally:
+        if (base/'worker-runtime/identity.json').is_file():
+            result['worker_runtime_sha256']=sha256(base/'worker-runtime/identity.json')
         (out/'result.json').write_text(json.dumps(result,indent=2)+'\n')
 
 
