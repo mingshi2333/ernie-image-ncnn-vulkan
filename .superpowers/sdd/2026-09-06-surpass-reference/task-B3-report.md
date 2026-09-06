@@ -58,3 +58,33 @@ exit 0
 ```
 
 The two subprocess failure tests are synthetic and CPU-only: one times out a sleeping Python child, and one terminates a Python child with SIGSEGV. No model or GPU job was run.
+
+## Review round 2 fixes
+
+The complete `task-B3-rereview.md` findings were used as the checklist.
+
+- `summarize_pairs` now requires the trusted B1 manifest and protocol. It verifies the manifest self-hash, verifies the canonical protocol bytes against the manifest inventory, validates the frozen performance protocol, and derives the six expected performance cases from that manifest rather than maintaining a second case table.
+- Every measured side is checked against its corresponding complete frozen case: prompt/input hash, saved noise hash and dtype, canonical model identity, complete case digest, WH shape/order, steps, CFG, full PE object, and exact four-stage precision. Img2img additionally binds encoded source bytes, decoded RGB bytes, strength, and resize policy. Weight-equivalence evidence remains separately mandatory. Device maps remain actual and mandatory but may differ.
+- Complete 30-pair grids using wrong steps/shapes, one reused input, disabled `performance-4` PE, wrong img2img strength, missing fields, or a mismatched protocol all remain incomplete and expose no geomean.
+- Positive process exit statuses, including 137, 139, and 200, are classified as `runtime_failure` without an invented signal. Only a negative direct `Popen.returncode` records a termination signal. Proven log evidence can still classify allocator/resource exhaustion; a direct SIGKILL without such evidence remains `resource_unknown`.
+- Missing/unlaunchable `nvidia-smi` is preserved as an incomplete runtime failure and no longer causes a second missing-`runner.log` exception. `result.json` is written.
+
+Exact validation after round 2:
+
+```text
+PYTHONPATH=tools .venv/bin/python -m unittest tests.test_port_metrics -v
+Ran 17 tests in 0.297s
+OK
+
+git ls-files 'tests/test_*.py' | sed 's#/#.#g;s#\.py$##' | xargs env PYTHONPATH=tools .venv/bin/python -m unittest
+Ran 116 tests in 0.795s
+OK
+
+.venv/bin/python -m py_compile tools/benchmark_pipeline.py tools/port_metrics.py tests/test_port_metrics.py
+exit 0
+
+git diff --check
+exit 0
+```
+
+The suite used only frozen metadata/bytes and synthetic CPU subprocesses. No model or GPU inference ran. The immutable B1 manifest/protocol and its pending calibration status were read but never rewritten.

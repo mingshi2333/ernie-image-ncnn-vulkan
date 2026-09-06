@@ -1,25 +1,38 @@
 import json, signal, subprocess, sys, tempfile, unittest
 from pathlib import Path
+from unittest.mock import patch
 sys.path.insert(0,str(Path(__file__).parents[1]/"tools"))
+import benchmark_pipeline
 from benchmark_pipeline import run_timed_command
-from port_metrics import FORMAL_CASE_IDS, build_protocol, paired_schedule, summarize_pairs, validate_measurement
+from port_metrics import build_protocol, paired_schedule, summarize_pairs, validate_measurement, _canonical, _digest
 
-PRECISION={"text":"fp32","dit":"fp32","scheduler":"fp32","vae":"fp32"}
-def side(seconds=2.0,device="vulkan"):
+ROOT=Path(__file__).parents[1]
+MANIFEST=json.loads((ROOT/"outputs/port-corpus-v1/manifest.json").read_text())
+PROTOCOL=json.loads((ROOT/"outputs/port-corpus-v1/protocol.json").read_text())
+CASES={c["id"]:c for c in MANIFEST["cases"] if c["split"]=="performance"}
+FORMAL_CASE_IDS=tuple(CASES)
+def side(case,seconds=2.0,device="vulkan"):
     start=1_000_000_000
+    pe=json.loads(json.dumps(case["pe"]))
     return {"status":"ok","quality_status":"passed","scope":"end_to_end","trace":False,
-            "input_id":"a"*64,"noise_sha256":"b"*64,"noise_dtype":"<f4","model_id":"official-turbo",
-            "weights_canonical_sha256":"c"*64,"weight_identity_status":"proven","pe_identity":"disabled",
-            "precision_by_stage":dict(PRECISION),"device_by_stage":{k:device for k in PRECISION},
-            "started_monotonic_ns":start,"finished_monotonic_ns":start+int(seconds*1e9),"wall_seconds":seconds}
+            "input_id":case["prompt_sha256"],"noise_sha256":case["noise_sha256"],"noise_dtype":case["noise_dtype"],
+            "model_id":_canonical(case["model_identity"]).decode(),"weights_canonical_sha256":"c"*64,
+            "weight_identity_status":"proven","pe_identity":_canonical(pe).decode(),"pe":pe,
+            "precision_by_stage":dict(case["dtype_by_stage"]),"device_by_stage":{k:device for k in case["dtype_by_stage"]},
+            "shape":list(case["shape"]),"shape_order":case["shape_order"],"steps":case["steps"],"cfg":case["cfg"],
+            "case_identity_sha256":_digest(_canonical(case)),
+            "started_monotonic_ns":start,"finished_monotonic_ns":start+int(seconds*1e9),"wall_seconds":seconds,
+            **({k:case[k] for k in ("input_image_sha256","decoded_rgb_sha256","strength","resize_policy")}
+               if case.get("mode")=="img2img" else {})}
 def pair(case="performance-0",index=0):
+    frozen=CASES[case]
     return {"case_id":case,"pair_index":index,"phase":"measured","order":"AB" if index%2==0 else "BA",
-            "trace":False,"candidate":side(2.0,"vulkan"),"reference":side(4.0,"cpu")}
+            "trace":False,"candidate":side(frozen,2.0,"vulkan"),"reference":side(frozen,4.0,"cpu")}
 def full_pairs(): return [pair(case,index) for case in FORMAL_CASE_IDS for index in range(5)]
 
 class PortMetricsTest(unittest.TestCase):
     def test_frozen_denominator_completes_and_allows_different_devices(self):
-        result=summarize_pairs(full_pairs())
+        result=summarize_pairs(full_pairs(),MANIFEST,PROTOCOL)
         self.assertEqual(result["status"],"complete");self.assertEqual(result["expected_pair_count"],30)
         self.assertEqual(result["geomean_ratio"],2.0);self.assertEqual(len(result["cases"]),6)
 
@@ -31,12 +44,12 @@ class PortMetricsTest(unittest.TestCase):
         warmup=full_pairs();warmup[-1]=dict(warmup[-1],phase="warmup");variants.append(warmup)
         for records in variants:
             with self.subTest():
-                result=summarize_pairs(records);self.assertEqual(result["status"],"incomplete")
+                result=summarize_pairs(records,MANIFEST,PROTOCOL);self.assertEqual(result["status"],"incomplete")
                 self.assertIsNone(result["geomean_ratio"])
 
     def test_failed_reference_is_not_infinite_speedup(self):
         records=full_pairs();records[0]["reference"]["status"]="oom";records[0]["reference"]["quality_status"]="unknown"
-        result=summarize_pairs(records)
+        result=summarize_pairs(records,MANIFEST,PROTOCOL)
         self.assertIsNone(result["geomean_ratio"]);self.assertIn("performance-0",result["unavailable_case_ids"])
 
     def test_side_identity_mismatch_is_rejected_for_that_reason(self):
@@ -51,11 +64,38 @@ class PortMetricsTest(unittest.TestCase):
             with self.subTest(key=key),self.assertRaises(ValueError):validate_measurement(record)
 
     def test_precision_and_pe_mismatch_rejected_but_device_mismatch_allowed(self):
-        record=pair();validate_measurement(record)
+        record=pair();validate_measurement(record,CASES[record["case_id"]])
         record=pair();record["reference"]["precision_by_stage"]["dit"]="fp16"
         with self.assertRaisesRegex(ValueError,"precision_by_stage mismatch"):validate_measurement(record)
         record=pair();record["reference"]["pe_identity"]="enabled:hash"
         with self.assertRaisesRegex(ValueError,"pe_identity mismatch"):validate_measurement(record)
+
+    def test_complete_grid_with_wrong_frozen_shape_or_steps_is_incomplete(self):
+        records=full_pairs()
+        for record in records:
+            record["candidate"]["shape"]=[64,64];record["candidate"]["steps"]=1
+            record["reference"]["shape"]=[64,64];record["reference"]["steps"]=1
+        result=summarize_pairs(records,MANIFEST,PROTOCOL)
+        self.assertEqual(result["status"],"incomplete");self.assertIsNone(result["geomean_ratio"])
+
+    def test_cases_cannot_reuse_one_input_or_disable_frozen_pe(self):
+        records=full_pairs();first=CASES["performance-0"]
+        for record in records:
+            for name in ("candidate","reference"):
+                record[name]["input_id"]=first["prompt_sha256"]
+                record[name]["pe"]={"enabled":False};record[name]["pe_identity"]='{"enabled":false}'
+        result=summarize_pairs(records,MANIFEST,PROTOCOL)
+        self.assertEqual(result["status"],"incomplete");self.assertIsNone(result["geomean_ratio"])
+
+    def test_img2img_rgb_strength_and_resize_are_bound(self):
+        record=pair("performance-5");record["candidate"]["strength"]=0.1
+        with self.assertRaisesRegex(ValueError,"strength"):validate_measurement(record,CASES["performance-5"])
+
+    def test_missing_frozen_field_or_wrong_protocol_never_completes(self):
+        records=full_pairs();del records[0]["candidate"]["cfg"]
+        self.assertEqual(summarize_pairs(records,MANIFEST,PROTOCOL)["status"],"incomplete")
+        protocol=json.loads(json.dumps(PROTOCOL));protocol["performance"]["measured_pairs"]=4
+        with self.assertRaises(ValueError):summarize_pairs(full_pairs(),MANIFEST,protocol)
 
     def test_schedule_is_fixed(self):
         schedule=paired_schedule("performance-0");self.assertEqual(len(schedule),12)
@@ -87,5 +127,24 @@ class PortMetricsTest(unittest.TestCase):
             code="import os,signal;os.kill(os.getpid(),signal.SIGSEGV)"
             result=run_timed_command([sys.executable,"-c",code],2,Path(temporary)/"log")
         self.assertEqual(result["failure_category"],"crash");self.assertEqual(result["termination_signal"],signal.SIGSEGV)
+
+    def test_positive_high_exit_status_does_not_invent_signal(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            for code in (137,139,200):
+                result=run_timed_command([sys.executable,"-c",f"raise SystemExit({code})"],2,Path(temporary)/f"log-{code}")
+                self.assertEqual(result["failure_category"],"runtime_failure")
+                self.assertIsNone(result["termination_signal"])
+
+    def test_missing_sampler_still_writes_failure_result(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary);model=root/"model";model.mkdir();(model/"manifest.json").write_text("{}")
+            runner=root/"runner";runner.write_text("unused");output=root/"output"
+            argv=["benchmark_pipeline","--model",str(model),"--runner",str(runner),"--output",str(output)]
+            with patch.object(sys,"argv",argv),patch.object(benchmark_pipeline,"verify_package",return_value=({"config":{}},None)),\
+                 patch("source_inventory.source_files",return_value=[]),\
+                 patch.object(benchmark_pipeline.subprocess,"Popen",side_effect=FileNotFoundError("synthetic nvidia-smi missing")):
+                self.assertEqual(benchmark_pipeline.main(),1)
+            result=json.loads((output/"result.json").read_text())
+            self.assertEqual(result["status"],"incomplete");self.assertEqual(result["failure_category"],"runtime_failure")
 
 if __name__=="__main__":unittest.main()

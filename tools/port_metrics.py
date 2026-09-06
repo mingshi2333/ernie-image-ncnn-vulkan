@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
 """Fail-closed protocol and aggregation for the frozen port benchmark."""
 from __future__ import annotations
-import json, math, statistics
+import hashlib, json, math, statistics
 from pathlib import Path
 
-FORMAL_CASE_IDS=tuple(f"performance-{i}" for i in range(6))
 MEASURED_PAIR_INDICES=tuple(range(5))
 STAGES={"text","dit","scheduler","vae"}
 SUCCESS={"ok","passed","success"}
 
 def _nonempty(value): return isinstance(value,str) and bool(value.strip())
+def _canonical(value): return json.dumps(value,sort_keys=True,ensure_ascii=False,separators=(',',':'),allow_nan=False).encode()
+def _digest(value): return hashlib.sha256(value).hexdigest()
 
 def _side(record,name):
     side=record.get(name)
@@ -22,10 +23,10 @@ def _stage_map(side,key):
         raise ValueError(f"{key} must name actual text/dit/scheduler/vae values")
     return value
 
-def validate_measurement(record:dict)->None:
+def validate_measurement(record:dict,frozen_case:dict|None=None)->None:
     if not isinstance(record,dict): raise ValueError("measurement must be an object")
     if record.get("phase")!="measured": raise ValueError("warmup or missing phase cannot enter formal aggregation")
-    if record.get("case_id") not in FORMAL_CASE_IDS: raise ValueError("unexpected formal case_id")
+    if not _nonempty(record.get("case_id")): raise ValueError("missing case_id")
     if record.get("pair_index") not in MEASURED_PAIR_INDICES: raise ValueError("pair_index must be one of five frozen repeats")
     expected_order="AB" if record["pair_index"]%2==0 else "BA"
     if record.get("order")!=expected_order: raise ValueError("record does not follow frozen AB/BA order")
@@ -53,22 +54,59 @@ def validate_measurement(record:dict)->None:
         if sides[0][key]!=sides[1][key]: raise ValueError(f"candidate/reference actual {key} mismatch")
     # Actual device maps are mandatory but may differ: the master protocol permits different scheduling.
 
-def summarize_pairs(pairs:list[dict])->dict:
-    expected={(case,i) for case in FORMAL_CASE_IDS for i in MEASURED_PAIR_INDICES}
+    if frozen_case is not None:
+        if record["case_id"]!=frozen_case.get("id") or frozen_case.get("split")!="performance":
+            raise ValueError("record is not bound to its frozen performance case")
+        expected={
+            "input_id":frozen_case.get("prompt_sha256"), "noise_sha256":frozen_case.get("noise_sha256"),
+            "noise_dtype":frozen_case.get("noise_dtype"), "model_id":_canonical(frozen_case.get("model_identity")).decode(),
+            "shape":frozen_case.get("shape"), "shape_order":frozen_case.get("shape_order"),
+            "steps":frozen_case.get("steps"), "cfg":frozen_case.get("cfg"), "pe":frozen_case.get("pe"),
+            "precision_by_stage":frozen_case.get("dtype_by_stage"),
+            "case_identity_sha256":_digest(_canonical(frozen_case)),
+        }
+        if frozen_case.get("mode")=="img2img":
+            expected.update(input_image_sha256=frozen_case.get("input_image_sha256"),
+                            decoded_rgb_sha256=frozen_case.get("decoded_rgb_sha256"),
+                            strength=frozen_case.get("strength"),resize_policy=frozen_case.get("resize_policy"))
+        for name,side in zip(("candidate","reference"),sides):
+            for key,value in expected.items():
+                if value is None or side.get(key)!=value:
+                    raise ValueError(f"{name} actual {key} does not match frozen case")
+
+def _frozen_performance(manifest,protocol):
+    if not isinstance(manifest,dict) or manifest.get("schema_version")!=1: raise ValueError("trusted frozen manifest required")
+    unsigned=dict(manifest); expected_hash=unsigned.pop("manifest_sha256",None)
+    if _digest(_canonical(unsigned))!=expected_hash: raise ValueError("frozen manifest metadata checksum mismatch")
+    protocol_entry=next((f for f in manifest.get("files",[]) if f.get("path")=="protocol.json"),None)
+    if not protocol_entry or _digest(_canonical(protocol)+b'\n')!=protocol_entry.get("sha256"):
+        raise ValueError("protocol does not match frozen manifest")
+    perf=protocol.get("performance") if isinstance(protocol,dict) else None
+    if (protocol.get("status")!="frozen_inputs_no_results" or protocol.get("performance_cases")!=6 or
+        not isinstance(perf,dict) or perf.get("measured_pairs")!=5 or perf.get("warmups_per_port")!=1 or
+        perf.get("trace") is not False or perf.get("order")!=["AB","BA","AB","BA","AB"]):
+        raise ValueError("frozen performance protocol mismatch")
+    cases=[c for c in manifest.get("cases",[]) if c.get("split")=="performance"]
+    if len(cases)!=6 or len({c.get("id") for c in cases})!=6: raise ValueError("frozen performance cases mismatch")
+    return {c["id"]:c for c in cases}
+
+def summarize_pairs(pairs:list[dict],manifest:dict,protocol:dict)->dict:
+    frozen=_frozen_performance(manifest,protocol)
+    expected={(case,i) for case in frozen for i in MEASURED_PAIR_INDICES}
     seen={}; invalid=[]; duplicate=[]; unexpected=[]
     for position,pair in enumerate(pairs):
         key=(pair.get("case_id"),pair.get("pair_index")) if isinstance(pair,dict) else (None,None)
         if key not in expected: unexpected.append({"position":position,"case_id":key[0],"pair_index":key[1]})
         elif key in seen: duplicate.append({"case_id":key[0],"pair_index":key[1]})
         else: seen[key]=pair
-        try: validate_measurement(pair)
+        try: validate_measurement(pair,frozen.get(key[0]))
         except (TypeError,ValueError) as error:
             invalid.append({"position":position,"case_id":key[0],"pair_index":key[1],"reason":str(error)})
     missing=sorted(expected-set(seen))
     complete=not missing and not duplicate and not unexpected and not invalid and len(pairs)==30
     cases=[]; ratios=[]
     if complete:
-        for case in FORMAL_CASE_IDS:
+        for case in frozen:
             candidate=statistics.median(_side(seen[(case,i)],"candidate")["wall_seconds"] for i in MEASURED_PAIR_INDICES)
             reference=statistics.median(_side(seen[(case,i)],"reference")["wall_seconds"] for i in MEASURED_PAIR_INDICES)
             ratio=reference/candidate; ratios.append(ratio)
@@ -84,8 +122,8 @@ def summarize_pairs(pairs:list[dict])->dict:
             "duplicate_records":duplicate,"unexpected_records":unexpected,"invalid_pairs":invalid}
 
 def paired_schedule(case_id:str,measured_pairs:int=5)->list[dict]:
-    if case_id not in FORMAL_CASE_IDS or measured_pairs!=5:
-        raise ValueError("formal schedule is frozen to six performance cases and five pairs")
+    if not _nonempty(case_id) or measured_pairs!=5:
+        raise ValueError("formal schedule requires a case ID and five pairs")
     runs=[{"case_id":case_id,"phase":"warmup","port":"candidate","new_process":True},
           {"case_id":case_id,"phase":"warmup","port":"reference","new_process":True}]
     for index in MEASURED_PAIR_INDICES:
@@ -97,7 +135,7 @@ def paired_schedule(case_id:str,measured_pairs:int=5)->list[dict]:
 
 def build_protocol(cases:list[dict],calibration:dict|None,available_disk_bytes:int|None,measured_pairs:int=5)->dict:
     ids=[c.get("id") or c.get("case_id") for c in cases]; reasons=[]
-    if ids!=list(FORMAL_CASE_IDS) or len(set(ids))!=6: reasons.append("cases must be six ordered frozen performance cases")
+    if len(ids)!=6 or len(set(ids))!=6 or any(not _nonempty(x) for x in ids): reasons.append("six unique frozen performance cases required")
     if measured_pairs!=5: reasons.append("formal measured pair count is frozen at five")
     required=("seconds_512","seconds_1024","seconds_long_text","seconds_pe","trace_bytes_per_case")
     if not calibration or any(not isinstance(calibration.get(k),(int,float)) or isinstance(calibration.get(k),bool)
@@ -112,7 +150,7 @@ def build_protocol(cases:list[dict],calibration:dict|None,available_disk_bytes:i
     return {"schema_version":1,"status":"incomplete" if reasons else "ready","incomplete_reasons":reasons,
             "formal_case_ids":ids,"formal_denominator":30,"warmups_per_port":1,"measured_pairs":5,
             "process_scope":"new_process","clock":"host_monotonic_ns_process_launch_through_output_close","trace":False,
-            "schedule":[r for case in FORMAL_CASE_IDS for r in paired_schedule(case)],
+            "schedule":[r for case in ids if _nonempty(case) for r in paired_schedule(case)],
             "budget":{"formal_process_runs":72,"estimated_seconds":estimated,"estimated_hours":estimated/3600 if estimated else None,
                       "available_disk_bytes":available_disk_bytes,"required_disk_bytes":required_disk,"single_case_timeout_seconds":timeout},
             "archive":{"trace_validation":"validate each case before packaging","sha256_required":True,

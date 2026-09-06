@@ -41,11 +41,12 @@ def run_timed_command(command,timeout,log_path):
     elif result.get('launch_error'): category='runtime_failure'
     elif code==0: category=None
     elif re.search(r'out of memory|allocation failed|cannot allocate memory',log_text,re.I): category='resource_exhaustion'
-    elif code in (-signal.SIGKILL,128+signal.SIGKILL): category='resource_unknown'
-    elif isinstance(code,int) and (code<0 or code>=128): category='crash'
+    elif code==-signal.SIGKILL: category='resource_unknown'
+    elif isinstance(code,int) and code<0: category='crash'
     else: category='runtime_failure'
     result['failure_category']=category
-    if isinstance(code,int) and code!=0: result['termination_signal']=-code if code<0 else code-128 if code>=128 else None
+    result['termination_signal']=-code if isinstance(code,int) and code<0 else None
+    if isinstance(code,int) and code>0: result['termination_evidence']='positive exit status; no signal inferred'
     return result
 
 def main():
@@ -149,13 +150,14 @@ def main():
         result['passed']=False
         result['status']='incomplete'
         result['failure']=str(error)
+        result.setdefault('failure_category','runtime_failure')
     result['system_memory_after_kib']=memory()
     samples=[int(line) for line in (args.output/'gpu-device-memory.log').read_text().splitlines() if line.isdigit()]
     if samples:result['gpu_device_total_mib']={'first':samples[0],'sampled_peak':max(samples),'samples':len(samples)}
     resources=(args.output/'resources.log').read_text() if (args.output/'resources.log').exists() else ''
     match=re.search(r'Maximum resident set size \(kbytes\):\s*(\d+)',resources)
     if match:result['max_rss_kib']=int(match[1])
-    log=(args.output/'runner.log').read_text()
+    log=(args.output/'runner.log').read_text(errors='replace') if (args.output/'runner.log').exists() else ''
     result['denoise_seconds']=[float(value) for value in re.findall(r'Denoise \d+/\d+: ([\d.]+) s',log)]
     for field,pattern in [('total_seconds',r'Total: ([\d.]+) s'),('vae_and_png_seconds',r'VAE and PNG: ([\d.]+) s'),('text_seconds',r'Text conditioned: \d+ tokens, ([\d.]+) s')]:
         match=re.search(pattern,log)
