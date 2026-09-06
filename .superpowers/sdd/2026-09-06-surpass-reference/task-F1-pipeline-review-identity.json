@@ -1,0 +1,27 @@
+{
+  "head": "48a72a594d0fc6b0947439f9b02b51abed6cd3b3",
+  "files": {
+    "src/component_files.cpp": "2931cd4512fc0fd4f6471fb156d284d16398139864af1f327f1d8042a05e95c9",
+    "src/component_files.h": "0ce6f5af378e448b19d0321e9ae006f968977d367578a58b0dab31714d3e902a",
+    "src/model_package.h": "beba107ed990225dded54a148c4db8bdb05e5a7efeb7bc1673ef9676cee34f52",
+    "src/block_sequence.cpp": "ff105eca367d043fb07f043f36da6a4bd676ec007fbcb97bb4bfda10423a45b4",
+    "src/block_sequence.h": "86bf37351f9ccd863207038cf48da15b15f509f79ce02d3286d1cd43789635c4",
+    "src/text_encoder.cpp": "f7c485fa5f93617564ca4b942ed2e930c723db6a317967a60fce132fe05242a6",
+    "src/text_encoder.h": "f1d22f40cb3cb64c493aa9d522072139b5c2b96c47e8831c302dc75eeacbd879",
+    "src/dit.cpp": "3a06e147746115fae2176a15785bdf36be1ac120ac2dde8ea96c29b3aca8544d",
+    "src/dit.h": "bc0d479f6d5a8647752c71d24c73956766fa43f5e9ec002261bb561582b74f77",
+    "src/denoiser.h": "b4d7ba8579c347af38c686ecda21b9e3226353fb3e6c9f8424208bcabfb6c0b5",
+    "src/vae.cpp": "10ad33a326a6d7b9048f4941a00c44a437e80c2cc1cb27ad919c8ba279b30a93",
+    "src/vae.h": "eeaca165d72348fff55fee5eda5ed97d1ce796c867989dd4dc760f41def694e7",
+    "src/pipeline.cpp": "166c8888e1efb99bd8f7fb43fdb3c237e7f54cb29d962187c81ec0dd71937ab4",
+    "probes/denoise_runner.cpp": "eba6e23a4893804ba34f220448fa52d784191ba8237c94a29b1709eb6ce5f094",
+    "cli/options.cpp": "69febc2ad97505885ef32568e7dd5f223e67409065f0a5d8d5d2098c1cca9e79",
+    "tools/source_inventory.py": "cf9d48b5ec7d96b48da78c9c3a67dfb2f94c44c84082ae0ac180a2721c0e7649",
+    "src/CMakeLists.txt": "5753ef74e0a123f977c06e9a961118eca9e6c7d826686e33400e7322766eb609",
+    "tests/CMakeLists.txt": "2a194710b6cf3173c1e4ad900702633631781de5e58557e26c2c894d59c1ce30",
+    "tests/test_component_files.cpp": "47d06b439be720de13039f4aa57e1db5e0493905353e2286fb0fd13cb69ece9b",
+    "tests/test_img2img_contract.cpp": "36f75c39ed0813271abde38a85001fa89a1492f66c270161a7d30fc22b83779a"
+  },
+  "initial_diff_sha256": "74def703378c2f9aa4715448efb0bd7953e31cafc6f84260c1069f263b9560c9",
+  "synthetic_runner_sha256": "e21409b9cece67b304993fe41cabb6b918b1c86afe83035901f86f98c1d953a4"
+}
