@@ -9,3 +9,9 @@
 其余边界：实际 performance-5 strength=.5；本性能切片排除0不缺正式六项的需求。已复制 runner/prompt/noise/image 并让 argv 消费相应 snapshot，输入路径没有继续指回原文件。错误或缺失 expected SHA 允许发展运行且 formal=false 是可接受策略，但需负例测试。`source_files_sha256` 是 ROOT 当前源码观察清单，不能单独证明所传 runner 的构建来源或完整冻结执行依赖；父级执行计划仍须完成 binary/source 绑定。`quality_validated=false` 保持诚实，formal_eligible 不是 summarize_pairs 的质量/权重/身份验收。未取得模型性能结果。
 
 三项发现已直接发作者 paired_metrics 和 root，待修复提交后补复核闭环。
+
+## 修复闭环：8e86a8e + e242de5
+
+结论更新：本 adapter 切片无剩余 Important。21/21 小测试独立重跑通过，未跑模型。原三项以及第二轮发现的“先读取原图再复制导致解码身份与实际 snapshot 分离”均已修复：先复制受控 input.snapshot，再检测该文件/计算 RGB 身份，最后 rename 到真实容器匹配后缀；正式解码认证严格限 PNG IHDR 8-bit truecolor、无 transparency 且无 gAMA/cHRM/iCCP/sRGB 转换元数据，其他格式发展可运行但不宣称正式 RGB 身份。完整缩放合同与冻结 stretch 字段一致。透明 PNG 负例证明即使用户提供 Pillow 丢 alpha 的匹配期望，仍 formal=false。
+
+本审查直接对实际 `performance-5/input-image` 执行只读 inspect：suffix=.png；decoded SHA `0ce2b51640b9c95f19617f03eabf40c3f0368589cc1ee1190b70966165ac184f`，与冻结合同逐字相同。实际 PNG 无被拒绝的颜色转换/透明元数据，因此保守限制不会意外阻止本性能 fixture。source/runner 构建来源和完整 formal 质量/权重证明仍遵守前述父进程边界，不能把这次工具闭环当实际性能结果。
