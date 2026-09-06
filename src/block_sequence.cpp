@@ -70,6 +70,7 @@ ncnn::Mat run_block_sequence(const std::vector<ComponentFiles>& models, const nc
         auto streamed = policy == WeightPolicy::Stream ? load(models[i], option, configure, stats, int(i)) : nullptr;
         auto& net = policy == WeightPolicy::Stream ? *streamed : *resident[i];
         const auto start = Clock::now();
+        {
         auto extractor = net.create_extractor();
         check(extractor.input("in0", current), "input activation");
         for (size_t k = 0; k < constants.size(); ++k)
@@ -83,6 +84,7 @@ ncnn::Mat run_block_sequence(const std::vector<ComponentFiles>& models, const nc
         stats.compute_seconds.push_back(std::chrono::duration<double>(Clock::now() - start).count());
         if(stats.collect_details) stats.details.push_back({int(i),"extract_compute_composite","complete",stats.compute_seconds.back()});
         if (observer) observer("block-" + std::to_string(i), current);
+        }
         if (streamed) { const auto destroy=Clock::now();streamed.reset();if(stats.collect_details) stats.details.push_back({int(i),"net_destroy","complete",std::chrono::duration<double>(Clock::now()-destroy).count()}); }
     }
     return current;
@@ -114,6 +116,7 @@ ncnn::VkMat run_block_sequence(const std::vector<ComponentFiles>& models, const 
             if (!layer->support_vulkan && layer->type != "Input" && layer->type != "Split")
                 throw std::runtime_error("Sequence graph contains a compute layer without Vulkan support");
         const auto start = Clock::now();
+        {
         auto extractor = net.create_extractor();
         extractor.set_blob_vkallocator(option.blob_vkallocator);
         extractor.set_workspace_vkallocator(option.workspace_vkallocator ? option.workspace_vkallocator : option.blob_vkallocator);
@@ -131,6 +134,7 @@ ncnn::VkMat run_block_sequence(const std::vector<ComponentFiles>& models, const 
         stats.compute_seconds.push_back(std::chrono::duration<double>(Clock::now() - start).count());
         if(stats.collect_details) stats.details.push_back({int(i),"extract_compute_composite","complete",stats.compute_seconds.back()});
         if (observer) observer("block-" + std::to_string(i), current);
+        }
         if (streamed) { const auto destroy=Clock::now();streamed.reset();if(stats.collect_details) stats.details.push_back({int(i),"net_destroy","complete",std::chrono::duration<double>(Clock::now()-destroy).count()}); }
         // command, extractor, then the streamed Net are destroyed in this order.
         // current remains owned by the caller's blob allocator.

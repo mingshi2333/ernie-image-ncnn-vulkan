@@ -59,6 +59,7 @@ std::vector<ncnn::VkMat> head(const ComponentFiles& files, const std::vector<ncn
         if (!layer->support_vulkan && layer->type != "Input" && layer->type != "Split")
             throw std::runtime_error("Head has a compute layer without Vulkan support");
     start=Clock::now();std::vector<ncnn::VkMat> result(outputs);
+    {
     ncnn::VkCompute command(device);
     auto extractor = net->create_extractor();
     extractor.set_blob_vkallocator(option.blob_vkallocator);
@@ -72,6 +73,7 @@ std::vector<ncnn::VkMat> head(const ComponentFiles& files, const std::vector<ncn
         check(command.submit_and_wait(), "finish head before releasing weights");
     } catch (...) { if(stats.collect_details) stats.details.push_back({component,"extract_compute_composite","failed",std::chrono::duration<double>(Clock::now()-start).count()});throw; }
     if(stats.collect_details) stats.details.push_back({component,"extract_compute_composite","complete",std::chrono::duration<double>(Clock::now()-start).count()});
+    }
     start=Clock::now();net.reset();if(stats.collect_details) stats.details.push_back({component,"net_destroy","complete",std::chrono::duration<double>(Clock::now()-start).count()});
     return result;
 }

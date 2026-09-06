@@ -401,8 +401,10 @@ GenerationResult generate_impl(const GenerationRequest &r, const ProgressCallbac
             models.push_back(package.component("text/" + numbered("block-", i) + "/text.ncnn.param", "text"));
         BlockSequenceStats stats;
         stats.collect_details = metrics.metrics != nullptr;
-        const auto encoded = run_text_blocks(models, embedded, constants, cpu, stats,
-                                              r.text_down_vector ? TextDownMode::Vector : TextDownMode::Gemm);
+        ncnn::Mat encoded;
+        try { encoded=run_text_blocks(models, embedded, constants, cpu, stats,
+                                      r.text_down_vector ? TextDownMode::Vector : TextDownMode::Gemm); }
+        catch (...) { metrics.blocks(stats);throw; }
         metrics.blocks(stats);
         text = encoded.row_range(0, int(ids.size())).clone();
     }

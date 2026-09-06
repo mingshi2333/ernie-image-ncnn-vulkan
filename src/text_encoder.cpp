@@ -134,14 +134,19 @@ ncnn::Mat run_text_blocks(const std::vector<ComponentFiles> &models, const ncnn:
         auto start = Clock::now();
         auto net=std::make_unique<ncnn::Net>();
         net->opt = option;
-        check(register_layers(*net), "register text normalization");
-        if (down_mode==TextDownMode::Vector) { const auto derived=vector_text_down_graph(path.param_text,input.h);validate_text_down_weights(path.weight_path);check(register_text_down(*net),"register vector text down");load_component_param(*net,{derived,path.weight_path}); }
-        else load_component_param(*net,path);
+        try {
+            check(register_layers(*net), "register text normalization");
+            if (down_mode==TextDownMode::Vector) { const auto derived=vector_text_down_graph(path.param_text,input.h);validate_text_down_weights(path.weight_path);check(register_text_down(*net),"register vector text down");load_component_param(*net,{derived,path.weight_path}); }
+            else load_component_param(*net,path);
+        } catch (...) { if(stats.collect_details)stats.details.push_back({int(block),"net_setup_param","failed",std::chrono::duration<double>(Clock::now()-start).count()});throw; }
         if(stats.collect_details) stats.details.push_back({int(block),"net_setup_param","complete",std::chrono::duration<double>(Clock::now()-start).count()});
-        auto model_start=Clock::now();load_component_model(*net,path);
+        auto model_start=Clock::now();try { load_component_model(*net,path); }
+        catch (...) { if(stats.collect_details)stats.details.push_back({int(block),"model_load_composite","failed",std::chrono::duration<double>(Clock::now()-model_start).count()});throw; }
         if(stats.collect_details) stats.details.push_back({int(block),"model_load_composite","complete",std::chrono::duration<double>(Clock::now()-model_start).count()});
         stats.load_seconds.push_back(std::chrono::duration<double>(Clock::now() - start).count());
         start = Clock::now();
+        {
+        try {
         auto extractor = net->create_extractor();
         check(extractor.input("in0", current), "input text activation");
         for (size_t i = 0; i < constants.size(); ++i)
@@ -152,6 +157,8 @@ ncnn::Mat run_text_blocks(const std::vector<ComponentFiles> &models, const ncnn:
         current = next;
         stats.compute_seconds.push_back(std::chrono::duration<double>(Clock::now() - start).count());
         if(stats.collect_details) stats.details.push_back({int(block),"extract_compute_composite","complete",stats.compute_seconds.back()});
+        } catch (...) { if(stats.collect_details)stats.details.push_back({int(block),"extract_compute_composite","failed",std::chrono::duration<double>(Clock::now()-start).count()});throw; }
+        }
         const auto destroy=Clock::now();net.reset();
         if(stats.collect_details) stats.details.push_back({int(block),"net_destroy","complete",std::chrono::duration<double>(Clock::now()-destroy).count()});
     }
@@ -178,15 +185,19 @@ ncnn::VkMat run_text_blocks(const std::vector<ComponentFiles> &models, const ncn
         net->opt = option;
         net->opt.blob_vkallocator = net->opt.workspace_vkallocator = net->opt.staging_vkallocator = nullptr;
         net->set_vulkan_device(device);
-        check(register_layers(*net), "register text normalization");load_component_param(*net,path);
+        try { check(register_layers(*net), "register text normalization");load_component_param(*net,path); }
+        catch (...) { if(stats.collect_details)stats.details.push_back({int(block),"net_setup_param","failed",std::chrono::duration<double>(Clock::now()-start).count()});throw; }
         if(stats.collect_details) stats.details.push_back({int(block),"net_setup_param","complete",std::chrono::duration<double>(Clock::now()-start).count()});
-        auto model_start=Clock::now();load_component_model(*net,path);
+        auto model_start=Clock::now();try { load_component_model(*net,path); }
+        catch (...) { if(stats.collect_details)stats.details.push_back({int(block),"model_load_composite","failed",std::chrono::duration<double>(Clock::now()-model_start).count()});throw; }
         if(stats.collect_details) stats.details.push_back({int(block),"model_load_composite","complete",std::chrono::duration<double>(Clock::now()-model_start).count()});
         for (const auto *layer : net->layers())
             if (!layer->support_vulkan && layer->type != "Input" && layer->type != "Split")
                 throw std::runtime_error("Text graph contains a compute layer without Vulkan support");
         stats.load_seconds.push_back(std::chrono::duration<double>(Clock::now() - start).count());
         start = Clock::now();
+        {
+        try {
         auto extractor = net->create_extractor();
         extractor.set_blob_vkallocator(option.blob_vkallocator);
         extractor.set_workspace_vkallocator(option.workspace_vkallocator ? option.workspace_vkallocator
@@ -204,6 +215,8 @@ ncnn::VkMat run_text_blocks(const std::vector<ComponentFiles> &models, const ncn
         stats.compute_submissions += 1 + attention_internal_submissions(*net);
         stats.compute_seconds.push_back(std::chrono::duration<double>(Clock::now() - start).count());
         if(stats.collect_details) stats.details.push_back({int(block),"extract_compute_composite","complete",stats.compute_seconds.back()});
+        } catch (...) { if(stats.collect_details)stats.details.push_back({int(block),"extract_compute_composite","failed",std::chrono::duration<double>(Clock::now()-start).count()});throw; }
+        }
         const auto destroy=Clock::now();net.reset();
         if(stats.collect_details) stats.details.push_back({int(block),"net_destroy","complete",std::chrono::duration<double>(Clock::now()-destroy).count()});
     }

@@ -20,3 +20,7 @@ The synthetic contracts verify complete and failed child records, coordinates, J
 ## Deferred actual run
 
 A later fixed64 diagnostic run should use the already reviewed O1 input/model identities but freshly freeze this commit's source and ON binary. It should run metrics ON once, trace enabled, under the prior 10 GiB/swap-zero/two-CPU guard, then require the existing 27 trace tensor/PNG contract plus the new component coordinate/status schema. No GPU run was started in this slice. The observation will determine whether the repeated output-head model-load composite is large enough to justify a request-local cache experiment; this implementation does not enable caching or mapped loading.
+
+## Independent-review fix
+
+The first review found that explicit `Net` destruction happened while an `Extractor` (and on Vulkan, its command object) was still alive, and that text details were only flushed after all 25 blocks succeeded. The fix restores the required command → extractor → Net destruction order with inner scopes on every affected CPU/Vulkan path. Text setup, model-load, and extract failures now append a failed boundary, and the pipeline flushes completed plus current failed text details before rethrowing. The same CPU contracts and both affected targets were rebuilt and passed after the fix.
