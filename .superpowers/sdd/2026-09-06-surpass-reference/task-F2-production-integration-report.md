@@ -89,3 +89,35 @@ image-I/O 与 CLI 两个 CTest 均通过。
 本次只证明真实生产 schema-3 的 512×384 strength=0 CPU 路径。strength=0.5 的相同输入、noise、
 schedule 与官方 oracle 已可准备，但尚未执行；PE/text/DiT positive-strength、15-case 与其他尺寸仍是
 pending，不能据此宣称整体 F2 或质量验收完成。
+
+## Positive strength 0.5 真实执行（负面 parity 结果）
+
+提交 `4edcfb3` 增加独立 suffix oracle，提交 `bbdba1c` 根据独立审查关闭认证缺口。修复后的
+validator 将实际 `input.rgb/out0/out1/out2` 逐项绑定到固定官方 encoder fixture `ee5ce5db...`，
+固定 encoder BN eps、原八步 sigma，并从受信 out2 与 saved noise 逐字节重算 FP32 start。它还绑定
+固定源包 manifest `ef98859a...`，验证落盘 fixture 与返回对象相同、短 prompt/8 steps/start 4、恰好
+4 个 prediction/step、六输入和三最终张量，共 17 张量的固定名称/shape/dtype/SHA/finite bytes，
+以及最终 PNG。7 个小型 unit tests 通过；旧执行数据在修复后的 validator 下通过 17 分母 post-audit。
+
+输入冻结在 `outputs/f2-positive05-512x384-v1/inputs`：短 prompt 是
+`A red apple on a wooden table.`（9 tokens），PE off，native text reduction 为 Vector FP32；saved
+noise 是新生成的 little-endian FP32 `[1,128,24,32]`，SHA `83226a3c...`。官方 normalized encoder
+SHA `2f7c535a...`；八步原 schedule 的 sigma[4] 为 `0.800000011920929`，按固定乘后加顺序得到
+start-4 SHA `958c63fe...`。没有使用 native encoder latent 作为官方 expected。
+
+官方路径从固定官方 encoder 输出开始，执行官方 text、原八步 schedule 的绝对步 4/5/6/7、36 个
+官方 DiT blocks、decoder inverse BN eps 1e-5 和官方 decoder。CUDA worker exit 0，wall 100.89 秒，
+峰值 RSS 3,319,284 KiB，swap 0；suffix fixture SHA `378085a8...`，PNG SHA `e55552ef...`。
+
+同一冻结 runner `941a131b...` 随后用同一 RGB、noise、prompt、包和绝对 suffix 执行 native Vulkan
+FP32 + Vector text + CPU direct VAE。它 exit 0，wall 459.52 秒，峰值 RSS 1,783,604 KiB，swap 0；
+text 169.105 秒，四步 denoise 分别 59.8422/58.9312/59.5022/59.4436 秒。trace 完整包含 encoder、
+noise/start、conditioning、prediction-4..7、step-4..7、final/unpacked/decoded。
+
+执行完整，但 parity gate **失败**。saved noise 逐字节相同，encoder normalized NRMSE
+`7.06593e-7`，start NRMSE `1.51093e-7`；首个明显分歧在 Vector FP32 text，NMRSE `0.0362576`
+（固定 conditioning gate `0.0002`）。prediction-4 NRMSE `0.0573655`，final `0.0502410`，decoded
+`0.0978269`；PNG 最大通道差 86、MAE `3.72495`，超过 FP32 gate 2/0.1。完整逐边界统计保存在
+`comparison.json`，`result.json` 明确记录 `status=parity_failed`、`complete_execution=true`、
+`quality_gate_passed=false`。该负面结果不能成为 F2 acceptance，也不能与完整 text-to-image 25 项分母
+混算。正式 15/72 输入未触碰。
