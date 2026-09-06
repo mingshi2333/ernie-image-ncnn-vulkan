@@ -94,3 +94,13 @@ with tempfile.TemporaryDirectory() as d:
 ```
 
 I3 OPEN，已即时报告 root；本轮无实际共享包损坏证据。
+
+## 第二轮修复复审 — I3 CLOSED
+
+重新读取当前实现：reviewed_shared_reference 在绑定 oracle 后，强制读取 objects/<registry可信source SHA>，拒绝 source/objects symlink、缺文件及大于4MiB文件，验证真实原始 bytes SHA，并比较 schema2/portable/config/完整files。所选 bindings 不能再由新的自洽metadata替代固定source inventory。
+
+独立重跑原真实registry反例的两个阶段：缺objects被 `Missing bounded source manifest object` 拒绝；将实际可信39KB量级source manifest复制到临时objects后，仍带 invented-file 的binding被 `Shared instance differs from the pinned full source inventory` 拒绝。真实共享包的轻量helper正例通过，oracle仍为8d7638...。未读取模型weight文件。
+
+职责现在明确分开：轻量helper认证whole-fixture registry与选定固定source manifest的元数据绑定，不声称重验所有权重；collect_parity_evidence.audit 的schema3分支已先实际调用 verify_shared_package(package)，再调用helper并检查完整比较分母，因此完整collector执行时会重新认证全部CAS bytes。该collector全量调用在本轮只做源码复核，没有因运行中资源约束再执行一次大包重散列。
+
+11项小tests再次独立通过（0.003s）。原I1/I2关闭状态保持，I3现关闭。当前修复后的独立audit与旧冻结运行validator身份仍必须区分，不能改写已启动job的source snapshot来表示它使用了修正版本。
