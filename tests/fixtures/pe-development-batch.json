@@ -1,0 +1,182 @@
+{
+  "schema_version": 1,
+  "suite": "pe-development-v1",
+  "case_count": 12,
+  "status": "inputs_frozen_model_acceptance_pending",
+  "tokenizer_sources": {
+    "tokenizer.json": {
+      "url": "https://huggingface.co/baidu/ERNIE-Image-Turbo/resolve/bc68c81e2a1730a394d5fc9fae70713dee940140/pe_tokenizer/tokenizer.json",
+      "revision": "bc68c81e2a1730a394d5fc9fae70713dee940140",
+      "sha256": "286acad9b0e27fce778ac429763536accf618ccb6ed72963b6f94685e531c5c7"
+    },
+    "tokenizer_config.json": {
+      "url": "https://huggingface.co/baidu/ERNIE-Image-Turbo/resolve/bc68c81e2a1730a394d5fc9fae70713dee940140/pe_tokenizer/tokenizer_config.json",
+      "revision": "bc68c81e2a1730a394d5fc9fae70713dee940140",
+      "sha256": "95a353ec6c5c22537125c6a8b8afae0775c89411d84321329d5234c90d8d47ee"
+    },
+    "chat_template.jinja": {
+      "url": "https://huggingface.co/baidu/ERNIE-Image-Turbo/resolve/bc68c81e2a1730a394d5fc9fae70713dee940140/pe_tokenizer/chat_template.jinja",
+      "revision": "bc68c81e2a1730a394d5fc9fae70713dee940140",
+      "sha256": "0c859484eecf01db103acd02c332610163ee425cd46866d6cb126ee1bee974ea"
+    }
+  },
+  "cases": [
+    {
+      "id": "pe-dev-00-en",
+      "prompt": "A red apple on a wooden table.",
+      "width": 512,
+      "height": 384,
+      "max_tokens": 64,
+      "mode": "greedy",
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "input_tokens": 139,
+      "input_ids_sha256": "02d28e49f9206f673a66902451a010a2bd6582bb4b16f4402cc7287756fc56fc",
+      "acceptance_status": "pending_real_official_and_native_pe"
+    },
+    {
+      "id": "pe-dev-01-zh",
+      "prompt": "一只白猫坐在写有“春天”的蓝色门牌旁。",
+      "width": 512,
+      "height": 512,
+      "max_tokens": 96,
+      "mode": "greedy",
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "input_tokens": 153,
+      "input_ids_sha256": "847bcccef60c3c9fe3ea7f4b03533aa3f68b7f5e435e8e1ccc794eddea00d812",
+      "acceptance_status": "pending_real_official_and_native_pe"
+    },
+    {
+      "id": "pe-dev-02-ja",
+      "prompt": "駅の案内板に「北口」と書かれ、赤い傘が二本ある。",
+      "width": 512,
+      "height": 512,
+      "max_tokens": 96,
+      "mode": "greedy",
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "input_tokens": 154,
+      "input_ids_sha256": "79d55423ed2a53e07f45ae5b87c13f633ae715fbe2755363c32bc59c37d0ce94",
+      "acceptance_status": "pending_real_official_and_native_pe"
+    },
+    {
+      "id": "pe-dev-03-quotes",
+      "prompt": "Render exactly: \"quoted\", 'single', and a \\ backslash.",
+      "width": 640,
+      "height": 384,
+      "max_tokens": 128,
+      "mode": "greedy",
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "input_tokens": 147,
+      "input_ids_sha256": "984b4a371da487790cf5f30c7b0af0f44e65b23a803ae5f7afaf6f6c994cdb33",
+      "acceptance_status": "pending_real_official_and_native_pe"
+    },
+    {
+      "id": "pe-dev-04-newline",
+      "prompt": "first line\nsecond line\r\n第三行",
+      "width": 512,
+      "height": 384,
+      "max_tokens": 128,
+      "mode": "greedy",
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "input_tokens": 141,
+      "input_ids_sha256": "4856254843ef8ad245af675ac315ca317372f1e13414feb9af1c153ec57172dc",
+      "acceptance_status": "pending_real_official_and_native_pe"
+    },
+    {
+      "id": "pe-dev-05-whitespace",
+      "prompt": " \t  leading and trailing ideographic space　 ",
+      "width": 512,
+      "height": 384,
+      "max_tokens": 64,
+      "mode": "greedy",
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "input_tokens": 142,
+      "input_ids_sha256": "f25695331cf9d7234e880dc480501eb370723aea11be934d6b00f9b69588a39e",
+      "acceptance_status": "pending_real_official_and_native_pe"
+    },
+    {
+      "id": "pe-dev-06-empty",
+      "prompt": "",
+      "width": 512,
+      "height": 384,
+      "max_tokens": 32,
+      "mode": "greedy",
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "input_tokens": 131,
+      "input_ids_sha256": "3abb0f91e96b64bf070d4a234d8aeba5d52e3817ea0f56333fe4c9841e3f3288",
+      "acceptance_status": "pending_real_official_and_native_pe"
+    },
+    {
+      "id": "pe-dev-07-control",
+      "prompt": "\u0001\u001f café 中文 ☃️",
+      "width": 512,
+      "height": 384,
+      "max_tokens": 64,
+      "mode": "greedy",
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "input_tokens": 150,
+      "input_ids_sha256": "3b9d2261443618380eedd6d6dbd8c75bd0b9501439786980a3f816bd40ef1c3d",
+      "acceptance_status": "pending_real_official_and_native_pe"
+    },
+    {
+      "id": "pe-dev-08-wide",
+      "prompt": "A bilingual information poster with four aligned panels.",
+      "width": 1376,
+      "height": 768,
+      "max_tokens": 256,
+      "mode": "greedy",
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "input_tokens": 141,
+      "input_ids_sha256": "4d49339004829fcc0b4b080bf00b14a37e502b718020e38cb8b814a76b1b4fbd",
+      "acceptance_status": "pending_real_official_and_native_pe"
+    },
+    {
+      "id": "pe-dev-09-portrait",
+      "prompt": "A low contrast portrait under soft window light.",
+      "width": 768,
+      "height": 1376,
+      "max_tokens": 256,
+      "mode": "greedy",
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "input_tokens": 141,
+      "input_ids_sha256": "0d41a4dfaee67ea92c3ce73c0d0d9ad235c219d24905d5b5501cbce9a35f2e73",
+      "acceptance_status": "pending_real_official_and_native_pe"
+    },
+    {
+      "id": "pe-dev-10-long-output",
+      "prompt": "Describe a complex overhead room layout with exact object relations.",
+      "width": 1024,
+      "height": 1024,
+      "max_tokens": 2048,
+      "mode": "greedy",
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "input_tokens": 145,
+      "input_ids_sha256": "e34b95e78fb4210b2a823c2f417d798a07e3a10afbfe73131eaf9101ce03b682",
+      "acceptance_status": "pending_real_official_and_native_pe"
+    },
+    {
+      "id": "pe-dev-11-near-capacity",
+      "prompt": "cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat ",
+      "width": 512,
+      "height": 384,
+      "max_tokens": 32,
+      "mode": "greedy",
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "input_tokens": 2048,
+      "input_ids_sha256": "8667f4de07648081c5c1dc2c882a9183a52f83846cc33b685ad03694d9c9ba4d",
+      "acceptance_status": "pending_real_official_and_native_pe"
+    }
+  ],
+  "manifest_sha256": "6b97fecef68035c82d105ff08a54f88e9f6862b9e23f0a2fdb452669302dc52a"
+}

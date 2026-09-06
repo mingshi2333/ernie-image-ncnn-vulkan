@@ -11,16 +11,21 @@ from build_text_weights import component
 from export_pe_block import config
 from prepare_block import ROOT, sha256
 from prompt_io import read_prompt
+from validate_pe_tokenizer import input_ids_sha256, validate_development_batch
 
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument('--prompt-file', type=Path, required=True)
+    p.add_argument('--prompt-file', type=Path)
+    p.add_argument('--batch-contract', type=Path, help='Frozen 12-case PE development input contract')
+    p.add_argument('--case-id', help='Case selected from --batch-contract')
     p.add_argument('--width', type=int, default=512)
     p.add_argument('--height', type=int, default=384)
     p.add_argument('--max-tokens', type=int, default=256)
     p.add_argument('--output', type=Path, required=True)
     args = p.parse_args()
+    if bool(args.prompt_file) == bool(args.batch_contract) or bool(args.batch_contract) != bool(args.case_id):
+        p.error('Use either --prompt-file, or --batch-contract with --case-id')
     if args.output.exists() or not 1 <= args.max_tokens <= 2048:
         p.error('Use a new directory and 1..2048 output tokens')
     if min(args.width, args.height) < 16 or args.width % 16 or args.height % 16:
@@ -28,7 +33,18 @@ def main():
     out = args.output.resolve(); out.mkdir(parents=True)
     torch.set_num_threads(4); torch.set_grad_enabled(False)
     tokenizer = AutoTokenizer.from_pretrained(ROOT/'models/pe-tokenizer', local_files_only=True)
-    prompt = read_prompt(args.prompt_file)
+    batch_case = None
+    if args.batch_contract:
+        batch = json.loads(args.batch_contract.read_text())
+        validate_development_batch(batch, tokenizer)
+        matches = [case for case in batch['cases'] if case['id'] == args.case_id]
+        if len(matches) != 1:
+            p.error('Unknown or duplicate PE batch case ID')
+        batch_case = matches[0]
+        prompt, args.width, args.height, args.max_tokens = (batch_case[key] for key in
+                                                            ('prompt','width','height','max_tokens'))
+    else:
+        prompt = read_prompt(args.prompt_file)
     content = json.dumps(dict(prompt=prompt, width=args.width, height=args.height), ensure_ascii=False)
     formatted = tokenizer.apply_chat_template([dict(role='user', content=content)],
                                              tokenize=False, add_generation_prompt=False)
@@ -85,6 +101,13 @@ def main():
                     model_source_sha256=sha256(inspect.getfile(Ministral3ForCausalLM)),
                     script_sha256=sha256(__file__),
                     files={p.name: sha256(p) for p in sorted(out.iterdir()) if p.is_file()})
+    if batch_case:
+        actual_hash = input_ids_sha256(inputs.input_ids[0].tolist())
+        if actual_hash != batch_case['input_ids_sha256']:
+            raise ValueError('PE batch input identity changed before reference generation')
+        metadata.update(batch_suite=batch['suite'], batch_case_id=batch_case['id'],
+                        batch_input_ids_sha256=actual_hash,
+                        batch_acceptance_status='official_reference_complete_native_pending')
     (out/'reference.json').write_text(json.dumps(metadata, indent=2, ensure_ascii=False)+'\n')
     print(json.dumps({'reference_complete': True, 'generated_tokens': len(ids), 'eos': metadata['eos']}), flush=True)
 

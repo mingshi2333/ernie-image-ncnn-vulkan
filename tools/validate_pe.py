@@ -8,6 +8,8 @@ import subprocess
 import time
 import numpy as np
 from prepare_block import ROOT, sha256
+from validate_pe_tokenizer import validate_development_batch
+from transformers import AutoTokenizer
 
 # Declared before real full-model runs; no sampling-seed equivalence is assumed.
 GATES = dict(nrmse=.0002, atol=.0002, rtol=.0002)
@@ -19,10 +21,28 @@ def main():
     p.add_argument('--reference', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
     p.add_argument('--runner', type=Path, default=ROOT/'build/ernie-pe-runner')
+    p.add_argument('--batch-contract', type=Path, help='Require reference membership in this frozen batch')
+    p.add_argument('--tokenizer', type=Path, default=ROOT/'models/pe-tokenizer')
     args = p.parse_args()
     if args.output.exists(): p.error('Use a new output directory')
     reference = args.reference.resolve()
     metadata = json.loads((reference/'reference.json').read_text())
+    batch_case = None
+    if args.batch_contract:
+        batch = json.loads(args.batch_contract.read_text())
+        tokenizer = AutoTokenizer.from_pretrained(args.tokenizer, local_files_only=True)
+        validate_development_batch(batch, tokenizer)
+        if metadata.get('batch_suite') != batch['suite']:
+            raise ValueError('PE reference batch suite differs')
+        matches = [case for case in batch['cases'] if case['id'] == metadata.get('batch_case_id')]
+        if len(matches) != 1:
+            raise ValueError('PE reference case is absent from the frozen batch')
+        batch_case = matches[0]
+        expected = {key: metadata.get(key) for key in ('input_prompt','width','height','max_tokens')}
+        actual = dict(input_prompt=batch_case['prompt'], width=batch_case['width'],
+                      height=batch_case['height'], max_tokens=batch_case['max_tokens'])
+        if expected != actual or metadata.get('batch_input_ids_sha256') != batch_case['input_ids_sha256']:
+            raise ValueError('PE reference input differs from the frozen batch case')
     for name, digest in metadata['files'].items():
         if Path(name).name != name or sha256(reference/name) != digest:
             raise ValueError('PE reference file differs')
@@ -57,6 +77,9 @@ def main():
                   model_manifest_sha256=sha256(args.model/'manifest.json'),
                   reference_manifest_sha256=sha256(reference/'reference.json'),
                   native_files={p.name: sha256(p) for p in sorted(native.iterdir()) if p.is_file()} if native.is_dir() else {})
+    if batch_case:
+        result.update(batch_suite=batch['suite'], batch_case_id=batch_case['id'],
+                      batch_acceptance_status=('official_and_native_complete' if passed else 'incomplete'))
     (out/'result.json').write_text(json.dumps(result, indent=2)+'\n')
     print(json.dumps({'passed': passed, 'exact': same, 'logits_passed': sum(x['passed'] for x in rows),
                       'logits_total': metadata['generated_tokens']}), flush=True)
