@@ -76,3 +76,19 @@ worker前置核plan/sequenceSHA；sequence只允许新started.json，失败不�
 ## 检查与范围
 
 独立observer编译exit0；三项合同测试覆盖四旧边界任一缺失/错SHA、native完整out0失败、81相同省略tail/不同才需要tail；两项CPU分析测试覆盖分母不完整及非正交响应解释，全部5/5通过。真实新增81数值和matched MLP **pending**。严格official parity与更高数学精度可非单调，前例不证明门槛不可达；不放宽任何门槛，不提升候选，不宣称中文失败修复。
+
+## 独立审查修复：外层执行身份（GPU 仍未运行）
+
+paired 的审查确认原 worker 的CPU0/2正是本任务分配，CPU4/6只用于它的独立审查进程；亲和性没有缺陷，保持不变。
+
+另一个 Important 成立：原 worker 自己认证plan/sequence，但启动前无人认证worker自身，资源守卫可在不修改plan的情况下被改写。因此新增单向外层 launcher；**保留并复用原v2 worker、plan和全部数学/输入身份**，没有重写v2文件。`outputs/q2-block15-mlp81-launch-v3/launcher.py` 先验证worker固定SHA和plan固定SHA，再创建任何执行进程。独立审批固定launcher SHA，避免plan/worker自哈希循环：
+
+`07c879d246e92b12d220cbb88b549504e35179166f9f73a2afb41ed4503b3962`
+
+执行者应先用独立审批值核验此launcher，再调用它；直接调用旧worker的命令由此替代。可使用以下完整入口（Root 审查放行后）：
+
+```sh
+.venv/bin/python -c 'import hashlib,pathlib; p=pathlib.Path("outputs/q2-block15-mlp81-launch-v3/launcher.py"); b=p.read_bytes(); assert hashlib.sha256(b).hexdigest()=="07c879d246e92b12d220cbb88b549504e35179166f9f73a2afb41ed4503b3962"; exec(compile(b,str(p),"exec"))'
+```
+
+已做CPU-only真实pair身份检查；新两项负例分别篡改worker资源文本/plan，均在创建子进程前被拒绝，2/2通过。此前5项检查保持有效；无GPU运行、无后续网格。

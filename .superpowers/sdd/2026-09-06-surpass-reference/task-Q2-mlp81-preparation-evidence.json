@@ -30,5 +30,16 @@
     "tools/diagnose_q2_upstream_branch.py": "60a3b18968381a273c721e8a38b4f7ea46808a2d99eb0bc8510d1603d82ab84c"
   },
   "tests": "3 contract negative/skip cases + 2 CPU analysis cases passed",
-  "execution_pending": true
+  "execution_pending": true,
+  "review_fix": {
+    "launcher_sha256": "07c879d246e92b12d220cbb88b549504e35179166f9f73a2afb41ed4503b3962",
+    "path": "outputs/q2-block15-mlp81-launch-v3/launcher.py",
+    "cpu_affinity_unchanged": [
+      0,
+      2
+    ],
+    "worker_plan_pair_actual_hash_check": true,
+    "negative_tests_passed": 2,
+    "gpu_started": false
+  }
 }
