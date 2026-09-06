@@ -57,7 +57,8 @@ def validate_process(process):
         raise ValueError("Execution process or resource guard is incomplete")
 
 
-def validate_execution_identity(base, execution, plan_identity, contract_sha256):
+def validate_execution_identity(base, execution, plan_identity, contract_sha256,
+                                start_sha256=None, noise_sha256=None):
     identity_path = execution / "identity.json"
     identity = json.loads(identity_path.read_text())
     process_path = execution / "process.json"
@@ -65,6 +66,8 @@ def validate_execution_identity(base, execution, plan_identity, contract_sha256)
     if (identity.get("input_contract_sha256") != contract_sha256
             or identity.get("start_bitwise_noise") is not True
             or identity.get("start_sha256") != identity.get("noise_sha256")
+            or (start_sha256 is not None and identity.get("start_sha256") != start_sha256)
+            or (noise_sha256 is not None and identity.get("noise_sha256") != noise_sha256)
             or identity.get("plan_provenance_sha256") != digest(plan_identity)
             or identity.get("process_sha256") != digest(process_path)
             or identity.get("process_command") != process.get("command")):
@@ -110,9 +113,11 @@ def audit(base):
     official_execution_identity = native_execution_identity = None
     if contract["request"]["strength"] == 1.:
         official_execution_identity = validate_execution_identity(
-            base, official_execution, official_identity_path, contract_sha256)
+            base, official_execution, official_identity_path, contract_sha256,
+            contract["start"]["sha256"], contract["noise"]["sha256"])
         native_execution_identity = validate_execution_identity(
-            base, native, base / "native-plan/identity.json", contract_sha256)
+            base, native, base / "native-plan/identity.json", contract_sha256,
+            contract["start"]["sha256"], contract["noise"]["sha256"])
     fixture = json.loads((suffix / "fixture.json").read_text())
     start_step = contract["request"]["start_step"]
     suffix_denominator = 9 + 2 * (8 - start_step)

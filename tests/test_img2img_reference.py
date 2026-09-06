@@ -194,6 +194,8 @@ class Img2ImgReferenceTests(unittest.TestCase):
                                     for p in (process, log)]}
             (execution / 'identity.json').write_text(json.dumps(identity))
             validate_execution_identity(root, execution, plan, 'a' * 64)
+            with self.assertRaisesRegex(ValueError, 'Actual execution identity differs'):
+                validate_execution_identity(root, execution, plan, 'a' * 64, 'c' * 64, 'c' * 64)
             identity['input_contract_sha256'] = 'c' * 64
             (execution / 'identity.json').write_text(json.dumps(identity))
             with self.assertRaisesRegex(ValueError, 'Actual execution identity differs'):
