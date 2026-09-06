@@ -231,7 +231,9 @@ reviewed shapes are exactly 512x384 and 1024x1024, each bound to its own graph a
 official/native evidence. Other encoder shapes are rejected. The 1024 encoder
 uses the same learned weights and only the reviewed spatial reshapes; its
 production strength-zero reconstruction has passed all six tensor boundaries
-and PNG max1. Positive-strength 1024 validation is still pending.
+and PNG max1. The fixed 1024 strength=0.5 development case also passes
+all 21 compared tensor boundaries and PNG max1 against its authenticated
+official reference. These fixed cases do not close the formal img2img suite.
 
 ```sh
 build/ernie-image --model models/turbo512x384-img2img-shared \
@@ -261,3 +263,37 @@ contracts without downloading weights. It has been prepared locally; a GitHub
 Actions run has not been performed for this change. Real-weight quality acceptance runs
 locally with the pinned official components and saved tensors. See the dated
 artifact reports for the precise tested prompts, dimensions, and limitations.
+
+
+## Local Linux offline delivery checks
+
+`tools/check_release.py` verifies a locally built runtime archive against its
+complete file inventory, installs it under a moved path containing spaces and
+Chinese characters, and runs a frozen development case in a separate network
+namespace. The inference command uses the native executable; Python supervises
+it outside the isolated process. The original source checkout is hidden and the
+closed model tree is bound read-only at a new path. This checks relocation by
+mounting, without renaming or copying the original model directory.
+
+Prepare with `python3 tools/check_release.py --prepare CASE.json --output NEWDIR`,
+where NEWDIR is outside the source repository. The case binds the archive,
+inventory, model manifest, prompt/image/noise, expected native PNG and resource
+limits by exact identities. Preparation extracts regular enumerated files only,
+checks their complete hashes, and restricts tar metadata before interpreting it.
+It records a frozen copy of the checking tool. Run that copy with
+`python3 NEWDIR/check_release.py --run NEWDIR` inside the exact memory/swap cgroup
+specified by the case. Existing run directories cannot be reused for execution.
+
+The current check supports the reviewed 512x384 and 1024x1024 development shapes,
+FP32 Vulkan denoising and CPU direct VAE. It verifies the model before and after
+generation, records real help/diagnose and missing-model behavior, confirms an
+explicit unavailable-driver diagnostic, and requires the output PNG to match
+the frozen native PNG byte for byte. Existing output must be refused and remain
+unchanged. The supervisor samples the entire cgroup and host memory at 50 ms;
+these measurements are neither exact GPU allocation peaks nor a speed test.
+
+The checker and fixed 1024 strength=0.5 preparation have passed independent
+review and 16 small tests, including a real namespace isolation test. Full-model
+offline execution is recorded separately when completed. A passing local case
+never changes the release draft's redistribution or publication status; Windows,
+macOS, public download and the remaining delivery cases need their own evidence.
