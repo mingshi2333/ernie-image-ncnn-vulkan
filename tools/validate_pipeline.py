@@ -176,7 +176,9 @@ def main():
     if args.pe_reference:
         (args.output/'pe-reference').symlink_to(args.pe_reference.resolve(),target_is_directory=True)
     scripts=args.output/'scripts';scripts.mkdir()
-    for path in (ROOT/'tools').glob('*.py'):
+    # Archive the code that this worker actually imported, including when the
+    # worker runs from a frozen directory and ROOT only selects model assets.
+    for path in Path(__file__).resolve().parent.glob('*.py'):
         shutil.copy2(path,scripts/path.name)
     validator_hash=sha256(scripts/Path(__file__).name)
     runner=args.output/'ernie-image.snapshot';shutil.copy2(args.runner,runner)
