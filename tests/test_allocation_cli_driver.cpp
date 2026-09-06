@@ -42,6 +42,8 @@ GenerationResult generate(const GenerationRequest& r,const ProgressCallback&) {
 GenerationResult generate_with_metrics(const GenerationRequest& r,const ProgressCallback& callback,ExecutionMetrics& metrics) {
     metrics.record_interval(1,ExecutionPhase::Verify,10,20);
     metrics.record_submissions(2,3);
+    if(r.model.find("generation")!=std::string::npos)
+        metrics.record_interval(3,ExecutionPhase::Compute,20,35);
     return generate(r,callback);
 }
 #endif

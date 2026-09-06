@@ -48,6 +48,14 @@ struct MetricsRecorder {
         for(double x:stats.compute_seconds)seconds(ExecutionPhase::Compute,x);
         submissions(std::uint64_t(stats.compute_submissions));
     }
+    void denoise_step(const DenoiseStepStats& step) {
+        blocks(step.dit.blocks);
+        seconds(ExecutionPhase::ReadPrepare,step.dit.input_head_seconds+step.dit.output_head_seconds);
+        double accounted=step.dit.input_head_seconds+step.dit.output_head_seconds;
+        for(double x:step.dit.blocks.load_seconds)accounted+=x;
+        for(double x:step.dit.blocks.compute_seconds)accounted+=x;
+        seconds(ExecutionPhase::Compute,std::max(0.,step.elapsed_seconds-accounted));
+    }
 };
 void check(int value, const char *action)
 {
@@ -157,6 +165,7 @@ ncnn::Mat run_dit(const ModelPackage &package, const ncnn::Mat &initial, const s
                                                      prediction);
                                         write_tensor(trace / ("step-" + std::to_string(i) + ".f32"), sample);
                                     }
+                                    metrics.denoise_step(stats.at(i-size_t(start_step)));
                                     progress(i);
                                 }, start_step);
     else
@@ -212,6 +221,7 @@ ncnn::Mat run_dit(const ModelPackage &package, const ncnn::Mat &initial, const s
                                    write_tensor(trace / ("prediction-" + std::to_string(i) + ".f32"), p);
                                    write_tensor(trace / ("step-" + std::to_string(i) + ".f32"), x);
                                }
+                               metrics.denoise_step(stats.at(i-size_t(start_step)));
                                progress(i);
                            }, start_step);
         ncnn::VkCompute download(device);
@@ -222,14 +232,6 @@ ncnn::Mat run_dit(const ModelPackage &package, const ncnn::Mat &initial, const s
 #else
         throw std::runtime_error("Built without Vulkan");
 #endif
-    }
-    for(const auto& step:stats) {
-        metrics.blocks(step.dit.blocks);
-        metrics.seconds(ExecutionPhase::ReadPrepare,step.dit.input_head_seconds+step.dit.output_head_seconds);
-        double accounted=step.dit.input_head_seconds+step.dit.output_head_seconds;
-        for(double x:step.dit.blocks.load_seconds)accounted+=x;
-        for(double x:step.dit.blocks.compute_seconds)accounted+=x;
-        metrics.seconds(ExecutionPhase::Compute,std::max(0.,step.elapsed_seconds-accounted));
     }
     return latent;
 }

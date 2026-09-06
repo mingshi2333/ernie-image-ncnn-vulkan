@@ -23,6 +23,7 @@ class AllocationCliTests(unittest.TestCase):
   r,p=self.run_case('generation-failure');self.assertEqual(r.returncode,1);self.assertIn('original generation failure',r.stderr)
   v=json.loads(p.read_text());self.assertEqual(v['run_status'],'generation_failed');self.assertTrue(v['coverage_complete']);self.assertEqual(v['total']['live_bytes'],0)
   self.assertFalse(v['execution_finished_successfully']);self.assertEqual(v['stage_times']['verify']['host_nanoseconds'],10)
+  self.assertEqual(v['stage_times']['compute']['host_nanoseconds'],15)
  def test_image_error_is_distinct(self):
   r,p=self.run_case(image='image-failure.png');self.assertEqual(r.returncode,1);self.assertIn('original image failure',r.stderr)
   self.assertEqual(json.loads(p.read_text())['run_status'],'image_write_failed')
