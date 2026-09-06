@@ -18,7 +18,7 @@ constexpr const char *graph = "7767517\n5 6\n"
                               "ErnieResidualAdd sum 2 1 a b s 0=0\n"
                               "Split split 1 2 s sum norm_input\n"
                               "RMSNorm norm 1 1 norm_input normalized 0=4096 1=1e-6 2=1\n";
-void verify(const ncnn::Mat &sum, const ncnn::Mat &norm, const ncnn::Mat &a, const ncnn::Mat &b)
+void verify(const ncnn::Mat &sum, const ncnn::Mat &norm, const ncnn::Mat &a, const ncnn::Mat &b, bool bf16)
 {
     if (sum.w != 4096 || sum.h != 4 || norm.w != 4096 || norm.h != 4 || sum.elempack != 1 ||
         norm.elempack != 1 || sum.elemsize != 4u || norm.elemsize != 4u)
@@ -35,22 +35,24 @@ void verify(const ncnn::Mat &sum, const ncnn::Mat &norm, const ncnn::Mat &a, con
         }
         const double scale = 1. / std::sqrt(squares / 4096 + 1e-6);
         for (int i = 0; i < 4096; ++i)
-            if (std::abs(norm.row(y)[i] - sum.row(y)[i] * scale) > .001)
-                throw std::runtime_error("FP32 skip to FP16 normalized projection differs");
+            if (std::abs(norm.row(y)[i] - sum.row(y)[i] * scale) > (bf16 ? .004 : .001))
+                throw std::runtime_error("FP32 skip to low-storage normalized projection differs");
     }
 }
 } // namespace
 int main(int argc, char **argv)
 {
-    const bool gpu = argc == 2 && std::string(argv[1]) == "vulkan";
+    const bool gpu = argc >= 2 && std::string(argv[1]) == "vulkan";
+    const bool bf16 = argc == 3 && std::string(argv[2]) == "bf16";
     int status = 0;
     try
     {
         ncnn::Option option;
         option.num_threads = 4;
         option.use_vulkan_compute = gpu;
-        option.use_fp16_storage = gpu;
-        option.use_fp16_packed = option.use_fp16_arithmetic = option.use_bf16_storage =
+        option.use_fp16_storage = gpu && !bf16;
+        option.use_bf16_storage = gpu && bf16;
+        option.use_fp16_packed = option.use_fp16_arithmetic =
             option.use_bf16_packed = false;
         ncnn::Mat a(4096, 4), b(4096, 4), weights(4096);
         weights.fill(1.f);
@@ -71,7 +73,8 @@ int main(int argc, char **argv)
                 if (ncnn::get_gpu_count() < 1)
                     return 77;
                 net.set_vulkan_device(ncnn::get_default_gpu_index());
-                if (!net.vulkan_device()->info.support_fp16_storage())
+                if (bf16 ? !net.vulkan_device()->info.support_bf16_storage() :
+                           !net.vulkan_device()->info.support_fp16_storage())
                     return 77;
             }
 #else
@@ -99,7 +102,7 @@ int main(int argc, char **argv)
                 option.blob_vkallocator = option.workspace_vkallocator = &blobs;
                 option.staging_vkallocator = &staging;
                 auto high = option;
-                high.use_fp16_storage = false;
+                high.use_fp16_storage = high.use_bf16_storage = false;
                 ncnn::VkMat ga, gb, gs, gn;
                 ncnn::VkCompute command(device);
                 command.record_upload(a, ga, high);
@@ -136,7 +139,7 @@ int main(int argc, char **argv)
             }
 #endif
         }
-        verify(sum, norm, a, b);
+        verify(sum, norm, a, b, bf16);
         std::cout << "FP32 residual above 65504, normalized projection and finite guards passed\n";
     }
     catch (const std::exception &error)

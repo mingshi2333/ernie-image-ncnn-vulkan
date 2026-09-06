@@ -64,6 +64,9 @@ fn required_files() -> BTreeSet<String> {
 pub fn verify(root: &Path) -> Result<(), String> {
     let manifest = read_json(&root.join("manifest.json"))?;
     let lock: Value = serde_json::from_str(include_str!("../../sources.lock.json")).map_err(|e| e.to_string())?;
+    if manifest["kind"].as_str() == Some("prompt_enhancer") {
+        return verify_pe(root, &manifest, &lock);
+    }
     if manifest["official_model_revision"] != lock["official_model"]["revision"] {
         return Err("Official model revision differs".into());
     }
@@ -124,5 +127,56 @@ pub fn verify(root: &Path) -> Result<(), String> {
         if values.insert(pair[0].to_string(), number.into()).is_some() { return Err("Duplicate model.cfg entry".into()); }
     }
     if Value::Object(values) != manifest["config"] { return Err("Configuration and manifest disagree".into()); }
+    Ok(())
+}
+
+fn verify_pe(root: &Path, manifest: &Value, lock: &Value) -> Result<(), String> {
+    if manifest["schema_version"].as_u64() != Some(1)
+        || manifest["official_model_revision"] != lock["official_model"]["revision"]
+        || manifest["ncnn_revision"] != lock["ncnn"]["revision"] {
+        return Err("PE package version differs".into());
+    }
+    if !manifest["portable"].is_boolean() { return Err("Missing PE portable flag".into()); }
+    let mut required: BTreeSet<String> = ["pe.cfg", "embeddings.bf16", "rope-inv-freq.f32",
+        "head.ncnn.param", "head.ncnn.bin", "tokenizer/tokenizer.json", "tokenizer/tokenizer_config.json",
+        "tokenizer/chat_template.jinja"].iter().map(|s| s.to_string()).collect();
+    for i in 0..26 {
+        for suffix in ["param", "bin"] { required.insert(format!("block-{i:02}/pe.ncnn.{suffix}")); }
+    }
+    let files = digests(&manifest["files"])?;
+    let sizes = manifest["file_sizes"].as_object().ok_or("Missing PE file sizes")?;
+    if files.keys().cloned().collect::<BTreeSet<_>>() != required
+        || sizes.keys().cloned().collect::<BTreeSet<_>>() != required {
+        return Err("PE runtime file inventory differs".into());
+    }
+    for name in required {
+        let path = root.join(&name);
+        if manifest["portable"].as_bool() == Some(true) {
+            let mut component = root.to_path_buf();
+            for part in Path::new(&name).components() {
+                component.push(part);
+                if component.is_symlink() { return Err(format!("Portable PE package contains a symlink: {name}")); }
+            }
+        }
+        let metadata = fs::metadata(&path).map_err(|e| format!("{name}: {e}"))?;
+        if !metadata.is_file() || sizes[&name].as_u64() != Some(metadata.len()) {
+            return Err(format!("PE file size differs: {name}"));
+        }
+        if hash(&path)? != files[&name] { return Err(format!("PE file checksum differs: {name}")); }
+    }
+    if hash(&root.join("tokenizer/chat_template.jinja"))? != "0c859484eecf01db103acd02c332610163ee425cd46866d6cb126ee1bee974ea" {
+        return Err("PE chat template differs from native formatter".into());
+    }
+    let expected = serde_json::json!({"layers":26,"hidden_size":3072,"vocabulary":131072,"capacity":4096,"tokens_per_call":1});
+    if manifest["config"] != expected { return Err("PE configuration differs".into()); }
+    let config = fs::read_to_string(root.join("pe.cfg")).map_err(|e| e.to_string())?;
+    let words: Vec<_> = config.split_whitespace().collect();
+    if words.len() != 10 { return Err("Malformed pe.cfg".into()); }
+    let mut parsed = serde_json::Map::new();
+    for pair in words.chunks_exact(2) {
+        let value: u64 = pair[1].parse().map_err(|_| "Invalid PE configuration integer")?;
+        if parsed.insert(pair[0].to_string(), value.into()).is_some() { return Err("Duplicate PE configuration field".into()); }
+    }
+    if Value::Object(parsed) != expected { return Err("PE configuration and manifest disagree".into()); }
     Ok(())
 }

@@ -51,9 +51,8 @@ def main():
         'gpu_sampling_scope':'Whole NVIDIA device 0, includes other processes, 100 ms samples; not exact allocator/process VRAM',
         'precision':{'dit':args.precision,'residual':'fp32','text':'fp32','euler':'fp32',
                      'vae':'fp32 with FP64 CPU GroupNorm reductions' if args.vae_device=='cpu' else 'fp32'}}
-    source_paths=[ROOT/'CMakeLists.txt',ROOT/'sources.lock.json']
-    for directory in ('src','tokenizer/src'):
-        source_paths.extend(path for path in (ROOT/directory).rglob('*') if path.is_file())
+    from source_inventory import source_files
+    source_paths = source_files(ROOT)
     result['source_files_sha256']={str(path.relative_to(ROOT)):sha256(path) for path in sorted(source_paths)}
     (args.output/'request.json').write_text(json.dumps(result,indent=2,ensure_ascii=False)+'\n')
     sampler=None

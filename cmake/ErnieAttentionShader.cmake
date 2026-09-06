@@ -45,5 +45,5 @@ string(REPLACE "afp sum_value = afp(0.f);"
 string(REPLACE "sum_value += v;"
     "precise afp adjusted = v - correction;\n            precise afp next = sum_value + adjusted;\n            correction = (next - sum_value) - adjusted;\n            sum_value = next;"
     ERNIE_SOFTMAX_SHADER_SOURCE "${ERNIE_SOFTMAX_SHADER_SOURCE}")
-configure_file("${CMAKE_CURRENT_SOURCE_DIR}/src/sdpa_shader.h.in"
+configure_file("${PROJECT_SOURCE_DIR}/src/sdpa_shader.h.in"
                "${CMAKE_CURRENT_BINARY_DIR}/generated/sdpa_shader.h" @ONLY)

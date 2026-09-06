@@ -82,11 +82,8 @@ def main():
     for file in ('sources.lock.json', 'requirements-reference.lock', 'tokenizer/Cargo.lock', 'tokenizer/Cargo.toml'):
         copy(ROOT / file, out / 'environment' / file)
 
-    paths = [ROOT / 'CMakeLists.txt', ROOT / 'sources.lock.json']
-    for directory in ('src', 'probes', 'tools', 'tests', 'tokenizer'):
-        paths.extend(path for path in (ROOT / directory).rglob('*')
-                     if path.is_file() and '__pycache__' not in path.parts and 'target' not in path.parts
-                     and path.suffix in ('.h', '.cpp', '.py', '.rs', '.toml', '.lock'))
+    from source_inventory import source_files
+    paths = source_files(ROOT)
     hashes = {str(path.relative_to(ROOT)): sha256(path) for path in sorted(set(paths))}
     (out / 'source-sha256.json').write_text(json.dumps(hashes, indent=2) + '\n')
 

@@ -272,9 +272,8 @@ def freeze(output):
         copy(path, output/'validator-source-variants'/path.name)
     (output/'results.json').write_text(json.dumps(index, indent=2, ensure_ascii=False)+'\n')
     write_report(output, index)
-    files = [ROOT/'CMakeLists.txt', ROOT/'sources.lock.json', ROOT/'.github/workflows/build.yml']
-    for directory in ['src', 'tools', 'tests', 'probes', 'tokenizer/src']:
-        files.extend(p for p in (ROOT/directory).rglob('*') if p.is_file() and p.suffix in ('.cpp','.h','.rs','.py','.param'))
+    from source_inventory import source_files
+    files = source_files(ROOT)
     state = {'created_utc': datetime.now(timezone.utc).isoformat(),
              'git_head': subprocess.check_output(['git','rev-parse','HEAD'], cwd=ROOT, text=True).strip(),
              'scope': 'Fixed 1024 prompts, with rejected FP16 and FP32 tensor gates retained; no broad perceptual quality claim',

@@ -40,7 +40,10 @@ def audit(run):
     result = json.loads((run/'result.json').read_text())
     fixture = json.loads((run/'reference/fixture.json').read_text())
     gates = json.loads((run/'gates.json').read_text())
-    if not fixture['complete'] or result.get('return_code') != 0 or 'failure' in result or gates != GATES:
+    expected_gates=GATES
+    if result['dit_precision']=='bf16':
+        expected_gates={**GATES, 'bf16':dict(nrmse=.15, global_rtol=.25, atol=.03, pixel_mae=12, pixel_max=80)}
+    if not fixture['complete'] or result.get('return_code') != 0 or 'failure' in result or gates != expected_gates:
         raise ValueError(f'Incomplete execution or altered gates: {run}')
     check_hash(run/'ernie-image.snapshot', result['runner_sha256'])
     validator_snapshot(run, result)
@@ -53,6 +56,19 @@ def audit(run):
     check_hash(run/'native.png', result['png']['sha256'])
     package = Path(result['command'][result['command'].index('--model')+1])
     check_hash(package/'manifest.json', result['package_manifest_sha256'])
+    if 'prompt_enhancer' in result:
+        pe=result['prompt_enhancer']
+        pe_model=Path(result['command'][result['command'].index('--pe-model')+1])
+        check_hash(pe_model/'manifest.json',pe['model_manifest_sha256'])
+        check_hash(run/'pe-reference/reference.json',pe['reference_manifest_sha256'])
+        pe_ref=json.loads((run/'pe-reference/reference.json').read_text())
+        for name in ('generated-ids.txt','enhanced.txt'):
+            check_hash(run/'pe-reference'/name,pe_ref['files'][name])
+        if (not pe.get('tokens_exact') or pe.get('eos')!=pe_ref['eos']
+            or (run/'trace/pe-ids.txt').read_bytes()!=(run/'pe-reference/generated-ids.txt').read_bytes()
+            or (run/'trace/enhanced-prompt.txt').read_bytes()!=(run/'pe-reference/enhanced.txt').read_bytes()
+            or (run/'trace/input-prompt.txt').read_bytes().decode('utf-8')!=pe_ref['input_prompt']):
+            raise ValueError('PE trace differs from its official reference')
     entries = [*fixture['inputs'].values(), *fixture['final'].values()]
     for step in fixture['outputs']:
         entries.extend(step.values())
@@ -98,6 +114,10 @@ def freeze(output, runs, evidence, report=None):
         for name in ('result.json', 'gates.json', 'native.log', 'reference/fixture.json'):
             copy(run/name, output/'runs'/run.name/name)
         result = json.loads((run/'result.json').read_text())
+        if 'prompt_enhancer' in result:
+            for name in ('pe-reference/reference.json','pe-reference/enhanced.txt','pe-reference/generated-ids.txt',
+                         'trace/pe-ids.txt','trace/input-prompt.txt','trace/enhanced-prompt.txt'):
+                copy(run/name,output/'runs'/run.name/name)
         validator = validator_snapshot(run, result)
         copy(validator, output/'scripts'/(result['validator_sha256']+'.py'))
         for path in sorted((run/'scripts').glob('*.py')):
@@ -108,10 +128,8 @@ def freeze(output, runs, evidence, report=None):
     if report is not None:
         copy(report, output/'README.md')
     (output/'results.json').write_text(json.dumps(rows, indent=2, ensure_ascii=False)+'\n')
-    sources = [ROOT/'CMakeLists.txt', ROOT/'sources.lock.json']
-    for directory in ('src', 'cmake', 'tools', 'tests', 'probes', 'tokenizer/src'):
-        sources += [p for p in (ROOT/directory).rglob('*')
-                    if p.is_file() and p.suffix in ('.cpp', '.h', '.in', '.cmake', '.py', '.rs')]
+    from source_inventory import source_files
+    sources = source_files(ROOT)
     manifest = dict(created_utc=datetime.now(timezone.utc).isoformat(),
                     git_head=subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
                     source_files_sha256={str(p.relative_to(ROOT)): sha256(p) for p in sorted(set(sources))},

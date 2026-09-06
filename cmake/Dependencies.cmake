@@ -1,0 +1,36 @@
+# Pinned ncnn configuration and the reviewed layer inventory.
+file(READ "${PROJECT_SOURCE_DIR}/sources.lock.json" sources_lock)
+string(JSON ncnn_revision GET "${sources_lock}" ncnn revision)
+if(NOT EXISTS "${ERNIE_NCNN_SOURCE_DIR}/src/net.h")
+    message(FATAL_ERROR "Initialize ncnn with: git submodule update --init third_party/ncnn")
+endif()
+
+find_package(Git REQUIRED)
+execute_process(COMMAND "${GIT_EXECUTABLE}" -C "${ERNIE_NCNN_SOURCE_DIR}" rev-parse HEAD
+    OUTPUT_VARIABLE actual_revision OUTPUT_STRIP_TRAILING_WHITESPACE COMMAND_ERROR_IS_FATAL ANY)
+if(NOT actual_revision STREQUAL ncnn_revision AND NOT ERNIE_ALLOW_UNPINNED_NCNN)
+    message(FATAL_ERROR "ncnn revision differs from sources.lock.json: ${actual_revision}")
+endif()
+
+set(NCNN_VULKAN ${ERNIE_ENABLE_VULKAN} CACHE BOOL "" FORCE)
+set(NCNN_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(NCNN_BUILD_TOOLS OFF CACHE BOOL "" FORCE)
+set(NCNN_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+set(NCNN_BUILD_BENCHMARK OFF CACHE BOOL "" FORCE)
+set(NCNN_INSTALL_SDK OFF CACHE BOOL "" FORCE)
+if(ERNIE_MINIMAL_NCNN)
+    # RMSNorm Vulkan shares reduction shaders with LayerNorm.
+    # Extend this list when new exported components require additional layers.
+    file(STRINGS "${ERNIE_NCNN_SOURCE_DIR}/src/CMakeLists.txt" layer_lines REGEX "^ncnn_add_layer\\(")
+    set(probe_layers input split cast packing flatten softmax gemm sdpa memorydata unaryop reduction binaryop reshape permute rmsnorm layernorm slice expanddims concat squeeze gelu convolution padding innerproduct swish crop groupnorm interp multiheadattention)
+    foreach(layer_line IN LISTS layer_lines)
+        string(REGEX REPLACE "^ncnn_add_layer\\(([A-Za-z0-9_]+).*" "\\1" layer_name "${layer_line}")
+        string(TOLOWER "${layer_name}" layer_name)
+        if(layer_name IN_LIST probe_layers)
+            set(WITH_LAYER_${layer_name} ON CACHE BOOL "" FORCE)
+        else()
+            set(WITH_LAYER_${layer_name} OFF CACHE BOOL "" FORCE)
+        endif()
+    endforeach()
+endif()
+add_subdirectory("${ERNIE_NCNN_SOURCE_DIR}" "${CMAKE_BINARY_DIR}/ncnn")

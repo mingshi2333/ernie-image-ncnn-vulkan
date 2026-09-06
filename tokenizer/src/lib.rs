@@ -65,10 +65,27 @@ pub unsafe extern "C" fn ernie_tok_maximum(handle: *const Handle) -> usize {
 #[no_mangle]
 pub unsafe extern "C" fn ernie_tok_encode(handle: *const Handle, prompt: *const u8, length: usize,
     output: *mut u32, capacity: usize, written: *mut usize, error: *mut u8, error_capacity: usize) -> i32 {
+    encode(handle, prompt, length, output, capacity, written, error, error_capacity, true)
+}
+
+#[no_mangle]
+pub unsafe extern "C" fn ernie_tok_encode_exact(handle: *const Handle, prompt: *const u8, length: usize,
+    output: *mut u32, capacity: usize, written: *mut usize, error: *mut u8, error_capacity: usize) -> i32 {
+    encode(handle, prompt, length, output, capacity, written, error, error_capacity, false)
+}
+
+unsafe fn encode(handle: *const Handle, prompt: *const u8, length: usize,
+    output: *mut u32, capacity: usize, written: *mut usize, error: *mut u8, error_capacity: usize, truncate: bool) -> i32 {
     let result = catch_unwind(AssertUnwindSafe(|| -> Result<(), String> {
         let handle = handle.as_ref().ok_or("Null tokenizer handle")?;
         if output.is_null() || written.is_null() { return Err("Null output buffer".into()); }
-        let encoding = handle.tokenizer.encode(text(prompt, length)?, true).map_err(|e| e.to_string())?;
+        let mut untruncated;
+        let tokenizer = if truncate { &handle.tokenizer } else {
+            untruncated = handle.tokenizer.clone();
+            untruncated.with_truncation(None).map_err(|e| e.to_string())?;
+            &untruncated
+        };
+        let encoding = tokenizer.encode(text(prompt, length)?, true).map_err(|e| e.to_string())?;
         let ids = encoding.get_ids();
         let fallback = [handle.bos];
         let ids = if ids.is_empty() { &fallback[..] } else { ids };
@@ -82,6 +99,61 @@ pub unsafe extern "C" fn ernie_tok_encode(handle: *const Handle, prompt: *const 
         Ok(Err(message)) => { write_error(error, error_capacity, &message); -1 },
         Err(_) => { write_error(error, error_capacity, "Tokenizer encoding panicked"); -1 }
     }
+}
+
+unsafe fn string_result(result: Result<String, String>, output: *mut u8, capacity: usize,
+    written: *mut usize, error: *mut u8, error_capacity: usize) -> i32 {
+    match result {
+        Ok(value) => {
+            if written.is_null() { write_error(error, error_capacity, "Null output length"); return -1; }
+            *written = value.len();
+            if output.is_null() && capacity == 0 { return 0; }
+            if output.is_null() || capacity < value.len() {
+                write_error(error, error_capacity, "Insufficient text capacity"); return -1;
+            }
+            std::ptr::copy_nonoverlapping(value.as_ptr(), output, value.len());
+            0
+        },
+        Err(message) => { write_error(error, error_capacity, &message); -1 }
+    }
+}
+
+#[no_mangle]
+pub unsafe extern "C" fn ernie_tok_decode(handle: *const Handle, ids: *const u32, length: usize,
+    output: *mut u8, capacity: usize, written: *mut usize, error: *mut u8, error_capacity: usize) -> i32 {
+    let result = catch_unwind(AssertUnwindSafe(|| -> Result<String, String> {
+        let handle = handle.as_ref().ok_or("Null tokenizer handle")?;
+        let ids = if length == 0 { &[][..] } else {
+            if ids.is_null() { return Err("Null token IDs".into()); }
+            slice::from_raw_parts(ids, length)
+        };
+        handle.tokenizer.decode(ids, true).map_err(|e| e.to_string())
+    })).unwrap_or_else(|_| Err("Tokenizer decoding panicked".into()));
+    string_result(result, output, capacity, written, error, error_capacity)
+}
+
+#[no_mangle]
+pub unsafe extern "C" fn ernie_pe_prompt(prompt: *const u8, length: usize, width: u32, height: u32,
+    output: *mut u8, capacity: usize, written: *mut usize, error: *mut u8, error_capacity: usize) -> i32 {
+    let result = catch_unwind(AssertUnwindSafe(|| -> Result<String, String> {
+        if width == 0 || height == 0 || width % 16 != 0 || height % 16 != 0 {
+            return Err("Invalid PE image dimensions".into());
+        }
+        // Exact pinned chat template and Python json.dumps(ensure_ascii=False)
+        // separators; the PE tokenizer itself does not add BOS.
+        let quoted = serde_json::to_string(text(prompt, length)?).map_err(|e| e.to_string())?;
+        Ok(format!("<s>[SYSTEM_PROMPT]你是一个专业的文生图 Prompt 增强助手。你将收到用户的简短图片描述及目标生成分辨率，请据此扩写为一段内容丰富、细节充分的视觉描述，以帮助文生图模型生成高质量的图片。仅输出增强后的描述，不要包含任何解释或前缀。[/SYSTEM_PROMPT][INST]{{\"prompt\": {quoted}, \"width\": {width}, \"height\": {height}}}[/INST]"))
+    })).unwrap_or_else(|_| Err("PE prompt formatting panicked".into()));
+    string_result(result, output, capacity, written, error, error_capacity)
+}
+
+#[no_mangle]
+pub unsafe extern "C" fn ernie_trim_text(input: *const u8, length: usize,
+    output: *mut u8, capacity: usize, written: *mut usize, error: *mut u8, error_capacity: usize) -> i32 {
+    let result = catch_unwind(AssertUnwindSafe(|| -> Result<String, String> {
+        Ok(text(input, length)?.trim_matches(|c: char| c.is_whitespace() || ('\u{1c}'..='\u{1f}').contains(&c)).to_string())
+    })).unwrap_or_else(|_| Err("Text trimming panicked".into()));
+    string_result(result, output, capacity, written, error, error_capacity)
 }
 
 #[no_mangle]

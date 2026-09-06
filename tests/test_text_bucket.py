@@ -11,7 +11,8 @@ from rebucket_text import graph_hash, GRAPH_SHA256
 class TextBucketTests(unittest.TestCase):
     def test_independent_exports_have_identical_equations(self):
         paths = {32: ROOT/'artifacts/2026-09-05/pipeline/models/text-s32-v1/block-00/text.ncnn.param',
-                 64: ROOT/'tests/fixtures/text-s64.ncnn.param'}
+                 64: ROOT/'tests/fixtures/text-s64.ncnn.param',
+                 2048: ROOT/'tests/fixtures/text-s2048.ncnn.param'}
         for tokens, path in paths.items():
             self.assertEqual(graph_hash(path.read_text(), tokens), GRAPH_SHA256)
 

@@ -21,6 +21,7 @@ from export_dit_heads import load_heads
 from export_vae import load_vae
 from prepare_block import ROOT,sha256
 from validate_text import real_reference
+from prompt_io import read_prompt
 
 def reference(package,prompt,output,steps,device='cpu',initial_path=None):
     package_manifest=json.loads((package/'manifest.json').read_text())
@@ -105,9 +106,13 @@ def main():
     p.add_argument('--model',type=Path,required=True)
     p.add_argument('--output',type=Path,required=True)
     p.add_argument('--runner',type=Path,default=ROOT/'build/ernie-image')
-    p.add_argument('--prompt',default='A red apple on a wooden table, soft daylight, realistic photo.')
+    prompts=p.add_mutually_exclusive_group()
+    prompts.add_argument('--prompt')
+    prompts.add_argument('--prompt-file',type=Path)
+    p.add_argument('--pe-model',type=Path,help='Exercise native greedy PE before image generation')
+    p.add_argument('--pe-reference',type=Path,help='Sealed reference_pe.py oracle for the original prompt')
     p.add_argument('--device',choices=['cpu','vulkan'],default='vulkan')
-    p.add_argument('--precision',choices=['fp32','fp16'],default='fp16')
+    p.add_argument('--precision',choices=['fp32','fp16','bf16'],default='fp16')
     p.add_argument('--steps',type=int,default=8)
     p.add_argument('--vae-convolution',choices=['direct','sgemm'],default='direct')
     p.add_argument('--reference',type=Path,help='Reuse a complete, checksum-verified reference with identical configuration')
@@ -117,6 +122,22 @@ def main():
     p.add_argument('--latent',type=Path,help='Use these saved FP32 initial latents for both implementations')
     p.add_argument('--reference-only',action='store_true',help='Save the official fixture without launching the native candidate')
     args=p.parse_args()
+    if args.prompt_file is not None:args.prompt=read_prompt(args.prompt_file)
+    elif args.prompt is None:args.prompt='A red apple on a wooden table, soft daylight, realistic photo.'
+    reference_prompt=args.prompt
+    pe_reference=None
+    if bool(args.pe_model)!=bool(args.pe_reference) or (args.pe_model and args.reference_embeddings):
+        p.error('PE requires both --pe-model and --pe-reference, without reference embeddings')
+    if args.pe_reference:
+        pe_reference=json.loads((args.pe_reference/'reference.json').read_text())
+        config=json.loads((args.model/'manifest.json').read_text())['config']
+        if (pe_reference['input_prompt']!=args.prompt or pe_reference['width']!=config['packed_width']*16
+            or pe_reference['height']!=config['packed_height']*16):
+            raise ValueError('PE reference request differs')
+        for name,digest in pe_reference['files'].items():
+            if Path(name).name!=name or sha256(args.pe_reference/name)!=digest:
+                raise ValueError('PE reference file differs')
+        reference_prompt=(args.pe_reference/'enhanced.txt').read_text()
     if args.reference_embeddings and args.reference_only:
         p.error('Reference embeddings diagnose a native trajectory; do not combine with --reference-only')
     if args.output.exists() or not 1<=args.steps<=1000 or (args.device=='cpu' and args.precision!='fp32'):
@@ -124,6 +145,8 @@ def main():
     if not args.reference and args.reference_device=='cuda' and not torch.cuda.is_available():
         p.error('CUDA reference requested but CUDA is unavailable')
     args.output.mkdir(parents=True)
+    if args.pe_reference:
+        (args.output/'pe-reference').symlink_to(args.pe_reference.resolve(),target_is_directory=True)
     scripts=args.output/'scripts';scripts.mkdir()
     for path in (ROOT/'tools').glob('*.py'):
         shutil.copy2(path,scripts/path.name)
@@ -134,6 +157,10 @@ def main():
     gates={'fp32':{'nrmse':.003,'global_rtol':.01,'atol':.0002,'pixel_mae':.1,'pixel_max':2},
            'fp16':{'nrmse':.15,'global_rtol':.25,'atol':.03,'pixel_mae':12,'pixel_max':80},
            'conditioning':{'nrmse':.0002,'global_rtol':.0002,'atol':.0002}}
+    # New BF16 trials use the same acceptance limits as FP16, declared before
+    # either implementation runs. Existing FP32/FP16 archive schemas stay intact.
+    if args.precision=='bf16':
+        gates['bf16']={'nrmse':.15,'global_rtol':.25,'atol':.03,'pixel_mae':12,'pixel_max':80}
     (args.output/'gates.json').write_text(json.dumps(gates,indent=2)+'\n')
     torch.set_num_threads(4);torch.set_grad_enabled(False)
     ref=args.output/'reference'
@@ -142,7 +169,7 @@ def main():
         # process must exit before an 8 GB Vulkan FP32 run begins.
         oracle=args.output/'oracle'
         command=[sys.executable,str(Path(__file__).resolve()),'--model',str(args.model.resolve()),
-                 '--output',str(oracle.resolve()),'--runner',str(runner.resolve()),'--prompt',args.prompt,
+                 '--output',str(oracle.resolve()),'--runner',str(runner.resolve()),'--prompt',reference_prompt,
                  '--steps',str(args.steps),'--reference-device',args.reference_device,'--reference-only']
         if args.latent:command+=['--latent',str(args.latent.resolve())]
         with (args.output/'reference.log').open('w') as log:
@@ -156,7 +183,7 @@ def main():
         source=args.reference.resolve()
         fixture=json.loads((source/'fixture.json').read_text())
         config=json.loads((args.model/'manifest.json').read_text())['config']
-        if (not fixture.get('complete') or fixture['prompt']!=args.prompt
+        if (not fixture.get('complete') or fixture['prompt']!=reference_prompt
             or fixture['steps']!=args.steps or fixture['config']!=config):
             raise ValueError('Saved reference configuration differs or is incomplete')
         entries=[*fixture['inputs'].values(),*fixture['final'].values()]
@@ -172,16 +199,27 @@ def main():
             raise ValueError('Requested initial noise differs from saved reference')
         ref.symlink_to(source,target_is_directory=True)
     else:
-        fixture=reference(args.model,args.prompt,ref,args.steps,args.reference_device,args.latent)
+        fixture=reference(args.model,reference_prompt,ref,args.steps,args.reference_device,args.latent)
     if args.reference_only:
         print(json.dumps({'reference_complete':fixture['complete'],'output':str(ref)}),flush=True)
         return 0
     trace=args.output/'trace'
-    command=[str(runner.resolve()),'--model',str(args.model.resolve()),'--prompt',args.prompt,
+    prompt_args=['--prompt',args.prompt]
+    if args.prompt_file is not None:
+        # Freeze the original file and exercise the native file input path.
+        prompt_copy=args.output/'input-prompt.txt';shutil.copy2(args.prompt_file,prompt_copy)
+        if read_prompt(prompt_copy)!=args.prompt:raise ValueError('Prompt file changed during validation')
+        prompt_args=['--prompt-file',str(prompt_copy.resolve())]
+    command=[str(runner.resolve()),'--model',str(args.model.resolve()),*prompt_args,
              '--output',str((args.output/'native.png').resolve()),'--device',args.device,'--precision',args.precision,
+             '--width',str(fixture['config']['packed_width']*16),'--height',str(fixture['config']['packed_height']*16),
              '--steps',str(args.steps),'--latent',str((ref/'initial.f32').resolve()),'--trace-dir',str(trace.resolve()),
              '--vae-convolution',args.vae_convolution]
     scope=fixture['scope']
+    if args.pe_model:
+        command+=['--pe-model',str(args.pe_model.resolve()),'--pe-greedy','--pe-max-tokens',str(pe_reference['max_tokens'])]
+        scope=('Native CPU greedy PE, text encoder, DiT and VAE versus staged pinned official FP32 modules; '
+               'CFG=1; identical saved initial latent; complete enhanced prompt and IDs must match')
     if args.reference_embeddings:
         command+=['--embeddings',str((ref/fixture['inputs']['text']['file']).resolve())]
         scope=('Diagnostic free-running DiT and VAE with saved official text embeddings; '
@@ -192,6 +230,9 @@ def main():
             'package_manifest_sha256':sha256(args.model/'manifest.json'),'reference_fixture_sha256':sha256(ref/'fixture.json'),
             'device':args.device,'dit_precision':args.precision,'text_scheduler_vae_precision':'fp32',
             'command':command,'passed':False,'comparisons':[]}
+    if args.pe_reference:
+        result['prompt_enhancer']={'reference_manifest_sha256':sha256(args.pe_reference/'reference.json'),
+                                  'model_manifest_sha256':sha256(args.pe_model/'manifest.json')}
     try:
         with (args.output/'native.log').open('w') as log:
             process=subprocess.Popen(['/usr/bin/time','-v',*command],stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
@@ -199,6 +240,13 @@ def main():
             except subprocess.TimeoutExpired:os.killpg(process.pid,signal.SIGKILL);process.wait();raise
         result['return_code']=process.returncode
         if process.returncode:raise RuntimeError('Native generator failed')
+        if args.pe_reference:
+            if ((trace/'pe-ids.txt').read_bytes()!=(args.pe_reference/'generated-ids.txt').read_bytes()
+                or (trace/'enhanced-prompt.txt').read_bytes()!=(args.pe_reference/'enhanced.txt').read_bytes()
+                or (trace/'input-prompt.txt').read_bytes().decode('utf-8')!=args.prompt):
+                raise RuntimeError('Native PE differs from the official greedy output')
+            result['prompt_enhancer']['tokens_exact']=True
+            result['prompt_enhancer']['eos']=pe_reference['eos']
         ids=[int(v) for v in (trace/'ids.txt').read_text().split()]
         if ids!=fixture['ids']:raise RuntimeError('Native tokenizer differs')
         entries=[(name,item,True) for name,item in fixture['inputs'].items()]

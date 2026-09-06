@@ -15,6 +15,7 @@ from export_text_block import config, load_block
 from transformers import AutoTokenizer
 from transformers.models.mistral.modeling_mistral import MistralRotaryEmbedding
 from safetensors import safe_open
+from prompt_io import read_prompt
 
 def real_reference(models, prompt, output, source_weights=None, bucket=None):
     manifests=([json.loads((m/'model.json').read_text()) for m in models] if source_weights is None else
@@ -58,13 +59,16 @@ def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--model',action='append',type=Path,required=True)
     p.add_argument('--fixture',type=Path)
-    p.add_argument('--prompt')
+    prompts=p.add_mutually_exclusive_group()
+    prompts.add_argument('--prompt')
+    prompts.add_argument('--prompt-file',type=Path)
     p.add_argument('--embedding-package',type=Path)
     p.add_argument('--output',type=Path,required=True)
     p.add_argument('--runner',type=Path,default=ROOT/'build/ernie-text-runner')
     p.add_argument('--cpu-only',action='store_true')
     p.add_argument('--bf16',action='store_true')
     args=p.parse_args()
+    if args.prompt_file is not None:args.prompt=read_prompt(args.prompt_file)
     if args.output.exists() or (args.fixture is None)==(args.prompt is None):p.error('Use new output and exactly one fixture/prompt')
     args.output.mkdir(parents=True)
     runner=args.output/'runner.snapshot';shutil.copy2(args.runner,runner)

@@ -93,11 +93,8 @@ def main():
                 'original_bytes': original.stat().st_size, 'direct_bytes': direct.stat().st_size}
     equality['byte_identical'] = equality['original_sha256'] == equality['direct_sha256']
     (output / 'direct-block00/equality.json').write_text(json.dumps(equality, indent=2) + '\n')
-    source_paths = [ROOT / 'CMakeLists.txt', ROOT / '.gitignore', ROOT / 'sources.lock.json']
-    for directory in ('src', 'probes', 'tools', 'tests', 'tokenizer'):
-        source_paths.extend(path for path in (ROOT / directory).rglob('*')
-                            if path.is_file() and '__pycache__' not in path.parts and 'target' not in path.parts
-                            and path.suffix in ('.h', '.cpp', '.py', '.rs', '.toml', '.lock'))
+    from source_inventory import source_files
+    source_paths = source_files(ROOT)
     source_hashes = {str(path.relative_to(ROOT)): sha256(path) for path in sorted(set(source_paths))}
     (output / 'source-sha256.json').write_text(json.dumps(source_hashes, indent=2) + '\n')
     def command_text(command):

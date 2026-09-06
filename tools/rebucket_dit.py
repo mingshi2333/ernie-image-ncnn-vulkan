@@ -49,11 +49,17 @@ def main():
     args.output.mkdir(parents=True)
     entries=[]
     for i,path in enumerate(args.model):
-        base=verify(path,path)[0]
-        if base['block']!=i or graph_hash((path/'block.ncnn.param').read_text(),base['tokens'])!=GRAPH_SHA256:
+        base=verify_runtime(path)
+        source_graph=(path/'block.ncnn.param').read_text()
+        if base.get('fp32_residual'):source_graph=residual_graph(source_graph,restore=True)
+        if base['block']!=i or graph_hash(source_graph,base['tokens'])!=GRAPH_SHA256:
             raise ValueError('Source block topology or order differs')
-        if base.get('weight_storage',{}).get('graph_contract_sha256')!=GRAPH_SHA256:
-            raise ValueError('Require direct lossless BF16 source with reviewed weight bindings')
+        storage=base if base.get('kind')=='inference_static_bucket' else base.get('weight_storage',{})
+        if (storage.get('graph_contract_sha256')!=GRAPH_SHA256
+            or len(storage.get('reconstructed_fp32_sha256',''))!=64):
+            raise ValueError('Require lossless BF16 source with reviewed weight bindings')
+        if i==0 and sha256(args.template/'block.ncnn.bin')!=storage['reconstructed_fp32_sha256']:
+            raise ValueError('Independent target export does not reconstruct the same FP32 weights')
         out=args.output/f'block-{i:02d}';out.mkdir()
         (out/'block.ncnn.param').write_text(graph)
         (out/'block.ncnn.bin').symlink_to((path/'block.ncnn.bin').resolve())
@@ -63,7 +69,7 @@ def main():
            'official_model_revision':base['official_model_revision'],'ncnn_revision':base['ncnn_revision'],
            'weights_sha256':base['weights_sha256'],'base_manifest_sha256':sha256(path/'model.json'),
            'template_manifest_sha256':sha256(args.template/'model.json'),'graph_contract_sha256':GRAPH_SHA256,
-           'builder_sha256':sha256(__file__),'reconstructed_fp32_sha256':base['weight_storage']['reconstructed_fp32_sha256'],
+           'builder_sha256':sha256(__file__),'reconstructed_fp32_sha256':storage['reconstructed_fp32_sha256'],
            'files':{name:sha256(out/name) for name in ('block.ncnn.param','block.ncnn.bin')}}
         (out/'model.json').write_text(json.dumps(m,indent=2)+'\n')
         entries.append(m);print(json.dumps({'block':i,'tokens':template['tokens'],'linked':True}),flush=True)
