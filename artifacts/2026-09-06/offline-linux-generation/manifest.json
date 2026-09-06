@@ -1,0 +1,130 @@
+{
+  "case.json": {
+    "sha256": "a10712f9a85c098a033c1abcf95a1d7d1f5fe69ad825becfb1cb47e8f0213e28",
+    "size": 2314
+  },
+  "check_release.py": {
+    "sha256": "4f959a945ff7496f03084b59832ae47fda0e7b8235c0a1258667ce47a7de57f3",
+    "size": 28836
+  },
+  "commands/diagnose.json": {
+    "sha256": "eabf2581a08af74e38f53019bdfa4999eb2c7f7899537d14555876d866284b92",
+    "size": 1392
+  },
+  "commands/diagnose.log": {
+    "sha256": "c2f2e2398c970ba73ffab258b46192c012182358acc64744563849b2ad8e471c",
+    "size": 1485
+  },
+  "commands/existing-output.json": {
+    "sha256": "8e6166c0f42e10b7728082dc267d75ef0b874c857b9c6a43f11dcc2ce992d297",
+    "size": 2128
+  },
+  "commands/existing-output.log": {
+    "sha256": "29509052a07e037759bca915d0e178699fde37adf05360f76d7451d55a3fcefa",
+    "size": 53
+  },
+  "commands/generate.json": {
+    "sha256": "5a81d9d0b2bb3b42a06e9721ba195b34754cfdc1c44d50cacbc67ebf0ac32545",
+    "size": 2127
+  },
+  "commands/generate.log": {
+    "sha256": "ddcea5e97b14a30921cfa7b94894499e17a8799527456865e59721c1b73d6bfb",
+    "size": 22758
+  },
+  "commands/help.json": {
+    "sha256": "60c1e081591d92437729f2de20c5200354cf226f91ce078e969ee50b7b902216",
+    "size": 1389
+  },
+  "commands/help.log": {
+    "sha256": "3ce954fb4545e768c933086ba2d9e3aded52d03608dc18d4a54a7a3706c83b9d",
+    "size": 1656
+  },
+  "commands/isolation.json": {
+    "sha256": "39f6d132ae742813c14ea9dad285bf96b685c051ffda426cceb79ef9be479e55",
+    "size": 1625
+  },
+  "commands/isolation.log": {
+    "sha256": "b14e53970bff6440da8f3471566bf195dd282138166b4e659302c634fef16c63",
+    "size": 17
+  },
+  "commands/missing-model.json": {
+    "sha256": "d693bb328f33566e539b97c664c5050b7f2e31d7bbacc3f5d2dc092b7d711cc5",
+    "size": 1483
+  },
+  "commands/missing-model.log": {
+    "sha256": "3cfa5e3ccc891c15f6a4e06df9236e57065f38302eb50c03b881ed778440a1f1",
+    "size": 39
+  },
+  "commands/no-gpu-diagnose.json": {
+    "sha256": "65f86c1244b9c53fde02aab7cec7cd49b428ecfd5e68109e68fc86695ab27aec",
+    "size": 1535
+  },
+  "commands/no-gpu-diagnose.log": {
+    "sha256": "53f7e7a1f014fad70a790a1c1480cd8b540dc8c37bc66875330f5c2f370432d8",
+    "size": 119
+  },
+  "commands/verify-model-after.json": {
+    "sha256": "71858a19d3eff4806dc834d1213e6604f4a3836634a3e58d14aa5138801b1906",
+    "size": 1480
+  },
+  "commands/verify-model-after.log": {
+    "sha256": "afa9438a6c5b5ac0a395cf417c0b21c3c4460b6f1e7fa8cebf3b863d6ceece95",
+    "size": 15
+  },
+  "commands/verify-model.json": {
+    "sha256": "2c1739c9eb24d86967cf6a52aae7862ae93153021a81b7e68954aca583bbc67d",
+    "size": 1475
+  },
+  "commands/verify-model.log": {
+    "sha256": "afa9438a6c5b5ac0a395cf417c0b21c3c4460b6f1e7fa8cebf3b863d6ceece95",
+    "size": 15
+  },
+  "draft/DRAFT-README.txt": {
+    "sha256": "495228f5a950fa045862c2a7558b9d3bd8f71abe8a0966f6f5068c325567eccb",
+    "size": 279
+  },
+  "draft/SHA256SUMS": {
+    "sha256": "c94815baeb73b37a8257fc1ea35b0a3adb37a03895e601d184a59de3ef9b52d5",
+    "size": 170
+  },
+  "draft/files.json": {
+    "sha256": "9081c867244b45ed8b9422314d486242415e82e4816a5353cf77932d1d8b6610",
+    "size": 30118
+  },
+  "draft/release.json": {
+    "sha256": "6aa0077c36263ecd54b1c6f558cdb10d9b668f949ebec41f6f78f0a632dd53ca",
+    "size": 150604
+  },
+  "files.json": {
+    "sha256": "9081c867244b45ed8b9422314d486242415e82e4816a5353cf77932d1d8b6610",
+    "size": 30118
+  },
+  "independent-review.md": {
+    "sha256": "5da192d444f65f0ada1c97f3dc1e8e390f623dc4445dbff7dcee1262079fa4d8",
+    "size": 5665
+  },
+  "large-artifacts.json": {
+    "sha256": "743dbd176900d6157de67999840174ee89c311925d0bf32448aaee8745f8f334",
+    "size": 439
+  },
+  "launcher-identity.json": {
+    "sha256": "e07d038e2c6727b8ce564490059fe0672a341ab4852c909aa6b3cc2546f03696",
+    "size": 758
+  },
+  "launcher-result.json": {
+    "sha256": "a216da97107dcd5de1c2754537b66bcb8e5ce684fa918c3d977160411fd90a5a",
+    "size": 239
+  },
+  "launcher.log": {
+    "sha256": "370919bee8abacb8ec61d53ee9c30628550450476419ce8105cea21d001e3b87",
+    "size": 68
+  },
+  "preparation.json": {
+    "sha256": "bf7e04d9eb3d01f76228c2f0ceb5b2691bbffa7429eee6f9dca1152f37b9330f",
+    "size": 27281
+  },
+  "result.json": {
+    "sha256": "303bf651e6a84cd1b796d7d36153826a460cea4e28c393ab6ba7b3c7b5fe46bf",
+    "size": 17904
+  }
+}

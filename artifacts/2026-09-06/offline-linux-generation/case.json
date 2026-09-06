@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "scope": "development_linux_offline_delivery",
+  "archive": {
+    "path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/delivery-candidate-v3/ernie-runtime-draft.tar.gz",
+    "size": 11193462,
+    "sha256": "d5810af124bac9ebc8b02874e03dfb2a2dd0f5f8b1ede6bb807eb1d2265582d1"
+  },
+  "inventory": {
+    "path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/delivery-candidate-v3/files.json",
+    "size": 30118,
+    "sha256": "9081c867244b45ed8b9422314d486242415e82e4816a5353cf77932d1d8b6610"
+  },
+  "model": {
+    "path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f2-production-img2img-package-1024-v1",
+    "manifest": {
+      "path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f2-production-img2img-package-1024-v1/manifest.json",
+      "size": 22576,
+      "sha256": "2c1d0cdf39fe4cc94f7133d6dfac97a048123a8ebc8a4a5072e4d5e48368a5ad"
+    }
+  },
+  "inputs": {
+    "prompt": {
+      "path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f2-positive05-1024x1024-v1/inputs/prompt.txt",
+      "size": 31,
+      "sha256": "a57aa1ee9a5ecd7dbbb27ebe55f1a062534f78f323e1dbae5eaaded767b1385b"
+    },
+    "latent": {
+      "path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f2-positive05-1024x1024-v1/inputs/saved-noise.f32",
+      "size": 2097152,
+      "sha256": "9e11124ff682526fcf15f2fc0cf2d8aec3be0344a6d669e5bbc5809f22d70554"
+    },
+    "image": {
+      "path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f2-positive05-1024x1024-v1/inputs/input.png",
+      "size": 24249,
+      "sha256": "1b0a823adc4cfc86befa8578d4a8369d72eff5cffd03bf201cdee45993d8c0b7"
+    }
+  },
+  "expected_png": {
+    "path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f2-positive05-1024x1024-v1/native-execution/output.png",
+    "size": 2891207,
+    "sha256": "d426ac2a82574ed330d1c0f56061f7a5aa335fc2fb87c5bf31083204a50c9e16"
+  },
+  "request": {
+    "kind": "img2img",
+    "width": 1024,
+    "height": 1024,
+    "steps": 8,
+    "strength": 0.5,
+    "threads": 2,
+    "text_down_vector": true
+  },
+  "hidden_paths": [
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan"
+  ],
+  "resources": {
+    "memory_max": 10737418240,
+    "swap_max": 0,
+    "host_min": 3221225472,
+    "timeout_seconds": 1800
+  }
+}

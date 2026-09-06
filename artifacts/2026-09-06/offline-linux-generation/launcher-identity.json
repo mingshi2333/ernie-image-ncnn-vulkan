@@ -1,0 +1,27 @@
+{
+  "argv": [
+    "systemd-run",
+    "--user",
+    "--scope",
+    "--quiet",
+    "--unit=ernie-d3-offline-img2img-1024-v3",
+    "-p",
+    "MemoryMax=10737418240",
+    "-p",
+    "MemorySwapMax=0",
+    "-p",
+    "CPUQuota=200%",
+    "taskset",
+    "-c",
+    "8,10",
+    "python3",
+    "/tmp/ernie-offline-img2img-1024-v3/check_release.py",
+    "--run",
+    "/tmp/ernie-offline-img2img-1024-v3"
+  ],
+  "checker_sha256": "4f959a945ff7496f03084b59832ae47fda0e7b8235c0a1258667ce47a7de57f3",
+  "started_utc": "2026-09-06T19:09:30Z",
+  "systemd_scope": "ernie-d3-offline-img2img-1024-v3.scope",
+  "cwd": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference",
+  "role": "development offline release generation; not performance comparison"
+}

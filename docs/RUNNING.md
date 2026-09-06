@@ -298,8 +298,14 @@ model configuration metadata. An explicit Vulkan generation request continues
 to fail. This behavior has actual CPU/Vulkan regression and relocated Linux
 installation evidence in `artifacts/2026-09-06/offline-linux-diagnostics/`.
 
-The checker and fixed 1024 strength=0.5 preparation have passed independent
-review and 16 small tests, including a real namespace isolation test. Full-model
-offline execution is recorded separately when completed. A passing local case
-never changes the release draft's redistribution or publication status; Windows,
-macOS, public download and the remaining delivery cases need their own evidence.
+The fixed 1024 strength=0.5 case has now completed actual offline generation
+with the installed Vulkan archive. All nine command outcomes match the frozen
+case, the PNG is byte-identical to the earlier native fixture, and model
+verification passes before and after generation. See the
+[execution evidence](../artifacts/2026-09-06/offline-linux-generation/README.md).
+The final model verification reached the scope's 10 GiB memory limit without
+OOM; this observation is retained and is not a memory-advantage claim. The
+checker also has 16 small tests, including a real namespace isolation test.
+A passing local case never changes the release draft's redistribution or
+publication status; Windows, macOS, public download and the remaining delivery
+cases need their own evidence.
