@@ -1,0 +1,42 @@
+#!/usr/bin/env python3
+"""Specialize the two reviewed spatial reshapes in the VAE encoder graph."""
+import argparse,json,shutil
+from pathlib import Path
+import numpy as np
+try:
+ from package_model import sha256
+ from validate_img2img_encoder import verify
+except ImportError:
+ from tools.package_model import sha256
+ from tools.validate_img2img_encoder import verify
+
+BASE_PARAM='75d493995616b451e51ddecc0dc352a3f200557baab3f98d742cc374ed6d0977'
+BASE_BIN='7fa2441a94886d9a1d44dbafe4fbac9211190e342b1cac171acb94c0faf517ce'
+
+def reviewed_dimensions(width,height):
+ if (width,height)!=(512,384):raise ValueError('Reviewed large encoder specialization is pinned to 512x384')
+
+def main():
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--template',type=Path,required=True);p.add_argument('--reference',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
+ if a.output.exists():p.error('Use a new output directory')
+ base=verify(a.template); ref=json.loads((a.reference/'fixture.json').read_text());reviewed_dimensions(ref.get('width'),ref.get('height'))
+ if sha256(a.template/'head.ncnn.param')!=BASE_PARAM or sha256(a.template/'head.ncnn.bin')!=BASE_BIN:raise ValueError('Unreviewed encoder template')
+ if (ref.get('width'),ref.get('height'))!=(512,384) or any(ref.get(k)!=base.get(k) for k in ['component','weights','official_revision','vae_config_sha256','official_source_sha256','distribution_source_sha256','posterior','packing','encoder_bn','decoder_inverse_bn_eps']):raise ValueError('Large reference identity differs')
+ for entry in [ref['rgb'],*ref['inputs'].values(),*ref['expected'].values()]:
+  path=a.reference/entry['file']; expected=int(np.prod(entry['shape']))*(1 if entry is ref['rgb'] else 4)
+  if Path(entry['file']).name!=entry['file'] or path.stat().st_size!=expected or sha256(path)!=entry['sha256']:raise ValueError('Large reference tensor identity differs')
+ lines=(a.template/'head.ncnn.param').read_text().splitlines(); changes=[]
+ expected={'reshape_77':['0=16','1=512'],'reshape_78':['0=4','1=4','2=512']}
+ replacements={'reshape_77':['0=3072','1=512'],'reshape_78':['0=64','1=48','2=512']}
+ for i,line in enumerate(lines):
+  parts=line.split()
+  if parts and parts[0]=='Reshape':
+   if parts[1] not in expected or parts[6:]!=expected[parts[1]]:raise ValueError('Unreviewed encoder reshape')
+   changed=' '.join(parts[:6]+replacements[parts[1]]);changes.append({'before':line,'after':changed});lines[i]=changed
+ if len(changes)!=2:raise ValueError('Expected exactly two encoder reshapes')
+ a.output.mkdir();(a.output/'head.ncnn.param').write_text('\n'.join(lines)+'\n');(a.output/'head.ncnn.bin').symlink_to((a.template/'head.ncnn.bin').resolve())
+ for name in ['fixture.json','input.rgb','in0.f32','out0.f32','out1.f32','out2.f32']:(a.output/name).symlink_to((a.reference/name).resolve())
+ conversion={'method':'reviewed_encoder_spatial_reshape_specialization','changes':changes,'template_param_sha256':BASE_PARAM,'template_bin_sha256':BASE_BIN,'reference_fixture_sha256':sha256(a.reference/'fixture.json')}
+ (a.output/'conversion.json').write_text(json.dumps(conversion,indent=2)+'\n')
+ print(json.dumps({'output':str(a.output),'param_sha256':sha256(a.output/'head.ncnn.param'),'changes':len(changes)}))
+if __name__=='__main__':main()
