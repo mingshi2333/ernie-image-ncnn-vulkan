@@ -62,9 +62,11 @@ The supervisor contract is MemoryMax 10 GiB, MemorySwapMax 0, CPUs 4 and 6, a co
 Authorization hashes at preparation time:
 
 - plan: `df0325ac89687b6f29065eaf43b19481be8e2567e71b2194d373c3c8509fc4c9`
-- worker: `1bdee9fe128ea7da74d8fe8a22d383fbd95d31ab33af8928e729c482d8eea383`
-- supervisor: `baba17d3b10c1582f3b9d38f9ab82b230c1b206b207e428c9bdbbcad9546f564`
-- launcher: `9021309a41cc4fe8dcddba4293acae20ac287e7ddb1bd6c0946ac4edc29d8068`
+- worker: `0f528f8caddad677c4a1c1d422738c1247b9e366f22456bb2fe3e192c777e39b`
+- supervisor: `b1e660e6fc8391bad9ab394a1c47c49aa24c8be93b9d52305f5fba1ee49a822f`
+- launcher: `a0f69d8e6d464d56c1c29c86e86fe7c2343edb279923dc482bddc4a9e1a27b59`
 - comparator: `c33eb2b83fc2b049eabb419cfd34c93ed4e8531a057775a3cdb88ec142bbebbe`
 
 The frozen status remains `prepared_not_executed`. No model or GPU process was started. Independent preparation review and root scheduling remain required before execution.
+
+Preparation review found that the first supervisor revision created `samples.jsonl` before the worker started while the worker also rejected that supervisor-owned file, making every authorized launch fail before inference. The corrected supervisor rejects its own `supervisor.log`, `samples.jsonl`, and `process.json` before opening them; the worker rejects only CLI-owned `native.png`, `metrics.json`, `driver.log`, and `trace`. The launcher, worker, and supervisor hashes above identify this corrected revision. No execution was attempted with the invalid preparation.
