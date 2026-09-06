@@ -34,3 +34,7 @@ bound 5885 bad 0
 ```
 
 结论：数学映射、固定输入/模型身份、layout、旧基线前置条件和完整调用分母均可支持这一单一诊断。正式GPU执行仍需先关闭I1；即使后续完成也只是matched-input诊断，不是production/formal acceptance或中文自由运行质量通过。
+
+## 修复复核
+
+提交`a599abf`新增单向外层launcher，没有改写原v2 worker、plan、输入或数学。launcher SHA `07c879d...`作为独立审批身份；其内容在内存中先由外层命令核SHA再执行。launcher在创建任何子进程前固定验证worker `2ac4e0c...`与plan `c7447c...`，避免plan/worker循环自证。独立核对identity三个SHA均与实际文件一致；两项CPU负例分别篡改worker和plan，均在`subprocess.run`调用前拒绝，2/2 PASS。I1已关闭，准备态无剩余Critical/Important；GPU仍未由本审查启动。
