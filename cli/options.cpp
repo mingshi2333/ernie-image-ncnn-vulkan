@@ -66,11 +66,12 @@ const char *usage()
            "            [--pe-model DIR] [--pe-max-tokens N] [--pe-greedy]\n"
            "            [--pe-temperature N] [--pe-top-p N] [--pe-seed N]\n"
            "            [--latent FILE.f32] [--embeddings FILE.f32] [--trace-dir NEWDIR]\n"
+           "            [--input IMAGE --strength 0..1 [--resize stretch|fit|crop] [--background #RRGGBB]]\n"
            "ernie-image (--model DIR | --pe-model DIR) --verify-model\n"
            "ernie-image [--model DIR] --diagnose\n"
            "Text-to-image: ernie-image --model model --prompt cat --output cat.png\n"
            "PE: ernie-image --model model --prompt cat --pe-model pe --pe-greedy --output cat.jpg\n"
-           "Img2img options --input/--strength/--resize/--background are reserved until F2 is available.\n"
+           "Img2img: ernie-image --model model --input source.jpg --prompt style --width 512 --height 384 --resize fit --output result.png\n"
            "Resolution defaults to a sole model instance; shared packages require a supported width/height.\n"
            "Prompt files: UTF-8, optional BOM, at most 1 MiB; whitespace is preserved.\n"
            "PE is optional CPU FP32, with up to 2048 output tokens by default.\n"
@@ -153,6 +154,7 @@ Options parse_options(int argc, char **argv)
         {
             out.background = color(value);
             background_option = true;
+            out.background_explicit = true;
         }
         else if (flag == "--resize")
         {
@@ -260,8 +262,13 @@ Options parse_options(int argc, char **argv)
         throw std::invalid_argument("Only --text-device cpu is currently supported");
     if (!out.verify_only && !out.output.empty())
         output_extension(out.output);
+    const bool prompt_optional = !out.input.empty() && r.strength == 0.f;
+    if (prompt_optional && (have_prompt || !r.pe_model.empty() || !r.embeddings.empty() || r.text_down_vector))
+        throw std::invalid_argument("Strength-zero img2img does not consume prompt, PE, embeddings, or text reduction");
+    if (!out.resize.empty() && (!r.width || !r.height))
+        throw std::invalid_argument("--resize requires explicit --width and --height");
     if ((r.model.empty() && !(out.verify_only && !r.pe_model.empty())) ||
-        (!out.verify_only && (out.output.empty() || !have_prompt || fs::exists(out.output))) ||
+        (!out.verify_only && (out.output.empty() || (!have_prompt && !prompt_optional) || fs::exists(out.output))) ||
         (!r.trace.empty() && fs::exists(r.trace)) || (r.device != "cpu" && r.device != "vulkan") ||
         (r.precision != "fp32" && r.precision != "fp16" && r.precision != "bf16") ||
         (r.device == "cpu" && r.precision != "fp32") || (r.vae_device != "cpu" && r.vae_device != "vulkan") ||

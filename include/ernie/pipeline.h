@@ -2,6 +2,7 @@
 #pragma once
 #include <cstddef>
 #include <cstdint>
+#include <array>
 #include <functional>
 #include <optional>
 #include <string>
@@ -39,9 +40,13 @@ struct GenerationRequest
     int threads = 4;
     int gpu_index = -1; // -1 selects ncnn's default Vulkan device.
     std::string text_device = "cpu";
-    std::optional<RgbImage> input_image; // Reserved until the F2 img2img runtime is connected.
+    std::optional<RgbImage> input_image;
     float strength = .5f;
     bool text_down_vector = false; // Opt-in FP32 reduction candidate; independently exported 64/2048 buckets.
+    // Informational img2img preprocessing identity. API callers normally use
+    // "none" because their RGB buffer already has the requested dimensions.
+    std::string input_resize = "none";
+    std::array<uint8_t, 3> input_background{255, 255, 255};
 };
 
 struct GenerationResult

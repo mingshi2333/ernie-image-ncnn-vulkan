@@ -259,6 +259,51 @@ void write_image(const std::filesystem::path &path, const RgbImage &rgb)
     save_new(path, encoded);
 }
 
+RgbImage resize_image(const RgbImage &source, int width, int height, const std::string &mode,
+                      const std::array<uint8_t, 3> &background)
+{
+    image_bytes(source.width, source.height, 3);
+    if (source.pixels.size() != size_t(source.width) * source.height * 3)
+        throw std::invalid_argument("Invalid source RGB image");
+    image_bytes(width, height, 3);
+    if (mode != "stretch" && mode != "fit" && mode != "crop")
+        throw std::invalid_argument("Resize mode must be stretch, fit, or crop");
+    int scaled_width = width, scaled_height = height, offset_x = 0, offset_y = 0;
+    if (mode != "stretch")
+    {
+        const double sx = double(width) / source.width, sy = double(height) / source.height;
+        const double scale = mode == "fit" ? std::min(sx, sy) : std::max(sx, sy);
+        scaled_width = std::max(1, int(std::lround(source.width * scale)));
+        scaled_height = std::max(1, int(std::lround(source.height * scale)));
+        offset_x = (width - scaled_width) / 2;
+        offset_y = (height - scaled_height) / 2;
+    }
+    RgbImage result{width, height, std::vector<uint8_t>(image_bytes(width, height, 3))};
+    for (size_t i = 0; i < result.pixels.size(); i += 3)
+        std::copy(background.begin(), background.end(), result.pixels.begin() + i);
+    const int x0 = std::max(0, offset_x), y0 = std::max(0, offset_y);
+    const int x1 = std::min(width, offset_x + scaled_width), y1 = std::min(height, offset_y + scaled_height);
+    for (int y = y0; y < y1; ++y)
+        for (int x = x0; x < x1; ++x)
+        {
+            const float fx = (float(x - offset_x) + .5f) * source.width / scaled_width - .5f;
+            const float fy = (float(y - offset_y) + .5f) * source.height / scaled_height - .5f;
+            const int ax = std::clamp(int(std::floor(fx)), 0, source.width - 1);
+            const int ay = std::clamp(int(std::floor(fy)), 0, source.height - 1);
+            const int bx = std::min(ax + 1, source.width - 1), by = std::min(ay + 1, source.height - 1);
+            const float wx = std::clamp(fx - std::floor(fx), 0.f, 1.f);
+            const float wy = std::clamp(fy - std::floor(fy), 0.f, 1.f);
+            for (int c = 0; c < 3; ++c)
+            {
+                auto pixel = [&](int px, int py) { return source.pixels[(size_t(py) * source.width + px) * 3 + c]; };
+                const float top = pixel(ax, ay) * (1.f - wx) + pixel(bx, ay) * wx;
+                const float bottom = pixel(ax, by) * (1.f - wx) + pixel(bx, by) * wx;
+                result.pixels[(size_t(y) * width + x) * 3 + c] = uint8_t(std::lround(top * (1.f - wy) + bottom * wy));
+            }
+        }
+    return result;
+}
+
 void write_png(const std::filesystem::path &path, const RgbImage &rgb)
 {
     if (extension(path) != ".png")

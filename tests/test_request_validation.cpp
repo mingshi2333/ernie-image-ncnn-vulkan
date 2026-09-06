@@ -63,8 +63,10 @@ int main()
                      r.width = r.height = 16;
                      r.input_image = ernie::RgbImage{2, 2, std::vector<uint8_t>(12)};
                  });
-        rejected("unsupported until the F2",
-                 [](auto &r) { r.input_image = ernie::RgbImage{2, 2, std::vector<uint8_t>(12)}; });
+        rejected("does not consume",
+                 [](auto &r) { r.input_image = ernie::RgbImage{2, 2, std::vector<uint8_t>(12)}; r.strength=0.f; });
+        rejected("CPU-only",
+                 [](auto &r) { r.input_image=ernie::RgbImage{2,2,std::vector<uint8_t>(12)};r.vae_device="vulkan"; });
         std::cout
             << "Request validation rejects invalid and unavailable configurations before model loading\n";
         return 0;

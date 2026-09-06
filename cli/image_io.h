@@ -8,5 +8,7 @@ namespace ernie::cli
 RgbImage read_image(const std::filesystem::path &path,
                     const std::array<uint8_t, 3> &background = {255, 255, 255});
 void write_image(const std::filesystem::path &path, const RgbImage &image);
+RgbImage resize_image(const RgbImage &image, int width, int height, const std::string &mode,
+                      const std::array<uint8_t, 3> &background = {0, 0, 0});
 void write_png(const std::filesystem::path &path, const RgbImage &image);
 }

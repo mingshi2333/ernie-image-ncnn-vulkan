@@ -2,6 +2,8 @@
 #include "conditioning.h"
 #include "denoiser.h"
 #include "gpu_context.h"
+#include "image_encoder.h"
+#include "img2img.h"
 #include "model_package.h"
 #include "prompt_enhancer.h"
 #include "tensor_io.h"
@@ -73,7 +75,12 @@ void validate_request(const GenerationRequest &r)
             throw std::invalid_argument("Input image must contain exactly width*height*3 RGB bytes");
         if (r.width && (r.width != image.width || r.height != image.height))
             throw std::invalid_argument("Input image dimensions differ from the requested resolution");
-        throw std::invalid_argument("Img2img generation is unsupported until the F2 runtime is integrated");
+        if (r.input_resize != "none" && r.input_resize != "stretch" && r.input_resize != "fit" && r.input_resize != "crop")
+            throw std::invalid_argument("Invalid img2img resize identity");
+        if (r.vae_device != "cpu")
+            throw std::invalid_argument("The reviewed img2img VAE encoder is CPU-only");
+        if (r.strength == 0.f && (!r.prompt.empty() || !r.pe_model.empty() || !r.embeddings.empty() || r.text_down_vector))
+            throw std::invalid_argument("Strength-zero img2img does not consume prompt, PE, embeddings, or text reduction");
     }
 }
 void trace_text(const fs::path &path, const std::string &text)
@@ -104,7 +111,8 @@ RgbImage rgb_image(const ncnn::Mat &decoded)
     return image;
 }
 ncnn::Mat run_dit(const ModelPackage &package, const ncnn::Mat &initial, const std::vector<ncnn::Mat> &constants,
-                  const ncnn::Option &cpu, const GenerationRequest &request, const ProgressCallback &notify)
+                  const ncnn::Option &cpu, const GenerationRequest &request, const ProgressCallback &notify,
+                  int start_step = 0)
 {
     const auto &backend = request.device, &precision = request.precision;
     const int steps = request.steps;
@@ -115,10 +123,12 @@ ncnn::Mat run_dit(const ModelPackage &package, const ncnn::Mat &initial, const s
     for (int i = 0; i < 36; ++i)
         dit.blocks.push_back(package.component("dit/" + numbered("block-", i) + "/block.ncnn.param", "dit"));
     std::vector<ernie::DenoiseStepStats> stats;
+    const int executed_steps = steps - start_step;
     auto progress = [&](size_t i)
     {
         if (notify)
-            notify({"denoise", int(i + 1), steps, stats.at(i).elapsed_seconds});
+            notify({"denoise", int(i) - start_step + 1, executed_steps,
+                    stats.at(i - size_t(start_step)).elapsed_seconds});
     };
     ncnn::Mat latent;
     if (backend == "cpu")
@@ -132,7 +142,7 @@ ncnn::Mat run_dit(const ModelPackage &package, const ncnn::Mat &initial, const s
                                         write_tensor(trace / ("step-" + std::to_string(i) + ".f32"), sample);
                                     }
                                     progress(i);
-                                });
+                                }, start_step);
     else
     {
 #if NCNN_VULKAN
@@ -185,7 +195,7 @@ ncnn::Mat run_dit(const ModelPackage &package, const ncnn::Mat &initial, const s
                                    write_tensor(trace / ("step-" + std::to_string(i) + ".f32"), x);
                                }
                                progress(i);
-                           });
+                           }, start_step);
         ncnn::VkCompute download(device);
         download.record_download(gpu_latent, latent, high);
         check(download.submit_and_wait(), "Download final latent");
@@ -219,11 +229,15 @@ GenerationResult generate(const GenerationRequest &r, const ProgressCallback &no
 {
     validate_request(r);
     const auto start = Clock::now();
+    const bool img2img = r.input_image.has_value();
+    const bool denoise_image = img2img && r.strength > 0.f;
+    const int request_width = r.width ? r.width : (img2img ? r.input_image->width : 0);
+    const int request_height = r.height ? r.height : (img2img ? r.input_image->height : 0);
     // Initialize and validate the selected device before parsing model metadata
     // or loading PE/text/image weights.
-    GpuContext gpu(r.device == "vulkan" || r.vae_device == "vulkan", r.gpu_index);
+    GpuContext gpu(((!img2img || denoise_image) && r.device == "vulkan") || r.vae_device == "vulkan", r.gpu_index);
     const fs::path trace(r.trace);
-    const ModelPackage package(r.model, r.width, r.height);
+    const ModelPackage package(r.model, request_width, request_height);
     const auto cfg = package.config();
     const int w = cfg.packed_width, h = cfg.packed_height, bucket = cfg.text_bucket;
     if (r.text_down_vector && bucket != 64 && bucket != 2048)
@@ -234,6 +248,52 @@ GenerationResult generate(const GenerationRequest &r, const ProgressCallback &no
         fs::create_directories(trace);
     GenerationResult result;
     result.prompt = r.prompt;
+    ncnn::Option cpu;
+    cpu.num_threads = r.threads;
+    cpu.use_vulkan_compute = false;
+    cpu.use_fp16_storage = cpu.use_fp16_packed = cpu.use_fp16_arithmetic = cpu.use_bf16_storage =
+        cpu.use_bf16_packed = false;
+    cpu.use_sgemm_convolution = false;
+    cpu.use_winograd_convolution = false;
+    ncnn::Mat encoded;
+    double encoder_seconds=0;
+    if (img2img)
+    {
+        if (!package.has_file("vae/encoder.ncnn.param") || !package.has_file("vae/encoder.ncnn.bin"))
+            throw std::invalid_argument("Selected model package has no reviewed img2img encoder");
+        const auto encoder_start=Clock::now();
+        const auto encoding=encode_vae(package.component("vae/encoder.ncnn.param","vae-encoder"),*r.input_image,cpu);
+        encoder_seconds=elapsed(encoder_start);
+        encoded=encoding.normalized;
+        if (!trace.empty())
+        {
+            std::ofstream input(trace / "input.rgb",std::ios::binary);
+            if (!input.write(reinterpret_cast<const char *>(r.input_image->pixels.data()),
+                             std::streamsize(r.input_image->pixels.size())))
+                throw std::runtime_error("Cannot write img2img input trace");
+            trace_text(trace / "img2img.txt", "width=" + std::to_string(r.input_image->width) +
+                       "\nheight=" + std::to_string(r.input_image->height) + "\nstrength=" +
+                       std::to_string(r.strength) + "\nresize=" + r.input_resize + "\nbackground=" +
+                       std::to_string(r.input_background[0]) + "," + std::to_string(r.input_background[1]) +
+                       "," + std::to_string(r.input_background[2]) + "\n");
+            write_tensor(trace / "encoder-mean.f32",encoding.mean);
+            write_tensor(trace / "encoder-packed.f32",encoding.packed);
+            write_tensor(trace / "encoder-normalized.f32",encoded);
+        }
+        if (!denoise_image)
+        {
+            const auto mean=read_tensor(package.file("vae/bn-mean.f32"),128),
+                       variance=read_tensor(package.file("vae/bn-variance.f32"),128);
+            const auto unpacked=unpack_for_vae(encoded,mean,variance,r.threads);
+            const auto vae_start=Clock::now();
+            const auto decoded=decode_vae(package.component("vae/head.ncnn.param","vae"),unpacked,cpu,
+                                          r.vae_device,r.vae_convolution,r.gpu_index);
+            if (decoded.w!=w*16 || decoded.h!=h*16)throw std::runtime_error("Decoded resolution differs from model");
+            if (!trace.empty()){write_tensor(trace/"final.f32",encoded);write_tensor(trace/"unpacked.f32",unpacked);write_tensor(trace/"decoded.f32",decoded);}
+            result.image=rgb_image(decoded);result.vae_seconds=encoder_seconds+elapsed(vae_start);result.elapsed_seconds=elapsed(start);
+            return result;
+        }
+    }
     if (!r.pe_model.empty())
     {
         const auto enhanced = enhance_prompt(
@@ -272,11 +332,6 @@ GenerationResult generate(const GenerationRequest &r, const ProgressCallback &no
             tokens += std::to_string(id) + '\n';
         trace_text(trace / "ids.txt", tokens);
     }
-    ncnn::Option cpu;
-    cpu.num_threads = r.threads;
-    cpu.use_vulkan_compute = false;
-    cpu.use_fp16_storage = cpu.use_fp16_packed = cpu.use_fp16_arithmetic = cpu.use_bf16_storage =
-        cpu.use_bf16_packed = false;
     ncnn::Mat text;
     const auto text_start = Clock::now();
     if (!r.embeddings.empty())
@@ -301,31 +356,39 @@ GenerationResult generate(const GenerationRequest &r, const ProgressCallback &no
     const auto rotary =
         dit_constants(package.file("dit/rope-inv-freq.f32"), w, h, int(ids.size()), cfg.dit_text_tokens);
     const std::vector<ncnn::Mat> constants{padded, rotary[0], rotary[1], rotary[2]};
-    ncnn::Mat initial;
+    ncnn::Mat noise;
     if (!r.latent.empty())
-        initial = read_tensor(r.latent, w, h, 128);
+        noise = read_tensor(r.latent, w, h, 128);
     else
     {
-        initial.create(w, h, 128);
-        if (initial.empty())
+        noise.create(w, h, 128);
+        if (noise.empty())
             throw std::bad_alloc();
         std::mt19937 engine(r.seed);
         std::normal_distribution<float> normal(0.f, 1.f);
         for (int c = 0; c < 128; ++c)
         {
-            float *values = initial.channel(c);
+            float *values = noise.channel(c);
             for (int j = 0; j < w * h; ++j)
                 values[j] = normal(engine);
         }
     }
+    int start_step=0;
+    ncnn::Mat initial=noise;
+    if (denoise_image)
+    {
+        auto image_start=make_img2img_start(encoded,noise,FlowSchedule::turbo(r.steps),r.strength,r.threads);
+        initial=image_start.latent;start_step=image_start.start_step;
+    }
     if (!trace.empty())
     {
+        if (denoise_image)write_tensor(trace / "noise.f32",noise);
         write_tensor(trace / "initial.f32", initial);
         write_tensor(trace / "padded-text.f32", padded);
         for (size_t i = 0; i < rotary.size(); ++i)
             write_tensor(trace / ("constant-" + std::to_string(i) + ".f32"), rotary[i]);
     }
-    const auto latent = run_dit(package, initial, constants, cpu, r, notify);
+    const auto latent = run_dit(package, initial, constants, cpu, r, notify, start_step);
     const auto mean = read_tensor(package.file("vae/bn-mean.f32"), 128),
                variance = read_tensor(package.file("vae/bn-variance.f32"), 128);
     const auto unpacked = unpack_for_vae(latent, mean, variance, r.threads);
@@ -343,7 +406,7 @@ GenerationResult generate(const GenerationRequest &r, const ProgressCallback &no
     if (!trace.empty())
         write_tensor(trace / "decoded.f32", decoded);
     result.image = rgb_image(decoded);
-    result.vae_seconds = elapsed(vae_start);
+    result.vae_seconds = encoder_seconds + elapsed(vae_start);
     result.elapsed_seconds = elapsed(start);
     return result;
 }

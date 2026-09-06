@@ -29,6 +29,8 @@ ernie-image-ncnn-vulkan/
 │   ├── conditioning.*       # 文本补齐、DiT RoPE 和 mask
 │   ├── denoiser.* / dit.*   # 去噪调度和一轮 DiT
 │   ├── block_sequence.*     # 分块加载和设备激活传递
+│   ├── image_encoder.*      # 已认证 encoder 图的 RGB→mean/packed/normalized
+│   ├── img2img.*            # strength、保存噪声和原始 schedule suffix
 │   ├── vae.* / latent_ops.* # VAE 解码、latent 打包与 Euler
 │   ├── ernie_*.{h,cpp}      # 经验证的 ncnn 算子与精度修正
 │   ├── model_config.*       # 静态包尺寸与模型契约
@@ -54,7 +56,8 @@ ernie-image-ncnn-vulkan/
 flowchart LR
     A[CLI 或其他 C++ 应用] --> B[ernie::generate]
     B --> C[模型包校验]
-    C --> D[可选 CPU PE]
+    C --> J[可选 VAE encoder]
+    J --> D[可选 CPU PE]
     D --> E[CPU 文本编码]
     E --> F[DiT 与 Euler]
     F --> G[VAE 解码]
@@ -66,7 +69,7 @@ flowchart LR
 
 PE 的 26 层和缓存全部释放后才开始图像文本编码；文本权重在 DiT 前释放；DiT 权重在 VAE 前释放。`PeSession` 只管理缓存，不负责模板、分词或采样。单 token 图使用原生不透明缓存句柄和独立 allocator，prefill 按实际 token 顺序执行，不把 padding 写入历史。
 
-图像模型包由 `ModelPackage` 在 Rust 层完整验证，随后以 `ComponentFiles` 传递内存中的图文本与权重文件路径。文本编码、DiT heads/blocks 和 VAE 解码使用同一加载边界；组件不解析 JSON，也不负责查找包。旧 probes 的目录参数通过适配器进入同一加载器。schema-3 将已审查的 512×384/s2048 与 1024×1024/s64 实例绑定到共享对象；不生成临时 param，不按尺寸复制权重。多实例生成必须指定宽高，未审查尺寸仍被拒绝。原生连接已实现，实际共享包完整图像的质量证据须单独取得，不能从静态包或小加载测试推定。
+图像模型包由 `ModelPackage` 在 Rust 层完整验证，随后以 `ComponentFiles` 传递内存中的图文本与权重文件路径。文本编码、DiT heads/blocks、VAE encoder 和 VAE 解码使用同一加载边界；组件不解析 JSON，也不负责查找包。旧 probes 的目录参数通过适配器进入同一加载器。schema-3 将已审查的 512×384/s2048 与 1024×1024/s64 实例绑定到共享对象；不生成临时 param，不按尺寸复制权重。当前只有 512×384 实例允许附加经固定证据认证的 encoder，旧包继续显式报告 encoder unavailable，1024 和其他未审查形状拒绝图生图。多实例生成必须指定宽高。原生连接已实现，实际共享包完整图像的质量证据须单独取得，不能从静态包或小加载测试推定。
 
 构建依赖为 `ernie-image → ernie::pipeline → ernie-runtime / ernie-pe / ernie-tokenizer`。只有 CLI 链接 libpng。公共接口头文件只依赖 C++ 标准库。`tests/test_pipeline_api.cpp` 作为外部调用者编译，不包含私有 ncnn 头。
 

@@ -91,6 +91,17 @@ int main()
                 "Default white alpha composition differs");
         require(ernie::cli::read_image(alpha, {0,0,0}).pixels == std::vector<uint8_t>({128,0,0,0,0,0}),
                 "Explicit alpha background differs");
+        const ernie::RgbImage wide{2,1,{255,0,0,0,0,255}};
+        const auto fitted=ernie::cli::resize_image(wide,4,4,"fit",{3,4,5});
+        require(fitted.width==4 && fitted.height==4 && fitted.pixels[0]==3 && fitted.pixels[1]==4 && fitted.pixels[2]==5,
+                "Fit resize did not letterbox with the explicit background");
+        require(fitted.pixels[(size_t(1)*4)*3]!=3,"Fit resize omitted centered content");
+        const ernie::RgbImage solid{1,1,{9,17,33}};
+        require(ernie::cli::resize_image(solid,3,2,"stretch").pixels==std::vector<uint8_t>({9,17,33,9,17,33,9,17,33,9,17,33,9,17,33,9,17,33}),
+                "Stretch resize changed a constant image");
+        const auto cropped=ernie::cli::resize_image(wide,1,2,"crop");
+        require(cropped.width==1 && cropped.height==2 && cropped.pixels.size()==6,"Crop resize shape differs");
+        require_error([&]{ernie::cli::resize_image(wide,4,4,"implicit");},"Unknown resize mode accepted");
 
         const auto unicode = root / u8"中文图像.tga";
         ernie::cli::write_image(unicode, source);

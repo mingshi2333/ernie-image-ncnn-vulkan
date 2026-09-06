@@ -186,14 +186,16 @@ def build_shared_package(sources,output,encoder=None):
     contract=shared_contract()
     for source in sources:
         if sha256(Path(source)/'manifest.json') not in contract['source_manifests']:raise ValueError('Unknown schema-3 source')
+    encoder_verified=None
+    if encoder is not None:
+        if len(sources)!=1:raise ValueError('Reviewed encoder packages contain exactly one static instance')
+        encoder_verified=reviewed_encoder(contract,sha256(Path(sources[0])/'manifest.json'),encoder)
     candidate=build_candidate(sources,output)
     m={k:contract[k] for k in ['schema_version','format','math','encoder','generation_quality_status']}
     m.update(instances=candidate['instances'],objects=candidate['objects'])
     output=Path(output)
     if encoder is not None:
-        if len(candidate['instances'])!=1:raise ValueError('Reviewed encoder packages contain exactly one static instance')
-        source_digest=candidate['instances'][0]['source_manifest_sha256']
-        trusted,encoder_sources=reviewed_encoder(contract,source_digest,encoder)
+        trusted,encoder_sources=encoder_verified
         for logical,path in encoder_sources.items():
             digest=trusted['files'][logical]['sha256'];target=output/'objects'/digest
             if not target.exists():shutil.copyfile(path,target)

@@ -9,7 +9,7 @@ int main(int argc, char **argv)
     try
     {
         const auto options = ernie::cli::parse_options(argc, argv);
-        const auto &request = options.generation;
+        auto request = options.generation;
         if (options.help)
         {
             std::cout << ernie::cli::usage();
@@ -47,8 +47,19 @@ int main(int argc, char **argv)
             return 0;
         }
         if (!options.input.empty())
-            throw std::invalid_argument("--input is recognized, but img2img generation is unsupported until "
-                                        "the F2 runtime is integrated");
+        {
+            auto image = ernie::cli::read_image(options.input, options.background);
+            if (!options.resize.empty())
+            {
+                const std::array<uint8_t, 3> fill = options.background_explicit
+                                                        ? options.background
+                                                        : std::array<uint8_t, 3>{0, 0, 0};
+                image = ernie::cli::resize_image(image, request.width, request.height, options.resize, fill);
+                request.input_resize = options.resize;
+                request.input_background = fill;
+            }
+            request.input_image = std::move(image);
+        }
         const auto result = ernie::generate(
             request,
             [&](const ernie::Progress &p)

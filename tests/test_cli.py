@@ -88,10 +88,22 @@ class CliTests(unittest.TestCase):
         self.assertIn('Cannot open model package', self.request('--prompt', 'cat', '--device', 'cpu',
                                                           '--precision', 'fp32', '--text-down-vector'))
 
-    def test_img2img_is_recognized_but_fail_closed(self):
-        self.assertIn('unsupported until the F2', self.request('--prompt', 'cat', '--input', 'missing.jpg',
-                                                               '--strength', '.5', '--resize', 'fit',
-                                                               '--background', '#102030'))
+    def test_img2img_reads_input_before_model_loading(self):
+        self.assertIn('inaccessible', self.request('--prompt', 'cat', '--input', 'missing.jpg',
+                                                  '--strength', '.5', '--width','512','--height','384',
+                                                  '--resize', 'fit', '--background', '#102030'))
+
+    def test_resize_requires_explicit_target(self):
+        self.assertIn('explicit --width',self.request('--prompt','cat','--input','missing.jpg','--resize','fit'))
+
+    def test_strength_zero_does_not_require_prompt(self):
+        with tempfile.TemporaryDirectory() as folder:
+            result=subprocess.run([str(RUNNER),'--model',str(Path(folder)/'absent'),'--input','missing.png',
+                                   '--strength','0','--output',str(Path(folder)/'new.png')],text=True,capture_output=True,timeout=10)
+        self.assertNotEqual(result.returncode,0);self.assertIn('inaccessible',result.stderr)
+
+    def test_strength_zero_rejects_unused_prompt_or_pe(self):
+        self.assertIn('does not consume',self.request('--input','missing.png','--strength','0','--prompt','cat'))
 
     def test_img2img_only_options_require_input(self):
         self.assertIn('require --input', self.request('--prompt', 'cat', '--strength', '.5'))

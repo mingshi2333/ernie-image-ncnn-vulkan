@@ -179,6 +179,47 @@ Existing output files and trace directories are rejected. Prompts longer than
 the selected text bucket are rejected rather than silently shortened to that
 bucket. The official tokenizer's 2048-token maximum still applies.
 
+## Reviewed image-to-image package and CLI
+
+Schema-3 packages remain text-to-image compatible when their `encoder` entry is
+`unavailable`. The single reviewed 512x384 encoder can be added while assembling
+its matching static source:
+
+```sh
+python tools/package_dynamic_model.py --schema3 \
+  --source models/turbo512x384-s2048-portable \
+  --encoder outputs/img2img-encoder-512x384-specialized-v1 \
+  --output models/turbo512x384-img2img-shared
+build/ernie-image --model models/turbo512x384-img2img-shared --verify-model
+```
+
+The builder checks the exact encoder graph, weights, official fixture,
+specialization record, source manifests, posterior mode, packing and asymmetric
+BN constants before copying encoder bytes into the package object store. The
+reviewed shape is only 512x384; 1024 and arbitrary encoder claims are rejected.
+
+```sh
+build/ernie-image --model models/turbo512x384-img2img-shared \
+  --input source.jpg --prompt 'Preserve the composition, watercolor style.' \
+  --width 512 --height 384 --resize fit --strength .5 \
+  --seed 42 --steps 8 --output outputs/img2img-new.png
+build/ernie-image --model models/turbo512x384-img2img-shared \
+  --input source.png --width 512 --height 384 --resize crop \
+  --strength 0 --output outputs/reconstruction-new.png
+```
+
+Without `--resize`, input dimensions must equal the selected model dimensions.
+`stretch` changes both axes, `fit` preserves aspect ratio and adds centered bars
+(black unless `--background` is supplied), and `crop` preserves aspect ratio
+with a centered crop. Alpha composition defaults to white; `--background
+#RRGGBB` changes it explicitly. Strength zero performs only VAE encode/decode
+and accepts no prompt, PE, embeddings or text reduction. Positive strength uses
+the saved `--latent` as noise when supplied and executes a suffix of the original
+full schedule. A trace stores the transformed RGB, preprocessing metadata,
+encoder boundaries, saved noise and absolute schedule step filenames. The
+15-case image-to-image acceptance matrix remains pending; current evidence covers
+one 512x384 development reconstruction.
+
 The build workflow checks CPU and software Vulkan kernels and the corruption/relocation
 contracts without downloading weights. It has been prepared locally; a GitHub
 Actions run has not been performed for this change. Real-weight quality acceptance runs
