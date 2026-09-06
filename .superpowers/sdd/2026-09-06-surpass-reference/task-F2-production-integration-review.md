@@ -56,3 +56,14 @@ exit 101
 - 本次没有执行正式encoder/decoder、PE、text、DiT或完整GPU模型，也没有验证formal15。作者准备的真实strength0以及positive图生图完整质量均属于后续独立证据。
 
 O1 GPU放行后临时执行了本agent的allocator小合同，不属于F2质量验证；其单独报告保留失败与修复记录。
+
+## 修复后闭环复核 — f04b35f
+
+作者提交 `f04b35f` 后，本review再次从该commit导出源码到独立 `outputs/f2-production-review-v2`，没有使用正在编辑中的生产文件替换失败快照。
+
+- Rust在实例遍历后检查 `encoder_source` 是否属于 `seen`。原同一未绑定source的独立测试现在输出 `UNBOUND_ENCODER_ACCEPTED=false`，隔离Rust3/3通过。
+- Python在合成manifest上执行同语义的未绑定available encoder检查，输出 `UNBOUND_ENCODER_ACCEPTED=false Unreviewed schema-3 encoder`。跨语言拒绝边界一致。
+- resize分别clamp原floor坐标的两端，原2→4双色测试现在输出 `[255,0,0],[191,0,64],[64,0,191],[0,0,255]`，exit0。顶部使用相同对称修复逻辑，代码审查确认不再从clamped起点推导第二邻点。
+- v1/v2各有完整源/二进制/日志散列清单 `identity.json`，原失败证据未覆盖。
+
+**R1、R2在f04b35f下均已独立闭合，本次审查没有剩余具体实现阻断。**这仍不是正式图生图质量验收：真实生产strength0、positive完整运行与formal15由其他实际证据承担，本文没有把小合同外推为完成F2全部目标。
