@@ -105,3 +105,28 @@ evidence-only function was removed. Other shapes remain rejected.
 instance and 80 shared objects; manifest SHA-256 is
 `2c1d0cdf39fe4cc94f7133d6dfac97a048123a8ebc8a4a5072e4d5e48368a5ad`. Generation quality remains pending.
 The subsequent 1024 strength-zero production execution is intentionally reported separately after review.
+
+## Real production strength-zero execution
+
+Independent pre-run review found no blocker in `ec5f245`. The first prepared production supervisor had an
+indentation error and exited before `Popen`; it remains in `outputs/f2-production-strength0-1024-v1-execution`
+and is not execution evidence. The corrected, newly frozen run is
+`outputs/f2-production-strength0-1024-v2-execution`. Its runner SHA-256 is
+`ca2ed9dd12c9e3fc1a4d7b8e0869ef1db51ed20e75b4392801b00e769484c75e`; input PNG SHA-256 is
+`1b0a823adc4cfc86befa8578d4a8369d72eff5cffd03bf201cdee45993d8c0b7`, and its decoded RGB is exactly the
+reviewed development input SHA `08ea7276...`. The full source inventory was copied before launch.
+
+The actual CLI command used the trusted schema-3 package, `--strength 0`, CPU FP32/direct VAE, two threads and
+no prompt, PE or embeddings. The continuously polling supervisor observed the scope, `memory.max=8589934592`,
+`memory.swap.max=0`, peak `memory.current=6083784704`, and minimum host MemAvailable `11252105216` bytes.
+There were zero cgroup max/OOM events. It exited 0 in 151.47 seconds. Trace `final.f32` is byte-identical to
+`encoder-normalized.f32`, so no denoising step was executed.
+
+The official decoder continuation now shares one implementation for exact reviewed 512x384 and 1024x1024
+fixture hashes; it does not admit other sizes or duplicate decoder mathematics. Its 1024 CPU run completed under
+the same 8-GiB/no-swap/continuous-host guard in 51.47 seconds, peak `memory.current=4990722048`, with zero
+OOM/max events. Production versus official NRMSE for mean, packed, normalized, final, unpacked and decoded is
+respectively `7.284e-7`, `7.284e-7`, `7.331e-7`, `7.331e-7`, `7.299e-7`, and `2.307e-6`; maximum decoded
+absolute error is `2.158e-5`. All six pass the unchanged FP32 gates. PNG max channel difference is 1 and mean
+absolute difference is `0.000105858`. These results are bound in the production `result.json` and remain one
+fixed development image, not formal15/72 acceptance.
