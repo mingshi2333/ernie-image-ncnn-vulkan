@@ -9,9 +9,14 @@ import random
 import struct
 import subprocess
 import os
-from audit_shape_contract import audit_package, normalize_graph, CONTRACT_HASHES, RULES, dimensions
-from prepare_block import ROOT, sha256
-from source_inventory import source_files
+if __package__:
+    from .audit_shape_contract import audit_package, normalize_graph, CONTRACT_HASHES, RULES, dimensions
+    from .prepare_block import ROOT, sha256
+    from .source_inventory import source_files
+else:
+    from audit_shape_contract import audit_package, normalize_graph, CONTRACT_HASHES, RULES, dimensions
+    from prepare_block import ROOT, sha256
+    from source_inventory import source_files
 
 SOURCE_SHA = '72bb195a2d0b3ef2a25f873666f51f4bbec4b391744518597be87206a551efc1'
 TARGET = dict(packed_width=86, packed_height=48, text_bucket=64,

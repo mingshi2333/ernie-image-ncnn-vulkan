@@ -126,6 +126,23 @@ class PackageTests(unittest.TestCase):
         self.root = destination
         self.check(True)
 
+    def test_fixed_shape_rejects_unreviewed_source_before_writing(self):
+        destination = Path(self.temporary.name)/'fixed'
+        with self.assertRaisesRegex(ValueError, 'reviewed 1024x1024/s64'):
+            package_model(self.root, destination, link=True, fixed1376=True)
+        self.assertFalse(destination.exists())
+        self.check(True)
+
+    def test_fixed_shape_module_api_also_checks_source_identity(self):
+        destination = Path(self.temporary.name)/'module-fixed'
+        code = ('from tools.package_model import package_model; import sys; '
+                'package_model(sys.argv[1], sys.argv[2], fixed1376=True)')
+        run = subprocess.run([sys.executable, '-c', code, str(self.root), str(destination)],
+                             cwd=ROOT, capture_output=True, text=True, timeout=20)
+        self.assertNotEqual(run.returncode, 0)
+        self.assertIn('ValueError: Fixed 1376x768 requires the reviewed', run.stderr)
+        self.assertFalse(destination.exists())
+
 
 if __name__ == '__main__':
     unittest.main()

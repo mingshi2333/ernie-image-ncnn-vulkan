@@ -139,6 +139,29 @@ VAE against an independently executed official fixture. Its current bounds are
 image-quality run. Use `package_model.py` without `--link` to materialize a
 portable copy of the resulting development package.
 
+An additional experimental fixed **1376x768/s64** package can be created from
+the pinned `turbo1024-s64-portable` source. This path reuses the original weights
+and changes only the audited spatial/token fields in all 64 component graphs.
+The complete source manifest must match the reviewed 1024x1024/s64 package.
+
+```sh
+python tools/package_model.py --model models/turbo1024-s64-portable \
+  --fixed-1376x768 --output models/turbo1376x768-s64-portable
+build/ernie-image --model models/turbo1376x768-s64-portable --verify-model
+build/ernie-image --model models/turbo1376x768-s64-portable \
+  --prompt 'A red apple on a wooden table, soft daylight, realistic photo.' \
+  --width 1376 --height 768 --steps 8 --precision fp32 --text-down-vector \
+  --seed 42 --output outputs/apple-1376.png
+```
+
+The output uses the existing fixed-package protocol and contains 136 runtime
+files. Add `--link` during packaging to share local source weights instead of
+copying them; that development package requires the source to remain present.
+The text capacity is 64 tokens including BOS, giving 4192 combined tokens.
+This option does not expand the schema-3 shared-instance registry or provide an
+encoder for this shape. Broader prompt-quality acceptance remains separate from
+the fixed development case.
+
 ## Optional native prompt enhancement
 
 PE is a separate actual Ministral3 model: 26 layers, final norm and LM head.

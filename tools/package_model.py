@@ -99,29 +99,60 @@ def verify_package(root):
     return manifest, {name: expected[name] for name in runtime_files()}
 
 
-def package_model(source, output, link=False):
+def package_model(source, output, link=False, fixed1376=False):
     source, output = Path(source), Path(output)
     if output.exists():
         raise ValueError('Use a new package output directory')
+    replacements = {}
+    target_config = None
+    if fixed1376:
+        # Reuse the exact audited shape fields. This explicit fixed package does
+        # not add a shape/source to the native schema-3 shared-weight registry.
+        if __package__:
+            from .prepare_shape_1376 import SOURCE_SHA, TARGET, candidate_graph
+            from .audit_shape_contract import graph_files
+        else:
+            from prepare_shape_1376 import SOURCE_SHA, TARGET, candidate_graph
+            from audit_shape_contract import graph_files
+        if sha256(source/'manifest.json') != SOURCE_SHA:
+            raise ValueError('Fixed 1376x768 requires the reviewed 1024x1024/s64 source package')
     manifest, files = verify_package(source)
+    if fixed1376:
+        target_config = dict(TARGET)
+        replacements = {
+            name: candidate_graph((source/name).read_text(), kind, manifest['config']).encode('utf-8')
+            for name, kind in graph_files()}
+        replacements['model.cfg'] = ''.join(f'{k} {v}\n' for k, v in target_config.items()).encode('utf-8')
     output.mkdir(parents=True)
+    packed_files = {}
     for name in files:
         destination = output/name
         destination.parent.mkdir(parents=True, exist_ok=True)
-        if link:
+        if name in replacements:
+            destination.write_bytes(replacements[name])
+        elif link:
             destination.symlink_to((source/name).resolve())
         else:
             shutil.copyfile(source/name, destination)
-        if sha256(destination) != files[name]:
+        expected = hashlib.sha256(replacements[name]).hexdigest() if name in replacements else files[name]
+        if sha256(destination) != expected:
             raise ValueError(f'Copied file differs: {name}')
+        packed_files[name] = expected
     lock = json.loads((ROOT/'sources.lock.json').read_text())
     packed = {'schema_version': 2, 'portable': not link,
               'scope': 'Self-contained runtime model files' if not link else 'Local development links; source files must remain present',
-              'config': manifest['config'], 'official_model_revision': manifest['official_model_revision'],
-              'ncnn_revision': lock['ncnn']['revision'], 'files': files,
+              'config': target_config or manifest['config'], 'official_model_revision': manifest['official_model_revision'],
+              'ncnn_revision': lock['ncnn']['revision'], 'files': packed_files,
               'file_sizes': {name: (output/name).stat().st_size for name in files},
               'provenance': {'source_manifest_sha256': sha256(source/'manifest.json'),
                              'packager_sha256': sha256(__file__)}}
+    if fixed1376:
+        packed['provenance']['fixed_shape'] = {
+            'width': 1376, 'height': 768, 'text_bucket': 64,
+            'method': 'Complete graph hashes and enumerated static shape fields',
+            'shape_tool_sha256': sha256(ROOT/'tools/prepare_shape_1376.py'),
+            'shape_contract_sha256': sha256(ROOT/'tools/audit_shape_contract.py'),
+            'status': 'Experimental fixed shape; no shared registry or broad quality acceptance'}
     if manifest['schema_version'] == 1:
         packed['source_weights'] = {
             kind: [json.loads((source/f'{kind}/block-{index:02d}/model.json').read_text())['weights_sha256']
@@ -137,11 +168,13 @@ def main():
     parser.add_argument('--model', type=Path, required=True)
     parser.add_argument('--output', type=Path, help='New portable directory; omit to verify the existing package')
     parser.add_argument('--link', action='store_true', help='Development links instead of a portable copy')
+    parser.add_argument('--fixed-1376x768', action='store_true',
+                        help='Experimental fixed 1376x768/s64 package from the pinned 1024x1024/s64 source')
     args = parser.parse_args()
-    if args.link and not args.output:
-        parser.error('--link requires --output')
+    if (args.link or args.fixed_1376x768) and not args.output:
+        parser.error('--link and --fixed-1376x768 require --output')
     if args.output:
-        manifest = package_model(args.model, args.output, args.link)
+        manifest = package_model(args.model, args.output, args.link, args.fixed_1376x768)
     else:
         manifest, _ = verify_package(args.model)
     print(json.dumps({'verified': True, 'model': str(args.output or args.model),
