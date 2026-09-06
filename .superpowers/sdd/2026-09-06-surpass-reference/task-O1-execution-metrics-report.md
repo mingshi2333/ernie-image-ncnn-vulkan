@@ -65,10 +65,12 @@ Authorization hashes at preparation time:
 - worker: `aee653c47c0ec3cab3404d12e6ec7a70c28be627d02efec9cd2b9c1915e3a1b7`
 - supervisor: `b1e660e6fc8391bad9ab394a1c47c49aa24c8be93b9d52305f5fba1ee49a822f`
 - launcher: `3cdd40d7fe7362c2907dd2095c416aad78170d4c14a9da78b6d229baff5a5abd`
-- comparator: `dcc7d73389f9a1e41e5b5c0476e6a8df1dc6701cf90547e24e1c2de2a90a9ef0`
+- comparator: `3f9555a27339748522074a4f5ee4138c6b7713f7e0d3be4d25780a70c29baefb`
 
 The frozen status remains `prepared_not_executed`. No model or GPU process was started. Independent preparation review and root scheduling remain required before execution.
 
 Preparation review found that the first supervisor revision created `samples.jsonl` before the worker started while the worker also rejected that supervisor-owned file, making every authorized launch fail before inference. The corrected supervisor rejects its own `supervisor.log`, `samples.jsonl`, and `process.json` before opening them; the worker rejects only CLI-owned `native.png`, `metrics.json`, `driver.log`, and `trace`. The launcher, worker, and supervisor hashes above identify this corrected revision. No execution was attempted with the invalid preparation.
 
 A second preparation review found incomplete build provenance and a weak numerical denominator. The final plan now uses the shared `tools/source_inventory.py` contract (305 project files, including tokenizer Cargo inputs and schema contract), binds the pinned ncnn commit and complete 7,791-file base manifest, and binds the ON derived 7,793-file manifest (three changed/additional files, none missing). It also records both CMake caches and their opposite instrumentation flag values. The comparator binds every fixed trace size from the historical 64 contract, checks all FP32 values are finite, verifies `initial.f32` against the frozen input, parses a valid 64x64 PNG header, and requires explicit zero `oom` and `oom_kill` fields. `invalid-preparations.json` retains both rejected preparation identities and findings; neither was executed.
+
+Final preparation hardening parses every PNG chunk with bounds and CRC checks, requires exactly one terminal IEND and at least one IDAT, and checks the 64x64 IHDR. It also proves that the allocation diagnostic observed real Vulkan allocator activity: the domain and coverage scope must match, total allocation count and peak bytes must be positive, live bytes must return to zero, GPU index 0 must be identified, and every recorded allocator must be inactive with no live handles.
