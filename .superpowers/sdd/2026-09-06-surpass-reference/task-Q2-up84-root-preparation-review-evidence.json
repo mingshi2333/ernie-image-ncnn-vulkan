@@ -1,0 +1,104 @@
+{
+  "status": "prepared_independently_reviewed_not_executed",
+  "prior_complete_review": {
+    "status": "implementation_and_bound_files_verified_pending_plan_metadata_correction",
+    "reviewed_identity": {
+      "plan.json": "621ef5ab8cb3c800f65306e416b37d94defa54e39761d1312190d966f5238e53",
+      "launcher.py": "62bc6bf52e11428039843ab31f9dafc4c3802e21a357c24db26e7d0e53860358",
+      "execution/runner": "ec5de0277fb94beab136877253b44873aa44e0285a145c50598cc51981c5f720",
+      "execution/diagnose_up84_scope_guard.py": "90c4fd6d9556e7675806d58fe5634f6f20bc6c6d856fb31ed930cc9b098ad1cc",
+      "execution/diagnose_up84_sequence.py": "6c44698d50cb9cab988cb877605683c9660d8b3125b533983add5b5972ffc578",
+      "execution/diagnose_up84_official.py": "ba08f5af9914f475bb93b9a011c03be4707ce6e154c4bd67d447c6bd79d0f630"
+    },
+    "bound_entries": 6133,
+    "unique_inodes_hashed": 3723,
+    "math_source_matches": {
+      "ernie_gelu.cpp": [
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-mlp81-v2/execution/source/ernie_gelu.cpp"
+      ],
+      "ernie_gelu.h": [
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-mlp81-v2/execution/source/ernie_gelu.h"
+      ],
+      "ernie_attention.cpp": [
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-mlp81-v2/execution/source/ernie_attention.cpp"
+      ],
+      "ernie_attention.h": [
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-mlp81-v2/execution/source/ernie_attention.h"
+      ],
+      "ernie_rmsnorm.cpp": [
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-mlp81-v2/execution/source/ernie_rmsnorm.cpp"
+      ],
+      "ernie_rmsnorm.h": [
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-mlp81-v2/execution/source/ernie_rmsnorm.h"
+      ],
+      "ernie_residual.cpp": [
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-mlp81-v2/execution/source/ernie_residual.cpp"
+      ],
+      "ernie_residual.h": [
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-mlp81-v2/execution/source/ernie_residual.h"
+      ],
+      "ernie_groupnorm.cpp": [
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-mlp81-v2/execution/source/ernie_groupnorm.cpp"
+      ],
+      "ernie_groupnorm.h": [
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-mlp81-v2/execution/source/ernie_groupnorm.h"
+      ],
+      "sdpa_shader.h": [
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-mlp81-v2/execution/source/sdpa_shader.h"
+      ]
+    },
+    "libncnn_matches": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-mlp81-v2/execution/libncnn.a"
+    ],
+    "compile_limits": {
+      "memory.max": "4294967296",
+      "memory.swap.max": "0",
+      "memory.swap.current": "0",
+      "cpu.max": "200000 100000",
+      "affinity": [
+        0,
+        2
+      ],
+      "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/ernie-q2-up84-compile-v1.scope"
+    },
+    "compile_result": {
+      "exit_code": 0,
+      "memory_peak": "585961472\n",
+      "swap_current": "0\n",
+      "events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n"
+    },
+    "probe_mapped_libraries_all_bound": true,
+    "scope": "/user.slice/user-1000.slice/user@1000.service/app.slice/ernie-q2-up84-root-review-v1.scope",
+    "review_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+    "review_swap": "0",
+    "wall_seconds": 4.2853268689941615,
+    "new_model_forwards": 0,
+    "formal_acceptance": false
+  },
+  "metadata_delta": {
+    "plan_sha256": "ebb4b785fd29416a0727453c03a6d716b634e1e9ba318a72b00b60f753219417",
+    "launcher_sha256": "97a53fdc68394445c6903363fc96b3f9859dccee92445b2f2d97b68c8bae8efe",
+    "changed_top_level_keys": [
+      "analysis_contract",
+      "baseline_prerequisite",
+      "decomposition",
+      "native_prerequisite",
+      "native_replay_reused_from",
+      "official_baseline_expected",
+      "official_baseline_reuse",
+      "official_matched_prerequisite",
+      "reused_input_fixture",
+      "shapes",
+      "skip_tail_if_81_byte_equal"
+    ],
+    "bound_dictionary_byte_values_unchanged": true,
+    "runner_guard_sequence_official_payload_unchanged": true,
+    "launcher_only_plan_digest_changed": true,
+    "old_versions_preserved": true,
+    "new_model_forwards_in_review": 0
+  },
+  "limits": [
+    "runtime maps are observations at 0.5 second samples, not an exhaustive proof of every transient library load",
+    "formal quality and S/M acceptance remain false"
+  ]
+}
