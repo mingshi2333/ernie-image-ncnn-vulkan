@@ -2,7 +2,7 @@
 """Approved one-way entry: launcher -> guard/plan -> sealed official-only payload."""
 import hashlib,json,os,subprocess
 from pathlib import Path
-PLAN_SHA='621ef5ab8cb3c800f65306e416b37d94defa54e39761d1312190d966f5238e53'
+PLAN_SHA='ebb4b785fd29416a0727453c03a6d716b634e1e9ba318a72b00b60f753219417'
 GUARD_SHA='90c4fd6d9556e7675806d58fe5634f6f20bc6c6d856fb31ed930cc9b098ad1cc'
 UNIT='ernie-q2-up84-v1'
 

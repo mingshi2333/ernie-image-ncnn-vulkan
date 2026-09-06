@@ -50,3 +50,9 @@ Final plan **6133 bound** 已全部CPU重验，含全部旧输入/实际官方�
 ```
 
 三项合同测试通过：旧matched实际81/87/88任一错SHA拒绝、native错误阻止第二个子进程、native截断分母拒绝。Python语法检查和实际小编译均通过。尚无新增84数值，不宣称改善任何局部或完整质量指标。
+
+## Root review metadata correction (CPU only)
+
+Old plan/launcher/identity are retained as `*.before-protocol-metadata`. Removed inherited conditional-tail/reused-native/old-baseline prerequisite wording. Plan now states the actual new native1 + officialMLP1 ordering, full84 [1,4160,12288] denominator, new native81/out0 invariant, reused old baseline as background, and new matched81/87/88 invariants. Inputs, 6133 bound entries, runner, payload and guard bytes are unchanged.
+
+Superseding plan SHA: `ebb4b785fd29416a0727453c03a6d716b634e1e9ba318a72b00b60f753219417`. Superseding launcher SHA: `97a53fdc68394445c6903363fc96b3f9859dccee92445b2f2d97b68c8bae8efe`. The earlier launch command must use this new launcher digest. No GPU execution has occurred.
