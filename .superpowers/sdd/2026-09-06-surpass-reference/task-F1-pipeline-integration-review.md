@@ -40,3 +40,7 @@
 编译使用 `/usr/bin/clang++ -std=c++17 -O0`，include 为 src、固定 ncnn/src、build-dev/ncnn/src；第一测试直接编译 component_files.cpp 并链接现有 libncnn.a，第二链接 libernie-runtime.a 和 libncnn.a，沿用当前 CMake link.txt 的 OpenMP/SPIRV/glslang 依赖。两测试只写临时目录，不依赖真实包/权重。
 
 本轮没有运行完整 schema1/2/3 生成、GPU allocator 压力、两实例最终质量或性能对比。各 stage load_seconds 现在不包含 descriptor 构建阶段的 param 文件读取，不能直接把旧/new 子阶段计时差当加载优化；总 wall-clock 与固定 runner/输入身份仍是性能比较所需证据。未发现数学源码变化，不构成未经实跑的逐位相等承诺。
+
+## 追加复核
+
+root 将 src/CMakeLists.txt:35 改为 `Full graph allowlist used by offline checks and shared-package generation.`，已重新读取实际 diff，M1 CLOSED。同时重新读取 ModelPackage 失败信息新增 `Cannot open model package:` 前缀及三条 CLI expectation 对应变更：只统一错误上下文，不放宽失败条件。未把旧 executable 的通过计为此次证据；上述两个本 reviewer 的 CPU 测试是独立编译的。root 报告重新链接后的 8 项 focused CTest 全通过（1.77s，包括 CLI 26 子测试），作为 owner 提供的附加证据标注，非本人独立重跑。schema3 全图/生成仍待实际执行。
