@@ -1,0 +1,403 @@
+{
+  "status": "passed",
+  "scope": "trace-on native 64x64 ON/OFF numerical preservation and observed allocation lifetime; not formal speed or broad quality",
+  "combined_log_comparison": {
+    "equal_after_documented_normalization": true,
+    "excluded_differences": [
+      "ON instrumentation diagnostic banner",
+      "duration numbers",
+      "side-specific image output path"
+    ],
+    "stdout_stderr_separated": false
+  },
+  "identity_sha256": "0f2998f5eb1e703862296949b459a03270b28ec261f0aae57c6d81a7604598cc",
+  "traces": [
+    {
+      "file": "prompt.txt",
+      "size": 62,
+      "sha256": "e631f4e8903437dc03ed25b2186468983bd29d13a59b86b6b5b251bae4ec7ac6",
+      "bitwise_equal": true
+    },
+    {
+      "file": "ids.txt",
+      "size": 77,
+      "sha256": "306c32c4d1a66c6cd3cfdeb1579b686c63be71387bee9f30e90fbbed3c4fdba9",
+      "bitwise_equal": true
+    },
+    {
+      "file": "text.f32",
+      "size": 184320,
+      "sha256": "906464f41c3896c35070b0f5d49584a0dfe29846cb7d929b1716b4436fa6c2c9",
+      "bitwise_equal": true
+    },
+    {
+      "file": "initial.f32",
+      "size": 8192,
+      "sha256": "4b6fbf045688cc0ed9c9e589b9dc0cd2955f2ac9847a581357c4fc16d4c204e1",
+      "bitwise_equal": true
+    },
+    {
+      "file": "padded-text.f32",
+      "size": 3342336,
+      "sha256": "d42ff54acd69df7f1791ba9d5701c60ab31d15b08c515f9729304a2f4c166d4c",
+      "bitwise_equal": true
+    },
+    {
+      "file": "constant-0.f32",
+      "size": 147456,
+      "sha256": "b52049d9ec27dac514ee69bf62b799edb8e45191ad5522e817d1e7705412dbc1",
+      "bitwise_equal": true
+    },
+    {
+      "file": "constant-1.f32",
+      "size": 147456,
+      "sha256": "71cd9d25c3fc3fbf646dcff91e298b15fcf3c415eb79462d81e9cfd964bcc04b",
+      "bitwise_equal": true
+    },
+    {
+      "file": "constant-2.f32",
+      "size": 331776,
+      "sha256": "71ba600d0841d55b95bea94c0e17b5edb3311e1dfc56cda0723894ac1015d0a3",
+      "bitwise_equal": true
+    },
+    {
+      "file": "prediction-0.f32",
+      "size": 8192,
+      "sha256": "81d351b6623afe42f6eef7434dd0518c649c9e93e24ae87bf46774d675008d44",
+      "bitwise_equal": true
+    },
+    {
+      "file": "step-0.f32",
+      "size": 8192,
+      "sha256": "2555dd8f8dd0fe3438e68f1101f8947a7ecb2d9d42bf118e27724f0c9b73970f",
+      "bitwise_equal": true
+    },
+    {
+      "file": "prediction-1.f32",
+      "size": 8192,
+      "sha256": "6f229dbe308eeb2be48c1217e00bb6a8482a28ff2e639817df3218f12d234264",
+      "bitwise_equal": true
+    },
+    {
+      "file": "step-1.f32",
+      "size": 8192,
+      "sha256": "cccc2222987c26c981f5d049a6431e611660623de50cd14d924b46db9a7d1352",
+      "bitwise_equal": true
+    },
+    {
+      "file": "prediction-2.f32",
+      "size": 8192,
+      "sha256": "384b34c312108b80876d1ce12e4d68a863e1e1a287bc9913a2480ddd07419fca",
+      "bitwise_equal": true
+    },
+    {
+      "file": "step-2.f32",
+      "size": 8192,
+      "sha256": "1e616e29c9d311767faf75d3bc02786792f912977c31d61fb172e9e585df0103",
+      "bitwise_equal": true
+    },
+    {
+      "file": "prediction-3.f32",
+      "size": 8192,
+      "sha256": "d34a1f1791d1c65f5abe00368c13c70febe0e897bdd83439d3928ea57c19c123",
+      "bitwise_equal": true
+    },
+    {
+      "file": "step-3.f32",
+      "size": 8192,
+      "sha256": "01200f91d8354d752de591a1891d2d332845319bc7864681b7e2b2344d82cf6a",
+      "bitwise_equal": true
+    },
+    {
+      "file": "prediction-4.f32",
+      "size": 8192,
+      "sha256": "b31ced51f8d75ea9bbb17816010a7afc1a3cf4f03280243e5c9471a8932ea87b",
+      "bitwise_equal": true
+    },
+    {
+      "file": "step-4.f32",
+      "size": 8192,
+      "sha256": "a0f45125adc4cf4f64d4a401e81e6a68cb611681d78e1e88e05f2162ef407b86",
+      "bitwise_equal": true
+    },
+    {
+      "file": "prediction-5.f32",
+      "size": 8192,
+      "sha256": "a08289015f1840d00e91400fcca27a8c9dc0dcb2293ee683863ea39afc9d19c0",
+      "bitwise_equal": true
+    },
+    {
+      "file": "step-5.f32",
+      "size": 8192,
+      "sha256": "53ff20954f3ed84abf5750aa0c33564cefbc85dc996867d2db7deac4675ad17e",
+      "bitwise_equal": true
+    },
+    {
+      "file": "prediction-6.f32",
+      "size": 8192,
+      "sha256": "39670963c016f4b4ef7ce29c10320914ab0e064a529c06a4d8120a14ffe22d50",
+      "bitwise_equal": true
+    },
+    {
+      "file": "step-6.f32",
+      "size": 8192,
+      "sha256": "e3a5f6c28146be544866b14f02d0c9dceefe74f9dc056512700f9af4014d2400",
+      "bitwise_equal": true
+    },
+    {
+      "file": "prediction-7.f32",
+      "size": 8192,
+      "sha256": "ec9ed543e4a1e850619780a7577d45d93c63ebff1ca5d483ccca6cf766a77799",
+      "bitwise_equal": true
+    },
+    {
+      "file": "step-7.f32",
+      "size": 8192,
+      "sha256": "e62903dde8cc72598156ea50c97c5205dcea01728c024104c02d1083d69802ea",
+      "bitwise_equal": true
+    },
+    {
+      "file": "final.f32",
+      "size": 8192,
+      "sha256": "e62903dde8cc72598156ea50c97c5205dcea01728c024104c02d1083d69802ea",
+      "bitwise_equal": true
+    },
+    {
+      "file": "unpacked.f32",
+      "size": 8192,
+      "sha256": "dac138898e543a134c2d052ef25c2d83e385927f869ded2bb3d40b17943f4fad",
+      "bitwise_equal": true
+    },
+    {
+      "file": "decoded.f32",
+      "size": 49152,
+      "sha256": "e3a57bca8d1d008100563c70963a37f9b8c86317c9faf0f7a13b740a8351281e",
+      "bitwise_equal": true
+    }
+  ],
+  "png_sha256": "44ea37d9f2f73dc64a4c510d9fc262c7b02dffb689f67010bb34c676025f81ba",
+  "metrics": {
+    "schema_version": 1,
+    "measurement_mode": "allocation_diagnostic",
+    "allocation_domain": "vk_device_memory",
+    "coverage_scope": "observed_ncnn_allocator_lifetime",
+    "concurrency_policy": "standalone_single_generation_process",
+    "formal_speed_eligible": false,
+    "formal_memory_eligible": false,
+    "identity_status": "requires_frozen_parent_binding",
+    "trace_enabled": true,
+    "available": true,
+    "valid": true,
+    "coverage_complete": true,
+    "initial_instance_present": false,
+    "final_instance_present": false,
+    "device_identity_complete": true,
+    "run_status": "success",
+    "primary_error": "",
+    "host_time_scope": "cli_generation_and_image_write",
+    "host_nanoseconds": 368408043797,
+    "cpu_rss": null,
+    "gpu_time": null,
+    "stage_times": null,
+    "total": {
+      "live_bytes": 0,
+      "peak_bytes": 968724992,
+      "allocations": 2375
+    },
+    "devices": [
+      {
+        "process_device_handle": "792340880",
+        "index": 0,
+        "vendor_id": 4318,
+        "device_id": 10464,
+        "api_version": 4211017,
+        "driver_version": 2497102272,
+        "name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+        "pipeline_cache_uuid": "a7bb89c3244a5872a383c94fef250d65"
+      }
+    ],
+    "by_device_memory_class": [
+      {
+        "process_device_handle": "792340880",
+        "memory_type_index": 1,
+        "heap_index": 0,
+        "property_flags": 1,
+        "heap_flags": 1,
+        "host_import": false,
+        "totals": {
+          "live_bytes": 0,
+          "peak_bytes": 83918848,
+          "allocations": 7
+        }
+      },
+      {
+        "process_device_handle": "792340880",
+        "memory_type_index": 3,
+        "heap_index": 1,
+        "property_flags": 14,
+        "heap_flags": 0,
+        "host_import": false,
+        "totals": {
+          "live_bytes": 0,
+          "peak_bytes": 4002304,
+          "allocations": 8
+        }
+      },
+      {
+        "process_device_handle": "792340880",
+        "memory_type_index": 4,
+        "heap_index": 0,
+        "property_flags": 7,
+        "heap_flags": 1,
+        "host_import": false,
+        "totals": {
+          "live_bytes": 0,
+          "peak_bytes": 880803840,
+          "allocations": 2360
+        }
+      }
+    ],
+    "allocator_generation_count": 1254,
+    "all_allocator_generations_inactive": true
+  },
+  "guard": {
+    "on": {
+      "command": [
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/allocation-pipeline64-o1-v1/ernie-image-on",
+        "--model",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/pipeline64-residual-v1",
+        "--prompt-file",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/allocation-pipeline64-o1-v1/prompt.txt",
+        "--output",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/allocation-pipeline64-o1-v1/on/native.png",
+        "--device",
+        "vulkan",
+        "--gpu",
+        "0",
+        "--precision",
+        "fp32",
+        "--width",
+        "64",
+        "--height",
+        "64",
+        "--steps",
+        "8",
+        "--latent",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/allocation-pipeline64-o1-v1/initial.f32",
+        "--trace-dir",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/allocation-pipeline64-o1-v1/on/trace",
+        "--vae-device",
+        "cpu",
+        "--vae-convolution",
+        "direct",
+        "--threads",
+        "2",
+        "--metrics-json",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/allocation-pipeline64-o1-v1/on/metrics.json"
+      ],
+      "scope": "Recursive descendant RSS sum, including independently sessioned native process; not unique PSS or actual Vulkan allocation; trace enabled",
+      "cpu_affinity": [
+        0,
+        1
+      ],
+      "rss_limit_bytes": 19327352832,
+      "minimum_host_available_bytes": 1073741824,
+      "gpu_whole_device_limit_mib": 6144,
+      "elapsed_limit_seconds": 2400,
+      "status": "completed",
+      "started_unix": 1788713762.099816,
+      "started_monotonic_ns": 101839062105308,
+      "rss_peak_bytes": 1119825920,
+      "gpu_peak_mib": 2688,
+      "host_available_min_bytes": 17842704384,
+      "pid": 1860880,
+      "create_time": 1788713762.06,
+      "elapsed_seconds": 368.48605188900547,
+      "observed_pids": [
+        1860880
+      ],
+      "return_code": 0,
+      "stop_reason": null,
+      "finished_unix": 1788714130.58588,
+      "finished_monotonic_ns": 102207548164321
+    },
+    "off": {
+      "command": [
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/allocation-pipeline64-o1-v1/ernie-image-off",
+        "--model",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/pipeline64-residual-v1",
+        "--prompt-file",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/allocation-pipeline64-o1-v1/prompt.txt",
+        "--output",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/allocation-pipeline64-o1-v1/off/native.png",
+        "--device",
+        "vulkan",
+        "--gpu",
+        "0",
+        "--precision",
+        "fp32",
+        "--width",
+        "64",
+        "--height",
+        "64",
+        "--steps",
+        "8",
+        "--latent",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/allocation-pipeline64-o1-v1/initial.f32",
+        "--trace-dir",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/allocation-pipeline64-o1-v1/off/trace",
+        "--vae-device",
+        "cpu",
+        "--vae-convolution",
+        "direct",
+        "--threads",
+        "2"
+      ],
+      "scope": "Recursive descendant RSS sum, including independently sessioned native process; not unique PSS or actual Vulkan allocation; trace enabled",
+      "cpu_affinity": [
+        0,
+        1
+      ],
+      "rss_limit_bytes": 19327352832,
+      "minimum_host_available_bytes": 1073741824,
+      "gpu_whole_device_limit_mib": 6144,
+      "elapsed_limit_seconds": 2400,
+      "status": "completed",
+      "started_unix": 1788714143.0012038,
+      "started_monotonic_ns": 102219963495090,
+      "rss_peak_bytes": 1220976640,
+      "gpu_peak_mib": 2845,
+      "host_available_min_bytes": 14867070976,
+      "pid": 1869784,
+      "create_time": 1788714142.96,
+      "elapsed_seconds": 368.1593749940075,
+      "observed_pids": [
+        1869784
+      ],
+      "return_code": 0,
+      "stop_reason": null,
+      "finished_unix": 1788714511.1605942,
+      "finished_monotonic_ns": 102588122878395
+    }
+  },
+  "evidence_sha256": {
+    "on/execution.json": "0b60e3d75d45f6e2e42b33dc37ae14d79d5f4d4c81ae17c47e79f02072a5781c",
+    "on/run_guarded.py": "e973e1fe469fad8599d2e0c8153c0eb4c4d1aba97cfdfb158e9d04c64ed95fda",
+    "on/launcher.log": "4a21a4e9c4aa1dbd519d4acdc93118bed65687666858849c46d4002d1c4259aa",
+    "on/driver.log": "0d7537d24085b899ede7540b557a6dcc764b8e2aff31c96772bfe822b4ea07b2",
+    "on/samples.jsonl": "fb4ba7b68ea854f27004b774723007fa880e464117c70d437f5ee260dfb3b672",
+    "on/native.png": "44ea37d9f2f73dc64a4c510d9fc262c7b02dffb689f67010bb34c676025f81ba",
+    "on/metrics.json": "ddc95caf7b5ce8a471a78d003eceaddad5a12a7621487b5588b8421216255977",
+    "on/state.json": "b24f2c4875bc713091480c6f95eb2b9b52f7b15ce5040f41aec82ddba364cc38",
+    "off/execution.json": "cbc4ab47c324ec145b558666d5db35869b8672eeee8a6428df2b166bbeda3df5",
+    "off/run_guarded.py": "e973e1fe469fad8599d2e0c8153c0eb4c4d1aba97cfdfb158e9d04c64ed95fda",
+    "off/launcher.log": "1bff35d129002f97a2b65d4653a67837e563d4ee5ef4c10618a07de13796140a",
+    "off/driver.log": "15095cc5920247ef5b876f61f3693a69f6422bbcbece32fdc4dbad1ac7a9710e",
+    "off/samples.jsonl": "d9799d8a7038b6fd67b0bbf409e849a48ec31aa55f948ac1462b483a6924f9f0",
+    "off/native.png": "44ea37d9f2f73dc64a4c510d9fc262c7b02dffb689f67010bb34c676025f81ba",
+    "off/state.json": "d71f57a7e1f0ca959dc60d6a6c775c4704d4eaeca5f185ff43533d876651b84a"
+  },
+  "metrics_full_sha256": "ddc95caf7b5ce8a471a78d003eceaddad5a12a7621487b5588b8421216255977",
+  "comparison_script_sha256": "6b6a48f71c1ba9ee8d29eaed72e3ad18a3318eb5953435828b4bbfce4484a2cb",
+  "small_probe_result_sha256": "e92588609b9a39f478f6181da424d61fe91f71e62fc230aa941e7306181b9425"
+}

@@ -15,3 +15,13 @@ outputs/allocation-real-o1-v3：两份冻结probe实际GPU串行exit0，1024-byt
 outputs/allocation-pipeline64-o1-v1 保存两份冻结CLI、完整source identity引用、模型/输入identity、每侧精确command和guard。两个command数值选项相同；ON多metrics-json、路径各自独立、trace均开启。父guard monotonic时钟跨进程启动至退出，覆盖cleanup/写图/报告。guard限制18GiB进程树RSS sum、6144MiB wholeGPU、host available至少1GiB、墙钟2400秒，wholeGPU样本并不替代实际allocation peak。
 
 ON完整运行session10312已开始；OFF和完整逐位结果尚未完成。此段是开始时状态，不能当实际完整成功证据。
+
+## 完整配对最终结果
+
+ON/OFF完整原生64×64均exit0，随后全量比较PASS：25个FP32 tensor、IDs/prompt（合计27trace文件）和PNG逐位一致。PNG SHA256 44ea37d9f2f73dc64a4c510d9fc262c7b02dffb689f67010bb34c676025f81ba。实际15tokens与冻结历史IDs一致，未用saved-embedding绕过文本。两侧完整stdout/stderr以合并日志保存；仅移除ON明确diagnostic提示、已知进度行时间及侧输出路径后，全日志一致，不声称单独stdout原始字节一致。
+
+ON metrics：valid/coverage_complete true，2375实际分配，全部同时峰968724992 bytes，退出live0。1254 allocator generations均inactive；初末无全局instance；RTX4060 Laptop真实身份绑定存在。三类memory峰83918848/4002304/880803840 bytes，但以全局同时峰为准，不能累加类别峰当全局结果。清理后各类live0。
+
+父guard ON368.486051889s/OFF368.159374994s，完整monotonic_ns记录覆盖启动、模型验证、native执行、cleanup、写图、metrics写出与退出。trace-on并非正式速度窗口。RSSsum峰ON1119825920/OFF1220976640 bytes，整卡采样峰2688/2845MiB，hostavailable最小17842704384/14867070976 bytes。两侧均未触发18GiB RSSsum、6144MiB整卡、1GiB hostavailable边界。整卡采样不是实际allocator峰，CPU RSSsum也不是PSS。
+
+所有模型233文件在两次运行后再次bounded-stream全SHA核验，bytes/size/resolved path与预冻结一致。小可提交证据在 artifacts/2026-09-06/allocation-cli-pipeline64，完整原始事件/trace/日志继续保留outputs；结果引用冻结identity、完整metrics和证据文件hash。probe和全模型会话均退出，GPU已明确交还root，随后只做CPU封存。O1阶段记账/GPU时间等剩余空项未关闭；此一例不关闭广泛质量、正式S/M或完整O1。
