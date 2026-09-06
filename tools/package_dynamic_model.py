@@ -58,7 +58,7 @@ def verify_graph(path,kind,config):
     if canonical!=CONTRACT_HASHES[kind]:raise ValueError('Unknown complete graph hash')
 
 
-def verify_candidate(root, _runtime=None):
+def verify_candidate(root, _runtime=None, _extra_bindings=()):
     root=Path(root)
     if _runtime is None and (root/'manifest.json').exists():raise ValueError('Offline candidate must not masquerade as a runtime package')
     if (root/'contract.json').is_symlink():raise ValueError('Nonportable contract')
@@ -93,6 +93,7 @@ def verify_candidate(root, _runtime=None):
             if name=='model.cfg':
                 words=path.read_text().split()
                 if len(words)!=12 or len(set(words[::2]))!=6 or dict(zip(words[::2],map(int,words[1::2])))!=m['config']:raise ValueError('Static model.cfg mismatch')
+    for digest in _extra_bindings:obj(digest)
     if used!=set(c['objects']):raise ValueError('Unbound objects in candidate inventory')
     # Object store is entirely sealed. Reports belong beside, not inside, this package candidate.
     if {p.name for p in (root/'objects').iterdir()}!=used:raise ValueError('Unlisted object files')
@@ -133,24 +134,54 @@ def build_candidate(sources,output):
 def shared_contract():
     return read_json(ROOT/'tokenizer/schema3_contract.json')
 
+def encoder_manifest(trusted):
+    """Drop evidence and sizes from the on-disk runtime declaration."""
+    out={k:v for k,v in trusted.items() if k not in ('files','evidence')}
+    out['files']={name:item['sha256'] for name,item in trusted['files'].items()}
+    return out
+
+def reviewed_encoder(contract,source_digest,evidence):
+    """Authenticate the sole reviewed encoder evidence before copying bytes."""
+    trusted=contract.get('reviewed_encoders',{}).get(source_digest)
+    if trusted is None:raise ValueError('No reviewed encoder for this static source')
+    evidence=Path(evidence);fixture=read_json(evidence/'fixture.json');conversion=read_json(evidence/'conversion.json')
+    identity=trusted['evidence']
+    if sha256(evidence/'fixture.json')!=identity['official_fixture_sha256'] or sha256(evidence/'conversion.json')!=identity['conversion_sha256']:
+        raise ValueError('Encoder evidence identity differs')
+    if (fixture.get('width'),fixture.get('height'),fixture.get('official_revision'))!=(trusted['width'],trusted['height'],identity['official_revision']):raise ValueError('Encoder fixture scope differs')
+    if fixture.get('source_manifests')!={'encoder':identity['official_encoder_manifest_sha256'],'quant':identity['official_quant_manifest_sha256'],'bn':identity['official_bn_manifest_sha256']}:raise ValueError('Encoder official source identity differs')
+    if (fixture.get('posterior'),fixture.get('packing'),fixture.get('encoder_bn'),fixture.get('decoder_inverse_bn_eps'))!=(trusted['posterior'],trusted['packing'],{'eps':trusted['encoder_bn_eps'],'affine':trusted['encoder_bn_affine']},trusted['decoder_inverse_bn_eps']):raise ValueError('Encoder mathematical identity differs')
+    fixed={'method':'reviewed_encoder_spatial_reshape_specialization','template_param_sha256':'75d493995616b451e51ddecc0dc352a3f200557baab3f98d742cc374ed6d0977','template_bin_sha256':trusted['files']['vae/encoder.ncnn.bin']['sha256'],'reference_fixture_sha256':identity['official_fixture_sha256']}
+    if any(conversion.get(k)!=v for k,v in fixed.items()) or len(conversion.get('changes',[]))!=2:raise ValueError('Encoder specialization evidence differs')
+    sources={'vae/encoder.ncnn.param':evidence/'head.ncnn.param','vae/encoder.ncnn.bin':evidence/'head.ncnn.bin'}
+    for logical,path in sources.items():
+        item=trusted['files'][logical]
+        if not path.is_file() or path.stat().st_size!=item['size'] or sha256(path)!=item['sha256']:raise ValueError('Reviewed encoder runtime file differs')
+    return trusted,sources
+
 
 def verify_shared_package(root):
     """Runnable package protocol for pinned static instances; no new quality claim."""
     root=Path(root);m=read_json(root/'manifest.json');contract=shared_contract()
     if (root/'manifest.json').is_symlink() or set(m)!={'schema_version','format','instances','objects','math','encoder','generation_quality_status'}:
         raise ValueError('Invalid schema-3 metadata')
-    for key in ['schema_version','format','math','encoder','generation_quality_status']:
+    for key in ['schema_version','format','math','generation_quality_status']:
         # JSON canonical bytes also distinguish bool from integer/float.
         if json.dumps(m[key],sort_keys=True)!=json.dumps(contract[key],sort_keys=True):raise ValueError('Unreviewed schema-3 '+key)
+    if m['encoder']!=contract['encoder']:
+        matches=[source for source,value in contract.get('reviewed_encoders',{}).items() if m['encoder']==encoder_manifest(value)]
+        selected={instance.get('source_manifest_sha256') for instance in m.get('instances',[])}
+        if len(matches)!=1 or matches[0] not in selected:raise ValueError('Unreviewed schema-3 encoder')
     for instance in m['instances']:
         pinned=contract['source_manifests'].get(instance.get('source_manifest_sha256'))
         if pinned is None or instance.get('config')!=pinned:raise ValueError('Unknown schema-3 source/config')
     offline=dict(format=FORMAT,policy=POLICY,instances=m['instances'],objects=m['objects'])
-    verify_candidate(root,_runtime=offline)
+    extra=[] if m['encoder']==contract['encoder'] else list(m['encoder']['files'].values())
+    verify_candidate(root,_runtime=offline,_extra_bindings=extra)
     return m
 
 
-def build_shared_package(sources,output):
+def build_shared_package(sources,output,encoder=None):
     """Reuse validated static inputs, copy each unique weight once, emit native schema3."""
     contract=shared_contract()
     for source in sources:
@@ -159,15 +190,29 @@ def build_shared_package(sources,output):
     m={k:contract[k] for k in ['schema_version','format','math','encoder','generation_quality_status']}
     m.update(instances=candidate['instances'],objects=candidate['objects'])
     output=Path(output)
+    if encoder is not None:
+        if len(candidate['instances'])!=1:raise ValueError('Reviewed encoder packages contain exactly one static instance')
+        source_digest=candidate['instances'][0]['source_manifest_sha256']
+        trusted,encoder_sources=reviewed_encoder(contract,source_digest,encoder)
+        for logical,path in encoder_sources.items():
+            digest=trusted['files'][logical]['sha256'];target=output/'objects'/digest
+            if not target.exists():shutil.copyfile(path,target)
+            if target.stat().st_size!=trusted['files'][logical]['size'] or sha256(target)!=digest:raise ValueError('Encoder changed during CAS copy')
+            m['objects'][digest]=target.stat().st_size
+        for logical in ['vae/bn-mean.f32','vae/bn-variance.f32']:
+            if candidate['instances'][0]['runtime_bindings'][logical]!=trusted['files'][logical]['sha256']:raise ValueError('Source package has different encoder BN identity')
+        m['encoder']=encoder_manifest(trusted)
     (output/'manifest.json').write_text(json.dumps(m,indent=2)+'\n')
     (output/'contract.json').unlink()
     return verify_shared_package(output)
 
 
 def main():
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--schema3',action='store_true');p.add_argument('--source',type=Path,action='append');p.add_argument('--output',type=Path);p.add_argument('--verify',type=Path);a=p.parse_args()
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--schema3',action='store_true');p.add_argument('--source',type=Path,action='append');p.add_argument('--encoder',type=Path);p.add_argument('--output',type=Path);p.add_argument('--verify',type=Path);a=p.parse_args()
     if a.verify and not a.source and not a.output:c=(verify_shared_package if a.schema3 else verify_candidate)(a.verify)
-    elif a.source and a.output and not a.verify:c=(build_shared_package if a.schema3 else build_candidate)(a.source,a.output)
+    elif a.source and a.output and not a.verify:
+        if a.encoder and not a.schema3:p.error('--encoder requires --schema3')
+        c=build_shared_package(a.source,a.output,a.encoder) if a.schema3 else build_candidate(a.source,a.output)
     else:p.error('Use --source/--output or --verify')
     print(json.dumps({'offline_candidate_verified':not a.schema3,'native_package_protocol':a.schema3,'quality_status':'pending','instances':len(c['instances']),'shared_objects':len(c['objects'])}))
 if __name__=='__main__':main()

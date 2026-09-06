@@ -70,6 +70,7 @@ class SharedRuntimePackageTests(unittest.TestCase):
         source=sha256(self.fixture.source/'manifest.json')
         self.contract=dynamic.shared_contract()
         self.contract['source_manifests']={source:self.fixture.m['config']}
+        self.source_digest=source
         self.mock=patch.object(dynamic,'shared_contract',return_value=self.contract);self.mock.start()
         old=json.loads((self.output/'contract.json').read_text())
         self.manifest={k:self.contract[k] for k in ['schema_version','format','math','encoder','generation_quality_status']}
@@ -98,3 +99,21 @@ class SharedRuntimePackageTests(unittest.TestCase):
         target=self.fixture.base/'runtime-new'
         value=dynamic.build_shared_package([self.fixture.source],target)
         self.assertEqual(value['schema_version'],3);self.assertFalse((target/'contract.json').exists())
+    def test_reviewed_encoder_manifest_is_bound_to_source_and_cas(self):
+        evidence=self.fixture.base/'encoder';evidence.mkdir();payload=b'small reviewed encoder bytes'
+        (evidence/'head.ncnn.param').write_bytes(payload);(evidence/'head.ncnn.bin').write_bytes(payload)
+        fixture={'width':64,'height':64,'official_revision':'rev','source_manifests':{'encoder':'em','quant':'qm','bn':'bm'},'posterior':'mode','packing':'pack','encoder_bn':{'eps':1e-4,'affine':False},'decoder_inverse_bn_eps':1e-5}
+        (evidence/'fixture.json').write_text(json.dumps(fixture))
+        conversion={'method':'reviewed_encoder_spatial_reshape_specialization','template_param_sha256':'75d493995616b451e51ddecc0dc352a3f200557baab3f98d742cc374ed6d0977','template_bin_sha256':sha256(evidence/'head.ncnn.bin'),'reference_fixture_sha256':sha256(evidence/'fixture.json'),'changes':[{},{}]}
+        (evidence/'conversion.json').write_text(json.dumps(conversion))
+        digest=sha256(evidence/'head.ncnn.param')
+        self.contract['reviewed_encoders']={self.source_digest:{'status':'available','width':64,'height':64,'posterior':'mode','packing':'pack','encoder_bn_eps':1e-4,'encoder_bn_affine':False,'decoder_inverse_bn_eps':1e-5,'files':{
+            'vae/encoder.ncnn.param':{'sha256':digest,'size':len(payload)},'vae/encoder.ncnn.bin':{'sha256':digest,'size':len(payload)},
+            'vae/bn-mean.f32':{'sha256':self.fixture.m['files']['vae/bn-mean.f32'],'size':len(payload)},'vae/bn-variance.f32':{'sha256':self.fixture.m['files']['vae/bn-variance.f32'],'size':len(payload)}},
+            'evidence':{'official_fixture_sha256':sha256(evidence/'fixture.json'),'conversion_sha256':sha256(evidence/'conversion.json'),'official_revision':'rev','official_encoder_manifest_sha256':'em','official_quant_manifest_sha256':'qm','official_bn_manifest_sha256':'bm'}}}
+        target=self.fixture.base/'runtime-encoder'
+        value=dynamic.build_shared_package([self.fixture.source],target,evidence)
+        self.assertEqual(value['encoder']['status'],'available');self.assertEqual(value['encoder']['width'],64)
+        self.assertTrue((target/'objects'/digest).is_file())
+        value['encoder']['width']=32;(target/'manifest.json').write_text(json.dumps(value))
+        with self.assertRaisesRegex(ValueError,'Unreviewed schema-3 encoder'):dynamic.verify_shared_package(target)

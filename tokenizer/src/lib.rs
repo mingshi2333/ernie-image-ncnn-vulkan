@@ -207,3 +207,7 @@ pub unsafe extern "C" fn ernie_model_package_file(handle:*const shared_package::
         write_error(output,capacity,value);Ok(())
     }));if matches!(result,Ok(Ok(()))){0}else{-1}
 }
+#[no_mangle]
+pub unsafe extern "C" fn ernie_model_package_has_file(handle:*const shared_package::ResolvedPackage,name:*const u8,length:usize)->i32{
+    catch_unwind(AssertUnwindSafe(||handle.as_ref().and_then(|p|text(name,length).ok().map(|n|p.files.contains_key(n))).unwrap_or(false) as i32)).unwrap_or(0)
+}

@@ -10,6 +10,7 @@ void *ernie_model_package_open(const unsigned char *,size_t,int,int,unsigned cha
 void ernie_model_package_destroy(void *);
 int ernie_model_package_config(const void *,int *);
 int ernie_model_package_file(const void *,const unsigned char *,size_t,unsigned char *,size_t);
+int ernie_model_package_has_file(const void *,const unsigned char *,size_t);
 }
 namespace ernie {
 ModelPackage::ModelPackage(const std::filesystem::path &directory,int w,int h){
@@ -29,6 +30,9 @@ std::string ModelPackage::file(const std::string &name)const{
     if(ernie_model_package_file(handle_,reinterpret_cast<const unsigned char*>(name.data()),name.size(),output.data(),output.size()))throw std::invalid_argument("Unknown package file or invalid package handle");
     return reinterpret_cast<const char*>(output.data());
 }
+bool ModelPackage::has_file(const std::string &name)const{
+    return ernie_model_package_has_file(handle_,reinterpret_cast<const unsigned char*>(name.data()),name.size())==1;
+}
 ComponentFiles ModelPackage::component(const std::string &name,const std::string &kind)const{
     constexpr const char *suffix=".param";
     if(name.size()<6||name.substr(name.size()-6)!=suffix)throw std::invalid_argument("Expected logical param filename");
@@ -39,7 +43,8 @@ ComponentFiles ModelPackage::component(const std::string &name,const std::string
     if(text.find('\0')!=std::string::npos)throw std::invalid_argument("Embedded NUL in graph");
     // Existing legacy packages preserve their former static graph loader behavior.
     // Schema3 requires full topology hash validation even for same-shape instantiation.
-    if(schema_==3)text=instantiate_shape_graph(kind,text,config_,config_);
+    if(schema_==3 && kind!="vae-encoder")text=instantiate_shape_graph(kind,text,config_,config_);
+    if(kind=="vae-encoder" && name!="vae/encoder.ncnn.param")throw std::invalid_argument("Unexpected VAE encoder logical name");
     return {std::move(text),file(name.substr(0,name.size()-6)+".bin")};
 }
 }

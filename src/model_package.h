@@ -17,6 +17,7 @@ public:
     const ModelConfig &config() const { return config_; }
     int schema() const { return schema_; }
     std::string file(const std::string &logical_name) const;
+    bool has_file(const std::string &logical_name) const;
     ComponentFiles component(const std::string &logical_param,const std::string &kind) const;
 private:
     void *handle_=nullptr;

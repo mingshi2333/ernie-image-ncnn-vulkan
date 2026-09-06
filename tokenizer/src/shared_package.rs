@@ -51,7 +51,26 @@ pub fn verify(root:&Path)->Result<Vec<ResolvedPackage>,String>{
 fn verify_contract(root:&Path,contract:&Value)->Result<Vec<ResolvedPackage>,String>{
     let m=json(&root.join("manifest.json"))?;
     keys(&m,&["schema_version","format","instances","objects","math","encoder","generation_quality_status"])?;
-    for key in ["schema_version","format","math","encoder","generation_quality_status"] {if m[key]!=contract[key]{return Err(format!("Unreviewed schema-3 {key}"));}}
+    for key in ["schema_version","format","math","generation_quality_status"] {if m[key]!=contract[key]{return Err(format!("Unreviewed schema-3 {key}"));}}
+    let encoder=&m["encoder"];
+    let default_encoder=&contract["encoder"];
+    let reviewed=contract["reviewed_encoders"].as_object().ok_or("Missing reviewed encoder registry")?;
+    let mut encoder_source:Option<&str>=None;
+    if encoder!=default_encoder {
+        for (source,value) in reviewed {
+            let mut expected=value.clone();
+            let expected_object=expected.as_object_mut().ok_or("Invalid reviewed encoder")?;
+            let files=expected_object.remove("files").ok_or("Missing reviewed encoder files")?;
+            expected_object.remove("evidence");
+            let mut bindings=serde_json::Map::new();
+            for (name,item) in files.as_object().ok_or("Invalid reviewed encoder files")? {
+                bindings.insert(name.clone(),item["sha256"].clone());
+            }
+            expected_object.insert("files".into(),Value::Object(bindings));
+            if encoder==&expected {if encoder_source.replace(source).is_some(){return Err("Ambiguous reviewed encoder".into());}}
+        }
+        if encoder_source.is_none(){return Err("Unreviewed schema-3 encoder".into());}
+    }
     let objects=m["objects"].as_object().ok_or("Missing objects")?;
     let instances=m["instances"].as_array().ok_or("Missing instances")?;
     if instances.is_empty()||instances.len()>2{return Err("Invalid static instance count".into());}
@@ -80,6 +99,17 @@ fn verify_contract(root:&Path,contract:&Value)->Result<Vec<ResolvedPackage>,Stri
             if sizes[name].as_u64()!=Some(fs::metadata(&path).map_err(|e|e.to_string())?.len()){return Err("Pinned file size mismatch".into());}
             files.insert(name.clone(),path);
         }
+        if encoder_source==Some(digest) {
+            let trusted=&reviewed[digest];
+            for(name,item) in trusted["files"].as_object().ok_or("Invalid reviewed encoder files")? {
+                let expected_digest=item["sha256"].as_str().ok_or("Invalid encoder digest")?;
+                let path=object(expected_digest)?;
+                if item["size"].as_u64()!=Some(fs::metadata(&path).map_err(|e|e.to_string())?.len()) {return Err("Reviewed encoder size mismatch".into());}
+                if let Some(existing)=files.get(name) {
+                    if existing!=&path{return Err("Encoder file conflicts with instance binding".into());}
+                } else { files.insert(name.clone(),path); }
+            }
+        }
         // Exact source manifest checksum binds model.cfg, all layer graphs and weights.
         // C++ additionally enforces the canonical full-graph allowlist before instantiation.
         out.push(ResolvedPackage{config:config(pinned)?,files,schema:3});
@@ -107,7 +137,7 @@ pub fn open(root:&Path,width:i32,height:i32)->Result<ResolvedPackage,String>{
 #[cfg(test)]
 mod tests {
     use super::*;
-    #[test]fn contract_keeps_two_reviewed_shapes_and_bn_asymmetry(){let c:Value=serde_json::from_str(include_str!("../schema3_contract.json")).unwrap();assert_eq!(c["source_manifests"].as_object().unwrap().len(),2);assert_ne!(c["math"]["encoder_bn_eps"],c["math"]["decoder_inverse_bn_eps"]);assert_eq!(c["encoder"]["status"],"unavailable");}
+    #[test]fn contract_keeps_reviewed_shapes_and_bn_asymmetry(){let c:Value=serde_json::from_str(include_str!("../schema3_contract.json")).unwrap();assert_eq!(c["source_manifests"].as_object().unwrap().len(),2);assert_eq!(c["reviewed_encoders"].as_object().unwrap().len(),1);assert_ne!(c["math"]["encoder_bn_eps"],c["math"]["decoder_inverse_bn_eps"]);assert_eq!(c["encoder"]["status"],"unavailable");}
     #[test]fn malformed_digest_and_config_fail(){for s in ["../oops","A",&"A".repeat(64)]{assert!(sha(s).is_err());}assert!(config(&serde_json::json!({"packed_width":true})).is_err());}
 }
 
@@ -130,6 +160,16 @@ mod corruption_tests {
         let mut m=serde_json::json!({"schema_version":3,"format":contract["format"],"math":contract["math"],"encoder":contract["encoder"],"generation_quality_status":contract["generation_quality_status"],"objects":{weight.clone():data.len(),digest.clone():source_bytes.len()},"instances":[{"source_manifest_sha256":digest,"config":cfg,"runtime_bindings":files}]});
         let save=|v:&Value|fs::write(root.join("manifest.json"),serde_json::to_vec(v).unwrap()).unwrap();save(&m);
         assert_eq!(verify_contract(&root,&contract).unwrap()[0].files.len(),136);
+        let available=serde_json::json!({"status":"available","width":64,"height":64,"posterior":"mode","packing":"pack","encoder_bn_eps":0.0001,"encoder_bn_affine":false,"decoder_inverse_bn_eps":0.00001,"files":{
+            "vae/encoder.ncnn.param":{"sha256":weight,"size":data.len()},"vae/encoder.ncnn.bin":{"sha256":weight,"size":data.len()},
+            "vae/bn-mean.f32":{"sha256":weight,"size":data.len()},"vae/bn-variance.f32":{"sha256":weight,"size":data.len()}},"evidence":{}});
+        contract["reviewed_encoders"]=serde_json::json!({digest.clone():available});
+        let mut declared=available.clone();declared.as_object_mut().unwrap().remove("evidence");
+        let files=declared["files"].as_object().unwrap().iter().map(|(n,v)|(n.clone(),v["sha256"].clone())).collect();
+        declared["files"]=Value::Object(files);m["encoder"]=declared;save(&m);
+        let resolved=verify_contract(&root,&contract).unwrap();assert_eq!(resolved[0].files.len(),138);
+        m["encoder"]["width"]=32.into();save(&m);assert!(verify_contract(&root,&contract).is_err());
+        m["encoder"]=contract["encoder"].clone();save(&m);
         let original=m.clone();m["instances"][0]["runtime_bindings"].as_object_mut().unwrap().remove("dit/block-35/block.ncnn.bin");save(&m);assert!(verify_contract(&root,&contract).is_err());
         m=original.clone();m["objects"][&weight]=0.into();save(&m);assert!(verify_contract(&root,&contract).is_err());
         m=original.clone();m["instances"][0]["source_manifest_sha256"]="0".repeat(64).into();save(&m);assert!(verify_contract(&root,&contract).is_err());
