@@ -2,6 +2,8 @@
 
 首版目标：官方 ERNIE-Image-Turbo 权重 → 可追溯转换 → C++ / ncnn / Vulkan → 本地 PNG。Linux、batch=1、Turbo 8 steps、CFG=1；基础路径 PE 关闭，另提供可选 CPU PE。
 
+**当前后续执行入口：** [2026-09-06 超过参考项目的计划](superpowers/plans/2026-09-06-surpass-reference.md)。顺序为对方实测基线 → 数值正确性 → 性能与内存 → 原生尺寸/图生图 → 跨平台交付 → 正式验收；目标与逐项任务均已写出，尚未实施。下面保留已有实现与证据的完成记录，新的工作顺序以该计划为准。
+
 **2026-09-06：已扩展至 2048-token 文本、UTF-8 prompt 文件、512×384 包、BF16 实验路径和真实 CPU PE，并拆出独立 C++ 流水线接口。** PE 完整 315-token greedy/EOS/logits 对照通过；连接 PE 的完整图像为 24/25 张量与 PNG 通过，解码最大误差仍超限。1080-token 完整图像也有质量门槛失败。原生生成、独立包、完整性检查、安装和 1024 对照，以及 FP32 注意力补偿/分块均保留。苹果历史对照通过全部门限；不能将已完成的功能等同于广泛数值/质量验收。最新证据见 [功能与结构交付报告](../artifacts/2026-09-06/features-and-structure/README.md)，此前的 [注意力改进报告](../artifacts/2026-09-06/attention-parity/README.md) 与 [Turbo 交付报告](../artifacts/2026-09-05/turbo-delivery/README.md) 保留。
 
 ## 0. 上游验证与项目基础
