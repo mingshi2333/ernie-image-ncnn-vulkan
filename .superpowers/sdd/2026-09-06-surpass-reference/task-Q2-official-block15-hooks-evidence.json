@@ -1,0 +1,365 @@
+{
+  "scope": "One valid official block hook; CPU-only analysis; no candidate promotion",
+  "files_sha256": {
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-official-hooks-v3/plan.json": "f6aac83a83415bf6eda28b244fa6b16219c4633e9eee5b09ca0e69a57e278519",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-official-hooks-v3/result.json": "4d7853827694c2f29cef782d7b2e849e994d4a254bd267ac3e0baf6c136713f2",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-official-hooks-v3/analysis.json": "8a8a9c28f48b311295bd38fbef4fd112bc33b7e15d5252581ef1c33ddce9f844",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-official-hooks-v3/execution/worker.py": "fdf27ab6fcf417b25520f6dbf5d2ff412ebbdf3972abc2e592696faf547d70ce",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-official-hooks-v3/execution/worker-result.json": "457024567b7471d5ba093d0b0051b134ff597e711236d52271e7b65edfdaeefc",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-official-hooks-v3/execution/cpu-import-runtime.json": "9f0b2f7a9518ea93018fde5f2b3ab65ffc1450bc7ed98d40f9231294092cf36f",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-official-hooks-v3/execution/gpu-before-forward-runtime.json": "f4d782ff9cc5a5ff84b0850565e18af05b7134a45fa8ae13e1af818e66dd555d",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-official-hooks-v3/execution/gpu-after-forward-runtime.json": "fed42c50365372a8102f0a6cfa7e1e7cc3dee87a0b50fda51cb15c0ecba776e6",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-official-hooks-v3/execution/torch-config.json": "546bdb068ffb8f7480fd04316c8a654f653192f49b330c3925100eeac9419298",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-official-hooks-v3/execution/prepare-result.json": "ab2d44a9724dd5fe50d4d550cb2deea731fd34fe632919608ec392813cebc226"
+  },
+  "result": {
+    "scope": "One official block15 with read-only 75/87/88 hooks; out0 bitwise prerequisite",
+    "status": "valid_instrumented_official_oracle",
+    "plan_sha256": "f6aac83a83415bf6eda28b244fa6b16219c4633e9eee5b09ca0e69a57e278519",
+    "out0_bitwise_equal": true,
+    "expected_out0_sha256": "a3f77e846934a6fe7085bf366dd21ef78aa779b702c5c97ba237834a0635a197",
+    "output_sha256": {
+      "75": "09189225db6307daa124c88dce40dfc257e8af49d9cea125b44c6c64072b69af",
+      "87": "384328e7033248ef5c43d1a9494d4f93c7e13556bd0913bdda786cfc1f1f10dd",
+      "88": "3a1eb976b4772659e9461745bb21ec9fa92582adfd98d90f728aab83d8375ab8",
+      "out0": "a3f77e846934a6fe7085bf366dd21ef78aa779b702c5c97ba237834a0635a197"
+    },
+    "hook_counts": {
+      "75": 1,
+      "87": 1,
+      "88": 1
+    },
+    "shapes": {
+      "75": [
+        1,
+        4160,
+        4096
+      ],
+      "87": [
+        1,
+        4160,
+        12288
+      ],
+      "88": [
+        1,
+        4160,
+        4096
+      ],
+      "out0": [
+        1,
+        4160,
+        4096
+      ]
+    },
+    "model_forwards": 1,
+    "formal_acceptance": false,
+    "intermediate_interpretation_allowed": true
+  },
+  "analysis": {
+    "scope": "Authenticated full internal boundaries plus explicitly selected FP64 dot decomposition; not full trajectory acceptance",
+    "official_out0_sha256": "a3f77e846934a6fe7085bf366dd21ef78aa779b702c5c97ba237834a0635a197",
+    "full_native_vs_official": {
+      "75": {
+        "l2": 0.1048209063932478,
+        "max": 0.0029296875,
+        "nrmse": 2.54465715428135e-07
+      },
+      "87": {
+        "l2": 0.007343783342773383,
+        "max": 0.000152587890625,
+        "nrmse": 1.2421090862901853e-06
+      },
+      "88": {
+        "l2": 0.07692567834458297,
+        "max": 0.000335693359375,
+        "nrmse": 1.6256994282125856e-06
+      },
+      "out0": {
+        "l2": 0.19877654474212322,
+        "max": 0.006591796875,
+        "nrmse": 6.011371945074348e-07
+      }
+    },
+    "full_candidate_vs_official": {
+      "88": {
+        "l2": 0.10596313794562859,
+        "max": 0.0009307861328125,
+        "nrmse": 2.239359034289886e-06
+      },
+      "out0": {
+        "l2": 0.37041399781155765,
+        "max": 0.0205078125,
+        "nrmse": 1.1202007346470207e-06
+      }
+    },
+    "all_three_residuals_bitwise_reconstructed": true,
+    "full_output_decomposition": {
+      "native": {
+        "residual_l2": 0.1048209063932478,
+        "gated_update_l2": 0.19326797574194235,
+        "final_add_rounding_l2": 0.011236388968703622,
+        "out_l2": 0.19877654474212322,
+        "residual_update_cosine": -0.2207905634956354
+      },
+      "candidate": {
+        "residual_l2": 0.1048209063932478,
+        "gated_update_l2": 0.3677940715972557,
+        "final_add_rounding_l2": 0.01145351026188609,
+        "out_l2": 0.37041399781155765,
+        "residual_update_cosine": -0.1188552184151806
+      }
+    },
+    "selected_fp64_decomposition": {
+      "scope": "Post-result 6 rows, 24576 outputs; FP64 mathematical dot, not another GPU reference execution",
+      "rows": [
+        0,
+        22,
+        652,
+        4095,
+        4096,
+        4159
+      ],
+      "upstream_propagated": {
+        "l2": 0.0018056169739957423,
+        "max": 6.307757614720799e-05
+      },
+      "native_local_dot": {
+        "l2": 0.003530162151230593,
+        "max": 0.0008744772772502074
+      },
+      "official_local_dot": {
+        "l2": 0.003523154533025137,
+        "max": 0.0009379266739131253
+      },
+      "candidate_local_dot": {
+        "l2": 4.5568821473512086e-05,
+        "max": 6.834669534327986e-06
+      },
+      "native_vs_official_down": {
+        "l2": 0.0027040946555274654,
+        "max": 0.000156402587890625
+      },
+      "candidate_vs_official_down": {
+        "l2": 0.003925550593161898,
+        "max": 0.0009307861328125
+      },
+      "native_local_vs_official_local_cosine": 0.8373470069099148,
+      "upstream_vs_native_local_cosine": 0.021022618498192362,
+      "upstream_vs_official_local_cosine": 0.02060103403809488,
+      "by_row": [
+        {
+          "row": 0,
+          "upstream": {
+            "l2": 0.0007051035594622299,
+            "max": 4.5628591088586745e-05
+          },
+          "native_local": {
+            "l2": 0.001021215017508115,
+            "max": 0.00022600889084856135
+          },
+          "official_local": {
+            "l2": 0.0010288742394409824,
+            "max": 0.00020225130000994795
+          },
+          "candidate_local": {
+            "l2": 1.3709282929190649e-05,
+            "max": 2.87294508893865e-06
+          },
+          "native_total": {
+            "l2": 0.0009450779874260763,
+            "max": 7.43865966796875e-05
+          },
+          "candidate_total": {
+            "l2": 0.001240419675108495,
+            "max": 0.00016021728515625
+          },
+          "upstream_native_local_cosine": 0.01924810255764656,
+          "upstream_official_local_cosine": 0.012552072881572266
+        },
+        {
+          "row": 22,
+          "upstream": {
+            "l2": 0.0010788264052838648,
+            "max": 6.307757614720799e-05
+          },
+          "native_local": {
+            "l2": 0.0018141883144815023,
+            "max": 0.00019724445132851542
+          },
+          "official_local": {
+            "l2": 0.001819464482495141,
+            "max": 0.00018092286038040584
+          },
+          "candidate_local": {
+            "l2": 2.3243993029350624e-05,
+            "max": 1.896947296131657e-06
+          },
+          "native_total": {
+            "l2": 0.0015488259368877588,
+            "max": 0.0001220703125
+          },
+          "candidate_total": {
+            "l2": 0.0020874163445048894,
+            "max": 0.00019073486328125
+          },
+          "upstream_native_local_cosine": 0.029257895101680042,
+          "upstream_official_local_cosine": 0.029959778788131965
+        },
+        {
+          "row": 652,
+          "upstream": {
+            "l2": 0.0009092917046693244,
+            "max": 5.007165039927486e-05
+          },
+          "native_local": {
+            "l2": 0.0021288076077863767,
+            "max": 0.0008744772772502074
+          },
+          "official_local": {
+            "l2": 0.0021231317906796813,
+            "max": 0.0009379266739131253
+          },
+          "candidate_local": {
+            "l2": 2.5678033544037126e-05,
+            "max": 4.726300687707408e-06
+          },
+          "native_total": {
+            "l2": 0.0014667075332981414,
+            "max": 0.000118255615234375
+          },
+          "candidate_total": {
+            "l2": 0.0022928105775266382,
+            "max": 0.0009307861328125
+          },
+          "upstream_native_local_cosine": 0.022901846512081044,
+          "upstream_official_local_cosine": 0.018401790758064297
+        },
+        {
+          "row": 4095,
+          "upstream": {
+            "l2": 0.0006412477834571295,
+            "max": 4.8082608451238684e-05
+          },
+          "native_local": {
+            "l2": 0.0015379570781899209,
+            "max": 0.0002150257058559646
+          },
+          "official_local": {
+            "l2": 0.001516474149950216,
+            "max": 0.00017463556832808536
+          },
+          "candidate_local": {
+            "l2": 1.998117613273244e-05,
+            "max": 1.932120198944176e-06
+          },
+          "native_total": {
+            "l2": 0.0010544776986592494,
+            "max": 0.000156402587890625
+          },
+          "candidate_total": {
+            "l2": 0.0016263120659365474,
+            "max": 0.000156402587890625
+          },
+          "upstream_native_local_cosine": 0.018689156105459674,
+          "upstream_official_local_cosine": 0.03358212604109063
+        },
+        {
+          "row": 4096,
+          "upstream": {
+            "l2": 5.052630644781989e-05,
+            "max": 1.012940685996e-05
+          },
+          "native_local": {
+            "l2": 0.0005900452422446232,
+            "max": 0.00021772949807541409
+          },
+          "official_local": {
+            "l2": 0.0005745195450194537,
+            "max": 0.00020089658261213117
+          },
+          "candidate_local": {
+            "l2": 1.1431336081738534e-05,
+            "max": 6.834669534327986e-06
+          },
+          "native_total": {
+            "l2": 0.0001490747961197201,
+            "max": 3.0517578125e-05
+          },
+          "candidate_total": {
+            "l2": 0.0005748096744340225,
+            "max": 0.0001983642578125
+          },
+          "upstream_native_local_cosine": 0.12807803128779496,
+          "upstream_official_local_cosine": 0.1174847788082733
+        },
+        {
+          "row": 4159,
+          "upstream": {
+            "l2": 0.0005988757658021754,
+            "max": 5.3342915734333474e-05
+          },
+          "native_local": {
+            "l2": 0.0009394670129262241,
+            "max": 0.00010774267362734236
+          },
+          "official_local": {
+            "l2": 0.0009519083486647771,
+            "max": 0.00012949590844613112
+          },
+          "candidate_local": {
+            "l2": 1.2609741835346494e-05,
+            "max": 1.8581036371756454e-06
+          },
+          "native_total": {
+            "l2": 0.0008571558906740792,
+            "max": 6.4849853515625e-05
+          },
+          "candidate_total": {
+            "l2": 0.0011321316406317445,
+            "max": 0.000141143798828125
+          },
+          "upstream_native_local_cosine": -0.00658273480195075,
+          "upstream_official_local_cosine": -0.014828307591375335
+        }
+      ]
+    },
+    "analysis_source_sha256": "fa0a3b0c439bb10de595d4e80f97cc4ce3bcabb46ec848afab79b79c99c2c711",
+    "historical_baseline_identity": {
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-boundary-v1/official/boundary.f32": "762941a013ce27957c6b123985eb7ef1dd36fafe7c79c7f08cb7569ac154c1bd",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-boundary87-v1/official/boundary.f32": "a951b1ed772d5a53c0b30ba8a1d1882c52491f6c564cb9f70b09ec6ef4cd3c46",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-boundary88-v1/official/boundary.f32": "b1d26a4acc2c44d7864c25ba59c821ded6fb8e8c34575d7b35d0ca9586b95cbf",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-boundary87-v1/official/out0.f32": "175bfa394aec3b7e576caaea3fd897cf84db122d4cd9378d7d72dfe704df68a3",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-splitk-teacher-v1/candidate/upstream87.f32": "a951b1ed772d5a53c0b30ba8a1d1882c52491f6c564cb9f70b09ec6ef4cd3c46",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-splitk-teacher-v1/candidate/boundary.f32": "c0a5a946c1a94fc95d1203c784c95d5df03a45dbe1296007acc7e4cebaecace1",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-splitk-teacher-v1/candidate/out0.f32": "900a97148d7ccea4d700219bee2acc0b44b8da8ba068ad358c24faf39378b6fa"
+    },
+    "official_result_sha256": "4d7853827694c2f29cef782d7b2e849e994d4a254bd267ac3e0baf6c136713f2",
+    "official_worker_sha256": "457024567b7471d5ba093d0b0051b134ff597e711236d52271e7b65edfdaeefc"
+  },
+  "worker": {
+    "command": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-official-hooks-v3/execution/diagnose_official_block_hooks.py",
+      "execute",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-official-hooks-v3/plan.json"
+    ],
+    "cpu_affinity": [
+      0,
+      2
+    ],
+    "internal_requested_threads": 4,
+    "thread_scope": "same official CPU setup num_threads4; two physical CPU cores enforced by affinity",
+    "rss_limit_bytes": 9663676416,
+    "gpu_whole_device_limit_mib": 6144,
+    "minimum_host_available_bytes": 3221225472,
+    "scope": "Recursive descendants, including independently sessioned runner; sampled sum RSS, not unique PSS",
+    "started_unix": 1788719553.8331964,
+    "passed": true,
+    "return_code": 0,
+    "stop_reason": null,
+    "peak_rss_sum_bytes": 1218793472,
+    "gpu_whole_device_sampled_peak_mib": 3938,
+    "elapsed_seconds": 22.132832653995138,
+    "interpretation": "Execution completion only; no numerical acceptance gate"
+  }
+}
