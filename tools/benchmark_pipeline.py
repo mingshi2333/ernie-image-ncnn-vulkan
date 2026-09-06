@@ -20,6 +20,34 @@ def memory():
         if key in ('MemAvailable','SwapTotal','SwapFree'):fields[key]=int(value.split()[0])
     return fields
 
+def run_timed_command(command,timeout,log_path):
+    """Run one process and retain timing plus a conservative failure classification."""
+    result={'wall_started_monotonic_ns':time.monotonic_ns(),'timing_scope':'end_to_end'}
+    process=None
+    try:
+        with Path(log_path).open('w') as log:
+            process=subprocess.Popen(command,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
+            try:result['return_code']=process.wait(timeout=timeout)
+            except subprocess.TimeoutExpired:
+                result['timed_out']=True;os.killpg(process.pid,signal.SIGKILL);result['return_code']=process.wait()
+    except OSError as error:
+        result['launch_error']=str(error);result['return_code']=None
+    finally:
+        result['wall_finished_monotonic_ns']=time.monotonic_ns()
+        result['wall_seconds']=(result['wall_finished_monotonic_ns']-result['wall_started_monotonic_ns'])/1e9
+    log_text=Path(log_path).read_text(errors='replace') if Path(log_path).exists() else ''
+    code=result.get('return_code')
+    if result.get('timed_out'): category='timeout'
+    elif result.get('launch_error'): category='runtime_failure'
+    elif code==0: category=None
+    elif re.search(r'out of memory|allocation failed|cannot allocate memory',log_text,re.I): category='resource_exhaustion'
+    elif code in (-signal.SIGKILL,128+signal.SIGKILL): category='resource_unknown'
+    elif isinstance(code,int) and (code<0 or code>=128): category='crash'
+    else: category='runtime_failure'
+    result['failure_category']=category
+    if isinstance(code,int) and code!=0: result['termination_signal']=-code if code<0 else code-128 if code>=128 else None
+    return result
+
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--model',type=Path,required=True)
@@ -39,6 +67,8 @@ def main():
     p.add_argument('--pe-model',type=Path)
     p.add_argument('--pe-max-tokens',type=int,default=256)
     p.add_argument('--pe-prompt-file',type=Path,help='Optional PE input; currently unsupported by the native CLI')
+    p.add_argument('--latent',type=Path,help='Saved little-endian FP32 initial noise; required for formal comparison')
+    p.add_argument('--noise-sha256',help='Expected frozen SHA256 of --latent; required for formal comparison')
     p.add_argument('--input-image',type=Path,help='Optional img2img input; currently unsupported by the native CLI')
     p.add_argument('--strength',type=float,help='Optional img2img strength; currently unsupported by the native CLI')
     args=p.parse_args()
@@ -59,18 +89,37 @@ def main():
     manifest,_=verify_package(args.model)
     args.output.mkdir(parents=True)
     runner=args.output/'ernie-image.snapshot';shutil.copy2(args.runner,runner)
-    prompt_args=['--prompt-file',str(args.prompt_file.resolve())] if args.prompt_file else ['--prompt',args.prompt]
+    prompt_snapshot=args.output/'prompt.txt'
+    if args.prompt_file:shutil.copy2(args.prompt_file,prompt_snapshot)
+    else:prompt_snapshot.write_text(args.prompt,encoding='utf-8')
+    latent_snapshot=None
+    if args.latent:
+        latent_snapshot=args.output/'initial.f32';shutil.copy2(args.latent,latent_snapshot)
+    prompt_args=['--prompt-file',str(prompt_snapshot.resolve())]
     command=[str(runner.resolve()),'--model',str(args.model.resolve()),*prompt_args,
         '--output',str((args.output/'native.png').resolve()),'--seed',str(args.seed),'--steps',str(args.steps),
         '--device',args.device,'--precision',args.precision,'--vae-device',args.vae_device,
         '--vae-convolution',args.vae_convolution]
     if args.trace:command+=['--trace-dir',str((args.output/'trace').resolve())]
     if args.pe_model:command+=['--pe-model',str(args.pe_model.resolve()),'--pe-greedy','--pe-max-tokens',str(args.pe_max_tokens)]
+    if latent_snapshot:command+=['--latent',str(latent_snapshot.resolve())]
+    pe_manifest=args.pe_model/'manifest.json' if args.pe_model else None
+    pe_identity=sha256(pe_manifest) if pe_manifest and pe_manifest.is_file() else None
+    actual_noise_sha256=sha256(latent_snapshot) if latent_snapshot else None
+    noise_identity_proven=actual_noise_sha256 is not None and args.noise_sha256==actual_noise_sha256
+    formal_eligible=noise_identity_proven and (args.pe_model is None or pe_identity is not None) and not args.trace
     result={'scope':'One native functional run; no full-resolution official denoising reference or perceptual quality gate',
         'passed':False,'quality_validated':False,'status':'pending','prompt':args.prompt if not args.prompt_file else None,
         'prompt_file':str(args.prompt_file.resolve()) if args.prompt_file else None,'config':manifest['config'],
         'command':command,'runner_sha256':sha256(runner),'benchmark_sha256':sha256(__file__),
         'package_manifest_sha256':sha256(args.model/'manifest.json'),'system_memory_before_kib':memory(),
+        'prompt_sha256':sha256(prompt_snapshot),'prompt_snapshot':str(prompt_snapshot.resolve()),
+        'noise_sha256':actual_noise_sha256,'expected_noise_sha256':args.noise_sha256,
+        'noise_dtype':'<f4' if latent_snapshot else None,
+        'pe_manifest_sha256':pe_identity,'formal_comparison_eligible':formal_eligible,
+        'formal_ineligibility_reasons':([] if noise_identity_proven else ['saved FP32 noise and matching frozen SHA256 are required'])+
+            ([] if not args.pe_model or pe_identity else ['PE package manifest identity is required'])+
+            ([] if not args.trace else ['trace must be disabled']),
         'trace':args.trace,'timing_scope':'end_to_end_external_process_launch_through_output_close',
         'gpu_sampling_scope':'Whole NVIDIA device 0, includes other processes, 100 ms samples; not exact allocator/process VRAM',
         'precision':{'dit':args.precision,'residual':'fp32','text':'fp32','euler':'fp32',
@@ -81,22 +130,15 @@ def main():
     (args.output/'request.json').write_text(json.dumps(result,indent=2,ensure_ascii=False)+'\n')
     sampler=None
     try:
-        with (args.output/'runner.log').open('w') as log, (args.output/'gpu-device-memory.log').open('w') as gpu_log:
+        with (args.output/'gpu-device-memory.log').open('w') as gpu_log:
             try:
                 if args.device=='vulkan' or args.vae_device=='vulkan':
                     sampler=subprocess.Popen(['nvidia-smi','--query-gpu=memory.used','--format=csv,noheader,nounits','--id=0','--loop-ms=100'],stdout=gpu_log,stderr=subprocess.DEVNULL)
                 timed=['/usr/bin/time','-v','-o',str((args.output/'resources.log').resolve()),*command]
-                started_ns=time.monotonic_ns()
-                with subprocess.Popen(timed,stdout=log,stderr=subprocess.STDOUT,start_new_session=True) as process:
-                    try:result['return_code']=process.wait(timeout=args.timeout)
-                    except subprocess.TimeoutExpired:
-                        os.killpg(process.pid,signal.SIGKILL);process.wait();raise
-                result['wall_started_monotonic_ns']=started_ns
-                result['wall_finished_monotonic_ns']=time.monotonic_ns()
-                result['wall_seconds']=(result['wall_finished_monotonic_ns']-started_ns)/1_000_000_000
+                result.update(run_timed_command(timed,args.timeout,args.output/'runner.log'))
             finally:
                 if sampler is not None:sampler.terminate();sampler.wait(timeout=5)
-        if result['return_code']:raise RuntimeError('Native inference failed; inspect runner.log')
+        if result['return_code']:raise RuntimeError(f"Native inference failed: {result['failure_category']}; inspect runner.log")
         with Image.open(args.output/'native.png') as picture:
             picture.load();result['image']={'size':list(picture.size),'mode':picture.mode,'sha256':sha256(args.output/'native.png')}
         cfg=manifest['config']
