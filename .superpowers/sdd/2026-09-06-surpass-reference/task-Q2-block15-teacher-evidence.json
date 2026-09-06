@@ -1,0 +1,152 @@
+{
+  "scope": "Conditional native input sensitivity decomposition, not causal percentages or pure error for changed-input difference",
+  "input_l2": 0.5377929787308702,
+  "local_same_input_l2": 0.1987765447421232,
+  "propagated_input_difference_l2": 0.6766809837391604,
+  "total_l2": 0.6731169756587257,
+  "local_propagated_inner_product": -0.0221614027869328,
+  "local_propagated_cosine": -0.1647586170902769,
+  "conditional_l2_gain": 1.2582555193190696,
+  "result_sha256": "03b41a93fcd282c45e224dafecc5f14f72362ae3430cb92b825169dbebe42867",
+  "plan_sha256": "7c28ba7632bd4f2a7a26c2c9d00b61bc65c7ddf1eb9a6310c0bd90c1d8a8bfe3",
+  "worker": {
+    "command": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-chinese-step0-block15-official-input-v1/execution/diagnose_single_block_teacher.py",
+      "--execute",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-chinese-step0-block15-official-input-v1/plan.json"
+    ],
+    "cpu_affinity": [
+      0,
+      2
+    ],
+    "internal_requested_threads": 4,
+    "rss_limit_bytes": 9663676416,
+    "gpu_whole_device_limit_mib": 6144,
+    "minimum_host_available_bytes": 3221225472,
+    "scope": "Recursive descendants, including independently sessioned runner; sampled sum RSS, not unique PSS",
+    "started_unix": 1788715112.8683946,
+    "passed": true,
+    "return_code": 0,
+    "stop_reason": null,
+    "peak_rss_sum_bytes": 846036992,
+    "gpu_whole_device_sampled_peak_mib": 3913,
+    "elapsed_seconds": 5.388071801004116,
+    "interpretation": "Execution completion only; no numerical acceptance gate"
+  },
+  "minimum_host_available_bytes": 17257680896,
+  "audit_script_sha256": "60d11faa3b6931d83544c5dda47ecb11b0814b98179cc136694c3e3e2ec2ec74",
+  "inputs": {
+    "in0": {
+      "file": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-chinese-step0-block15-official-input-v1/fixture/in0.f32",
+      "shape": [
+        1,
+        4160,
+        4096
+      ],
+      "dtype": "float32_le",
+      "sha256": "99e8b65adfc9c1759fecad8ecf9dc1d5738621f7fce1416cba25aa73677d3c42",
+      "layer": 14,
+      "trace": "block-14.f32",
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/diagnostic-chinese-step0-stages-v1/oracle/fixture/block-14.f32"
+    },
+    "in1": {
+      "file": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-chinese-step0-block15-official-input-v1/fixture/in1.f32",
+      "shape": [
+        1,
+        1,
+        4096
+      ],
+      "dtype": "float32_le",
+      "sha256": "19f47df5a55c12f7000aaa4099e8ac71f8345650632c0165ae0371e9a081b5bd",
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-chinese-step0-current-exact-head-stack-v1/fixture/in1.f32"
+    },
+    "in2": {
+      "file": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-chinese-step0-block15-official-input-v1/fixture/in2.f32",
+      "shape": [
+        1,
+        1,
+        4096
+      ],
+      "dtype": "float32_le",
+      "sha256": "6b26a45f5da7109cfa183e5b2e19b81d71879b2e2c2d4c214a8fdba118a1d4d7",
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-chinese-step0-current-exact-head-stack-v1/fixture/in2.f32"
+    },
+    "in3": {
+      "file": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-chinese-step0-block15-official-input-v1/fixture/in3.f32",
+      "shape": [
+        1,
+        1,
+        4096
+      ],
+      "dtype": "float32_le",
+      "sha256": "91ba320da8653f2b35e71534e87fd58c1c71181d299c41848a26e920c033b93b",
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-chinese-step0-current-exact-head-stack-v1/fixture/in3.f32"
+    },
+    "in4": {
+      "file": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-chinese-step0-block15-official-input-v1/fixture/in4.f32",
+      "shape": [
+        1,
+        1,
+        4096
+      ],
+      "dtype": "float32_le",
+      "sha256": "ef0a7df2eb337885382867900ae2f2a39bf17247817b5b07599e4b30cee8a7fa",
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-chinese-step0-current-exact-head-stack-v1/fixture/in4.f32"
+    },
+    "in5": {
+      "file": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-chinese-step0-block15-official-input-v1/fixture/in5.f32",
+      "shape": [
+        1,
+        1,
+        4096
+      ],
+      "dtype": "float32_le",
+      "sha256": "878938fe3180021eeef73684e6c5828421e9a4f0bba1ba03b5c6f68095112062",
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-chinese-step0-current-exact-head-stack-v1/fixture/in5.f32"
+    },
+    "in6": {
+      "file": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-chinese-step0-block15-official-input-v1/fixture/in6.f32",
+      "shape": [
+        1,
+        1,
+        4096
+      ],
+      "dtype": "float32_le",
+      "sha256": "07eea455cbb723c2e5b3d8d762b8454836201762286de010de4aa0bb8a5614b9",
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-chinese-step0-current-exact-head-stack-v1/fixture/in6.f32"
+    },
+    "in7": {
+      "file": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-chinese-step0-block15-official-input-v1/fixture/in7.f32",
+      "shape": [
+        1,
+        4160,
+        128
+      ],
+      "dtype": "float32_le",
+      "sha256": "551809a388b5a6bfa9c9d14cc13e769403e531051ab87cd40592ad0ff29fdc42",
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-chinese-step0-current-exact-head-stack-v1/fixture/in7.f32"
+    },
+    "in8": {
+      "file": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-chinese-step0-block15-official-input-v1/fixture/in8.f32",
+      "shape": [
+        1,
+        4160,
+        128
+      ],
+      "dtype": "float32_le",
+      "sha256": "d76a3e7fe56acf7e4d9f4dc06dca4e75136b419ef815362dcf85be0a0f1f1cd7",
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-chinese-step0-current-exact-head-stack-v1/fixture/in8.f32"
+    },
+    "in9": {
+      "file": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-chinese-step0-block15-official-input-v1/fixture/in9.f32",
+      "shape": [
+        4160,
+        4160
+      ],
+      "dtype": "float32_le",
+      "sha256": "12f5c9c117a285813a3677969cd181090513e8eae36ac787c7749fdb5c5319cc",
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-chinese-step0-current-exact-head-stack-v1/fixture/in9.f32"
+    }
+  }
+}
