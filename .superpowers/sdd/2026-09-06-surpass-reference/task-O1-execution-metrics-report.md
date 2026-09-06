@@ -74,3 +74,19 @@ Preparation review found that the first supervisor revision created `samples.jso
 A second preparation review found incomplete build provenance and a weak numerical denominator. The final plan now uses the shared `tools/source_inventory.py` contract (305 project files, including tokenizer Cargo inputs and schema contract), binds the pinned ncnn commit and complete 7,791-file base manifest, and binds the ON derived 7,793-file manifest (three changed/additional files, none missing). It also records both CMake caches and their opposite instrumentation flag values. The comparator binds every fixed trace size from the historical 64 contract, checks all FP32 values are finite, verifies `initial.f32` against the frozen input, parses a valid 64x64 PNG header, and requires explicit zero `oom` and `oom_kill` fields. `invalid-preparations.json` retains both rejected preparation identities and findings; neither was executed.
 
 Final preparation hardening parses every PNG chunk with bounds and CRC checks, requires exactly one terminal IEND and at least one IDAT, and checks the 64x64 IHDR. It also proves that the allocation diagnostic observed real Vulkan allocator activity: the domain and coverage scope must match, total allocation count and peak bytes must be positive, live bytes must return to zero, GPU index 0 must be identified, and every recorded allocator must be inactive with no live handles.
+
+### Fixed 64 actual ON/OFF execution
+
+After independent preparation review `3ec6e4d`, root allocated the sole GPU slot. The authorized launcher hashes matched the final preparation before execution. ON and OFF ran serially under the frozen guard and both exited naturally with code zero; the GPU slot was released immediately after OFF.
+
+- ON supervisor wall time: 388.594903989 s; cgroup peak current: 5,852,770,304 bytes; minimum host available: 16,308,576,256 bytes.
+- OFF supervisor wall time: 382.261158137 s; cgroup peak current: 10,161,700,864 bytes; minimum host available: 16,485,826,560 bytes.
+- Both observed MemoryMax 10,737,418,240 bytes, MemorySwapMax 0, and explicit `max=0`, `oom=0`, `oom_kill=0` memory events.
+- The frozen comparator passed exactly 27 trace files, including 25 finite FP32 tensors with fixed sizes. Every ON/OFF trace byte and the final PNG matched. The PNG SHA-256 is `fdd6e29e33800b7ca025d43f488b71499dac1cbfea099e1d96c09f31257e8fd7`.
+- Result SHA-256: `1edfdc2a1834b0943110c958aa60c7b39b1f5c115648fe3cb9b11e0ae6769099`.
+
+The ON report records 367,954,317,371 host nanoseconds for the CLI generation/image-write scope. Its non-overlapping observed intervals are: verify 18,381,651,736 ns (1 sample), combined read/prepare 320,354,132,790 ns (322), upload 52,921,153 ns (1), compute 27,458,740,592 ns (321), and final download 51,055 ns (1). It observed 866 submissions. Allocation instrumentation observed 2,375 allocations with a 968,724,992-byte peak and zero live bytes at completion, one device, and 1,254 inactive allocators with no live handles.
+
+These times are host intervals. Combined read/prepare includes ncnn model read, unpack, pipeline creation, upload, and inseparable head/VAE load-and-compute. Compute includes host-recorded work and internal submit/wait. GPU time, CPU RSS, and transfer bytes remain null because they are not completely observed. PE/text preparation outside instrumented block execution remains unclassified. Trace was enabled, so this run is diagnostic and is ineligible for formal speed or memory claims.
+
+`actual-evidence.json` freezes the result, both process/guard records, sampling logs, driver logs, metrics JSON, 54 trace outputs across the two sides, PNGs, and all execution scripts/identities. Status is `actual_comparison_passed_pending_independent_review`; no formal performance conclusion is claimed.
