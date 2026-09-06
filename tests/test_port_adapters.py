@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from pathlib import Path
 import numpy as np
-from tools.port_adapters import PortAdapter, Unavailable, canonical_latent, canonical_sha256, verify_pair
+from tools.port_adapters import PortAdapter, Unavailable, canonical_latent, canonical_sha256, verify_pair, calibration_grid
 from tools.audit_port_weights import normalized_hash, reference_inventory
 
 class AdapterTests(unittest.TestCase):
@@ -49,6 +49,36 @@ class AdapterTests(unittest.TestCase):
             with self.assertRaises(Unavailable):adapter.command(case,root/'out',False)
             adapter.kind='candidate';adapter.config={'threads':8}
             with self.assertRaises(Unavailable):adapter.command(case,root/'out',False)
+
+    def test_candidate_greedy_maps_to_accepted_cli_without_changing_contract(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);prompt=b'apple';(root/'prompt.txt').write_bytes(prompt)
+            noise=np.zeros(128*4*4,dtype='<f4').tobytes();(root/'initial.f32').write_bytes(noise)
+            case=dict(shape=[64,64],steps=8,cfg=1,noise_path='initial.f32',noise_layout='CHW',noise_dtype='<f4',
+                      noise_sha256=hashlib.sha256(noise).hexdigest(),prompt_path='prompt.txt',prompt_sha256=hashlib.sha256(prompt).hexdigest(),
+                      dtype_by_stage={'dit':'fp32'},pe={'enabled':True,'sampling':'greedy','temperature':0,
+                      'max_new_tokens':2048,'top_p':1})
+            original=copy.deepcopy(case)
+            candidate=PortAdapter('candidate',Path('/binary'),Path('/model'),root,{'pe_model':'/pe'})
+            peer=PortAdapter('reference',Path('/binary'),Path('/model'),root)
+            command=candidate.command(case,root/'out',False)
+            self.assertIn('--pe-greedy',command)
+            self.assertEqual(command[command.index('--pe-temperature')+1],'1.0')
+            peer_command=peer.command(case,root/'other',False)
+            self.assertEqual(float(peer_command[peer_command.index('--pe-temperature')+1]),0)
+            self.assertEqual(case,original)
+            modes=candidate.modes(case)
+            self.assertEqual(set(modes['dtype_by_stage']),{'text','dit','vae','scheduler'})
+            self.assertEqual(set(modes['device_by_stage']),{'text','dit','vae','scheduler'})
+            self.assertFalse(modes['pe_temperature_used_for_sampling'])
+
+    def test_calibration_capabilities_are_specific_to_each_port(self):
+        rows=calibration_grid()
+        candidate=[r for r in rows if r['port']=='candidate' and r['threads']==4]
+        self.assertEqual(len(candidate),3)
+        self.assertTrue(all(r['status']=='pending' for r in candidate))
+        self.assertTrue(all(r['status']=='unavailable' for r in rows if r['port']=='candidate' and r['threads']==8))
+        self.assertTrue(all(r['status']=='unavailable' for r in rows if r['port']=='reference' and r['precision']=='fp16'))
 
     def test_stream_normalization_and_transpose(self):
         with tempfile.TemporaryDirectory() as tmp:

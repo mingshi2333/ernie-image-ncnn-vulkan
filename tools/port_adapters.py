@@ -130,6 +130,11 @@ class PortAdapter:
                 else:
                     if field_name not in pe: raise ValueError('Missing explicit PE parameter: '+field_name)
                     value = pe[field_name]
+                # Candidate validates a positive temperature even in greedy
+                # mode, where sample_pe_token never uses it. The peer selects
+                # greedy via temperature=0. Keep the frozen semantic contract.
+                if self.kind == 'candidate' and greedy and field_name == 'temperature':
+                    value = 1.0
                 command += [flag,str(value)]
         return command
 
@@ -143,8 +148,13 @@ class PortAdapter:
             dtype={'text':'fp32','dit':precision,'vae':'fp32'}
             devices={'text':'cpu','dit':device,'vae':self.config.get('vae_device','cpu')}
         dtype['scheduler']='fp32';devices['scheduler']='cpu' if self.kind=='reference' else device
-        if case['pe']['enabled']: dtype['pe']='fp32';devices['pe']='cpu'
-        return {'dtype_by_stage':dtype,'device_by_stage':devices}
+        result = {'dtype_by_stage':dtype,'device_by_stage':devices}
+        if case['pe']['enabled']:
+            result.update(pe_precision='fp32', pe_device='cpu',
+                          pe_sampling='greedy',
+                          pe_cli_temperature=1.0 if self.kind=='candidate' else 0.0,
+                          pe_temperature_used_for_sampling=False)
+        return result
 
     def parse_log(self, log: str) -> dict:
         """Keep optional internal observations distinct from external wall time."""
@@ -164,8 +174,8 @@ def calibration_grid():
             for precision in ('fp32','fp16','bf16'):
                 for low in ((True,False) if kind=='reference' else (None,)):
                     reason=('candidate fixes CPU threads to 4' if kind=='candidate' and threads!=4 else
-                            'reference FP16 unsupported' if precision=='fp16' else
-                            'device-resident capacity preflight required' if not low else None)
+                            'reference FP16 unsupported' if kind=='reference' and precision=='fp16' else
+                            'device-resident capacity preflight required' if kind=='reference' and not low else None)
                     rows.append(dict(port=kind,threads=threads,precision=precision,low_vram=low,
                                      status='unavailable' if reason else 'pending',reason=reason))
     return rows

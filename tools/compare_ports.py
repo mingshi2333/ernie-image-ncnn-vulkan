@@ -7,18 +7,20 @@ settings without modifying the frozen manifest. Development permits missing func
 import argparse
 import hashlib
 import json
+import re
 import subprocess
 import os
 import signal
 import shutil
 import time
 from pathlib import Path
+from dataclasses import replace
 import numpy as np
 from port_adapters import PortAdapter, Unavailable, canonical_sha256, verify_pair, calibration_grid
 from package_model import sha256, verify_package, safe_name
 from source_inventory import source_files
 from port_metrics import summarize_pairs
-from acceptance_manifest import verify_inputs
+from acceptance_manifest import verify_inputs, canonical, digest
 
 
 def verify_reference_assets(model):
@@ -39,16 +41,39 @@ def verify_reference_assets(model):
     return sha256(manifest_path)
 
 
+def snapshot_inputs(adapter, case, out):
+    """Execute the exact bytes verified here, independently of live corpus files."""
+    root = out/'inputs'
+    root.mkdir()
+    paths = [('prompt_path', 'prompt_sha256'), ('noise_path', 'noise_sha256')]
+    if case.get('input_image_path'):
+        paths.append(('input_image_path', 'input_image_sha256'))
+    for path_key, hash_key in paths:
+        name = safe_name(case[path_key])
+        target = root/name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        content = (adapter.input_root/name).read_bytes()
+        if hashlib.sha256(content).hexdigest() != case[hash_key]:
+            raise ValueError('Frozen input checksum mismatch: ' + name)
+        with target.open('xb') as stream:
+            stream.write(content)
+    return replace(adapter, input_root=root)
+
+
 def run_side(adapter,case,out,trace,timeout):
     out.mkdir(parents=True,exist_ok=False)
     record={'status':'incomplete','quality_status':'incomplete','scope':'end_to_end','trace':trace,
-            **{k:case[k] for k in ('prompt_sha256','noise_sha256','shape','steps','cfg','pe')},
+            **{k:case[k] for k in ('prompt_sha256','noise_sha256','shape','shape_order','steps','cfg','pe')},
             **adapter.modes(case),'weight_identity_status':'unproven','weights_canonical_sha256':None}
     record.update(input_id=case['prompt_sha256'],noise_dtype=case['noise_dtype'],
-                  model_id=json.dumps(case['model_identity'],sort_keys=True),
-                  pe_identity=json.dumps(case['pe'],sort_keys=True),
+                  model_id=canonical(case['model_identity']).decode(),
+                  pe_identity=canonical(case['pe']).decode(),
+                  case_identity_sha256=digest(canonical(case)),
                   precision_by_stage=record['dtype_by_stage'])
+    if case.get('mode')=='img2img':
+        record.update({key:case[key] for key in ('input_image_sha256','decoded_rgb_sha256','strength','resize_policy')})
     try:
+        adapter = snapshot_inputs(adapter, case, out)
         command=adapter.command(case,out,trace)
         if adapter.kind=='candidate':verify_package(adapter.model)
         else: record['asset_manifest_sha256']=verify_reference_assets(adapter.model)
@@ -59,25 +84,38 @@ def run_side(adapter,case,out,trace,timeout):
         record['actual_command']=actual_command
         (out/'launch.json').write_text(json.dumps(record,indent=2))
         start=time.monotonic_ns()
-        with (out/'stdout.log').open('wb') as stdout,(out/'stderr.log').open('wb') as stderr:
-            try:
+        try:
+            with (out/'stdout.log').open('wb') as stdout,(out/'stderr.log').open('wb') as stderr:
                 proc=subprocess.Popen(actual_command,stdout=stdout,stderr=stderr,start_new_session=True)
-                code=proc.wait(timeout=timeout);record['status']='ok' if code==0 else 'crashed' if code<0 or code>=128 else 'failed'
-                record['exit_code']=code
-            except subprocess.TimeoutExpired:
-                os.killpg(proc.pid,signal.SIGKILL);proc.wait()
-                record['status']='timeout';record['exit_code']=None
-        end=time.monotonic_ns()
-        record.update(started_monotonic_ns=start,finished_monotonic_ns=end,wall_seconds=(end-start)/1e9)
+                try:
+                    code=proc.wait(timeout=timeout);record['status']='ok' if code==0 else 'crashed' if code<0 else 'failed'
+                    record['exit_code']=code
+                    record['termination_signal']=-code if code<0 else None
+                except subprocess.TimeoutExpired:
+                    try: os.killpg(proc.pid,signal.SIGKILL)
+                    except ProcessLookupError: pass
+                    proc.wait()
+                    record['status']='timeout';record['exit_code']=proc.returncode
+                    record['termination_signal']=-proc.returncode if proc.returncode<0 else None
+        finally:
+            end=time.monotonic_ns()
+            record.update(started_monotonic_ns=start,finished_monotonic_ns=end,wall_seconds=(end-start)/1e9)
         record['log_observations']=adapter.parse_log((out/'stderr.log').read_text(errors='replace'))
+        # /usr/bin/time is a wrapper: only its explicit signal report can
+        # distinguish a child killed by a signal from normal exit(128+N).
+        resource_text=(out/'resource.txt').read_text(errors='replace') if (out/'resource.txt').exists() else ''
+        reported_signal=re.search(r'^Command terminated by signal (\d+)\s*$',resource_text,re.M)
+        if reported_signal and record['status']!='timeout':
+            record.update(status='crashed',termination_signal=int(reported_signal[1]),
+                          termination_evidence='GNU time signal report')
         if record['status']=='ok' and not (out/'image.png').is_file():record['status']='incomplete'
-        record['files']={str(p.relative_to(out)):sha256(p) for p in out.rglob('*') if p.is_file()}
         initial=out/('trace/initial.f32' if adapter.kind=='candidate' else 'initial.f32')
         if initial.exists():
             record['initial_canonical_sha256']=canonical_sha256(np.fromfile(initial,dtype='<f4'),'CHW',tuple(case['noise_shape']))
             if record['initial_canonical_sha256']!=case['noise_sha256']:record['status']='input_mismatch'
     except Unavailable as exc:record.update(status='unavailable',reason=str(exc))
     except (ValueError,OSError) as exc:record.update(status='incomplete',reason=str(exc))
+    record['files']={str(p.relative_to(out)):sha256(p) for p in out.rglob('*') if p.is_file()}
     (out/'result.json').write_text(json.dumps(record,indent=2));return record
 
 
@@ -86,6 +124,8 @@ def compare(manifest,suite,output,development=False,ports_file=None):
     manifest=Path(manifest).resolve();data=json.loads(manifest.read_text());root=manifest.parent
     (output/'manifest.json').write_bytes(manifest.read_bytes())
     verify_inputs(data,root)
+    protocol=json.loads((root/'protocol.json').read_text())
+    (output/'protocol.json').write_bytes((root/'protocol.json').read_bytes())
     config=json.loads(Path(ports_file).read_text()) if ports_file else {}
     if ports_file: (output/'ports.json').write_bytes(Path(ports_file).read_bytes())
     splits={'calibration':{'development'},'quality':{'formal'},'performance':{'performance'}}[suite]
@@ -104,7 +144,7 @@ def compare(manifest,suite,output,development=False,ports_file=None):
         except ValueError as exc:pair.update(pair_contract='unproven_or_mismatched',pair_contract_reason=str(exc))
         pairs.append(pair)
     report={'schema_version':1,'suite':suite,'development':development,'status':'incomplete',
-            'superiority_claim':False,'pairs':pairs,'metrics':summarize_pairs(pairs),
+            'superiority_claim':False,'pairs':pairs,'metrics':summarize_pairs(pairs,data,protocol),
             'calibration_grid':calibration_grid(),'manifest_sha256':sha256(manifest),
             'sources':{str(p.relative_to(Path(__file__).resolve().parents[1])):sha256(p) for p in source_files(Path(__file__).resolve().parents[1])},
             'limitations':['No automated full trajectory quality verdict yet; successful process is not quality acceptance',
