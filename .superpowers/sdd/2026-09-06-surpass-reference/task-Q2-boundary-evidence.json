@@ -1,0 +1,76 @@
+{
+  "scope": "Conditional perturbation propagation; actual reconstructed IEEE FP32 operations; not official local-error oracle",
+  "reconstructed_final_mismatches": {
+    "official": 0,
+    "native": 0
+  },
+  "reconstructed_final_max_diff": {
+    "official": 0.0,
+    "native": 0.0
+  },
+  "conditional_difference_l2": {
+    "before": 0.5688275845226222,
+    "down": 0.23648727917252968,
+    "branch_update": 0.5421905475579976,
+    "final": 0.6766809837391605,
+    "residual_rounding_difference": 0.011303257458426114
+  },
+  "before_update_cosine": -0.258982040990393,
+  "gate_min": -22.49826431274414,
+  "gate_max": 19.602617263793945,
+  "result_sha256": [
+    "0342c5dfb43b6fcc17ee54fe40e84bb3be09aec7f1bd9fe186c2a71099c0f025",
+    "62bb3192272c693b1ae1476601396b54740edb650a01ee2c5fba166c8fc146eb"
+  ],
+  "workers": [
+    {
+      "command": [
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-boundary-v1/execution/diagnose_boundary_pair.py",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-boundary-v1/plan.json"
+      ],
+      "cpu_affinity": [
+        0,
+        2
+      ],
+      "internal_requested_threads": 4,
+      "rss_limit_bytes": 9663676416,
+      "gpu_whole_device_limit_mib": 6144,
+      "minimum_host_available_bytes": 3221225472,
+      "scope": "Recursive descendants, including independently sessioned runner; sampled sum RSS, not unique PSS",
+      "started_unix": 1788715643.299788,
+      "passed": true,
+      "return_code": 0,
+      "stop_reason": null,
+      "peak_rss_sum_bytes": 899448832,
+      "gpu_whole_device_sampled_peak_mib": 3905,
+      "elapsed_seconds": 11.261172947997693,
+      "interpretation": "Execution completion only; no numerical acceptance gate"
+    },
+    {
+      "command": [
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-boundary88-v1/execution/diagnose_boundary_pair.py",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-boundary88-v1/plan.json"
+      ],
+      "cpu_affinity": [
+        0,
+        2
+      ],
+      "internal_requested_threads": 4,
+      "rss_limit_bytes": 9663676416,
+      "gpu_whole_device_limit_mib": 6144,
+      "minimum_host_available_bytes": 3221225472,
+      "scope": "Recursive descendants, including independently sessioned runner; sampled sum RSS, not unique PSS",
+      "started_unix": 1788715764.7346234,
+      "passed": true,
+      "return_code": 0,
+      "stop_reason": null,
+      "peak_rss_sum_bytes": 976994304,
+      "gpu_whole_device_sampled_peak_mib": 3913,
+      "elapsed_seconds": 10.107407994990353,
+      "interpretation": "Execution completion only; no numerical acceptance gate"
+    }
+  ],
+  "audit_script_sha256": "0413eb4872e1b13ca32c1229381e6fd2940f335225ac54de8b8e8492abdedd76"
+}

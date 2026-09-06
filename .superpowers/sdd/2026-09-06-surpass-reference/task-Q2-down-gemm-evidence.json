@@ -1,0 +1,26 @@
+{
+  "scope": "Five fixed rows, exact native down-Gemm inputs and official BF16-expanded weight, FP64 dot; not full oracle",
+  "rows": [
+    0,
+    22,
+    4095,
+    4096,
+    4159
+  ],
+  "local_down_gemm_error": {
+    "l2": 0.003971839077357208,
+    "max": 0.00022600889084856135
+  },
+  "full_native_mlp_error": {
+    "l2": 0.004875966590892075,
+    "max": 0.00025959877691406064
+  },
+  "upstream_mlp_propagated_error": {
+    "l2": 0.002799146774909223,
+    "max": 0.0001261106893295505
+  },
+  "local_down_full_error_cosine": 0.8188171248015251,
+  "native_87_result_sha256": "9335b51ef731eb55c0f45c736025acaed3d7655a50a4a7a6a7613bc24b968b88",
+  "weights_sha256": "d3c1b748148895cf9f4a72669bd77d69a1315c024bcc4f1e5f4f96ecd283a3b2",
+  "source_script_sha256": "402259f22818d1f006b81a70a03c7ad7f721e2a1b2d382243764851e9bb490d4"
+}
