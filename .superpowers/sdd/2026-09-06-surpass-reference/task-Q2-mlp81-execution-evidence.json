@@ -1,0 +1,132 @@
+{
+  "audit": {
+    "status": "aborted_resource_guard",
+    "formal_acceptance": false,
+    "quality": null,
+    "native_observer_replay_exact": true,
+    "native": {
+      "boundary": {
+        "sha256": "da8bc040080f6674042c860a372c8f004041dae617a0cdeffae96f3c2be61d54",
+        "elements": 17039360,
+        "bytes": 68157440,
+        "finite": true
+      },
+      "out0": {
+        "sha256": "175bfa394aec3b7e576caaea3fd897cf84db122d4cd9378d7d72dfe704df68a3",
+        "elements": 17039360,
+        "bytes": 68157440,
+        "finite": true
+      }
+    },
+    "official_baseline_completed": false,
+    "matched_mlp_completed": false,
+    "official_forward_started_evidence": false,
+    "phase_basis": "No torch-config, before-forward runtime, baseline-observation, official directory or result. Frozen official code writes config and runtime snapshot before its sole block forward. Native output/layout complete and final SHA exact.",
+    "bound_postcheck_count": 5885,
+    "plan_sha256": "c7447c7150838dba7d98adf1a8dbca572b857511a341b505d4ac7e35077e1b02",
+    "launcher_sha256": "07c879d246e92b12d220cbb88b549504e35179166f9f73a2afb41ed4503b3962",
+    "worker_result": {
+      "command": [
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-mlp81-v2/execution/diagnose_mlp81_sequence.py",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-mlp81-v2/plan.json"
+      ],
+      "cpu_affinity": [
+        0,
+        2
+      ],
+      "internal_requested_threads": 4,
+      "thread_scope": "same official CPU setup num_threads4; two physical CPU cores enforced by affinity",
+      "rss_limit_bytes": 9663676416,
+      "gpu_whole_device_limit_mib": 6144,
+      "minimum_host_available_bytes": 3221225472,
+      "scope": "Recursive descendants, including independently sessioned runner; sampled sum RSS, not unique PSS",
+      "started_unix": 1788721675.836011,
+      "passed": false,
+      "return_code": -9,
+      "stop_reason": "process_swap_detected",
+      "peak_rss_sum_bytes": 836218880,
+      "gpu_whole_device_sampled_peak_mib": 3977,
+      "elapsed_seconds": 22.686664560998906,
+      "interpretation": "Execution completion only; no numerical acceptance gate"
+    },
+    "sample_count": 43,
+    "first_swap": {
+      "seconds": 22.683839928999078,
+      "rss_sum": 836218880,
+      "process_swap_bytes": 9306112,
+      "host_available": 18137624576,
+      "gpu_mib": 1684,
+      "pids": [
+        2087828,
+        2088325
+      ]
+    },
+    "pid_transitions": [
+      {
+        "seconds": 0.04759486000693869,
+        "rss_sum": 12935168,
+        "process_swap_bytes": 0,
+        "host_available": 18065764352,
+        "gpu_mib": 1718,
+        "pids": [
+          2087828
+        ]
+      },
+      {
+        "seconds": 5.394561378998333,
+        "rss_sum": 217116672,
+        "process_swap_bytes": 0,
+        "host_available": 18002763776,
+        "gpu_mib": 1653,
+        "pids": [
+          2087828,
+          2087961
+        ]
+      },
+      {
+        "seconds": 9.791577911004424,
+        "rss_sum": 26550272,
+        "process_swap_bytes": 0,
+        "host_available": 18226401280,
+        "gpu_mib": 1699,
+        "pids": [
+          2087828
+        ]
+      },
+      {
+        "seconds": 15.128800105012488,
+        "rss_sum": 66363392,
+        "process_swap_bytes": 0,
+        "host_available": 18224836608,
+        "gpu_mib": 1696,
+        "pids": [
+          2087828,
+          2088325
+        ]
+      }
+    ],
+    "minimum_host_available_bytes": 17722568704,
+    "per_pid_swap_attribution": "Unavailable: historical samples sum psutil memory_full_info.swap and save PID list, not per-PID VmSwap/smaps. Both final PIDs already exited, cannot recover /proc records. Do not attribute the 9306112 bytes to a particular PID.",
+    "cgroup_scope": "Frozen launcher/worker use ordinary subprocess with start_new_session, affinity and sampled guards; no cgroup creation/join or memory.swap.max=0. Session isolation is not memory/swap isolation.",
+    "current_probe_only_not_historical": {
+      "pid": 2091022,
+      "proc_self_cgroup": "0::/user.slice/user-1000.slice/user@1000.service/app.slice/app-org.chromium.Chromium-14995.scope\n",
+      "files": {
+        "memory.max": "max\n",
+        "memory.swap.max": "max\n",
+        "memory.current": "15058681856\n",
+        "memory.swap.current": "3853959168\n",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 3687\n"
+      }
+    },
+    "input_guard_gap": "Next independently approved attempt needs dedicated cgroup with verified memory.swap.max=0 before children execute and per-PID/cgroup swap telemetry; do not raise threshold or retry this attempt."
+  },
+  "artifact_sha256": {
+    "outputs/q2-block15-mlp81-v2/execution-audit.json": "a103f7505b0167e872c388e0325b05ab2b8939e310419ea9dd6adf07e30c1943",
+    "outputs/q2-block15-mlp81-v2/execution/worker-result.json": "fb79dcba3b19e0ff5d2a356a4dce4575aa47066862b373e28400ce7c64e59c20",
+    "outputs/q2-block15-mlp81-v2/execution/samples.jsonl": "c928d8b44699e0f79b503274d6ed1d5b72d1a2dc1a43573cbf2a0cde5fe416c8",
+    "outputs/q2-block15-mlp81-v2/native.log": "51a6ad3e22e134ef06e54ebf11977727fc4fb980ce0cd68c29a6b4849ae4672b",
+    "outputs/q2-block15-mlp81-v2/started.json": "ee6dfc670c57e5435b836acb8dda0f95395fb88763a664dc0d7a8a24d8d1cb2e"
+  }
+}
