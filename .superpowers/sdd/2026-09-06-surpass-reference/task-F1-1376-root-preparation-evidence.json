@@ -1,0 +1,377 @@
+{
+  "status": "preparation_review_blocked_by_interpreter_route",
+  "plan_sha256": "087ee3aace003122219698ddd64c888ac46e58f4e4ddf6908d003b1bb58bb137",
+  "source_identity_sha256": "c1d37ac0bc6d4affc14e16170af505dca9034eac2c35895376da7096b5c98407",
+  "snapshot_files_verified": 296,
+  "candidate_graphs": [
+    {
+      "path": "text/block-00/text.ncnn.param",
+      "kind": "text",
+      "changed_fields": 0
+    },
+    {
+      "path": "text/block-01/text.ncnn.param",
+      "kind": "text",
+      "changed_fields": 0
+    },
+    {
+      "path": "text/block-02/text.ncnn.param",
+      "kind": "text",
+      "changed_fields": 0
+    },
+    {
+      "path": "text/block-03/text.ncnn.param",
+      "kind": "text",
+      "changed_fields": 0
+    },
+    {
+      "path": "text/block-04/text.ncnn.param",
+      "kind": "text",
+      "changed_fields": 0
+    },
+    {
+      "path": "text/block-05/text.ncnn.param",
+      "kind": "text",
+      "changed_fields": 0
+    },
+    {
+      "path": "text/block-06/text.ncnn.param",
+      "kind": "text",
+      "changed_fields": 0
+    },
+    {
+      "path": "text/block-07/text.ncnn.param",
+      "kind": "text",
+      "changed_fields": 0
+    },
+    {
+      "path": "text/block-08/text.ncnn.param",
+      "kind": "text",
+      "changed_fields": 0
+    },
+    {
+      "path": "text/block-09/text.ncnn.param",
+      "kind": "text",
+      "changed_fields": 0
+    },
+    {
+      "path": "text/block-10/text.ncnn.param",
+      "kind": "text",
+      "changed_fields": 0
+    },
+    {
+      "path": "text/block-11/text.ncnn.param",
+      "kind": "text",
+      "changed_fields": 0
+    },
+    {
+      "path": "text/block-12/text.ncnn.param",
+      "kind": "text",
+      "changed_fields": 0
+    },
+    {
+      "path": "text/block-13/text.ncnn.param",
+      "kind": "text",
+      "changed_fields": 0
+    },
+    {
+      "path": "text/block-14/text.ncnn.param",
+      "kind": "text",
+      "changed_fields": 0
+    },
+    {
+      "path": "text/block-15/text.ncnn.param",
+      "kind": "text",
+      "changed_fields": 0
+    },
+    {
+      "path": "text/block-16/text.ncnn.param",
+      "kind": "text",
+      "changed_fields": 0
+    },
+    {
+      "path": "text/block-17/text.ncnn.param",
+      "kind": "text",
+      "changed_fields": 0
+    },
+    {
+      "path": "text/block-18/text.ncnn.param",
+      "kind": "text",
+      "changed_fields": 0
+    },
+    {
+      "path": "text/block-19/text.ncnn.param",
+      "kind": "text",
+      "changed_fields": 0
+    },
+    {
+      "path": "text/block-20/text.ncnn.param",
+      "kind": "text",
+      "changed_fields": 0
+    },
+    {
+      "path": "text/block-21/text.ncnn.param",
+      "kind": "text",
+      "changed_fields": 0
+    },
+    {
+      "path": "text/block-22/text.ncnn.param",
+      "kind": "text",
+      "changed_fields": 0
+    },
+    {
+      "path": "text/block-23/text.ncnn.param",
+      "kind": "text",
+      "changed_fields": 0
+    },
+    {
+      "path": "text/block-24/text.ncnn.param",
+      "kind": "text",
+      "changed_fields": 0
+    },
+    {
+      "path": "dit/block-00/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-01/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-02/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-03/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-04/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-05/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-06/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-07/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-08/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-09/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-10/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-11/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-12/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-13/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-14/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-15/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-16/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-17/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-18/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-19/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-20/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-21/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-22/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-23/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-24/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-25/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-26/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-27/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-28/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-29/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-30/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-31/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-32/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-33/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-34/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/block-35/block.ncnn.param",
+      "kind": "dit",
+      "changed_fields": 13
+    },
+    {
+      "path": "dit/input/head.ncnn.param",
+      "kind": "input",
+      "changed_fields": 1
+    },
+    {
+      "path": "dit/output/head.ncnn.param",
+      "kind": "output",
+      "changed_fields": 4
+    },
+    {
+      "path": "vae/head.ncnn.param",
+      "kind": "vae",
+      "changed_fields": 3
+    }
+  ],
+  "input": {
+    "path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-shape1376-s64-plan-v2/vae-input.f32",
+    "sha256": "bdd6e7dba29f6113667c83b838af32854031a06c40510f43b555d65bce557f15",
+    "size_bytes": 2113536,
+    "shape": [
+      1,
+      32,
+      96,
+      172
+    ],
+    "dtype": "<f4",
+    "generator": "Python random.Random(20260905).gauss then little-endian FP32; saved bytes define input"
+  },
+  "head_runner_sha256": "dbd6d9d057737dc1d7a55f4c4062cc1b85f9653d4de00d2551cc2b212d62caba",
+  "template_bin_sha256": "ee7db4b3725079f9baeb8587bcad56fd3f04d92254b90d86acc894c1ec63cd24",
+  "template_bin_bytes": 198481196,
+  "all_model_bin_content_verified": false,
+  "interpreter_observation": {
+    "requested_venv": {
+      "executable": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "prefix": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv",
+      "torch_origin": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/lib64/python3.14/site-packages/torch/__init__.py"
+    },
+    "planned_resolved": {
+      "executable": "/usr/bin/python3.14",
+      "prefix": "/usr",
+      "torch_origin": "/usr/lib64/python3.14/site-packages/torch/__init__.py"
+    }
+  },
+  "findings": [
+    {
+      "severity": "important",
+      "issue": "Resolving invocation through .venv/bin/python selects /usr/bin/python3.14 and actual different site-packages despite same executable SHA",
+      "required_fix": "Preserve absolute venv invocation, record real executable separately and freeze actual import/runtime paths before model execution"
+    },
+    {
+      "severity": "minor",
+      "issue": "future validation string uses unsupported validator --backend/--precision",
+      "required_fix": "Use actual CLI --cpu-only --vae-convolution direct"
+    },
+    {
+      "severity": "scope",
+      "issue": "frozen native head runner internally uses four ncnn threads while planned CPU quota/affinity is two",
+      "required_fix": "Report internal native threads4 separately from torch2 and CPU budget2"
+    }
+  ],
+  "small_tests_passed": 6,
+  "actual_model_forwards": 0,
+  "production_registry_modified": false
+}
