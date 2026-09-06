@@ -120,3 +120,21 @@ exit 0
 ```
 
 No formal/performance case or model/GPU benchmark was run. This closes the native wrapper's img2img argument/identity gap; empirical paired results and baseline claims remain pending actual six-case execution.
+
+## Img2img input-identity review fix
+
+The benchmark now derives the snapshotted file extension from the decoded container format, so an extensionless frozen PNG is copied byte-for-byte to `input.png` and is accepted by the native CLI. It records the complete native resize contract (`width`, `height`, bilinear, half-pixel coordinates, no antialiasing, and mode), matching the frozen paired case rather than a mode-only approximation.
+
+Decoded RGB is fail-closed. Only direct, opaque RGB PNG input is certified from the lossless byte decode. Alpha, palette, JPEG, BMP, and TGA inputs may still be used for development runs, but their decoded identity is marked `unproven_native_decode_required` and `formal_comparison_eligible` remains false until native-decoder evidence exists. This prevents Pillow's alpha-dropping conversion from being mistaken for the CLI's white-background alpha composition.
+
+```text
+.venv/bin/python -m unittest tests.test_port_metrics -v
+Ran 20 tests in 0.266s
+OK
+
+.venv/bin/python -m py_compile tools/benchmark_pipeline.py tests/test_port_metrics.py
+git diff --check -- tools/benchmark_pipeline.py tests/test_port_metrics.py
+exit 0
+```
+
+The new CPU-only cases cover an extensionless opaque PNG, byte-preserving supported-suffix snapshot, the complete resize dictionary, and transparent PNG fail-closed behavior. No model, GPU, formal case, or performance run was started. The benchmark source inventory remains a live source manifest and is not presented as a hermetic runner build provenance record.

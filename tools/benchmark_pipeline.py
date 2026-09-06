@@ -15,6 +15,19 @@ from PIL import Image
 from prepare_block import ROOT, sha256
 from package_model import verify_package
 
+_IMAGE_SUFFIX = {'PNG': '.png', 'JPEG': '.jpg', 'BMP': '.bmp', 'TGA': '.tga'}
+
+def inspect_image_input(path):
+    """Identify a CLI suffix and conservatively certify decoded RGB bytes."""
+    with Image.open(path) as picture:
+        image_format=picture.format
+        suffix=_IMAGE_SUFFIX.get(image_format)
+        if suffix is None:
+            raise ValueError(f'Unsupported input image format: {image_format!r}')
+        direct_rgb=image_format=='PNG' and picture.mode=='RGB' and 'transparency' not in picture.info
+        decoded_sha256=hashlib.sha256(picture.tobytes()).hexdigest() if direct_rgb else None
+    return suffix,decoded_sha256,('proven_lossless_opaque_rgb_png' if direct_rgb else 'unproven_native_decode_required')
+
 def memory():
     fields={}
     for line in Path('/proc/meminfo').read_text().splitlines():
@@ -103,14 +116,12 @@ def main():
     latent_snapshot=None
     if args.latent:
         latent_snapshot=args.output/'initial.f32';shutil.copy2(args.latent,latent_snapshot)
-    input_snapshot=None;actual_input_sha256=None;actual_decoded_rgb_sha256=None
+    input_snapshot=None;actual_input_sha256=None;actual_decoded_rgb_sha256=None;decoded_rgb_identity_status=None
     if args.input_image:
-        input_snapshot=args.output/('input'+args.input_image.suffix.lower())
+        image_suffix,actual_decoded_rgb_sha256,decoded_rgb_identity_status=inspect_image_input(args.input_image)
+        input_snapshot=args.output/('input'+image_suffix)
         shutil.copy2(args.input_image,input_snapshot)
         actual_input_sha256=sha256(input_snapshot)
-        with Image.open(input_snapshot) as picture:
-            decoded=picture.convert('RGB').tobytes()
-        actual_decoded_rgb_sha256=hashlib.sha256(decoded).hexdigest()
     prompt_args=['--prompt-file',str(prompt_snapshot.resolve())]
     command=[str(runner.resolve()),'--model',str(args.model.resolve()),*prompt_args,
         '--output',str((args.output/'native.png').resolve()),'--seed',str(args.seed),'--steps',str(args.steps),
@@ -128,7 +139,8 @@ def main():
     actual_noise_sha256=sha256(latent_snapshot) if latent_snapshot else None
     noise_identity_proven=actual_noise_sha256 is not None and args.noise_sha256==actual_noise_sha256
     image_identity_proven=(input_snapshot is None or
-        (actual_input_sha256==args.input_image_sha256 and actual_decoded_rgb_sha256==args.decoded_rgb_sha256))
+        (decoded_rgb_identity_status=='proven_lossless_opaque_rgb_png' and
+         actual_input_sha256==args.input_image_sha256 and actual_decoded_rgb_sha256==args.decoded_rgb_sha256))
     formal_eligible=noise_identity_proven and image_identity_proven and (args.pe_model is None or pe_identity is not None) and not args.trace
     result={'scope':'One native functional run; no full-resolution official denoising reference or perceptual quality gate',
         'passed':False,'quality_validated':False,'status':'pending','prompt':args.prompt if not args.prompt_file else None,
@@ -140,12 +152,14 @@ def main():
         'noise_dtype':'<f4' if latent_snapshot else None,
         'input_image_sha256':actual_input_sha256,'expected_input_image_sha256':args.input_image_sha256,
         'decoded_rgb_sha256':actual_decoded_rgb_sha256,'expected_decoded_rgb_sha256':args.decoded_rgb_sha256,
-        'strength':args.strength,'resize_policy':{'mode':args.resize} if input_snapshot else None,
+        'decoded_rgb_identity_status':decoded_rgb_identity_status,
+        'strength':args.strength,'resize_policy':({'mode':args.resize,'width':width,'height':height,
+            'filter':'bilinear','coordinate_transform':'half_pixel','antialias':False} if input_snapshot else None),
         'shape':[width,height],'shape_order':'WH',
         'pe_manifest_sha256':pe_identity,'formal_comparison_eligible':formal_eligible,
         'formal_ineligibility_reasons':([] if noise_identity_proven else ['saved FP32 noise and matching frozen SHA256 are required'])+
             ([] if not args.pe_model or pe_identity else ['PE package manifest identity is required'])+
-            ([] if image_identity_proven else ['input image bytes and decoded RGB must match frozen SHA256'])+
+            ([] if image_identity_proven else ['input image bytes and native-equivalent decoded RGB must match frozen SHA256'])+
             ([] if not args.trace else ['trace must be disabled']),
         'trace':args.trace,'timing_scope':'end_to_end_external_process_launch_through_output_close',
         'gpu_sampling_scope':'Whole NVIDIA device 0, includes other processes, 100 ms samples; not exact allocator/process VRAM',

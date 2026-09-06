@@ -155,8 +155,8 @@ class PortMetricsTest(unittest.TestCase):
         from PIL import Image
         with tempfile.TemporaryDirectory() as temporary:
             root=Path(temporary);model=root/'model';model.mkdir();(model/'manifest.json').write_text('{}')
-            runner=root/'runner';runner.write_bytes(b'runner');image=root/'input.png'
-            Image.new('RGB',(2,1),(10,20,30)).save(image)
+            runner=root/'runner';runner.write_bytes(b'runner');image=root/'input-without-extension'
+            Image.new('RGB',(2,1),(10,20,30)).save(image,format='PNG')
             raw=image.read_bytes();decoded=Image.open(image).convert('RGB').tobytes()
             sha=lambda value:hashlib.sha256(value).hexdigest()
             output=root/'output'
@@ -177,7 +177,42 @@ class PortMetricsTest(unittest.TestCase):
             result=json.loads((output/'result.json').read_text())
             self.assertEqual(result['input_image_sha256'],sha(raw));self.assertEqual(result['decoded_rgb_sha256'],sha(decoded))
             self.assertEqual(result['strength'],.5);self.assertEqual(result['shape'],[512,384])
+            self.assertEqual(result['decoded_rgb_identity_status'],'proven_lossless_opaque_rgb_png')
+            self.assertEqual(result['resize_policy'],{'mode':'stretch','width':512,'height':384,
+                'filter':'bilinear','coordinate_transform':'half_pixel','antialias':False})
             self.assertIn('--input',result['command']);self.assertIn('--resize',result['command'])
+            snapshot=Path(result['command'][result['command'].index('--input')+1])
+            self.assertEqual(snapshot.suffix,'.png');self.assertEqual(snapshot.read_bytes(),raw)
+
+    def test_benchmark_does_not_treat_pillow_alpha_conversion_as_native_identity(self):
+        import hashlib
+        from PIL import Image
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary);model=root/'model';model.mkdir();(model/'manifest.json').write_text('{}')
+            runner=root/'runner';runner.write_bytes(b'runner');image=root/'transparent.png'
+            Image.new('RGBA',(1,1),(255,0,0,0)).save(image)
+            raw=image.read_bytes();pillow_rgb=Image.open(image).convert('RGB').tobytes()
+            sha=lambda value:hashlib.sha256(value).hexdigest()
+            output=root/'output';(root/'noise.f32').write_bytes(b'noise')
+            argv=['benchmark_pipeline','--model',str(model),'--runner',str(runner),'--output',str(output),
+                  '--device','cpu','--precision','fp32','--latent',str(root/'noise.f32'),
+                  '--noise-sha256',sha(b'noise'),'--input-image',str(image),'--strength','.5',
+                  '--input-image-sha256',sha(raw),'--decoded-rgb-sha256',sha(pillow_rgb)]
+            def fake_timing(command,timeout,log):
+                Image.new('RGB',(512,384)).save(Path(command[command.index('--output')+1]))
+                return {'return_code':0,'failure_category':None,'wall_started_monotonic_ns':1,
+                        'wall_finished_monotonic_ns':2,'wall_seconds':1e-9}
+            with patch.object(sys,'argv',argv),\
+                 patch.object(benchmark_pipeline,'verify_package',return_value=({'config':{'packed_width':32,'packed_height':24}},None)),\
+                 patch('source_inventory.source_files',return_value=[]),\
+                 patch.object(benchmark_pipeline,'run_timed_command',side_effect=fake_timing):
+                self.assertEqual(benchmark_pipeline.main(),0)
+            result=json.loads((output/'result.json').read_text())
+            self.assertIsNone(result['decoded_rgb_sha256'])
+            self.assertEqual(result['decoded_rgb_identity_status'],'unproven_native_decode_required')
+            self.assertFalse(result['formal_comparison_eligible'])
+            self.assertTrue(any('native-equivalent decoded RGB' in reason
+                                for reason in result['formal_ineligibility_reasons']))
 
     def test_synthetic_timeout_persists_timing_and_category(self):
         with tempfile.TemporaryDirectory() as temporary:
