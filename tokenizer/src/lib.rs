@@ -160,3 +160,16 @@ pub unsafe extern "C" fn ernie_trim_text(input: *const u8, length: usize,
 pub unsafe extern "C" fn ernie_tok_destroy(handle: *mut Handle) {
     if !handle.is_null() { drop(Box::from_raw(handle)); }
 }
+
+// Internal bounded graph-text hashing for the independent shape-contract tool.
+// This does not enable a new runtime package schema.
+#[no_mangle]
+pub unsafe extern "C" fn ernie_shape_sha256(bytes: *const u8, length: usize, output: *mut u8) -> i32 {
+    use sha2::{Digest, Sha256};
+    if output.is_null() || (length != 0 && bytes.is_null()) || length > 1024 * 1024 { return -1; }
+    match catch_unwind(AssertUnwindSafe(|| {
+        let data = if length == 0 { &[] } else { slice::from_raw_parts(bytes, length) };
+        let digest = Sha256::digest(data);
+        std::ptr::copy_nonoverlapping(digest.as_ptr(), output, 32);
+    })) { Ok(()) => 0, Err(_) => -1 }
+}

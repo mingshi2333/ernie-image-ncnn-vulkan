@@ -6,6 +6,19 @@
 namespace fs = std::filesystem;
 namespace ernie
 {
+void validate_model_config(const ModelConfig &c)
+{
+    if (c.packed_width < 1 || c.packed_width > 128 || c.packed_height < 1 || c.packed_height > 128 ||
+        c.text_bucket < 1 || c.text_bucket > 2048 || c.dit_text_tokens < c.text_bucket ||
+        c.dit_text_tokens > 2048 || c.packed_width * c.packed_height + c.dit_text_tokens > 6144)
+        throw std::runtime_error("Unsupported model configuration");
+}
+bool reviewed_shape_config(const ModelConfig &c)
+{
+    return (c.packed_width == 4 && c.packed_height == 4 && c.text_bucket == 32 && c.dit_text_tokens == 272) ||
+           (c.packed_width == 32 && c.packed_height == 24 && c.text_bucket == 2048 && c.dit_text_tokens == 2048) ||
+           (c.packed_width == 64 && c.packed_height == 64 && c.text_bucket == 64 && c.dit_text_tokens == 64);
+}
 ModelConfig model_config(const fs::path &path)
 {
     std::ifstream file(path);

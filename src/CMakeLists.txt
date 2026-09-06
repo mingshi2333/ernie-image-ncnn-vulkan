@@ -30,3 +30,10 @@ endif()
 # Independent mathematical planner; intentionally not connected to the pipeline.
 add_library(ernie-shape-plan STATIC shape_plan.cpp)
 target_include_directories(ernie-shape-plan PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
+
+if(ERNIE_BUILD_TOKENIZER)
+    # Offline graph candidate verification only; not linked into the generator.
+    add_library(ernie-shape-graph STATIC shape_graph.cpp model_config.cpp)
+    target_include_directories(ernie-shape-graph PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
+    target_link_libraries(ernie-shape-graph PUBLIC ernie-tokenizer)
+endif()
