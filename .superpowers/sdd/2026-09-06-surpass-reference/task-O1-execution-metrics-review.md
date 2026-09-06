@@ -5,3 +5,9 @@
 当前待修复Important：`pipeline.cpp::run_dit` 在整个denoise返回且final download成功后，才将stats批量写入collector。如果第2步失败，第1步已完成且存入stats，但其load/compute/submissions全部被丢；全部步成功而final download失败也丢全部DiT统计。当前failure报告与实现报告只称保留已到达partial，没有声明此组级丢失。现fake driver提前写verify的测试不覆盖该真实控制流。建议每个step完成立即记录并避免末尾重复，或exception flush已完成stats、明确失败中间块不完整，补无模型合成throw测试。已向作者/root同步。
 
 其余观察：CLI仅metrics-json且ON时选择私有显式collector入口，公有generate沿同generate_impl/null collector，无新增全局observer。block load/compute计时边界分离；head+encoder/VAE复合装载计算标read_prepare并声明不可分拆；step只记扣除children后的余项，没有再加整step造成显式双计。GPU时间、无法可靠认证的传输字节保持null，submission只报告已观测attention/block和顶层初末传输的有限口径。默认路径存在少量null分支/统计遍历，不应宣传完全零指令开销；数值路径未改。verification区间也包括GpuContext初始化和progress回调，不是纯磁盘校验时间。正式S/M eligibility保持false，实际ON/OFF全输出相同和真实全模型阶段分解仍待新冻结运行。
+
+## 修复闭环 6f96c12 + b08db3e
+
+结论更新：无剩余Important。CPU/Vulkan denoise observer第一句都立即映射 `stats.at(i-start_step)`，在trace下载/文件写出和progress回调之前；denoiser明确先push完整step再调用observer，故step索引、strength后缀偏移均正确。删除旧末尾全量遍历，既无重复记账，也不会因后续step/最终download失败丢已完成step。当前失败中的未完成step仍不统计，作为partial scope明确保留。
+
+独立重跑execution_metrics_cpu1/1和CLI13cases通过；最终observer顺序修复后再次运行CLI合同1/1通过。fake生成失败测试新增已记录compute retained断言，但该fake测试只证明collector/report保留，不是完整真实pipeline异常注入；真实路径映射和trace前顺序由本次源码审查确认。实际全模型ON/OFF逐位及阶段分解仍需另行冻结运行，本报告不提前通过这些经验性门槛。
