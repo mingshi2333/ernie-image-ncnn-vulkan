@@ -1,0 +1,9 @@
+# Q2 up84 v2 独立增量准备审查
+
+状态：prepared_independently_reviewed_not_executed。根因修复40d02fa通过独立审查，可进入单一模型/GPU队列。原v1执行身份失败d792d7b保留，不改写为数值失败或通过。
+
+root逐字段核对：原6133条bound无删除或修改，仅新增65条，新增文件完整SHA均通过；新loader inventory的118文件、44份有效manifest、全部目录成员及环境身份验证通过。两份/etc AMD manifest均明确解析到实际amdvlk64.so，完整SHA已进入绑定。新guard相对v1仅增加import/verify_inventory两行前置检查；原运行时未知映射拒绝、资源阈值与采样规则不变。runner、libncnn、全部数学源码、sequence和official payload逐字节不变，native命令只迁移固定输出目录。7项小合同测试通过，root审查scope为4GiB/swap0/CPU200%/8,10，max/OOM/swap均0，无模型执行。
+
+最终plan `9b04ffbe1c580e5227120865c0b2b8ad9defe15dd9f8ae7596e29356ab532562`，launcher `392e10a9f813eacb6597bddcc98b3fc784f38500a1459c18a60186c4bcd2db31`，guard `86b50e9d9024ea2f533d5b2ccb1a437bdfb43ab6594ec7bbf01f52e3d07b0193`。执行仍仅新native完整block一次+官方匹配MLP一次，原81/out0和matched81/87/88前置条件不变。
+
+保留一条可选shader-debugger相对库路径未解析记录；本准备不证明它不会加载，也没有修改层启用设置。若实际出现未知映射必须失败。目录收集是固定环境下的保守范围，未声称完整模拟loader选择顺序；实际映射仍是采样观察，不是所有瞬时加载的完整证明。新84数值、完整轨迹质量和S/M结论仍待实际执行。
