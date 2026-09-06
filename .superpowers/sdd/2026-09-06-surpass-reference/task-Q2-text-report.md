@@ -273,3 +273,12 @@ probe新增`--text-down-vector`，必须CPU且无诊断trace，实际调用上�
 单独执行25个真实bin的结构审核，总观察0.07627811秒，`structural-audit-cost.json`记录每block及test runner SHA；该数字**不含**权重读取/解码、down finite扫描与kernel packing。上表load包含这些全部工作，不能把两种模式的load差因果归给结构审查；并行root作业与缓存状态不同，本批明显load占主导。Vector计算时间也较Gemm高，精度收益有计算成本，未提供speedup/正式性能结论。
 
 本次只实现可选原生组件。pipeline/CLI/public header胶合由root负责；没有替用户晋升默认。root已报告512×384 saved-candidate图像诊断25/25+PNG通过，但那份仍native_acceptance_eligible=false，不能把它改写为本原生组件的完整图像结果。32桶、1080-token、其他精度/fixture仍需对应证据后另行决策。
+
+
+## 315-token / 2048桶真实原生桥接
+
+组件提交`d9f3b4b`之后，复用已经复制的native runner（SHA `91ec9c70d04c0eaf14277076177941d64d4c875b4dc71fc25274265f8d19c452`）执行原`turbo512x384-s2048-portable`包的25块、CPU2、`--text-down-vector`，无trace、无诊断graph或中间tensor读取。`outputs/q2-native-text-vector-2048-v1/`保留独立worker/runner/runtime snapshots、完整模型/图SHA、315个输入ID及SHA、过程记录、结果和输出。身份进一步链接原runner来源的`q2-native-text-vector-v1/identity.json` SHA，避免将并行工作期间的其他源码变化误当该二进制来源。所有模型/图SHA逐个校验manifest及旧候选身份。
+
+session44886 exit0，PID1684511，完整25/25块成功。最终FP32输出SHA `433ae46eaa1c8b831fa273f68b8345646d6ddfdb56695b4d3286b4964bca294a`，**逐位等于**此前独立diagnostic候选。对固定官方最后层SHA `2ef687ce362212b6dec95f953f7465d2131972b072ab7ed3e5b2ee39e420d01e` 的NRMSE为3.1361886512531567e-6，max为0.00091552734375，未调整门槛。
+
+load10.833529384秒、compute168.156810604秒、外部wall180.104582490秒；10Hz采样峰值RSS1233328KiB，最低host可用13771968KiB。每次一块权重，RSS>2GiB或host可用<3GiB会停止，实际未触限；采样不保证捕获所有瞬时峰值。无GPU调用。此次证明生产text路径复现已测315-token候选，尚非PE→native text→DiT/VAE完整图像验收；默认仍Gemm，其他桶/精度覆盖仍pending。
