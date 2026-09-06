@@ -23,6 +23,19 @@ def check_hash(path, expected):
         raise ValueError(f'Checksum differs: {path}')
 
 
+def validator_snapshot(run, result):
+    path = run/'scripts/validate_pipeline.py'
+    # Early runs recorded the validator digest before per-run script snapshots
+    # existed. Never use that format's fallback to hide a damaged modern run.
+    if 'source_snapshot' not in result and not path.exists():
+        digest = result['validator_sha256']
+        if len(digest) != 64 or any(c not in '0123456789abcdef' for c in digest):
+            raise ValueError('Invalid validator digest')
+        path = ROOT/'outputs/validator-source-variants'/(digest+'.py')
+    check_hash(path, result['validator_sha256'])
+    return path
+
+
 def audit(run):
     result = json.loads((run/'result.json').read_text())
     fixture = json.loads((run/'reference/fixture.json').read_text())
@@ -30,8 +43,8 @@ def audit(run):
     if not fixture['complete'] or result.get('return_code') != 0 or 'failure' in result or gates != GATES:
         raise ValueError(f'Incomplete execution or altered gates: {run}')
     check_hash(run/'ernie-image.snapshot', result['runner_sha256'])
-    check_hash(run/'scripts/validate_pipeline.py', result['validator_sha256'])
-    for name, digest in result['source_snapshot'].items():
+    validator_snapshot(run, result)
+    for name, digest in result.get('source_snapshot', {}).items():
         if Path(name).name != name:
             raise ValueError('Invalid script filename')
         check_hash(run/'scripts'/name, digest)
@@ -63,6 +76,8 @@ def audit(run):
                 failed_tensors=[r['tensor'] for r in measured.values() if not r['passed']],
                 final_latent=measured['final'], decoded=measured['decoded'], png=result['png'],
                 resources=result['resources'], runner_sha256=result['runner_sha256'],
+                validator_sha256=result['validator_sha256'],
+                source_snapshot_coverage=('per_run_scripts' if 'source_snapshot' in result else 'validator_only'),
                 independently_recomputed=True)
 
 
@@ -82,6 +97,9 @@ def freeze(output, runs, evidence, report=None):
     for run in runs:
         for name in ('result.json', 'gates.json', 'native.log', 'reference/fixture.json'):
             copy(run/name, output/'runs'/run.name/name)
+        result = json.loads((run/'result.json').read_text())
+        validator = validator_snapshot(run, result)
+        copy(validator, output/'scripts'/(result['validator_sha256']+'.py'))
         for path in sorted((run/'scripts').glob('*.py')):
             # Content-addressed snapshots avoid duplicating unchanged tools.
             copy(path, output/'scripts'/(sha256(path)+'.py'))
