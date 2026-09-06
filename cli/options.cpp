@@ -66,6 +66,7 @@ const char *usage()
            "            [--pe-temperature N] [--pe-top-p N] [--pe-seed N]\n"
            "            [--latent FILE.f32] [--embeddings FILE.f32] [--trace-dir NEWDIR]\n"
            "ernie-image (--model DIR | --pe-model DIR) --verify-model\n"
+           "ernie-image [--model DIR] --diagnose\n"
            "Text-to-image: ernie-image --model model --prompt cat --output cat.png\n"
            "PE: ernie-image --model model --prompt cat --pe-model pe --pe-greedy --output cat.jpg\n"
            "Img2img options --input/--strength/--resize/--background are reserved until F2 is available.\n"
@@ -103,6 +104,11 @@ Options parse_options(int argc, char **argv)
         if (flag == "--verify-model")
         {
             out.verify_only = true;
+            continue;
+        }
+        if (flag == "--diagnose")
+        {
+            out.diagnose_only = true;
             continue;
         }
         if (flag == "--pe-greedy")
@@ -219,6 +225,13 @@ Options parse_options(int argc, char **argv)
     }
     if (bool(r.width) != bool(r.height))
         throw std::invalid_argument("Specify width and height together");
+    if (out.diagnose_only)
+    {
+        const size_t allowed = r.model.empty() ? 1 : 2;
+        if (out.verify_only || seen.size() != allowed)
+            throw std::invalid_argument("--diagnose accepts only an optional --model DIR");
+        return out;
+    }
     if (from_file)
         r.prompt = read_prompt(prompt_file);
     if (pe_option && r.pe_model.empty())

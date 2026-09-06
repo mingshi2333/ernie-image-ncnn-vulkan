@@ -14,7 +14,7 @@ void check(int rc, const char *action)
 }
 } // namespace
 ncnn::Mat decode_vae(const std::string &directory, const ncnn::Mat &unpacked, const ncnn::Option &cpu,
-                     const std::string &vae_backend, const std::string &vae_convolution)
+                     const std::string &vae_backend, const std::string &vae_convolution, int gpu_index)
 {
     const std::filesystem::path root(directory);
     ncnn::Mat decoded;
@@ -29,7 +29,10 @@ ncnn::Mat decode_vae(const std::string &directory, const ncnn::Mat &unpacked, co
             if (ncnn::get_gpu_count() < 1)
                 throw std::runtime_error("No Vulkan device for VAE");
             vae.opt.use_vulkan_compute = true;
-            vae.set_vulkan_device(ncnn::get_default_gpu_index());
+            const int selected = gpu_index >= 0 ? gpu_index : ncnn::get_default_gpu_index();
+            if (selected < 0 || selected >= ncnn::get_gpu_count())
+                throw std::invalid_argument("Requested Vulkan GPU index is unavailable for VAE");
+            vae.set_vulkan_device(selected);
         }
 #else
         if (vae_backend == "vulkan")

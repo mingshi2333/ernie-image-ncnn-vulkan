@@ -66,9 +66,12 @@ uint32_t sample_pe_token(const ncnn::Mat &logits, const PeOptions &options, std:
 }
 
 PeResult enhance_prompt(const std::string &model, const std::string &prompt, int width, int height,
-                        const PeOptions &options, const PeProgress &progress, const PeLogits &observe)
+                        const PeOptions &options, const PeProgress &progress, const PeLogits &observe,
+                        int threads)
 {
     options_check(options);
+    if (threads < 1 || threads > 256)
+        throw std::invalid_argument("PE threads must be in [1,256]");
     const std::filesystem::path root(model);
     verify_package(model);
     Tokenizer tokenizer((root / "tokenizer").string());
@@ -85,7 +88,7 @@ PeResult enhance_prompt(const std::string &model, const std::string &prompt, int
         if (!std::isfinite(f) || f <= 0)
             throw std::runtime_error("Invalid PE frequency");
     ncnn::Option cpu;
-    cpu.num_threads = 4;
+    cpu.num_threads = threads;
     cpu.use_vulkan_compute = false;
     cpu.use_fp16_storage = cpu.use_fp16_packed = cpu.use_fp16_arithmetic = false;
     cpu.use_bf16_storage = cpu.use_bf16_packed = false;

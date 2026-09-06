@@ -61,9 +61,30 @@ struct Progress
 };
 using ProgressCallback = std::function<void(const Progress &)>;
 
+struct VulkanDeviceInfo
+{
+    int index = -1;
+    std::string name;
+    bool fp16_storage = false, bf16_storage = false;
+};
+
+struct DiagnosticInfo
+{
+    bool vulkan_compiled = false;
+    int default_gpu_index = -1;
+    std::vector<VulkanDeviceInfo> vulkan_devices;
+    bool model_config_loaded = false;
+    int model_config_schema = 1;
+    int packed_width = 0, packed_height = 0, text_bucket = 0, dit_text_tokens = 0;
+    int text_layers = 0, dit_layers = 0;
+};
+
 // Verify every image runtime file without loading weights or starting Vulkan.
 void verify_model(const std::string &directory);
 void verify_pe_model(const std::string &directory);
+// Reports compiled/runtime devices and optional model.cfg metadata. It does not
+// verify a package or load model weights.
+DiagnosticInfo diagnose(const std::string &model_directory = {});
 // Owns each inference session and releases PE, text and DiT weights before the
 // next stage. Returns pixels; callers choose their UI and image file format.
 // Vulkan uses ncnn's process-global device context: serialize generate calls.

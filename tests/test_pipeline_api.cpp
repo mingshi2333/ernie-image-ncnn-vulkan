@@ -16,6 +16,16 @@ int main()
                                         8,       42,       "",    {},     "",    "",       ""};
         if (legacy.model != "model" || legacy.threads != 4 || legacy.input_image)
             throw std::runtime_error("Older positional request initialization is no longer compatible");
+        const auto diagnostics = ernie::diagnose();
+        if (!diagnostics.vulkan_compiled && !diagnostics.vulkan_devices.empty())
+            throw std::runtime_error("A non-Vulkan build reported Vulkan devices");
+        for (size_t i = 0; i < diagnostics.vulkan_devices.size(); ++i)
+            if (diagnostics.vulkan_devices[i].index != int(i) || diagnostics.vulkan_devices[i].name.empty())
+                throw std::runtime_error("Vulkan diagnostics returned an invalid device record");
+        if (!diagnostics.vulkan_devices.empty() &&
+            (diagnostics.default_gpu_index < 0 ||
+             diagnostics.default_gpu_index >= int(diagnostics.vulkan_devices.size())))
+            throw std::runtime_error("Vulkan diagnostics returned an invalid default device");
         request.model = "nonexistent-model-for-api-contract";
         request.prompt = "cat";
         request.width = 512;
@@ -44,7 +54,7 @@ int main()
         }
         if (!rejected)
             throw std::runtime_error("Public API allowed unsupported CPU precision");
-        std::cout << "Public C++ API builds without private headers and rejects invalid requests\n";
+        std::cout << "Public C++ API builds without private headers and reports runtime capabilities\n";
         return 0;
     }
     catch (const std::exception &e)

@@ -23,5 +23,5 @@ using PeLogits = std::function<void(int, const ncnn::Mat &)>;
 // and caches before the image text encoder/DiT begin.
 PeResult enhance_prompt(const std::string &model, const std::string &prompt, int width, int height,
                         const PeOptions &options, const PeProgress &progress = {},
-                        const PeLogits &logits = {});
+                        const PeLogits &logits = {}, int threads = 4);
 } // namespace ernie

@@ -101,6 +101,34 @@ class CliTests(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         self.assertIn('Output extension', result.stderr)
 
+    def test_diagnose_lists_runtime_without_loading_a_model(self):
+        result = subprocess.run([str(RUNNER), '--diagnose'], text=True,
+                                capture_output=True, timeout=10)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertRegex(result.stdout, r'vulkan_compiled=(true|false)')
+        self.assertRegex(result.stdout, r'gpu_count=\d+')
+        self.assertRegex(result.stdout, r'default_gpu_index=-?\d+')
+
+    def test_diagnose_reads_only_bounded_model_config_metadata(self):
+        with tempfile.TemporaryDirectory() as folder:
+            model = Path(folder)/'model'
+            model.mkdir()
+            (model/'model.cfg').write_text(
+                'packed_width 4\npacked_height 4\ntext_bucket 32\n'
+                'dit_text_tokens 272\ntext_layers 25\ndit_layers 36\n')
+            result = subprocess.run([str(RUNNER), '--diagnose', '--model', str(model)],
+                                    text=True, capture_output=True, timeout=10)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn('model_config_schema=1', result.stdout)
+        self.assertIn('packed_width=4', result.stdout)
+        self.assertIn('dit_layers=36', result.stdout)
+
+    def test_diagnose_rejects_generation_options(self):
+        result = subprocess.run([str(RUNNER), '--diagnose', '--prompt', 'cat'],
+                                text=True, capture_output=True, timeout=10)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('accepts only', result.stderr)
+
 
 if __name__ == '__main__':
     unittest.main()

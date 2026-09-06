@@ -44,6 +44,14 @@ int main()
         rejected("Threads", [](auto &r) { r.threads = 257; });
         rejected("GPU index", [](auto &r) { r.gpu_index = -2; });
         rejected("GPU index requires", [](auto &r) { r.gpu_index = 0; });
+        const auto runtime = ernie::diagnose();
+        if (!runtime.vulkan_devices.empty() && runtime.vulkan_devices.size() <= 63)
+            rejected("unavailable",
+                     [&](auto &r)
+                     {
+                         r.vae_device = "vulkan";
+                         r.gpu_index = int(runtime.vulkan_devices.size());
+                     });
         rejected("CPU text", [](auto &r) { r.text_device = "vulkan"; });
         rejected("finite", [](auto &r) { r.strength = std::numeric_limits<float>::infinity(); });
         rejected("[0,1]", [](auto &r) { r.strength = -0.01f; });
@@ -56,12 +64,6 @@ int main()
                  });
         rejected("unsupported until the F2",
                  [](auto &r) { r.input_image = ernie::RgbImage{2, 2, std::vector<uint8_t>(12)}; });
-        rejected("Vulkan VAE",
-                 [](auto &r)
-                 {
-                     r.vae_device = "vulkan";
-                     r.gpu_index = 0;
-                 });
         std::cout
             << "Request validation rejects invalid and unavailable configurations before model loading\n";
         return 0;

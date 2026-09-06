@@ -11,7 +11,7 @@ struct Options
     std::filesystem::path output, input;
     std::array<uint8_t, 3> background{255, 255, 255};
     std::string resize;
-    bool help = false, verify_only = false;
+    bool help = false, verify_only = false, diagnose_only = false;
 };
 Options parse_options(int argc, char **argv);
 const char *usage();

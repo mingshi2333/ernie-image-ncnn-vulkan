@@ -15,6 +15,28 @@ int main(int argc, char **argv)
             std::cout << ernie::cli::usage();
             return 0;
         }
+        if (options.diagnose_only)
+        {
+            const auto info = ernie::diagnose(request.model);
+            std::cout << "vulkan_compiled=" << (info.vulkan_compiled ? "true" : "false") << '\n'
+                      << "gpu_count=" << info.vulkan_devices.size() << '\n'
+                      << "default_gpu_index=" << info.default_gpu_index << '\n';
+            for (const auto &device : info.vulkan_devices)
+                std::cout << "gpu[" << device.index << "].name=" << device.name << '\n'
+                          << "gpu[" << device.index
+                          << "].fp16_storage=" << (device.fp16_storage ? "true" : "false") << '\n'
+                          << "gpu[" << device.index
+                          << "].bf16_storage=" << (device.bf16_storage ? "true" : "false") << '\n';
+            if (info.model_config_loaded)
+                std::cout << "model_config_schema=" << info.model_config_schema << '\n'
+                          << "packed_width=" << info.packed_width << '\n'
+                          << "packed_height=" << info.packed_height << '\n'
+                          << "text_bucket=" << info.text_bucket << '\n'
+                          << "dit_text_tokens=" << info.dit_text_tokens << '\n'
+                          << "text_layers=" << info.text_layers << '\n'
+                          << "dit_layers=" << info.dit_layers << '\n';
+            return 0;
+        }
         if (options.verify_only)
         {
             if (!request.model.empty())

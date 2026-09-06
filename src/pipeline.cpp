@@ -38,12 +38,21 @@ void check(int value, const char *action)
 class GpuContext
 {
   public:
-    explicit GpuContext(bool enabled) : enabled_(enabled)
+    GpuContext(bool enabled, int requested_index) : enabled_(enabled)
     {
         if (!enabled_)
             return;
 #if NCNN_VULKAN
         ncnn::create_gpu_instance();
+        const int count = ncnn::get_gpu_count();
+        if (count < 1 || (requested_index >= 0 && requested_index >= count))
+        {
+            ncnn::destroy_gpu_instance();
+            enabled_ = false;
+            if (count < 1)
+                throw std::runtime_error("No Vulkan device");
+            throw std::invalid_argument("Requested Vulkan GPU index is unavailable");
+        }
 #else
         throw std::runtime_error("Built without Vulkan");
 #endif
@@ -72,8 +81,6 @@ void validate_request(const GenerationRequest &r)
         throw std::invalid_argument("GPU index must be -1 or in [0,63]");
     if (r.gpu_index >= 0 && r.device != "vulkan" && r.vae_device != "vulkan")
         throw std::invalid_argument("GPU index requires a Vulkan generation or VAE device");
-    if (r.gpu_index >= 0 && r.vae_device == "vulkan")
-        throw std::invalid_argument("Explicit GPU selection for the Vulkan VAE is not yet supported");
     if (r.text_device != "cpu")
         throw std::invalid_argument("Only CPU text encoding is currently supported");
     if (!std::isfinite(r.strength) || r.strength < 0.f || r.strength > 1.f)
@@ -236,6 +243,9 @@ GenerationResult generate(const GenerationRequest &r, const ProgressCallback &no
 {
     validate_request(r);
     const auto start = Clock::now();
+    // Initialize and validate the selected device before parsing model metadata
+    // or loading PE/text/image weights.
+    GpuContext gpu(r.device == "vulkan" || r.vae_device == "vulkan", r.gpu_index);
     const fs::path root(r.model), trace(r.trace);
     const auto cfg = model_config(root / "model.cfg");
     const int w = cfg.packed_width, h = cfg.packed_height, bucket = cfg.text_bucket;
@@ -251,12 +261,14 @@ GenerationResult generate(const GenerationRequest &r, const ProgressCallback &no
     result.prompt = r.prompt;
     if (!r.pe_model.empty())
     {
-        const auto enhanced = enhance_prompt(r.pe_model, r.prompt, w * 16, h * 16, r.pe,
-                                             [&](const char *phase, int current, int total)
-                                             {
-                                                 if (notify)
-                                                     notify({std::string("pe-") + phase, current, total, 0});
-                                             });
+        const auto enhanced = enhance_prompt(
+            r.pe_model, r.prompt, w * 16, h * 16, r.pe,
+            [&](const char *phase, int current, int total)
+            {
+                if (notify)
+                    notify({std::string("pe-") + phase, current, total, 0});
+            },
+            {}, r.threads);
         result.prompt = enhanced.text;
         result.pe_eos = enhanced.eos;
         result.pe_generated_tokens = enhanced.generated_ids.size();
@@ -336,18 +348,18 @@ GenerationResult generate(const GenerationRequest &r, const ProgressCallback &no
         for (size_t i = 0; i < rotary.size(); ++i)
             write_tensor(trace / ("constant-" + std::to_string(i) + ".f32"), rotary[i]);
     }
-    GpuContext gpu(r.device == "vulkan" || r.vae_device == "vulkan");
     const auto latent = run_dit(root, initial, constants, cpu, r, notify);
     const auto mean = read_tensor(root / "vae/bn-mean.f32", 128),
                variance = read_tensor(root / "vae/bn-variance.f32", 128);
-    const auto unpacked = unpack_for_vae(latent, mean, variance, 4);
+    const auto unpacked = unpack_for_vae(latent, mean, variance, r.threads);
     if (!trace.empty())
     {
         write_tensor(trace / "final.f32", latent);
         write_tensor(trace / "unpacked.f32", unpacked);
     }
     const auto vae_start = Clock::now();
-    const auto decoded = decode_vae((root / "vae").string(), unpacked, cpu, r.vae_device, r.vae_convolution);
+    const auto decoded =
+        decode_vae((root / "vae").string(), unpacked, cpu, r.vae_device, r.vae_convolution, r.gpu_index);
     if (decoded.w != w * 16 || decoded.h != h * 16)
         throw std::runtime_error("Decoded resolution differs from model");
     if (!trace.empty())
