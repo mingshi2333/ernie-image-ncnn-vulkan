@@ -31,6 +31,35 @@ MHA_EVIDENCE={
     'linear_storage':'row-major [output_features,input_features], no transpose',
     'scope':'projection weight/bias roles and bytes, not full attention graph equivalence',
 }
+CROP_EVIDENCE={
+    'ncnn_revision':'f6f734f44d66f469fefee9ee401fd1cb5e3d573e',
+    'crop_cpp_sha256':'e879147fcca9304d9d8be4a6c32c700a26d2624cc7d9e1bef6081c67aabc141d',
+    'crop_h_sha256':'febe8f78104f83f1afa61df87dd83a223247e4c9a7b40a329a0827d2b599c89a',
+    'layer_cpp_sha256':'2bd7ccf956b74032cd80a5d446898b10e0a8721a1561b4717cf9ca03ad831fa1',
+    'basis':'Crop::load_param reads scalar/array/expression ParamDict fields; Crop has no load_model override; Layer::load_model consumes zero bytes',
+    'source':'https://github.com/Tencent/ncnn/blob/f6f734f44d66f469fefee9ee401fd1cb5e3d573e/src/layer/crop.cpp',
+}
+
+
+def crop_weights(params):
+    # Explicit pinned load_param IDs; array IDs serialize as -23300-id.
+    scalars={0,1,2,3,4,5,6,7,8,13,14,15}
+    arrays={-23309,-23310,-23311};expressions={19,20,21}
+    for key,value in params.items():
+        index=int(key)
+        if index in scalars:
+            if not re.fullmatch(r'-?\d+',value):raise ValueError('Invalid Crop scalar')
+        elif index in arrays:
+            fields=value.split(',')
+            if any(not re.fullmatch(r'-?\d+',v) for v in fields):raise ValueError('Invalid Crop array')
+            if int(fields[0])<0 or int(fields[0])!=len(fields)-1:raise ValueError('Invalid Crop array length')
+        elif index in expressions:
+            if not value:raise ValueError('Empty Crop expression')
+        else:raise ValueError('Unsupported Crop parameter '+key)
+    return []
+
+VAE_TAIL_EVIDENCE={'ncnn_revision': 'f6f734f44d66f469fefee9ee401fd1cb5e3d573e', 'source_sha256': {'reorg.cpp': '57defcdab6d4251b3fad234ef302af93d648e1849923636f60c1301e1ec2d95d', 'reorg.h': 'cf24e4375dd4a1003235b7cd7ccf9ab437cdae09919302f7f3d26e65e01fc00c', 'batchnorm.cpp': '4303d94e4508efc87d0b8261696bfaab4a1a3dfba8a74c212ce232fe459af153', 'batchnorm.h': '1e0380d0703761d865bad5087682d5da6bccfdec0a6295a145154d90d7bf584c'}, 'reorg': 'load_param IDs0(stride),1(mode); no load_model override, zero bytes', 'batchnorm': 'load_param IDs0(channels),1(eps); load_model lines26-40: raw FP32 slope, mean, variance, bias; all channels elements'}
+
 PINNED_VAE_ATTENTION={
     'f4469da7c4cdf42375cf83adec075aa02b4d289c68e2fbd0f76142d4f3571bf9':('attention_66','decoder'),
     '7abee618d294ea7120f755e4b245b274c54ed3264b84b8cea366083b968e913d':('attention_51','encoder'),
@@ -137,6 +166,13 @@ WEIGHTLESS=set('Input Split BinaryOp UnaryOp ErnieImageRoPE GELU Permute Reshape
 
 def layer_weights(kind,p):
     g=lambda k,d=0:int(p.get(str(k),d))
+    if kind=='Crop':return crop_weights(p)
+    if kind=='Reorg':
+        if set(p)-{'0','1'} or g(0,1)<=0 or g(1) not in (0,1):raise ValueError('Unsupported Reorg parameters')
+        return []
+    if kind=='BatchNorm':
+        if set(p)-{'0','1'} or g(0)<=0 or not math.isfinite(float(p.get('1',0))) or float(p.get('1',0))<0:raise ValueError('Unsupported BatchNorm parameters')
+        return [(role,g(0),1,None) for role in ('slope','mean','variance','bias')]
     if kind in WEIGHTLESS:return []
     if kind=='MultiHeadAttention':
         return [(role,math.prod(shape),0 if role.endswith('weight') else 1,None) for role,shape in mha_shapes(p).items()]
@@ -223,7 +259,7 @@ def audit_port_weights(source: Path, official: Path, output: Path, official_file
                 matched_tensor_count=sum(bool(r['official_content_matches']) for r in peer),
                 unmatched_tensor_count=sum(not r['official_content_matches'] for r in peer),gaps=gaps,tensors=peer,
                 logical_projection_mappings=logical,official_components=[p.name for p in sorted(Path(official).glob('*.safetensors'))] if official_files is None else list(official_files),
-                mha_layout_evidence=MHA_EVIDENCE,allowed_to_close_S=False)
+                mha_layout_evidence=MHA_EVIDENCE,crop_serialization_evidence=CROP_EVIDENCE,vae_tail_serialization_evidence=VAE_TAIL_EVIDENCE,allowed_to_close_S=False)
     (output/'audit.json').write_text(json.dumps(report,indent=2));return report
 
 

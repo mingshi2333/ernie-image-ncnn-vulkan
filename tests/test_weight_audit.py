@@ -45,6 +45,23 @@ class WeightAuditTests(unittest.TestCase):
             rows=official_inventory(root);self.assertEqual(rows[0]['canonical_sha256'],hashlib.sha256(struct.pack('<f',3)).hexdigest())
             raw=bytearray(p.read_bytes());raw[-1]^=1;p.write_bytes(raw)
             with self.assertRaises(ValueError):official_inventory(root)
+    def test_crop_zero_bytes_preserves_following_weight_offset(self):
+        with tempfile.TemporaryDirectory() as t:
+            root=Path(t)
+            (root/'a.ncnn.param').write_text('7767517\n3 4\nMemoryData before 0 1 in 0=1\nCrop crop 1 1 in out -23310=1,32 -23311=1,0 -23309=1,0\nMemoryData after 0 1 last 0=1\n')
+            (root/'a.ncnn.bin').write_bytes(struct.pack('<ff',2,3))
+            rows,gaps=reference_inventory(root)
+            self.assertEqual(gaps,[]);self.assertEqual([r['offset'] for r in rows],[0,4])
+    def test_crop_unknown_or_malformed_parameters_fail_closed(self):
+        for params in ({'22':'1'},{'-23309':'2,0'},{'0':'x'},{'-23311':'-1'},{'19':''}):
+            with self.subTest(params=params),self.assertRaises(ValueError):layer_weights('Crop',params)
+        self.assertEqual(layer_weights('Crop',{'13':'0','14':'32','15':'0','19':'0w','20':'1w','21':'0'}),[])
+        with self.assertRaises(ValueError):layer_weights('UnknownCrop',{})
+    def test_reorg_and_batchnorm_serialized_tail(self):
+        self.assertEqual(layer_weights('Reorg',{'0':'2','1':'0'}),[])
+        self.assertEqual(layer_weights('BatchNorm',{'0':'128','1':'0.0001'}),[(r,128,1,None) for r in ('slope','mean','variance','bias')])
+        for kind,p in [('Reorg',{'0':'0'}),('Reorg',{'2':'1'}),('BatchNorm',{'0':'128','1':'nan'}),('BatchNorm',{'0':'0'})]:
+            with self.subTest(kind=kind,p=p),self.assertRaises(ValueError):layer_weights(kind,p)
     def test_mha_loader_order_non_square_weights_and_raw_bias(self):
         # embed=2, qdim=3, kdim=4, vdim=5 distinguishes every matrix direction.
         p={'0':'2','1':'1','2':'6','3':'4','4':'5'}

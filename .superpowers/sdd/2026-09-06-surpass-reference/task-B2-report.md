@@ -39,3 +39,16 @@
 - 下载完成后：重做全部 peer 流审计，补 graph/derived weight 映射；预检后执行64×64、512×512，再1024/长文本/PE。完整图像及端到端共同质量/校准仍全部 pending，失败保留分母，不能据缺记录计算速度收益。
 
 未 push、发布或上传。所有 weights/build/大证据保留 outputs，不提交 Git。
+
+
+## VAE完整序列化审计与原参考运行时容量预检
+
+本轮仅小CPU流式审计及原二进制`--help`（exit0），没有模型/GPU执行、没有占用build-dev、没有重启下载。新增Crop的明确ParamDict字段审核，依据pinned ncnn Crop无load_model覆盖与Layer::load_model零字节；数组字段-23309/-23310/-23311严格验证长度，未知字段拒绝。首次v4继续在Reorg失败，结果保留。继而按同一pin的Reorg(0=stride,1=mode、零字节)、BatchNorm(0=channels,1=eps，rawFP32依次slope/mean/variance/bias)源码补齐尾部，未知层依然fail closed。源码SHA写入报告。新增偏移与错误字段测试，权重审计+adapter共21/21通过。
+
+`weight-audit-vae-v5/audit.json`实际完整读取两份VAE bin到精确EOF：254个权重/常量记录，251个直接规范化FP32内容匹配，无解析gaps；16/16 MHA投影的指定官方名字、shape及hash全部匹配。官方组件明确选择encoder、decoder、quant、post-quant和BN；包括官方scalar计数器共251个tensor。剩余3个转换常量独立复核：decoder convdw_103 scale逐位等于sqrt(FP32展开的BF16 running_var+0.0001)，encoder BN slope逐位全1、bias逐位全0；`derived-constants.json`三个最大误差均0，并保存独立脚本。首次临时派生脚本错误按F32读取官方BF16在64/128shape检查报错，未写成功结果；修正后显式检查dtype=BF16/shape128再展开。此为值/序列化对应，**仍未证明所有VAE连接与全模型逻辑映射**，主audit保持unproven、不能关闭S；派生验证不篡改原报告的unmatched口径。
+
+原参考`runtime-capacity-review-v1/report.json`保存逐param逻辑元素数、SHA、原runner/help及ncnn加载/上传/allocator源码身份。原CLI FP16三个开关固定false，无FP16启用参数；默认BF16 storage/packing，--fp32-storage切FP32；low-vram默认true仅使用host-preferring VkWeightAllocator。generate把TextEncoder、整个DiT chunks/finalizer及preprocessor保持到VAE结束；不是分块offload。ncnn每256MiB提交upload可限制上传队列，但不释放已持有的所有层权重。BF16上传确实转2bytes，所以不能以磁盘FP32大小直接当其驻留。
+
+按原param总元素数，即使乐观假设每个权重全2bytes且无对齐/临时/激活，text embedding0.75000GiB、text encoder5.42021GiB、DiT chunks14.62557GiB、finalizer0.06349GiB、preprocessor0.27449GiB、VAEdecoder0.09243GiB，总计**21.22618GiB >20GiB RSS预算**；FP32等效42.45236GiB。即使尚未加载VAE，text+DiT也超20GiB。关闭low-vram仅chunks的BF16最低14.62557GiB已超过6GiB设备预算。CPU与64x64不会消除完整常驻权重，不能据此规避。此为源码与图计数预检，**不是实测RSS或OOM**；内存归属可能因驱动host-mapping有所不同，但既有进程驻留+主机物理预算不能把host权重视为免费。
+
+结论：在不改原参考模型/权重/精度/加载路径，且严格20GiB RSS和6GiB设备预算下，当前原CLI没有可承诺执行的完整首图配置。保留旧first64-plan原命令作为未执行候选；新报告eligible_first_image_plan=null，不启动已知越预算组合。若要实测，须由root明确调整资源计划或另立标识清晰的加载策略实验；不能把修改后的策略冒充固定原参考，也不能把unavailable作性能胜出。完整peer图像基线仍pending。
