@@ -52,3 +52,19 @@ CPU-only verification after this ordering change:
 - `cmake --build build-o1/stage-off-v2 --target ernie-image -j2`: pass
 
 No model or GPU execution was performed. The rebuilt binaries are not yet frozen as execution evidence; actual ON/OFF preparation remains gated on independent review closure and root authorization.
+
+### Fixed 64 ON/OFF execution preparation
+
+`outputs/execution-metrics-pipeline64-o1-v1` is prepared but has not run. It freezes the same 80-file tracked source snapshot for both sides, fresh ON/OFF binaries and their CMake caches, the historical fixed 64 prompt/latent/token inputs, and the existing 233-file model inventory. The authorized launcher authenticates the plan, worker, and supervisor before starting; the worker rehashes all frozen source files, inputs, the selected binary/cache, and live model files before invoking the CLI.
+
+The supervisor contract is MemoryMax 10 GiB, MemorySwapMax 0, CPUs 4 and 6, a continuously sampled 3 GiB host-available floor, 1800 second timeout, and 50 ms sampling. The comparison requires exactly 27 trace files (25 FP32 tensors plus prompt and token IDs), no missing or unexpected records, byte equality for every trace file and PNG, and explicit diagnostic metrics checks. It requires successful partial-known-interval coverage, non-overlapping host interval scope, formal speed/memory eligibility false, required observed host phases, and null unavailable GPU time, CPU RSS, and transfer-byte totals.
+
+Authorization hashes at preparation time:
+
+- plan: `df0325ac89687b6f29065eaf43b19481be8e2567e71b2194d373c3c8509fc4c9`
+- worker: `1bdee9fe128ea7da74d8fe8a22d383fbd95d31ab33af8928e729c482d8eea383`
+- supervisor: `baba17d3b10c1582f3b9d38f9ab82b230c1b206b207e428c9bdbbcad9546f564`
+- launcher: `9021309a41cc4fe8dcddba4293acae20ac287e7ddb1bd6c0946ac4edc29d8068`
+- comparator: `aa63a3fd1954002d441178f58a0b4ee573878b4b1c859a51b9843de8c68611a8`
+
+The frozen status remains `prepared_not_executed`. No model or GPU process was started. Independent preparation review and root scheduling remain required before execution.
