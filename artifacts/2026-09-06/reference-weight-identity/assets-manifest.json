@@ -1,0 +1,229 @@
+{
+  "revision": "140a052f7919f279de7f697fa54f33bd1c0cac2b",
+  "files": [
+    {
+      "path": "README.md",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/README.md",
+      "size": 21,
+      "sha256": "3e0e15fa0c5cc81675bd69af8eb469d128a725c1a7bfc71f03b7877b7b650567",
+      "lfs_sha256": null,
+      "verified": true
+    },
+    {
+      "path": "text_encoder/language_model_embed_tokens.ncnn.param",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/text_encoder/language_model_embed_tokens.ncnn.param",
+      "size": 168,
+      "sha256": "d280feb1ae24d787d5f59966252caec80fce4068fb79cb0ee69ae97431b807b3",
+      "lfs_sha256": null,
+      "verified": true
+    },
+    {
+      "path": "dit/finalizer.ncnn.param",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/dit/finalizer.ncnn.param",
+      "size": 782,
+      "sha256": "3175e42943b968f90047d2993ab7d4e538566a4cf247b8f7c76c1d439d72a620",
+      "lfs_sha256": null,
+      "verified": true
+    },
+    {
+      "path": ".gitattributes",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/.gitattributes",
+      "size": 1519,
+      "sha256": "11ad7efa24975ee4b0c3c3a38ed18737f0658a5f75a0a96787b576a78a023361",
+      "lfs_sha256": null,
+      "verified": true
+    },
+    {
+      "path": "dit/preprocessor.ncnn.param",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/dit/preprocessor.ncnn.param",
+      "size": 1632,
+      "sha256": "611af908f0d31148a1be312ce54b548f676bcfca18013bde637d6f51c87370c5",
+      "lfs_sha256": null,
+      "verified": true
+    },
+    {
+      "path": "vae/encoder_full.ncnn.param",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/vae/encoder_full.ncnn.param",
+      "size": 8597,
+      "sha256": "7abee618d294ea7120f755e4b245b274c54ed3264b84b8cea366083b968e913d",
+      "lfs_sha256": null,
+      "verified": true
+    },
+    {
+      "path": "vae/decoder_full.ncnn.param",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/vae/decoder_full.ncnn.param",
+      "size": 11469,
+      "sha256": "f4469da7c4cdf42375cf83adec075aa02b4d289c68e2fbd0f76142d4f3571bf9",
+      "lfs_sha256": null,
+      "verified": true
+    },
+    {
+      "path": "text_encoder/language_model_encoder.ncnn.param",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/text_encoder/language_model_encoder.ncnn.param",
+      "size": 57168,
+      "sha256": "f4a7e07f9d6d8eea5851f952ee9089c94a903ad16a886ea624367d7da7590314",
+      "lfs_sha256": null,
+      "verified": true
+    },
+    {
+      "path": "dit/chunks.ncnn.param",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/dit/chunks.ncnn.param",
+      "size": 116782,
+      "sha256": "74ccdb234ef4e7844a0857942adaf1338163ad093562f6033f7da53c437e7abe",
+      "lfs_sha256": null,
+      "verified": true
+    },
+    {
+      "path": "text_encoder/tokenizer/vocab.txt",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/text_encoder/tokenizer/vocab.txt",
+      "size": 1402887,
+      "sha256": "3f916858add7a114e507108a2fafab4edb5152d978268e590bebdfbaf11685fe",
+      "lfs_sha256": null,
+      "verified": true
+    },
+    {
+      "path": "text_encoder/tokenizer/merges.txt",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/text_encoder/tokenizer/merges.txt",
+      "size": 3127364,
+      "sha256": "ac79ec80145198ae5419ce3433b56fa092d415d5ef483b58cb7a4a0dc0df5b7b",
+      "lfs_sha256": null,
+      "verified": true
+    },
+    {
+      "path": "dit/finalizer.ncnn.bin",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/dit/finalizer.ncnn.bin",
+      "size": 136348184,
+      "sha256": "6cbbc765bfc00be61cc45bb4deb816b67d784473a5438625f73fdd2232c7979b",
+      "lfs_sha256": "6cbbc765bfc00be61cc45bb4deb816b67d784473a5438625f73fdd2232c7979b",
+      "verified": true
+    },
+    {
+      "path": "vae/encoder_full.ncnn.bin",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/vae/encoder_full.ncnn.bin",
+      "size": 137705600,
+      "sha256": "7fa2441a94886d9a1d44dbafe4fbac9211190e342b1cac171acb94c0faf517ce",
+      "lfs_sha256": "7fa2441a94886d9a1d44dbafe4fbac9211190e342b1cac171acb94c0faf517ce",
+      "verified": true
+    },
+    {
+      "path": "vae/decoder_full.ncnn.bin",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/vae/decoder_full.ncnn.bin",
+      "size": 198482224,
+      "sha256": "44fe82334caff6ff8a636d52dd9dad017c86443582b34cda49f6816a2a0734e8",
+      "lfs_sha256": "44fe82334caff6ff8a636d52dd9dad017c86443582b34cda49f6816a2a0734e8",
+      "verified": true
+    },
+    {
+      "path": "dit/preprocessor.ncnn.bin",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/dit/preprocessor.ncnn.bin",
+      "size": 589455380,
+      "sha256": "7a5471f6416834e7389ef7efe1fa5f72ac3632213894df4712037e9199f13869",
+      "lfs_sha256": "7a5471f6416834e7389ef7efe1fa5f72ac3632213894df4712037e9199f13869",
+      "verified": true
+    },
+    {
+      "path": "text_encoder/language_model_embed_tokens.ncnn.bin",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/text_encoder/language_model_embed_tokens.ncnn.bin",
+      "size": 1610612740,
+      "sha256": "53c1589d02a6d756bc0e44a615d02e75ad7e045eb8a9f645dcb4aee484a175c7",
+      "lfs_sha256": "53c1589d02a6d756bc0e44a615d02e75ad7e045eb8a9f645dcb4aee484a175c7",
+      "verified": true
+    },
+    {
+      "path": "text_encoder/language_model_encoder.ncnn.bin",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/text_encoder/language_model_encoder.ncnn.bin",
+      "size": 11639808700,
+      "sha256": "2421fa3a41d8f9838a583989e267b015a57117b5a26f78feb15e192bcdc093e5",
+      "lfs_sha256": "2421fa3a41d8f9838a583989e267b015a57117b5a26f78feb15e192bcdc093e5",
+      "verified": true
+    },
+    {
+      "path": "dit/chunks.ncnn.bin",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/dit/chunks.ncnn.bin",
+      "size": 31408165872,
+      "sha256": "21db5656df5ed28a2036dba648a585f5b8a302a4a0830ac4d0552fdb809c994b",
+      "lfs_sha256": "21db5656df5ed28a2036dba648a585f5b8a302a4a0830ac4d0552fdb809c994b",
+      "verified": true
+    },
+    {
+      "path": "pe/lm_head.ncnn.param",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/pe/lm_head.ncnn.param",
+      "size": 162,
+      "sha256": "9ebbb183b7b527d5be13f2e6a5967cf8c0bb99947518367b165344a5ce283b2e",
+      "lfs_sha256": null,
+      "verified": true
+    },
+    {
+      "path": "pe/embed_tokens.ncnn.param",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/pe/embed_tokens.ncnn.param",
+      "size": 169,
+      "sha256": "95f0b1f34b606b23e71b3c60ff8394faf5d8e69b7011c38f9f822ddb6c1067dc",
+      "lfs_sha256": null,
+      "verified": true
+    },
+    {
+      "path": "pe/tokenizer/prompt_prefix.txt",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/pe/tokenizer/prompt_prefix.txt",
+      "size": 340,
+      "sha256": "017a90d5e7f8f442eb4b223008e713ee9584dd0043ea0b600a64baf013256a58",
+      "lfs_sha256": null,
+      "verified": true
+    },
+    {
+      "path": "pe/tokenizer/extra_special_tokens.txt",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/pe/tokenizer/extra_special_tokens.txt",
+      "size": 13838,
+      "sha256": "0bc4290e7f531172e8ae6006d18f31c588330e57f7f07c3a3ba289783ba9fe4b",
+      "lfs_sha256": null,
+      "verified": true
+    },
+    {
+      "path": "pe/decoder.ncnn.param",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/pe/decoder.ncnn.param",
+      "size": 62331,
+      "sha256": "0dd27e936dd5c1a5da820e282a6a183248893aba6cad7ec78f16548550cc1ac4",
+      "lfs_sha256": null,
+      "verified": true
+    },
+    {
+      "path": "pe/tokenizer/vocab.txt",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/pe/tokenizer/vocab.txt",
+      "size": 1402887,
+      "sha256": "3f916858add7a114e507108a2fafab4edb5152d978268e590bebdfbaf11685fe",
+      "lfs_sha256": null,
+      "verified": true
+    },
+    {
+      "path": "pe/tokenizer/merges.txt",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/pe/tokenizer/merges.txt",
+      "size": 3127364,
+      "sha256": "ac79ec80145198ae5419ce3433b56fa092d415d5ef483b58cb7a4a0dc0df5b7b",
+      "lfs_sha256": null,
+      "verified": true
+    },
+    {
+      "path": "pe/embed_tokens.ncnn.bin",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/pe/embed_tokens.ncnn.bin",
+      "size": 1610612740,
+      "sha256": "7470dda9512a744e084d1fd08f74a9974059fbcb0866917eeabbe4ca21b0f13d",
+      "lfs_sha256": "7470dda9512a744e084d1fd08f74a9974059fbcb0866917eeabbe4ca21b0f13d",
+      "verified": true
+    },
+    {
+      "path": "pe/lm_head.ncnn.bin",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/pe/lm_head.ncnn.bin",
+      "size": 1610612740,
+      "sha256": "7470dda9512a744e084d1fd08f74a9974059fbcb0866917eeabbe4ca21b0f13d",
+      "lfs_sha256": "7470dda9512a744e084d1fd08f74a9974059fbcb0866917eeabbe4ca21b0f13d",
+      "verified": true
+    },
+    {
+      "path": "pe/decoder.ncnn.bin",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/pe/decoder.ncnn.bin",
+      "size": 12105413336,
+      "sha256": "df78557343f69d3f5023e9a92a3ee498fa1aa457cce05a7dd202634218452ccf",
+      "lfs_sha256": "df78557343f69d3f5023e9a92a3ee498fa1aa457cce05a7dd202634218452ccf",
+      "verified": true
+    }
+  ]
+}

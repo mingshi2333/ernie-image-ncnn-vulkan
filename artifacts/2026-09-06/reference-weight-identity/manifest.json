@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "scope": "Evidence copies from independent full stream, graph-role and bounded relation checks; no full reference image or paired comparison",
+  "files": [
+    {
+      "file": "assets-manifest.json",
+      "bytes": 10579,
+      "sha256": "147e7710a43acc1bcf0b1d6ebd44dc114173720343a8e0891f6e9ce6e765780d"
+    },
+    {
+      "file": "capacity-preflight.json",
+      "bytes": 4931,
+      "sha256": "d1d87db5f6407a24850c1628dec1f2a0ae866c729fe04cfe5e1b34f3a52f2c5f"
+    },
+    {
+      "file": "frequency-differences.json",
+      "bytes": 15848,
+      "sha256": "d5bea9ddc784e72d9c706d5797ca94e7bbd4e14b16652ca64ae04221733aad30"
+    },
+    {
+      "file": "graph-execution.json",
+      "bytes": 852,
+      "sha256": "bed4632f35d41be00948be2dc33879287e21ba31bf98a1cb9b703f42a1aff4e6"
+    },
+    {
+      "file": "graph-roles.json",
+      "bytes": 433577,
+      "sha256": "7c7face7f44c3b336b23cc8ade10147a665f191c25604dd446755fab352772f2"
+    },
+    {
+      "file": "relations-execution.json",
+      "bytes": 179,
+      "sha256": "f6b52bd19fd76e90594564cebefa789d0caba5153b99882eb686835ac6862dda"
+    },
+    {
+      "file": "relations.json",
+      "bytes": 11660,
+      "sha256": "1a0154f9edd7d6e519f5ba1fda96035daa8db00b6565426aa400ed4f061295e5"
+    },
+    {
+      "file": "scan-execution.json",
+      "bytes": 4530,
+      "sha256": "63afa31bcd7c26e7a7bddb5c8a056f54933b43f50cb5e56ab9858b1db722e0a5"
+    },
+    {
+      "file": "scan-summary.json",
+      "bytes": 6723,
+      "sha256": "bc21355da9ae85c7542b9c94d4c97f734460c56544a9e8e7271a1abdb0593247"
+    }
+  ]
+}

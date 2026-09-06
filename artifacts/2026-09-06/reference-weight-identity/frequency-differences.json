@@ -1,0 +1,623 @@
+{
+  "relation_file_sha256": "1a0154f9edd7d6e519f5ba1fda96035daa8db00b6565426aa400ed4f061295e5",
+  "frequency_differences": [
+    {
+      "index": 13,
+      "peer": 0.94321209192276,
+      "official_cpu": 0.9432121515274048,
+      "peer_bits": 1064400473,
+      "official_bits": 1064400474
+    },
+    {
+      "index": 19,
+      "peer": 0.9181013107299805,
+      "official_cpu": 0.9181013703346252,
+      "peer_bits": 1063979184,
+      "official_bits": 1063979185
+    },
+    {
+      "index": 25,
+      "peer": 0.8936591148376465,
+      "official_cpu": 0.8936590552330017,
+      "peer_bits": 1063569112,
+      "official_bits": 1063569111
+    },
+    {
+      "index": 31,
+      "peer": 0.8698675632476807,
+      "official_cpu": 0.8698675036430359,
+      "peer_bits": 1063169956,
+      "official_bits": 1063169955
+    },
+    {
+      "index": 32,
+      "peer": 0.8659643530845642,
+      "official_cpu": 0.8659642934799194,
+      "peer_bits": 1063104471,
+      "official_bits": 1063104470
+    },
+    {
+      "index": 53,
+      "peer": 0.78792405128479,
+      "official_cpu": 0.7879241108894348,
+      "peer_bits": 1061795172,
+      "official_bits": 1061795173
+    },
+    {
+      "index": 59,
+      "peer": 0.7669475078582764,
+      "official_cpu": 0.7669474482536316,
+      "peer_bits": 1061443244,
+      "official_bits": 1061443243
+    },
+    {
+      "index": 61,
+      "peer": 0.7600801587104797,
+      "official_cpu": 0.760080099105835,
+      "peer_bits": 1061328029,
+      "official_bits": 1061328028
+    },
+    {
+      "index": 108,
+      "peer": 0.615265429019928,
+      "official_cpu": 0.6152653694152832,
+      "peer_bits": 1058898441,
+      "official_bits": 1058898440
+    },
+    {
+      "index": 140,
+      "peer": 0.5327979326248169,
+      "official_cpu": 0.5327978730201721,
+      "peer_bits": 1057514866,
+      "official_bits": 1057514865
+    },
+    {
+      "index": 164,
+      "peer": 0.4782857894897461,
+      "official_cpu": 0.4782858192920685,
+      "peer_bits": 1056236000,
+      "official_bits": 1056236001
+    },
+    {
+      "index": 168,
+      "peer": 0.46975886821746826,
+      "official_cpu": 0.46975889801979065,
+      "peer_bits": 1055949884,
+      "official_bits": 1055949885
+    },
+    {
+      "index": 174,
+      "peer": 0.4572526812553406,
+      "official_cpu": 0.4572526514530182,
+      "peer_bits": 1055530246,
+      "official_bits": 1055530245
+    },
+    {
+      "index": 192,
+      "peer": 0.4216964840888977,
+      "official_cpu": 0.4216965138912201,
+      "peer_bits": 1054337178,
+      "official_bits": 1054337179
+    },
+    {
+      "index": 201,
+      "peer": 0.40496906638145447,
+      "official_cpu": 0.40496909618377686,
+      "peer_bits": 1053775899,
+      "official_bits": 1053775900
+    },
+    {
+      "index": 205,
+      "peer": 0.39774924516677856,
+      "official_cpu": 0.39774927496910095,
+      "peer_bits": 1053533642,
+      "official_bits": 1053533643
+    },
+    {
+      "index": 223,
+      "peer": 0.3668200969696045,
+      "official_cpu": 0.3668200671672821,
+      "peer_bits": 1052495832,
+      "official_bits": 1052495831
+    },
+    {
+      "index": 239,
+      "peer": 0.3413524925708771,
+      "official_cpu": 0.34135252237319946,
+      "peer_bits": 1051641281,
+      "official_bits": 1051641282
+    },
+    {
+      "index": 243,
+      "peer": 0.3352668285369873,
+      "official_cpu": 0.3352668583393097,
+      "peer_bits": 1051437080,
+      "official_bits": 1051437081
+    },
+    {
+      "index": 255,
+      "peer": 0.3176531493663788,
+      "official_cpu": 0.3176531195640564,
+      "peer_bits": 1050846063,
+      "official_bits": 1050846062
+    },
+    {
+      "index": 333,
+      "peer": 0.2236708402633667,
+      "official_cpu": 0.2236708253622055,
+      "peer_bits": 1046809080,
+      "official_bits": 1046809079
+    },
+    {
+      "index": 357,
+      "peer": 0.20078642666339874,
+      "official_cpu": 0.20078644156455994,
+      "peer_bits": 1045273333,
+      "official_bits": 1045273334
+    },
+    {
+      "index": 476,
+      "peer": 0.11757431924343109,
+      "official_cpu": 0.11757432669401169,
+      "peer_bits": 1039190734,
+      "official_bits": 1039190735
+    },
+    {
+      "index": 478,
+      "peer": 0.11652152985334396,
+      "official_cpu": 0.11652153730392456,
+      "peer_bits": 1039049431,
+      "official_bits": 1039049432
+    },
+    {
+      "index": 486,
+      "peer": 0.11240386217832565,
+      "official_cpu": 0.11240385472774506,
+      "peer_bits": 1038496767,
+      "official_bits": 1038496766
+    },
+    {
+      "index": 517,
+      "peer": 0.09777646511793137,
+      "official_cpu": 0.09777647256851196,
+      "peer_bits": 1036533511,
+      "official_bits": 1036533512
+    },
+    {
+      "index": 518,
+      "peer": 0.09733772277832031,
+      "official_cpu": 0.09733773022890091,
+      "peer_bits": 1036474624,
+      "official_bits": 1036474625
+    },
+    {
+      "index": 522,
+      "peer": 0.09560238569974899,
+      "official_cpu": 0.0956023782491684,
+      "peer_bits": 1036241711,
+      "official_bits": 1036241710
+    },
+    {
+      "index": 530,
+      "peer": 0.09222395718097687,
+      "official_cpu": 0.09222394973039627,
+      "peer_bits": 1035788266,
+      "official_bits": 1035788265
+    },
+    {
+      "index": 551,
+      "peer": 0.08391278237104416,
+      "official_cpu": 0.08391278982162476,
+      "peer_bits": 1034672759,
+      "official_bits": 1034672760
+    },
+    {
+      "index": 561,
+      "peer": 0.08022262901067734,
+      "official_cpu": 0.08022262156009674,
+      "peer_bits": 1034177475,
+      "official_bits": 1034177474
+    },
+    {
+      "index": 599,
+      "peer": 0.06762045621871948,
+      "official_cpu": 0.06762044876813889,
+      "peer_bits": 1032486040,
+      "official_bits": 1032486039
+    },
+    {
+      "index": 625,
+      "peer": 0.06015847623348236,
+      "official_cpu": 0.06015847995877266,
+      "peer_bits": 1031170236,
+      "official_bits": 1031170237
+    },
+    {
+      "index": 633,
+      "peer": 0.058032575994729996,
+      "official_cpu": 0.058032579720020294,
+      "peer_bits": 1030599569,
+      "official_bits": 1030599570
+    },
+    {
+      "index": 667,
+      "peer": 0.04980416223406792,
+      "official_cpu": 0.049804165959358215,
+      "peer_bits": 1028390771,
+      "official_bits": 1028390772
+    },
+    {
+      "index": 677,
+      "peer": 0.047613970935344696,
+      "official_cpu": 0.0476139672100544,
+      "peer_bits": 1027802846,
+      "official_bits": 1027802845
+    },
+    {
+      "index": 707,
+      "peer": 0.04160452261567116,
+      "official_cpu": 0.041604526340961456,
+      "peer_bits": 1026189697,
+      "official_bits": 1026189698
+    },
+    {
+      "index": 734,
+      "peer": 0.036847345530986786,
+      "official_cpu": 0.03684734180569649,
+      "peer_bits": 1024912702,
+      "official_bits": 1024912701
+    },
+    {
+      "index": 748,
+      "peer": 0.03459891676902771,
+      "official_cpu": 0.03459892049431801,
+      "peer_bits": 1024309144,
+      "official_bits": 1024309145
+    },
+    {
+      "index": 782,
+      "peer": 0.02969314530491829,
+      "official_cpu": 0.02969314716756344,
+      "peer_bits": 1022574346,
+      "official_bits": 1022574347
+    },
+    {
+      "index": 794,
+      "peer": 0.028133176267147064,
+      "official_cpu": 0.028133174404501915,
+      "peer_bits": 1021736844,
+      "official_bits": 1021736843
+    },
+    {
+      "index": 795,
+      "peer": 0.028006937354803085,
+      "official_cpu": 0.028006935492157936,
+      "peer_bits": 1021669070,
+      "official_bits": 1021669069
+    },
+    {
+      "index": 796,
+      "peer": 0.027881264686584473,
+      "official_cpu": 0.027881262823939323,
+      "peer_bits": 1021601600,
+      "official_bits": 1021601599
+    },
+    {
+      "index": 882,
+      "peer": 0.018938416615128517,
+      "official_cpu": 0.018938418477773666,
+      "peer_bits": 1016800445,
+      "official_bits": 1016800446
+    },
+    {
+      "index": 924,
+      "peer": 0.015678787603974342,
+      "official_cpu": 0.01567878946661949,
+      "peer_bits": 1015050445,
+      "official_bits": 1015050446
+    },
+    {
+      "index": 967,
+      "peer": 0.012921950779855251,
+      "official_cpu": 0.012921949848532677,
+      "peer_bits": 1012119191,
+      "official_bits": 1012119190
+    },
+    {
+      "index": 977,
+      "peer": 0.012353692203760147,
+      "official_cpu": 0.012353693135082722,
+      "peer_bits": 1011509028,
+      "official_bits": 1011509029
+    },
+    {
+      "index": 978,
+      "peer": 0.012298261746764183,
+      "official_cpu": 0.012298262678086758,
+      "peer_bits": 1011449510,
+      "official_bits": 1011449511
+    },
+    {
+      "index": 988,
+      "peer": 0.011757432483136654,
+      "official_cpu": 0.01175743155181408,
+      "peer_bits": 1010868799,
+      "official_bits": 1010868798
+    },
+    {
+      "index": 1028,
+      "peer": 0.009821716696023941,
+      "official_cpu": 0.009821715764701366,
+      "peer_bits": 1008790340,
+      "official_bits": 1008790339
+    },
+    {
+      "index": 1090,
+      "peer": 0.007431793492287397,
+      "official_cpu": 0.007431793957948685,
+      "peer_bits": 1005815399,
+      "official_bits": 1005815400
+    },
+    {
+      "index": 1110,
+      "peer": 0.006792526226490736,
+      "official_cpu": 0.006792525760829449,
+      "peer_bits": 1004442583,
+      "official_bits": 1004442582
+    },
+    {
+      "index": 1128,
+      "peer": 0.0062643359415233135,
+      "official_cpu": 0.006264336407184601,
+      "peer_bits": 1003308303,
+      "official_bits": 1003308304
+    },
+    {
+      "index": 1167,
+      "peer": 0.0052565764635801315,
+      "official_cpu": 0.005256576929241419,
+      "peer_bits": 1001144156,
+      "official_bits": 1001144157
+    },
+    {
+      "index": 1172,
+      "peer": 0.005139695014804602,
+      "official_cpu": 0.005139695480465889,
+      "peer_bits": 1000893155,
+      "official_bits": 1000893156
+    },
+    {
+      "index": 1201,
+      "peer": 0.0045112487860023975,
+      "official_cpu": 0.004511249251663685,
+      "peer_bits": 999543577,
+      "official_bits": 999543578
+    },
+    {
+      "index": 1230,
+      "peer": 0.003959644585847855,
+      "official_cpu": 0.003959645051509142,
+      "peer_bits": 998359016,
+      "official_bits": 998359017
+    },
+    {
+      "index": 1248,
+      "peer": 0.003651740960776806,
+      "official_cpu": 0.0036517411936074495,
+      "peer_bits": 997151244,
+      "official_bits": 997151245
+    },
+    {
+      "index": 1256,
+      "peer": 0.0035226948093622923,
+      "official_cpu": 0.0035226945765316486,
+      "peer_bits": 996596995,
+      "official_bits": 996596994
+    },
+    {
+      "index": 1260,
+      "peer": 0.0034598910715430975,
+      "official_cpu": 0.003459890838712454,
+      "peer_bits": 996327255,
+      "official_bits": 996327254
+    },
+    {
+      "index": 1281,
+      "peer": 0.0031480875331908464,
+      "official_cpu": 0.00314808776602149,
+      "peer_bits": 994988069,
+      "official_bits": 994988070
+    },
+    {
+      "index": 1313,
+      "peer": 0.0027261320501565933,
+      "official_cpu": 0.002726132282987237,
+      "peer_bits": 993175784,
+      "official_bits": 993175785
+    },
+    {
+      "index": 1335,
+      "peer": 0.002469324041157961,
+      "official_cpu": 0.0024693238083273172,
+      "peer_bits": 992072802,
+      "official_bits": 992072801
+    },
+    {
+      "index": 1395,
+      "peer": 0.0018853440415114164,
+      "official_cpu": 0.0018853441579267383,
+      "peer_bits": 989273510,
+      "official_bits": 989273511
+    },
+    {
+      "index": 1400,
+      "peer": 0.0018434228841215372,
+      "official_cpu": 0.001843423000536859,
+      "peer_bits": 988913410,
+      "official_bits": 988913411
+    },
+    {
+      "index": 1409,
+      "peer": 0.0017702996265143156,
+      "official_cpu": 0.0017702995100989938,
+      "peer_bits": 988285286,
+      "official_bits": 988285285
+    },
+    {
+      "index": 1410,
+      "peer": 0.0017623563762754202,
+      "official_cpu": 0.0017623562598600984,
+      "peer_bits": 988217054,
+      "official_bits": 988217053
+    },
+    {
+      "index": 1457,
+      "peer": 0.0014265825739130378,
+      "official_cpu": 0.001426582457497716,
+      "peer_bits": 985332779,
+      "official_bits": 985332778
+    },
+    {
+      "index": 1469,
+      "peer": 0.0013516346225515008,
+      "official_cpu": 0.0013516347389668226,
+      "peer_bits": 984688981,
+      "official_bits": 984688982
+    },
+    {
+      "index": 1472,
+      "peer": 0.0013335213297978044,
+      "official_cpu": 0.0013335214462131262,
+      "peer_bits": 984533389,
+      "official_bits": 984533390
+    },
+    {
+      "index": 1490,
+      "peer": 0.0012298262445256114,
+      "official_cpu": 0.0012298261281102896,
+      "peer_bits": 983642655,
+      "official_bits": 983642654
+    },
+    {
+      "index": 1567,
+      "peer": 0.0008698675082996488,
+      "official_cpu": 0.0008698674500919878,
+      "peer_bits": 979634130,
+      "official_bits": 979634129
+    },
+    {
+      "index": 1568,
+      "peer": 0.0008659644518047571,
+      "official_cpu": 0.0008659643935970962,
+      "peer_bits": 979567076,
+      "official_bits": 979567075
+    },
+    {
+      "index": 1591,
+      "peer": 0.0007808689260855317,
+      "official_cpu": 0.0007808689842931926,
+      "peer_bits": 978105146,
+      "official_bits": 978105147
+    },
+    {
+      "index": 1605,
+      "peer": 0.0007332200184464455,
+      "official_cpu": 0.0007332199602387846,
+      "peer_bits": 977286544,
+      "official_bits": 977286543
+    },
+    {
+      "index": 1629,
+      "peer": 0.0006582022178918123,
+      "official_cpu": 0.0006582022760994732,
+      "peer_bits": 975997748,
+      "official_bits": 975997749
+    },
+    {
+      "index": 1696,
+      "peer": 0.00048696750309318304,
+      "official_cpu": 0.0004869675321970135,
+      "peer_bits": 973033388,
+      "official_bits": 973033389
+    },
+    {
+      "index": 1699,
+      "peer": 0.00048044166760519147,
+      "official_cpu": 0.000480441638501361,
+      "peer_bits": 972809162,
+      "official_bits": 972809161
+    },
+    {
+      "index": 1760,
+      "peer": 0.00036517411353997886,
+      "official_cpu": 0.0003651740844361484,
+      "peer_bits": 968848599,
+      "official_bits": 968848598
+    },
+    {
+      "index": 1810,
+      "peer": 0.00029163763974793255,
+      "official_cpu": 0.000291637668851763,
+      "peer_bits": 966321905,
+      "official_bits": 966321906
+    },
+    {
+      "index": 1823,
+      "peer": 0.00027507616323418915,
+      "official_cpu": 0.0002750761923380196,
+      "peer_bits": 965752857,
+      "official_bits": 965752858
+    },
+    {
+      "index": 1835,
+      "peer": 0.0002606247435323894,
+      "official_cpu": 0.00026062471442855895,
+      "peer_bits": 965256310,
+      "official_bits": 965256309
+    },
+    {
+      "index": 1854,
+      "peer": 0.00023927996517159045,
+      "official_cpu": 0.00023927995061967522,
+      "peer_bits": 964355898,
+      "official_bits": 964355897
+    },
+    {
+      "index": 1872,
+      "peer": 0.00022067334793973714,
+      "official_cpu": 0.0002206733333878219,
+      "peer_bits": 963077261,
+      "official_bits": 963077260
+    },
+    {
+      "index": 1878,
+      "peer": 0.00021479847782757133,
+      "official_cpu": 0.0002147984632756561,
+      "peer_bits": 962673543,
+      "official_bits": 962673542
+    },
+    {
+      "index": 1976,
+      "peer": 0.000138237199280411,
+      "official_cpu": 0.00013823721383232623,
+      "peer_bits": 957412292,
+      "official_bits": 957412293
+    },
+    {
+      "index": 1988,
+      "peer": 0.00013097476039547473,
+      "official_cpu": 0.0001309747458435595,
+      "peer_bits": 956913221,
+      "official_bits": 956913220
+    },
+    {
+      "index": 2028,
+      "peer": 0.00010941138316411525,
+      "official_cpu": 0.00010941137588815764,
+      "peer_bits": 954561482,
+      "official_bits": 954561481
+    }
+  ],
+  "independent_bitdiff_count": 88,
+  "official_pipeline_source_sha256": "26fbecb8c9d13a46b15aea7d599224bb03ad93e683ce3935d7a932d71316a9fd"
+}

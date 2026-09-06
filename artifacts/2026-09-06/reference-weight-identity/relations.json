@@ -1,0 +1,234 @@
+{
+  "status": "bounded_relations_checked_not_full_graph_proof",
+  "allowed_to_close_S": false,
+  "source_pins": {
+    "outputs/reference-port-v1/assets-manifest.json": "147e7710a43acc1bcf0b1d6ebd44dc114173720343a8e0891f6e9ce6e765780d",
+    "models/official/dit-final_norm.safetensors": "12fa6e315102b34387b8790eb4f59adcfbe83187bcc8a734f5146b4646ee2067",
+    "models/official/dit-final_norm.manifest.json": "91e4f57fd238792b4f0c8c96bb98c80257919016e9819bae050a88f8d5c3829b",
+    "models/official/vae-bn.safetensors": "994f11f035c926c3be5a59802b401ab5304bbab7d53053995d4737b76b8411a6",
+    "models/official/vae-bn.manifest.json": "ed837a63df954f47c17853675bcdf25579bedf2f373eac88ea2f66d21559f243",
+    "models/official/vae-config.json": "4d5ba5e01de06d589dd46e2955ab97e2b0968703dce31b9ebe1d2a38c141836d",
+    "models/official/vae-config.source.json": "eb12aa896984caded27202c6620f22f5fa6a752ac9f4d8dacfe919430a331814",
+    "tools/audit_port_weights.py": "1e1f583f96bad7613cfbc1f47da1d48be8adb5f4f7bf8fda97f78d8a0feab15d",
+    "outputs/reference-port-v1/assets/dit/finalizer.ncnn.param": "3175e42943b968f90047d2993ab7d4e538566a4cf247b8f7c76c1d439d72a620",
+    "outputs/reference-port-v1/assets/dit/finalizer.ncnn.bin": "6cbbc765bfc00be61cc45bb4deb816b67d784473a5438625f73fdd2232c7979b",
+    "outputs/reference-port-v1/assets/dit/preprocessor.ncnn.param": "611af908f0d31148a1be312ce54b548f676bcfca18013bde637d6f51c87370c5",
+    "outputs/reference-port-v1/assets/dit/preprocessor.ncnn.bin": "7a5471f6416834e7389ef7efe1fa5f72ac3632213894df4712037e9199f13869",
+    "outputs/reference-port-v1/assets/vae/encoder_full.ncnn.param": "7abee618d294ea7120f755e4b245b274c54ed3264b84b8cea366083b968e913d",
+    "outputs/reference-port-v1/assets/vae/encoder_full.ncnn.bin": "7fa2441a94886d9a1d44dbafe4fbac9211190e342b1cac171acb94c0faf517ce",
+    "outputs/reference-port-v1/assets/vae/decoder_full.ncnn.param": "f4469da7c4cdf42375cf83adec075aa02b4d289c68e2fbd0f76142d4f3571bf9",
+    "outputs/reference-port-v1/assets/vae/decoder_full.ncnn.bin": "44fe82334caff6ff8a636d52dd9dad017c86443582b34cda49f6816a2a0734e8",
+    "outputs/reference-port-v1/source/src/ncnn/src/layer/gemm.cpp": "49081dc97b3b49e0af3f38e23fde0d56ac2e1c5426f863776c538ef91000fe39",
+    "outputs/reference-port-v1/source/src/ncnn/src/layer/binaryop.h": "960ec8762a4382908a17c517c11788390fe7e027896813426ca28360a0dfb011",
+    "outputs/reference-port-v1/source/src/ncnn/src/layer/batchnorm.cpp": "4303d94e4508efc87d0b8261696bfaab4a1a3dfba8a74c212ce232fe459af153",
+    "outputs/reference-port-v1/source/src/ncnn/src/layer/convolutiondepthwise.cpp": "3af6164e7011a7fd0cf7d91845029db45bcadbe05190135b9086305b4646215d",
+    "outputs/reference-port-v1/source/src/ncnn/src/layer/memorydata.cpp": "74984437b782561e7a0e4b03926b225e95a12d207da376803191a843cc1ef5b0",
+    ".venv/lib/python3.14/site-packages/diffusers/models/transformers/transformer_ernie_image.py": "0f1814f63008298707afea5d7bd22d0a16073f0a8e858037c198faa28027e926",
+    ".venv/lib/python3.14/site-packages/diffusers/models/embeddings.py": "4eb810f715786eb1f24f2a4641e529817f7c951b9caf2f7925811329a03ec796",
+    ".venv/lib/python3.14/site-packages/diffusers/models/autoencoders/autoencoder_kl_flux2.py": "7d9a976c1e4f42615e8c422f1643d86b49c4339221bd04b67f518b718ebd6c2d"
+  },
+  "tool_sha256": "91220c0a65b3714a0bc203fd83545b00f57f6eb64957edd2aa22ef5aa18ad9c8",
+  "actual_selected_stream_rows": 270,
+  "parser_gaps": [],
+  "relation_count": 8,
+  "exact_relation_count": 7,
+  "rows": [
+    {
+      "relation": "official_final_norm_row_slice",
+      "peer": {
+        "file": "dit/finalizer.ncnn.bin",
+        "layer": "gemm_0",
+        "kind": "Gemm",
+        "role": "B",
+        "offset": 4,
+        "count": 16777216,
+        "storage_dtype": "F32",
+        "transpose_shape": null,
+        "param_sha256": "3175e42943b968f90047d2993ab7d4e538566a4cf247b8f7c76c1d439d72a620",
+        "canonical_sha256": "cbdef59a966c2a304f6968f115d5b33c7e9d6fbde11985f52159cddcd7167310"
+      },
+      "official_tensor": "final_norm.linear.weight",
+      "official_shape": [
+        8192,
+        4096
+      ],
+      "row_range": [
+        0,
+        4096
+      ],
+      "role": "scale",
+      "expected_sha256": "cbdef59a966c2a304f6968f115d5b33c7e9d6fbde11985f52159cddcd7167310",
+      "bitwise_equal": true
+    },
+    {
+      "relation": "official_final_norm_row_slice",
+      "peer": {
+        "file": "dit/finalizer.ncnn.bin",
+        "layer": "gemm_0",
+        "kind": "Gemm",
+        "role": "C",
+        "offset": 67108872,
+        "count": 4096,
+        "storage_dtype": "F32",
+        "transpose_shape": null,
+        "param_sha256": "3175e42943b968f90047d2993ab7d4e538566a4cf247b8f7c76c1d439d72a620",
+        "canonical_sha256": "4a26257d42b4286b2d88918b774fb90ef6f5cec05deb49f214bfb6dafe540429"
+      },
+      "official_tensor": "final_norm.linear.bias",
+      "official_shape": [
+        8192
+      ],
+      "row_range": [
+        0,
+        4096
+      ],
+      "role": "scale",
+      "expected_sha256": "4a26257d42b4286b2d88918b774fb90ef6f5cec05deb49f214bfb6dafe540429",
+      "bitwise_equal": true
+    },
+    {
+      "relation": "official_final_norm_row_slice",
+      "peer": {
+        "file": "dit/finalizer.ncnn.bin",
+        "layer": "gemm_1",
+        "kind": "Gemm",
+        "role": "B",
+        "offset": 67125260,
+        "count": 16777216,
+        "storage_dtype": "F32",
+        "transpose_shape": null,
+        "param_sha256": "3175e42943b968f90047d2993ab7d4e538566a4cf247b8f7c76c1d439d72a620",
+        "canonical_sha256": "effe72415252340e50ed62be1835af6d69b26335e8eac52cf3b9d6c7b6ba0260"
+      },
+      "official_tensor": "final_norm.linear.weight",
+      "official_shape": [
+        8192,
+        4096
+      ],
+      "row_range": [
+        4096,
+        8192
+      ],
+      "role": "shift",
+      "expected_sha256": "effe72415252340e50ed62be1835af6d69b26335e8eac52cf3b9d6c7b6ba0260",
+      "bitwise_equal": true
+    },
+    {
+      "relation": "official_final_norm_row_slice",
+      "peer": {
+        "file": "dit/finalizer.ncnn.bin",
+        "layer": "gemm_1",
+        "kind": "Gemm",
+        "role": "C",
+        "offset": 134234128,
+        "count": 4096,
+        "storage_dtype": "F32",
+        "transpose_shape": null,
+        "param_sha256": "3175e42943b968f90047d2993ab7d4e538566a4cf247b8f7c76c1d439d72a620",
+        "canonical_sha256": "67939b847e4793a0edae78f68a7809f6e37b8afadb683e756a397628b0687b2e"
+      },
+      "official_tensor": "final_norm.linear.bias",
+      "official_shape": [
+        8192
+      ],
+      "row_range": [
+        4096,
+        8192
+      ],
+      "role": "shift",
+      "expected_sha256": "67939b847e4793a0edae78f68a7809f6e37b8afadb683e756a397628b0687b2e",
+      "bitwise_equal": true
+    },
+    {
+      "relation": "Timesteps_frequency_4096_downshift0_maxperiod10000",
+      "peer": {
+        "file": "dit/preprocessor.ncnn.bin",
+        "layer": "pnnx_fold_109",
+        "kind": "MemoryData",
+        "role": "constant",
+        "offset": 52445192,
+        "count": 2048,
+        "storage_dtype": "F32",
+        "transpose_shape": null,
+        "param_sha256": "611af908f0d31148a1be312ce54b548f676bcfca18013bde637d6f51c87370c5",
+        "canonical_sha256": "c4c9af3f7a86fc46fb66ca8bb96df090e14669fa93612c09eaa56f9757dcd314"
+      },
+      "bitwise_equal": false,
+      "different_values": 88,
+      "max_abs_error": 5.960464477539063e-08,
+      "nrmse": 2.0191671970545926e-08,
+      "actual_sha256": "c4c9af3f7a86fc46fb66ca8bb96df090e14669fa93612c09eaa56f9757dcd314",
+      "expected_sha256": "e5d3c4cb2987c81afc48ab2b2f560ea7eacf51a6ff0e3254b2715c2223191b36"
+    },
+    {
+      "relation": "sqrt(BF16 running_var expanded FP32 + 1e-4)",
+      "peer": {
+        "file": "vae/decoder_full.ncnn.bin",
+        "layer": "convdw_103",
+        "kind": "ConvolutionDepthWise",
+        "role": "weight",
+        "offset": 4,
+        "count": 128,
+        "storage_dtype": "F32",
+        "transpose_shape": null,
+        "param_sha256": "f4469da7c4cdf42375cf83adec075aa02b4d289c68e2fbd0f76142d4f3571bf9",
+        "canonical_sha256": "e89b48bf701b864cc6cad73070e0e49052ee673d2c34ec2084ecf6386284d199"
+      },
+      "bitwise_equal": true,
+      "different_values": 0,
+      "max_abs_error": 0.0,
+      "nrmse": 0.0,
+      "actual_sha256": "e89b48bf701b864cc6cad73070e0e49052ee673d2c34ec2084ecf6386284d199",
+      "expected_sha256": "e89b48bf701b864cc6cad73070e0e49052ee673d2c34ec2084ecf6386284d199"
+    },
+    {
+      "relation": "nonaffine BN slope=1",
+      "peer": {
+        "file": "vae/encoder_full.ncnn.bin",
+        "layer": "bn_0",
+        "kind": "BatchNorm",
+        "role": "slope",
+        "offset": 137703552,
+        "count": 128,
+        "storage_dtype": "F32",
+        "transpose_shape": null,
+        "param_sha256": "7abee618d294ea7120f755e4b245b274c54ed3264b84b8cea366083b968e913d",
+        "canonical_sha256": "02722f124d0f1736a9dd7c4ddcd05630dcf16ee1ce3454e9a876005ce005d4ac"
+      },
+      "bitwise_equal": true,
+      "different_values": 0,
+      "max_abs_error": 0.0,
+      "nrmse": 0.0,
+      "actual_sha256": "02722f124d0f1736a9dd7c4ddcd05630dcf16ee1ce3454e9a876005ce005d4ac",
+      "expected_sha256": "02722f124d0f1736a9dd7c4ddcd05630dcf16ee1ce3454e9a876005ce005d4ac"
+    },
+    {
+      "relation": "nonaffine BN bias=0",
+      "peer": {
+        "file": "vae/encoder_full.ncnn.bin",
+        "layer": "bn_0",
+        "kind": "BatchNorm",
+        "role": "bias",
+        "offset": 137705088,
+        "count": 128,
+        "storage_dtype": "F32",
+        "transpose_shape": null,
+        "param_sha256": "7abee618d294ea7120f755e4b245b274c54ed3264b84b8cea366083b968e913d",
+        "canonical_sha256": "076a27c79e5ace2a3d47f9dd2e83e4ff6ea8872b3c2218f66c92b89b55f36560"
+      },
+      "bitwise_equal": true,
+      "different_values": 0,
+      "max_abs_error": 0.0,
+      "nrmse": 0.0,
+      "actual_sha256": "076a27c79e5ace2a3d47f9dd2e83e4ff6ea8872b3c2218f66c92b89b55f36560",
+      "expected_sha256": "076a27c79e5ace2a3d47f9dd2e83e4ff6ea8872b3c2218f66c92b89b55f36560"
+    }
+  ],
+  "frequency_execution": {
+    "torch": "2.12.1+cu130",
+    "device": "cpu",
+    "threads": 2,
+    "executed_prefix": "def get_timestep_embedding(timesteps: torch.Tensor, embedding_dim: int, flip_sin_to_cos: bool=False, downscale_freq_shift: float=1, scale: float=1, max_period: int=10000) -> torch.Tensor:\n    \"\"\"\n    This matches the implementation in Denoising Diffusion Probabilistic Models: Create sinusoidal timestep embeddings.\n\n    Args\n        timesteps (torch.Tensor):\n            a 1-D Tensor of N indices, one per batch element. These may be fractional.\n        embedding_dim (int):\n            the dimension of the output.\n        flip_sin_to_cos (bool):\n            Whether the embedding order should be `cos, sin` (if True) or `sin, cos` (if False)\n        downscale_freq_shift (float):\n            Controls the delta between frequencies between dimensions\n        scale (float):\n            Scaling factor applied to the embeddings.\n        max_period (int):\n            Controls the maximum frequency of the embeddings\n    Returns\n        torch.Tensor: an [N x dim] Tensor of positional embeddings.\n    \"\"\"\n    assert len(timesteps.shape) == 1, 'Timesteps should be a 1d-array'\n    half_dim = embedding_dim // 2\n    exponent = -math.log(max_period) * torch.arange(start=0, end=half_dim, dtype=torch.float32, device=timesteps.device)\n    exponent = exponent / (half_dim - downscale_freq_shift)\n    emb = torch.exp(exponent)\n    return emb"
+  },
+  "vae_epsilon_boundary": "Peer inverse BN uses 1e-4; official ERNIE pipeline inverse uses 1e-5. Do not equate these graphs."
+}

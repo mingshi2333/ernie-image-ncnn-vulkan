@@ -17,7 +17,7 @@
   "historical_converted_model": {
     "url": "https://huggingface.co/wuyex/ernie-image-ncnn",
     "revision": "140a052f7919f279de7f697fa54f33bd1c0cac2b",
-    "role": "reference_only_weights_not_downloaded"
+    "role": "Reference-only: all 28 fixed-revision assets downloaded and verified; canonical learned weights and partial named graph roles audited, derived frequency and decoder BN differences retained; no full peer image or speed comparison"
   },
   "official_code": {
     "url": "https://github.com/baidu/ERNIE-Image",

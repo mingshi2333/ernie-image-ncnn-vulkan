@@ -15,8 +15,10 @@ from pathlib import Path
 import numpy as np
 try:
     from package_model import sha256, safe_name
+    from port_graph_contract import graph_weight_mappings
 except ImportError:
     from tools.package_model import sha256, safe_name
+    from tools.port_graph_contract import graph_weight_mappings
 
 CHUNK=1<<20
 OFFICIAL_REVISION='bc68c81e2a1730a394d5fc9fae70713dee940140'
@@ -253,12 +255,13 @@ def audit_port_weights(source: Path, official: Path, output: Path, official_file
             row['logical_mapping_status']=status
             logical.append({k:row.get(k) for k in ('file','layer','role','logical_target','logical_shape','canonical_sha256','logical_mapping_status')})
             if status!='logical_projection_value_match':gaps.append(dict(file=row['file'],layer=row['layer'],role=row['role'],reason=status))
+    graph_mappings=graph_weight_mappings(source,peer,official_rows)
     report=dict(schema_version=1,status='unproven',comparison_scope='product_comparison_only',
                 reason='Content equality does not establish full logical graph correspondence; derived constants and unsupported paths remain explicit',
                 buffer_elements=CHUNK,official_tensor_count=len(official_rows),reference_tensor_count=len(peer),
                 matched_tensor_count=sum(bool(r['official_content_matches']) for r in peer),
                 unmatched_tensor_count=sum(not r['official_content_matches'] for r in peer),gaps=gaps,tensors=peer,
-                logical_projection_mappings=logical,official_components=[p.name for p in sorted(Path(official).glob('*.safetensors'))] if official_files is None else list(official_files),
+                logical_projection_mappings=logical,graph_weight_mappings=graph_mappings,official_components=[p.name for p in sorted(Path(official).glob('*.safetensors'))] if official_files is None else list(official_files),
                 mha_layout_evidence=MHA_EVIDENCE,crop_serialization_evidence=CROP_EVIDENCE,vae_tail_serialization_evidence=VAE_TAIL_EVIDENCE,allowed_to_close_S=False)
     (output/'audit.json').write_text(json.dumps(report,indent=2));return report
 

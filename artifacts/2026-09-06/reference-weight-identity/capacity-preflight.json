@@ -1,0 +1,104 @@
+{
+  "status": "no_original_cli_configuration_within_budgets",
+  "evidence_kind": "source_and_param_preflight_not_measured_OOM",
+  "source_revision": "8dcd6e4411137d8abe92c9d78581c4c96d5182c6",
+  "ncnn_revision": "f6f734f44d66f469fefee9ee401fd1cb5e3d573e",
+  "rss_budget_bytes": 21474836480,
+  "device_budget_bytes": 6442450944,
+  "weights": [
+    {
+      "param": "outputs/reference-port-v1/assets/dit/chunks.ncnn.param",
+      "sha256": "74ccdb234ef4e7844a0857942adaf1338163ad093562f6033f7da53c437e7abe",
+      "logical_weight_elements": 7852041216,
+      "optimistic_2byte_weight_bytes": 15704082432,
+      "fp32_weight_bytes": 31408164864
+    },
+    {
+      "param": "outputs/reference-port-v1/assets/dit/finalizer.ncnn.param",
+      "sha256": "3175e42943b968f90047d2993ab7d4e538566a4cf247b8f7c76c1d439d72a620",
+      "logical_weight_elements": 34087040,
+      "optimistic_2byte_weight_bytes": 68174080,
+      "fp32_weight_bytes": 136348160
+    },
+    {
+      "param": "outputs/reference-port-v1/assets/dit/preprocessor.ncnn.param",
+      "sha256": "611af908f0d31148a1be312ce54b548f676bcfca18013bde637d6f51c87370c5",
+      "logical_weight_elements": 147363840,
+      "optimistic_2byte_weight_bytes": 294727680,
+      "fp32_weight_bytes": 589455360
+    },
+    {
+      "param": "outputs/reference-port-v1/assets/text_encoder/language_model_embed_tokens.ncnn.param",
+      "sha256": "d280feb1ae24d787d5f59966252caec80fce4068fb79cb0ee69ae97431b807b3",
+      "logical_weight_elements": 402653184,
+      "optimistic_2byte_weight_bytes": 805306368,
+      "fp32_weight_bytes": 1610612736
+    },
+    {
+      "param": "outputs/reference-port-v1/assets/text_encoder/language_model_encoder.ncnn.param",
+      "sha256": "f4a7e07f9d6d8eea5851f952ee9089c94a903ad16a886ea624367d7da7590314",
+      "logical_weight_elements": 2909952000,
+      "optimistic_2byte_weight_bytes": 5819904000,
+      "fp32_weight_bytes": 11639808000
+    },
+    {
+      "param": "outputs/reference-port-v1/assets/vae/decoder_full.ncnn.param",
+      "sha256": "f4469da7c4cdf42375cf83adec075aa02b4d289c68e2fbd0f76142d4f3571bf9",
+      "logical_weight_elements": 49620515,
+      "optimistic_2byte_weight_bytes": 99241030,
+      "fp32_weight_bytes": 198482060
+    }
+  ],
+  "optimistic_bf16_total_bytes": 22791435590,
+  "fp32_total_bytes": 45582871180,
+  "source_sha256": {
+    "src/main.cpp": "4abe56fdaa3c3cbad9d6265611a258d9d5d44ddc2839afbd66de757e8a533ef3",
+    "src/ernie_image_pipeline.cpp": "7f449771d5e9ad588f9532c6fb87671dc322d837b017d0cb07f3bcc44ae5d988",
+    "src/ncnn/src/net.cpp": "4e6e1aa5dc13cb0f7ec24df9b3327ed022233414b6ced0675549550d66cece9a",
+    "src/ncnn/src/command.cpp": "420ef80df66da9ec864cd2207227fd11494b43ba3acf34fbd58118b189848349",
+    "src/ncnn/src/allocator.cpp": "fe8f6bc2fcee095ed172763445ddcd6c8e39070a561eaf5048fdb433246dd6b0",
+    "src/ncnn/src/layer/vulkan/gemm_vulkan.cpp": "425ffa083d0d2bf571a15b0b8645221ef21feabf25cdf6d142862652a38c98e5"
+  },
+  "runner_sha256": "49422b21635868cd3d4487b80d9c5dd1e421be8c9462a85cc03dc837e5ed82ac",
+  "help_sha256": "5ffb6b447b87f2c16b336721844dcd1e7d47a665bd67f6ce5940fcb5186c83e8",
+  "planned_original_cli": [
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/reference-port-v1/build/ernie-image-ncnn-vulkan",
+    "--model",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/reference-port-v1/assets",
+    "--prompt",
+    "A red apple on a wooden table, soft daylight, realistic photo.",
+    "--output",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/reference-port-v1/first64-fp32/image.png",
+    "--width",
+    "64",
+    "--height",
+    "64",
+    "--steps",
+    "8",
+    "--seed",
+    "42",
+    "--input-latents",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/reference-port-v1/first64-inputs/initial.f32",
+    "--threads",
+    "4",
+    "--gpu",
+    "0",
+    "--fp32-storage",
+    "--no-pe",
+    "--dump-initial-latents",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/reference-port-v1/first64-fp32/initial.f32",
+    "--dump-latents",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/reference-port-v1/first64-fp32/final.f32",
+    "--dump-step-prefix",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/reference-port-v1/first64-fp32/step"
+  ],
+  "actual_model_execution": false,
+  "reasons": [
+    "FP16 storage, packed and arithmetic explicitly false; no original CLI enable flag",
+    "low-vram is VkWeightAllocator host allocation preference, not per-block streaming; TextEncoder and DiT remain alive through VAE decode",
+    "Even optimistic two-byte storage of all persisted weights exceeds20GiB before activations/allocator overhead; CPU fallback cannot lower this minimum",
+    "no-low-vram chunks weights alone exceed6GiB even at two bytes each",
+    "Small image does not lower persistent model weights; CPU mode does not introduce block streaming"
+  ],
+  "eligible_first_image_plan": null
+}

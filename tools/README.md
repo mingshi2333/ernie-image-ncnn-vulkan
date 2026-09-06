@@ -14,6 +14,7 @@
 | 完整文生图对照 | `validate_pipeline.py` | 相同保存的初始 latent，固定张量/PNG 门槛，可连接官方 greedy PE oracle；共享包须指定实例并使用已审查的完整参考 |
 | 官方图生图 suffix 参考 | `reference_img2img_positive.py` | 认证独立官方 encoder、保存噪声和原始 schedule suffix；当前仅固定 512×384 开发案例，不替代完整文生图 oracle |
 | 测量一轮原生生成 | `benchmark_pipeline.py` | 记录完整包校验、trace 和设备采样范围；不是质量验收 |
+| 核对固定对照项目权重 | `audit_port_weights.py`、`audit_port_relations.py` | 分块规范化实际权重、按固定图连接核对命名角色，并单独报告派生常量与数学差异；不自动证明全图等价或速度 |
 | 归档通过及失败证据 | `collect_parity_evidence.py` | 重新计算误差、核对散列，冻结小型报告；不改原始门槛 |
 
 `export_*` 导出独立官方图与 fixture；`build_*` 构建真实权重包；`validate_*` 判定误差；`diagnose_*` 定位已发现的差异；`collect_*` 固定证据。底层助手如 `prepare_block.py`、`rebucket_*.py`、`specialize_vae.py` 由上述入口组合使用。

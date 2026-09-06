@@ -1,0 +1,16 @@
+{
+  "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/reference-port-v1/assets",
+  "inputs": {
+    "audit.json": "75fb0e4dc069f8cb1da2cf2cd052d7f405eb6d1a73fdc5b91808ce1fc46644c4",
+    "official-tensors.json": "e5350f66560f22bd7e534ee939f476259d76679098f62fe243d03822d140e374",
+    "port_graph_contract.py": "203bbc72340e0b17e0011a26238005d1166bd3d052d562366ffd8b545d5fe6af",
+    "run.py": "397cec79534ff242005f517864fd2f0c1d70601b9a450092e4c58ff06be1cac9"
+  },
+  "prior_scan_identity": {
+    "execution_sha256": "63afa31bcd7c26e7a7bddb5c8a056f54933b43f50cb5e56ab9858b1db722e0a5",
+    "assets_manifest_sha256": "147e7710a43acc1bcf0b1d6ebd44dc114173720343a8e0891f6e9ce6e765780d",
+    "actual_scan_return_code": 0,
+    "actual_scan_wall_seconds": 218.77830960300344
+  },
+  "head_at_freeze": "c20f0424e87d65061228260b951c371f273a7d10"
+}
