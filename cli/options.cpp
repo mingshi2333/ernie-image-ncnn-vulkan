@@ -61,6 +61,7 @@ const char *usage()
            "            [--device cpu|vulkan] [--precision fp32|fp16|bf16]\n"
            "            [--width N --height N] [--seed N] [--steps N] [--threads N]\n"
            "            [--gpu N] [--text-device cpu]\n"
+           "            [--text-down-vector] (optional FP32 text reduction candidate)\n"
            "            [--vae-device cpu|vulkan] [--vae-convolution direct|sgemm]\n"
            "            [--pe-model DIR] [--pe-max-tokens N] [--pe-greedy]\n"
            "            [--pe-temperature N] [--pe-top-p N] [--pe-seed N]\n"
@@ -115,6 +116,11 @@ Options parse_options(int argc, char **argv)
         {
             r.pe.greedy = true;
             pe_option = true;
+            continue;
+        }
+        if (flag == "--text-down-vector")
+        {
+            r.text_down_vector = true;
             continue;
         }
         if (++i == argc)
@@ -240,6 +246,8 @@ Options parse_options(int argc, char **argv)
         throw std::invalid_argument("PE temperature must be positive and top-p in (0,1]");
     if (!r.pe_model.empty() && !r.embeddings.empty())
         throw std::invalid_argument("PE and precomputed embeddings cannot be combined");
+    if (r.text_down_vector && !r.embeddings.empty())
+        throw std::invalid_argument("Vector text reduction requires native text encoding");
     if ((background_option || strength_option || resize_option) && out.input.empty())
         throw std::invalid_argument("--background, --strength and --resize require --input");
     if (!out.resize.empty() && out.resize != "stretch" && out.resize != "fit" && out.resize != "crop")

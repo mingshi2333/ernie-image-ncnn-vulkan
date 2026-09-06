@@ -62,6 +62,8 @@ void validate_request(const GenerationRequest &r)
         throw std::invalid_argument("Use a new trace directory");
     if (!r.pe_model.empty() && !r.embeddings.empty())
         throw std::invalid_argument("PE and precomputed embeddings cannot be combined");
+    if (r.text_down_vector && !r.embeddings.empty())
+        throw std::invalid_argument("Vector text reduction requires native text encoding");
     if (r.input_image)
     {
         const auto &image = *r.input_image;
@@ -217,6 +219,8 @@ GenerationResult generate(const GenerationRequest &r, const ProgressCallback &no
     const fs::path root(r.model), trace(r.trace);
     const auto cfg = model_config(root / "model.cfg");
     const int w = cfg.packed_width, h = cfg.packed_height, bucket = cfg.text_bucket;
+    if (r.text_down_vector && bucket != 64 && bucket != 2048)
+        throw std::invalid_argument("Vector text reduction requires an independently reviewed 64 or 2048 token graph");
     if (r.width && (r.width != 16 * w || r.height != 16 * h))
         throw std::invalid_argument("Requested resolution differs from this static model bucket; "
                                     "prepare a matching package with tools/prepare_variant.py");
@@ -281,7 +285,8 @@ GenerationResult generate(const GenerationRequest &r, const ProgressCallback &no
         for (int i = 0; i < 25; ++i)
             models.push_back((root / "text" / numbered("block-", i)).string());
         BlockSequenceStats stats;
-        const auto encoded = run_text_blocks(models, embedded, constants, cpu, stats);
+        const auto encoded = run_text_blocks(models, embedded, constants, cpu, stats,
+                                              r.text_down_vector ? TextDownMode::Vector : TextDownMode::Gemm);
         text = encoded.row_range(0, int(ids.size())).clone();
     }
     if (notify)

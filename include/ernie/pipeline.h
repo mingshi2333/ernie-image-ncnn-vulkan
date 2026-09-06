@@ -41,6 +41,7 @@ struct GenerationRequest
     std::string text_device = "cpu";
     std::optional<RgbImage> input_image; // Reserved until the F2 img2img runtime is connected.
     float strength = .5f;
+    bool text_down_vector = false; // Opt-in FP32 reduction candidate; independently exported 64/2048 buckets.
 };
 
 struct GenerationResult

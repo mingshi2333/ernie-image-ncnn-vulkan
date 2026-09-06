@@ -77,5 +77,15 @@ class SavedCandidateTests(unittest.TestCase):
         for flag in ('reference_embeddings','pe_model','pe_reference','reference_only'):
             with self.assertRaises(ValueError):check_conditioning_options(SimpleNamespace(**{**base,flag:True}))
 
+    def test_vector_mode_cannot_bypass_native_text(self):
+        from validate_pipeline import check_conditioning_options
+        base=dict(diagnostic_embeddings=None,reference_embeddings=False,pe_model=None,
+                  pe_reference=None,reference_only=False,text_down_vector=True)
+        check_conditioning_options(SimpleNamespace(**base))
+        check_conditioning_options(SimpleNamespace(**{**base,'pe_model':Path('pe'),'pe_reference':Path('oracle')}))
+        for flag in ('diagnostic_embeddings','reference_embeddings','reference_only'):
+            with self.assertRaises(ValueError):
+                check_conditioning_options(SimpleNamespace(**{**base,flag:True}))
+
 if __name__ == '__main__':
     unittest.main()

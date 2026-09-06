@@ -53,6 +53,7 @@ int main()
                          r.gpu_index = int(runtime.vulkan_devices.size());
                      });
         rejected("CPU text", [](auto &r) { r.text_device = "vulkan"; });
+        rejected("requires native text", [](auto &r) { r.text_down_vector = true; r.embeddings = "unused.f32"; });
         rejected("finite", [](auto &r) { r.strength = std::numeric_limits<float>::infinity(); });
         rejected("[0,1]", [](auto &r) { r.strength = -0.01f; });
         rejected("width*height*3", [](auto &r) { r.input_image = ernie::RgbImage{2, 2, {0, 1}}; });

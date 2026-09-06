@@ -80,6 +80,14 @@ class CliTests(unittest.TestCase):
     def test_unsupported_text_device_is_explicit(self):
         self.assertIn('currently supported', self.request('--prompt', 'cat', '--text-device', 'vulkan'))
 
+    def test_vector_reduction_requires_native_text(self):
+        self.assertIn('requires native text', self.request('--prompt', 'cat', '--text-down-vector',
+                                                          '--embeddings', 'unused.f32'))
+
+    def test_vector_reduction_flag_reaches_model_validation(self):
+        self.assertIn('Cannot open model.cfg', self.request('--prompt', 'cat', '--device', 'cpu',
+                                                          '--precision', 'fp32', '--text-down-vector'))
+
     def test_img2img_is_recognized_but_fail_closed(self):
         self.assertIn('unsupported until the F2', self.request('--prompt', 'cat', '--input', 'missing.jpg',
                                                                '--strength', '.5', '--resize', 'fit',

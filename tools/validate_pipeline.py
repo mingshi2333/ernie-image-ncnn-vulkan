@@ -129,6 +129,8 @@ def snapshot_diagnostic_embeddings(source, output, fixture):
 def check_conditioning_options(args):
     if args.diagnostic_embeddings and (args.reference_embeddings or args.pe_model or args.pe_reference or args.reference_only):
         raise ValueError('Diagnostic embeddings are incompatible with reference embeddings, PE, and reference-only')
+    if getattr(args, 'text_down_vector', False) and (args.reference_embeddings or args.diagnostic_embeddings or args.reference_only):
+        raise ValueError('Vector text reduction requires a native text validation run')
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
@@ -148,6 +150,7 @@ def main():
     p.add_argument('--reference-embeddings',action='store_true',
                    help='Diagnostic only: read saved official embeddings instead of running the native text encoder')
     p.add_argument('--diagnostic-embeddings',type=Path,help='Diagnostic only: frozen raw .f32 candidate text [1,valid_tokens,3072]; bypass native text encoder')
+    p.add_argument('--text-down-vector',action='store_true',help='Exercise the optional native vector reduction candidate in the complete text encoder')
     p.add_argument('--reference-device',choices=['cpu','cuda'],default='cpu',help='Device for one streamed official FP32 DiT block; other official modules stay on CPU')
     p.add_argument('--latent',type=Path,help='Use these saved FP32 initial latents for both implementations')
     p.add_argument('--reference-only',action='store_true',help='Save the official fixture without launching the native candidate')
@@ -249,6 +252,7 @@ def main():
              '--width',str(fixture['config']['packed_width']*16),'--height',str(fixture['config']['packed_height']*16),
              '--steps',str(args.steps),'--latent',str((ref/'initial.f32').resolve()),'--trace-dir',str(trace.resolve()),
              '--vae-convolution',args.vae_convolution]
+    if args.text_down_vector:command+=['--text-down-vector']
     scope=fixture['scope']
     if args.pe_model:
         command+=['--pe-model',str(args.pe_model.resolve()),'--pe-greedy','--pe-max-tokens',str(pe_reference['max_tokens'])]
@@ -270,6 +274,7 @@ def main():
             'source_snapshot':{path.name:sha256(path) for path in sorted(scripts.iterdir())},
             'package_manifest_sha256':sha256(args.model/'manifest.json'),'reference_fixture_sha256':sha256(ref/'fixture.json'),
             'device':args.device,'dit_precision':args.precision,'text_scheduler_vae_precision':'fp32',
+            'text_down_reduction':'bypassed' if (args.reference_embeddings or diagnostic_input) else 'vector' if args.text_down_vector else 'gemm',
             'command':command,'passed':False,'comparisons':[]}
     if diagnostic_input:result['diagnostic_embeddings']=diagnostic_input
     if args.pe_reference:
