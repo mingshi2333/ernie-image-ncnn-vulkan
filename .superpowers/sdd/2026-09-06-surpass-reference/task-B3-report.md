@@ -138,3 +138,5 @@ exit 0
 ```
 
 The new CPU-only cases cover an extensionless opaque PNG, byte-preserving supported-suffix snapshot, the complete resize dictionary, and transparent PNG fail-closed behavior. No model, GPU, formal case, or performance run was started. The benchmark source inventory remains a live source manifest and is not presented as a hermetic runner build provenance record.
+
+Follow-up review closed the remaining source/snapshot race: the encoded source is copied first, and format detection, decoded identity, encoded hash, and the eventual command all use that controlled byte copy. Opaque PNG certification additionally requires IHDR 8-bit truecolor and rejects gAMA, cHRM, iCCP, and sRGB chunks; other inputs remain development-only pending a native decoder observation. The expanded CPU-only suite passed 21/21.

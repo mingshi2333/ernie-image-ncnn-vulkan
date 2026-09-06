@@ -214,6 +214,17 @@ class PortMetricsTest(unittest.TestCase):
             self.assertTrue(any('native-equivalent decoded RGB' in reason
                                 for reason in result['formal_ineligibility_reasons']))
 
+    def test_image_identity_is_read_only_from_controlled_snapshot(self):
+        import hashlib
+        from PIL import Image
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary);source=root/'source';snapshot=root/'snapshot'
+            Image.new('RGB',(1,1),(1,2,3)).save(source,format='PNG')
+            snapshot.write_bytes(source.read_bytes());source.write_bytes(b'changed after copy')
+            suffix,digest,status=benchmark_pipeline.inspect_image_input(snapshot)
+            self.assertEqual(suffix,'.png');self.assertEqual(status,'proven_lossless_opaque_rgb_png')
+            self.assertEqual(digest,hashlib.sha256(bytes((1,2,3))).hexdigest())
+
     def test_synthetic_timeout_persists_timing_and_category(self):
         with tempfile.TemporaryDirectory() as temporary:
             result=run_timed_command([sys.executable,"-c","import time;time.sleep(2)"],0.02,Path(temporary)/"log")

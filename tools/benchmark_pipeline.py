@@ -17,14 +17,27 @@ from package_model import verify_package
 
 _IMAGE_SUFFIX = {'PNG': '.png', 'JPEG': '.jpg', 'BMP': '.bmp', 'TGA': '.tga'}
 
+def png_chunk_types(raw):
+    types=[];offset=8
+    while offset+12<=len(raw):
+        size=int.from_bytes(raw[offset:offset+4],'big')
+        if size>len(raw)-offset-12: return []
+        types.append(raw[offset+4:offset+8]);offset+=12+size
+        if types[-1]==b'IEND': return types
+    return []
+
 def inspect_image_input(path):
     """Identify a CLI suffix and conservatively certify decoded RGB bytes."""
+    raw=Path(path).read_bytes()
     with Image.open(path) as picture:
         image_format=picture.format
         suffix=_IMAGE_SUFFIX.get(image_format)
         if suffix is None:
             raise ValueError(f'Unsupported input image format: {image_format!r}')
-        direct_rgb=image_format=='PNG' and picture.mode=='RGB' and 'transparency' not in picture.info
+        direct_rgb=(image_format=='PNG' and picture.mode=='RGB' and len(raw)>=26 and
+                    raw[:8]==b'\x89PNG\r\n\x1a\n' and raw[24]==8 and raw[25]==2 and
+                    not set(png_chunk_types(raw)) & {b'gAMA',b'cHRM',b'iCCP',b'sRGB'} and
+                    'transparency' not in picture.info)
         decoded_sha256=hashlib.sha256(picture.tobytes()).hexdigest() if direct_rgb else None
     return suffix,decoded_sha256,('proven_lossless_opaque_rgb_png' if direct_rgb else 'unproven_native_decode_required')
 
@@ -118,9 +131,11 @@ def main():
         latent_snapshot=args.output/'initial.f32';shutil.copy2(args.latent,latent_snapshot)
     input_snapshot=None;actual_input_sha256=None;actual_decoded_rgb_sha256=None;decoded_rgb_identity_status=None
     if args.input_image:
-        image_suffix,actual_decoded_rgb_sha256,decoded_rgb_identity_status=inspect_image_input(args.input_image)
+        temporary_snapshot=args.output/'input.snapshot'
+        shutil.copy2(args.input_image,temporary_snapshot)
+        image_suffix,actual_decoded_rgb_sha256,decoded_rgb_identity_status=inspect_image_input(temporary_snapshot)
         input_snapshot=args.output/('input'+image_suffix)
-        shutil.copy2(args.input_image,input_snapshot)
+        temporary_snapshot.rename(input_snapshot)
         actual_input_sha256=sha256(input_snapshot)
     prompt_args=['--prompt-file',str(prompt_snapshot.resolve())]
     command=[str(runner.resolve()),'--model',str(args.model.resolve()),*prompt_args,
