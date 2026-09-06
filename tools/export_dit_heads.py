@@ -19,11 +19,12 @@ from prepare_block import ROOT, sha256
 HEADS = ('x_embedder', 'text_proj', 'time_embedding', 'adaLN_modulation', 'final_norm', 'final_linear')
 
 
-def load_heads(download=False):
+def load_heads(download=False, official_root=None):
     manifests, state = {}, {}
     revision = json.loads((ROOT / 'sources.lock.json').read_text())['official_model']['revision']
+    official_root = Path(official_root) if official_root is not None else ROOT / 'models/official'
     for name in HEADS:
-        path = ROOT / f'models/official/dit-{name}.safetensors'
+        path = official_root / f'dit-{name}.safetensors'
         if download:
             fetch_component(name + '.', path)
         manifest = json.loads(path.with_suffix('.manifest.json').read_text())
@@ -131,6 +132,9 @@ def main():
     parser.add_argument('--width', type=int, default=4)
     parser.add_argument('--text-tokens', type=int, default=272)
     parser.add_argument('--download', action='store_true')
+    parser.add_argument('--official-root', type=Path, help='Explicit pinned weight directory; source still comes from this frozen tool')
+    parser.add_argument('--reference-only', action='store_true', help='Save official fixtures and exact wrapper comparisons without pnnx')
+    parser.add_argument('--threads', type=int, choices=range(1, 5), default=4)
     parser.add_argument('--only', choices=['input', 'output', 'all'], default='all')
     args = parser.parse_args()
     if args.output.exists() or min(args.height, args.width, args.text_tokens) < 1:
@@ -138,9 +142,9 @@ def main():
     if args.height * args.width + args.text_tokens > 6144:
         parser.error('Token count exceeds the supported export range')
     args.output = args.output.resolve()
-    torch.set_num_threads(4)
+    torch.set_num_threads(args.threads)
     torch.set_grad_enabled(False)
-    model, manifests = load_heads(args.download)
+    model, manifests = load_heads(args.download, args.official_root)
     generator = torch.Generator().manual_seed(20260905)
     image = torch.randn(1, 128, args.height, args.width, generator=generator)
     text = torch.randn(1, args.text_tokens, 3072, generator=generator)
@@ -162,7 +166,9 @@ def main():
                     *(value.view(1, 1, 4096) for value in captured['modulation'].chunk(6, dim=-1)))
     if args.only != 'output':
         export_component(InputHead(model), (image, text, features), pre_expected, args.output / 'input',
-                         {**metadata, 'component': 'input'})
+                         {**metadata, 'component': 'input'}, reference_only=args.reference_only)
+    if args.only == 'input':
+        return
     # Exercise large activations so a low-precision normalization overflow is visible.
     x = torch.randn(1, metadata['tokens'], 4096, generator=generator) * 512
     c = captured['c']
@@ -170,7 +176,7 @@ def main():
     expected = official.transpose(0, 1).reshape(1, args.height, args.width, 128).permute(0, 3, 1, 2).contiguous()
     if args.only != 'input':
         export_component(OutputHead(model, args.height, args.width), (x, c), (expected,), args.output / 'output',
-                         {**metadata, 'component': 'output', 'activation_scale': 512})
+                         {**metadata, 'component': 'output', 'activation_scale': 512}, reference_only=args.reference_only)
 
 
 if __name__ == '__main__':

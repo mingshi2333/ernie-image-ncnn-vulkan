@@ -1,0 +1,21 @@
+{
+  "status": "passed_independent_preparation_delta",
+  "old_bindings_unchanged": 6312,
+  "new_hashes_verified": 30,
+  "changed_fields": [
+    "bound",
+    "loader_inventory",
+    "native_command",
+    "output",
+    "previous_attempt",
+    "scope_unit"
+  ],
+  "math_guard_unchanged": true,
+  "plan_sha256": "71e36a2afae1a2f10442fbbfabbbd223cfc08ee158c0e8086da2c2fb8d32f25f",
+  "launcher_sha256": "3c374295af87870761cda6838bdc5e08d5390a0d573843f1decad3ba868cb965",
+  "max_forwards": {
+    "native_full_block": 1,
+    "official_full_block": 0,
+    "official_mlp_only": 1
+  }
+}
