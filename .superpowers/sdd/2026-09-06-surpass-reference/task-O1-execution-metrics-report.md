@@ -65,6 +65,6 @@ Authorization hashes at preparation time:
 - worker: `1bdee9fe128ea7da74d8fe8a22d383fbd95d31ab33af8928e729c482d8eea383`
 - supervisor: `baba17d3b10c1582f3b9d38f9ab82b230c1b206b207e428c9bdbbcad9546f564`
 - launcher: `9021309a41cc4fe8dcddba4293acae20ac287e7ddb1bd6c0946ac4edc29d8068`
-- comparator: `aa63a3fd1954002d441178f58a0b4ee573878b4b1c859a51b9843de8c68611a8`
+- comparator: `472c9674e017edb92ae9aca8773653027123505d159e16d3a3fe2998da29a9d5`
 
 The frozen status remains `prepared_not_executed`. No model or GPU process was started. Independent preparation review and root scheduling remain required before execution.
