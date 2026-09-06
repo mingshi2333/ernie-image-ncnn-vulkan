@@ -1,0 +1,145 @@
+{
+  "status": "passed",
+  "cases": [
+    {
+      "id": "pe-dev-00-en",
+      "status": "independently_reverified",
+      "input_tokens": 139,
+      "generated_tokens": 64,
+      "eos": false,
+      "all_steps_recomputed": 64,
+      "max_nrmse": 3.344549541693578e-06,
+      "max_abs_error": 2.8192996978759766e-05,
+      "max_error_to_limit_ratio": 0.005822476068760768
+    },
+    {
+      "id": "pe-dev-01-zh",
+      "status": "independently_reverified",
+      "input_tokens": 153,
+      "generated_tokens": 96,
+      "eos": false,
+      "all_steps_recomputed": 96,
+      "max_nrmse": 4.853223696133054e-06,
+      "max_abs_error": 4.291534423828125e-05,
+      "max_error_to_limit_ratio": 0.007427337042836992
+    },
+    {
+      "id": "pe-dev-02-ja",
+      "status": "independently_reverified",
+      "input_tokens": 154,
+      "generated_tokens": 96,
+      "eos": false,
+      "all_steps_recomputed": 96,
+      "max_nrmse": 7.92275337449555e-06,
+      "max_abs_error": 5.620718002319336e-05,
+      "max_error_to_limit_ratio": 0.010106244559132303
+    },
+    {
+      "id": "pe-dev-03-quotes",
+      "status": "independently_reverified",
+      "input_tokens": 147,
+      "generated_tokens": 128,
+      "eos": false,
+      "all_steps_recomputed": 128,
+      "max_nrmse": 1.2279201752301106e-05,
+      "max_abs_error": 0.00011706352233886719,
+      "max_error_to_limit_ratio": 0.020562657289670567
+    },
+    {
+      "id": "pe-dev-04-newline",
+      "status": "independently_reverified",
+      "input_tokens": 141,
+      "generated_tokens": 128,
+      "eos": false,
+      "all_steps_recomputed": 128,
+      "max_nrmse": 5.140216656970302e-06,
+      "max_abs_error": 4.851818084716797e-05,
+      "max_error_to_limit_ratio": 0.008565265861138276
+    },
+    {
+      "id": "pe-dev-05-whitespace",
+      "status": "independently_reverified",
+      "input_tokens": 142,
+      "generated_tokens": 64,
+      "eos": false,
+      "all_steps_recomputed": 64,
+      "max_nrmse": 4.137661905951281e-06,
+      "max_abs_error": 6.103515625e-05,
+      "max_error_to_limit_ratio": 0.01048335747344795
+    },
+    {
+      "id": "pe-dev-06-empty",
+      "status": "independently_reverified",
+      "input_tokens": 131,
+      "generated_tokens": 32,
+      "eos": false,
+      "all_steps_recomputed": 32,
+      "max_nrmse": 3.764292839768249e-06,
+      "max_abs_error": 5.054473876953125e-05,
+      "max_error_to_limit_ratio": 0.010116755760289848
+    },
+    {
+      "id": "pe-dev-07-control",
+      "status": "independently_reverified",
+      "input_tokens": 150,
+      "generated_tokens": 64,
+      "eos": false,
+      "all_steps_recomputed": 64,
+      "max_nrmse": 5.070499551029786e-06,
+      "max_abs_error": 6.115436553955078e-05,
+      "max_error_to_limit_ratio": 0.012293435771154717
+    },
+    {
+      "id": "pe-dev-08-wide",
+      "status": "independently_reverified",
+      "input_tokens": 141,
+      "generated_tokens": 256,
+      "eos": false,
+      "all_steps_recomputed": 256,
+      "max_nrmse": 9.626743866945658e-06,
+      "max_abs_error": 7.200241088867188e-05,
+      "max_error_to_limit_ratio": 0.01277918507382371
+    },
+    {
+      "id": "pe-dev-09-portrait",
+      "status": "independently_reverified",
+      "input_tokens": 141,
+      "generated_tokens": 256,
+      "eos": false,
+      "all_steps_recomputed": 256,
+      "max_nrmse": 5.795360328180841e-06,
+      "max_abs_error": 5.53131103515625e-05,
+      "max_error_to_limit_ratio": 0.010245079976980365
+    },
+    {
+      "id": "pe-dev-10-long-output",
+      "status": "independently_reverified",
+      "input_tokens": 145,
+      "generated_tokens": 526,
+      "eos": true,
+      "all_steps_recomputed": 526,
+      "max_nrmse": 5.953702827132055e-06,
+      "max_abs_error": 4.839897155761719e-05,
+      "max_error_to_limit_ratio": 0.00967818093678689
+    },
+    {
+      "id": "pe-dev-11-near-capacity",
+      "status": "independently_reverified",
+      "input_tokens": 2048,
+      "generated_tokens": 32,
+      "eos": false,
+      "all_steps_recomputed": 32,
+      "max_nrmse": 5.68165814200435e-06,
+      "max_abs_error": 5.1021575927734375e-05,
+      "max_error_to_limit_ratio": 0.009848320403010206
+    }
+  ],
+  "source_directory": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/pe-development-v1",
+  "review_script_sha256": "02f63020160c1de5911264f75e24c202e9f239daa235e1dc833faac4b1e9c0bf",
+  "verified_source_snapshots": 58,
+  "model_file_count_rehashed": 60,
+  "official_components_rehashed": 28,
+  "full_output_capacity_executed": false,
+  "full_cache_capacity_executed": false,
+  "sampling_same_seed_is_parity_oracle": false
+}
