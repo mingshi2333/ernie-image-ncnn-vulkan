@@ -175,3 +175,7 @@ the earlier result JSON is preserved as `result-source-incomplete-official-v1.js
 工具仅把已有固定positive reference合同推广到两个显式允许值`.5/1`。strength1要求绝对步0..7；official suffix完整分母为25（6 conditioning输入、8组prediction/step、3最终输出），加encoder三边界与noise后端到端张量分母为29，另比较PNG。13/13 CPU小测试通过，覆盖bitwise noise端点和缺少任一八步时fail closed。
 
 准备证据位于`outputs/f2-positive1-1024x1024-v1`，`prep-identity.json` SHA为`6b1f555f...`，状态明确为`prepared_pending_independent_review_and_gpu_execution`。未读取formal输入、未加载模型、未使用GPU；必须先经独立准备复核，随后才可按10GiB/swap0/连续3GiB host floor/1800秒guard排队执行official与native。
+
+独立准备复核`89f1bd2`确认源码、八份复用输入、合同、bitwise端点、分母及旧strength0.5兼容，无阻断。随后串行执行两侧：official exit0、252.439秒、峰值memory.current 6,410,264,576 bytes、host最低13,110,706,176 bytes；native exit0、808.576秒、峰值7,384,297,472 bytes、host最低12,129,710,080 bytes。两侧均实际观察10GiB memory.max、swap0、OOM/max事件0；official绝对步0..7及native `Denoise 8/8`完整，结束后GPU已释放。
+
+严格post-audit重新认证两侧源码、runner、runtime、package、process、prompt/token/RGB，并比较全部29张量和PNG。执行完整，但预注册质量门槛结果为`quality_gate_failed`，不得记为端点质量通过。initial与saved noise逐字节相同；所有NRMSE均低于0.003，但prediction-3/4/5/7及decoded的最大绝对误差分别为0.109008、0.0674142、0.0845686、0.0888730、0.0135877，超过各自`0.0002 + 0.01*reference_max_abs`门槛。PNG仍通过固定门槛（max 2、MAE 0.00514921）。结果保存在`outputs/f2-positive1-1024x1024-v1/{comparison,result}.json`；没有调宽门槛或重跑模型，等待独立结果复核。

@@ -59,7 +59,10 @@ def validate_process(process):
 
 def audit(base):
     base = Path(base); inputs = base / "inputs"; native = base / "native-execution"; trace = native / "trace"
-    official_execution = base / "official-execution-v3"; official = official_execution / "oracle"; suffix = official / "suffix"
+    official_execution = base / "official-execution-v3"
+    if not official_execution.exists():
+        official_execution = base / "official-execution"
+    official = official_execution / "oracle"; suffix = official / "suffix"
     contract, prompt, _ = validate_inputs(inputs)
     native_identity = validate_identity(base, "native-plan")
     official_identity_path = base / "official-plan/identity-v3.json"
@@ -79,7 +82,10 @@ def audit(base):
         if digest(item["path"]) != item.get("sha256"):
             raise ValueError("Official installed runtime identity differs")
     fixture = json.loads((suffix / "fixture.json").read_text())
-    if validate_suffix(suffix, fixture, prompt, contract["start"]["sha256"], 1024, 1024) != 17:
+    start_step = contract["request"]["start_step"]
+    suffix_denominator = 9 + 2 * (8 - start_step)
+    if validate_suffix(suffix, fixture, prompt, contract["start"]["sha256"], 1024, 1024,
+                       start_step) != suffix_denominator:
         raise ValueError("Official suffix denominator differs")
     for process_path in (official_execution / "process.json", native / "process.json"):
         process = json.loads(process_path.read_text())
@@ -98,7 +104,7 @@ def audit(base):
         "padded-text.f32": (trace / "padded-text.f32", suffix / "padded-text.f32"),
         **{f"constant-{i}.f32": (trace / f"constant-{i}.f32", suffix / f"constant-{i}.f32") for i in range(3)},
         **{f"{kind}-{i}.f32": (trace / f"{kind}-{i}.f32", suffix / f"{kind}-{i}.f32")
-           for i in range(4, 8) for kind in ("prediction", "step")},
+           for i in range(start_step, 8) for kind in ("prediction", "step")},
         "final.f32": (trace / "final.f32", suffix / "final.f32"),
         "unpacked.f32": (trace / "unpacked.f32", suffix / "unpacked.f32"),
         "decoded.f32": (trace / "decoded.f32", suffix / "decoded.f32"),
@@ -125,7 +131,7 @@ def audit(base):
     passed = all(item["passed"] for item in comparison.values())
     result = {"schema_version": 1, "status": "pass" if passed else "quality_gate_failed",
               "complete_execution": True, "quality_gate_passed": passed,
-              "scope": "One fixed public development 1024x1024 strength-0.5 case; not formal15/72",
+              "scope": f"One fixed public development 1024x1024 strength-{contract['request']['strength']} case; not formal15/72",
               "input_contract_sha256": digest(inputs / "input-contract.json"),
               "official_identity_sha256": digest(official_identity_path),
               "official_runtime_identity_sha256": digest(base / "official-plan/runtime-identity.json"),
@@ -134,7 +140,7 @@ def audit(base):
               "official_suffix_fixture_sha256": digest(suffix / "fixture.json"),
               "native_identity_sha256": digest(base / "native-plan/identity.json"),
               "native_process_sha256": digest(native / "process.json"),
-              "boundaries_compared": len(pairs), "official_suffix_denominator": 17,
+              "boundaries_compared": len(pairs), "official_suffix_denominator": suffix_denominator,
               "prompt_bytes_equal": True, "token_ids": fixture["ids"]}
     return comparison, result
 
