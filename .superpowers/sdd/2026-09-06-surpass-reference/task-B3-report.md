@@ -102,3 +102,21 @@ OK
 ```
 
 The subprocess timeout/crash cases remain synthetic and CPU-only. No model or GPU process was run.
+
+## F2-backed img2img benchmark integration
+
+After production F2 gained real img2img support, `benchmark_pipeline.py` stopped classifying `--input-image` and `--strength` as unsupported. It now requires them as a pair, rejects nonfinite/zero/out-of-range positive strength before package or model execution, snapshots the encoded image bytes, hashes both the file and decoded RGB, and passes the snapshot with explicit strength, package-derived WH output shape and resize policy to the frozen runner. The request/result records actual and expected image hashes, strength, resize policy and WH shape. Formal eligibility is false unless both encoded image and decoded RGB match their frozen expected hashes; trace must still be off and saved FP32 noise/PE identity rules remain unchanged.
+
+The new synthetic runner test verifies the exact snapshotted image command and recorded identities without loading a model. The previous unsupported test is replaced by a fail-closed test for an unpaired image/strength request. Existing timeout, signal, high-exit and missing-sampler classifications remain covered.
+
+```text
+.venv/bin/python -m unittest tests.test_port_metrics -q
+Ran 19 tests in 0.254s
+OK
+
+python3 -m py_compile tools/benchmark_pipeline.py
+git diff --check -- tools/benchmark_pipeline.py tests/test_port_metrics.py
+exit 0
+```
+
+No formal/performance case or model/GPU benchmark was run. This closes the native wrapper's img2img argument/identity gap; empirical paired results and baseline claims remain pending actual six-case execution.

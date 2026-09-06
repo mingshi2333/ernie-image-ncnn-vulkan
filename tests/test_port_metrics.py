@@ -143,12 +143,41 @@ class PortMetricsTest(unittest.TestCase):
         for bad_cases,bad_calibration in ((cases[:1],calibration),(cases[:-1]+cases[:1],calibration),(cases,{**calibration,"seconds_pe":0})):
             self.assertEqual(build_protocol(bad_cases,bad_calibration,1000)["status"],"incomplete")
 
-    def test_benchmark_reports_unsupported_img2img_incomplete(self):
+    def test_benchmark_rejects_unpaired_img2img_arguments(self):
         with tempfile.TemporaryDirectory() as temporary:
             output=Path(temporary)/"out"
             run=subprocess.run([sys.executable,str(Path(__file__).parents[1]/"tools"/"benchmark_pipeline.py"),
                 "--model",str(Path(temporary)/"model"),"--output",str(output),"--input-image","x"],capture_output=True)
-            self.assertEqual(run.returncode,2);self.assertEqual(json.loads((output/"result.json").read_text())["status"],"incomplete")
+            self.assertEqual(run.returncode,2);self.assertIn(b'must be provided together',run.stderr)
+
+    def test_benchmark_snapshots_and_binds_img2img_inputs(self):
+        import hashlib
+        from PIL import Image
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary);model=root/'model';model.mkdir();(model/'manifest.json').write_text('{}')
+            runner=root/'runner';runner.write_bytes(b'runner');image=root/'input.png'
+            Image.new('RGB',(2,1),(10,20,30)).save(image)
+            raw=image.read_bytes();decoded=Image.open(image).convert('RGB').tobytes()
+            sha=lambda value:hashlib.sha256(value).hexdigest()
+            output=root/'output'
+            argv=['benchmark_pipeline','--model',str(model),'--runner',str(runner),'--output',str(output),
+                  '--device','cpu','--precision','fp32','--latent',str(root/'noise.f32'),
+                  '--noise-sha256','noise','--input-image',str(image),'--strength','.5',
+                  '--input-image-sha256',sha(raw),'--decoded-rgb-sha256',sha(decoded)]
+            (root/'noise.f32').write_bytes(b'noise')
+            def fake_timing(command,timeout,log):
+                target=Path(command[command.index('--output')+1]);Image.new('RGB',(512,384)).save(target)
+                return {'return_code':0,'failure_category':None,'wall_started_monotonic_ns':1,
+                        'wall_finished_monotonic_ns':2,'wall_seconds':1e-9}
+            with patch.object(sys,'argv',argv),\
+                 patch.object(benchmark_pipeline,'verify_package',return_value=({'config':{'packed_width':32,'packed_height':24}},None)),\
+                 patch('source_inventory.source_files',return_value=[]),\
+                 patch.object(benchmark_pipeline,'run_timed_command',side_effect=fake_timing):
+                self.assertEqual(benchmark_pipeline.main(),0)
+            result=json.loads((output/'result.json').read_text())
+            self.assertEqual(result['input_image_sha256'],sha(raw));self.assertEqual(result['decoded_rgb_sha256'],sha(decoded))
+            self.assertEqual(result['strength'],.5);self.assertEqual(result['shape'],[512,384])
+            self.assertIn('--input',result['command']);self.assertIn('--resize',result['command'])
 
     def test_synthetic_timeout_persists_timing_and_category(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -174,7 +203,7 @@ class PortMetricsTest(unittest.TestCase):
             root=Path(temporary);model=root/"model";model.mkdir();(model/"manifest.json").write_text("{}")
             runner=root/"runner";runner.write_text("unused");output=root/"output"
             argv=["benchmark_pipeline","--model",str(model),"--runner",str(runner),"--output",str(output)]
-            with patch.object(sys,"argv",argv),patch.object(benchmark_pipeline,"verify_package",return_value=({"config":{}},None)),\
+            with patch.object(sys,"argv",argv),patch.object(benchmark_pipeline,"verify_package",return_value=({"config":{"packed_width":32,"packed_height":24}},None)),\
                  patch("source_inventory.source_files",return_value=[]),\
                  patch.object(benchmark_pipeline.subprocess,"Popen",side_effect=FileNotFoundError("synthetic nvidia-smi missing")):
                 self.assertEqual(benchmark_pipeline.main(),1)

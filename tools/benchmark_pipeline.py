@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Run one native prompt-to-PNG job with saved inputs and bounded resource sampling."""
 import argparse
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -9,6 +10,7 @@ import shutil
 import signal
 import subprocess
 import time
+import math
 from PIL import Image
 from prepare_block import ROOT, sha256
 from package_model import verify_package
@@ -70,16 +72,17 @@ def main():
     p.add_argument('--pe-prompt-file',type=Path,help='Optional PE input; currently unsupported by the native CLI')
     p.add_argument('--latent',type=Path,help='Saved little-endian FP32 initial noise; required for formal comparison')
     p.add_argument('--noise-sha256',help='Expected frozen SHA256 of --latent; required for formal comparison')
-    p.add_argument('--input-image',type=Path,help='Optional img2img input; currently unsupported by the native CLI')
-    p.add_argument('--strength',type=float,help='Optional img2img strength; currently unsupported by the native CLI')
+    p.add_argument('--input-image',type=Path,help='Frozen img2img source image')
+    p.add_argument('--input-image-sha256',help='Expected frozen SHA256 of --input-image')
+    p.add_argument('--decoded-rgb-sha256',help='Expected SHA256 after decoding --input-image as RGB')
+    p.add_argument('--strength',type=float,help='Img2img strength in (0,1]')
+    p.add_argument('--resize',choices=['stretch','fit','crop'],default='stretch')
     args=p.parse_args()
     if args.output.exists() or args.timeout<1 or not 1<=args.steps<=1000 or not 0<=args.seed<=2**32-1:
         p.error('Use a new output and valid timeout, steps and seed')
     if args.device=='cpu' and args.precision!='fp32':p.error('CPU requires fp32')
     unsupported=[]
     if args.pe_prompt_file is not None:unsupported.append('--pe-prompt-file')
-    if args.input_image is not None:unsupported.append('--input-image')
-    if args.strength is not None:unsupported.append('--strength')
     if unsupported:
         args.output.mkdir(parents=True,exist_ok=True)
         result={'passed':False,'status':'incomplete','failure':'native runtime does not support requested functionality',
@@ -87,6 +90,10 @@ def main():
         (args.output/'result.json').write_text(json.dumps(result,indent=2)+'\n')
         print(json.dumps(result),flush=True)
         return 2
+    if (args.input_image is None) != (args.strength is None):
+        p.error('--input-image and --strength must be provided together')
+    if args.strength is not None and (not math.isfinite(args.strength) or not 0 < args.strength <= 1):
+        p.error('Benchmark img2img strength must be finite and in (0,1]')
     manifest,_=verify_package(args.model)
     args.output.mkdir(parents=True)
     runner=args.output/'ernie-image.snapshot';shutil.copy2(args.runner,runner)
@@ -96,6 +103,14 @@ def main():
     latent_snapshot=None
     if args.latent:
         latent_snapshot=args.output/'initial.f32';shutil.copy2(args.latent,latent_snapshot)
+    input_snapshot=None;actual_input_sha256=None;actual_decoded_rgb_sha256=None
+    if args.input_image:
+        input_snapshot=args.output/('input'+args.input_image.suffix.lower())
+        shutil.copy2(args.input_image,input_snapshot)
+        actual_input_sha256=sha256(input_snapshot)
+        with Image.open(input_snapshot) as picture:
+            decoded=picture.convert('RGB').tobytes()
+        actual_decoded_rgb_sha256=hashlib.sha256(decoded).hexdigest()
     prompt_args=['--prompt-file',str(prompt_snapshot.resolve())]
     command=[str(runner.resolve()),'--model',str(args.model.resolve()),*prompt_args,
         '--output',str((args.output/'native.png').resolve()),'--seed',str(args.seed),'--steps',str(args.steps),
@@ -104,11 +119,17 @@ def main():
     if args.trace:command+=['--trace-dir',str((args.output/'trace').resolve())]
     if args.pe_model:command+=['--pe-model',str(args.pe_model.resolve()),'--pe-greedy','--pe-max-tokens',str(args.pe_max_tokens)]
     if latent_snapshot:command+=['--latent',str(latent_snapshot.resolve())]
+    cfg=manifest['config'];width=cfg['packed_width']*16;height=cfg['packed_height']*16
+    if input_snapshot:
+        command+=['--input',str(input_snapshot.resolve()),'--strength',str(args.strength),
+                  '--width',str(width),'--height',str(height),'--resize',args.resize]
     pe_manifest=args.pe_model/'manifest.json' if args.pe_model else None
     pe_identity=sha256(pe_manifest) if pe_manifest and pe_manifest.is_file() else None
     actual_noise_sha256=sha256(latent_snapshot) if latent_snapshot else None
     noise_identity_proven=actual_noise_sha256 is not None and args.noise_sha256==actual_noise_sha256
-    formal_eligible=noise_identity_proven and (args.pe_model is None or pe_identity is not None) and not args.trace
+    image_identity_proven=(input_snapshot is None or
+        (actual_input_sha256==args.input_image_sha256 and actual_decoded_rgb_sha256==args.decoded_rgb_sha256))
+    formal_eligible=noise_identity_proven and image_identity_proven and (args.pe_model is None or pe_identity is not None) and not args.trace
     result={'scope':'One native functional run; no full-resolution official denoising reference or perceptual quality gate',
         'passed':False,'quality_validated':False,'status':'pending','prompt':args.prompt if not args.prompt_file else None,
         'prompt_file':str(args.prompt_file.resolve()) if args.prompt_file else None,'config':manifest['config'],
@@ -117,9 +138,14 @@ def main():
         'prompt_sha256':sha256(prompt_snapshot),'prompt_snapshot':str(prompt_snapshot.resolve()),
         'noise_sha256':actual_noise_sha256,'expected_noise_sha256':args.noise_sha256,
         'noise_dtype':'<f4' if latent_snapshot else None,
+        'input_image_sha256':actual_input_sha256,'expected_input_image_sha256':args.input_image_sha256,
+        'decoded_rgb_sha256':actual_decoded_rgb_sha256,'expected_decoded_rgb_sha256':args.decoded_rgb_sha256,
+        'strength':args.strength,'resize_policy':{'mode':args.resize} if input_snapshot else None,
+        'shape':[width,height],'shape_order':'WH',
         'pe_manifest_sha256':pe_identity,'formal_comparison_eligible':formal_eligible,
         'formal_ineligibility_reasons':([] if noise_identity_proven else ['saved FP32 noise and matching frozen SHA256 are required'])+
             ([] if not args.pe_model or pe_identity else ['PE package manifest identity is required'])+
+            ([] if image_identity_proven else ['input image bytes and decoded RGB must match frozen SHA256'])+
             ([] if not args.trace else ['trace must be disabled']),
         'trace':args.trace,'timing_scope':'end_to_end_external_process_launch_through_output_close',
         'gpu_sampling_scope':'Whole NVIDIA device 0, includes other processes, 100 ms samples; not exact allocator/process VRAM',
