@@ -139,3 +139,13 @@ and a pre-run source inventory. Its reference JSON SHA is
 are identical. V2 completed in 55.25 seconds with observed peak cgroup memory 4,876,550,144 bytes, minimum host
 available memory 11,154,571,264 bytes, swap limit zero and no OOM/max event. The production result now binds v2;
 the earlier result JSON is preserved as `result-source-incomplete-official-v1.json`.
+
+## 固定 1024×1024 strength=0.5 准备（GPU 执行 pending）
+
+在既有 `reference_img2img_positive.py` 中加入受信 profile registry，复用同一套输入认证、官方 text/DiT/decoder 数学和 17 张量 suffix 分母，没有复制第二套 1024 模型实现。registry 只允许已经独立审查的 512×384 和 1024×1024；1024 固定绑定 encoder fixture `88f2e8b7...`、schema-2 官方源 manifest `72bb195a...`、latent `[1,128,64,64]`、64-token text/DiT 图。任意其他尺寸 fail closed。
+
+准备输入位于 `outputs/f2-positive05-1024x1024-v1/inputs`。它复用同一公开 deterministic 1024 PNG（SHA `1b0a823a...`，decoded RGB SHA `08ea7276...`）和受审查官方 encoder out2（SHA `29d24488...`），prompt 是精确 bytes `A red apple on a wooden table.\n`（SHA `a57aa1ee...`），PE off、Vector FP32。新 noise 由 torch 2.12.1 CPU `torch.randn`、seed 20260906 产生，little-endian FP32 `[1,128,64,64]`，SHA `9e11124f...`；原 8-step schedule 的 sigma[4] `0.800000011920929` 按 FP32 乘后加生成 start-4，SHA `f2f6cf88...`。输入合同 SHA `9fd1bfbb...`，生成后由正式 validator 重新读取、核对 PNG decoded RGB、所有 encoder 边界、schedule、finite/shape/hash 和 start 逐字节公式。
+
+1024 固定图序列长度为 `64*64+64=4160`；旧 512×384/2048-token 图是 `32*24+2048=2816`，attention 元素比约 2.1823。旧有效 512 official suffix 峰 RSS 3,322,816 KiB、93.88 秒只能作为下界/参考，不能推导 1024 GPU 成功。`prep-identity.json` SHA `0527f8d8...` 保存了输入、准备源码和执行计划；状态明确为 `prepared_pending_independent_review_and_gpu_execution`。GPU 当前仍由 frozen 的 opt-in downGemm 候选独占，本轮未启动 official/native DiT，也未触碰 formal15/72。
+
+小型验证：`.venv/bin/python -m unittest tests.test_img2img_reference -v`，9/9 PASS。新增测试固定 1024 profile/shape/source identity，拒绝未审查尺寸并验证错误 latent shape 在模型加载前失败。

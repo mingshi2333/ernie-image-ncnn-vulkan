@@ -8,9 +8,25 @@ import shutil
 
 import numpy as np
 
-REVIEWED_ENCODER_FIXTURE = "ee5ce5db3cb9912ff5e824bf062d1376bcf9b2e91e942d06924ecd187a93e1a9"
-REVIEWED_SOURCE_MANIFEST = "ef98859ac741f6923680fb02de39e663fa3fa01943eff9d2d85c6ddaf40c9e59"
-EXPECTED_SHAPE = (1, 128, 24, 32)
+PROFILES = {
+    (512, 384): {
+        "encoder_fixture": "ee5ce5db3cb9912ff5e824bf062d1376bcf9b2e91e942d06924ecd187a93e1a9",
+        "source_manifest": "ef98859ac741f6923680fb02de39e663fa3fa01943eff9d2d85c6ddaf40c9e59",
+        "latent_shape": (1, 128, 24, 32), "text_bucket": 2048,
+    },
+    (1024, 1024): {
+        "encoder_fixture": "88f2e8b7ad63a47fd993b069282dcb8bca9042cf56a470efa84237b711d9f7d9",
+        "source_manifest": "72bb195a2d0b3ef2a25f873666f51f4bbec4b391744518597be87206a551efc1",
+        "latent_shape": (1, 128, 64, 64), "text_bucket": 64,
+    },
+}
+
+
+def reviewed_profile(width, height):
+    try:
+        return PROFILES[(width, height)]
+    except KeyError as error:
+        raise ValueError("No reviewed positive-strength profile for this shape") from error
 
 
 def digest(path):
@@ -18,9 +34,70 @@ def digest(path):
         return hashlib.file_digest(stream, "sha256").hexdigest()
 
 
-def validate_start(encoded, noise, start):
+def prepare_inputs(encoder_dir, prompt_file, output, seed=20260906, input_image=None):
+    """Freeze inputs without loading text, DiT, or decoder weights."""
+    import torch
+    from PIL import Image
+    encoder_dir, prompt_file, output = Path(encoder_dir), Path(prompt_file), Path(output)
+    fixture_path = encoder_dir / "fixture.json"
+    fixture = json.loads(fixture_path.read_text())
+    profile = reviewed_profile(fixture.get("width"), fixture.get("height"))
+    if digest(fixture_path) != profile["encoder_fixture"]:
+        raise ValueError("Official encoder fixture is not reviewed")
+    if output.exists():
+        raise ValueError("Use a new output directory")
+    prompt_bytes = prompt_file.read_bytes()
+    prompt = prompt_bytes.decode("utf-8")
+    output.mkdir(parents=True)
+    shutil.copyfile(fixture_path, output / "encoder-fixture.json")
+    for name in ("input.rgb", "out0.f32", "out1.f32", "out2.f32"):
+        shutil.copyfile(encoder_dir / name, output / name)
+    if input_image is not None:
+        shutil.copyfile(input_image, output / "input.png")
+        with Image.open(output / "input.png") as image:
+            decoded_rgb = image.convert("RGB").tobytes()
+        if (output / "input.rgb").read_bytes() != decoded_rgb:
+            raise ValueError("Input image does not decode to the reviewed RGB bytes")
+    (output / "prompt.txt").write_bytes(prompt_bytes)
+    generator = torch.Generator(device="cpu").manual_seed(seed)
+    noise = torch.randn(profile["latent_shape"], generator=generator, dtype=torch.float32).numpy()
+    encoded = np.fromfile(output / "out2.f32", "<f4").reshape(profile["latent_shape"])
+    start = np.float32(.8) * noise + (np.float32(1) - np.float32(.8)) * encoded
+    np.asarray(noise, dtype="<f4").tofile(output / "saved-noise.f32")
+    np.asarray(start, dtype="<f4").tofile(output / "start-4.f32")
+    request = {"width": fixture["width"], "height": fixture["height"], "steps": 8,
+               "strength": .5, "start_step": 4, "denoise_steps": 4,
+               "sigma": float(np.float32(.8)), "pe": {"enabled": False},
+               "text_precision": "fp32", "text_reduction": "vector"}
+    contract = {
+        "schema_version": 1, "request": request,
+        "encoder_fixture": {"file": "encoder-fixture.json", "sha256": profile["encoder_fixture"],
+                            "normalized_sha256": fixture["expected"]["out2"]["sha256"],
+                            "encoder_bn_eps": .0001},
+        "prompt": {"file": "prompt.txt", "sha256": digest(output / "prompt.txt"), "text": prompt},
+        "noise": {"file": "saved-noise.f32", "sha256": digest(output / "saved-noise.f32"),
+                  "shape": list(profile["latent_shape"]), "dtype": "<f4",
+                  "producer": {"library": "torch", "version": torch.__version__,
+                               "algorithm": "torch.randn CPU float32", "seed": seed}},
+        "start": {"file": "start-4.f32", "sha256": digest(output / "start-4.f32"),
+                  "shape": list(profile["latent_shape"]), "dtype": "<f4",
+                  "formula": "float32(sigma*noise + (1-sigma)*official_encoder_normalized)"},
+        "sigmas_f32": [1., .9655172228813171, .9230769276618958, .8695651888847351,
+                       .800000011920929, .7058823704719543, .5714285969734192,
+                       .3636363744735718, 0.],
+    }
+    if input_image is not None:
+        contract["input_image"] = {"file": "input.png", "sha256": digest(output / "input.png"),
+                                   "decoded_rgb_sha256": digest(output / "input.rgb")}
+    (output / "input-contract.json").write_text(json.dumps(contract, indent=2, ensure_ascii=False) + "\n")
+    validate_inputs(output)
+    return contract
+
+
+def validate_start(encoded, noise, start, expected_shape=None):
     encoded, noise, start = (np.asarray(value) for value in (encoded, noise, start))
-    if any(value.dtype != np.float32 or value.shape != EXPECTED_SHAPE or not np.isfinite(value).all()
+    expected_shape = expected_shape or encoded.shape
+    if any(value.dtype != np.float32 or value.shape != tuple(expected_shape) or not np.isfinite(value).all()
            for value in (encoded, noise, start)):
         raise ValueError("Invalid positive-strength start inputs")
     expected = np.float32(.8) * noise + (np.float32(1) - np.float32(.8)) * encoded
@@ -37,8 +114,9 @@ def validate_inputs(input_dir):
     contract = json.loads((input_dir / "input-contract.json").read_text())
     request = contract.get("request", {})
     if (request.get("width"), request.get("height"), request.get("steps"),
-            request.get("strength"), request.get("start_step"), request.get("denoise_steps")) != (512, 384, 8, .5, 4, 4):
-        raise ValueError("Only the reviewed 512x384 eight-step strength-0.5 contract is supported")
+            request.get("strength"), request.get("start_step"), request.get("denoise_steps"))[2:] != (8, .5, 4, 4):
+        raise ValueError("Only the reviewed eight-step strength-0.5 contract is supported")
+    profile = reviewed_profile(request.get("width"), request.get("height"))
     if request.get("pe") != {"enabled": False} or request.get("text_precision") != "fp32" or request.get("text_reduction") != "vector":
         raise ValueError("Conditioning contract differs")
     if (contract.get("noise", {}).get("file") != "saved-noise.f32"
@@ -46,12 +124,12 @@ def validate_inputs(input_dir):
             or contract.get("prompt", {}).get("file") != "prompt.txt"):
         raise ValueError("Positive-strength input filenames are not canonical")
     fixture = input_dir / contract["encoder_fixture"]["file"]
-    if digest(fixture) != REVIEWED_ENCODER_FIXTURE or contract["encoder_fixture"].get("sha256") != REVIEWED_ENCODER_FIXTURE:
+    if digest(fixture) != profile["encoder_fixture"] or contract["encoder_fixture"].get("sha256") != profile["encoder_fixture"]:
         raise ValueError("Official encoder fixture is not reviewed")
     encoder = json.loads(fixture.read_text())
     if (encoder.get("width"), encoder.get("height"), encoder.get("posterior"), encoder.get("packing"),
             encoder.get("encoder_bn"), encoder.get("decoder_inverse_bn_eps")) != (
-                512, 384, "mode_first_32_channels_no_sampling", "pixel_unshuffle_2",
+                request["width"], request["height"], "mode_first_32_channels_no_sampling", "pixel_unshuffle_2",
                 {"eps": .0001, "affine": False}, 1e-5):
         raise ValueError("Official encoder math contract differs")
     files = [("rgb", encoder["rgb"], "input.rgb"),
@@ -70,38 +148,52 @@ def validate_inputs(input_dir):
     for key in ("noise", "start"):
         item = contract[key]
         path = input_dir / item["file"]
-        if item.get("shape") != list(EXPECTED_SHAPE) or item.get("dtype") != "<f4" or digest(path) != item.get("sha256"):
+        if item.get("shape") != list(profile["latent_shape"]) or item.get("dtype") != "<f4" or digest(path) != item.get("sha256"):
             raise ValueError(f"Invalid saved {key}")
         values = np.fromfile(path, "<f4")
-        if values.size != int(np.prod(EXPECTED_SHAPE)) or not np.isfinite(values).all():
+        if values.size != int(np.prod(profile["latent_shape"])) or not np.isfinite(values).all():
             raise ValueError(f"Invalid saved {key} values")
-    encoded = np.fromfile(input_dir / "out2.f32", "<f4").reshape(EXPECTED_SHAPE)
-    noise = np.fromfile(input_dir / contract["noise"]["file"], "<f4").reshape(EXPECTED_SHAPE)
-    start = np.fromfile(input_dir / contract["start"]["file"], "<f4").reshape(EXPECTED_SHAPE)
-    validate_start(encoded, noise, start)
+    encoded = np.fromfile(input_dir / "out2.f32", "<f4").reshape(profile["latent_shape"])
+    noise = np.fromfile(input_dir / contract["noise"]["file"], "<f4").reshape(profile["latent_shape"])
+    start = np.fromfile(input_dir / contract["start"]["file"], "<f4").reshape(profile["latent_shape"])
+    validate_start(encoded, noise, start, profile["latent_shape"])
     prompt = (input_dir / contract["prompt"]["file"]).read_text()
     if digest(input_dir / contract["prompt"]["file"]) != contract["prompt"]["sha256"] or prompt != contract["prompt"]["text"]:
         raise ValueError("Prompt identity differs")
-    return contract, prompt
+    if "input_image" in contract:
+        from PIL import Image
+        item = contract["input_image"]
+        if item.get("file") != "input.png" or digest(input_dir / "input.png") != item.get("sha256"):
+            raise ValueError("Input image identity differs")
+        with Image.open(input_dir / "input.png") as image:
+            decoded = image.convert("RGB").tobytes()
+        if hashlib.sha256(decoded).hexdigest() != item.get("decoded_rgb_sha256") or decoded != (input_dir / "input.rgb").read_bytes():
+            raise ValueError("Input image decoded RGB differs")
+    return contract, prompt, profile
 
 
-def validate_suffix(path, fixture, prompt, start_sha256):
+def validate_suffix(path, fixture, prompt, start_sha256, width=512, height=384):
     path = Path(path)
     saved = json.loads((path / "fixture.json").read_text())
     if saved != fixture or fixture.get("complete") is not True or fixture.get("prompt") != prompt:
         raise ValueError("Suffix fixture identity or prompt differs")
-    config = {"packed_width": 32, "packed_height": 24, "text_bucket": 2048,
-              "dit_text_tokens": 2048, "text_layers": 25, "dit_layers": 36}
+    profile = reviewed_profile(width, height)
+    packed_width, packed_height = width // 16, height // 16
+    config = {"packed_width": packed_width, "packed_height": packed_height,
+              "text_bucket": profile["text_bucket"], "dit_text_tokens": profile["text_bucket"],
+              "text_layers": 25, "dit_layers": 36}
     if fixture.get("config") != config or fixture.get("steps") != 8 or fixture.get("start_step") != 4:
         raise ValueError("Suffix execution contract differs")
     ids = fixture.get("ids")
     if not isinstance(ids, list) or not ids or any(type(v) is not int for v in ids):
         raise ValueError("Invalid suffix token IDs")
-    latent = [1, 128, 24, 32]
-    shapes = {"initial": latent, "text": [1, len(ids), 3072], "padded-text": [1, 2048, 3072],
-              "constant-0": [1, 2816, 128], "constant-1": [1, 2816, 128],
-              "constant-2": [2816, 2816], "final": latent,
-              "unpacked": [1, 32, 48, 64], "decoded": [1, 3, 384, 512]}
+    latent = list(profile["latent_shape"])
+    sequence = packed_width * packed_height + profile["text_bucket"]
+    shapes = {"initial": latent, "text": [1, len(ids), 3072],
+              "padded-text": [1, profile["text_bucket"], 3072],
+              "constant-0": [1, sequence, 128], "constant-1": [1, sequence, 128],
+              "constant-2": [sequence, sequence], "final": latent,
+              "unpacked": [1, 32, height // 8, width // 8], "decoded": [1, 3, height, width]}
     required = [("initial", fixture.get("inputs", {}).get("initial")),
                 ("text", fixture.get("inputs", {}).get("text")),
                 ("padded-text", fixture.get("inputs", {}).get("padded-text"))]
@@ -142,12 +234,14 @@ def run(package, input_dir, output, device):
         from validate_pipeline import reference
     except ImportError:
         from tools.validate_pipeline import reference
-    contract, prompt = validate_inputs(input_dir)
+    contract, prompt, profile = validate_inputs(input_dir)
     package = Path(package)
     manifest = json.loads((package / "manifest.json").read_text())
-    if digest(package / "manifest.json") != REVIEWED_SOURCE_MANIFEST or manifest.get("config") != {
-            "packed_width": 32, "packed_height": 24, "text_bucket": 2048,
-            "dit_text_tokens": 2048, "text_layers": 25, "dit_layers": 36}:
+    width, height = contract["request"]["width"], contract["request"]["height"]
+    expected_config = {"packed_width": width // 16, "packed_height": height // 16,
+                       "text_bucket": profile["text_bucket"], "dit_text_tokens": profile["text_bucket"],
+                       "text_layers": 25, "dit_layers": 36}
+    if digest(package / "manifest.json") != profile["source_manifest"] or manifest.get("config") != expected_config:
         raise ValueError("Official suffix source package is not reviewed")
     output = Path(output)
     if output.exists():
@@ -156,7 +250,7 @@ def run(package, input_dir, output, device):
     suffix = output / "suffix"
     fixture = reference(package, prompt, suffix, 8, device,
                         Path(input_dir) / contract["start"]["file"], 4)
-    denominator = validate_suffix(suffix, fixture, prompt, contract["start"]["sha256"])
+    denominator = validate_suffix(suffix, fixture, prompt, contract["start"]["sha256"], width, height)
     for name in ("input.rgb", "out0.f32", "out1.f32", "out2.f32", "saved-noise.f32", "start-4.f32"):
         shutil.copyfile(Path(input_dir) / name, output / name)
     result = {
@@ -164,7 +258,7 @@ def run(package, input_dir, output, device):
         "scope": "Official encoder, BN eps 1e-4, saved FP32 noise, official text and four-step DiT suffix, decoder BN eps 1e-5",
         "complete": fixture.get("complete") is True,
         "input_contract_sha256": digest(Path(input_dir) / "input-contract.json"),
-        "official_encoder_fixture_sha256": REVIEWED_ENCODER_FIXTURE,
+        "official_encoder_fixture_sha256": profile["encoder_fixture"],
         "suffix_fixture_sha256": digest(suffix / "fixture.json"),
         "suffix_tensor_denominator": denominator,
         "request": contract["request"],
@@ -178,11 +272,23 @@ def run(package, input_dir, output, device):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--model", type=Path, required=True)
-    parser.add_argument("--inputs", type=Path, required=True)
+    parser.add_argument("--model", type=Path)
+    parser.add_argument("--inputs", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--device", choices=("cpu", "cuda"), default="cuda")
+    parser.add_argument("--prepare-encoder", type=Path)
+    parser.add_argument("--prompt-file", type=Path)
+    parser.add_argument("--input-image", type=Path)
+    parser.add_argument("--seed", type=int, default=20260906)
     args = parser.parse_args()
+    if args.prepare_encoder:
+        if args.model or args.inputs or not args.prompt_file:
+            parser.error("Preparation requires --prepare-encoder and --prompt-file only")
+        result = prepare_inputs(args.prepare_encoder, args.prompt_file, args.output, args.seed, args.input_image)
+        print(json.dumps({"complete": True, "request": result["request"]}))
+        return
+    if not args.model or not args.inputs or args.prompt_file or args.input_image:
+        parser.error("Reference execution requires --model and --inputs")
     print(json.dumps({"complete": run(args.model, args.inputs, args.output, args.device)["complete"]}))
 
 

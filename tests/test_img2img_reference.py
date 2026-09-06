@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from tools.reference_img2img import make_start, strength_plan, turbo_sigmas
-from tools.reference_img2img_positive import validate_inputs, validate_start, validate_suffix
+from tools.reference_img2img_positive import reviewed_profile, validate_inputs, validate_start, validate_suffix
 
 
 class Img2ImgReferenceTests(unittest.TestCase):
@@ -96,6 +96,19 @@ class Img2ImgReferenceTests(unittest.TestCase):
         start.flat[0] = 0
         with self.assertRaisesRegex(ValueError, 'reviewed FP32 mixture'):
             validate_start(encoded, noise, start)
+
+    def test_positive_profiles_are_fixed_and_shape_specific(self):
+        profile = reviewed_profile(1024, 1024)
+        self.assertEqual(profile['latent_shape'], (1, 128, 64, 64))
+        self.assertEqual(profile['text_bucket'], 64)
+        self.assertEqual(profile['source_manifest'],
+                         '72bb195a2d0b3ef2a25f873666f51f4bbec4b391744518597be87206a551efc1')
+        with self.assertRaisesRegex(ValueError, 'No reviewed'):
+            reviewed_profile(768, 768)
+        values = np.zeros(profile['latent_shape'], dtype=np.float32)
+        validate_start(values, values, values, profile['latent_shape'])
+        with self.assertRaisesRegex(ValueError, 'Invalid positive-strength'):
+            validate_start(values[:, :, :-1], values[:, :, :-1], values[:, :, :-1], profile['latent_shape'])
 
     def test_positive_contract_requires_canonical_input_names(self):
         import json, tempfile
