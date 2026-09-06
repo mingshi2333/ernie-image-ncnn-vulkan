@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from tools.reference_img2img import make_start, strength_plan, turbo_sigmas
-from tools.reference_img2img_positive import validate_inputs
+from tools.reference_img2img_positive import validate_inputs, validate_start, validate_suffix
 
 
 class Img2ImgReferenceTests(unittest.TestCase):
@@ -73,6 +73,29 @@ class Img2ImgReferenceTests(unittest.TestCase):
             (root / 'input-contract.json').write_text(json.dumps(contract))
             with self.assertRaisesRegex(ValueError, 'not reviewed'):
                 validate_inputs(root)
+
+    def test_positive_suffix_rejects_incomplete_denominator(self):
+        import json, tempfile
+        from pathlib import Path
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            fixture = {'complete': True, 'prompt': 'apple', 'steps': 8, 'start_step': 4, 'ids': [1],
+                       'config': {'packed_width': 32, 'packed_height': 24, 'text_bucket': 2048,
+                                  'dit_text_tokens': 2048, 'text_layers': 25, 'dit_layers': 36},
+                       'inputs': {}, 'outputs': [], 'final': {}}
+            (root / 'fixture.json').write_text(json.dumps(fixture))
+            with self.assertRaisesRegex(ValueError, 'four complete'):
+                validate_suffix(root, fixture, 'apple', '0' * 64)
+
+    def test_positive_start_must_be_recomputed_from_official_encoder(self):
+        shape = (1, 128, 24, 32)
+        encoded = np.full(shape, np.float32(2), dtype=np.float32)
+        noise = np.full(shape, np.float32(-1), dtype=np.float32)
+        start = np.float32(.8) * noise + (np.float32(1) - np.float32(.8)) * encoded
+        validate_start(encoded, noise, start)
+        start.flat[0] = 0
+        with self.assertRaisesRegex(ValueError, 'reviewed FP32 mixture'):
+            validate_start(encoded, noise, start)
 
 
 if __name__ == '__main__':
