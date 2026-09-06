@@ -8,6 +8,8 @@ weighted layers. mmap creates views only; conversion buffers are <= 4 MiB.
 import argparse
 import hashlib
 import json
+import math
+import re
 import struct
 from pathlib import Path
 import numpy as np
@@ -17,17 +19,35 @@ except ImportError:
     from tools.package_model import sha256, safe_name
 
 CHUNK=1<<20
+OFFICIAL_REVISION='bc68c81e2a1730a394d5fc9fae70713dee940140'
+OFFICIAL_REPOSITORY='https://huggingface.co/baidu/ERNIE-Image-Turbo'
+DTYPE_SIZES={'F32':4,'F16':2,'BF16':2,'I64':8}
+MHA_EVIDENCE={
+    'ncnn_revision':'f6f734f44d66f469fefee9ee401fd1cb5e3d573e',
+    'loader_source':'https://github.com/Tencent/ncnn/blob/f6f734f44d66f469fefee9ee401fd1cb5e3d573e/src/layer/multiheadattention.cpp',
+    'loader_source_sha256':'f5aa50405bda6b1d62b234ce10f455eb68f704913f3faffc6ab59343403e5237',
+    'load_model_lines':[29,62],
+    'forward_weight_order_lines':[125,138,166,179,207,220,350,362],
+    'linear_storage':'row-major [output_features,input_features], no transpose',
+    'scope':'projection weight/bias roles and bytes, not full attention graph equivalence',
+}
+PINNED_VAE_ATTENTION={
+    'f4469da7c4cdf42375cf83adec075aa02b4d289c68e2fbd0f76142d4f3571bf9':('attention_66','decoder'),
+    '7abee618d294ea7120f755e4b245b274c54ed3264b84b8cea366083b968e913d':('attention_51','encoder'),
+}
 
 
 def normalized_hash(path, offset, count, dtype, transpose_shape=None):
-    sizes={'F32':4,'F16':2,'BF16':2,'I64':8}
+    sizes=DTYPE_SIZES
     if dtype not in sizes or count < 0 or offset < 0 or offset+count*sizes[dtype]>Path(path).stat().st_size:
         raise ValueError('Invalid tensor bounds or dtype')
     storage_dtype={'F32':'<f4','F16':'<f2','BF16':'<u2','I64':'<i8'}[dtype]
     digest=hashlib.sha256()
     def add(a):
         if dtype=='BF16':a=(a.astype('<u4')<<16).view('<f4')
-        digest.update(np.asarray(a,dtype='<f4').tobytes())
+        values=np.asarray(a,dtype='<f4')
+        if not np.isfinite(values).all():raise ValueError('Nonfinite canonical weight values')
+        digest.update(values.tobytes())
     if transpose_shape:
         rows,cols=transpose_shape
         if rows*cols!=count:raise ValueError('Invalid transpose shape')
@@ -46,23 +66,70 @@ def normalized_hash(path, offset, count, dtype, transpose_shape=None):
     return digest.hexdigest()
 
 
-def official_inventory(root):
-    rows=[]
-    for path in sorted(Path(root).glob('*.safetensors')):
-        with path.open('rb') as f:
-            n=struct.unpack('<Q',f.read(8))[0]
-            if n>32*1024*1024:raise ValueError('Oversized safetensors header')
-            header=json.loads(f.read(n))
+def _unique_json(pairs):
+    result={}
+    for key,value in pairs:
+        if key in result:raise ValueError('Duplicate JSON key: '+key)
+        result[key]=value
+    return result
+
+
+def official_inventory(root, filenames=None):
+    """Only authenticated pinned official components enter content matching."""
+    rows=[];root=Path(root)
+    paths=sorted(root.glob('*.safetensors')) if filenames is None else [root/safe_name(n) for n in filenames]
+    if not paths:raise ValueError('No official safetensors components selected')
+    for path in paths:
         manifest_path=path.with_suffix('.manifest.json')
-        provenance=json.loads(manifest_path.read_text()) if manifest_path.exists() else {}
-        if provenance.get('sha256') and sha256(path)!=provenance['sha256']:
-            raise ValueError('Official file checksum mismatch: '+str(path))
+        if not manifest_path.is_file():raise ValueError('Missing official provenance: '+str(path))
+        provenance=json.loads(manifest_path.read_text(),object_pairs_hook=_unique_json)
+        if provenance.get('revision')!=OFFICIAL_REVISION or provenance.get('repository')!=OFFICIAL_REPOSITORY:
+            raise ValueError('Official repository/revision mismatch: '+str(path))
+        expected=provenance.get('sha256')
+        if not isinstance(expected,str) or not re.fullmatch('[0-9a-f]{64}',expected):
+            raise ValueError('Missing/invalid official file SHA256: '+str(path))
+        if sha256(path)!=expected:raise ValueError('Official file checksum mismatch: '+str(path))
+        with path.open('rb') as f:
+            prefix=f.read(8)
+            if len(prefix)!=8:raise ValueError('Truncated safetensors header length')
+            n=struct.unpack('<Q',prefix)[0]
+            if n<2 or n>32*1024*1024 or 8+n>path.stat().st_size:raise ValueError('Invalid safetensors header size')
+            header=json.loads(f.read(n),object_pairs_hook=_unique_json)
+        if not isinstance(header,dict):raise ValueError('Invalid safetensors header object')
+        tensors=[];payload_size=path.stat().st_size-8-n
         for name,t in header.items():
             if name=='__metadata__':continue
-            a,b=t['data_offsets'];count=int(np.prod(t['shape']))
+            if not isinstance(t,dict) or t.get('dtype') not in DTYPE_SIZES:raise ValueError('Unsupported official tensor metadata')
+            shape=t.get('shape');offsets=t.get('data_offsets')
+            if not isinstance(shape,list) or any(type(x)!=int or x<0 for x in shape):raise ValueError('Invalid tensor dimensions')
+            if not isinstance(offsets,list) or len(offsets)!=2 or any(type(x)!=int or x<0 for x in offsets):raise ValueError('Invalid tensor offsets')
+            a,b=offsets;count=math.prod(shape)
+            if b<a or b>payload_size or b-a!=count*DTYPE_SIZES[t['dtype']]:raise ValueError('Tensor byte range/shape mismatch')
+            tensors.append((a,b,name,t,count))
+        position=0
+        for a,b,name,t,count in sorted(tensors):
+            if a!=position:raise ValueError('Overlapping or noncontiguous tensor ranges')
+            position=b
+        if position!=payload_size:raise ValueError('Unreferenced safetensors payload bytes')
+        for a,b,name,t,count in tensors:
             rows.append(dict(file=path.name,name=name,shape=t['shape'],dtype=t['dtype'],
-                             revision=provenance.get('revision'),canonical_sha256=normalized_hash(path,8+n+a,count,t['dtype'])))
+                             revision=provenance['revision'],source_sha256=expected,
+                             canonical_sha256=normalized_hash(path,8+n+a,count,t['dtype'])))
     return rows
+
+
+def mha_shapes(p):
+    """Pinned ncnn load_param/load_model and forward row loops define these shapes."""
+    embed=int(p.get('0',0));size=int(p.get('2',0));heads=int(p.get('1',1))
+    kdim=int(p.get('3',embed));vdim=int(p.get('4',embed))
+    if int(p.get('18',0)):raise ValueError('Unsupported MultiHeadAttention int8 scales')
+    if embed<=0 or size<=0 or size%embed or heads<=0 or embed%heads or kdim<=0 or vdim<=0:
+        raise ValueError('Invalid MultiHeadAttention dimensions')
+    qdim=size//embed
+    return {'q.weight':[embed,qdim],'q.bias':[embed],
+            'k.weight':[embed,kdim],'k.bias':[embed],
+            'v.weight':[embed,vdim],'v.bias':[embed],
+            'out.weight':[qdim,embed],'out.bias':[qdim]}
 
 
 WEIGHTLESS=set('Input Split BinaryOp UnaryOp ErnieImageRoPE GELU Permute Reshape SDPA ExpandDims RotaryEmbed Swish Tile Interp PixelShuffle Concat Slice Sigmoid Packing Flatten Softmax'.split())
@@ -71,6 +138,8 @@ WEIGHTLESS=set('Input Split BinaryOp UnaryOp ErnieImageRoPE GELU Permute Reshape
 def layer_weights(kind,p):
     g=lambda k,d=0:int(p.get(str(k),d))
     if kind in WEIGHTLESS:return []
+    if kind=='MultiHeadAttention':
+        return [(role,math.prod(shape),0 if role.endswith('weight') else 1,None) for role,shape in mha_shapes(p).items()]
     if kind=='Gemm':
         if g(18) or g(4):raise ValueError('Unsupported Gemm A/int8')
         rows=[]
@@ -97,6 +166,7 @@ def reference_inventory(root):
         binary=param.with_suffix('.bin')
         if not binary.exists():gaps.append(dict(file=str(binary),reason='missing binary'));continue
         offset=0
+        param_sha256=sha256(param)
         try:
             with binary.open('rb') as f:
                 for line in param.read_text().splitlines()[2:]:
@@ -108,32 +178,55 @@ def reference_inventory(root):
                             if tag==0x01306b47:dtype='F16'
                             elif tag not in (0,0x0002c056):raise ValueError('Unsupported ncnn tag '+hex(tag))
                         start=offset;size=count*(2 if dtype=='F16' else 4);offset+=(size+3)//4*4
-                        rows.append(dict(file=str(binary.relative_to(root)),layer=name,kind=kind,role=role,
-                                         offset=start,count=count,storage_dtype=dtype,transpose_shape=transpose,
-                                         canonical_sha256=normalized_hash(binary,start,count,dtype,transpose)))
+                        row=dict(file=str(binary.relative_to(root)),layer=name,kind=kind,role=role,
+                                 offset=start,count=count,storage_dtype=dtype,transpose_shape=transpose,
+                                 param_sha256=param_sha256,canonical_sha256=normalized_hash(binary,start,count,dtype,transpose))
+                        if kind=='MultiHeadAttention':
+                            row.update(logical_shape=mha_shapes(p)[role],layout_evidence=MHA_EVIDENCE)
+                            pinned=PINNED_VAE_ATTENTION.get(param_sha256)
+                            if pinned and name==pinned[0]:
+                                projection,attribute=role.split('.')
+                                target={'q':'to_q','k':'to_k','v':'to_v','out':'to_out.0'}[projection]
+                                row['logical_target']=f'{pinned[1]}.mid_block.attentions.0.{target}.{attribute}'
+                                row['logical_mapping_basis']='pinned VAE graph instance + ncnn loader/forward role + named official tensor equality'
+                            else:row['logical_mapping_status']='unverified_graph_instance'
+                        rows.append(row)
             if offset!=binary.stat().st_size:raise ValueError(f'Unconsumed bytes {binary.stat().st_size-offset}')
         except (ValueError,KeyError,struct.error) as exc:gaps.append(dict(file=str(param.relative_to(root)),reason=str(exc),offset=offset))
     return rows,gaps
 
 
-def audit_port_weights(source: Path, official: Path, output: Path) -> dict:
+def audit_port_weights(source: Path, official: Path, output: Path, official_files=None) -> dict:
     output=Path(output);output.mkdir(parents=True,exist_ok=False)
-    official_rows=official_inventory(official)
+    official_rows=official_inventory(official,official_files)
     (output/'official-tensors.json').write_text(json.dumps(official_rows,indent=2))
     peer,gaps=reference_inventory(source);lookup={}
     for row in official_rows:lookup.setdefault(row['canonical_sha256'],[]).append(row['file']+':'+row['name'])
+    named={r['name']:r for r in official_rows}
+    logical=[]
     for row in peer:
         row['official_content_matches']=lookup.get(row['canonical_sha256'],[])
         row['status']='value_match' if row['official_content_matches'] else 'unmatched'
+        if row['kind']=='MultiHeadAttention':
+            target=named.get(row.get('logical_target'))
+            if not row.get('logical_target'):status='unverified_graph_instance'
+            elif target is None:status='official_component_missing'
+            elif target['shape']!=row['logical_shape']:status='logical_shape_mismatch'
+            elif target['canonical_sha256']!=row['canonical_sha256']:status='logical_value_mismatch'
+            else:status='logical_projection_value_match'
+            row['logical_mapping_status']=status
+            logical.append({k:row.get(k) for k in ('file','layer','role','logical_target','logical_shape','canonical_sha256','logical_mapping_status')})
+            if status!='logical_projection_value_match':gaps.append(dict(file=row['file'],layer=row['layer'],role=row['role'],reason=status))
     report=dict(schema_version=1,status='unproven',comparison_scope='product_comparison_only',
                 reason='Content equality does not establish full logical graph correspondence; derived constants and unsupported paths remain explicit',
                 buffer_elements=CHUNK,official_tensor_count=len(official_rows),reference_tensor_count=len(peer),
                 matched_tensor_count=sum(bool(r['official_content_matches']) for r in peer),
                 unmatched_tensor_count=sum(not r['official_content_matches'] for r in peer),gaps=gaps,tensors=peer,
-                allowed_to_close_S=False)
+                logical_projection_mappings=logical,official_components=[p.name for p in sorted(Path(official).glob('*.safetensors'))] if official_files is None else list(official_files),
+                mha_layout_evidence=MHA_EVIDENCE,allowed_to_close_S=False)
     (output/'audit.json').write_text(json.dumps(report,indent=2));return report
 
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser();p.add_argument('--source',type=Path,required=True);p.add_argument('--official',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
-    r=audit_port_weights(a.source,a.official,a.output);print(json.dumps({k:v for k,v in r.items() if k!='tensors'},indent=2))
+    p=argparse.ArgumentParser();p.add_argument('--source',type=Path,required=True);p.add_argument('--official',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--official-files',nargs='+',help='Explicit authenticated component subset; missing components remain gaps');a=p.parse_args()
+    r=audit_port_weights(a.source,a.official,a.output,a.official_files);print(json.dumps({k:v for k,v in r.items() if k!='tensors'},indent=2))
