@@ -22,7 +22,7 @@ if(ERNIE_MINIMAL_NCNN)
     # RMSNorm Vulkan shares reduction shaders with LayerNorm.
     # Extend this list when new exported components require additional layers.
     file(STRINGS "${ERNIE_NCNN_SOURCE_DIR}/src/CMakeLists.txt" layer_lines REGEX "^ncnn_add_layer\\(")
-    set(probe_layers input split cast packing flatten softmax gemm sdpa memorydata unaryop reduction binaryop reshape permute rmsnorm layernorm slice expanddims concat squeeze gelu convolution padding innerproduct swish crop groupnorm interp multiheadattention)
+    set(probe_layers input split cast packing flatten softmax gemm sdpa memorydata unaryop reduction binaryop reshape permute rmsnorm layernorm slice expanddims concat squeeze gelu convolution padding innerproduct swish crop groupnorm interp multiheadattention reorg batchnorm)
     foreach(layer_line IN LISTS layer_lines)
         string(REGEX REPLACE "^ncnn_add_layer\\(([A-Za-z0-9_]+).*" "\\1" layer_name "${layer_line}")
         string(TOLOWER "${layer_name}" layer_name)

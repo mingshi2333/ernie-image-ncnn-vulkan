@@ -69,19 +69,26 @@ int main(int argc, char** argv)
             else throw std::invalid_argument("Unknown argument: " + flag);
         }
         if (model.empty() || fixture.empty() || output.empty() || fs::exists(output)
-            || width < 1 || width > 256 || height < 1 || height > 256 || text_tokens < (component == "vae" ? 0 : 1)
-            || text_tokens > 2048 || (component != "vae" && width * height + text_tokens > 6144)
-            || (component != "input" && component != "output" && component != "vae")
+            || width < 1 || width > 256 || height < 1 || height > 256 || text_tokens < ((component == "vae" || component == "vae-encoder") ? 0 : 1)
+            || text_tokens > 2048 || (component != "vae" && component != "vae-encoder" && width * height + text_tokens > 6144)
+            || (component != "input" && component != "output" && component != "vae" && component != "vae-encoder")
+            || (component == "vae-encoder" && (backend != "cpu" || precision != "fp32" || width < 16 || height < 16
+                                               || width > 64 || height > 64 || width % 16 || height % 16 || text_tokens != 0))
             || (backend != "cpu" && backend != "vulkan")
             || (precision != "fp32" && precision != "fp16" && precision != "bf16")
             || (backend == "cpu" && precision != "fp32")
             || (vae_convolution != "sgemm" && vae_convolution != "direct"))
-            throw std::invalid_argument("Require --model DIR --fixture DIR --output NEWDIR --component input|output "
+            throw std::invalid_argument("Require --model DIR --fixture DIR --output NEWDIR --component input|output|vae|vae-encoder "
                                        "--width N --height N --text-tokens N [--backend cpu|vulkan] [--precision fp32|fp16|bf16]");
         const int tokens = width * height + text_tokens;
         std::vector<ncnn::Mat> inputs;
         std::vector<size_t> counts;
-        if (component == "vae")
+        if (component == "vae-encoder")
+        {
+            inputs.push_back(read(fixture / "in0.f32", ncnn::Mat(width, height, 3)));
+            counts.assign(3, size_t(width) * height / 2); // mean CHW32, packed/normalized CHW128
+        }
+        else if (component == "vae")
         {
             inputs.push_back(read(fixture / "in0.f32", ncnn::Mat(width, height, 32)));
             counts.push_back(size_t(width) * height * 64 * 3);
@@ -101,13 +108,14 @@ int main(int argc, char** argv)
             counts.push_back(size_t(width) * height * 128);
         }
         ncnn::Option option;
-        option.num_threads = 4;
+        option.num_threads = component == "vae-encoder" ? 2 : 4;
+        if (component == "vae-encoder") option.use_packing_layout = false;
         option.use_vulkan_compute = backend == "vulkan";
         option.use_fp16_storage = precision == "fp16";
         option.use_bf16_storage = precision == "bf16";
         option.use_fp16_packed = option.use_fp16_arithmetic = option.use_bf16_packed = false;
-        if (component == "vae" && backend == "cpu") option.use_winograd_convolution = false;
-        if (component == "vae" && backend == "cpu") option.use_sgemm_convolution = vae_convolution == "sgemm";
+        if ((component == "vae" || component == "vae-encoder") && backend == "cpu") option.use_winograd_convolution = false;
+        if ((component == "vae" || component == "vae-encoder") && backend == "cpu") option.use_sgemm_convolution = vae_convolution == "sgemm";
         std::vector<ncnn::Mat> outputs(counts.size());
         const auto start = std::chrono::steady_clock::now();
         {
