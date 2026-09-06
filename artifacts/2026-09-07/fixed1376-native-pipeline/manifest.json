@@ -1,0 +1,207 @@
+{
+  "schema_version": 1,
+  "scope": "Selected actual fixed1376 full generation, strict failures, matched-input decoder and portable package evidence",
+  "status": "complete_execution_quality_gate_failed",
+  "raw_base": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2",
+  "files": {
+    "plan.json": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/plan.json",
+      "sha256": "75f457c0cb8864fd80ce8e12aa08e3357875a20b4e9218b5dbbb2c5b2e606a36",
+      "bytes": 147140
+    },
+    "worker.py": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/run.py",
+      "sha256": "ab6db42f70b506d87c68c1ff298d57f3ca5d35cf5095a51b6ae77a76b71d70fb",
+      "bytes": 2275
+    },
+    "supervisor.py": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/supervisor.py",
+      "sha256": "c83b4aae201850a8ca8d9c91387135863f578ec6896013873dc77a7c9ae89de9",
+      "bytes": 4384
+    },
+    "runtime-identity.json": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/runtime-identity.json",
+      "sha256": "e069ab81347c1af2d811c5e90f7b03d755cbd64a5e75073aec0d46cfb8efb832",
+      "bytes": 2133
+    },
+    "initial-package-plan.json": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v1/plan.json",
+      "sha256": "95eaa5d7dd707e72c5557dd3cfaa0f2754e45bf6a9322e5b1399386046e3a1a3",
+      "bytes": 146473
+    },
+    "initial-package-manifest.json": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v1/model/manifest.json",
+      "sha256": "324aef17ba91a5c8ae2dd14809cca5f774b02b1f3a07c24182ee5f68bb8eaccd",
+      "bytes": 25399
+    },
+    "package-graph-review.json": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v1/package-review.json",
+      "sha256": "8a93a263c3adaa996dcc8b4c82bdfab618c1e653db81a6060ed4b660282a2914",
+      "bytes": 17238
+    },
+    "initial-package-prepare.py": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v1/prepare.py",
+      "sha256": "affae96e07de8601182f19376257d79eba6ee58458af19c080c64bfd61e98477",
+      "bytes": 7571
+    },
+    "official-process.json": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/official/process.json",
+      "sha256": "50545ed513fc0ef4ba9040594c59b959da14a6754240e4b129e265e140d5e01c",
+      "bytes": 1444
+    },
+    "official-worker-result.json": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/official/worker-result.json",
+      "sha256": "f4c74c3a427c65744488966feb84efe98d4edfe3c0782a7d2a5b5ae4cc038a81",
+      "bytes": 237
+    },
+    "official-fixture.json": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/official/validation/reference/fixture.json",
+      "sha256": "930d1593ea6e4246e03edd990fbdf3a805de1b378ea2a5bbc8b15695a762f128",
+      "bytes": 7551
+    },
+    "official-runner.log": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/official/runner.log",
+      "sha256": "122613b66c263f08fb2161f3838500f0a0b71f05aedfbfc3a97c380b2d5c859d",
+      "bytes": 7000
+    },
+    "reference-review.json": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/reference-review.json",
+      "sha256": "be8f18cbb009fef651e782d845a088d075560518fcd9aff1f986e8af0b312b9c",
+      "bytes": 7113
+    },
+    "native-process.json": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/native/process.json",
+      "sha256": "4ddd7dcf167c5083ab50f9d6b954804b0361ba01432a238f9c7bad116278e55f",
+      "bytes": 1437
+    },
+    "native-worker-result.json": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/native/worker-result.json",
+      "sha256": "9e3b931e053b74b23b8a6c5148f84572ccb3b19493cbbf84bb403bcdfda561c0",
+      "bytes": 254
+    },
+    "native-result.json": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/native/validation/result.json",
+      "sha256": "9bb5c2d052e1eaa25c05fb85fba2bee9cc9f01e30984f3a5647dc9c46746782c",
+      "bytes": 20071
+    },
+    "native.log": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/native/validation/native.log",
+      "sha256": "0269987d097329df45183526969c837ebc8bcc48d73737036de2c819fc575162",
+      "bytes": 41554
+    },
+    "original-gates.json": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/native/validation/gates.json",
+      "sha256": "be88323367c98e75bb4a5d8fa172565371f3c3c98fb9e6c81af7659d89c04a0e",
+      "bytes": 338
+    },
+    "actual-review.json": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/actual-review.json",
+      "sha256": "e57ea82738432aceaee8955dacf1d284abaeb9ad155e7514ed31731485fd15d7",
+      "bytes": 13753
+    },
+    "review_complete.py": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/review_complete.py",
+      "sha256": "5e780f8b46f070da9b6a8d40f3f2f8c21d3e6be274af2bd68f20d9bcd93e9a54",
+      "bytes": 5800
+    },
+    "pixel-error-distribution.json": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/pixel-error-distribution.json",
+      "sha256": "f01c25e0dd8c6a60f660fa22886e0d322d66ab00bdee8dace44023366217fa79",
+      "bytes": 251
+    },
+    "portable-package-result.json": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/portable-package/result.json",
+      "sha256": "33587b7edc0e43cc0d37781fd86df0ceabc5938c431a9107beb75bfb46896923",
+      "bytes": 751
+    },
+    "portable-package-source-identity.json": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/portable-package/source-identity.json",
+      "sha256": "ecaa35fd5999f77a2da067224769779a988128a9e36baf8b411e6780cca10ae0",
+      "bytes": 31257
+    },
+    "portable-package-run.py": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/portable-package/run.py",
+      "sha256": "522babb2046a231261106f3cfaf329a52c608cb067698a93a02138ba11084a50",
+      "bytes": 2254
+    },
+    "portable-package-native-verify.log": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/portable-package/native-verify.log",
+      "sha256": "afa9438a6c5b5ac0a395cf417c0b21c3c4460b6f1e7fa8cebf3b863d6ceece95",
+      "bytes": 15
+    },
+    "portable-package-tests.json": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/portable-package/tests.json",
+      "sha256": "09eaafe41f7e500d10787c7017744c144bc563e4b72e4ab7fd5bb81b3d6f2451",
+      "bytes": 427
+    },
+    "portable-package-manifest.json": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/models/turbo1376x768-s64-portable/manifest.json",
+      "sha256": "cf192a57e7ee8bfc78cea6d8b01698586f78770c324bbbc69ee7b32576e25fb6",
+      "bytes": 25660
+    },
+    "decoder-on-official-result.json": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/decoder-on-official/validation/cpu-fp32/result.json",
+      "sha256": "30122b7402a3a18b6b8eea79384d050bf4d948b6909b7d33f2a844a0b4a98e1e",
+      "bytes": 1602
+    },
+    "decoder-on-official-process.json": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/decoder-on-official/execution/result.json",
+      "sha256": "58675ffdc7c7efc3e83070b43fd19e56806972205d21e4796c211f3b155edf08",
+      "bytes": 1896
+    },
+    "decoder-on-official-root-review.json": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/decoder-on-official/root-review.json",
+      "sha256": "eb070dd71a632c2c59d689468aca8f529b215e68a7c56ac75a1a731dfdadbe7d",
+      "bytes": 1119
+    },
+    "decoder-on-official-fixture.json": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/decoder-on-official/candidate/fixture.json",
+      "sha256": "e8c2e6ff1e73004eb477a469c856ff1dc31a31a8ebcd4ca0e3d5ce5a5433b40c",
+      "bytes": 1902
+    },
+    "decoder-on-official-plan.json": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/decoder-on-official/plan.json",
+      "sha256": "b512a71927b54f77e02498af31b868a7f730ef9c4dafc580146732f1ebac8239",
+      "bytes": 208483
+    },
+    "predecessor-version-failure-process.json": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v1/official/process.json",
+      "sha256": "ad1e63ddac09122e081959faa0d620e34015369fe1a081ac50711cafa7fb757c",
+      "bytes": 1444
+    },
+    "predecessor-version-failure.log": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v1/official/runner.log",
+      "sha256": "4ad951a2402158b0e8e46c5f8f455e38479350448b9629829dca74f106cc9ea6",
+      "bytes": 411
+    },
+    "prompt.txt": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v1/prompt.txt",
+      "sha256": "e631f4e8903437dc03ed25b2186468983bd29d13a59b86b6b5b251bae4ec7ac6",
+      "bytes": 62
+    },
+    "model.cfg": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/models/turbo1376x768-s64-portable/model.cfg",
+      "sha256": "c6181018fa914e15b8f0bb8bc838f8d20969b1743a547598bd5eb7da96957dc5",
+      "bytes": 96
+    },
+    "package_model.py": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/portable-package/source/tools/package_model.py",
+      "sha256": "779dba5a1649303d9b8cbcdf03991b41b7e4d5980532cfb4a3674c20c320aaed",
+      "bytes": 9714
+    },
+    "prepare_shape_1376.py": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/portable-package/source/tools/prepare_shape_1376.py",
+      "sha256": "0dbeec116a5451d17adffb58d992dec682bcfe511d2aa7de8895f356b7615bbf",
+      "bytes": 11044
+    },
+    "test_package.py": {
+      "source_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/portable-package/source/tests/test_package.py",
+      "sha256": "cd81a2abbaed7bd625b9a85746abe2fac9e4ff76625f0cab17178bf82ab20cc5",
+      "bytes": 6570
+    },
+    "README.md": {
+      "sha256": "585514fef84042c6af51a3df68793b9a00333cac71207236f7ec3fbdb37977d5",
+      "bytes": 8126
+    }
+  }
+}

@@ -162,6 +162,13 @@ This option does not expand the schema-3 shared-instance registry or provide an
 encoder for this shape. Broader prompt-quality acceptance remains separate from
 the fixed development case.
 
+The complete 1376x768 apple fixture has executed all eight native steps and CPU
+decoding, but remains **quality_gate_failed**: 23/25 tensor checks pass;
+prediction-7 and decoded fail their fixed maximum-error limits. PNG MAE is
+0.005041/255 and max error is 3 versus the original limit of 2. The portable
+package passes Python/native verification and matches all 136 runtime files of
+that actual run. See [the full evidence](../artifacts/2026-09-07/fixed1376-native-pipeline/README.md).
+
 ## Optional native prompt enhancement
 
 PE is a separate actual Ministral3 model: 26 layers, final norm and LM head.

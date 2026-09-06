@@ -1,0 +1,11 @@
+{
+  "scope": "Descriptive pixel-error distribution; original max2 gate remains failed",
+  "channel_samples": 3170304,
+  "histogram_abs_error": {
+    "0": 3154341,
+    "1": 15948,
+    "2": 11,
+    "3": 4
+  },
+  "pixels_with_any_channel_error_gt2": 3
+}

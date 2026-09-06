@@ -1,0 +1,43 @@
+{
+  "python_runtime": "venv",
+  "versions": {
+    "torch": "2.12.1+cu130",
+    "diffusers": "0.41.0.dev0",
+    "transformers": "5.2.0",
+    "numpy": "2.5.2"
+  },
+  "sources": {
+    "pipeline": {
+      "path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.venv/lib/python3.14/site-packages/diffusers/pipelines/ernie_image/pipeline_ernie_image.py",
+      "sha256": "26fbecb8c9d13a46b15aea7d599224bb03ad93e683ce3935d7a932d71316a9fd"
+    },
+    "vae": {
+      "path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.venv/lib/python3.14/site-packages/diffusers/models/autoencoders/autoencoder_kl_flux2.py",
+      "sha256": "7d9a976c1e4f42615e8c422f1643d86b49c4339221bd04b67f518b718ebd6c2d"
+    },
+    "scheduler": {
+      "path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.venv/lib/python3.14/site-packages/diffusers/schedulers/scheduling_flow_match_euler_discrete.py",
+      "sha256": "1af27be5b2f92b7d139d3c50239be5ce3eafc4a7eddf59c2d30689f8ec31e93d"
+    },
+    "dit": {
+      "path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.venv/lib/python3.14/site-packages/diffusers/models/transformers/transformer_ernie_image.py",
+      "sha256": "0f1814f63008298707afea5d7bd22d0a16073f0a8e858037c198faa28027e926"
+    },
+    "text": {
+      "path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.venv/lib/python3.14/site-packages/transformers/models/mistral/modeling_mistral.py",
+      "sha256": "d107da5e9193805b886e518d5d05abbf2dd54eda6df5f3656ae140fe08a1421f"
+    },
+    "torch_version": {
+      "path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.venv/lib/python3.14/site-packages/torch/version.py",
+      "sha256": "c846964f2d105f1f367cdc92dea045debcdcc09557b5da60591e8079f1b2c828"
+    }
+  },
+  "scope": "Selected actual official implementation files and installed versions; not a sealed Python/CUDA dependency closure",
+  "distribution_versions": {
+    "torch": "2.12.1",
+    "diffusers": "0.41.0.dev0",
+    "transformers": "5.2.0",
+    "numpy": "2.5.2"
+  },
+  "version_field_correction": "Distribution metadata and runtime CUDA suffix are different fields; exact expected values are bound separately."
+}

@@ -1,0 +1,24 @@
+{
+  "complete": true,
+  "scope": "Native CPU decoder on the exact official final latent only; does not close free-running quality or identify an individual DiT operator",
+  "elements": 3170304,
+  "all_finite": true,
+  "nrmse": 4.3458064951784184e-07,
+  "max_abs_error": 5.781650543212891e-06,
+  "passed_original_vae_gates": true,
+  "input_sha256": "a126e3dd91cd0ce4c1291cdc5170b4f482197e32f04d0afb5e8582271846d031",
+  "expected_sha256": "2db4bcfe773dad8ef7797bc9415e5f1434a83b81946c12f9ddd7ebec882fcada",
+  "actual_sha256": "0658b93447336ff6626e3d998c02ab580b3dd16326869a062f28913d5a31ed42",
+  "result_sha256": "30122b7402a3a18b6b8eea79384d050bf4d948b6909b7d33f2a844a0b4a98e1e",
+  "plan_sha256": "b512a71927b54f77e02498af31b868a7f730ef9c4dafc580146732f1ebac8239",
+  "source_files_bound": 886,
+  "controls": {
+    "memory.max": "17179869184",
+    "memory.swap.max": "0",
+    "cpu.max": "200000 100000"
+  },
+  "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+  "wall_seconds": 91.778080325,
+  "peak_cgroup_memory_current": 6593490944,
+  "host_min_observed": 11590635520
+}

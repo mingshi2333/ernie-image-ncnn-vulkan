@@ -1,0 +1,84 @@
+{"phase": "official", "frozen_bindings_verified": 610, "launching_model": true}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+{"reference_step": 0, "blocks_complete": 6, "elapsed_seconds": 5.112432987007196}
+{"reference_step": 0, "blocks_complete": 12, "elapsed_seconds": 9.333316028001718}
+{"reference_step": 0, "blocks_complete": 18, "elapsed_seconds": 13.539324329001829}
+{"reference_step": 0, "blocks_complete": 24, "elapsed_seconds": 17.691358271011268}
+{"reference_step": 0, "blocks_complete": 30, "elapsed_seconds": 21.89267547300551}
+{"reference_step": 0, "blocks_complete": 36, "elapsed_seconds": 26.03866714501055}
+{"reference_step": 0, "elapsed_seconds": 26.50561380700674}
+{"reference_step": 1, "blocks_complete": 6, "elapsed_seconds": 5.050551079009892}
+{"reference_step": 1, "blocks_complete": 12, "elapsed_seconds": 9.514975921003497}
+{"reference_step": 1, "blocks_complete": 18, "elapsed_seconds": 13.952858234013547}
+{"reference_step": 1, "blocks_complete": 24, "elapsed_seconds": 18.284273602010217}
+{"reference_step": 1, "blocks_complete": 30, "elapsed_seconds": 22.63303452100081}
+{"reference_step": 1, "blocks_complete": 36, "elapsed_seconds": 26.979087165003875}
+{"reference_step": 1, "elapsed_seconds": 27.452828856010456}
+{"reference_step": 2, "blocks_complete": 6, "elapsed_seconds": 4.590625038006692}
+{"reference_step": 2, "blocks_complete": 12, "elapsed_seconds": 9.115071257998352}
+{"reference_step": 2, "blocks_complete": 18, "elapsed_seconds": 13.28878921600699}
+{"reference_step": 2, "blocks_complete": 24, "elapsed_seconds": 17.493318118009483}
+{"reference_step": 2, "blocks_complete": 30, "elapsed_seconds": 21.821087226999225}
+{"reference_step": 2, "blocks_complete": 36, "elapsed_seconds": 25.77571741900465}
+{"reference_step": 2, "elapsed_seconds": 26.24361512399628}
+{"reference_step": 3, "blocks_complete": 6, "elapsed_seconds": 3.7860937420045957}
+{"reference_step": 3, "blocks_complete": 12, "elapsed_seconds": 7.284394283007714}
+{"reference_step": 3, "blocks_complete": 18, "elapsed_seconds": 11.542321694010752}
+{"reference_step": 3, "blocks_complete": 24, "elapsed_seconds": 15.780076545997872}
+{"reference_step": 3, "blocks_complete": 30, "elapsed_seconds": 20.003923137002857}
+{"reference_step": 3, "blocks_complete": 36, "elapsed_seconds": 23.97262781400059}
+{"reference_step": 3, "elapsed_seconds": 24.433607008002582}
+{"reference_step": 4, "blocks_complete": 6, "elapsed_seconds": 3.7333577569952467}
+{"reference_step": 4, "blocks_complete": 12, "elapsed_seconds": 7.1633613019948825}
+{"reference_step": 4, "blocks_complete": 18, "elapsed_seconds": 11.325717799991253}
+{"reference_step": 4, "blocks_complete": 24, "elapsed_seconds": 15.623879908991512}
+{"reference_step": 4, "blocks_complete": 30, "elapsed_seconds": 19.937777564002317}
+{"reference_step": 4, "blocks_complete": 36, "elapsed_seconds": 24.0029341460031}
+{"reference_step": 4, "elapsed_seconds": 24.482521012003417}
+{"reference_step": 5, "blocks_complete": 6, "elapsed_seconds": 3.864408152992837}
+{"reference_step": 5, "blocks_complete": 12, "elapsed_seconds": 7.317864821990952}
+{"reference_step": 5, "blocks_complete": 18, "elapsed_seconds": 10.727522459987085}
+{"reference_step": 5, "blocks_complete": 24, "elapsed_seconds": 14.55077336699469}
+{"reference_step": 5, "blocks_complete": 30, "elapsed_seconds": 18.493691838986706}
+{"reference_step": 5, "blocks_complete": 36, "elapsed_seconds": 21.95251756599464}
+{"reference_step": 5, "elapsed_seconds": 22.416085116987233}
+{"reference_step": 6, "blocks_complete": 6, "elapsed_seconds": 3.814169100005529}
+{"reference_step": 6, "blocks_complete": 12, "elapsed_seconds": 7.32735744099773}
+{"reference_step": 6, "blocks_complete": 18, "elapsed_seconds": 11.622260357995401}
+{"reference_step": 6, "blocks_complete": 24, "elapsed_seconds": 16.061839350004448}
+{"reference_step": 6, "blocks_complete": 30, "elapsed_seconds": 20.864311880999594}
+{"reference_step": 6, "blocks_complete": 36, "elapsed_seconds": 24.94789328800107}
+{"reference_step": 6, "elapsed_seconds": 25.440889741003048}
+{"reference_step": 7, "blocks_complete": 6, "elapsed_seconds": 4.100403349992121}
+{"reference_step": 7, "blocks_complete": 12, "elapsed_seconds": 7.943062184000155}
+{"reference_step": 7, "blocks_complete": 18, "elapsed_seconds": 12.60382099999697}
+{"reference_step": 7, "blocks_complete": 24, "elapsed_seconds": 17.299616429998423}
+{"reference_step": 7, "blocks_complete": 30, "elapsed_seconds": 22.122890799000743}
+{"reference_step": 7, "blocks_complete": 36, "elapsed_seconds": 26.281284023993067}
+{"reference_step": 7, "elapsed_seconds": 26.765559614999802}
+{"reference_complete": true, "output": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/official/validation/reference"}

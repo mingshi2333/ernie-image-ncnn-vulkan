@@ -1,0 +1,15 @@
+{
+  "complete": true,
+  "native_return_code": 0,
+  "package_manifest_sha256": "cf192a57e7ee8bfc78cea6d8b01698586f78770c324bbbc69ee7b32576e25fb6",
+  "executed_package_manifest_sha256": "324aef17ba91a5c8ae2dd14809cca5f774b02b1f3a07c24182ee5f68bb8eaccd",
+  "runtime_files_byte_identical": 136,
+  "config_identical": true,
+  "official_weight_bindings_identical": true,
+  "portable": true,
+  "source_manifest_sha256_before_and_after": "72bb195a2d0b3ef2a25f873666f51f4bbec4b391744518597be87206a551efc1",
+  "source_files_verified": 311,
+  "source_identity_sha256": "ecaa35fd5999f77a2da067224769779a988128a9e36baf8b411e6780cca10ae0",
+  "runner_sha256": "a336a60620489a890c7c5d32a594af5480b268a6eb9c51179fc19bee30bb147a",
+  "wall_seconds": 98.95532307500253
+}

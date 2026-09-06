@@ -1,0 +1,44 @@
+{
+  "status": "passed_fixed_component_pending_independent_review",
+  "plan_sha256": "b512a71927b54f77e02498af31b868a7f730ef9c4dafc580146732f1ebac8239",
+  "controls": {
+    "memory.max": "17179869184",
+    "memory.swap.max": "0",
+    "cpu.max": "200000 100000"
+  },
+  "affinity": [
+    12,
+    14
+  ],
+  "argv": [
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-shape1376-s64-plan-v5/source/tools/validate_dit_heads.py",
+    "--model",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/decoder-on-official/candidate",
+    "--runner",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-shape1376-s64-plan-v5/head-runner.snapshot",
+    "--output",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/decoder-on-official/validation",
+    "--cpu-only",
+    "--vae-convolution",
+    "direct"
+  ],
+  "native_ncnn_threads": 4,
+  "scope_cpu_budget": 2,
+  "native_acceptance_eligible": false,
+  "formal_performance_eligible": false,
+  "peak_cgroup_memory_current": 6593490944,
+  "host_min_observed": 11590635520,
+  "exit_code": 0,
+  "failure": null,
+  "started_monotonic_ns": 123034781413732,
+  "validator_pid": 2416126,
+  "controller_pid": 2416055,
+  "validator_proc_stat": "2416126 (python) R 2416055 2416126 2416126 0 -1 4194304 5 0 0 0 0 0 0 0 20 0 1 0 12303614 430080 0 18446744073709551615 93920827412480 93920827413689 140721866225936 0 0 0 0 0 0 0 0 0 17 12 0 0 0 0 0 93920827424104 93920827424772 93921285054464 140721866234083 140721866234673 140721866234673 140721866239897 0\n",
+  "finished_monotonic_ns": 123126559494057,
+  "wall_seconds": 91.778080325,
+  "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+  "remaining_scope_pids": [
+    2416055
+  ]
+}

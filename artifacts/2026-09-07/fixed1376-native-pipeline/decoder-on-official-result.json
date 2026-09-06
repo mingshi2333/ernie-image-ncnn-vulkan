@@ -1,0 +1,44 @@
+{
+  "component": "vae",
+  "backend": "cpu",
+  "precision": "fp32",
+  "passed": true,
+  "command": [
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/decoder-on-official/validation/ernie-head-runner.snapshot",
+    "--model",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/decoder-on-official/candidate",
+    "--fixture",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/decoder-on-official/candidate",
+    "--output",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/decoder-on-official/validation/cpu-fp32/actual",
+    "--component",
+    "vae",
+    "--height",
+    "96",
+    "--width",
+    "172",
+    "--text-tokens",
+    "0",
+    "--backend",
+    "cpu",
+    "--precision",
+    "fp32",
+    "--vae-convolution",
+    "direct"
+  ],
+  "runner_sha256": "dbd6d9d057737dc1d7a55f4c4062cc1b85f9653d4de00d2551cc2b212d62caba",
+  "model_manifest_sha256": "9c9c0e1be3235259a40a1f7ab62c78142d44ae16d0285043b4a3f3e82ff3b72c",
+  "validator_sha256": "d47056504fbca0a758cb6a28f3f50e35e02d807889001dc8de9499e90c455510",
+  "scope": "Diagnostic native decoder on saved official final latent from the complete 1376x768 run; not full native trajectory acceptance",
+  "outputs": {
+    "out0": {
+      "nrmse": 4.345806495178321e-07,
+      "max_abs_error": 5.781650543212891e-06,
+      "max_abs_limit": 0.000434299898147583,
+      "nrmse_limit": 2e-05,
+      "actual_sha256": "0658b93447336ff6626e3d998c02ab580b3dd16326869a062f28913d5a31ed42",
+      "passed": true
+    }
+  },
+  "return_code": 0
+}

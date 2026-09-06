@@ -1,0 +1,10 @@
+{
+  "command": "ERNIE_TEST_RUNNER=<frozen a336a606 runner> python -m unittest tests.test_package tests.test_shape_1376_plan",
+  "tests": 20,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "return_code": 0,
+  "source_inventory_sha256": "ecaa35fd5999f77a2da067224769779a988128a9e36baf8b411e6780cca10ae0",
+  "change_since_linked_package": "Import routes only; direct CLI and tools.package_model namespace are both accepted."
+}
