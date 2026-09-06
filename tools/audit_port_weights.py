@@ -1,0 +1,139 @@
+#!/usr/bin/env python3
+"""Bounded-memory weight value audit; content matches do not prove graph mapping.
+
+Canonical bytes are little-endian FP32 in official tensor order. The scanner
+supports the pinned graphs' common ncnn weights and fails closed at unknown
+weighted layers. mmap creates views only; conversion buffers are <= 4 MiB.
+"""
+import argparse
+import hashlib
+import json
+import struct
+from pathlib import Path
+import numpy as np
+try:
+    from package_model import sha256, safe_name
+except ImportError:
+    from tools.package_model import sha256, safe_name
+
+CHUNK=1<<20
+
+
+def normalized_hash(path, offset, count, dtype, transpose_shape=None):
+    sizes={'F32':4,'F16':2,'BF16':2,'I64':8}
+    if dtype not in sizes or count < 0 or offset < 0 or offset+count*sizes[dtype]>Path(path).stat().st_size:
+        raise ValueError('Invalid tensor bounds or dtype')
+    storage_dtype={'F32':'<f4','F16':'<f2','BF16':'<u2','I64':'<i8'}[dtype]
+    digest=hashlib.sha256()
+    def add(a):
+        if dtype=='BF16':a=(a.astype('<u4')<<16).view('<f4')
+        digest.update(np.asarray(a,dtype='<f4').tobytes())
+    if transpose_shape:
+        rows,cols=transpose_shape
+        if rows*cols!=count:raise ValueError('Invalid transpose shape')
+        # One source column at a time, bounded even for multi-GB matrices.
+        view=np.memmap(path,mode='r',offset=offset,dtype=storage_dtype,shape=(count,))
+        matrix=view.reshape(rows,cols)
+        for col in range(cols):
+            for row in range(0,rows,CHUNK):add(matrix[row:row+CHUNK,col])
+        del matrix,view
+    else:
+        with Path(path).open('rb') as stream:
+            stream.seek(offset)
+            for start in range(0,count,CHUNK):
+                data=stream.read(min(CHUNK,count-start)*sizes[dtype])
+                add(np.frombuffer(data,dtype=storage_dtype))
+    return digest.hexdigest()
+
+
+def official_inventory(root):
+    rows=[]
+    for path in sorted(Path(root).glob('*.safetensors')):
+        with path.open('rb') as f:
+            n=struct.unpack('<Q',f.read(8))[0]
+            if n>32*1024*1024:raise ValueError('Oversized safetensors header')
+            header=json.loads(f.read(n))
+        manifest_path=path.with_suffix('.manifest.json')
+        provenance=json.loads(manifest_path.read_text()) if manifest_path.exists() else {}
+        if provenance.get('sha256') and sha256(path)!=provenance['sha256']:
+            raise ValueError('Official file checksum mismatch: '+str(path))
+        for name,t in header.items():
+            if name=='__metadata__':continue
+            a,b=t['data_offsets'];count=int(np.prod(t['shape']))
+            rows.append(dict(file=path.name,name=name,shape=t['shape'],dtype=t['dtype'],
+                             revision=provenance.get('revision'),canonical_sha256=normalized_hash(path,8+n+a,count,t['dtype'])))
+    return rows
+
+
+WEIGHTLESS=set('Input Split BinaryOp UnaryOp ErnieImageRoPE GELU Permute Reshape SDPA ExpandDims RotaryEmbed Swish Tile Interp PixelShuffle Concat Slice Sigmoid Packing Flatten Softmax'.split())
+
+
+def layer_weights(kind,p):
+    g=lambda k,d=0:int(p.get(str(k),d))
+    if kind in WEIGHTLESS:return []
+    if kind=='Gemm':
+        if g(18) or g(4):raise ValueError('Unsupported Gemm A/int8')
+        rows=[]
+        if g(5):rows.append(('B',g(8)*g(9),0,None if g(3) else (g(9),g(8))))
+        if g(6) and g(10)!=-1:
+            counts={0:1,1:g(7),2:g(7),3:g(7)*g(8),4:g(8)}
+            rows.append(('C',counts[g(10)],0,None))
+        return rows
+    if kind in ('RMSNorm','LayerNorm'):
+        return [(role,g(0),1,None) for role in (('gamma',) if kind=='RMSNorm' else ('gamma','beta'))] if g(2,1) else []
+    if kind=='GroupNorm':return [(role,g(1),1,None) for role in ('gamma','beta')] if g(3,1) else []
+    if kind in ('Convolution','ConvolutionDepthWise','InnerProduct','Embed'):
+        if g(18 if kind=='Embed' else 8):raise ValueError('Unsupported int8 weights')
+        count=g(6) if kind.startswith('Convolution') else g(2) if kind=='InnerProduct' else g(3)
+        bias=g(5) if kind.startswith('Convolution') else g(1) if kind=='InnerProduct' else g(2)
+        return [('weight',count,0,None)]+([('bias',g(0),1,None)] if bias else [])
+    if kind=='MemoryData':return [('constant',g(0)*max(g(1),1)*max(g(2),1)*max(g(11),1),g(21,1),None)]
+    raise ValueError('Unsupported layer: '+kind)
+
+
+def reference_inventory(root):
+    rows=[];gaps=[]
+    for param in sorted(Path(root).rglob('*.ncnn.param')):
+        binary=param.with_suffix('.bin')
+        if not binary.exists():gaps.append(dict(file=str(binary),reason='missing binary'));continue
+        offset=0
+        try:
+            with binary.open('rb') as f:
+                for line in param.read_text().splitlines()[2:]:
+                    t=line.split();kind,name=t[:2];i=4+int(t[2])+int(t[3]);p=dict(x.split('=',1) for x in t[i:])
+                    for role,count,load_type,transpose in layer_weights(kind,p):
+                        dtype='F32'
+                        if load_type==0:
+                            f.seek(offset);tag=struct.unpack('<I',f.read(4))[0];offset+=4
+                            if tag==0x01306b47:dtype='F16'
+                            elif tag not in (0,0x0002c056):raise ValueError('Unsupported ncnn tag '+hex(tag))
+                        start=offset;size=count*(2 if dtype=='F16' else 4);offset+=(size+3)//4*4
+                        rows.append(dict(file=str(binary.relative_to(root)),layer=name,kind=kind,role=role,
+                                         offset=start,count=count,storage_dtype=dtype,transpose_shape=transpose,
+                                         canonical_sha256=normalized_hash(binary,start,count,dtype,transpose)))
+            if offset!=binary.stat().st_size:raise ValueError(f'Unconsumed bytes {binary.stat().st_size-offset}')
+        except (ValueError,KeyError,struct.error) as exc:gaps.append(dict(file=str(param.relative_to(root)),reason=str(exc),offset=offset))
+    return rows,gaps
+
+
+def audit_port_weights(source: Path, official: Path, output: Path) -> dict:
+    output=Path(output);output.mkdir(parents=True,exist_ok=False)
+    official_rows=official_inventory(official)
+    (output/'official-tensors.json').write_text(json.dumps(official_rows,indent=2))
+    peer,gaps=reference_inventory(source);lookup={}
+    for row in official_rows:lookup.setdefault(row['canonical_sha256'],[]).append(row['file']+':'+row['name'])
+    for row in peer:
+        row['official_content_matches']=lookup.get(row['canonical_sha256'],[])
+        row['status']='value_match' if row['official_content_matches'] else 'unmatched'
+    report=dict(schema_version=1,status='unproven',comparison_scope='product_comparison_only',
+                reason='Content equality does not establish full logical graph correspondence; derived constants and unsupported paths remain explicit',
+                buffer_elements=CHUNK,official_tensor_count=len(official_rows),reference_tensor_count=len(peer),
+                matched_tensor_count=sum(bool(r['official_content_matches']) for r in peer),
+                unmatched_tensor_count=sum(not r['official_content_matches'] for r in peer),gaps=gaps,tensors=peer,
+                allowed_to_close_S=False)
+    (output/'audit.json').write_text(json.dumps(report,indent=2));return report
+
+
+if __name__=='__main__':
+    p=argparse.ArgumentParser();p.add_argument('--source',type=Path,required=True);p.add_argument('--official',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
+    r=audit_port_weights(a.source,a.official,a.output);print(json.dumps({k:v for k,v in r.items() if k!='tensors'},indent=2))
