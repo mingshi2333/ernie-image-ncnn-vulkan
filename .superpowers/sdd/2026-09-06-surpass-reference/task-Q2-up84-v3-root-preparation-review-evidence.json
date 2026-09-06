@@ -1,0 +1,132 @@
+{
+  "status": "prepared_independently_reviewed_not_executed",
+  "plan_sha256": "b69caa2b2e1d33025e2c76088d80876bb2a331e284de9b7367cab7099765c82a",
+  "launcher_sha256": "cf6aad76cdb199c24cec4ca831d91f748e875eb3d769fb892ce9427a57b125f6",
+  "guard_sha256": "86b50e9d9024ea2f533d5b2ccb1a437bdfb43ab6594ec7bbf01f52e3d07b0193",
+  "previous_review_commit": "a8daffe",
+  "previous_bound_entries_unchanged": 6198,
+  "additional_entries_fully_verified": {
+    "/etc/ld.so.cache": "46665a1af23253ad75c3c57f29ea75f9a4608f4b072e8d1ed7cbb5b9038b8220",
+    "/etc/ld.so.conf": "239c865e4c0746a01f82b03d38d620853bab2a2ba8e81d6f5606c503e0ea379f",
+    "/etc/ld.so.conf.d/tix-x86_64.conf": "23ecd3f302c0c4cab39eb08caea0b189007e5282f103d5a0c1063007476ae7de",
+    "/etc/ld.so.conf.d/pipewire-jack-x86_64.conf": "cf4cb69feaa8ec8b99558c4e1123518831b3c56488981cbc34a662fe218ef221",
+    "/etc/ld.so.conf.d/octave-x86_64.conf": "cb24382730c1cb239b7631c8c90543c0684a395821d7de328bf12fa4bf5a86ba",
+    "/etc/ld.so.conf.d/nvidia.conf": "82f25eee23f9bf7a6633bc6212a978e096c0526717a09c433803beb518a51b7d",
+    "/etc/ld.so.conf.d/mingw64-hostlib.conf": "df1b65371bead6dddc703346f56dde023e22d52d9f071a3b646beaaec75a53c9",
+    "/etc/ld.so.conf.d/llvm21-x86_64.conf": "dc31430c8770853568add1b18d7e4ba6b58503e960039db871eefe7d033db853",
+    "/etc/ld.so.conf.d/llvm20-x86_64.conf": "21dabc8ea39853514ee2295c5f9aa298a0ec181ad252b7df7e84c2f50ca46e0c",
+    "/etc/ld.so.conf.d/llvm18-x86_64.conf": "a22fdfb5b0443aa1e820a319c56867529ebc54b0f11634c51e5dd847cd8f1b97",
+    "/etc/ld.so.conf.d/llvm17-x86_64.conf": "3aceee0a4efb8cc2b0f981035cdbb6f28be48634f72f9b6fb98c1e282d32347c",
+    "/etc/ld.so.conf.d/llvm16-x86_64.conf": "3ddda874af4dd14e9e873da09d082031abfacd4b5094982c28f53e1fd50a5fe3",
+    "/etc/ld.so.conf.d/llvm15-x86_64.conf": "30e995961d9e382d287469acce7e168d15811356bf20971fc17bb582a8d62afa",
+    "/etc/ld.so.conf.d/libiscsi-x86_64.conf": "fa3839c3cb893d3a589a020a0a9a010de1332b8385ee8139660e2da8bcc932a3",
+    "/etc/ld.so.conf.d/hqplayer5desktop.conf": "8fb2b98a1b10cc882e2f891b88f53e996cc6499c8f17e36b9621ebe736b3a384",
+    "/etc/ld.so.conf.d/hqplayer4desktop.conf": "59219664e65394c855f24bae0f6bb5c6f5f131f54bba13102bcda5428e128bb6",
+    "/etc/ld.so.conf.d/gtk3.conf": "73d11beed411ff3edd31e2c9937b1ec50a539baf0ea3ad7728bb29e2452f44cb",
+    "/etc/ld.so.conf.d/gds-13-2.conf": "eb6118d0768231e470525c4537388566d70955372fd23f9be054978a1e675669",
+    "/etc/ld.so.conf.d/dyninst-x86_64.conf": "a4c740c1f59176d816ba18d429ba823317d3db416accf6d79a9cb0ac845d9d50",
+    "/etc/ld.so.conf.d/cuda-12-3.conf": "acbf28d5be5621fa25b37b639f35faaf962176ef04ed9815e51d0f94deef10c1",
+    "/etc/ld.so.conf.d/cuda-12-2.conf": "da14f1f545f871884e72533a5d7d8a1a96be86bac3120c6d54c2dff54aca8bb2",
+    "/etc/ld.so.conf.d/988_cuda-12.conf": "93ff348ce54a0588c04b495e9c36a7057c46e96262350c7fa1bee2a649bdd479",
+    "/etc/ld.so.conf.d/987_cuda-13.conf": "24055cc4e997b4894218c7eb027e5be4895e0864b00e63357b0ddae948016891",
+    "/etc/ld.so.conf.d/000_cuda.conf": "a9327cff9435220eac872cffedc7f6144d915bdcb70d985304c72f4c3cb9a7d3",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v3/execution/runner": "ec5de0277fb94beab136877253b44873aa44e0285a145c50598cc51981c5f720",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v3/execution/libncnn.a": "6b2a30d80585ae7075511f769263f5a3f93b65b38c6683b5654e9acdc53b7885",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v3/execution/diagnose_official_block_hooks.py": "28b44db3c270b52b597a7af6dd4f5d1cbf00c13327726aff44811c9970119785",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v3/execution/diagnose_up84_official.py": "ba08f5af9914f475bb93b9a011c03be4707ce6e154c4bd67d447c6bd79d0f630",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v3/execution/diagnose_up84_sequence.py": "6c44698d50cb9cab988cb877605683c9660d8b3125b533983add5b5972ffc578",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v3/execution/diagnose_up84_scope_guard.py": "86b50e9d9024ea2f533d5b2ccb1a437bdfb43ab6594ec7bbf01f52e3d07b0193",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v3/execution/hardware.json": "c4fcc181ea2297b82f68e8a94d30c6ab3c2b1599026b99a4d628737304962899",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v3/execution/diagnose_vulkan_inventory.py": "18c6ace40ab57c670a2b7f5b8bdf648a3f8a4967cec257936b72b49e65feb09b",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v3/execution/diagnose_loader_startup_probe.py": "7953d800b4a1da0c5d81bdda5c1d3eb7742d295bb38a5f6342e1ccbc92ab7562",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v3/execution/loader-inventory.json": "6166209ab1e3985fb6ff4dfb9b4c8f799455113817dc17150e01388c530f26b5",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v3/execution/source/ernie_gelu.cpp": "7f995432188c01c26f3b5a353eec321713d269b38062336eaf2b0548f0e7fbf9",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v3/execution/source/ernie_gelu.h": "266da54a4815feb46ff7a5713b1d7ff661579e30ec34693c31c63ea699911d43",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v3/execution/source/ernie_attention.cpp": "56889eab40586f6913cb611dbe64bf976aba250b01d95553fb3ce01fb11d33f4",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v3/execution/source/ernie_attention.h": "ec0e750d1e891edcf7a1b2eb35674221e8643f83cf8544652cdcaac497fd2a76",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v3/execution/source/ernie_rmsnorm.cpp": "6e9c8974e734c522a898c709aa8ae38beebfbea6564179b9187a107ae34dd726",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v3/execution/source/ernie_rmsnorm.h": "3cf5dd044216e8524309cc5f828fe1f47e66ee76a85af04180182de12e671552",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v3/execution/source/ernie_residual.cpp": "c91a038bf3d3e183cb4c8193fe29f2f9369fe0339f108f7062a9e5329b3082fc",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v3/execution/source/ernie_residual.h": "961a70bc0b800b5bf123a3b60785f24909c25f722f36f600a35198fa2f450e0d",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v3/execution/source/ernie_groupnorm.cpp": "94d01911eff19ffdeae297bb7c9a524cdef3eaa29922c7c526a48fba4af8ca64",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v3/execution/source/ernie_groupnorm.h": "182ee12b0aaaf8b25099016ebe627777f462087b611476ca72e77528d07799e3",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v3/execution/source/diagnose_block_boundary.cpp": "5bcd8c74fb99828326f61cf7b3f6a97a4ff64f6ea6437bde62b939abb69a0a1c",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v3/execution/source/sdpa_shader.h": "1fb515243c588c5b77df3ece7d47dcf5e81e604cef442cffe12fe5e3d9e49e65",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v3/execution/imports/export_dit_block.py": "cc2957037b80cce840a0c09e2646c9290d66e7ce6907d57bc14c18978f49a12d",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v3/execution/imports/prepare_block.py": "8efa0964ab40017f9ba346979c8efe6ad50e6a4ac5a2dd961d59e8a59e779ff8",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v3/execution/loader-docs/LoaderDriverInterface.md": "6d30a1cf7c154932ac8356eef1d0c36c157cf2cba0f351c9116fee5a543eff54",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v3/execution/loader-docs/LoaderLayerInterface.md": "aeeb96c4c48107d63a9cf8115fa0b4d005563001df2b1bbd1c689d993d96928e",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v3/execution/loader-docs/LoaderSettingsFile.md": "2c614af0e7a7bf46cc5c32d7148562d584364df01b05c426a15e280f4dc99cac",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v3/execution/loader-docs/loader.c": "8c1feb7f3d29bdf4e6a404f5ddef76316c2e9af7c1c7b7e31be268305e1a229e",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-up84-v3/input81.f32": "da8bc040080f6674042c860a372c8f004041dae617a0cdeffae96f3c2be61d54"
+  },
+  "bound_count": 6251,
+  "changed_top_level_keys": [
+    "bound",
+    "loader_inventory",
+    "native_command",
+    "output",
+    "previous_attempt",
+    "scope_unit"
+  ],
+  "guard_byte_identical_to_v2": true,
+  "math_runner_inputs_sequence_official_unchanged": true,
+  "catalog_sha256": "6166209ab1e3985fb6ff4dfb9b4c8f799455113817dc17150e01388c530f26b5",
+  "catalog_bound_files": 142,
+  "catalog_manifest_files": 44,
+  "loader_configuration_files": 24,
+  "actual_cpu_probe_summary": {
+    "status": "CPU_python_startup_and_cache_mapping_pass",
+    "child_pid": 2212471,
+    "samples": 47,
+    "observed_file_count": 29,
+    "cache_observed_sha256": "46665a1af23253ad75c3c57f29ea75f9a4608f4b072e8d1ed7cbb5b9038b8220",
+    "peak_rss": 38637568,
+    "swap_max": 0,
+    "host_min": 18180571136,
+    "model_forwards": 0,
+    "vulkan_calls": 0
+  },
+  "actual_cpu_probe_sha256": "2bc1782f81e6234ad816c4e3bd49b02bafdc73c94635c755c7c28a1663829eec",
+  "unresolved": [
+    {
+      "manifest": "/usr/share/vulkan/implicit_layer.d/VK_LAYER_NV_shader_debugger_release_public_2024_2_0.json",
+      "error": "Unresolved library ../../../libShaderDebuggerAPIInjection.so"
+    }
+  ],
+  "tests": [
+    {
+      "file": "test_vulkan_inventory.py",
+      "return_code": 0,
+      "stdout": "",
+      "stderr": ".....\n----------------------------------------------------------------------\nRan 5 tests in 0.007s\n\nOK\n"
+    },
+    {
+      "file": "test_up84_contract.py",
+      "return_code": 0,
+      "stdout": "",
+      "stderr": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.001s\n\nOK\n"
+    }
+  ],
+  "scope": "/user.slice/user-1000.slice/user@1000.service/app.slice/ernie-q2-up84-v3-root-review.scope",
+  "limits": {
+    "memory.max": "4294967296",
+    "memory.swap.max": "0",
+    "memory.swap.current": "0",
+    "cpu.max": "200000 100000",
+    "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0"
+  },
+  "final_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+  "new_model_forwards": 0,
+  "formal_acceptance": false,
+  "limitations": [
+    "Directory discovery is a frozen conservative superset, not exact loader selection emulation.",
+    "Optional unresolved shader-debugger remains explicit; any actual unknown mapping still causes failure.",
+    "Runtime mapped-library observation remains sampled, not an exhaustive transient-load proof."
+  ],
+  "review_script_output_destination_correction": {
+    "executed_script_sha256": "9bf80c73ea757f56fc883d76054e84676a45a067fece59753b2cc6f9cb4d911a",
+    "reproduction_script_sha256": "b67af2b611df54de220a023e9a9ddaffafac8efd84e0a7ce377cd7a74ced1c2a",
+    "change": "Only destination filename corrected from v2 review evidence to v3; old tracked v2 evidence restored byte for byte. Verified calculations unchanged."
+  }
+}
