@@ -55,18 +55,20 @@ No model or GPU execution was performed. The rebuilt binaries are not yet frozen
 
 ### Fixed 64 ON/OFF execution preparation
 
-`outputs/execution-metrics-pipeline64-o1-v1` is prepared but has not run. It freezes the same 80-file tracked source snapshot for both sides, fresh ON/OFF binaries and their CMake caches, the historical fixed 64 prompt/latent/token inputs, and the existing 233-file model inventory. The authorized launcher authenticates the plan, worker, and supervisor before starting; the worker rehashes all frozen source files, inputs, the selected binary/cache, and live model files before invoking the CLI.
+`outputs/execution-metrics-pipeline64-o1-v1` is prepared but has not run. It freezes the same 305-file `source_inventory` snapshot for both sides, fresh ON/OFF binaries and their CMake caches, the historical fixed 64 prompt/latent/token inputs, and the existing 233-file model inventory. The authorized launcher authenticates the plan, worker, and supervisor before starting; the worker rehashes all frozen source files, inputs, the selected binary/cache, and live model files before invoking the CLI.
 
 The supervisor contract is MemoryMax 10 GiB, MemorySwapMax 0, CPUs 4 and 6, a continuously sampled 3 GiB host-available floor, 1800 second timeout, and 50 ms sampling. The comparison requires exactly 27 trace files (25 FP32 tensors plus prompt and token IDs), no missing or unexpected records, byte equality for every trace file and PNG, and explicit diagnostic metrics checks. It requires successful partial-known-interval coverage, non-overlapping host interval scope, formal speed/memory eligibility false, required observed host phases, and null unavailable GPU time, CPU RSS, and transfer-byte totals.
 
 Authorization hashes at preparation time:
 
-- plan: `df0325ac89687b6f29065eaf43b19481be8e2567e71b2194d373c3c8509fc4c9`
-- worker: `0f528f8caddad677c4a1c1d422738c1247b9e366f22456bb2fe3e192c777e39b`
+- plan: `d20b6b2ec68a286dc551eec730604cbf98b5be5a9678bc2036cc5c1efe1aec39`
+- worker: `aee653c47c0ec3cab3404d12e6ec7a70c28be627d02efec9cd2b9c1915e3a1b7`
 - supervisor: `b1e660e6fc8391bad9ab394a1c47c49aa24c8be93b9d52305f5fba1ee49a822f`
-- launcher: `a0f69d8e6d464d56c1c29c86e86fe7c2343edb279923dc482bddc4a9e1a27b59`
-- comparator: `c33eb2b83fc2b049eabb419cfd34c93ed4e8531a057775a3cdb88ec142bbebbe`
+- launcher: `3cdd40d7fe7362c2907dd2095c416aad78170d4c14a9da78b6d229baff5a5abd`
+- comparator: `dcc7d73389f9a1e41e5b5c0476e6a8df1dc6701cf90547e24e1c2de2a90a9ef0`
 
 The frozen status remains `prepared_not_executed`. No model or GPU process was started. Independent preparation review and root scheduling remain required before execution.
 
 Preparation review found that the first supervisor revision created `samples.jsonl` before the worker started while the worker also rejected that supervisor-owned file, making every authorized launch fail before inference. The corrected supervisor rejects its own `supervisor.log`, `samples.jsonl`, and `process.json` before opening them; the worker rejects only CLI-owned `native.png`, `metrics.json`, `driver.log`, and `trace`. The launcher, worker, and supervisor hashes above identify this corrected revision. No execution was attempted with the invalid preparation.
+
+A second preparation review found incomplete build provenance and a weak numerical denominator. The final plan now uses the shared `tools/source_inventory.py` contract (305 project files, including tokenizer Cargo inputs and schema contract), binds the pinned ncnn commit and complete 7,791-file base manifest, and binds the ON derived 7,793-file manifest (three changed/additional files, none missing). It also records both CMake caches and their opposite instrumentation flag values. The comparator binds every fixed trace size from the historical 64 contract, checks all FP32 values are finite, verifies `initial.f32` against the frozen input, parses a valid 64x64 PNG header, and requires explicit zero `oom` and `oom_kill` fields. `invalid-preparations.json` retains both rejected preparation identities and findings; neither was executed.
