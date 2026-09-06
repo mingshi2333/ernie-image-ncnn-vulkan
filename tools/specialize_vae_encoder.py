@@ -31,19 +31,24 @@ def specialize_lines(lines,width,height):
 def reviewed_dimensions(width,height):
  if (width,height)!=(512,384):raise ValueError('Reviewed large encoder specialization is pinned to 512x384')
 
+def specialize_candidate(template,reference,output,width,height):
+ template,reference,output=map(Path,(template,reference,output))
+ if output.exists():raise ValueError('Use a new output directory')
+ base=verify(template);ref=json.loads((reference/'fixture.json').read_text())
+ if sha256(template/'head.ncnn.param')!=BASE_PARAM or sha256(template/'head.ncnn.bin')!=BASE_BIN:raise ValueError('Unreviewed encoder template')
+ if (ref.get('width'),ref.get('height'))!=(width,height) or any(ref.get(k)!=base.get(k) for k in ['component','weights','official_revision','vae_config_sha256','official_source_sha256','distribution_source_sha256','posterior','packing','encoder_bn','decoder_inverse_bn_eps']):raise ValueError('Large reference identity differs')
+ for entry in [ref['rgb'],*ref['inputs'].values(),*ref['expected'].values()]:
+  path=reference/entry['file'];expected=int(np.prod(entry['shape']))*(1 if entry is ref['rgb'] else 4)
+  if Path(entry['file']).name!=entry['file'] or path.stat().st_size!=expected or sha256(path)!=entry['sha256']:raise ValueError('Large reference tensor identity differs')
+ lines,changes=specialize_lines((template/'head.ncnn.param').read_text().splitlines(),width,height)
+ output.mkdir();(output/'head.ncnn.param').write_text('\n'.join(lines)+'\n');(output/'head.ncnn.bin').symlink_to((template/'head.ncnn.bin').resolve())
+ for name in ['fixture.json','input.rgb','in0.f32','out0.f32','out1.f32','out2.f32']:(output/name).symlink_to((reference/name).resolve())
+ conversion={'method':'reviewed_encoder_spatial_reshape_specialization','width':width,'height':height,'changes':changes,'template_param_sha256':BASE_PARAM,'template_bin_sha256':BASE_BIN,'reference_fixture_sha256':sha256(reference/'fixture.json')}
+ (output/'conversion.json').write_text(json.dumps(conversion,indent=2)+'\n')
+ return {'output':str(output),'param_sha256':sha256(output/'head.ncnn.param'),'changes':len(changes)}
+
 def main():
  p=argparse.ArgumentParser(description=__doc__);p.add_argument('--template',type=Path,required=True);p.add_argument('--reference',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
- if a.output.exists():p.error('Use a new output directory')
- base=verify(a.template); ref=json.loads((a.reference/'fixture.json').read_text());reviewed_dimensions(ref.get('width'),ref.get('height'))
- if sha256(a.template/'head.ncnn.param')!=BASE_PARAM or sha256(a.template/'head.ncnn.bin')!=BASE_BIN:raise ValueError('Unreviewed encoder template')
- if (ref.get('width'),ref.get('height'))!=(512,384) or any(ref.get(k)!=base.get(k) for k in ['component','weights','official_revision','vae_config_sha256','official_source_sha256','distribution_source_sha256','posterior','packing','encoder_bn','decoder_inverse_bn_eps']):raise ValueError('Large reference identity differs')
- for entry in [ref['rgb'],*ref['inputs'].values(),*ref['expected'].values()]:
-  path=a.reference/entry['file']; expected=int(np.prod(entry['shape']))*(1 if entry is ref['rgb'] else 4)
-  if Path(entry['file']).name!=entry['file'] or path.stat().st_size!=expected or sha256(path)!=entry['sha256']:raise ValueError('Large reference tensor identity differs')
- lines,changes=specialize_lines((a.template/'head.ncnn.param').read_text().splitlines(),512,384)
- a.output.mkdir();(a.output/'head.ncnn.param').write_text('\n'.join(lines)+'\n');(a.output/'head.ncnn.bin').symlink_to((a.template/'head.ncnn.bin').resolve())
- for name in ['fixture.json','input.rgb','in0.f32','out0.f32','out1.f32','out2.f32']:(a.output/name).symlink_to((a.reference/name).resolve())
- conversion={'method':'reviewed_encoder_spatial_reshape_specialization','changes':changes,'template_param_sha256':BASE_PARAM,'template_bin_sha256':BASE_BIN,'reference_fixture_sha256':sha256(a.reference/'fixture.json')}
- (a.output/'conversion.json').write_text(json.dumps(conversion,indent=2)+'\n')
- print(json.dumps({'output':str(a.output),'param_sha256':sha256(a.output/'head.ncnn.param'),'changes':len(changes)}))
+ ref=json.loads((a.reference/'fixture.json').read_text());reviewed_dimensions(ref.get('width'),ref.get('height'))
+ print(json.dumps(specialize_candidate(a.template,a.reference,a.output,512,384)))
 if __name__=='__main__':main()

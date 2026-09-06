@@ -36,8 +36,10 @@ layout, hash and resource plan before model execution.
 ## Resource estimate and guard
 
 At 1024×1024, the encoder attention position count is 16,384. One dense FP32 `positions × positions` tensor is
-1,073,741,824 bytes by itself. This is four times the positions and sixteen times the dense attention elements
-of the 512×384 case (4,096 positions), so the earlier sub-3-GiB execution cannot be safely extrapolated. Scores,
+1,073,741,824 bytes by itself. The 512×384 encoder mean is `64×48`, or 3,072 attention positions, because
+the encoder downsamples each spatial axis by eight before attention. Thus 1024×1024 has 5.333… times as many
+positions and about 28.444 times as many dense attention elements as 512×384. The earlier sub-3-GiB execution
+cannot be safely extrapolated. Scores,
 probabilities, activations, weights and framework workspaces can coexist.
 
 The planned official run therefore uses two CPU threads, `MemoryMax=16G`, `MemorySwapMax=0`, a fresh output
@@ -45,13 +47,47 @@ directory and `/usr/bin/time -v`, only after root confirms sufficient host memor
 This 16-GiB value is a guard, not predicted consumption or a budget claim. A limit failure remains an honest
 resource-incomplete result and must not trigger an unbounded retry.
 
+## Bounded official and native execution
+
+The first official run completed numerically but is retained under
+`outputs/img2img-encoder-reference-1024x1024-invalid-wrapper-metadata-v1`: its producer claimed
+`wrapper_bitwise_equal=[true,true,true]` without running such a comparison. It is not an eligible oracle.
+The producer now records `wrapper_comparison_status=not_run` and the installed diffusers version, package path,
+direct URL and actual implementation source hashes. The valid rerun is
+`outputs/img2img-encoder-reference-1024x1024-v2`. Its effective scope record shows CPU 4,6,
+`memory.max=17179869184`, `memory.swap.max=0`; it exited 0 in 26.12 s with peak RSS 3,547,740 KiB and zero swaps.
+The actual outputs are finite FP32 with shapes `[1,32,128,128]`, `[1,128,64,64]`, and `[1,128,64,64]`.
+
+The shape-only candidate is `outputs/img2img-encoder-1024x1024-specialized-v2`: param SHA-256
+`d3207b56f558d65b9901ff73640b51ae2a0934143b43eaeab6cad45e275b9ceb`; its unchanged weight file remains
+`7fa2441a94886d9a1d44dbafe4fbac9211190e342b1cac171acb94c0faf517ce`. Production `encode_vae` still rejects
+1024. A private fixed-size evidence entry rejects every non-1024 shape and was used by the frozen probe only.
+
+The native v3 process used CPU 4,6, two threads, an 8-GiB systemd scope, swap limit zero and a 30-minute timeout.
+It exited 0 in 49.49 s, peak RSS was 3,476,084 KiB, and `/usr/bin/time` reported zero swaps. Its runner and
+component sources were copied before execution. The comparison at
+`outputs/img2img-encoder-native-1024x1024-v1/result.json` binds the valid v2 official fixture and all actual
+tensor hashes. Mean/packed/normalized NRMSE values are respectively `7.284e-7`, `7.284e-7`, and `7.331e-7`;
+maximum absolute errors are `6.914e-6`, `6.914e-6`, and `3.934e-6`. All pass the unchanged FP32 gates
+(`atol=2e-4`, `rtol=2e-4`, `nrmse=2e-5`). The v3 run did not capture effective cgroup files from inside the
+scope, so its JSON states that limitation rather than presenting the configured limit as an observed value.
+
 ## Verification and pending work
 
 `python -m unittest tests.test_vae_encoder_1024` passes 3/3. It checks deterministic input dimensions/type,
 latent shapes, the 1-GiB single-matrix calculation, the exact two substitutions and fail-closed alternate shapes
 or graphs.
 
-No official encoder model, native encoder, GPU, formal input or full pipeline was run in this preparation slice.
-The next gated sequence is: official CPU reference and source/hash freeze; specialize from the reviewed base;
-native CPU FP32/direct three-boundary comparison; independent review; only then consider a fixed 1024 trusted
-schema-3 instance. Arbitrary encoder dimensions remain unsupported.
+No GPU, decoder, denoising, production package instance, formal input or full pipeline was run. Independent review
+of the valid v2 source identity, exactly two graph changes, resource evidence and three-boundary comparison remains
+required. Only after that review may a fixed 1024 trusted schema-3 instance be considered. Arbitrary encoder
+dimensions remain unsupported.
+
+The v2 command executed the live tools path. Its process directory contains selected producer and installed
+implementation source copies, while `postrun-import-dependencies.sha256` records three further imported modules
+after execution. It is not described as a complete hermetic source snapshot: `audit_port_weights.py` was already
+modified in the preflight Git state, and post-run hashes alone cannot prove it stayed unchanged during the 26-second
+run. The actual official implementation class files and weight/config identities are fixed in the fixture; independent
+review must decide whether this source-recording limitation requires another hermetic metadata rerun. The host
+`MemAvailable` >=3 GiB condition was checked immediately before launch and recorded again after exit, not monitored
+continuously. The effective cgroup hard limit and swap prohibition applied for the full worker lifetime.

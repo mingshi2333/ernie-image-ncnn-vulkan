@@ -18,4 +18,9 @@ struct VaeEncoding
 // by the caller before this numerical component is entered.
 VaeEncoding encode_vae(const ComponentFiles &component, const RgbImage &rgb,
                        const ncnn::Option &option);
+
+// Evidence probe for the fixed 1024x1024 candidate graph. Production callers
+// continue through encode_vae and cannot select this candidate before review.
+VaeEncoding encode_vae_candidate_1024(const ComponentFiles &component, const RgbImage &rgb,
+                                      const ncnn::Option &option);
 }

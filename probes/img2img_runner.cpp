@@ -56,7 +56,7 @@ int main(int argc, char **argv)
 {
     try
     {
-        if (argc != 10) throw std::invalid_argument("Usage: runner ENCODER.PARAM ENCODER.BIN INPUT.RGB OUTPUT WIDTH HEIGHT BN-MEAN BN-VAR DECODER-DIR");
+        if (argc != 7 && argc != 10) throw std::invalid_argument("Usage: runner ENCODER.PARAM ENCODER.BIN INPUT.RGB OUTPUT WIDTH HEIGHT [BN-MEAN BN-VAR DECODER-DIR]");
         const fs::path param = argv[1], weights = argv[2], input = argv[3], output = argv[4];
         const int width = std::stoi(argv[5]), height = std::stoi(argv[6]);
         if (fs::exists(output)) throw std::invalid_argument("Use a new output directory");
@@ -70,20 +70,25 @@ int main(int argc, char **argv)
         cpu.use_winograd_convolution = false; cpu.use_sgemm_convolution = false;
         cpu.use_fp16_storage = cpu.use_fp16_arithmetic = cpu.use_fp16_packed = false;
         cpu.use_bf16_storage = cpu.use_bf16_packed = false;
-        const auto result = ernie::encode_vae({read_text(param), weights.string()}, rgb, cpu);
-        const auto schedule = ernie::FlowSchedule::turbo(8);
-        const auto start = ernie::make_img2img_start(result.normalized, ncnn::Mat(), schedule, 0.f, 2);
-        const auto mean = read_vector(argv[7], 128);
-        const auto variance = read_vector(argv[8], 128);
-        const auto unpacked = ernie::unpack_for_vae(start.latent, mean, variance, 2);
-        const auto decoded = ernie::decode_vae(argv[9], unpacked, cpu, "cpu", "direct", -1);
+        const auto result = argc == 7 && width == 1024 && height == 1024
+                                ? ernie::encode_vae_candidate_1024({read_text(param), weights.string()}, rgb, cpu)
+                                : ernie::encode_vae({read_text(param), weights.string()}, rgb, cpu);
         fs::create_directories(output);
         save(output / "mean.f32", result.mean);
         save(output / "packed.f32", result.packed);
         save(output / "normalized.f32", result.normalized);
-        save(output / "start.f32", start.latent);
-        save(output / "unpacked.f32", unpacked);
-        save(output / "decoded.f32", decoded);
+        if (argc == 10)
+        {
+            const auto schedule = ernie::FlowSchedule::turbo(8);
+            const auto start = ernie::make_img2img_start(result.normalized, ncnn::Mat(), schedule, 0.f, 2);
+            const auto mean = read_vector(argv[7], 128);
+            const auto variance = read_vector(argv[8], 128);
+            const auto unpacked = ernie::unpack_for_vae(start.latent, mean, variance, 2);
+            const auto decoded = ernie::decode_vae(argv[9], unpacked, cpu, "cpu", "direct", -1);
+            save(output / "start.f32", start.latent);
+            save(output / "unpacked.f32", unpacked);
+            save(output / "decoded.f32", decoded);
+        }
         std::cout << "native VAE encoder boundaries saved\n";
     }
     catch (const std::exception &e) { std::cerr << e.what() << '\n'; return 1; }

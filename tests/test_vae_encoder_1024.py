@@ -12,6 +12,8 @@ class Encoder1024PreparationTests(unittest.TestCase):
         plan = resource_plan()
         self.assertEqual(plan['mean'], [1, 32, 128, 128])
         self.assertEqual(plan['packed'], [1, 128, 64, 64])
+        self.assertEqual(plan['baseline_512x384_attention_positions'], 3072)
+        self.assertAlmostEqual(plan['dense_attention_element_ratio_vs_512x384'], 256 / 9)
         self.assertEqual(plan['one_dense_fp32_attention_bytes'], 1024**3)
         self.assertEqual(plan['swap_max_bytes'], 0)
 

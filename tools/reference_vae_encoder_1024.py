@@ -23,13 +23,17 @@ def development_rgb():
 
 
 def resource_plan():
-    # The encoder attention position count grows from 4096 at 512x384 to
-    # 16384. A dense FP32 positions^2 tensor alone is exactly 1 GiB; common
+    # The encoder mean is downsampled by 8: 512x384 therefore has a 64x48
+    # attention grid (3072 positions), while 1024x1024 has 128x128 (16384).
+    # A dense FP32 positions^2 tensor alone is exactly 1 GiB; common
     # score/probability/workspace coexistence makes extrapolation from RSS
     # unsafe, so the actual worker remains separately guarded and measured.
     positions = 128 * 128
+    baseline_positions = 64 * 48
     return {"input": [1, 3, 1024, 1024], "mean": [1, 32, 128, 128],
             "packed": [1, 128, 64, 64], "attention_positions": positions,
+            "baseline_512x384_attention_positions": baseline_positions,
+            "dense_attention_element_ratio_vs_512x384": (positions / baseline_positions) ** 2,
             "one_dense_fp32_attention_bytes": positions * positions * 4,
             "recommended_memory_max_bytes": 16 * 1024**3,
             "threads": 2, "swap_max_bytes": 0,
