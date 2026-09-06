@@ -130,3 +130,12 @@ respectively `7.284e-7`, `7.284e-7`, `7.331e-7`, `7.331e-7`, `7.299e-7`, and `2.
 absolute error is `2.158e-5`. All six pass the unchanged FP32 gates. PNG max channel difference is 1 and mean
 absolute difference is `0.000105858`. These results are bound in the production `result.json` and remain one
 fixed development image, not formal15/72 acceptance.
+
+The first decoder continuation (`img2img-reference-reconstruction-1024x1024-v1`) produced correct bytes but did
+not record the installed decoder implementation identity; it is retained as source-incomplete. The v2 rerun records
+the actual AutoencoderKLFlux2 source SHA, installed diffusers version/direct URL, VAE config, weight-manifest hashes
+and a pre-run source inventory. Its reference JSON SHA is
+`fc915a48ce5e2921d899ed7e8f33878f92686987866640e9e7d9181dbac00616`; v1/v2 unpacked, decoded and PNG bytes
+are identical. V2 completed in 55.25 seconds with observed peak cgroup memory 4,876,550,144 bytes, minimum host
+available memory 11,154,571,264 bytes, swap limit zero and no OOM/max event. The production result now binds v2;
+the earlier result JSON is preserved as `result-source-incomplete-official-v1.json`.

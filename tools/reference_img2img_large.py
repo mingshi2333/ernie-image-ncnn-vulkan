@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Official-module strength-zero continuation for fixed reviewed encoder fixtures."""
-import argparse,hashlib,json
+import argparse,importlib.metadata,inspect,json
 from pathlib import Path
 import numpy as np
 try:
@@ -35,7 +35,14 @@ def main():
  unpacked=torch.nn.functional.pixel_shuffle(normalized*torch.sqrt(encoder.bn.running_var.reshape(1,128,1,1)+1e-5)+encoder.bn.running_mean.reshape(1,128,1,1),2)
  decoder,manifests=load_vae();decoded=decoder._decode(unpacked,return_dict=False)[0]
  pixels=((decoded[0]/2+.5).clamp(0,1).permute(1,2,0).numpy()*255).round().astype('uint8');Image.fromarray(pixels).save(a.output/'reference.png')
+ from diffusers import AutoencoderKLFlux2
+ dist=importlib.metadata.distribution('diffusers');direct_url=json.loads(dist.read_text('direct_url.json'))
  result={'schema_version':1,'scope':f"official {f['width']}x{f['height']} strength-zero encoder boundary continuation; no text or DiT",'encoder_fixture_sha256':sha256(a.encoder_reference/'fixture.json'),'strength':0.,'decoder_inverse_bn_eps':1e-5,
-  'decoder_weights':{k:v['sha256'] for k,v in manifests.items()},'unpacked':save_tensor(a.output/'unpacked.f32',unpacked.numpy()),'decoded':save_tensor(a.output/'decoded.f32',decoded.numpy()),'png_sha256':sha256(a.output/'reference.png')}
+  'decoder_weights':{k:v['sha256'] for k,v in manifests.items()},
+  'decoder_source_manifests':{k:sha256(Path('models/official')/f'vae-{k}.manifest.json') for k in manifests},
+  'vae_config_sha256':sha256(Path('models/official/vae-config.json')),
+  'official_source_sha256':sha256(inspect.getfile(AutoencoderKLFlux2)),
+  'diffusers_installed':{'version':dist.version,'direct_url':direct_url,'class_file':inspect.getfile(AutoencoderKLFlux2)},
+  'unpacked':save_tensor(a.output/'unpacked.f32',unpacked.numpy()),'decoded':save_tensor(a.output/'decoded.f32',decoded.numpy()),'png_sha256':sha256(a.output/'reference.png')}
  (a.output/'reference.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({'output':str(a.output),'png_sha256':result['png_sha256']}))
 if __name__=='__main__':main()
