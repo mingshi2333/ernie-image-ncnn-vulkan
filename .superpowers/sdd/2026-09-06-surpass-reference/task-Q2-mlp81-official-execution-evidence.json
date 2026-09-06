@@ -1,0 +1,287 @@
+{
+  "scope": "Completed official baseline plus matched MLP; native replay reused; no production acceptance",
+  "result": {
+    "scope": "Matched-input MLP diagnostic; not official acceptance",
+    "status": "completed",
+    "plan_sha256": "38f2f50d52cf7c67e942ae7753509f1d91a5128275fdb531bbbed43bd9f5e5f9",
+    "baseline_sha256": {
+      "75": "09189225db6307daa124c88dce40dfc257e8af49d9cea125b44c6c64072b69af",
+      "81": "744be265796164ce51d15ac22513870bee07c794f30a5c9089b0f6af2c90f1a6",
+      "87": "384328e7033248ef5c43d1a9494d4f93c7e13556bd0913bdda786cfc1f1f10dd",
+      "88": "3a1eb976b4772659e9461745bb21ec9fa92582adfd98d90f728aab83d8375ab8",
+      "out0": "a3f77e846934a6fe7085bf366dd21ef78aa779b702c5c97ba237834a0635a197"
+    },
+    "native81_sha256": "da8bc040080f6674042c860a372c8f004041dae617a0cdeffae96f3c2be61d54",
+    "tail_sha256": {
+      "87": "9a34cfce2296c4f2b3ef7f48aad848faf7362d349ee3ae4b7fcb0719ce0ba3c1",
+      "88": "5b0f3edbb3c641a4826da737016b59f4d6eee1f708b919298a883234d4e2eba7"
+    },
+    "forwards": {
+      "native_full_block": 0,
+      "official_full_block": 1,
+      "official_mlp_only": 1
+    },
+    "baseline_hook_counts": {
+      "75": 1,
+      "81": 1,
+      "87": 1,
+      "88": 1
+    },
+    "tail_hook_counts": {
+      "87": 1,
+      "88": 1
+    },
+    "tail_skipped_81_exact": false,
+    "shapes": {
+      "75": [
+        1,
+        4160,
+        4096
+      ],
+      "81": [
+        1,
+        4160,
+        4096
+      ],
+      "87": [
+        1,
+        4160,
+        12288
+      ],
+      "88": [
+        1,
+        4160,
+        4096
+      ],
+      "out0": [
+        1,
+        4160,
+        4096
+      ]
+    },
+    "formal_acceptance": false,
+    "native_replay_reused": true
+  },
+  "worker": {
+    "status": "completed",
+    "return_code": 0,
+    "stop_reason": null,
+    "elapsed_seconds": 37.32404110000061,
+    "peak_rss_sum_bytes": 1370578944,
+    "peak_whole_gpu_mib": 3929,
+    "scope": "/user.slice/user-1000.slice/user@1000.service/app.slice/ernie-q2-mlp81-official-v5.scope",
+    "memory_max_bytes": 10737418240,
+    "rss_limit_bytes": 9663676416,
+    "swap_max_bytes": 0,
+    "cpu_quota_percent": 200,
+    "cpu_affinity": [
+      0,
+      2
+    ],
+    "minimum_host_available_bytes": 3221225472,
+    "gpu_limit_mib": 6144,
+    "native_forwards_this_attempt": 0,
+    "formal_acceptance": false
+  },
+  "analysis": {
+    "scope": "Complete real tensor same-input MLP and input-propagation decomposition; diagnostic only",
+    "execution_result_sha256": "f62eb1d8ae79579ea135afc016290a14143ef4661c8dfccc701a36c28a855b54",
+    "analysis_source_sha256": "0cc4d61b67f5f87148e01e131e0c16bfee721a3893bc4a8cdaab46b4d413fed5",
+    "identity": {
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-block15-mlp81-official-v5/official/75.f32": "09189225db6307daa124c88dce40dfc257e8af49d9cea125b44c6c64072b69af",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-block15-mlp81-official-v5/official/81.f32": "744be265796164ce51d15ac22513870bee07c794f30a5c9089b0f6af2c90f1a6",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-block15-mlp81-official-v5/official/87.f32": "384328e7033248ef5c43d1a9494d4f93c7e13556bd0913bdda786cfc1f1f10dd",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-block15-mlp81-official-v5/official/88.f32": "3a1eb976b4772659e9461745bb21ec9fa92582adfd98d90f728aab83d8375ab8",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-block15-mlp81-official-v5/official/out0.f32": "a3f77e846934a6fe7085bf366dd21ef78aa779b702c5c97ba237834a0635a197",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-block15-mlp81-official-v5/official/native81-87.f32": "9a34cfce2296c4f2b3ef7f48aad848faf7362d349ee3ae4b7fcb0719ce0ba3c1",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-block15-mlp81-official-v5/official/native81-88.f32": "5b0f3edbb3c641a4826da737016b59f4d6eee1f708b919298a883234d4e2eba7",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-block15-mlp81-official-v5/native/boundary.f32": "da8bc040080f6674042c860a372c8f004041dae617a0cdeffae96f3c2be61d54",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-block15-mlp81-official-v5/native/out0.f32": "175bfa394aec3b7e576caaea3fd897cf84db122d4cd9378d7d72dfe704df68a3",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-block15-boundary-v1/official/boundary.f32": "762941a013ce27957c6b123985eb7ef1dd36fafe7c79c7f08cb7569ac154c1bd",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-block15-boundary87-v1/official/boundary.f32": "a951b1ed772d5a53c0b30ba8a1d1882c52491f6c564cb9f70b09ec6ef4cd3c46",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-block15-boundary88-v1/official/boundary.f32": "b1d26a4acc2c44d7864c25ba59c821ded6fb8e8c34575d7b35d0ca9586b95cbf"
+    },
+    "comparisons": {
+      "75": {
+        "elements": 17039360,
+        "l2": 0.1048209063932478,
+        "max_abs": 0.0029296875,
+        "nrmse": 2.54465715428135e-07,
+        "changed_elements": 14926143,
+        "top_l2_rows": [
+          2481,
+          1325,
+          3148,
+          3079,
+          2844,
+          1289,
+          1869,
+          1876
+        ]
+      },
+      "81": {
+        "elements": 17039360,
+        "l2": 0.00027125736069869954,
+        "max_abs": 3.337860107421875e-06,
+        "nrmse": 6.65595882647376e-07,
+        "changed_elements": 14986735,
+        "top_l2_rows": [
+          2481,
+          912,
+          2434,
+          148,
+          488,
+          421,
+          1289,
+          82
+        ]
+      },
+      "87": {
+        "elements": 51118080,
+        "l2": 0.007343783342773383,
+        "max_abs": 0.000152587890625,
+        "nrmse": 1.2421090862901853e-06,
+        "changed_elements": 50283148,
+        "top_l2_rows": [
+          1613,
+          488,
+          2481,
+          1354,
+          4099,
+          1667,
+          107,
+          210
+        ]
+      },
+      "88": {
+        "elements": 17039360,
+        "l2": 0.07692567834458297,
+        "max_abs": 0.000335693359375,
+        "nrmse": 1.6256994282125856e-06,
+        "changed_elements": 16779170,
+        "top_l2_rows": [
+          1613,
+          488,
+          4099,
+          1360,
+          1667,
+          1495,
+          852,
+          1354
+        ]
+      },
+      "out0": {
+        "elements": 17039360,
+        "l2": 0.19877654474212322,
+        "max_abs": 0.006591796875,
+        "nrmse": 6.011371945074348e-07,
+        "changed_elements": 15761882,
+        "top_l2_rows": [
+          1613,
+          2481,
+          718,
+          212,
+          741,
+          1748,
+          2057,
+          1521
+        ]
+      }
+    },
+    "decomposition": {
+      "87": {
+        "elements": 51118080,
+        "total": {
+          "l2": 0.007343783342773383,
+          "max_abs": 0.000152587890625
+        },
+        "propagated_input": {
+          "l2": 0.010226259107749252,
+          "max_abs": 0.0003814697265625
+        },
+        "matched_implementation": {
+          "l2": 0.00910270638857307,
+          "max_abs": 0.00038909912109375
+        },
+        "propagation_local_cosine": -0.7170980368145741,
+        "complete_sum_identity_atol": 1e-12,
+        "largest_local_rows": [
+          467,
+          32,
+          4099,
+          1613,
+          1667,
+          852,
+          107,
+          1495
+        ]
+      },
+      "88": {
+        "elements": 17039360,
+        "total": {
+          "l2": 0.07692567834458297,
+          "max_abs": 0.000335693359375
+        },
+        "propagated_input": {
+          "l2": 0.09310154087313081,
+          "max_abs": 0.00038909912109375
+        },
+        "matched_implementation": {
+          "l2": 0.08230527505257439,
+          "max_abs": 0.0003662109375
+        },
+        "propagation_local_cosine": -0.6214803953772796,
+        "complete_sum_identity_atol": 1e-12,
+        "largest_local_rows": [
+          467,
+          4099,
+          32,
+          1360,
+          852,
+          1667,
+          1613,
+          1250
+        ]
+      }
+    },
+    "definitions": {
+      "N": "native on exact official block14 teacher input",
+      "O": "official baseline on same teacher input",
+      "M": "official MLP only, actual input replaced with entire native81; for 87 capture pre-down, for 88 module output",
+      "U": "M-O: propagation of 81 difference using official implementation",
+      "E": "N-M: matched-input implementation difference; 88 includes all upstream MLP differences, not isolated down rounding"
+    },
+    "formal_acceptance": false
+  },
+  "resource_audit": {
+    "sample_count": 71,
+    "all_scope_swap_zero": true,
+    "all_pid_swap_zero": true,
+    "all_affinities_exact": true,
+    "all_pid_groups_match": true,
+    "host_min_bytes": 18358583296,
+    "cgroup_memory_peak_bytes": 6919081984,
+    "last_memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+    "last_swap_events": "high 0\nmax 0\nfail 0"
+  },
+  "runtime_audit": {
+    "before_files": 2743,
+    "after_files": 2743,
+    "both_actual_paths_and_snapshot_bytes_checked": true,
+    "plan_bound_postcheck_count": 5905
+  },
+  "file_sha256": {
+    "outputs/q2-block15-mlp81-official-v5/launcher.py": "01002b79ddd0f319b1ef6fef4f3aa5049454c31306e3d1d72248646cf58dcf6f",
+    "outputs/q2-block15-mlp81-official-v5/plan.json": "38f2f50d52cf7c67e942ae7753509f1d91a5128275fdb531bbbed43bd9f5e5f9",
+    "outputs/q2-block15-mlp81-official-v5/result.json": "f62eb1d8ae79579ea135afc016290a14143ef4661c8dfccc701a36c28a855b54",
+    "outputs/q2-block15-mlp81-official-v5/analysis-v2.json": "d19c2b2900f2355f87348aa1e052cb77cfd143bae1e1efd469fca8ba569d6814",
+    "outputs/q2-block15-mlp81-official-v5/execution/worker-result.json": "b2dfc3788b56fa104661a21813325db535cc0726071cb379577bbd5ccbdd9ab0",
+    "outputs/q2-block15-mlp81-official-v5/execution/samples.jsonl": "7215006b42d7197d9638407de3e2a5b08798c96b462d3443da5b3533955e9f0a",
+    "outputs/q2-block15-mlp81-official-v5/execution/launch-record.json": "1540d59069bbd4b6adc48efb04a26b21805f2a04c6c929136be8f0606623faae",
+    "outputs/q2-block15-mlp81-official-v5/execution/scope-exit.json": "52bc11601f828944017af38be43d76f460973e26dba309b7dd579079b04e65ba",
+    "outputs/q2-block15-mlp81-official-v5/execution/preflight-cgroup.json": "0ac7519f7c99ec9f3e1c150be305dcde69a2ef0fc22031ff94d6a8a33c925ab0",
+    "outputs/q2-block15-mlp81-official-v5/execution/gpu-before-forward-runtime.json": "7508e12c26ad5202de7848e004e5d830aeb2133bb2d7e049974d42482386703c",
+    "outputs/q2-block15-mlp81-official-v5/execution/gpu-after-forward-runtime.json": "8b229eba431583870aadf602ccbd187048e2a3f90d547156a3dd573aeea92007",
+    "outputs/q2-block15-mlp81-official-v5/execution/analysis-v2.py": "0cc4d61b67f5f87148e01e131e0c16bfee721a3893bc4a8cdaab46b4d413fed5"
+  }
+}
