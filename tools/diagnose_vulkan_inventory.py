@@ -28,6 +28,9 @@ def search_roots(env, sysconf=('/etc','/usr/local/etc')):
  # mutate process environment to select a different driver or layer.
  for key in ('VK_DRIVER_FILES','VK_ICD_FILENAMES','VK_ADD_DRIVER_FILES','VK_LAYER_PATH','VK_ADD_LAYER_PATH','VK_IMPLICIT_LAYER_PATH','VK_ADD_IMPLICIT_LAYER_PATH'):
   roots.extend(x for x in env.get(key,'').split(':') if x)
+ roots.extend(['/etc/glvnd/egl_vendor.d','/usr/share/glvnd/egl_vendor.d','/etc/egl/egl_external_platform.d','/usr/share/egl/egl_external_platform.d'])
+ for key in ('__EGL_VENDOR_LIBRARY_FILENAMES','__EGL_VENDOR_LIBRARY_DIRS'):
+  roots.extend(x for x in env.get(key,'').split(':') if x)
  roots.extend(str(Path(b)/'vulkan/loader_settings.d') for b in [str(home/'.local/share'),env.get('XDG_DATA_HOME',''),'/etc'] if b)
  return list(dict.fromkeys(roots))
 
@@ -120,10 +123,10 @@ def build(env):
    d=Path(name).resolve()
    if d.is_file() and elf_bits(d)==64 and str(d) not in closure:queue.append(d)
  bound.update(configuration['bound'])
- return {'loader_configuration':configuration,'status':'cpu_catalogued_with_unresolved' if failures else 'cpu_catalogued_not_execution_validated','scope':'documented Linux search-root superset; no driver filtering or model execution','environment':{k:v for k,v in env.items() if k.startswith(('VK_','XDG_','LD_')) or k=='HOME'},'layer_environment':{k:env.get(k) for k in sorted(layer_env)},'roots':roots,'directory_membership':membership,'manifests':records,'unresolved':failures,'dependency_closure':closure,'ldconfig_stdout':ld,'bound':bound}
+ return {'loader_configuration':configuration,'status':'cpu_catalogued_with_unresolved' if failures else 'cpu_catalogued_not_execution_validated','scope':'documented Linux search-root superset; no driver filtering or model execution','environment':{k:v for k,v in env.items() if k.startswith(('VK_','XDG_','LD_','__EGL','__GLX')) or k=='HOME'},'layer_environment':{k:env.get(k) for k in sorted(layer_env)},'roots':roots,'directory_membership':membership,'manifests':records,'unresolved':failures,'dependency_closure':closure,'ldconfig_stdout':ld,'bound':bound}
 
 def verify_inventory(catalog,env,require_resolved=False):
- observed={k:v for k,v in env.items() if k.startswith(('VK_','XDG_','LD_')) or k=='HOME'}
+ observed={k:v for k,v in env.items() if k.startswith(('VK_','XDG_','LD_','__EGL','__GLX')) or k=='HOME'}
  if loader_configuration(Path(catalog['loader_configuration']['etc']))!=catalog['loader_configuration']:raise ValueError('Loader cache/configuration changed')
  if observed!=catalog['environment']:raise ValueError('Loader environment changed')
  if any(env.get(k)!=v for k,v in catalog.get('layer_environment',{}).items()):raise ValueError('Layer activation environment changed')

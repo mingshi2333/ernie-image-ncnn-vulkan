@@ -12,7 +12,7 @@ class InventoryTests(unittest.TestCase):
    p=Path(t);(p/'ld.so.cache').write_bytes(b'cache');(p/'ld.so.conf').write_text('include conf.d/*.conf\n');d=p/'conf.d';d.mkdir();(d/'a.conf').write_text('/lib64\n');first=loader_configuration(p);self.assertIn(str(p/'ld.so.cache'),first['bound']);(d/'b.conf').write_text('/other\n');self.assertNotEqual(first,loader_configuration(p));(d/'b.conf').unlink();(p/'ld.so.cache').write_bytes(b'other');self.assertNotEqual(first,loader_configuration(p))
  def test_override_and_settings_roots(self):
   roots=search_roots({'HOME':'/fake','VK_IMPLICIT_LAYER_PATH':'/implicit','VK_DRIVER_FILES':'/driver/custom.json','XDG_CONFIG_DIRS':'/custom-config'})
-  self.assertIn('/implicit',roots);self.assertIn('/driver/custom.json',roots);self.assertIn('/custom-config/vulkan/icd.d',roots);self.assertIn('/etc/vulkan/loader_settings.d',roots)
+  self.assertIn('/implicit',roots);self.assertIn('/driver/custom.json',roots);self.assertIn('/custom-config/vulkan/icd.d',roots);self.assertIn('/etc/vulkan/loader_settings.d',roots);self.assertIn('/usr/share/glvnd/egl_vendor.d',roots);self.assertIn('/vendor',search_roots({'HOME':'/fake','__EGL_VENDOR_LIBRARY_DIRS':'/vendor'}))
  def test_absolute_relative_basename_and_elf32(self):
   with tempfile.TemporaryDirectory() as t:
    p=Path(t);lib=p/'lib64.so';lib.write_bytes(b'\x7fELF\x02'+bytes(15));small=p/'lib32.so';small.write_bytes(b'\x7fELF\x01'+bytes(15));m=p/'amd.json'
