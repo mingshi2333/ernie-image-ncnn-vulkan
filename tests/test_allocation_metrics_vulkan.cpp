@@ -12,6 +12,19 @@
 #endif
 namespace {
 void require(bool ok, const char* message) { if (!ok) throw std::runtime_error(message); }
+constexpr const char* graph="7767517\n2 2\nInput input 0 1 in\nBinaryOp double 1 1 in out 0=2 1=1 2=2.0\n";
+void cpu_preflight() {
+    // Text params preserve integer vs floating storage; 2=2 is not float 2.
+    ncnn::Net net;net.opt.use_vulkan_compute=false;net.opt.num_threads=2;
+    require(net.load_param_mem(graph)==0,"CPU graph preflight load failed");
+    const unsigned char empty_weights[4]={0,0,0,0};
+    require(net.load_model(empty_weights)==0,"CPU graph preflight weights differ");
+    ncnn::Mat input(256),output;
+    for(int i=0;i<256;i++)input[i]=(i-128)*.125f;
+    auto ex=net.create_extractor();
+    require(ex.input("in",input)==0 && ex.extract("out",output)==0,"CPU graph preflight failed");
+    for(int i=0;i<256;i++)require(output[i]==(i-128)*.25f,"CPU scalar parameter/oracle differs");
+}
 struct Instance {
     Instance() { ncnn::create_gpu_instance(); }
     ~Instance() { ncnn::destroy_gpu_instance(); }
@@ -63,9 +76,13 @@ void snapshot(Session&, std::ostream& out, const char* phase) {
 #endif
 }
 int main(int argc,char** argv) {
+    if(argc==2 && std::string(argv[1])=="--cpu-preflight") {
+        try {cpu_preflight();return 0;} catch(const std::exception& e) {std::cerr << e.what() << '\n';return 1;}
+    }
     if(argc!=3) { std::cerr << "usage: ernie-allocation-vulkan-contract OUTPUT.f32 EVENTS.jsonl\n";return 2; }
     try {
         std::ofstream events(argv[2]); require(bool(events),"open events failed");
+        cpu_preflight();
         Session session; // Must precede instance/device construction, including dummy allocators.
         snapshot(session,events,"before_instance");
         ncnn::Mat output;
@@ -135,7 +152,7 @@ int main(int argc,char** argv) {
                 net.opt.use_bf16_storage=net.opt.use_bf16_packed=false;
                 net.opt.use_packing_layout=false;
                 net.set_vulkan_device(device);
-                require(net.load_param_mem("7767517\n2 2\nInput input 0 1 in\nBinaryOp double 1 1 in out 0=2 1=1 2=2\n")==0,"graph load failed");
+                require(net.load_param_mem(graph)==0,"graph load failed");
                 const unsigned char empty_weights[4]={0,0,0,0};
                 require(net.load_model(empty_weights)==0,"unexpected graph weight bytes");
                 ncnn::VkBlobAllocator blobs(device,1024*1024);

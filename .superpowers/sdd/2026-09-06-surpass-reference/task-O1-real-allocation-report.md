@@ -2,7 +2,7 @@
 
 ## 当前状态
 
-新增真实 Vulkan 合同 `tests/test_allocation_metrics_vulkan.cpp`，独立目标 `ernie-allocation-vulkan-contract`，由默认关闭的 `ERNIE_BUILD_ALLOCATION_PROBE` 启用。**ON/OFF 完整 ncnn 与 probe 均已链接成功并封存；真实 GPU 合同和 ON/OFF 逐位比较仍未执行。不得称 O1 完成。**
+新增真实 Vulkan 合同 `tests/test_allocation_metrics_vulkan.cpp`，独立目标 `ernie-allocation-vulkan-contract`，由默认关闭的 `ERNIE_BUILD_ALLOCATION_PROBE` 启用。**ON/OFF 完整链接、真实allocator合同与1024-byte GPU输出逐位比较已通过。只完成受测小合同，不代表完整模型性能指标接入或全O1完成。**
 
 独立目录 `build-o1/on` 与 `build-o1/off`；原始 ncnn 仍为 pin `6a1bf000f363714839a36793addc8c879d3d899e`。ON 使用认证派生副本，OFF 直接原始源。Release、`/usr/bin/clang{,++}`、system glslang 16.2.0 与 build-dev 配置匹配，保留项目当前 minimal layer inventory。没有改写/配置/构建 build-dev，也没有加载正式模型。
 
@@ -43,3 +43,28 @@ root 通知 F1 已完成 PE/text、host available 17 GiB 后，thaw 原 `ernie-o
 `identity.json` 保存 ON/OFF 实际 `.o.d` 中1202/1168项编译依赖SHA（项目/ncnn/生成源复制封存，系统header记录SHA），实际 linker dependency 文件中的31/29项链接依赖SHA、CMakeCache/flags/link命令、派生源码完整provenance/差异、配置脚本快照和固定输入文件SHA。`seal.py` 与其SHA一起保存。两runner均只执行无参数用法路径并确认exit2，不创建GPU。原始 ncnn checkout仍clean。
 
 真实GPU执行继续等待root F1/Q2独占队列。此时无本agent活动CPU构建/模型会话。
+
+## 真实GPU执行：保留v1失败，v2通过
+
+root明确放行后各运行封存v1 ON/OFF一次，均在约1s处因GPU输出oracle断言失败。真实pool分配/归还/复用/clear与各角色分配事件此前均valid；失败发生于probe图的标量参数。v1的 `2=2` 被pinned ncnn ParamDict存成int位模式，BinaryOp按float读取；应为 `2=2.0`。这不是observer改动数值的证据。v1未到最终快照，不将其当作清理完成证明。原runner、源码、两份失败日志/events保持不变。
+
+新增CPU同图preflight，在创建GPU前验证参数与256值精确oracle，并提供 `--cpu-preflight` 纯CPU入口。两份新runner在CPU通过后封存到 `outputs/allocation-real-o1-v2/snapshot/{on,off}/runner`。独立只读ParamDict证明：`2=2` 返回float `2.8026e-45`、bits `0x2`；`2=2.0` 返回float2、bits `0x40000000`。证明最初直接调用protected方法编译失败、之后缺glslang静态链接依赖失败，均保留日志；最终测试派生类公开原方法、链接原ncnn及同一系统库，CPU证明通过。没有修改ncnn或真实模型数值代码。
+
+root再次明确放行后v2 ON/OFF各实际GPU运行一次，均exit0：
+
+| 项目 | 结果 |
+|---|---|
+| ON runner SHA256 | `c8df6e7d20e783ece47cf1ba9f4d729816a4b3bfaf0efc2d7a57dc666eb91d28` |
+| OFF runner SHA256 | `b9f4d9c39c895d08a23433f555a6a6fc549df107ba3bb96dad8282027b0aabf0` |
+| 输出 | 1024 bytes逐位一致，SHA256 `990fabcba00d265c85b37a1d1a73d18c1c0abb87d944584f70000bf2ab62544c` |
+| ON总物理allocation次数/同时峰值 | 11 / 2,134,016 bytes |
+| 最终清理 | destroy_gpu_instance后live=0，所有allocator inactive且无live handle |
+| 角色 | Weight/Blob/Staging/Cache实际分配均观察到 |
+| host import | 实际观察到1次，1,048,576 bytes；独立host heap/type分类 |
+| 设备本地/映射 | 实际内存type1 property1、type4 property7在heap0；host import type2/property6与staging type3/property14在heap1 |
+| OFF统计 | 所有检查点available=false，live/peak/count=null |
+| 资源 | ON979ms/OFF921ms；两者cgroup峰157.1MiB、swap0，未加载模型 |
+
+所有ON检查点valid。blob小请求归还后live未减，二次申请复用同memory+offset且无新物理计数，clear精确释放。最终类级live均为0。**各类独立峰值不能求和当同时峰值；2,134,016是事件时间线直接统计的总同时峰。**host-import属于VkDeviceMemory，但不能统称独立显卡VRAM。覆盖仍为受观察ncnn allocator，不包含driver内部所有malloc/其他进程分配。
+
+`result.json`绑定本次immutable `identity.json` 的SHA、输出/events/logs/ParamDict证明SHA。identity中的execution pending是执行前封存状态，执行结果在独立result中续接，未改写历史身份。GPU完成后立即通知root释放；无活动GPU进程。本结果不是完整模型速度、显存峰值或正式S/M测量。
