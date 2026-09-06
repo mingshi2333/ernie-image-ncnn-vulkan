@@ -5,9 +5,12 @@
 namespace ernie {
 struct DitStats
 {
+    struct Detail { std::string component,boundary,status; double seconds=0; };
     BlockSequenceStats blocks;
     double input_head_seconds = 0;
     double output_head_seconds = 0;
+    bool collect_details = false;
+    std::vector<Detail> details;
 };
 // One prediction, with caller-supplied saved time features, RoPE and mask.
 // This API does not tokenize, encode text, sample noise, run Euler, or decode VAE.

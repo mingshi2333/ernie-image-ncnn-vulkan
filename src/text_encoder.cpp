@@ -9,6 +9,7 @@
 #include <filesystem>
 #include <fstream>
 #include <limits>
+#include <memory>
 #include <stdexcept>
 
 namespace ernie
@@ -122,18 +123,26 @@ ncnn::Mat run_text_blocks(const std::vector<ComponentFiles> &models, const ncnn:
                 constants[i].h!=input.h || constants[i].elemsize!=4u || constants[i].elempack!=1)
                 throw std::invalid_argument("Vector text constants have wrong layout");
     }
+    const bool collect_details=stats.collect_details;
     stats = {};
+    stats.collect_details=collect_details;
     stats.peak_loaded_nets = 1;
     ncnn::Mat current = input;
-    for (const auto &path : models)
+    for (size_t block=0;block<models.size();++block)
     {
+        const auto &path=models[block];
         auto start = Clock::now();
-        ncnn::Net net;
-        net.opt = option;
-        load(net, path, down_mode, input.h);
+        auto net=std::make_unique<ncnn::Net>();
+        net->opt = option;
+        check(register_layers(*net), "register text normalization");
+        if (down_mode==TextDownMode::Vector) { const auto derived=vector_text_down_graph(path.param_text,input.h);validate_text_down_weights(path.weight_path);check(register_text_down(*net),"register vector text down");load_component_param(*net,{derived,path.weight_path}); }
+        else load_component_param(*net,path);
+        if(stats.collect_details) stats.details.push_back({int(block),"net_setup_param","complete",std::chrono::duration<double>(Clock::now()-start).count()});
+        auto model_start=Clock::now();load_component_model(*net,path);
+        if(stats.collect_details) stats.details.push_back({int(block),"model_load_composite","complete",std::chrono::duration<double>(Clock::now()-model_start).count()});
         stats.load_seconds.push_back(std::chrono::duration<double>(Clock::now() - start).count());
         start = Clock::now();
-        auto extractor = net.create_extractor();
+        auto extractor = net->create_extractor();
         check(extractor.input("in0", current), "input text activation");
         for (size_t i = 0; i < constants.size(); ++i)
             check(extractor.input(("in" + std::to_string(i + 1)).c_str(), constants[i]),
@@ -142,6 +151,9 @@ ncnn::Mat run_text_blocks(const std::vector<ComponentFiles> &models, const ncnn:
         check(extractor.extract("out0", next), "extract text hidden state");
         current = next;
         stats.compute_seconds.push_back(std::chrono::duration<double>(Clock::now() - start).count());
+        if(stats.collect_details) stats.details.push_back({int(block),"extract_compute_composite","complete",stats.compute_seconds.back()});
+        const auto destroy=Clock::now();net.reset();
+        if(stats.collect_details) stats.details.push_back({int(block),"net_destroy","complete",std::chrono::duration<double>(Clock::now()-destroy).count()});
     }
     return current;
 }
@@ -153,23 +165,29 @@ ncnn::VkMat run_text_blocks(const std::vector<ComponentFiles> &models, const ncn
     request_check(models.size(), constants.size());
     if (!device || !option.use_vulkan_compute || !option.blob_vkallocator || !option.staging_vkallocator)
         throw std::invalid_argument("Device text path requires session allocators");
+    const bool collect_details=stats.collect_details;
     stats = {};
+    stats.collect_details=collect_details;
     stats.peak_loaded_nets = 1;
     ncnn::VkMat current = input;
-    for (const auto &path : models)
+    for (size_t block=0;block<models.size();++block)
     {
+        const auto &path=models[block];
         auto start = Clock::now();
-        ncnn::Net net;
-        net.opt = option;
-        net.opt.blob_vkallocator = net.opt.workspace_vkallocator = net.opt.staging_vkallocator = nullptr;
-        net.set_vulkan_device(device);
-        load(net, path);
-        for (const auto *layer : net.layers())
+        auto net=std::make_unique<ncnn::Net>();
+        net->opt = option;
+        net->opt.blob_vkallocator = net->opt.workspace_vkallocator = net->opt.staging_vkallocator = nullptr;
+        net->set_vulkan_device(device);
+        check(register_layers(*net), "register text normalization");load_component_param(*net,path);
+        if(stats.collect_details) stats.details.push_back({int(block),"net_setup_param","complete",std::chrono::duration<double>(Clock::now()-start).count()});
+        auto model_start=Clock::now();load_component_model(*net,path);
+        if(stats.collect_details) stats.details.push_back({int(block),"model_load_composite","complete",std::chrono::duration<double>(Clock::now()-model_start).count()});
+        for (const auto *layer : net->layers())
             if (!layer->support_vulkan && layer->type != "Input" && layer->type != "Split")
                 throw std::runtime_error("Text graph contains a compute layer without Vulkan support");
         stats.load_seconds.push_back(std::chrono::duration<double>(Clock::now() - start).count());
         start = Clock::now();
-        auto extractor = net.create_extractor();
+        auto extractor = net->create_extractor();
         extractor.set_blob_vkallocator(option.blob_vkallocator);
         extractor.set_workspace_vkallocator(option.workspace_vkallocator ? option.workspace_vkallocator
                                                                          : option.blob_vkallocator);
@@ -183,8 +201,11 @@ ncnn::VkMat run_text_blocks(const std::vector<ComponentFiles> &models, const ncn
         check(extractor.extract("out0", next, command), "extract device text hidden state");
         check(command.submit_and_wait(), "finish text block before releasing weights");
         current = next;
-        stats.compute_submissions += 1 + attention_internal_submissions(net);
+        stats.compute_submissions += 1 + attention_internal_submissions(*net);
         stats.compute_seconds.push_back(std::chrono::duration<double>(Clock::now() - start).count());
+        if(stats.collect_details) stats.details.push_back({int(block),"extract_compute_composite","complete",stats.compute_seconds.back()});
+        const auto destroy=Clock::now();net.reset();
+        if(stats.collect_details) stats.details.push_back({int(block),"net_destroy","complete",std::chrono::duration<double>(Clock::now()-destroy).count()});
     }
     return current;
 }

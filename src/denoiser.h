@@ -20,6 +20,7 @@ struct DenoiseStepStats
     float timestep = 0, delta = 0;
     DitStats dit;
     double elapsed_seconds = 0;
+    bool complete = false;
 };
 using CpuStepObserver = std::function<void(size_t, const ncnn::Mat &, const ncnn::Mat &)>;
 // Constants: text embeddings, cosine, sine, attention mask. The optional
@@ -28,7 +29,8 @@ using CpuStepObserver = std::function<void(size_t, const ncnn::Mat &, const ncnn
 // stats contains only executed steps. start_step=steps performs no model work.
 ncnn::Mat denoise(const DenoiseModel &model, const ncnn::Mat &initial,
                   const std::vector<ncnn::Mat> &constants, int steps, const ncnn::Option &option,
-                  std::vector<DenoiseStepStats> &stats, const CpuStepObserver &observer = {}, int start_step = 0);
+                  std::vector<DenoiseStepStats> &stats, const CpuStepObserver &observer = {}, int start_step = 0,
+                  bool collect_details = false);
 #if NCNN_VULKAN
 using VulkanStepObserver = std::function<void(size_t, const ncnn::VkMat &, const ncnn::VkMat &)>;
 // Initial sample is pack1 FP32, constants use the DiT storage options. All
@@ -37,6 +39,7 @@ using VulkanStepObserver = std::function<void(size_t, const ncnn::VkMat &, const
 ncnn::VkMat denoise(const DenoiseModel &model, const ncnn::VkMat &initial,
                     const std::vector<ncnn::VkMat> &constants, int steps, const ncnn::VulkanDevice *device,
                     const ncnn::Option &option, std::vector<DenoiseStepStats> &stats,
-                    const VulkanStepObserver &observer = {}, int start_step = 0);
+                    const VulkanStepObserver &observer = {}, int start_step = 0,
+                    bool collect_details = false);
 #endif
 } // namespace ernie

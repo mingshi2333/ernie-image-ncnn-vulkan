@@ -67,6 +67,7 @@ std::string allocation_report_json(const AllocationHookSnapshot& s,bool initial,
         << ",\"host_time_scope\":\"cli_generation_and_image_write\",\"host_nanoseconds\":" << ns
         << ",\"cpu_rss\":null,\"gpu_time\":null,\"stage_coverage\":\"partial_known_intervals\",\"stage_time_scope\":\"non_overlapping host intervals; read_prepare includes ncnn load_model read, unpack, pipeline creation and upload plus inseparable head/VAE load-and-compute; PE and text preparation outside block execution are currently unclassified\","
         << "\"submission_scope\":\"observed block attention submissions and top-level initial/final transfers; other internal submissions unavailable\","
+        << "\"component_interval_scope\":\"diagnostic child intervals nested inside top-level phases; never add to stage_times\","
         << "\"stage_times\":";
     if(execution) {
         static const char* names[]={"verify","read","prepare","read_prepare","upload","compute","wait","download"};
@@ -76,7 +77,11 @@ std::string allocation_report_json(const AllocationHookSnapshot& s,bool initial,
                 if(p.gpu_nanoseconds)out << *p.gpu_nanoseconds;else out << "null";out << '}';} else out << "null";}
         out << ",\"submissions\":";if(execution->submissions)out << *execution->submissions;else out << "null";
         out << ",\"upload_bytes\":";if(execution->upload_bytes)out << *execution->upload_bytes;else out << "null";
-        out << ",\"download_bytes\":";if(execution->download_bytes)out << *execution->download_bytes;else out << "null";out << '}';
+        out << ",\"download_bytes\":";if(execution->download_bytes)out << *execution->download_bytes;else out << "null";
+        out << ",\"component_intervals\":[";bool child_first=true;for(const auto& c:execution->component_intervals){if(!child_first)out << ',';child_first=false;
+            out << "{\"component\":" << quoted(c.component) << ",\"absolute_step\":" << c.absolute_step
+                << ",\"block\":" << c.block << ",\"boundary\":" << quoted(c.boundary)
+                << ",\"host_nanoseconds\":" << c.host_nanoseconds << ",\"status\":" << quoted(c.status) << '}';}out << "]}";
     } else out << "null";
     out << ",\"total\":";
     if(s.available && s.all_memory)totals(out,*s.all_memory);else out << "null";

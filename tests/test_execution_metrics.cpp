@@ -48,6 +48,15 @@ int main() {
     auto submission_snapshot=submission_only.snapshot();check(submission_snapshot.submissions==7);
     check(!submission_snapshot.upload_bytes && !submission_snapshot.download_bytes);
     fails([&]{submission_only.record_submissions(1,1);});
+    submission_only.record_component("dit/output-head",3,-1,"net_setup_param",17,"complete");
+    submission_only.record_component("dit/block",4,9,"model_load_composite",23,"failed");
+    auto detailed=submission_only.snapshot();check(detailed.component_intervals.size()==2);
+    check(detailed.component_intervals[0].absolute_step==3 && detailed.component_intervals[0].host_nanoseconds==17);
+    check(detailed.component_intervals[1].block==9 && detailed.component_intervals[1].status=="failed");
+    // Child intervals are descriptive and never change top-level phase sums.
+    check(!detailed.phases[3]);
+    fails([&]{submission_only.record_component("",0,0,"load",1,"complete");});
+    fails([&]{submission_only.record_component("dit",0,0,"load",1,"partial");});
     fails([&]{m.record_interval(9,static_cast<ExecutionPhase>(99),0,1);});
     // Overflow must preserve earlier totals and permit a corrected retry with the same event ID.
     m.record_io(9,std::numeric_limits<std::uint64_t>::max()-2,0,0);

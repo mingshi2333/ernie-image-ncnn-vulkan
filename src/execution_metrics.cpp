@@ -91,6 +91,14 @@ void ExecutionMetrics::record_submissions(std::uint64_t event,std::uint64_t subm
     totals_.submissions=add(totals_.submissions.value_or(0),submissions);
     events_.insert(event);
 }
+void ExecutionMetrics::record_component(std::string component,int step,int block,
+    std::string boundary,std::uint64_t ns,std::string status) {
+    if(component.empty() || boundary.empty() || (status!="complete" && status!="failed"))
+        throw std::invalid_argument("invalid component interval");
+    if(step < -1 || block < -1) throw std::invalid_argument("invalid component coordinates");
+    std::lock_guard<std::mutex> lock(mutex_);
+    totals_.component_intervals.push_back({std::move(component),std::move(boundary),std::move(status),step,block,ns});
+}
 MetricsSnapshot ExecutionMetrics::snapshot() const {
     std::lock_guard<std::mutex> lock(mutex_);auto result=totals_;result.allocators=history_;
     for (const auto& a:allocators_) result.allocators.at(a.first).live=a.second.live;

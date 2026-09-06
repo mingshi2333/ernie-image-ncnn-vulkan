@@ -8,6 +8,7 @@
 #include <set>
 #include <string>
 #include <tuple>
+#include <vector>
 
 namespace ernie {
 enum class AllocationDomain { LogicalRequest, AllocatorBlock, VulkanMemory };
@@ -32,6 +33,11 @@ struct AllocatorSnapshot {
     AllocationTotals totals; bool active=true;
     std::map<std::uint64_t,AllocationRecord> live;
 };
+struct ComponentInterval {
+    std::string component, boundary, status;
+    int absolute_step=-1, block=-1;
+    std::uint64_t host_nanoseconds=0;
+};
 struct MetricsSnapshot {
     // nullopt = unobserved/unavailable; a registered domain with no allocations = zero.
     // Registration does not claim complete process/device coverage; scope is required.
@@ -39,6 +45,9 @@ struct MetricsSnapshot {
     std::array<std::optional<PhaseTotals>,8> phases;
     std::optional<std::uint64_t> submissions, upload_bytes, download_bytes;
     std::map<AllocatorIdentity,AllocatorSnapshot> allocators;
+    // Diagnostic child intervals. They describe parts of top-level phases and
+    // must never be added to the top-level phase totals.
+    std::vector<ComponentInterval> component_intervals;
 };
 class ExecutionMetrics {
 public:
@@ -58,6 +67,9 @@ public:
                    std::uint64_t upload_bytes, std::uint64_t download_bytes);
     // Submission count can be observed when transfer byte counts cannot.
     void record_submissions(std::uint64_t event, std::uint64_t submissions);
+    void record_component(std::string component, int absolute_step, int block,
+                          std::string boundary, std::uint64_t host_nanoseconds,
+                          std::string status);
     MetricsSnapshot snapshot() const;
 private:
     struct Allocator { AllocationRole role; AllocationDomain domain; std::string scope;

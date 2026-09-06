@@ -22,4 +22,6 @@ ComponentFiles component_files(const std::filesystem::path &directory, const std
 std::vector<ComponentFiles> component_files(const std::vector<std::string> &directories,
                                             const std::string &stem);
 void load_component(ncnn::Net &net, const ComponentFiles &files);
+void load_component_param(ncnn::Net &net, const ComponentFiles &files);
+void load_component_model(ncnn::Net &net, const ComponentFiles &files);
 } // namespace ernie

@@ -43,18 +43,27 @@ struct MetricsRecorder {
     }
     void since(ExecutionPhase phase,Clock::time_point start) {if(metrics)seconds(phase,elapsed(start));}
     void submissions(std::uint64_t count) {if(metrics && count)metrics->record_submissions(event++,count);}
-    void blocks(const BlockSequenceStats& stats) {
+    void blocks(const BlockSequenceStats& stats,const char* component="text",int step=-1) {
         for(double x:stats.load_seconds)seconds(ExecutionPhase::ReadPrepare,x);
         for(double x:stats.compute_seconds)seconds(ExecutionPhase::Compute,x);
         submissions(std::uint64_t(stats.compute_submissions));
+        if(metrics)for(const auto& d:stats.details)metrics->record_component(component,step,d.block,d.boundary,
+            std::uint64_t(d.seconds*1000000000.0),d.status);
     }
-    void denoise_step(const DenoiseStepStats& step) {
-        blocks(step.dit.blocks);
+    void denoise_step(const DenoiseStepStats& step,int absolute_step) {
+        blocks(step.dit.blocks,"dit/block",absolute_step);
+        if(metrics)for(const auto& d:step.dit.details)metrics->record_component(std::string("dit/")+d.component,
+            absolute_step,-1,d.boundary,std::uint64_t(d.seconds*1000000000.0),d.status);
+        if(!step.complete)return;
         seconds(ExecutionPhase::ReadPrepare,step.dit.input_head_seconds+step.dit.output_head_seconds);
         double accounted=step.dit.input_head_seconds+step.dit.output_head_seconds;
         for(double x:step.dit.blocks.load_seconds)accounted+=x;
         for(double x:step.dit.blocks.compute_seconds)accounted+=x;
         seconds(ExecutionPhase::Compute,std::max(0.,step.elapsed_seconds-accounted));
+    }
+    void vae(const VaeStats& stats) {
+        if(metrics)for(const auto& d:stats.details)metrics->record_component("vae/decode",-1,-1,d.boundary,
+            std::uint64_t(d.seconds*1000000000.0),d.status);
     }
 };
 void check(int value, const char *action)
@@ -147,6 +156,7 @@ ncnn::Mat run_dit(const ModelPackage &package, const ncnn::Mat &initial, const s
     for (int i = 0; i < 36; ++i)
         dit.blocks.push_back(package.component("dit/" + numbered("block-", i) + "/block.ncnn.param", "dit"));
     std::vector<ernie::DenoiseStepStats> stats;
+    size_t reported_steps=0;
     const int executed_steps = steps - start_step;
     auto progress = [&](size_t i)
     {
@@ -156,10 +166,11 @@ ncnn::Mat run_dit(const ModelPackage &package, const ncnn::Mat &initial, const s
     };
     ncnn::Mat latent;
     if (backend == "cpu")
-        latent = ernie::denoise(dit, initial, constants, steps, cpu, stats,
+        try { latent = ernie::denoise(dit, initial, constants, steps, cpu, stats,
                                 [&](size_t i, const ncnn::Mat &prediction, const ncnn::Mat &sample)
                                 {
-                                    metrics.denoise_step(stats.at(i-size_t(start_step)));
+                                    metrics.denoise_step(stats.at(i-size_t(start_step)),int(i));
+                                    ++reported_steps;
                                     if (!trace.empty())
                                     {
                                         write_tensor(trace / ("prediction-" + std::to_string(i) + ".f32"),
@@ -167,7 +178,8 @@ ncnn::Mat run_dit(const ModelPackage &package, const ncnn::Mat &initial, const s
                                         write_tensor(trace / ("step-" + std::to_string(i) + ".f32"), sample);
                                     }
                                     progress(i);
-                                }, start_step);
+                                }, start_step, metrics.metrics != nullptr); }
+        catch (...) { for(size_t k=reported_steps;k<stats.size();++k)metrics.denoise_step(stats[k],start_step+int(k));throw; }
     else
     {
 #if NCNN_VULKAN
@@ -207,11 +219,12 @@ ncnn::Mat run_dit(const ModelPackage &package, const ncnn::Mat &initial, const s
             check(upload.submit_and_wait(), "Upload conditioning");
             metrics.since(ExecutionPhase::Upload,transfer_start);metrics.submissions(1);
         }
-        const auto gpu_latent =
-            ernie::denoise(dit, gpu_initial, gpu_constants, steps, device, option, stats,
+        ncnn::VkMat gpu_latent;
+        try { gpu_latent = ernie::denoise(dit, gpu_initial, gpu_constants, steps, device, option, stats,
                            [&](size_t i, const ncnn::VkMat &prediction, const ncnn::VkMat &sample)
                            {
-                               metrics.denoise_step(stats.at(i-size_t(start_step)));
+                               metrics.denoise_step(stats.at(i-size_t(start_step)),int(i));
+                               ++reported_steps;
                                if (!trace.empty())
                                {
                                    ncnn::Mat p, x;
@@ -223,7 +236,8 @@ ncnn::Mat run_dit(const ModelPackage &package, const ncnn::Mat &initial, const s
                                    write_tensor(trace / ("step-" + std::to_string(i) + ".f32"), x);
                                }
                                progress(i);
-                           }, start_step);
+                           }, start_step, metrics.metrics != nullptr); }
+        catch (...) { for(size_t k=reported_steps;k<stats.size();++k)metrics.denoise_step(stats[k],start_step+int(k));throw; }
         ncnn::VkCompute download(device);
         Clock::time_point transfer_start;if(metrics.metrics)transfer_start=Clock::now();
         download.record_download(gpu_latent, latent, high);
@@ -322,8 +336,13 @@ GenerationResult generate_impl(const GenerationRequest &r, const ProgressCallbac
                        variance=read_tensor(package.file("vae/bn-variance.f32"),128);
             const auto unpacked=unpack_for_vae(encoded,mean,variance,r.threads);
             const auto vae_start=Clock::now();
-            const auto decoded=decode_vae(package.component("vae/head.ncnn.param","vae"),unpacked,cpu,
-                                          r.vae_device,r.vae_convolution,r.gpu_index);
+            VaeStats vae_stats;
+            ncnn::Mat decoded;
+            try { decoded=decode_vae(package.component("vae/head.ncnn.param","vae"),unpacked,cpu,
+                                    r.vae_device,r.vae_convolution,r.gpu_index,
+                                    metrics.metrics ? &vae_stats : nullptr); }
+            catch (...) { metrics.vae(vae_stats);throw; }
+            metrics.vae(vae_stats);
             metrics.seconds(ExecutionPhase::ReadPrepare,elapsed(vae_start));
             if (decoded.w!=w*16 || decoded.h!=h*16)throw std::runtime_error("Decoded resolution differs from model");
             if (!trace.empty()){write_tensor(trace/"final.f32",encoded);write_tensor(trace/"unpacked.f32",unpacked);write_tensor(trace/"decoded.f32",decoded);}
@@ -381,6 +400,7 @@ GenerationResult generate_impl(const GenerationRequest &r, const ProgressCallbac
         for (int i = 0; i < 25; ++i)
             models.push_back(package.component("text/" + numbered("block-", i) + "/text.ncnn.param", "text"));
         BlockSequenceStats stats;
+        stats.collect_details = metrics.metrics != nullptr;
         const auto encoded = run_text_blocks(models, embedded, constants, cpu, stats,
                                               r.text_down_vector ? TextDownMode::Vector : TextDownMode::Gemm);
         metrics.blocks(stats);
@@ -436,9 +456,13 @@ GenerationResult generate_impl(const GenerationRequest &r, const ProgressCallbac
         write_tensor(trace / "unpacked.f32", unpacked);
     }
     const auto vae_start = Clock::now();
-    const auto decoded =
-        decode_vae(package.component("vae/head.ncnn.param", "vae"), unpacked, cpu,
-                   r.vae_device, r.vae_convolution, r.gpu_index);
+    VaeStats vae_stats;
+    ncnn::Mat decoded;
+    try { decoded=decode_vae(package.component("vae/head.ncnn.param", "vae"), unpacked, cpu,
+                            r.vae_device, r.vae_convolution, r.gpu_index,
+                            metrics.metrics ? &vae_stats : nullptr); }
+    catch (...) { metrics.vae(vae_stats);throw; }
+    metrics.vae(vae_stats);
     metrics.seconds(ExecutionPhase::ReadPrepare,elapsed(vae_start));
     if (decoded.w != w * 16 || decoded.h != h * 16)
         throw std::runtime_error("Decoded resolution differs from model");

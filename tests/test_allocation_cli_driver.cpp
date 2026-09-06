@@ -41,9 +41,13 @@ GenerationResult generate(const GenerationRequest& r,const ProgressCallback&) {
 #ifdef ERNIE_CLI_ALLOCATION_METRICS
 GenerationResult generate_with_metrics(const GenerationRequest& r,const ProgressCallback& callback,ExecutionMetrics& metrics) {
     metrics.record_interval(1,ExecutionPhase::Verify,10,20);
+    metrics.record_component("dit/block",2,7,"net_setup_param",4,"complete");
     metrics.record_submissions(2,3);
     if(r.model.find("generation")!=std::string::npos)
+    {
         metrics.record_interval(3,ExecutionPhase::Compute,20,35);
+        metrics.record_component("dit/block",2,8,"model_load_composite",6,"failed");
+    }
     return generate(r,callback);
 }
 #endif

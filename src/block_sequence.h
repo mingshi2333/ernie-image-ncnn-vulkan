@@ -16,10 +16,13 @@ using VulkanStageObserver = std::function<void(const std::string&, const ncnn::V
 enum class WeightPolicy { Stream, Resident };
 struct BlockSequenceStats
 {
+    struct Detail { int block=-1; std::string boundary,status; double seconds=0; };
     std::vector<double> load_seconds;
     std::vector<double> compute_seconds;
     int peak_loaded_nets = 0;
     int compute_submissions = 0;
+    bool collect_details = false;
+    std::vector<Detail> details;
 };
 
 // Every model must be a verified static graph for the same token bucket. The

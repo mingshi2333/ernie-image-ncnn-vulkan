@@ -3,6 +3,7 @@
 #include "ernie_gelu.h"
 #include <chrono>
 #include <filesystem>
+#include <memory>
 #include <stdexcept>
 
 namespace ernie {
@@ -18,42 +19,60 @@ void load(ncnn::Net& net, const ComponentFiles& files)
     load_component(net, files);
 }
 std::vector<ncnn::Mat> head(const ComponentFiles& files, const std::vector<ncnn::Mat>& inputs,
-                            size_t outputs, const ncnn::Option& option)
+                            size_t outputs, const ncnn::Option& option, DitStats& stats, const char* component)
 {
-    ncnn::Net net;
-    net.opt = option;
-    load(net, files);
-    auto extractor = net.create_extractor();
-    for (size_t i = 0; i < inputs.size(); ++i)
-        check(extractor.input(("in" + std::to_string(i)).c_str(), inputs[i]), "input head tensor");
+    auto start=Clock::now();
+    auto net=std::make_unique<ncnn::Net>();
+    net->opt = option;
+    try { check(register_layers(*net), "register layers");load_component_param(*net,files); } catch (...) { if(stats.collect_details) stats.details.push_back({component,"net_setup_param","failed",std::chrono::duration<double>(Clock::now()-start).count()});throw; }
+    if(stats.collect_details) stats.details.push_back({component,"net_setup_param","complete",std::chrono::duration<double>(Clock::now()-start).count()});
+    start=Clock::now();try { load_component_model(*net,files); } catch (...) { if(stats.collect_details) stats.details.push_back({component,"model_load_composite","failed",std::chrono::duration<double>(Clock::now()-start).count()});throw; }
+    if(stats.collect_details) stats.details.push_back({component,"model_load_composite","complete",std::chrono::duration<double>(Clock::now()-start).count()});
+    start=Clock::now();
     std::vector<ncnn::Mat> result(outputs);
-    for (size_t i = 0; i < outputs; ++i)
-        check(extractor.extract(("out" + std::to_string(i)).c_str(), result[i]), "extract head tensor");
+    try {
+        auto extractor = net->create_extractor();
+        for (size_t i = 0; i < inputs.size(); ++i)
+            check(extractor.input(("in" + std::to_string(i)).c_str(), inputs[i]), "input head tensor");
+        for (size_t i = 0; i < outputs; ++i)
+            check(extractor.extract(("out" + std::to_string(i)).c_str(), result[i]), "extract head tensor");
+    } catch (...) { if(stats.collect_details) stats.details.push_back({component,"extract_compute_composite","failed",std::chrono::duration<double>(Clock::now()-start).count()});throw; }
+    if(stats.collect_details) stats.details.push_back({component,"extract_compute_composite","complete",std::chrono::duration<double>(Clock::now()-start).count()});
+    start=Clock::now();net.reset();if(stats.collect_details) stats.details.push_back({component,"net_destroy","complete",std::chrono::duration<double>(Clock::now()-start).count()});
     return result;
 }
 #if NCNN_VULKAN
 std::vector<ncnn::VkMat> head(const ComponentFiles& files, const std::vector<ncnn::VkMat>& inputs,
-                              size_t outputs, const ncnn::VulkanDevice* device, const ncnn::Option& option)
+                              size_t outputs, const ncnn::VulkanDevice* device, const ncnn::Option& option,
+                              DitStats& stats,const char* component)
 {
-    ncnn::Net net;
-    net.opt = option;
-    net.opt.blob_vkallocator = net.opt.workspace_vkallocator = net.opt.staging_vkallocator = nullptr;
-    net.set_vulkan_device(device);
-    load(net, files);
-    for (const auto* layer : net.layers())
+    auto start=Clock::now();
+    auto net=std::make_unique<ncnn::Net>();
+    net->opt = option;
+    net->opt.blob_vkallocator = net->opt.workspace_vkallocator = net->opt.staging_vkallocator = nullptr;
+    net->set_vulkan_device(device);
+    try { check(register_layers(*net), "register layers");load_component_param(*net,files); } catch (...) { if(stats.collect_details) stats.details.push_back({component,"net_setup_param","failed",std::chrono::duration<double>(Clock::now()-start).count()});throw; }
+    if(stats.collect_details) stats.details.push_back({component,"net_setup_param","complete",std::chrono::duration<double>(Clock::now()-start).count()});
+    start=Clock::now();try { load_component_model(*net,files); } catch (...) { if(stats.collect_details) stats.details.push_back({component,"model_load_composite","failed",std::chrono::duration<double>(Clock::now()-start).count()});throw; }
+    if(stats.collect_details) stats.details.push_back({component,"model_load_composite","complete",std::chrono::duration<double>(Clock::now()-start).count()});
+    for (const auto* layer : net->layers())
         if (!layer->support_vulkan && layer->type != "Input" && layer->type != "Split")
             throw std::runtime_error("Head has a compute layer without Vulkan support");
-    std::vector<ncnn::VkMat> result(outputs);
+    start=Clock::now();std::vector<ncnn::VkMat> result(outputs);
     ncnn::VkCompute command(device);
-    auto extractor = net.create_extractor();
+    auto extractor = net->create_extractor();
     extractor.set_blob_vkallocator(option.blob_vkallocator);
     extractor.set_workspace_vkallocator(option.workspace_vkallocator ? option.workspace_vkallocator : option.blob_vkallocator);
     extractor.set_staging_vkallocator(option.staging_vkallocator);
-    for (size_t i = 0; i < inputs.size(); ++i)
-        check(extractor.input(("in" + std::to_string(i)).c_str(), inputs[i]), "input device head tensor");
-    for (size_t i = 0; i < outputs; ++i)
-        check(extractor.extract(("out" + std::to_string(i)).c_str(), result[i], command), "extract device head tensor");
-    check(command.submit_and_wait(), "finish head before releasing weights");
+    try {
+        for (size_t i = 0; i < inputs.size(); ++i)
+            check(extractor.input(("in" + std::to_string(i)).c_str(), inputs[i]), "input device head tensor");
+        for (size_t i = 0; i < outputs; ++i)
+            check(extractor.extract(("out" + std::to_string(i)).c_str(), result[i], command), "extract device head tensor");
+        check(command.submit_and_wait(), "finish head before releasing weights");
+    } catch (...) { if(stats.collect_details) stats.details.push_back({component,"extract_compute_composite","failed",std::chrono::duration<double>(Clock::now()-start).count()});throw; }
+    if(stats.collect_details) stats.details.push_back({component,"extract_compute_composite","complete",std::chrono::duration<double>(Clock::now()-start).count()});
+    start=Clock::now();net.reset();if(stats.collect_details) stats.details.push_back({component,"net_destroy","complete",std::chrono::duration<double>(Clock::now()-start).count()});
     return result;
 }
 
@@ -79,9 +98,12 @@ ncnn::Mat run_dit(const ComponentFiles& input_head, const std::vector<ComponentF
     const ncnn::Option& option, DitStats& stats, const CpuStageObserver& observer)
 {
     if (inputs.size() != 6 || option.use_vulkan_compute) throw std::invalid_argument("Require six CPU DiT inputs");
+    const bool collect_details=stats.collect_details;
     stats = {};
+    stats.collect_details=collect_details;
+    stats.blocks.collect_details=collect_details;
     auto start = Clock::now();
-    auto projected = head(input_head, {inputs[0], inputs[1], inputs[2]}, 8, option);
+    auto projected = head(input_head, {inputs[0], inputs[1], inputs[2]}, 8, option,stats,"input-head");
     stats.input_head_seconds = std::chrono::duration<double>(Clock::now() - start).count();
     if (observer)
         for (size_t i = 0; i < projected.size(); ++i) observer("head-" + std::to_string(i), projected[i]);
@@ -95,7 +117,7 @@ ncnn::Mat run_dit(const ComponentFiles& input_head, const std::vector<ComponentF
     constants.insert(constants.end(), inputs.begin() + 3, inputs.end());
     const auto current = run_block_sequence(blocks, projected[0], constants, option, WeightPolicy::Stream, stats.blocks, observer);
     start = Clock::now();
-    auto result = head(output_head, {current, projected[1]}, 1, option)[0];
+    auto result = head(output_head, {current, projected[1]}, 1, option,stats,"output-head")[0];
     stats.output_head_seconds = std::chrono::duration<double>(Clock::now() - start).count();
     return result;
 }
@@ -109,9 +131,12 @@ ncnn::VkMat run_dit(const ComponentFiles& input_head, const std::vector<Componen
     if (inputs.size() != 6 || !device || !option.use_vulkan_compute
         || !option.blob_vkallocator || !option.staging_vkallocator)
         throw std::invalid_argument("Require six device DiT inputs and session allocators");
+    const bool collect_details=stats.collect_details;
     stats = {};
+    stats.collect_details=collect_details;
+    stats.blocks.collect_details=collect_details;
     auto start = Clock::now();
-    auto projected = head(input_head, {inputs[0], inputs[1], inputs[2]}, 8, device, option);
+    auto projected = head(input_head, {inputs[0], inputs[1], inputs[2]}, 8, device, option,stats,"input-head");
     stats.input_head_seconds = std::chrono::duration<double>(Clock::now() - start).count();
     if (observer)
         for (size_t i = 0; i < projected.size(); ++i) observer("head-" + std::to_string(i), projected[i]);
@@ -124,7 +149,7 @@ ncnn::VkMat run_dit(const ComponentFiles& input_head, const std::vector<Componen
     constants.insert(constants.end(), inputs.begin() + 3, inputs.end());
     const auto current = run_block_sequence(blocks, projected[0], constants, device, option, WeightPolicy::Stream, stats.blocks, observer);
     start = Clock::now();
-    auto result = head(output_head, {current, projected[1]}, 1, device, option)[0];
+    auto result = head(output_head, {current, projected[1]}, 1, device, option,stats,"output-head")[0];
     stats.output_head_seconds = std::chrono::duration<double>(Clock::now() - start).count();
     return result;
 }

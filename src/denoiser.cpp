@@ -39,7 +39,8 @@ ncnn::Mat timestep_features(float timestep)
 
 ncnn::Mat denoise(const DenoiseModel &model, const ncnn::Mat &initial,
                   const std::vector<ncnn::Mat> &constants, int steps, const ncnn::Option &option,
-                  std::vector<DenoiseStepStats> &stats, const CpuStepObserver &observer, int start_step)
+                  std::vector<DenoiseStepStats> &stats, const CpuStepObserver &observer, int start_step,
+                  bool collect_details)
 {
     check_request(model, initial, constants.size());
     if (start_step < 0 || start_step > steps)
@@ -55,19 +56,27 @@ ncnn::Mat denoise(const DenoiseModel &model, const ncnn::Mat &initial,
     {
         const auto start = Clock::now();
         DenoiseStepStats step;
+        step.dit.collect_details = collect_details;
         step.timestep = schedule.timesteps[i];
         step.delta = schedule.delta(i);
         const auto features = timestep_features(step.timestep);
         const std::vector<ncnn::Mat> inputs{sample,       constants[0], features,
                                             constants[1], constants[2], constants[3]};
-        const auto prediction =
-            run_dit(model.input_head, model.blocks, model.output_head, inputs, option, step.dit);
-        ncnn::Mat next;
-        euler_step(sample, prediction, step.delta, next, option.num_threads);
-        sample = next;
-        if (!finite_latent(sample))
-            throw std::runtime_error("Non-finite latent after denoise step " + std::to_string(i + 1));
+        ncnn::Mat prediction;
+        try {
+            prediction=run_dit(model.input_head, model.blocks, model.output_head, inputs, option, step.dit);
+            ncnn::Mat next;
+            euler_step(sample, prediction, step.delta, next, option.num_threads);
+            sample = next;
+            if (!finite_latent(sample))
+                throw std::runtime_error("Non-finite latent after denoise step " + std::to_string(i + 1));
+        } catch (...) {
+            step.elapsed_seconds=std::chrono::duration<double>(Clock::now()-start).count();
+            stats.push_back(step);
+            throw;
+        }
         step.elapsed_seconds = std::chrono::duration<double>(Clock::now() - start).count();
+        step.complete = true;
         stats.push_back(step);
         if (observer)
             observer(i, prediction, sample);
@@ -79,7 +88,7 @@ ncnn::Mat denoise(const DenoiseModel &model, const ncnn::Mat &initial,
 ncnn::VkMat denoise(const DenoiseModel &model, const ncnn::VkMat &initial,
                     const std::vector<ncnn::VkMat> &constants, int steps, const ncnn::VulkanDevice *device,
                     const ncnn::Option &option, std::vector<DenoiseStepStats> &stats,
-                    const VulkanStepObserver &observer, int start_step)
+                    const VulkanStepObserver &observer, int start_step, bool collect_details)
 {
     check_request(model, initial, constants.size());
     if (start_step < 0 || start_step > steps)
@@ -96,6 +105,7 @@ ncnn::VkMat denoise(const DenoiseModel &model, const ncnn::VkMat &initial,
     {
         const auto start = Clock::now();
         DenoiseStepStats step;
+        step.dit.collect_details = collect_details;
         step.timestep = schedule.timesteps[i];
         step.delta = schedule.delta(i);
         const auto features = timestep_features(step.timestep);
@@ -110,20 +120,24 @@ ncnn::VkMat denoise(const DenoiseModel &model, const ncnn::VkMat &initial,
         }
         const std::vector<ncnn::VkMat> inputs{model_input,  constants[0], time_input,
                                               constants[1], constants[2], constants[3]};
-        const auto output =
-            run_dit(model.input_head, model.blocks, model.output_head, inputs, device, option, step.dit);
-        ncnn::VkMat prediction, next;
-        {
+        ncnn::VkMat prediction;
+        try {
+            const auto output=run_dit(model.input_head, model.blocks, model.output_head, inputs, device, option, step.dit);
+            ncnn::VkMat next;
             ncnn::VkCompute command(device);
             device->convert_packing(output, prediction, 1, 1, command, option);
             latent_ops.record_euler(sample, prediction, step.delta, next, command, option);
-            if (command.submit_and_wait())
-                throw std::runtime_error("Euler step failed");
+            if (command.submit_and_wait()) throw std::runtime_error("Euler step failed");
+            sample = next;
+            if (!latent_ops.finite_latent(sample, device, option))
+                throw std::runtime_error("Non-finite latent after denoise step " + std::to_string(i + 1));
+        } catch (...) {
+            step.elapsed_seconds=std::chrono::duration<double>(Clock::now()-start).count();
+            stats.push_back(step);
+            throw;
         }
-        sample = next;
-        if (!latent_ops.finite_latent(sample, device, option))
-            throw std::runtime_error("Non-finite latent after denoise step " + std::to_string(i + 1));
         step.elapsed_seconds = std::chrono::duration<double>(Clock::now() - start).count();
+        step.complete = true;
         stats.push_back(step);
         if (observer)
             observer(i, prediction, sample);
