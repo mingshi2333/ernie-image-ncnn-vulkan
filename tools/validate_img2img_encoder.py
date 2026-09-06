@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Small official/native encoder boundary validation with a 2GiB cgroup ceiling."""
 import argparse
+import importlib.metadata
 import json
 import os
 from pathlib import Path
@@ -19,19 +20,75 @@ except ImportError:
 LIMIT=2*1024**3
 MIN_AVAILABLE=3*1024**3
 FP32_GATES={"atol":0.0002,"rtol":0.0002,"nrmse":0.00002}
+# Only these independently executed static graphs have reviewed boundary evidence.
+# New shapes/exports remain candidates until separately reviewed and explicitly pinned.
+REVIEWED_GRAPHS={'32x32': {'head.ncnn.param': '75d493995616b451e51ddecc0dc352a3f200557baab3f98d742cc374ed6d0977', 'head.ncnn.bin': '7fa2441a94886d9a1d44dbafe4fbac9211190e342b1cac171acb94c0faf517ce'}, '64x32': {'head.ncnn.param': '40c2b384c05e9f816aa1ff1703e3bb03bdec73d0c9d38a128556591131a95a95', 'head.ncnn.bin': '7fa2441a94886d9a1d44dbafe4fbac9211190e342b1cac171acb94c0faf517ce'}}
 
 
 def verify(model):
+    """Validate this diagnostic candidate against local pinned official sources.
+
+    This authenticates the reviewed export contract, not arbitrary graph semantics or
+    production img2img quality. The native boundary comparison remains mandatory.
+    """
+    try:
+        return _verify(Path(model))
+    except (KeyError, TypeError, IndexError, OverflowError) as error:
+        raise ValueError('Malformed encoder contract') from error
+
+
+def _verify(model):
+    try:
+        from export_vae_encoder import dimensions, normalize_rgb, rgb_fixture
+        from audit_port_weights import official_inventory, OFFICIAL_REVISION, OFFICIAL_REPOSITORY
+    except ImportError:
+        from tools.export_vae_encoder import dimensions, normalize_rgb, rgb_fixture
+        from tools.audit_port_weights import official_inventory, OFFICIAL_REVISION, OFFICIAL_REPOSITORY
     manifest=json.loads((model/'model.json').read_text());fixture=json.loads((model/'fixture.json').read_text())
     lock=json.loads((ROOT/'sources.lock.json').read_text())
+    exporter=sha256(ROOT/'tools/export_vae_encoder.py')
+    if type(manifest.get('schema_version')) is not int or manifest['schema_version']!=1 or manifest.get('component')!='vae-encoder' or manifest.get('source_sha256')!=exporter or manifest.get('ncnn_revision')!=lock['ncnn']['revision']:
+        raise ValueError('Encoder exporter/schema identity mismatch')
+    dimensions(fixture['width'],fixture['height']);w,h=fixture['width'],fixture['height']
+    fixed={'component':'vae-encoder','text_tokens':0,'official_revision':OFFICIAL_REVISION,
+           'diffusers_revision':lock['diffusers']['revision'],'posterior':'mode_first_32_channels_no_sampling',
+           'packing':'pixel_unshuffle_2','encoder_bn':{'eps':1e-4,'affine':False},
+           'decoder_inverse_bn_eps':1e-5,'boundaries':['mean','packed','normalized'],
+           'gates':{'fp32':FP32_GATES},'wrapper_bitwise_equal':[True,True,True]}
+    if any(fixture.get(k)!=v for k,v in fixed.items()) or type(fixture['text_tokens']) is not int or type(fixture['encoder_bn']['affine']) is not bool or any(type(x) is not bool for x in fixture['wrapper_bitwise_equal']):
+        raise ValueError('Unreviewed encoder mathematical contract')
+    official=ROOT/'models/official'
+    cfg=official/'vae-config.json';source=json.loads((official/'vae-config.source.json').read_text())
+    if source.get('revision')!=OFFICIAL_REVISION or source.get('sha256')!=sha256(cfg) or source.get('url')!=f'{OFFICIAL_REPOSITORY}/resolve/{OFFICIAL_REVISION}/vae/config.json' or fixture.get('vae_config_sha256')!=sha256(cfg):
+        raise ValueError('VAE configuration source mismatch')
+    config=json.loads(cfg.read_text())
+    if config.get('latent_channels')!=32 or config.get('patch_size')!=[2,2] or config.get('batch_norm_eps')!=1e-4:raise ValueError('Unreviewed VAE configuration')
+    dist=importlib.metadata.distribution('diffusers')
+    origin=json.loads(dist.read_text('direct_url.json'))
+    if origin.get('url')!='https://github.com/huggingface/diffusers/archive/'+lock['diffusers']['revision']+'.zip':raise ValueError('Unpinned diffusers source')
+    for field,path in [('official_source_sha256','diffusers/models/autoencoders/autoencoder_kl_flux2.py'),('distribution_source_sha256','diffusers/models/autoencoders/vae.py')]:
+        if fixture.get(field)!=sha256(Path(dist.locate_file(path))):raise ValueError('Official implementation source mismatch')
+    labels=['encoder','quant','bn']
+    official_inventory(official,[f'vae-{x}.safetensors' for x in labels])
+    weights={x:json.loads((official/f'vae-{x}.manifest.json').read_text())['sha256'] for x in labels}
+    sources={x:sha256(official/f'vae-{x}.manifest.json') for x in labels}
+    if fixture.get('weights')!=weights or manifest.get('weights')!=weights or fixture.get('source_manifests')!=sources:raise ValueError('Official weight provenance mismatch')
+    reviewed=REVIEWED_GRAPHS.get(f'{w}x{h}')
+    if reviewed is None or any(sha256(model/name)!=digest for name,digest in reviewed.items()):raise ValueError('Unreviewed encoder graph/weights; independent validation required')
     names={'head.ncnn.param','head.ncnn.bin','fixture.json','conversion.json','trace.json','input.rgb','in0.f32','out0.f32','out1.f32','out2.f32'}
-    if manifest.get('component')!='vae-encoder' or manifest.get('ncnn_revision')!=lock['ncnn']['revision'] or fixture.get('official_revision')!=lock['official_model']['revision'] or manifest.get('weights')!=fixture.get('weights'):
-        raise ValueError('Encoder source identity mismatch')
     if set(manifest['files'])!=names:raise ValueError('Incomplete encoder graph/fixture inventory')
     for name,digest in manifest['files'].items():
         if sha256(model/name)!=digest:raise ValueError('Encoder checksum mismatch: '+name)
-    for entry in [*fixture['inputs'].values(),*fixture['expected'].values()]:
-        if Path(entry['file']).name!=entry['file'] or sha256(model/entry['file'])!=entry['sha256'] or (model/entry['file']).stat().st_size!=int(np.prod(entry['shape']))*4:raise ValueError('Encoder tensor checksum/size mismatch')
+    trace=json.loads((model/'trace.json').read_text());conversion=json.loads((model/'conversion.json').read_text())
+    if trace.get('exporter_sha256')!=exporter or type(trace.get('threads')) is not int or trace['threads']!=2:raise ValueError('Trace exporter mismatch')
+    if conversion.get('pnnx_sha256')!=lock['pnnx']['binary_sha256'] or type(conversion.get('return_code')) is not int or conversion['return_code']!=0 or conversion.get('unsupported_diagnostics')!=[] or conversion.get('unconverted')!=[] or conversion['command'][1:]!=['head.pt',f'inputshape=[1,3,{h},{w}]','fp16=0','device=cpu']:raise ValueError('Unreviewed conversion')
+    if set(fixture['inputs'])!={'in0'} or set(fixture['expected'])!={'out0','out1','out2'}:raise ValueError('Wrong encoder input/output inventory')
+    shapes={'in0':[1,3,h,w],'out0':[1,32,h//8,w//8],'out1':[1,128,h//16,w//16],'out2':[1,128,h//16,w//16]}
+    for name,entry in {**fixture['inputs'],**fixture['expected']}.items():
+        if entry.get('file')!=name+'.f32' or entry.get('shape')!=shapes[name] or any(type(x) is not int for x in entry['shape']) or entry.get('dtype')!='F32' or entry.get('layout')!='NCHW' or sha256(model/entry['file'])!=entry.get('sha256') or (model/entry['file']).stat().st_size!=int(np.prod(shapes[name]))*4:raise ValueError('Encoder tensor identity/size mismatch')
+        if not np.isfinite(np.fromfile(model/entry['file'],'<f4')).all():raise ValueError('Nonfinite encoder tensor')
+    rgb=fixture['rgb'];expected_rgb=rgb_fixture(w,h)
+    if rgb.get('file')!='input.rgb' or rgb.get('shape')!=[h,w,3] or rgb.get('layout')!='HWC_RGB' or rgb.get('normalization')!='FP32 (v-127.5)*(1/127.5)' or rgb.get('sha256')!=sha256(model/'input.rgb') or (model/'input.rgb').read_bytes()!=expected_rgb.tobytes() or (model/'in0.f32').read_bytes()!=normalize_rgb(expected_rgb).tobytes():raise ValueError('Deterministic RGB/normalization identity mismatch')
     return fixture
 
 
