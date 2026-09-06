@@ -179,3 +179,5 @@ the earlier result JSON is preserved as `result-source-incomplete-official-v1.js
 独立准备复核`89f1bd2`确认源码、八份复用输入、合同、bitwise端点、分母及旧strength0.5兼容，无阻断。随后串行执行两侧：official exit0、252.439秒、峰值memory.current 6,410,264,576 bytes、host最低13,110,706,176 bytes；native exit0、808.576秒、峰值7,384,297,472 bytes、host最低12,129,710,080 bytes。两侧均实际观察10GiB memory.max、swap0、OOM/max事件0；official绝对步0..7及native `Denoise 8/8`完整，结束后GPU已释放。
 
 严格post-audit重新认证两侧源码、runner、runtime、package、process、prompt/token/RGB，并比较全部29张量和PNG。执行完整，但预注册质量门槛结果为`quality_gate_failed`，不得记为端点质量通过。initial与saved noise逐字节相同；所有NRMSE均低于0.003，但prediction-3/4/5/7及decoded的最大绝对误差分别为0.109008、0.0674142、0.0845686、0.0888730、0.0135877，超过各自`0.0002 + 0.01*reference_max_abs`门槛。PNG仍通过固定门槛（max 2、MAE 0.00514921）。结果保存在`outputs/f2-positive1-1024x1024-v1/{comparison,result}.json`；没有调宽门槛或重跑模型，等待独立结果复核。
+
+最终独立复核`f21ad9f`重新计算29项完整分母，确认24项通过、上述5项max门槛失败且PNG通过；两侧actual-execution identity的40/36文件、当前input contract、start/noise、process command及复用plan provenance均闭合，旧strength0.5审计仍为21/17 PASS。没有剩余证据阻断，但strength1完整质量明确未通过。
