@@ -88,3 +88,17 @@ exit 0
 ```
 
 The suite used only frozen metadata/bytes and synthetic CPU subprocesses. No model or GPU inference ran. The immutable B1 manifest/protocol and its pending calibration status were read but never rewritten.
+
+## Clean-checkout unit-test fix
+
+`tests/test_port_metrics.py` no longer reads ignored `outputs/port-corpus-v1` files at module import. Its default fixtures now construct a small six-case manifest and matching protocol entirely in version-controlled test code, including unique prompt/noise identities, an enabled PE case, an img2img case, exact stage precision, the canonical protocol inventory hash and the manifest self-hash. A dedicated assertion guards against reintroducing the ignored corpus path and independently recomputes the fixture manifest hash.
+
+The real B1 corpus remains the authority for local integration runs passed explicitly to `summarize_pairs`; this unit-test change neither copies the 219 MB corpus into Git nor changes its manifest/protocol.
+
+```text
+.venv/bin/python -m unittest tests.test_port_metrics -v
+Ran 18 tests in 0.255s
+OK
+```
+
+The subprocess timeout/crash cases remain synthetic and CPU-only. No model or GPU process was run.

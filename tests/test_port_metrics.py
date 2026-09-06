@@ -7,8 +7,36 @@ from benchmark_pipeline import run_timed_command
 from port_metrics import build_protocol, paired_schedule, summarize_pairs, validate_measurement, _canonical, _digest
 
 ROOT=Path(__file__).parents[1]
-MANIFEST=json.loads((ROOT/"outputs/port-corpus-v1/manifest.json").read_text())
-PROTOCOL=json.loads((ROOT/"outputs/port-corpus-v1/protocol.json").read_text())
+
+def synthetic_contract():
+    protocol={"status":"frozen_inputs_no_results","performance_cases":6,
+              "performance":{"measured_pairs":5,"warmups_per_port":1,"trace":False,
+                             "order":["AB","BA","AB","BA","AB"]}}
+    model={"official_revision":"fixture","weights":"same"}
+    precision={"text":"fp32","dit":"bf16","scheduler":"fp32","vae":"fp32"}
+    cases=[]
+    for index in range(6):
+        pe={"enabled":False}
+        case={"id":f"performance-{index}","split":"performance",
+              "prompt_sha256":f"{index + 1:064x}","noise_sha256":f"{index + 101:064x}",
+              "noise_dtype":"<f4","shape":[512,512],"shape_order":"WH","steps":8,"cfg":1.0,
+              "model_identity":model,"dtype_by_stage":precision,"pe":pe}
+        if index==4:
+            case["pe"]={"enabled":True,"sampling":"greedy","temperature":0,"top_p":1,
+                        "max_input_tokens":2048,"max_new_tokens":2048,"stop_at_eos":True,
+                        "add_generation_prompt":False,"template_source":"fixture",
+                        "template_sha256":"a"*64}
+        if index==5:
+            case.update(mode="img2img",input_image_sha256="b"*64,decoded_rgb_sha256="c"*64,
+                        strength=.5,resize_policy={"mode":"stretch"})
+        cases.append(case)
+    protocol_bytes=_canonical(protocol)+b"\n"
+    manifest={"schema_version":1,"status":"frozen_inputs_no_formal_results","cases":cases,
+              "files":[{"path":"protocol.json","sha256":_digest(protocol_bytes),"size_bytes":len(protocol_bytes)}]}
+    manifest["manifest_sha256"]=_digest(_canonical(manifest))
+    return manifest,protocol
+
+MANIFEST,PROTOCOL=synthetic_contract()
 CASES={c["id"]:c for c in MANIFEST["cases"] if c["split"]=="performance"}
 FORMAL_CASE_IDS=tuple(CASES)
 def side(case,seconds=2.0,device="vulkan"):
@@ -31,6 +59,12 @@ def pair(case="performance-0",index=0):
 def full_pairs(): return [pair(case,index) for case in FORMAL_CASE_IDS for index in range(5)]
 
 class PortMetricsTest(unittest.TestCase):
+    def test_default_unit_contract_is_version_control_only(self):
+        source=Path(__file__).read_text()
+        self.assertNotIn('outputs'+'/port-corpus-v1',source)
+        self.assertEqual(_digest(_canonical({k:v for k,v in MANIFEST.items() if k!="manifest_sha256"})),
+                         MANIFEST["manifest_sha256"])
+
     def test_frozen_denominator_completes_and_allows_different_devices(self):
         result=summarize_pairs(full_pairs(),MANIFEST,PROTOCOL)
         self.assertEqual(result["status"],"complete");self.assertEqual(result["expected_pair_count"],30)
