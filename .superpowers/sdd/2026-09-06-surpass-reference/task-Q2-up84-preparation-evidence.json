@@ -1,0 +1,117 @@
+{
+  "status": "CPU prepared only; no GPU execution",
+  "identity": {
+    "plan.json": "621ef5ab8cb3c800f65306e416b37d94defa54e39761d1312190d966f5238e53",
+    "launcher.py": "62bc6bf52e11428039843ab31f9dafc4c3802e21a357c24db26e7d0e53860358",
+    "execution/runner": "ec5de0277fb94beab136877253b44873aa44e0285a145c50598cc51981c5f720",
+    "execution/diagnose_up84_scope_guard.py": "90c4fd6d9556e7675806d58fe5634f6f20bc6c6d856fb31ed930cc9b098ad1cc",
+    "execution/diagnose_up84_sequence.py": "6c44698d50cb9cab988cb877605683c9660d8b3125b533983add5b5972ffc578",
+    "execution/diagnose_up84_official.py": "ba08f5af9914f475bb93b9a011c03be4707ce6e154c4bd67d447c6bd79d0f630",
+    "bound_count": 6133,
+    "unresolved_layers": [
+      {
+        "json": "/usr/share/vulkan/implicit_layer.d/VK_LAYER_NV_shader_debugger_release_public_2024_2_0.json",
+        "library": "../../../libShaderDebuggerAPIInjection.so",
+        "status": "not currently resolved; any actual unbound mapping aborts execution"
+      },
+      {
+        "json": "/usr/share/vulkan/explicit_layer.d/VkLayer_VINEGAR_VinegarLayer.json",
+        "library": "libVkLayer_VINEGAR_VinegarLayer.so",
+        "status": "not currently resolved; any actual unbound mapping aborts execution"
+      }
+    ]
+  },
+  "compile_limits": {
+    "memory.max": "4294967296",
+    "memory.swap.max": "0",
+    "memory.swap.current": "0",
+    "cpu.max": "200000 100000",
+    "affinity": [
+      0,
+      2
+    ],
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/ernie-q2-up84-compile-v1.scope"
+  },
+  "compile_result": {
+    "exit_code": 0,
+    "memory_peak": "585961472\n",
+    "swap_current": "0\n",
+    "events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n"
+  },
+  "cpu_scope_probe": {
+    "pids": [
+      {
+        "mapped_library_paths": [
+          "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.venv/lib/python3.14/site-packages/psutil/_psutil_linux.abi3.so",
+          "/usr/lib64/ld-linux-x86-64.so.2",
+          "/usr/lib64/libc.so.6",
+          "/usr/lib64/libm.so.6",
+          "/usr/lib64/libpthread.so.0",
+          "/usr/lib64/libpython3.14.so.1.0",
+          "/usr/lib64/libz.so.1.3.1.zlib-ng",
+          "/usr/lib64/python3.14/lib-dynload/_json.cpython-314-x86_64-linux-gnu.so",
+          "/usr/lib64/python3.14/lib-dynload/_posixsubprocess.cpython-314-x86_64-linux-gnu.so",
+          "/usr/lib64/python3.14/lib-dynload/_socket.cpython-314-x86_64-linux-gnu.so",
+          "/usr/lib64/python3.14/lib-dynload/_struct.cpython-314-x86_64-linux-gnu.so",
+          "/usr/lib64/python3.14/lib-dynload/binascii.cpython-314-x86_64-linux-gnu.so",
+          "/usr/lib64/python3.14/lib-dynload/fcntl.cpython-314-x86_64-linux-gnu.so",
+          "/usr/lib64/python3.14/lib-dynload/grp.cpython-314-x86_64-linux-gnu.so",
+          "/usr/lib64/python3.14/lib-dynload/math.cpython-314-x86_64-linux-gnu.so",
+          "/usr/lib64/python3.14/lib-dynload/resource.cpython-314-x86_64-linux-gnu.so",
+          "/usr/lib64/python3.14/lib-dynload/select.cpython-314-x86_64-linux-gnu.so"
+        ],
+        "pid": 2161542,
+        "name": "python",
+        "rss_bytes": 15564800,
+        "vm_swap_bytes": 0,
+        "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/ernie-q2-up84-cpu-probe-v1.scope",
+        "affinity": [
+          0,
+          2
+        ]
+      }
+    ],
+    "rss_sum": 15564800,
+    "process_swap_bytes": 0,
+    "cgroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/ernie-q2-up84-cpu-probe-v1.scope",
+    "cgroup_values": {
+      "memory.max": "10737418240",
+      "memory.swap.max": "0",
+      "cpu.max": "200000 100000",
+      "memory.current": "9007104",
+      "memory.swap.current": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+      "memory.swap.events": "high 0\nmax 0\nfail 0",
+      "cgroup.procs": "2161542"
+    },
+    "host_available": 17271353344
+  },
+  "source_equality": {
+    "ernie_gelu.cpp": true,
+    "ernie_gelu.h": true,
+    "ernie_attention.cpp": true,
+    "ernie_attention.h": true,
+    "ernie_rmsnorm.cpp": true,
+    "ernie_rmsnorm.h": true,
+    "ernie_residual.cpp": true,
+    "ernie_residual.h": true,
+    "ernie_groupnorm.cpp": true,
+    "ernie_groupnorm.h": true,
+    "diagnose_block_boundary.cpp": false,
+    "sdpa_shader.h": true
+  },
+  "libncnn_equal": true,
+  "tests_passed": 3,
+  "probe_mapped_libraries_all_bound": true,
+  "compiler_now": {
+    "path": "/usr/bin/clang-22",
+    "sha256": "4ea85504401d9f5c05109d6cb05778b241aa8d56fde1da2e5bc7ba46cffd44f5"
+  },
+  "source_sha256": {
+    "tools/diagnose_up84_boundary.cpp": "5bcd8c74fb99828326f61cf7b3f6a97a4ff64f6ea6437bde62b939abb69a0a1c",
+    "tools/diagnose_up84_scope_guard.py": "90c4fd6d9556e7675806d58fe5634f6f20bc6c6d856fb31ed930cc9b098ad1cc",
+    "tools/diagnose_up84_official.py": "ba08f5af9914f475bb93b9a011c03be4707ce6e154c4bd67d447c6bd79d0f630",
+    "tools/diagnose_up84_sequence.py": "6c44698d50cb9cab988cb877605683c9660d8b3125b533983add5b5972ffc578",
+    "tools/diagnose_up84_launch.py": "62bc6bf52e11428039843ab31f9dafc4c3802e21a357c24db26e7d0e53860358"
+  }
+}
