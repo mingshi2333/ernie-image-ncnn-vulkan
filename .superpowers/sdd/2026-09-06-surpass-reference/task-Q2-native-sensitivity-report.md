@@ -1,6 +1,6 @@
-# Q2 step6 单因素条件敏感性准备
+# Q2 step6 单因素条件敏感性准备与执行
 
-状态：仅 CPU 准备，两个独立 worker 均未启动，无 GPU 使用。F2 当前独占 GPU。前置 native replay 在提交 0aeea71 已逐字节重现历史中文 prediction-6；本次准备不会改变或覆盖该证据。
+准备阶段记录：两个独立 worker 尚未启动；后续明确授权的执行结果见末节。前置 native replay 在提交 0aeea71 已逐字节重现历史中文 prediction-6；本次准备不会改变或覆盖该证据。
 
 ## 可区分的问题与解释边界
 
@@ -48,3 +48,22 @@ Package manifest: `72bb195a2d0b3ef2a25f873666f51f4bbec4b391744518597be87206a551e
 资源守护仍是两物理核 0/2（runner 内部请求 4 线程）、递归后代 RSS 9 GiB、整 GPU 6 GiB、host available 3 GiB。监视器超时也作为不可用处理并停止子进程；native 超时终止其独立 process group。worker success 只表示执行与结果生成成功，不代表质量通过。
 
 4 项专用小测试通过：两个允许单因素、拒绝第二处变化/缺输入、拒绝错误替换/shape/dtype、输出描述包含两种距离且不含 passed gate。准备实际副本时校验所有输入/两份预测的 size/SHA/finite。没有运行模型、没有修改 runtime/default/gates。
+
+
+## 明确授权后的两次串行执行
+
+根在F2释放GPU后授权两项各一次，先latent-only、后text-only；均从封存worker启动，无追加网格或runtime修改。每项完成立即上报，第二项完成已释放GPU。
+
+| 单因素 | 相对原native prediction max / NRMSE | 相对official prediction max / NRMSE | official距离 L2 |
+|---|---|---|---:|
+| 仅官方 latent | .10032624006271362 / .00261247298311411 | .0005716085433959961 / 1.6918865390107877e-5 | .013963911048763274 |
+| 仅官方 text | .00038802623748779297 / 6.817780619805334e-6 | .09979760646820068 / .0025987740016589407 | 2.144886678761658 |
+
+latent-only输出SHA `69b2abe2fa35609a3edfe09cf14bfbeb8c2b8fcc94f5d449f44732989b193fab`。
+text-only输出SHA `fa1497195c8aa6740956b8699f49a5b97865ef0817aefed7c219f8534cef081f`。
+
+原native在该步对官方max .09975963830947876、NRMSE .0025990208483330536。保持native text/time/RoPE/mask而只换官方latent后，距离显著缩小；保持native latent只换官方text后，距离基本保留。本例支持第6步误差主要跟随已有latent状态差异，而不是这一步直接文本差异。此为条件敏感性结果：latent已经携带前面步骤的文本/DiT/scheduler历史，仍不能归因首因，也不能证明text在过去步骤的贡献很小。两项不是同输入official rounding测试，没有套用或放宽official gates，均native_acceptance_eligible=false。中文完整生成未被重跑或修复。
+
+资源：A 105.714694秒、递归RSS采样峰1253404672 bytes、整GPU峰4034MiB、host available最小16722628608bytes；B 100.727493秒、RSS1166430208bytes、GPU4044MiB、host available最小17797849088bytes。各197/189次采样，均无guard触发。两物理核0/2，内部仍请求4线程。采样RSS和可能重复统计共享页，不是PSS/内核硬峰值，GPU为整设备使用。
+
+执行后另行CPU重算两种距离、L2和不同float数，结果与生成器匹配（NRMSE采用sum/sqrt复算，末位约1e-17归约差异保留在JSON）。两项六输入+两份比较预测的来源与副本SHA均重验，全部bound文件、4项执行快照、212项预测器快照匹配。工具执行前完整验包；执行后没有重复散列大权重。所有结果/日志/资源/plan/actual SHA绑定保存于 task-Q2-native-sensitivity-result.json。封存准备plan/快照不改状态字段，执行结果独立保存。

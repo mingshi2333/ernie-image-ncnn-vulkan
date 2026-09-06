@@ -1,0 +1,121 @@
+{
+  "scope": "Two conditional hybrid-input diagnostics; no new grid or quality gate",
+  "results": [
+    {
+      "factor": "latent",
+      "status": "completed_descriptive_diagnostic",
+      "native_acceptance_eligible": false,
+      "official_gate_applied": false,
+      "independent_comparisons": {
+        "difference_from_native_replay": {
+          "max_abs_error": 0.10032624006271362,
+          "nrmse": 0.002612472983114125,
+          "error_l2": 2.156188556293054,
+          "different_float_count": 524250
+        },
+        "descriptive_distance_from_official_prediction": {
+          "max_abs_error": 0.0005716085433959961,
+          "nrmse": 1.6918865390107962e-05,
+          "error_l2": 0.013963911048763274,
+          "different_float_count": 521693
+        }
+      },
+      "worker": {
+        "command": [
+          "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+          "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-chinese-step6-official-latent-only-v1-execution/diagnose_native_step_sensitivity.py",
+          "--execute",
+          "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-chinese-step6-official-latent-only-v1/plan.json"
+        ],
+        "cpu_affinity": [
+          0,
+          2
+        ],
+        "internal_requested_threads": 4,
+        "rss_limit_bytes": 9663676416,
+        "gpu_whole_device_limit_mib": 6144,
+        "minimum_host_available_bytes": 3221225472,
+        "scope": "Recursive descendants, including independently sessioned runner; sampled sum RSS, not unique PSS",
+        "started_unix": 1788713110.0570664,
+        "passed": true,
+        "return_code": 0,
+        "stop_reason": null,
+        "peak_rss_sum_bytes": 1253404672,
+        "gpu_whole_device_sampled_peak_mib": 4034,
+        "elapsed_seconds": 105.71469385300588
+      },
+      "minimum_sampled_host_available_bytes": 16722628608,
+      "sample_count": 197,
+      "all_source_and_copy_hashes_reverified": true,
+      "prediction_snapshot_files_reverified": 212,
+      "bound_files": {
+        "outputs/q2-chinese-step6-official-latent-only-v1/plan.json": "5bfecc95246287591034edf6c1be54f2b97da27b531027c0270f2501ce1e96ca",
+        "outputs/q2-chinese-step6-official-latent-only-v1/native/result.json": "68887e37fd5bd9d29db6ed649b29cdfaacd34ed1b3d0f296b2724ea668e393ea",
+        "outputs/q2-chinese-step6-official-latent-only-v1/native/actual.f32": "69b2abe2fa35609a3edfe09cf14bfbeb8c2b8fcc94f5d449f44732989b193fab",
+        "outputs/q2-chinese-step6-official-latent-only-v1/native/runner.log": "01cebd436f7b50f8cffa79f8732c4bc692ce474ec029b73943b3aa576b77f946",
+        "outputs/q2-chinese-step6-official-latent-only-v1/native/resources.log": "5b3c48d2139e89818f0a1f0664854ff27c0995dd7f063ae11a3f649da60e7bb1",
+        "outputs/q2-chinese-step6-official-latent-only-v1-execution/worker-result.json": "3b39ac2aeb84fd30f1549ede2e8a33a9692c73706e7a67cc6b10e6a049132168",
+        "outputs/q2-chinese-step6-official-latent-only-v1-execution/execution-snapshot.json": "40ca4f4c24b45e3013d9aba0def719b8fe5111a2c3380ff78595c6a43a97fa52",
+        "outputs/q2-chinese-step6-official-latent-only-v1-execution/samples.jsonl": "a56dbe9c9e92a74bb649bae8fd5ff812bdecaaaf9bc9b144306061ca32411a05"
+      }
+    },
+    {
+      "factor": "text",
+      "status": "completed_descriptive_diagnostic",
+      "native_acceptance_eligible": false,
+      "official_gate_applied": false,
+      "independent_comparisons": {
+        "difference_from_native_replay": {
+          "max_abs_error": 0.00038802623748779297,
+          "nrmse": 6.817780619805369e-06,
+          "error_l2": 0.005627013426266203,
+          "different_float_count": 520968
+        },
+        "descriptive_distance_from_official_prediction": {
+          "max_abs_error": 0.09979760646820068,
+          "nrmse": 0.0025987740016589554,
+          "error_l2": 2.144886678761658,
+          "different_float_count": 524246
+        }
+      },
+      "worker": {
+        "command": [
+          "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+          "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-chinese-step6-official-text-only-v1-execution/diagnose_native_step_sensitivity.py",
+          "--execute",
+          "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/q2-chinese-step6-official-text-only-v1/plan.json"
+        ],
+        "cpu_affinity": [
+          0,
+          2
+        ],
+        "internal_requested_threads": 4,
+        "rss_limit_bytes": 9663676416,
+        "gpu_whole_device_limit_mib": 6144,
+        "minimum_host_available_bytes": 3221225472,
+        "scope": "Recursive descendants, including independently sessioned runner; sampled sum RSS, not unique PSS",
+        "started_unix": 1788713253.2004385,
+        "passed": true,
+        "return_code": 0,
+        "stop_reason": null,
+        "peak_rss_sum_bytes": 1166430208,
+        "gpu_whole_device_sampled_peak_mib": 4044,
+        "elapsed_seconds": 100.72749250900233
+      },
+      "minimum_sampled_host_available_bytes": 17797849088,
+      "sample_count": 189,
+      "all_source_and_copy_hashes_reverified": true,
+      "prediction_snapshot_files_reverified": 212,
+      "bound_files": {
+        "outputs/q2-chinese-step6-official-text-only-v1/plan.json": "44f662b2f5274e37436edcf0b0a55861bfff094c0e8c0a28643cf8e7a390af76",
+        "outputs/q2-chinese-step6-official-text-only-v1/native/result.json": "34ecf4776a85c56204b32baab6752f4504feb6888621a8c133fbb5516277b8a1",
+        "outputs/q2-chinese-step6-official-text-only-v1/native/actual.f32": "fa1497195c8aa6740956b8699f49a5b97865ef0817aefed7c219f8534cef081f",
+        "outputs/q2-chinese-step6-official-text-only-v1/native/runner.log": "812aded6ea5405e008ad114bf68440801ff4f8c0ba6096e5375eff44b79f899e",
+        "outputs/q2-chinese-step6-official-text-only-v1/native/resources.log": "75f84581e530717b8d4de3b6c36a689dc48d7aae7093916359a646ab86f2a505",
+        "outputs/q2-chinese-step6-official-text-only-v1-execution/worker-result.json": "b73a3dd24b5db9e88a3b266f5664080778dc9d3eceaddf791b00f34eaa2d0de2",
+        "outputs/q2-chinese-step6-official-text-only-v1-execution/execution-snapshot.json": "4b158d854726727e7d4e76a486eedfa5bd7271d5c93a3286f820632f9c842d98",
+        "outputs/q2-chinese-step6-official-text-only-v1-execution/samples.jsonl": "7518f4b1a1ac94ad5b4614d72732ceaaf0f9aa3662f024c29c54676ca84e66a0"
+      }
+    }
+  ]
+}
