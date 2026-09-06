@@ -39,3 +39,7 @@
 ## 资源证据实际范围
 
 官方v2退出0，26.12s，ru_maxrss3,547,740KiB，无swap；worker内部记录affinity4,6、memory.max17179869184、memory.swap.max0，可支持该scope生命周期硬限制。native-v3退出0，49.49s、ru_maxrss3,476,084KiB，无swap；配置8GiB/swap0/1800s，未从native scope内部保存effective cgroup值，报告已明示，不能当独立观测的硬边界证明。两侧hostavailable只有pre/post值，不推断全程最小值。ru_maxrss不是cgroup总内存，也不是并行后代RSSsum；没有GPU执行或设备内存测量。
+
+## 测试弱点闭环
+
+作者36c217c为两个关键shape负例增加精确错误消息断言，避免missing graph/weights的后续失败替代加载前shape拒绝。独立查看该diff并执行现有build-dev/ernie-image-encoder-contract成功；未配置或构建共享目录、未加载模型/GPU。该非阻断测试项也已关闭，源码/资源记录限制保持上述范围。
