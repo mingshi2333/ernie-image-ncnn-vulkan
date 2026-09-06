@@ -1,0 +1,7 @@
+# O1 execution metrics 独立审查
+
+审查对象0384d46。只读实现，CPU12/14运行已有execution_metrics_cpu和allocation_cli_cpu两项CTest，均1/1通过（后者13 Python cases）；没有模型/GPU执行或重建。
+
+当前待修复Important：`pipeline.cpp::run_dit` 在整个denoise返回且final download成功后，才将stats批量写入collector。如果第2步失败，第1步已完成且存入stats，但其load/compute/submissions全部被丢；全部步成功而final download失败也丢全部DiT统计。当前failure报告与实现报告只称保留已到达partial，没有声明此组级丢失。现fake driver提前写verify的测试不覆盖该真实控制流。建议每个step完成立即记录并避免末尾重复，或exception flush已完成stats、明确失败中间块不完整，补无模型合成throw测试。已向作者/root同步。
+
+其余观察：CLI仅metrics-json且ON时选择私有显式collector入口，公有generate沿同generate_impl/null collector，无新增全局observer。block load/compute计时边界分离；head+encoder/VAE复合装载计算标read_prepare并声明不可分拆；step只记扣除children后的余项，没有再加整step造成显式双计。GPU时间、无法可靠认证的传输字节保持null，submission只报告已观测attention/block和顶层初末传输的有限口径。默认路径存在少量null分支/统计遍历，不应宣传完全零指令开销；数值路径未改。verification区间也包括GpuContext初始化和progress回调，不是纯磁盘校验时间。正式S/M eligibility保持false，实际ON/OFF全输出相同和真实全模型阶段分解仍待新冻结运行。
