@@ -2,7 +2,7 @@
 
 ## 当前状态
 
-CPU 实现、独立编译与输入封存完成；GPU 尚未执行，等待前序图生图任务释放。局部 screen 的通过及历史 compile/invalid-layout 失败见 `task-Q2-splitk-screen-report.md`、提交 `4c35148`；root 的独立复核为 `4d1a2de`。这里不将 screen 结果推广为完整层、完整轨迹或正式质量通过。
+完整 teacher 已执行，且是有效负结果：候选相对同一官方 out0 的完整 L2/max 均恶化，停止向 step/fullChinese 推进，不修改默认。局部 screen 的通过及历史 compile/invalid-layout 失败见 `task-Q2-splitk-screen-report.md`、提交 `4c35148`；root 的独立复核为 `4d1a2de`。这里不将 screen 结果推广为完整层、完整轨迹或正式质量通过。
 
 ## 唯一候选与完整分母
 
@@ -38,4 +38,40 @@ runner SHA：`46237c14f25bfd962d07a7dbc45c5dd3dc71c67242a3fd24126e91e78c37b915`�
 plan SHA：`6bdfa3d9a4d117afa621152e01cf48e4e576bd93dd559306ffea31c7a0805369`。
 worker 独立身份保存在 `execution/execution-identity.json`，运行入口为封存 `execution/worker.py`，其导入工具也来自该目录。
 
-资源限制：固定 CPU 0、2 两物理核；保留 baseline GPU-block 的内部 num_threads=4，但实际亲和性只有两核，worker 元数据明确二者区别。递归进程树采样 RSS 9 GiB、整 GPU 6144 MiB、host available 至少 3 GiB、2400 s timeout；执行前与过程中均检查资源。GPU 排队期间没有启动候选。
+资源限制：固定 CPU 0、2 两物理核；保留 baseline GPU-block 的内部 num_threads=4，但实际亲和性只有两核，worker 元数据明确二者区别。递归进程树采样 RSS 9 GiB、整 GPU 6144 MiB、host available 至少 3 GiB、2400 s timeout；执行前与过程中均检查资源。GPU 排队期间没有启动候选；得到 paired 明确释放后仅运行一次，现已再次释放。
+
+
+## 实际执行：有效负结果
+
+session 33651，封存 worker exit0，wall 14.406772078 s；递归进程树采样 RSS 峰 1,358,966,784 bytes，整 GPU 采样峰 3946 MiB，无 guard 触发。这里是采样值，不是驱动分配器精确峰值。日志确认完整 KN 权重 50,331,648 元素逐位一致、4160 行各一次、260 次块提交。完整 blob87 身份、五行 screen 输出和全部 out0 残差重建全部通过。
+
+| 相对同一官方 block15 out0 | 完整 L2 | 最大绝对误差 |
+|---|---:|---:|
+| 原 native teacher | 0.19877654474212322 | 0.006591796875 |
+| 补偿候选 teacher | 0.37041399781155754 | 0.0205078125 |
+| 候选与原 native 的差异 | 0.34634726420438156 | 0.01953125 |
+
+候选对 official 的 L2 恶化约 1.863 倍，max 恶化约 3.111 倍。因此先前局部 FP64 点积 screen 的改善没有推广为官方完整层一致性改善。这次没有 v2 screen 那种失效 packing 证据；三项强有效性检查均成立，不能把负结果剔除为未知布局错误。
+
+result SHA：`3ecaa8354d67eac3de9f7a151b0b94c34f569026545d3e482e8732030587f940`。
+候选 out0 SHA：`900a97148d7ccea4d700219bee2acc0b44b8da8ba068ad358c24faf39378b6fa`。
+候选 blob88 SHA：`c0a5a946c1a94fc95d1203c784c95d5df03a45dbe1296007acc7e4cebaecace1`。
+完整未变 blob87 SHA：`a951b1ed772d5a53c0b30ba8a1d1882c52491f6c564cb9f70b09ec6ef4cd3c46`。
+
+## 既存 tensor 的 CPU 分解
+
+原、候选两个 out0 在完整 17,039,360 个元素上均逐位等于同一原生 blob75 加各自 FP32(gate×blob88)。因此该比较中的数值变化确实限定在下投影及其后续正常 FP32 残差传播。
+
+完整 blob88 改变量 L2 为 0.09142308257036884；乘以相同 gate 后的 FP32 更新改变量 L2 为 0.3462013174289788；最终 out0 改变量 L2 为 0.34634726420438156。两者之差（末次加法舍入改变量）的 L2 为 0.01131386064596941。各误差向量并非正交，不能把这些范数相加或当因果贡献比例。
+
+观察结果后才选择的复核行是 652：它同时包含全张量最大误差（列 1568）和最大行误差 L2。对其全部 4096 个下投影输出，用该行真实 blob87 和原完整认证权重重新执行独立 CPU FP64 dot：原 native down L2 0.0021288076077898162、max 0.0008744772772502074；候选 down L2 0.00002567803354400006、max 0.000004726300687707408。即使在这条未属于预声明五行 screen 的最差最终误差行，候选仍明显更接近相同输入的 FP64 dot。该选择是事后审计，不能冒充预声明完整点积分母。CPU wall 1.19 s，RSS 828972 KiB，CPU0/2、BLAS2；第一次辅助脚本路径不存在的 setup 错误/日志保留，改用明确报告目录后成功，没有 GPU 重跑。
+
+原 teacher 误差与候选改变量的 cosine 为 -0.16168045613482313。现有数据仍不能区分“原生上游误差与下投影误差抵消”以及“官方 FP32 内部 reduction 与数学 FP64 oracle 的差异”各自作用；两者也可能同时存在。严禁从 (官方 out0−原生 residual)/gate 倒推出所谓官方 down 真值。
+
+## 唯一下一实验提议，尚未执行
+
+`next-official-hook-proposal.json` 已固定同一十输入、原 stage 执行源、官方权重和原 out0 oracle 身份；SHA `4d54414723d9b6e6ac0c6fe670404e13aa4f5f2acdc53e61b8ee9d3c006e451e`。它是实验提议封存，不是已准备好的执行器或新官方结果。
+
+只运行一个未改公式的官方 `ErnieImageSharedAdaLNBlock` block15，使用原冻结 `export_dit_block.load_block` 路径，不换成导出 wrapper。CUDA FP32、TF32 false、相同原 attention backend；输入 hidden reshape 到原官方 [4160,1,4096]，temb/mask 完全相同。按原 pinned `make_inputs(64,64,64,32,20260905)` 生成旋转角，必须先使派生 cos/sin/mask 全字节匹配已存 in7/in8/in9；不能逆三角函数重建角度。正式执行前还须封存实际 import 来源与最终角度 SHA，当前没有生成新角度或加载新模型。
+
+只注册三个不返回替换值的只读 hook：`adaLN_mlp_ln` 输入对应 blob75、`mlp.linear_fc2` 输入对应 blob87、同模块输出对应 blob88，保留 tensor 所有者并在 forward 后保存全分母。首先要求完整 out0 逐位等于既有 official SHA `a3f77e846934a6fe7085bf366dd21ef78aa779b702c5c97ba237834a0635a197`，否则将该 hook 实验判为无效、保存并停止，不能解释中间差异。此后才能用真实官方75/87/88区分上游与下投影差异。没有其他 splitK 调参计划，没有 step/fullChinese 推进。

@@ -1,0 +1,114 @@
+{
+  "scope": "Valid negative complete teacher; candidate not promoted",
+  "sha256": {
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-splitk-teacher-v1/plan.json": "6bdfa3d9a4d117afa621152e01cf48e4e576bd93dd559306ffea31c7a0805369",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-splitk-teacher-v1/result.json": "3ecaa8354d67eac3de9f7a151b0b94c34f569026545d3e482e8732030587f940",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-splitk-teacher-v1/post-audit.json": "e6752927763cd49bea1d4ed4822a3a10007a026747c190fef5a968e996bc44a4",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-splitk-teacher-v1/residual-audit.json": "e4b12fa5c305f8ed6ec703d7804fb3cd2004ba50c4d1201edde481e7cb2c2c18",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-splitk-teacher-v1/next-official-hook-proposal.json": "4d54414723d9b6e6ac0c6fe670404e13aa4f5f2acdc53e61b8ee9d3c006e451e",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-splitk-teacher-v1/execution/worker-result.json": "7d3297d1a6382777ce1d36df32a19ae232189f2c00ebf1e8eea553d52e3d4e1c",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-splitk-teacher-v1/execution/worker.log": "44287d48d7a6c5b2cec1aaa92ddcc720047bfca71ab387bf54923b33cc0d4043",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-splitk-teacher-v1/execution/worker.py": "2cf0ab5c59e9602de28709f2347d57a4560bf2e109a9b940670d6f905de44e20",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-splitk-teacher-v1/execution/runner": "46237c14f25bfd962d07a7dbc45c5dd3dc71c67242a3fd24126e91e78c37b915"
+  },
+  "result": {
+    "scope": "Single-block official-input teacher; diagnostic only, no formal gate",
+    "status": "valid_complete_teacher",
+    "plan_sha256": "6bdfa3d9a4d117afa621152e01cf48e4e576bd93dd559306ffea31c7a0805369",
+    "complete_elements": 17039360,
+    "upstream_bitwise_equal": true,
+    "screen_selected_rows_bitwise_equal": true,
+    "residual_reconstruction_bitwise_equal": true,
+    "baseline_vs_official": {
+      "l2": 0.19877654474212322,
+      "max": 0.006591796875
+    },
+    "candidate_vs_official": {
+      "l2": 0.37041399781155754,
+      "max": 0.0205078125
+    },
+    "candidate_vs_baseline": {
+      "l2": 0.34634726420438156,
+      "max": 0.01953125
+    },
+    "outputs": {
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-splitk-teacher-v1/candidate/upstream87.f32": "a951b1ed772d5a53c0b30ba8a1d1882c52491f6c564cb9f70b09ec6ef4cd3c46",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-splitk-teacher-v1/candidate/boundary.f32": "c0a5a946c1a94fc95d1203c784c95d5df03a45dbe1296007acc7e4cebaecace1",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-splitk-teacher-v1/candidate/out0.f32": "900a97148d7ccea4d700219bee2acc0b44b8da8ba068ad358c24faf39378b6fa"
+    },
+    "formal_acceptance": false,
+    "quality_gate_applied": false
+  },
+  "worker": {
+    "command": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-splitk-teacher-v1/execution/diagnose_splitk_teacher.py",
+      "execute",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-splitk-teacher-v1/plan.json"
+    ],
+    "cpu_affinity": [
+      0,
+      2
+    ],
+    "internal_requested_threads": 4,
+    "thread_scope": "same GPU-block option as baseline; two physical CPU cores enforced by affinity",
+    "rss_limit_bytes": 9663676416,
+    "gpu_whole_device_limit_mib": 6144,
+    "minimum_host_available_bytes": 3221225472,
+    "scope": "Recursive descendants, including independently sessioned runner; sampled sum RSS, not unique PSS",
+    "started_unix": 1788718607.526783,
+    "passed": true,
+    "return_code": 0,
+    "stop_reason": null,
+    "peak_rss_sum_bytes": 1358966784,
+    "gpu_whole_device_sampled_peak_mib": 3946,
+    "elapsed_seconds": 14.406772078000358,
+    "interpretation": "Execution completion only; no numerical acceptance gate"
+  },
+  "post_audit": {
+    "scope": "Post-result CPU FP64 spot audit, selected by observed complete out0 errors; not predeclared screen or full dot denominator",
+    "rows": [
+      652
+    ],
+    "selected_row_reasons": {
+      "global_max_abs_error_row": 652,
+      "global_max_abs_error_column": 1568,
+      "largest_row_error_l2": 652
+    },
+    "selected_elements": 4096,
+    "candidate_down_vs_same_input_fp64": {
+      "l2": 2.567803354400006e-05,
+      "max": 4.726300687707408e-06
+    },
+    "baseline_down_vs_same_input_fp64": {
+      "l2": 0.0021288076077898162,
+      "max": 0.0008744772772502074
+    },
+    "error_change_cosine": -0.16168045613482313,
+    "oracle_norm": 330667.5190927118,
+    "files": {
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-splitk-teacher-v1/result.json": "3ecaa8354d67eac3de9f7a151b0b94c34f569026545d3e482e8732030587f940",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-splitk-teacher-v1/plan.json": "6bdfa3d9a4d117afa621152e01cf48e4e576bd93dd559306ffea31c7a0805369",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-splitk-teacher-v1/candidate/out0.f32": "900a97148d7ccea4d700219bee2acc0b44b8da8ba068ad358c24faf39378b6fa",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-splitk-teacher-v1/candidate/boundary.f32": "c0a5a946c1a94fc95d1203c784c95d5df03a45dbe1296007acc7e4cebaecace1",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-splitk-teacher-v1/candidate/upstream87.f32": "a951b1ed772d5a53c0b30ba8a1d1882c52491f6c564cb9f70b09ec6ef4cd3c46",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-down-splitk-v3/fixture/weight-kn.f32": "e180b28bea1d6dead7c978199d83d4fa2f6886370d4d83f238816d4bfd78f6af",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/diagnostic-chinese-step0-stages-v1/oracle/fixture/block-15.f32": "a3f77e846934a6fe7085bf366dd21ef78aa779b702c5c97ba237834a0635a197",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/q2-block15-boundary87-v1/official/out0.f32": "175bfa394aec3b7e576caaea3fd897cf84db122d4cd9378d7d72dfe704df68a3",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.superpowers/sdd/2026-09-06-surpass-reference/task-Q2-splitk-teacher-cpu-audit.py": "9dfe6a037838540802e082a01cfaa7b41b488a8858d8e7e4f8cb635affdf0c49"
+    },
+    "interpretation": "Complete teacher worsened despite selected same-input dot accuracy; cannot distinguish upstream/reference cancellation without independent official internal boundaries"
+  },
+  "residual_audit": {
+    "scope": "Complete same-residual conditional update decomposition; not independent official internal ground truth",
+    "elements": 17039360,
+    "both_final_residuals_bitwise_reconstructed": true,
+    "down_delta_l2": 0.09142308257036884,
+    "fp32_gated_update_delta_l2": 0.3462013174289788,
+    "final_delta_l2": 0.34634726420438156,
+    "final_add_rounding_delta_l2": 0.01131386064596941,
+    "source_sha256": "a407132a094e1c4bc69bcc7313d8d3b8aa6482877b4cfb4aea8766c89ef8ae5d",
+    "input_identity": "All tensors are bound by plan.json and result.json of the same frozen teacher; no inferred reference down tensor"
+  },
+  "minimum_host_available_bytes": 16654528512
+}
