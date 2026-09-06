@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 #include "options.h"
 #include "prompt_file.h"
+#include <algorithm>
+#include <cctype>
 #include <cmath>
 #include <set>
 #include <stdexcept>
@@ -17,6 +19,24 @@ uint32_t integer(const std::string &value)
         throw std::invalid_argument("Invalid integer");
     return uint32_t(n);
 }
+std::array<uint8_t, 3> color(const std::string &value)
+{
+    if (value.size() != 7 || value[0] != '#')
+        throw std::invalid_argument("Background must be #RRGGBB");
+    std::array<uint8_t, 3> result{};
+    for (int i = 0; i < 3; ++i)
+    {
+        if (!std::isxdigit(static_cast<unsigned char>(value[1 + i * 2])) ||
+            !std::isxdigit(static_cast<unsigned char>(value[2 + i * 2])))
+            throw std::invalid_argument("Background must be #RRGGBB");
+        size_t used = 0;
+        const auto byte = std::stoul(value.substr(1 + i * 2, 2), &used, 16);
+        if (used != 2)
+            throw std::invalid_argument("Background must be #RRGGBB");
+        result[i] = uint8_t(byte);
+    }
+    return result;
+}
 float number(const std::string &value)
 {
     size_t used = 0;
@@ -25,17 +45,30 @@ float number(const std::string &value)
         throw std::invalid_argument("Invalid finite number");
     return n;
 }
+void output_extension(const fs::path &path)
+{
+    std::string extension = path.extension().string();
+    std::transform(extension.begin(), extension.end(), extension.begin(),
+                   [](unsigned char c) { return char(std::tolower(c)); });
+    if (extension != ".png" && extension != ".jpg" && extension != ".jpeg" && extension != ".bmp" &&
+        extension != ".tga")
+        throw std::invalid_argument("Output extension must be PNG, JPEG, BMP, or TGA");
+}
 } // namespace
 const char *usage()
 {
-    return "ernie-image --model DIR (--prompt TEXT | --prompt-file UTF8.txt) --output NEW.png\n"
+    return "ernie-image --model DIR (--prompt TEXT | --prompt-file UTF8.txt) --output NEW.{png|jpg|bmp|tga}\n"
            "            [--device cpu|vulkan] [--precision fp32|fp16|bf16]\n"
-           "            [--width N --height N] [--seed N] [--steps N]\n"
+           "            [--width N --height N] [--seed N] [--steps N] [--threads N]\n"
+           "            [--gpu N] [--text-device cpu]\n"
            "            [--vae-device cpu|vulkan] [--vae-convolution direct|sgemm]\n"
            "            [--pe-model DIR] [--pe-max-tokens N] [--pe-greedy]\n"
            "            [--pe-temperature N] [--pe-top-p N] [--pe-seed N]\n"
            "            [--latent FILE.f32] [--embeddings FILE.f32] [--trace-dir NEWDIR]\n"
            "ernie-image (--model DIR | --pe-model DIR) --verify-model\n"
+           "Text-to-image: ernie-image --model model --prompt cat --output cat.png\n"
+           "PE: ernie-image --model model --prompt cat --pe-model pe --pe-greedy --output cat.jpg\n"
+           "Img2img options --input/--strength/--resize/--background are reserved until F2 is available.\n"
            "Resolution defaults to the model bucket; explicit dimensions must match it.\n"
            "Prompt files: UTF-8, optional BOM, at most 1 MiB; whitespace is preserved.\n"
            "PE is optional CPU FP32, with up to 2048 output tokens by default.\n"
@@ -48,7 +81,8 @@ Options parse_options(int argc, char **argv)
     Options out;
     auto &r = out.generation;
     std::set<std::string> seen;
-    bool have_prompt = false, from_file = false, pe_option = false;
+    bool have_prompt = false, from_file = false, pe_option = false, background_option = false,
+         strength_option = false, resize_option = false, gpu_option = false;
     fs::path prompt_file;
     for (int i = 1; i < argc; ++i)
     {
@@ -84,6 +118,8 @@ Options parse_options(int argc, char **argv)
             r.model = value;
         else if (flag == "--output")
             out.output = value;
+        else if (flag == "--input")
+            out.input = value;
         else if (flag == "--prompt")
             r.prompt = value;
         else if (flag == "--prompt-file")
@@ -99,6 +135,23 @@ Options parse_options(int argc, char **argv)
             r.vae_device = value;
         else if (flag == "--vae-convolution")
             r.vae_convolution = value;
+        else if (flag == "--text-device")
+            r.text_device = value;
+        else if (flag == "--background")
+        {
+            out.background = color(value);
+            background_option = true;
+        }
+        else if (flag == "--resize")
+        {
+            out.resize = value;
+            resize_option = true;
+        }
+        else if (flag == "--strength")
+        {
+            r.strength = number(value);
+            strength_option = true;
+        }
         else if (flag == "--latent")
             r.latent = value;
         else if (flag == "--embeddings")
@@ -115,6 +168,21 @@ Options parse_options(int argc, char **argv)
             if (n < 1 || n > 1000)
                 throw std::invalid_argument("Steps must be in [1,1000]");
             r.steps = int(n);
+        }
+        else if (flag == "--threads")
+        {
+            const auto n = integer(value);
+            if (n < 1 || n > 256)
+                throw std::invalid_argument("Threads must be in [1,256]");
+            r.threads = int(n);
+        }
+        else if (flag == "--gpu")
+        {
+            const auto n = integer(value);
+            if (n > 63)
+                throw std::invalid_argument("GPU index must be in [0,63]");
+            r.gpu_index = int(n);
+            gpu_option = true;
         }
         else if (flag == "--width" || flag == "--height")
         {
@@ -159,6 +227,18 @@ Options parse_options(int argc, char **argv)
         throw std::invalid_argument("PE temperature must be positive and top-p in (0,1]");
     if (!r.pe_model.empty() && !r.embeddings.empty())
         throw std::invalid_argument("PE and precomputed embeddings cannot be combined");
+    if ((background_option || strength_option || resize_option) && out.input.empty())
+        throw std::invalid_argument("--background, --strength and --resize require --input");
+    if (!out.resize.empty() && out.resize != "stretch" && out.resize != "fit" && out.resize != "crop")
+        throw std::invalid_argument("Resize must be stretch, fit, or crop");
+    if (r.strength < 0 || r.strength > 1)
+        throw std::invalid_argument("Strength must be in [0,1]");
+    if (gpu_option && r.device != "vulkan" && r.vae_device != "vulkan")
+        throw std::invalid_argument("--gpu requires a Vulkan generation or VAE device");
+    if (r.text_device != "cpu")
+        throw std::invalid_argument("Only --text-device cpu is currently supported");
+    if (!out.verify_only && !out.output.empty())
+        output_extension(out.output);
     if ((r.model.empty() && !(out.verify_only && !r.pe_model.empty())) ||
         (!out.verify_only && (out.output.empty() || !have_prompt || fs::exists(out.output))) ||
         (!r.trace.empty() && fs::exists(r.trace)) || (r.device != "cpu" && r.device != "vulkan") ||

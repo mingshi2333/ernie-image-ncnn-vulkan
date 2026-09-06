@@ -3,6 +3,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <functional>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -14,6 +15,12 @@ struct PeOptions
     float temperature = .6f, top_p = .95f;
     uint32_t seed = 42;
     bool greedy = false;
+};
+
+struct RgbImage
+{
+    int width = 0, height = 0;
+    std::vector<uint8_t> pixels; // Interleaved RGB, 8 bits per channel.
 };
 
 struct GenerationRequest
@@ -28,12 +35,12 @@ struct GenerationRequest
     PeOptions pe;
     // Diagnostics: raw FP32 inputs and a new trace directory, all optional.
     std::string latent, embeddings, trace;
-};
-
-struct RgbImage
-{
-    int width = 0, height = 0;
-    std::vector<uint8_t> pixels; // Interleaved RGB, 8 bits per channel.
+    // Execution controls appended to preserve positional aggregate initialization of older callers.
+    int threads = 4;
+    int gpu_index = -1; // -1 selects ncnn's default Vulkan device.
+    std::string text_device = "cpu";
+    std::optional<RgbImage> input_image; // Reserved until the F2 img2img runtime is connected.
+    float strength = .5f;
 };
 
 struct GenerationResult

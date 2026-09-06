@@ -69,6 +69,38 @@ class CliTests(unittest.TestCase):
     def test_repeated_resolution_cannot_silently_override(self):
         self.assertIn('Duplicate option', self.request('--prompt', 'cat', '--width', '512', '--width', '768'))
 
+    def test_threads_are_strictly_bounded(self):
+        self.assertIn('Threads must be', self.request('--prompt', 'cat', '--threads', '0'))
+        self.assertIn('Threads must be', self.request('--prompt', 'cat', '--threads', '257'))
+
+    def test_gpu_requires_a_vulkan_stage(self):
+        self.assertIn('requires a Vulkan', self.request('--prompt', 'cat', '--device', 'cpu',
+                                                       '--precision', 'fp32', '--gpu', '0'))
+
+    def test_unsupported_text_device_is_explicit(self):
+        self.assertIn('currently supported', self.request('--prompt', 'cat', '--text-device', 'vulkan'))
+
+    def test_img2img_is_recognized_but_fail_closed(self):
+        self.assertIn('unsupported until the F2', self.request('--prompt', 'cat', '--input', 'missing.jpg',
+                                                               '--strength', '.5', '--resize', 'fit',
+                                                               '--background', '#102030'))
+
+    def test_img2img_only_options_require_input(self):
+        self.assertIn('require --input', self.request('--prompt', 'cat', '--strength', '.5'))
+
+    def test_invalid_img2img_metadata_is_rejected(self):
+        self.assertIn('Strength must be', self.request('--prompt', 'cat', '--input', 'a.png', '--strength', '1.1'))
+        self.assertIn('Resize must be', self.request('--prompt', 'cat', '--input', 'a.png', '--resize', 'squash'))
+        self.assertIn('Background must be', self.request('--prompt', 'cat', '--input', 'a.png', '--background', '#xx0000'))
+
+    def test_output_format_is_checked_before_model_loading(self):
+        with tempfile.TemporaryDirectory() as folder:
+            result = subprocess.run([str(RUNNER), '--model', str(Path(folder)/'absent'), '--prompt', 'cat',
+                                     '--output', str(Path(folder)/'new.gif')], text=True,
+                                    capture_output=True, timeout=10)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('Output extension', result.stderr)
+
 
 if __name__ == '__main__':
     unittest.main()

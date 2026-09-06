@@ -16,6 +16,7 @@
 #include <cmath>
 #include <filesystem>
 #include <fstream>
+#include <limits>
 #include <random>
 #include <stdexcept>
 
@@ -65,6 +66,18 @@ void validate_request(const GenerationRequest &r)
         (r.device == "cpu" && r.precision != "fp32") || (r.vae_device != "cpu" && r.vae_device != "vulkan") ||
         (r.vae_convolution != "sgemm" && r.vae_convolution != "direct"))
         throw std::invalid_argument("Invalid generation request");
+    if (r.threads < 1 || r.threads > 256)
+        throw std::invalid_argument("Threads must be in [1,256]");
+    if (r.gpu_index < -1 || r.gpu_index > 63)
+        throw std::invalid_argument("GPU index must be -1 or in [0,63]");
+    if (r.gpu_index >= 0 && r.device != "vulkan" && r.vae_device != "vulkan")
+        throw std::invalid_argument("GPU index requires a Vulkan generation or VAE device");
+    if (r.gpu_index >= 0 && r.vae_device == "vulkan")
+        throw std::invalid_argument("Explicit GPU selection for the Vulkan VAE is not yet supported");
+    if (r.text_device != "cpu")
+        throw std::invalid_argument("Only CPU text encoding is currently supported");
+    if (!std::isfinite(r.strength) || r.strength < 0.f || r.strength > 1.f)
+        throw std::invalid_argument("Strength must be finite and in [0,1]");
     if (bool(r.width) != bool(r.height))
         throw std::invalid_argument("Specify width and height together");
     if (r.width &&
@@ -74,6 +87,17 @@ void validate_request(const GenerationRequest &r)
         throw std::invalid_argument("Use a new trace directory");
     if (!r.pe_model.empty() && !r.embeddings.empty())
         throw std::invalid_argument("PE and precomputed embeddings cannot be combined");
+    if (r.input_image)
+    {
+        const auto &image = *r.input_image;
+        if (image.width < 1 || image.height < 1 ||
+            size_t(image.width) > std::numeric_limits<size_t>::max() / size_t(image.height) / 3 ||
+            image.pixels.size() != size_t(image.width) * size_t(image.height) * 3)
+            throw std::invalid_argument("Input image must contain exactly width*height*3 RGB bytes");
+        if (r.width && (r.width != image.width || r.height != image.height))
+            throw std::invalid_argument("Input image dimensions differ from the requested resolution");
+        throw std::invalid_argument("Img2img generation is unsupported until the F2 runtime is integrated");
+    }
 }
 void trace_text(const fs::path &path, const std::string &text)
 {
@@ -137,7 +161,10 @@ ncnn::Mat run_dit(const fs::path &root, const ncnn::Mat &initial, const std::vec
 #if NCNN_VULKAN
         if (ncnn::get_gpu_count() < 1)
             throw std::runtime_error("No Vulkan device");
-        const auto *device = ncnn::get_gpu_device(ncnn::get_default_gpu_index());
+        const int gpu_index = request.gpu_index >= 0 ? request.gpu_index : ncnn::get_default_gpu_index();
+        if (gpu_index < 0 || gpu_index >= ncnn::get_gpu_count())
+            throw std::invalid_argument("Requested Vulkan GPU index is unavailable");
+        const auto *device = ncnn::get_gpu_device(gpu_index);
         if (precision == "fp16" && !device->info.support_fp16_storage())
             throw std::runtime_error("Device lacks FP16 storage");
         if (precision == "bf16" && !device->info.support_bf16_storage())
@@ -258,7 +285,7 @@ GenerationResult generate(const GenerationRequest &r, const ProgressCallback &no
         trace_text(trace / "ids.txt", tokens);
     }
     ncnn::Option cpu;
-    cpu.num_threads = 4;
+    cpu.num_threads = r.threads;
     cpu.use_vulkan_compute = false;
     cpu.use_fp16_storage = cpu.use_fp16_packed = cpu.use_fp16_arithmetic = cpu.use_bf16_storage =
         cpu.use_bf16_packed = false;

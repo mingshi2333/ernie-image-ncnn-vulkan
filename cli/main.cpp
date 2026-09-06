@@ -24,6 +24,9 @@ int main(int argc, char **argv)
             std::cout << "Model verified\n";
             return 0;
         }
+        if (!options.input.empty())
+            throw std::invalid_argument("--input is recognized, but img2img generation is unsupported until "
+                                        "the F2 runtime is integrated");
         const auto result = ernie::generate(
             request,
             [&](const ernie::Progress &p)
@@ -39,18 +42,18 @@ int main(int argc, char **argv)
                     std::cout << p.stage << ' ' << p.current << '/' << p.total;
                 std::cout << std::endl;
             });
-        const auto png_start = std::chrono::steady_clock::now();
-        ernie::cli::write_png(options.output, result.image);
-        const auto png_seconds =
-            std::chrono::duration<double>(std::chrono::steady_clock::now() - png_start).count();
+        const auto write_start = std::chrono::steady_clock::now();
+        ernie::cli::write_image(options.output, result.image);
+        const auto write_seconds =
+            std::chrono::duration<double>(std::chrono::steady_clock::now() - write_start).count();
         if (!request.pe_model.empty())
             std::cout << "PE generated " << result.pe_generated_tokens << " tokens, "
                       << (result.pe_eos ? "EOS reached" : "token limit reached")
                       << "\nEnhanced prompt: " << result.prompt << '\n';
-        std::cout << "VAE and PNG: " << result.vae_seconds + png_seconds << " s\n"
+        std::cout << "VAE and image encode: " << result.vae_seconds + write_seconds << " s\n"
                   << "Saved " << result.image.width << 'x' << result.image.height
-                  << " PNG: " << options.output.string() << '\n'
-                  << "Total: " << result.elapsed_seconds + png_seconds << " s\n";
+                  << " image: " << options.output.string() << '\n'
+                  << "Total: " << result.elapsed_seconds + write_seconds << " s\n";
         return 0;
     }
     catch (const std::exception &error)
