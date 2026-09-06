@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 #include "text_encoder.h"
+#include "ernie_text_down.h"
 #include "ernie_gelu.h"
 #include "ernie_attention.h"
 #include <chrono>
@@ -25,11 +26,22 @@ void bucket_check(int bucket)
     if (bucket < 1 || bucket > 2048)
         throw std::invalid_argument("Text bucket must be in [1,2048]");
 }
-void load(ncnn::Net &net, const std::string &path)
+void load(ncnn::Net &net, const std::string &path, TextDownMode mode=TextDownMode::Gemm, int bucket=0)
 {
     check(register_layers(net), "register text normalization");
     const auto dir = std::filesystem::path(path);
-    check(net.load_param((dir / "text.ncnn.param").string().c_str()), "load text graph");
+    if (mode==TextDownMode::Vector)
+    {
+        std::ifstream file(dir/"text.ncnn.param");
+        if (!file || std::filesystem::file_size(dir/"text.ncnn.param")>65536)
+            throw std::invalid_argument("Invalid text graph file");
+        const std::string graph((std::istreambuf_iterator<char>(file)),std::istreambuf_iterator<char>());
+        const auto derived=vector_text_down_graph(graph,bucket);
+        validate_text_down_weights((dir/"text.ncnn.bin").string());
+        check(register_text_down(net),"register vector text down");
+        check(net.load_param_mem(derived.c_str()),"load reviewed vector text graph");
+    }
+    else check(net.load_param((dir / "text.ncnn.param").string().c_str()), "load text graph");
     check(net.load_model((dir / "text.ncnn.bin").string().c_str()), "load text weights");
 }
 void request_check(size_t models, size_t constants)
@@ -98,11 +110,24 @@ std::vector<ncnn::Mat> text_constants(const std::string &path, int bucket)
 }
 ncnn::Mat run_text_blocks(const std::vector<std::string> &models, const ncnn::Mat &input,
                           const std::vector<ncnn::Mat> &constants, const ncnn::Option &option,
-                          BlockSequenceStats &stats)
+                          BlockSequenceStats &stats, TextDownMode down_mode)
 {
     request_check(models.size(), constants.size());
     if (option.use_vulkan_compute)
         throw std::invalid_argument("CPU text path requires CPU options");
+    if (down_mode!=TextDownMode::Gemm && down_mode!=TextDownMode::Vector)
+        throw std::invalid_argument("Unknown text down mode");
+    if (down_mode==TextDownMode::Vector)
+    {
+        if (input.dims!=2 || input.w!=3072 || input.elemsize!=4u || input.elempack!=1 ||
+            (input.h!=64 && input.h!=2048) || option.use_fp16_storage || option.use_fp16_packed ||
+            option.use_fp16_arithmetic || option.use_bf16_storage || option.use_bf16_packed)
+            throw std::invalid_argument("Vector text down requires reviewed CPU FP32 layout");
+        for (size_t i=0;i<constants.size();++i)
+            if (constants[i].dims!=2 || constants[i].w!=(i==2?input.h:128) ||
+                constants[i].h!=input.h || constants[i].elemsize!=4u || constants[i].elempack!=1)
+                throw std::invalid_argument("Vector text constants have wrong layout");
+    }
     stats = {};
     stats.peak_loaded_nets = 1;
     ncnn::Mat current = input;
@@ -111,7 +136,7 @@ ncnn::Mat run_text_blocks(const std::vector<std::string> &models, const ncnn::Ma
         auto start = Clock::now();
         ncnn::Net net;
         net.opt = option;
-        load(net, path);
+        load(net, path, down_mode, input.h);
         stats.load_seconds.push_back(std::chrono::duration<double>(Clock::now() - start).count());
         start = Clock::now();
         auto extractor = net.create_extractor();

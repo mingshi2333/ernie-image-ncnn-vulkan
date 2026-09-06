@@ -128,14 +128,15 @@ int main(int argc, char **argv)
     std::vector<std::string> models;
     fs::path fixture, output, ids_path, embeddings, frequencies, trace;
     std::vector<std::string> trace_blobs;
-    int tokens = 0, valid = 0, requested_valid = 0, status = 0;
+    int tokens = 0, valid = 0, requested_valid = 0, status = 0, threads = 4;
     std::string backend = "cpu", precision = "fp32";
-    bool vector_down = false;
+    bool vector_down = false, native_vector_down = false;
     try
     {
         for (int i = 1; i < argc; ++i)
         {
             const std::string flag = argv[i];
+            if (flag == "--text-down-vector") { native_vector_down = true; continue; }
             if (flag == "--diagnostic-vector-down") { vector_down = true; continue; }
             if (++i == argc)
                 throw std::invalid_argument("Missing argument value");
@@ -164,6 +165,11 @@ int main(int argc, char **argv)
                 backend = value;
             else if (flag == "--precision")
                 precision = value;
+            else if (flag == "--threads")
+            {
+                size_t used=0;threads=std::stoi(value,&used);
+                if (used!=value.size() || threads<1 || threads>4) throw std::invalid_argument("Threads must be 1..4");
+            }
             else if (flag == "--valid-tokens")
                 requested_valid = std::stoi(value);
             else if (flag == "--tokens")
@@ -182,6 +188,8 @@ int main(int argc, char **argv)
             (backend == "cpu" && precision != "fp32") || (fixture.empty() == ids_path.empty()))
             throw std::invalid_argument(
                 "Require models, new output, token bucket and exactly one fixture/ids source");
+        if (native_vector_down && (vector_down || !trace.empty() || backend!="cpu"))
+            throw std::invalid_argument("Native vector mode requires CPU production path without diagnostic trace");
         if (vector_down && (trace.empty() || backend != "cpu"))
             throw std::invalid_argument("Vector down requires CPU diagnostic trace");
         if ((!trace.empty() && (backend != "cpu" || fs::exists(trace))) ||
@@ -220,7 +228,7 @@ int main(int argc, char **argv)
             valid = int(ids.size());
         }
         ncnn::Option option;
-        option.num_threads = vector_down ? 2 : 4;
+        option.num_threads = (vector_down || native_vector_down) ? 2 : threads;
         option.use_vulkan_compute = backend == "vulkan";
         option.use_fp16_storage = precision == "fp16";
         option.use_bf16_storage = precision == "bf16";
@@ -230,7 +238,8 @@ int main(int argc, char **argv)
         if (!trace.empty())
             result = trace_cpu(models, input, constants, option, trace, trace_blobs, tokens, valid, vector_down);
         else if (backend == "cpu")
-            result = ernie::run_text_blocks(models, input, constants, option, stats);
+            result = ernie::run_text_blocks(models, input, constants, option, stats,
+                native_vector_down ? ernie::TextDownMode::Vector : ernie::TextDownMode::Gemm);
         else
         {
 #if NCNN_VULKAN

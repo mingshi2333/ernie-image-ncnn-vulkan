@@ -250,3 +250,26 @@ IDs SHA `dfc478b4af2fa60de5f9f90ed9a6ae3ec7c7a8a83316a811b310bed4ca05ca1a`；pro
 运行`outputs/q2-history-vector-down-v2/`，session64705 exit0，官方/原生/候选六个子进程全部exit0，始终CPU2、无GPU。每100ms监控host可用≥3GiB、RSS≤2GiB；未触限。采样峰值不是精确瞬时峰值保证。source inventory、独立worker/runner snapshots、每阶段命令/退出码/时钟和输入/输出SHA齐全。
 
 首次v1/session72986因parser不允许stage-layer=-1（仅逐层输出）在模型加载前exit2，保留日志；随后给官方worker明确允许-1，其他路径仍拒绝。增加`--threads 2`控制官方CPU线程，并在选择性stage捕获结束后删除module字典/局部引用，避免跨层持有前一个block权重。图转换只接受显式64/2048桶；64图没有改写任何static reshape。新增64显式参数与未审桶拒绝测试，7/7文本诊断tests通过。旧RMSNorm负结果、所有历史图像失败与固定门槛保持。
+
+## 可选原生 TextDownMode::Vector 组件
+
+CPU `run_text_blocks(..., stats, TextDownMode down_mode=TextDownMode::Gemm)`新增兼容尾参。默认路径原有图、权重读取与数学不变；Vulkan签名不变。Vector仅CPU FP32，完整图token模板逐项审查独立64/2048导出、包括全部58层/75blob和所有reshape/连接/参数。只有完全匹配才在内存把唯一down Gemm改成ErnieTextDown；源模型包文件不改写。32桶和未知图显式拒绝vector，默认Gemm仍可用。
+
+新`src/ernie_text_down.*`注册ErnieTextDown，固定K9216/N3072、无bias、无activation/量化附加参数。加载前流式检查完整block两个rawFP32 norm段及七个tagged矩阵、标签/长度/EOF，支持原FP32和无损BF16磁盘标记，未知tag、截断/附加数据拒绝；只读少量标签并seek，不复制整层权重。自己的down从同一ModelBin读取N*K一次，检查展开dtype/shape/finite，交给InnerProduct用Mat引用，不再读取或重排磁盘数据。逐全部行调用pinned ncnn dims1内核，不按valid/prompt/token特判，无中间tensor文件I/O。
+
+probe新增`--text-down-vector`，必须CPU且无诊断trace，实际调用上述生产run_text_blocks；普通模式也可用`--threads 2`验证相同线程条件。原diagnostic wrapper路径保留为独立参考。CPU contract检查完整64/2048图、非审查桶、图边/维度/参数篡改，bias/未知param/错误参数dtype，完整FP32/BF16结构流的EOF/tag/truncation，错误weight形状/NaN，真实固定维度稀疏矩阵逐行精确oracle、错误输入宽度/finite/低精度。CTest `text_down_contract_cpu` 1/1通过（最新0.36秒）。两个静态param fixture已纳入test，仅几KB，不带模型权重。
+
+真实native runner SHA `91ec9c70d04c0eaf14277076177941d64d4c875b4dc71fc25274265f8d19c452`；`outputs/q2-native-text-vector-v1/`保存实际源snapshot、完整source inventory、原包所有text权重/图的SHA、输入身份、运行command/log与比较。session93892 exit0，四个子进程均exit0，未运行GPU。
+
+| fixture / mode | byte-match既存目标 | load秒 | compute秒 | 外部wall秒 | 10Hz峰值RSS KiB | 最低host可用KiB |
+|---|---|---:|---:|---:|---:|---:|
+| chinese / gemm | True | 39.166913019 | 3.576999061 | 45.183484715 | 623256 | 4827952 |
+| chinese / vector | True | 45.748896572 | 14.426441273 | 63.012557066 | 620664 | 3988748 |
+| long / gemm | True | 42.073102681 | 3.869200606 | 48.801281405 | 616736 | 4711516 |
+| long / vector | True | 44.554350582 | 14.456175798 | 61.897880032 | 610608 | 4254448 |
+
+默认Gemm的目标是历史native baseline；Vector的目标是此前独立diagnostic candidate。两者中文/英文全部SHA逐位相同，因此本原生封装保留已测完整文本数值结果。仍每次一个block、2线程，host可用<3GiB或RSS>2GiB会停止，未触限。采样峰值不保证捕获所有瞬时峰值。
+
+单独执行25个真实bin的结构审核，总观察0.07627811秒，`structural-audit-cost.json`记录每block及test runner SHA；该数字**不含**权重读取/解码、down finite扫描与kernel packing。上表load包含这些全部工作，不能把两种模式的load差因果归给结构审查；并行root作业与缓存状态不同，本批明显load占主导。Vector计算时间也较Gemm高，精度收益有计算成本，未提供speedup/正式性能结论。
+
+本次只实现可选原生组件。pipeline/CLI/public header胶合由root负责；没有替用户晋升默认。root已报告512×384 saved-candidate图像诊断25/25+PNG通过，但那份仍native_acceptance_eligible=false，不能把它改写为本原生组件的完整图像结果。32桶、1080-token、其他精度/fixture仍需对应证据后另行决策。

@@ -88,3 +88,8 @@ if(ERNIE_BUILD_TOKENIZER)
     target_link_libraries(ernie-shape-graph-contract PRIVATE ernie-shape-graph)
     add_test(NAME shape_graph_contract COMMAND ernie-shape-graph-contract)
 endif()
+
+add_executable(ernie-text-down-contract test_text_down.cpp)
+target_link_libraries(ernie-text-down-contract PRIVATE ernie-runtime)
+target_compile_definitions(ernie-text-down-contract PRIVATE ERNIE_TEXT_DOWN_FIXTURE="${CMAKE_CURRENT_SOURCE_DIR}/fixtures/text-down-s64.param")
+add_test(NAME text_down_contract_cpu COMMAND ernie-text-down-contract)
