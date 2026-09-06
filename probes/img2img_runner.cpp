@@ -70,9 +70,7 @@ int main(int argc, char **argv)
         cpu.use_winograd_convolution = false; cpu.use_sgemm_convolution = false;
         cpu.use_fp16_storage = cpu.use_fp16_arithmetic = cpu.use_fp16_packed = false;
         cpu.use_bf16_storage = cpu.use_bf16_packed = false;
-        const auto result = argc == 7 && width == 1024 && height == 1024
-                                ? ernie::encode_vae_candidate_1024({read_text(param), weights.string()}, rgb, cpu)
-                                : ernie::encode_vae({read_text(param), weights.string()}, rgb, cpu);
+        const auto result = ernie::encode_vae({read_text(param), weights.string()}, rgb, cpu);
         fs::create_directories(output);
         save(output / "mean.f32", result.mean);
         save(output / "packed.f32", result.packed);

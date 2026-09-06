@@ -32,18 +32,71 @@
   },
   "reviewed_encoders": {
     "ef98859ac741f6923680fb02de39e663fa3fa01943eff9d2d85c6ddaf40c9e59": {
-      "status": "available", "width": 512, "height": 384,
-      "posterior": "mode_first_32_channels_no_sampling", "packing": "pixel_unshuffle_2",
-      "encoder_bn_eps": 0.0001, "encoder_bn_affine": false, "decoder_inverse_bn_eps": 1e-05,
+      "status": "available",
+      "width": 512,
+      "height": 384,
+      "posterior": "mode_first_32_channels_no_sampling",
+      "packing": "pixel_unshuffle_2",
+      "encoder_bn_eps": 0.0001,
+      "encoder_bn_affine": false,
+      "decoder_inverse_bn_eps": 1e-05,
       "files": {
-        "vae/encoder.ncnn.param": {"sha256": "4858cc8b3f2ed267316c122ecef538ae4217c778a48e8977768618833ac5af92", "size": 8664},
-        "vae/encoder.ncnn.bin": {"sha256": "7fa2441a94886d9a1d44dbafe4fbac9211190e342b1cac171acb94c0faf517ce", "size": 137705600},
-        "vae/bn-mean.f32": {"sha256": "9027fac5727854f779ebbeae3032cfce0d47a11bc85f4329eb0a317c9ad90217", "size": 512},
-        "vae/bn-variance.f32": {"sha256": "8b4656821cfe8827490068f768f0dba57e09423e900b8b018da097f0c4537009", "size": 512}
+        "vae/encoder.ncnn.param": {
+          "sha256": "4858cc8b3f2ed267316c122ecef538ae4217c778a48e8977768618833ac5af92",
+          "size": 8664
+        },
+        "vae/encoder.ncnn.bin": {
+          "sha256": "7fa2441a94886d9a1d44dbafe4fbac9211190e342b1cac171acb94c0faf517ce",
+          "size": 137705600
+        },
+        "vae/bn-mean.f32": {
+          "sha256": "9027fac5727854f779ebbeae3032cfce0d47a11bc85f4329eb0a317c9ad90217",
+          "size": 512
+        },
+        "vae/bn-variance.f32": {
+          "sha256": "8b4656821cfe8827490068f768f0dba57e09423e900b8b018da097f0c4537009",
+          "size": 512
+        }
       },
       "evidence": {
         "official_fixture_sha256": "ee5ce5db3cb9912ff5e824bf062d1376bcf9b2e91e942d06924ecd187a93e1a9",
         "conversion_sha256": "845826d943dcd7764f8ae9167af377b0a9d0e7e17f6cf95037d6365a6cb77805",
+        "official_revision": "bc68c81e2a1730a394d5fc9fae70713dee940140",
+        "official_encoder_manifest_sha256": "c270dbb86240a60a958f7b409f230fde9fcaf64f40ca6bb3b0c7079716884b58",
+        "official_quant_manifest_sha256": "7cf886797debd5724e891959776adb241d9a50125bf85ded5b4f0c1e4fdaaf19",
+        "official_bn_manifest_sha256": "ed837a63df954f47c17853675bcdf25579bedf2f373eac88ea2f66d21559f243"
+      }
+    },
+    "72bb195a2d0b3ef2a25f873666f51f4bbec4b391744518597be87206a551efc1": {
+      "status": "available",
+      "width": 1024,
+      "height": 1024,
+      "posterior": "mode_first_32_channels_no_sampling",
+      "packing": "pixel_unshuffle_2",
+      "encoder_bn_eps": 0.0001,
+      "encoder_bn_affine": false,
+      "decoder_inverse_bn_eps": 1e-05,
+      "files": {
+        "vae/encoder.ncnn.param": {
+          "sha256": "d3207b56f558d65b9901ff73640b51ae2a0934143b43eaeab6cad45e275b9ceb",
+          "size": 8667
+        },
+        "vae/encoder.ncnn.bin": {
+          "sha256": "7fa2441a94886d9a1d44dbafe4fbac9211190e342b1cac171acb94c0faf517ce",
+          "size": 137705600
+        },
+        "vae/bn-mean.f32": {
+          "sha256": "9027fac5727854f779ebbeae3032cfce0d47a11bc85f4329eb0a317c9ad90217",
+          "size": 512
+        },
+        "vae/bn-variance.f32": {
+          "sha256": "8b4656821cfe8827490068f768f0dba57e09423e900b8b018da097f0c4537009",
+          "size": 512
+        }
+      },
+      "evidence": {
+        "official_fixture_sha256": "88f2e8b7ad63a47fd993b069282dcb8bca9042cf56a470efa84237b711d9f7d9",
+        "conversion_sha256": "a78e001ccd2abf48206e41eff3597e6afa9c3c0c7d9258c73c13e3e08e985334",
         "official_revision": "bc68c81e2a1730a394d5fc9fae70713dee940140",
         "official_encoder_manifest_sha256": "c270dbb86240a60a958f7b409f230fde9fcaf64f40ca6bb3b0c7079716884b58",
         "official_quant_manifest_sha256": "7cf886797debd5724e891959776adb241d9a50125bf85ded5b4f0c1e4fdaaf19",

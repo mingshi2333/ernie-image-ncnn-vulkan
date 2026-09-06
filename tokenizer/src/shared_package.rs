@@ -138,7 +138,7 @@ pub fn open(root:&Path,width:i32,height:i32)->Result<ResolvedPackage,String>{
 #[cfg(test)]
 mod tests {
     use super::*;
-    #[test]fn contract_keeps_reviewed_shapes_and_bn_asymmetry(){let c:Value=serde_json::from_str(include_str!("../schema3_contract.json")).unwrap();assert_eq!(c["source_manifests"].as_object().unwrap().len(),2);assert_eq!(c["reviewed_encoders"].as_object().unwrap().len(),1);assert_ne!(c["math"]["encoder_bn_eps"],c["math"]["decoder_inverse_bn_eps"]);assert_eq!(c["encoder"]["status"],"unavailable");}
+    #[test]fn contract_keeps_reviewed_shapes_and_bn_asymmetry(){let c:Value=serde_json::from_str(include_str!("../schema3_contract.json")).unwrap();assert_eq!(c["source_manifests"].as_object().unwrap().len(),2);assert_eq!(c["reviewed_encoders"].as_object().unwrap().len(),2);assert_eq!(c["reviewed_encoders"]["ef98859ac741f6923680fb02de39e663fa3fa01943eff9d2d85c6ddaf40c9e59"]["width"],512);assert_eq!(c["reviewed_encoders"]["72bb195a2d0b3ef2a25f873666f51f4bbec4b391744518597be87206a551efc1"]["width"],1024);assert_ne!(c["math"]["encoder_bn_eps"],c["math"]["decoder_inverse_bn_eps"]);assert_eq!(c["encoder"]["status"],"unavailable");}
     #[test]fn malformed_digest_and_config_fail(){for s in ["../oops","A",&"A".repeat(64)]{assert!(sha(s).is_err());}assert!(config(&serde_json::json!({"packed_width":true})).is_err());}
 }
 

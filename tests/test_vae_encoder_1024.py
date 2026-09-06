@@ -1,10 +1,24 @@
+import json
 import unittest
+from pathlib import Path
 
 from tools.reference_vae_encoder_1024 import development_rgb, resource_plan
 from tools.specialize_vae_encoder_1024 import reviewed_dimensions, specialized_lines
 
 
 class Encoder1024PreparationTests(unittest.TestCase):
+    def test_trusted_registry_is_fixed_to_reviewed_source_and_files(self):
+        contract = json.loads(Path('tokenizer/schema3_contract.json').read_text())
+        source = '72bb195a2d0b3ef2a25f873666f51f4bbec4b391744518597be87206a551efc1'
+        entry = contract['reviewed_encoders'][source]
+        self.assertEqual((entry['width'], entry['height']), (1024, 1024))
+        self.assertEqual(entry['files']['vae/encoder.ncnn.param'], {
+            'sha256': 'd3207b56f558d65b9901ff73640b51ae2a0934143b43eaeab6cad45e275b9ceb',
+            'size': 8667,
+        })
+        self.assertEqual(entry['evidence']['official_fixture_sha256'],
+                         '88f2e8b7ad63a47fd993b069282dcb8bca9042cf56a470efa84237b711d9f7d9')
+
     def test_development_input_and_resource_plan(self):
         rgb = development_rgb()
         self.assertEqual(rgb.shape, (1024, 1024, 3))

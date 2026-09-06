@@ -35,13 +35,10 @@ int main()
         rejects([&] { ernie::encode_vae({"7767517\n0 0\n", "/missing"}, unreviewed_large, cpu); });
         auto candidate = rgb; candidate.width = candidate.height = 1024;
         candidate.pixels.resize(size_t(1024) * 1024 * 3);
-        // Production remains closed until the separately recorded candidate is reviewed.
-        rejects_with([&] { ernie::encode_vae({"7767517\n0 0\n", "/missing"}, candidate, cpu); },
-                     "RGB shape has no reviewed VAE encoder graph");
-        // The evidence-only entry is fixed to 1024 and must reject every other shape
-        // before it attempts to load a graph or weights.
-        rejects_with([&] { ernie::encode_vae_candidate_1024({"7767517\n0 0\n", "/missing"}, rgb, cpu); },
-                     "Encoder evidence candidate is pinned to 1024x1024");
+        // The reviewed fixed 1024 shape reaches component validation; this proves it
+        // is accepted by the same production entry without loading the bad graph.
+        rejects_with([&] { ernie::encode_vae(missing, candidate, cpu); },
+                     "Invalid authenticated VAE encoder component");
         auto short_rgb = rgb; short_rgb.pixels.pop_back();
         rejects([&] { ernie::encode_vae({"7767517\n0 0\n", "/missing"}, short_rgb, cpu); });
         auto vulkan = cpu; vulkan.use_vulkan_compute = true;

@@ -91,3 +91,17 @@ run. The actual official implementation class files and weight/config identities
 review must decide whether this source-recording limitation requires another hermetic metadata rerun. The host
 `MemAvailable` >=3 GiB condition was checked immediately before launch and recorded again after exit, not monitored
 continuously. The effective cgroup hard limit and swap prohibition applied for the full worker lifetime.
+
+## Trusted fixed production registration
+
+After independent review commits `773b00c` and `a6d205d` closed the candidate findings, schema-3 registers the
+fixed source manifest `72bb195a...` with the reviewed 1024 param, unchanged encoder bin, source-instance BN files,
+official fixture and conversion hashes. The existing 512 entry remains byte-for-byte present. Production
+`encode_vae` now admits exactly 1024x1024 through the same component path and math used by 512x384; the temporary
+evidence-only function was removed. Other shapes remain rejected.
+
+`outputs/f2-production-img2img-package-1024-v1` was created by the normal schema-3 builder from the pinned
+`models/turbo1024-s64-portable` instance and the reviewed specialized-v2 encoder. Python verification reports one
+instance and 80 shared objects; manifest SHA-256 is
+`2c1d0cdf39fe4cc94f7133d6dfac97a048123a8ebc8a4a5072e4d5e48368a5ad`. Generation quality remains pending.
+The subsequent 1024 strength-zero production execution is intentionally reported separately after review.

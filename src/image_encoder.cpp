@@ -25,12 +25,13 @@ void validate_output(const ncnn::Mat &value, int width, int height, int channels
 }
 }
 
-static VaeEncoding encode_vae_impl(const ComponentFiles &component, const RgbImage &rgb,
-                                   const ncnn::Option &requested, bool candidate_1024)
+VaeEncoding encode_vae(const ComponentFiles &component, const RgbImage &rgb,
+                       const ncnn::Option &requested)
 {
     const bool reviewed_shape = (rgb.height == 32 && (rgb.width == 32 || rgb.width == 64)) ||
-                                (rgb.width == 512 && rgb.height == 384);
-    if ((!reviewed_shape && !(candidate_1024 && rgb.width == 1024 && rgb.height == 1024)) ||
+                                (rgb.width == 512 && rgb.height == 384) ||
+                                (rgb.width == 1024 && rgb.height == 1024);
+    if (!reviewed_shape ||
         rgb.pixels.size() != size_t(rgb.width) * size_t(rgb.height) * 3)
         throw std::invalid_argument("RGB shape has no reviewed VAE encoder graph");
     if (component.param_text.empty() || component.param_text.find('\0') != std::string::npos ||
@@ -68,19 +69,5 @@ static VaeEncoding encode_vae_impl(const ComponentFiles &component, const RgbIma
     validate_output(result.packed, rgb.width / 16, rgb.height / 16, 128, "packed");
     validate_output(result.normalized, rgb.width / 16, rgb.height / 16, 128, "normalized");
     return result;
-}
-
-VaeEncoding encode_vae(const ComponentFiles &component, const RgbImage &rgb,
-                       const ncnn::Option &requested)
-{
-    return encode_vae_impl(component, rgb, requested, false);
-}
-
-VaeEncoding encode_vae_candidate_1024(const ComponentFiles &component, const RgbImage &rgb,
-                                      const ncnn::Option &requested)
-{
-    if (rgb.width != 1024 || rgb.height != 1024)
-        throw std::invalid_argument("Encoder evidence candidate is pinned to 1024x1024");
-    return encode_vae_impl(component, rgb, requested, true);
 }
 }
