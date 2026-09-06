@@ -57,6 +57,24 @@ def verify_blob_map(param):
         if producers.get(blob)!=kind:raise ValueError('Unexpected graph producer for '+blob)
     return dict(BLOBS)
 
+def derive_vector_down_graph(text):
+    """Replace only the proven MLP down contract in an explicit diagnostic graph."""
+    lines=[];matches=0
+    for line in text.splitlines():
+        t=line.split()
+        if len(t)>1 and t[1]=='gemm_6':
+            if t[:6]!=['Gemm','gemm_6','1','1','72','73']:
+                raise ValueError('Unexpected MLP down producer or edges')
+            params=dict(item.split('=') for item in t[6:])
+            expected={'10':'-1','2':'0','3':'1','4':'0','5':'1','6':'1','7':'2048','8':'3072','9':'9216'}
+            if params!=expected or len(t[6:])!=len(expected):
+                raise ValueError('Unproven MLP down parameters')
+            line='DiagnosticVectorDown gemm_6 1 1 72 73 0=3072 1=0 2=28311552'
+            matches+=1
+        lines.append(line)
+    if matches!=1:raise ValueError('Require exactly one MLP down projection')
+    return '\n'.join(lines)+'\n'
+
 def save(path,value):
     a=np.ascontiguousarray(value,dtype='<f4')
     if not np.isfinite(a).all():raise ValueError('Nonfinite output')

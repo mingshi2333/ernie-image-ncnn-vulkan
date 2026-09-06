@@ -2,6 +2,8 @@
 #include "text_encoder.h"
 #include "ernie_gelu.h"
 #include <cctype>
+#include <memory>
+#include <cstring>
 #include <algorithm>
 #if NCNN_VULKAN
 #include "pipelinecache.h"
@@ -13,6 +15,42 @@
 #include <numeric>
 #include <stdexcept>
 namespace fs = std::filesystem;
+// Opt-in experiment: use upstream vector reduction for each row of MLP down.
+// The portable graph must explicitly name this custom layer; default math is unchanged.
+class DiagnosticVectorDown final : public ncnn::Layer
+{
+    std::unique_ptr<ncnn::Layer> inner{ncnn::create_layer("InnerProduct")};
+public:
+    DiagnosticVectorDown() { one_blob_only = true; support_packing = false; }
+    int load_param(const ncnn::ParamDict& pd) override
+    {
+        if (!inner || pd.get(0, 0) != 3072 || pd.get(1, -1) != 0 || pd.get(2, 0) != 28311552)
+            return -1;
+        return inner->load_param(pd);
+    }
+    int load_model(const ncnn::ModelBin& mb) override { return inner->load_model(mb); }
+    int create_pipeline(const ncnn::Option& opt) override { return inner->create_pipeline(opt); }
+    int destroy_pipeline(const ncnn::Option& opt) override { return inner->destroy_pipeline(opt); }
+    int forward(const ncnn::Mat& bottom, ncnn::Mat& top, const ncnn::Option& opt) const override
+    {
+        if (bottom.dims != 2 || bottom.w != 9216 || bottom.elempack != 1 || bottom.elemsize != 4u)
+            return -1;
+        top.create(3072, bottom.h, 4u, opt.blob_allocator);
+        if (top.empty()) return -100;
+        // Process every row, including padded rows. No prompt/index/ID condition.
+        for (int r = 0; r < bottom.h; ++r)
+        {
+            ncnn::Mat row(9216, const_cast<float*>(bottom.row(r)));
+            ncnn::Mat result, plain;
+            if (inner->forward(row, result, opt)) return -1;
+            ncnn::convert_packing(result, plain, 1, opt);
+            if (plain.dims != 1 || plain.w != 3072 || plain.elemsize != 4u) return -1;
+            std::memcpy(top.row(r), plain.data, 3072 * sizeof(float));
+        }
+        return 0;
+    }
+};
+DEFINE_LAYER_CREATOR(DiagnosticVectorDown)
 static ncnn::Mat read(const fs::path &path, int w, int h)
 {
     if (fs::file_size(path) != size_t(w) * h * 4)
@@ -50,7 +88,7 @@ static void dump_trace(const fs::path &directory, const std::string &name,
 static ncnn::Mat trace_cpu(const std::vector<std::string> &models, const ncnn::Mat &input,
                           const std::vector<ncnn::Mat> &constants, const ncnn::Option &option,
                           const fs::path &directory, const std::vector<std::string> &blobs,
-                          int tokens, int valid)
+                          int tokens, int valid, bool vector_down)
 {
     fs::create_directories(directory);
     dump_trace(directory, "embedding", input, tokens, valid);
@@ -61,6 +99,8 @@ static ncnn::Mat trace_cpu(const std::vector<std::string> &models, const ncnn::M
     {
         ncnn::Net net;
         net.opt = option;
+        if (vector_down && net.register_custom_layer("DiagnosticVectorDown", DiagnosticVectorDown_layer_creator))
+            throw std::runtime_error("Cannot register diagnostic vector down");
         if (ernie::register_layers(net) ||
             net.load_param((fs::path(models[i]) / "text.ncnn.param").string().c_str()) ||
             net.load_model((fs::path(models[i]) / "text.ncnn.bin").string().c_str()))
@@ -90,11 +130,13 @@ int main(int argc, char **argv)
     std::vector<std::string> trace_blobs;
     int tokens = 0, valid = 0, requested_valid = 0, status = 0;
     std::string backend = "cpu", precision = "fp32";
+    bool vector_down = false;
     try
     {
         for (int i = 1; i < argc; ++i)
         {
             const std::string flag = argv[i];
+            if (flag == "--diagnostic-vector-down") { vector_down = true; continue; }
             if (++i == argc)
                 throw std::invalid_argument("Missing argument value");
             const std::string value = argv[i];
@@ -140,6 +182,8 @@ int main(int argc, char **argv)
             (backend == "cpu" && precision != "fp32") || (fixture.empty() == ids_path.empty()))
             throw std::invalid_argument(
                 "Require models, new output, token bucket and exactly one fixture/ids source");
+        if (vector_down && (trace.empty() || backend != "cpu"))
+            throw std::invalid_argument("Vector down requires CPU diagnostic trace");
         if ((!trace.empty() && (backend != "cpu" || fs::exists(trace))) ||
             (!trace_blobs.empty() && (trace.empty() || models.size() != 1)))
             throw std::invalid_argument("Trace requires new CPU directory; internal blobs require one model");
@@ -176,7 +220,7 @@ int main(int argc, char **argv)
             valid = int(ids.size());
         }
         ncnn::Option option;
-        option.num_threads = 4;
+        option.num_threads = vector_down ? 2 : 4;
         option.use_vulkan_compute = backend == "vulkan";
         option.use_fp16_storage = precision == "fp16";
         option.use_bf16_storage = precision == "bf16";
@@ -184,7 +228,7 @@ int main(int argc, char **argv)
         ernie::BlockSequenceStats stats;
         ncnn::Mat result;
         if (!trace.empty())
-            result = trace_cpu(models, input, constants, option, trace, trace_blobs, tokens, valid);
+            result = trace_cpu(models, input, constants, option, trace, trace_blobs, tokens, valid, vector_down);
         else if (backend == "cpu")
             result = ernie::run_text_blocks(models, input, constants, option, stats);
         else
