@@ -75,6 +75,48 @@ class AcceptanceManifestTests(unittest.TestCase):
             root=Path(d);m=freeze_inputs({'cases':[self.case()]},root/'frozen')
             p=root/'frozen/changed/prompt.txt';raw=p.read_bytes();outside=root/'outside';outside.write_bytes(raw);p.unlink();p.symlink_to(outside)
             with self.assertRaises(ValueError):verify_inputs(m,root/'frozen')
+    def pe_case(self):
+        c=self.case()
+        c['pe']=dict(enabled=True,sampling='greedy',max_input_tokens=2048,max_new_tokens=2048,
+                     template_sha256='a'*64,temperature=0.0,top_p=1.0,stop_at_eos=True,
+                     add_generation_prompt=False,template_source='official:chat_template.jinja')
+        return c
+    def test_ambiguous_input_sources_rejected_before_writing(self):
+        for field in ['prompt_file','noise_file']:
+            with self.subTest(field=field),tempfile.TemporaryDirectory() as d:
+                root=Path(d);source=root/'source';source.write_bytes(b'file wins')
+                c=self.case();c[field]=str(source)
+                with self.assertRaisesRegex(ValueError,'exactly one'):
+                    freeze_inputs({'cases':[c]},root/'frozen')
+                self.assertFalse((root/'frozen').exists())
+    def test_enabled_pe_requires_every_identity_field(self):
+        for field in set(self.pe_case()['pe'])-{'enabled'}:
+            with self.subTest(field=field),tempfile.TemporaryDirectory() as d:
+                c=self.pe_case();del c['pe'][field]
+                with self.assertRaisesRegex(ValueError,'PE'):
+                    freeze_inputs({'cases':[c]},Path(d))
+    def test_enabled_pe_rejects_wrong_field_types(self):
+        invalid={'sampling':False,'max_input_tokens':True,'max_new_tokens':'2048',
+                 'template_sha256':'not-a-hash','temperature':False,'top_p':'1',
+                 'stop_at_eos':1,'add_generation_prompt':'false','template_source':7}
+        for field,value in invalid.items():
+            with self.subTest(field=field),tempfile.TemporaryDirectory() as d:
+                c=self.pe_case();c['pe'][field]=value
+                with self.assertRaisesRegex(ValueError,'PE'):
+                    freeze_inputs({'cases':[c]},Path(d))
+    def test_verify_checks_pe_semantics_after_metadata_rehash(self):
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);m=freeze_inputs({'cases':[self.pe_case()]},root)
+            del m['cases'][0]['pe']['stop_at_eos']
+            unsigned=dict(m);unsigned.pop('manifest_sha256');m['manifest_sha256']=digest(canonical(unsigned))
+            with self.assertRaisesRegex(ValueError,'PE'):verify_inputs(m,root)
+    def test_unlisted_report_is_not_an_authenticated_input(self):
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);m=freeze_inputs({'cases':[self.case()]},root)
+            (root/'post-freeze-report.txt').write_text('diagnostic report, outside input identity')
+            verify_inputs(m,root)
+            self.assertNotIn('post-freeze-report.txt',{row['path'] for row in m['files']})
+
     def test_frozen_summary_has_required_coverage(self):
         summary=json.loads((Path(__file__).parent/'fixtures/port-corpus.json').read_text())
         self.assertEqual(summary['counts'],dict(formal=72,development=8,performance=6,img2img=15))

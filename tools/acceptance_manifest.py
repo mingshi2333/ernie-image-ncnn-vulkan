@@ -3,6 +3,8 @@
 
 Paths are relative to the corpus root. Image shape is WH; packed noise is
 little-endian FP32 contiguous CHW [128,H/16,W/16]. Seed records provenance only.
+Verification authenticates the manifest-listed inputs only. Additional reports or
+other unlisted files are not authenticated and must never be consumed as inputs.
 The committed summary pins the manifest hash; self hashes detect accidents,
 not an adversary able to replace both the manifest and its trusted anchor.
 """
@@ -44,9 +46,23 @@ def _validate_case(c):
     if not isinstance(c['pe'],dict) or type(c['pe'].get('enabled'))!=bool:
         raise ValueError('explicit PE enabled required')
     if c['pe']['enabled']:
-        for key in ('sampling','max_input_tokens','max_new_tokens','template_sha256','temperature','top_p'):
+        for key in ('sampling','max_input_tokens','max_new_tokens','template_sha256','temperature','top_p',
+                    'stop_at_eos','add_generation_prompt','template_source'):
             if key not in c['pe']:raise ValueError(f'missing PE {key}')
-        if c['pe']['sampling']!='greedy':raise ValueError('paired PE must use greedy')
+        pe=c['pe']
+        if pe['sampling']!='greedy':raise ValueError('paired PE must use greedy')
+        for key in ('max_input_tokens','max_new_tokens'):
+            if type(pe[key]) is not int or not 1<=pe[key]<=2048:
+                raise ValueError(f'PE {key} must be an integer in [1,2048]')
+        for key in ('stop_at_eos','add_generation_prompt'):
+            if type(pe[key]) is not bool:raise ValueError(f'PE {key} must be boolean')
+        if not isinstance(pe['template_source'],str) or not pe['template_source'].strip():
+            raise ValueError('PE template_source must be nonempty text')
+        if not isinstance(pe['template_sha256'],str) or not re.fullmatch(r'[0-9a-f]{64}',pe['template_sha256']):
+            raise ValueError('PE template_sha256 must be a lowercase SHA256')
+        for key,expected in (('temperature',0),('top_p',1)):
+            if type(pe[key]) not in (int,float) or not math.isfinite(pe[key]) or pe[key]!=expected:
+                raise ValueError(f'PE greedy {key} must explicitly equal {expected}')
     if not isinstance(c['dtype_by_stage'],dict) or any(c['dtype_by_stage'].get(k) not in ('fp32','fp16','bf16') for k in ('text','dit','vae','scheduler')):
         raise ValueError('explicit stage precision required')
     if not c['model_identity'] or not c['prompt_source']:raise ValueError('empty identity')
@@ -86,8 +102,10 @@ def freeze_inputs(spec:dict, output:Path)->dict:
         _validate_case(c)
         if c['id'] in seen:raise ValueError('duplicate case id')
         seen.add(c['id'])
-        if 'seed' not in c and 'noise_file' not in c:raise ValueError('noise provenance required')
-        if 'prompt' not in c and 'prompt_file' not in c:raise ValueError('prompt required')
+        if ('seed' in c)+('noise_file' in c)!=1:
+            raise ValueError('exactly one noise source required: seed or noise_file')
+        if ('prompt' in c)+('prompt_file' in c)!=1:
+            raise ValueError('exactly one prompt source required: prompt or prompt_file')
     output.parent.mkdir(parents=True,exist_ok=True)
     # Stage next to destination; invalid input never leaves a half-frozen corpus.
     with tempfile.TemporaryDirectory(prefix='.corpus-freeze-',dir=output.parent) as temp:
@@ -130,7 +148,11 @@ def freeze_inputs(spec:dict, output:Path)->dict:
 
 
 def verify_inputs(manifest:dict,root:Path)->None:
-    """Reject modified metadata, missing/changed inputs, symlinks and duplicate IDs."""
+    """Authenticate listed inputs; reject mutation, input symlinks and duplicate IDs.
+
+    Unlisted files (for example later reports) are outside this identity contract.
+    Consumers must resolve inputs exclusively from verified manifest entries.
+    """
     import numpy as np
     root=Path(root)
     if manifest.get('schema_version')!=1:raise ValueError('unsupported schema')
