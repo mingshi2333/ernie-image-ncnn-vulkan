@@ -28,9 +28,11 @@ void validate_output(const ncnn::Mat &value, int width, int height, int channels
 VaeEncoding encode_vae(const ComponentFiles &component, const RgbImage &rgb,
                        const ncnn::Option &requested)
 {
-    if ((rgb.width != 32 && rgb.width != 64) || rgb.height != 32 ||
+    const bool reviewed_shape = (rgb.height == 32 && (rgb.width == 32 || rgb.width == 64)) ||
+                                (rgb.width == 512 && rgb.height == 384);
+    if (!reviewed_shape ||
         rgb.pixels.size() != size_t(rgb.width) * size_t(rgb.height) * 3)
-        throw std::invalid_argument("Reviewed VAE encoder shapes are only 32x32 and 64x32 RGB");
+        throw std::invalid_argument("RGB shape has no reviewed VAE encoder graph");
     if (component.param_text.empty() || component.param_text.find('\0') != std::string::npos ||
         component.weight_path.empty())
         throw std::invalid_argument("Invalid authenticated VAE encoder component");

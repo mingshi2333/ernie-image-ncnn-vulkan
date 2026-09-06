@@ -19,6 +19,9 @@ int main()
         rejects([&] { ernie::encode_vae(missing, rgb, cpu); });
         auto wrong = rgb; wrong.width = 48; wrong.pixels.resize(48 * 32 * 3);
         rejects([&] { ernie::encode_vae({"7767517\n0 0\n", "/missing"}, wrong, cpu); });
+        auto unreviewed_large = rgb; unreviewed_large.width = 384; unreviewed_large.height = 512;
+        unreviewed_large.pixels.resize(size_t(384) * 512 * 3);
+        rejects([&] { ernie::encode_vae({"7767517\n0 0\n", "/missing"}, unreviewed_large, cpu); });
         auto short_rgb = rgb; short_rgb.pixels.pop_back();
         rejects([&] { ernie::encode_vae({"7767517\n0 0\n", "/missing"}, short_rgb, cpu); });
         auto vulkan = cpu; vulkan.use_vulkan_compute = true;
