@@ -101,6 +101,31 @@ def reference(package,prompt,output,steps,device='cpu',initial_path=None):
     path.write_text(json.dumps(fixture,indent=2,ensure_ascii=False)+'\n')
     return fixture
 
+def snapshot_diagnostic_embeddings(source, output, fixture):
+    """Freeze a raw little-endian FP32 [1,valid_tokens,3072] diagnostic input."""
+    from diagnose_trajectory import canonical_sha256
+    source=Path(source)
+    shape=[1,len(fixture['ids']),3072]
+    if source.suffix!='.f32' or fixture['inputs']['text']['shape']!=shape:
+        raise ValueError('Diagnostic embeddings require .f32 storage and exact official text shape')
+    if source.stat().st_size!=int(np.prod(shape))*4:
+        raise ValueError('Diagnostic embeddings have the wrong FP32 byte count')
+    before=sha256(source);target=Path(output)/'diagnostic-embeddings.f32'
+    with source.open('rb') as src,target.open('xb') as dst:shutil.copyfileobj(src,dst,1<<20)
+    if sha256(target)!=before or sha256(source)!=before:
+        raise ValueError('Diagnostic embeddings changed while copying')
+    values=np.fromfile(target,dtype='<f4')
+    if not np.isfinite(values).all():raise ValueError('Nonfinite diagnostic embeddings')
+    return {'source_path':str(source.resolve()),'source_sha256':before,
+            'snapshot_file':target.name,'sha256':before,'dtype':'<f4','shape':shape,
+            'token_ids_sha256':canonical_sha256(fixture['ids']),
+            'storage_contract':'raw little-endian FP32; shape bound to verified reference token IDs'}
+
+
+def check_conditioning_options(args):
+    if args.diagnostic_embeddings and (args.reference_embeddings or args.pe_model or args.pe_reference or args.reference_only):
+        raise ValueError('Diagnostic embeddings are incompatible with reference embeddings, PE, and reference-only')
+
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--model',type=Path,required=True)
@@ -118,10 +143,13 @@ def main():
     p.add_argument('--reference',type=Path,help='Reuse a complete, checksum-verified reference with identical configuration')
     p.add_argument('--reference-embeddings',action='store_true',
                    help='Diagnostic only: read saved official embeddings instead of running the native text encoder')
+    p.add_argument('--diagnostic-embeddings',type=Path,help='Diagnostic only: frozen raw .f32 candidate text [1,valid_tokens,3072]; bypass native text encoder')
     p.add_argument('--reference-device',choices=['cpu','cuda'],default='cpu',help='Device for one streamed official FP32 DiT block; other official modules stay on CPU')
     p.add_argument('--latent',type=Path,help='Use these saved FP32 initial latents for both implementations')
     p.add_argument('--reference-only',action='store_true',help='Save the official fixture without launching the native candidate')
     args=p.parse_args()
+    try:check_conditioning_options(args)
+    except ValueError as error:p.error(str(error))
     if args.prompt_file is not None:args.prompt=read_prompt(args.prompt_file)
     elif args.prompt is None:args.prompt='A red apple on a wooden table, soft daylight, realistic photo.'
     reference_prompt=args.prompt
@@ -224,12 +252,20 @@ def main():
         command+=['--embeddings',str((ref/fixture['inputs']['text']['file']).resolve())]
         scope=('Diagnostic free-running DiT and VAE with saved official text embeddings; '
                'native text encoder bypassed; not complete native prompt-to-PNG acceptance')
-    result={'scope':scope,'conditioning_source':'saved_reference_diagnostic' if args.reference_embeddings else 'native_text_encoder',
+    diagnostic_input=None
+    if args.diagnostic_embeddings:
+        diagnostic_input=snapshot_diagnostic_embeddings(args.diagnostic_embeddings,args.output,fixture)
+        command+=['--embeddings',str((args.output/diagnostic_input['snapshot_file']).resolve())]
+        scope=('Diagnostic free-running DiT and VAE with saved candidate text embeddings; '
+               'native text encoder bypassed; not complete native prompt-to-PNG acceptance')
+    result={'scope':scope,'conditioning_source':'saved_candidate_diagnostic' if diagnostic_input else 'saved_reference_diagnostic' if args.reference_embeddings else 'native_text_encoder',
+            'native_acceptance_eligible':not (args.reference_embeddings or diagnostic_input),
             'runner_sha256':sha256(runner),'validator_sha256':validator_hash,
             'source_snapshot':{path.name:sha256(path) for path in sorted(scripts.iterdir())},
             'package_manifest_sha256':sha256(args.model/'manifest.json'),'reference_fixture_sha256':sha256(ref/'fixture.json'),
             'device':args.device,'dit_precision':args.precision,'text_scheduler_vae_precision':'fp32',
             'command':command,'passed':False,'comparisons':[]}
+    if diagnostic_input:result['diagnostic_embeddings']=diagnostic_input
     if args.pe_reference:
         result['prompt_enhancer']={'reference_manifest_sha256':sha256(args.pe_reference/'reference.json'),
                                   'model_manifest_sha256':sha256(args.pe_model/'manifest.json')}
@@ -249,6 +285,8 @@ def main():
             result['prompt_enhancer']['eos']=pe_reference['eos']
         ids=[int(v) for v in (trace/'ids.txt').read_text().split()]
         if ids!=fixture['ids']:raise RuntimeError('Native tokenizer differs')
+        if diagnostic_input and (sha256(args.output/diagnostic_input['snapshot_file'])!=diagnostic_input['sha256'] or sha256(trace/'text.f32')!=diagnostic_input['sha256']):
+            raise RuntimeError('Runner text differs from frozen diagnostic embeddings')
         entries=[(name,item,True) for name,item in fixture['inputs'].items()]
         for i,outputs in enumerate(fixture['outputs']):entries.extend((f'{name}-{i}',item,False) for name,item in outputs.items())
         entries.extend((name,item,False) for name,item in fixture['final'].items())

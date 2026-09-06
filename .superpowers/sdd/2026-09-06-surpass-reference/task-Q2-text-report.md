@@ -146,3 +146,11 @@ session56912 exit0；25层均完成。外部wall200.526630532秒（包含trace�
 最终文本NRMSE从5.9998704804e-6降到3.1361886513e-6，max从0.0037841796875降到0.00091552734375。`output.f32`为315×3072有效行FP32，SHA `433ae46eaa1c8b831fa273f68b8345646d6ddfdb56695b4d3286b4964bca294a`。所有层max/NRMSE相对原文本改善；这是一份真实PE增强prompt的文本证据，不能外推所有prompt或宣称图像门槛已经关闭。root将安排同初始噪声/轨迹的图像闭环。
 
 历史official最终SHA `2ef687ce362212b6dec95f953f7465d2131972b072ab7ed3e5b2ee39e420d01e` 和原native最终SHA `9270e19b0c59d7b2cff851c73d6a034be0c696237f34517520afa08e637dd426` 与先前artifact完全一致；候选更改与比较对象身份明确区分。`result.json`记录每层三方SHA及原/候选/官方三方指标，不覆盖任何历史结果。
+
+## 保存候选文本的图像诊断入口（本子任务未运行GPU）
+
+`tools/validate_pipeline.py --diagnostic-embeddings PATH`只接收明确声明的原始little-endian FP32 `.f32`存储，shape绑定已校验官方fixture的 `[1,len(ids),3072]`，严格检查字节数与finite；复制前后source及本地snapshot的SHA必须相同。裸float文件没有自描述dtype，因此dtype是CLI的显式存储契约，不能把文件后缀当作自描述元数据证明。实际runner的`--embeddings`只指向输出目录的`diagnostic-embeddings.f32`；执行后的trace/text必须与冻结snapshot精确SHA相同。该模式与PE、reference-embeddings、reference-only互斥，仍可重用完整官方`--reference`，固定原有门槛。
+
+结果明示`conditioning_source=saved_candidate_diagnostic`、`native_acceptance_eligible=false`及原生text bypass。`diagnose_trajectory.py`额外核验source scope、dtype/shape/tokenIDs、snapshot散列与实际command路径（拒绝外部源直读或symlink），以及实际text trace；text边界输入身份包括候选embeddings SHA。未知scope或伪造资格/元数据拒绝。既有原生/官方text诊断路径保留。
+
+6/6轨迹单元测试通过，覆盖新快照精确读取、实际trace/command/shape/dtype/tokenID篡改、FP64错误字节数、NaN、四种互斥选项；py_compile和diff检查通过。既有PE增强prompt文件与官方fixture prompt字符串精确相同、315 IDs、text shape [1,315,3072]已只读确认。这里仅完成接口和小测试，实际DiT/VAE图像执行交由root；不能把实现完成写成图像验证完成。
