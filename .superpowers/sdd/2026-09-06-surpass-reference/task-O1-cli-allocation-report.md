@@ -29,3 +29,11 @@ JSON schema1 的 domain 是 vk_device_memory；total.peak_bytes 是所有同时�
 ## 正在执行与待完成
 
 真实 ON CLI 在独立 build-o1/cli-on 配置成功，Release clang/system glslang，固定 candidate ncnn；配置 cgroup peak309.9MiB/swap0。完整构建 unit ernie-o1-cli-on-build，unified session18646，-j2、MemoryMax3G/MemorySwapMax0；日志 outputs/allocation-cli-o1-v1/on-build.log。构建开始后尚未确认完整链接，不能称真实 CLI 验证成功。OFF CLI 完整链接和真实 CPU 拒绝/失败路径、ON/OFF GPU 同输入输出、完整模型清理与身份验证仍待串行执行。旧 v2 allocator probe 成功不能自动覆盖新设备身份 hook 的实际验证。
+
+## 完整链接后续核验
+
+上述构建现已完成：ON unit/session18646 exit0，2m24.403s、峰1.4GiB/swap0；OFF独立 build-o1/off 复用已编译原始 ncnn 后启用 generator，session39751 exit0，1m1.663s、峰888.5MiB/swap0。两份 runner 已复制封存为 outputs/allocation-cli-o1-v1/ernie-image-{on,off}，identity.json 保存 binary/log/config/provenance/source inventory hashes。
+
+实际 ON CLI 常规小合同30/30通过。该既有集合包含 --diagnose 设备枚举，未加载模型或执行 kernel；此枚举已经单独告知 root，不算正式 GPU 合同。随后专用 CPU FP32 missing-model 失败：generation_failed、原错误保存、initial/final instance 均 false、total=null、coverage_complete=false。第一次该命令漏传 precision，CPU请求被参数检查拒绝，日志 real-on-missing-model.stderr 保留；修正命令的 v2 报告单独保存。
+
+实际 OFF CLI --metrics-json 在模型处理前明确拒绝，没有报告文件；nm 检查 OFF binary 不含 AllocationMeasurementSession 或 allocation_device_identified 符号。尚未运行新 ON/OFF 的实际 GPU 合同或 full-model，不宣称完整 O1/真实性能统计闭环完成。所有构建已退出，无待监督会话。
