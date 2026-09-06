@@ -1,0 +1,17 @@
+{
+  "scope": "Isolated original tokenizer source, not a complete ncnn image-generator build",
+  "command": [
+    "c++",
+    "-std=c++17",
+    "-O2",
+    "-I",
+    "outputs/futz12-comparison-v1/source/src",
+    "outputs/futz12-comparison-v1/tokenizer_comparison.cpp",
+    "outputs/futz12-comparison-v1/source/src/bpe_tokenizer.cpp",
+    "-o",
+    "outputs/futz12-comparison-v1/futz12-tokenize"
+  ],
+  "compiler": "c++ (GCC) 16.2.1 20260819 (Red Hat 16.2.1-2)\nCopyright (C) 2026 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+  "source_revision": "8dcd6e4411137d8abe92c9d78581c4c96d5182c6",
+  "binary_sha256": "13011f435feaceb478a250fd5024dfbf6119d7e363ecb47b4568b34b8022cb99"
+}

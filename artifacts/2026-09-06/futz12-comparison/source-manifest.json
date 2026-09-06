@@ -1,0 +1,132 @@
+{
+  "revision": "8dcd6e4411137d8abe92c9d78581c4c96d5182c6",
+  "checked_utc": "2026-09-06T00:37:39.673123+00:00",
+  "files": [
+    {
+      "path": "README.md",
+      "url": "https://raw.githubusercontent.com/futz12/ernie-image-ncnn-vulkan/8dcd6e4411137d8abe92c9d78581c4c96d5182c6/README.md",
+      "git_blob_sha1": "2da021f5cb4bbf538f1ef43c7be9eeb955397cd0",
+      "sha256": "9c1dafd950a5b748c8560158d665c881d9b41c05520ff040036b1c3dff4788d1",
+      "bytes": 17003
+    },
+    {
+      "path": "assets/prompt.txt",
+      "url": "https://raw.githubusercontent.com/futz12/ernie-image-ncnn-vulkan/8dcd6e4411137d8abe92c9d78581c4c96d5182c6/assets/prompt.txt",
+      "git_blob_sha1": "b14f8fc3ef959cf08881c3ad2945bfaee76c38ae",
+      "sha256": "d3a8da89420764ed944c3f9f69869478f8c3baf4e92eb9a1ef74ac6f1b6ba841",
+      "bytes": 2766
+    },
+    {
+      "path": "assets/prompt2.txt",
+      "url": "https://raw.githubusercontent.com/futz12/ernie-image-ncnn-vulkan/8dcd6e4411137d8abe92c9d78581c4c96d5182c6/assets/prompt2.txt",
+      "git_blob_sha1": "f58330ef8b72425d3a90524d22af8ffc9315049a",
+      "sha256": "218b1355f97e5ee5b4f0d839ed4929ca494e41e1dd5cd0fb669936091d7a1b60",
+      "bytes": 1582
+    },
+    {
+      "path": "assets/prompt3.txt",
+      "url": "https://raw.githubusercontent.com/futz12/ernie-image-ncnn-vulkan/8dcd6e4411137d8abe92c9d78581c4c96d5182c6/assets/prompt3.txt",
+      "git_blob_sha1": "b03277fad25b41bb9f73e444f3dac2d367bf9e30",
+      "sha256": "b1bef2ce3e4fa7f3923336b69fc87c1d315681fc0398e49e7c35671601a32531",
+      "bytes": 1864
+    },
+    {
+      "path": "assets/prompt4.txt",
+      "url": "https://raw.githubusercontent.com/futz12/ernie-image-ncnn-vulkan/8dcd6e4411137d8abe92c9d78581c4c96d5182c6/assets/prompt4.txt",
+      "git_blob_sha1": "34205ac1c7b831d64f5e2aea2596811b1d3fd917",
+      "sha256": "f565ccc6f97a84806c838dcf18ef93e3e1b95640b8d71d26805868d51766ec58",
+      "bytes": 1557
+    },
+    {
+      "path": "assets/prompt5.txt",
+      "url": "https://raw.githubusercontent.com/futz12/ernie-image-ncnn-vulkan/8dcd6e4411137d8abe92c9d78581c4c96d5182c6/assets/prompt5.txt",
+      "git_blob_sha1": "f957fde1794c5be2c7e2a253f1dfb3208263a89a",
+      "sha256": "2e133c96f247c0d79ab824afdfdaf8dd9a5c90d7e3241a6a8726b72972be0488",
+      "bytes": 264
+    },
+    {
+      "path": "src/CMakeLists.txt",
+      "url": "https://raw.githubusercontent.com/futz12/ernie-image-ncnn-vulkan/8dcd6e4411137d8abe92c9d78581c4c96d5182c6/src/CMakeLists.txt",
+      "git_blob_sha1": "103f80ccaf7424a615d33b5e3682d03a94b7609d",
+      "sha256": "7dfd6bd5c9f674bf4a6db614f60d315e9ea5455416ee18b025c89ac888c10d82",
+      "bytes": 693
+    },
+    {
+      "path": "src/bpe_tokenizer.cpp",
+      "url": "https://raw.githubusercontent.com/futz12/ernie-image-ncnn-vulkan/8dcd6e4411137d8abe92c9d78581c4c96d5182c6/src/bpe_tokenizer.cpp",
+      "git_blob_sha1": "ce7d7adcebca7bcc9960f9b97432091c6e0359d7",
+      "sha256": "7ed28bcce1e561cf3e8c502842b71f2fc2cfac2dd15dc2ffff8617a185df5de1",
+      "bytes": 27016
+    },
+    {
+      "path": "src/bpe_tokenizer.h",
+      "url": "https://raw.githubusercontent.com/futz12/ernie-image-ncnn-vulkan/8dcd6e4411137d8abe92c9d78581c4c96d5182c6/src/bpe_tokenizer.h",
+      "git_blob_sha1": "13fb3d69637cc2da7b875561ca708e709b671919",
+      "sha256": "e1a535fa2ad8efca4d6dcc8655ae919b619c61570fecfaac579968add25d92dc",
+      "bytes": 4531
+    },
+    {
+      "path": "src/deps_ncnn.cmake",
+      "url": "https://raw.githubusercontent.com/futz12/ernie-image-ncnn-vulkan/8dcd6e4411137d8abe92c9d78581c4c96d5182c6/src/deps_ncnn.cmake",
+      "git_blob_sha1": "749846fa9fbfcf796ae597096ccd5d6f538c1b1f",
+      "sha256": "093fbc754155f81e05caef37dafe8a584339aeec1f67cc27e3d7048dab47db23",
+      "bytes": 2548
+    },
+    {
+      "path": "src/ernie_image_pipeline.cpp",
+      "url": "https://raw.githubusercontent.com/futz12/ernie-image-ncnn-vulkan/8dcd6e4411137d8abe92c9d78581c4c96d5182c6/src/ernie_image_pipeline.cpp",
+      "git_blob_sha1": "212b967edc8086aad2e1d05345d4fa62c858b0de",
+      "sha256": "7f449771d5e9ad588f9532c6fb87671dc322d837b017d0cb07f3bcc44ae5d988",
+      "bytes": 66181
+    },
+    {
+      "path": "src/ernie_image_pipeline.h",
+      "url": "https://raw.githubusercontent.com/futz12/ernie-image-ncnn-vulkan/8dcd6e4411137d8abe92c9d78581c4c96d5182c6/src/ernie_image_pipeline.h",
+      "git_blob_sha1": "bedb3eae760967fcdb061ca761b6bcd51b31ae79",
+      "sha256": "8f20c5d6c757018bf52f41061f1fb30de91a5e1da2a480ce4613c636f0bb6eb5",
+      "bytes": 7117
+    },
+    {
+      "path": "src/ernie_image_rope.cpp",
+      "url": "https://raw.githubusercontent.com/futz12/ernie-image-ncnn-vulkan/8dcd6e4411137d8abe92c9d78581c4c96d5182c6/src/ernie_image_rope.cpp",
+      "git_blob_sha1": "030b75ad2e4729352a5cc4cb3c659ee9d70eb43a",
+      "sha256": "393bc0d9b6ab272a83124a6a9a1f9a8ec34f33fffa4f6fe3a7b81ffcd6d002d2",
+      "bytes": 11235
+    },
+    {
+      "path": "src/ernie_image_rope.h",
+      "url": "https://raw.githubusercontent.com/futz12/ernie-image-ncnn-vulkan/8dcd6e4411137d8abe92c9d78581c4c96d5182c6/src/ernie_image_rope.h",
+      "git_blob_sha1": "879a4d938f95075288e2000d3ddbac818a137b4d",
+      "sha256": "dfc7da0349a14cc07e57dcb7484a44484fd481e21c3a476c3a5ac4ed248bd897",
+      "bytes": 157
+    },
+    {
+      "path": "src/filesystem_utils.h",
+      "url": "https://raw.githubusercontent.com/futz12/ernie-image-ncnn-vulkan/8dcd6e4411137d8abe92c9d78581c4c96d5182c6/src/filesystem_utils.h",
+      "git_blob_sha1": "c34c5bc4ebe35f7de2ef18a462ff6c5c83008121",
+      "sha256": "f410b62f5d1164ba8361c353d83b9be2a7397be56aa6851f4eb4b1f77823906f",
+      "bytes": 347
+    },
+    {
+      "path": "src/main.cpp",
+      "url": "https://raw.githubusercontent.com/futz12/ernie-image-ncnn-vulkan/8dcd6e4411137d8abe92c9d78581c4c96d5182c6/src/main.cpp",
+      "git_blob_sha1": "59078d5b38f1202f03f38745723af301be7631cf",
+      "sha256": "4abe56fdaa3c3cbad9d6265611a258d9d5d44ddc2839afbd66de757e8a533ef3",
+      "bytes": 22076
+    },
+    {
+      "path": "src/pe_decoder.cpp",
+      "url": "https://raw.githubusercontent.com/futz12/ernie-image-ncnn-vulkan/8dcd6e4411137d8abe92c9d78581c4c96d5182c6/src/pe_decoder.cpp",
+      "git_blob_sha1": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "src/tokenizer_types.h",
+      "url": "https://raw.githubusercontent.com/futz12/ernie-image-ncnn-vulkan/8dcd6e4411137d8abe92c9d78581c4c96d5182c6/src/tokenizer_types.h",
+      "git_blob_sha1": "5e9117df556f2a2ecfbe1cfd734e1b85b39c33cc",
+      "sha256": "e70512b465b9e71da2330b9e7e0f6f14172bfa0ff974de021334b6e3a2d250ae",
+      "bytes": 555
+    }
+  ]
+}

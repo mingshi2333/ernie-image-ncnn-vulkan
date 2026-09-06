@@ -1,0 +1,28 @@
+{
+  "created_utc": "2026-09-06T00:50:29.408521+00:00",
+  "git_head": "5ba49323549582238bafba7869b8e2e1a2f5c042",
+  "source_files_sha256": {
+    "sources.lock.json": "ae831e869a3df4bef390456ce8df83ac6aa3581eef7eeb82e63525b55397ad51",
+    "src/main.cpp": "7bc21955b337537ee052728f5f285d209898abd64f2f7e20699d60c31d4c9652",
+    "src/tokenizer.cpp": "236829d1471619c3ccef1cf7630286dcc5704ac9fd958955d2a173fed19584a6",
+    "src/block_sequence.cpp": "fbee63bd946d71fbd41090b8eaacd7e62ddf0fef4bfb4c07179912fc03b1ade5",
+    "src/ernie_attention.cpp": "56889eab40586f6913cb611dbe64bf976aba250b01d95553fb3ce01fb11d33f4",
+    "src/ernie_gelu.cpp": "7f995432188c01c26f3b5a353eec321713d269b38062336eaf2b0548f0e7fbf9",
+    "src/ernie_groupnorm.cpp": "94d01911eff19ffdeae297bb7c9a524cdef3eaa29922c7c526a48fba4af8ca64",
+    "tokenizer/src/lib.rs": "592bfb364ab978b6309c30d9ce00dcc59c0cf19d12939bdb871401b42dc11d8b",
+    "tokenizer/Cargo.lock": "c7c4e1f9b36fd70a2fd50d19cce9aa3601b66d0a3b811e3523c2fc5beec1e3e9",
+    "docs/FUTZ12-COMPARISON.md": "df854fa1f29667216483b7a2ab36ba14aeaea974b457f432df2013b3b0ad55f4"
+  },
+  "evidence_sha256": {
+    "README.md": "38046f01fd3ae23a99488c7aba974105d7a9f09dba1295893e0a64c88c7bf2cc",
+    "git-tree.json": "9a799263266a5ef23f508498eed579fe9e6efa27095c694b4c6d2a58dccc97fc",
+    "harness/run_checks.py": "ab842f7443ffb0908558d49ace01cdcf8f8f4d836416eef166e58e983264d0fd",
+    "harness/tokenizer_comparison.cpp": "31014cab62fc76c0f0822c7543c205ba1123e4ed90ae22febd8976633a003616",
+    "local-checks.json": "d606953fd87cbc28b9145eb0c2f70b6412a1c793bf67a523b768b59190b34e46",
+    "model-metadata-manifest.json": "79747419205d7e9a9e081a51d869cf33a8172dd06dd99f202f76321951c23f4c",
+    "readme-build.log": "fd475583dbda84a1abb953fde2a40138834c1f4820af54d1f781c4f2b6b5dfe8",
+    "source-manifest.json": "a671201d3ed1c16508e07a6936243f33af6077cc9339940be06af537954deb77",
+    "tokenizer-build.json": "77de06c0cc1366811118ccb7f3e83661ff7f78eb306bd2b76a00e11c784bfd1e",
+    "upstream-state.json": "39f1603dc8180a1dd9624ee178e2f7954b54396f9becf4cbd27cc3bd81fbc661"
+  }
+}

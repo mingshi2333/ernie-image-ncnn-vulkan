@@ -77,6 +77,7 @@ VAE 直接卷积、64-token 桶和 FP32 查询分块已经完成。后续优先�
 - [实施路线与验收条件](docs/ROADMAP.md)
 - [上游调查和优化依据](docs/2026-09-05-upstream-audit.md)
 - [示例项目的精度、内存策略与验证范围](docs/REFERENCE-COMPARISON.md)
+- [与 futz12 ERNIE 移植的功能与实际分词对照](docs/FUTZ12-COMPARISON.md)
 - [版本、来源与运行时约定](sources.lock.json)
 - [项目执行约定](AGENTS.md)
 

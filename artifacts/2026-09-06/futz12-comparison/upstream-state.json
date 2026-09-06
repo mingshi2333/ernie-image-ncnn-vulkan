@@ -1,0 +1,56 @@
+{
+  "checked_utc": "2026-09-06T00:39:11.251943+00:00",
+  "repository": {
+    "html_url": "https://github.com/futz12/ernie-image-ncnn-vulkan",
+    "default_branch": "main",
+    "pushed_at": "2026-07-27T16:36:38Z",
+    "archived": false,
+    "license": null
+  },
+  "head": {
+    "sha": "8dcd6e4411137d8abe92c9d78581c4c96d5182c6",
+    "date": "2026-07-16T13:32:16Z",
+    "message": "update gitignore"
+  },
+  "releases": [],
+  "converted_model": {
+    "id": "wuyex/ernie-image-ncnn",
+    "revision": "140a052f7919f279de7f697fa54f33bd1c0cac2b",
+    "files": [
+      ".gitattributes",
+      "README.md",
+      "dit/chunks.ncnn.bin",
+      "dit/chunks.ncnn.param",
+      "dit/finalizer.ncnn.bin",
+      "dit/finalizer.ncnn.param",
+      "dit/preprocessor.ncnn.bin",
+      "dit/preprocessor.ncnn.param",
+      "pe/decoder.ncnn.bin",
+      "pe/decoder.ncnn.param",
+      "pe/embed_tokens.ncnn.bin",
+      "pe/embed_tokens.ncnn.param",
+      "pe/lm_head.ncnn.bin",
+      "pe/lm_head.ncnn.param",
+      "pe/tokenizer/extra_special_tokens.txt",
+      "pe/tokenizer/merges.txt",
+      "pe/tokenizer/prompt_prefix.txt",
+      "pe/tokenizer/vocab.txt",
+      "text_encoder/language_model_embed_tokens.ncnn.bin",
+      "text_encoder/language_model_embed_tokens.ncnn.param",
+      "text_encoder/language_model_encoder.ncnn.bin",
+      "text_encoder/language_model_encoder.ncnn.param",
+      "text_encoder/tokenizer/merges.txt",
+      "text_encoder/tokenizer/vocab.txt",
+      "vae/decoder_full.ncnn.bin",
+      "vae/decoder_full.ncnn.param",
+      "vae/encoder_full.ncnn.bin",
+      "vae/encoder_full.ncnn.param"
+    ]
+  },
+  "source_urls": {
+    "repo": "https://api.github.com/repos/futz12/ernie-image-ncnn-vulkan",
+    "commit": "https://api.github.com/repos/futz12/ernie-image-ncnn-vulkan/commits/8dcd6e4411137d8abe92c9d78581c4c96d5182c6",
+    "releases": "https://api.github.com/repos/futz12/ernie-image-ncnn-vulkan/releases",
+    "hf": "https://huggingface.co/api/models/wuyex/ernie-image-ncnn"
+  }
+}

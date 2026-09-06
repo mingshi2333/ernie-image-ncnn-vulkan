@@ -1,0 +1,949 @@
+{
+  "scope": "Source layout and isolated tokenizer execution only; no full reference build, neural weights or image generation",
+  "source_revision": "8dcd6e4411137d8abe92c9d78581c4c96d5182c6",
+  "readme_configure": {
+    "command": [
+      "cmake",
+      "-S",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/futz12-comparison-v1/source",
+      "-B",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/futz12-comparison-v1/readme-build-v2",
+      "-DCMAKE_BUILD_TYPE=Release"
+    ],
+    "return_code": 1,
+    "root_cmake_missing_in_complete_git_tree": true
+  },
+  "model_vocabulary": {
+    "official_base_entries": 131072,
+    "futz12_entries": 131072,
+    "different_base_entries": 0,
+    "first_differences": []
+  },
+  "tokenizer": {
+    "cases": 53,
+    "exact": {
+      "ours": 53,
+      "futz12": 51
+    },
+    "results": [
+      {
+        "name": "empty",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-00.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "official_tokens_including_bos": 1,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "one-space",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-01.txt",
+        "sha256": "36a9e7f1c95b82ffb99743e0c5c4ce95d83c9a430aac59f84ef3cbfab6145068",
+        "official_tokens_including_bos": 2,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "whitespace",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-02.txt",
+        "sha256": "e96a621d7932935a5483b9b200ca74ab6adf26ecbb8589a2665c26f68e04a6b2",
+        "official_tokens_including_bos": 6,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": false
+        },
+        "differences": {
+          "futz12": {
+            "first_different_index": 1,
+            "actual_tokens": 7,
+            "actual_window": [
+              1,
+              1032,
+              1009,
+              1010,
+              1013,
+              1010,
+              1032
+            ],
+            "official_window": [
+              1,
+              29356,
+              1010,
+              1013,
+              1010,
+              1032
+            ]
+          }
+        }
+      },
+      {
+        "name": "chinese",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-03.txt",
+        "sha256": "67d122b0fff102bfb5abeea158e4e60667a360213b878a6c381bcd2520c3fd07",
+        "official_tokens_including_bos": 20,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "english",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-04.txt",
+        "sha256": "0a353f11cd206d4e5e970d9bffef9a6274b003fa248926ff512ccdd1e77f2ee2",
+        "official_tokens_including_bos": 9,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "japanese",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-05.txt",
+        "sha256": "4a33cceb2c6b51d524af1e927edf0e630dce57fea9ed5330b0031ebb00aba352",
+        "official_tokens_including_bos": 17,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "russian",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-06.txt",
+        "sha256": "c1215e84c107670ac2e05c693747381e6badd0f0ee89879215dea04da53b6af5",
+        "official_tokens_including_bos": 16,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "arabic",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-07.txt",
+        "sha256": "1c5ea3edd40af653b8e514cf63d4dce80cc8a0336935510fc3bf2ab8c7a46876",
+        "official_tokens_including_bos": 9,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "emoji",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-08.txt",
+        "sha256": "bb941220916c92cf6057128b50485f8aea6bd33eeb1e5c335a025601766ad26e",
+        "official_tokens_including_bos": 30,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "unicode-forms",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-09.txt",
+        "sha256": "3f27d6aaf60f60605c7cff5fbab0e73bea70841c7b5f713094f5bf9ccdf8ba3d",
+        "official_tokens_including_bos": 15,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "special-tokens",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-10.txt",
+        "sha256": "6e1c77ccb167874cac4b478231b028ec2d711a3d3d4805e429f0526358e71b0d",
+        "official_tokens_including_bos": 6,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": false
+        },
+        "differences": {
+          "futz12": {
+            "first_different_index": 1,
+            "actual_tokens": 12,
+            "actual_window": [
+              1,
+              1060,
+              1115,
+              1062,
+              29706,
+              1885,
+              1115
+            ],
+            "official_window": [
+              1,
+              1,
+              29706,
+              2,
+              11,
+              0
+            ]
+          }
+        }
+      },
+      {
+        "name": "nul",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-11.txt",
+        "sha256": "76fe3925c7167317f2df68454339f5ec3650e4062178b4f2be219b105a507907",
+        "official_tokens_including_bos": 4,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "symbols",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-12.txt",
+        "sha256": "c616c26dcdd226f7a2633de11afc259e4973ebed4bc2b27c258c1f60177edb55",
+        "official_tokens_including_bos": 23,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "long-truncation",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-13.txt",
+        "sha256": "f8e2b0ce3a7b8254dc3631c22d1d01544ebbe01b6693cec206670bf1d5603ff8",
+        "official_tokens_including_bos": 2048,
+        "fits_current_64_token_package": false,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "near-limit",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-14.txt",
+        "sha256": "fb94aaa6074b22830c6164b30cfebacc5f882a5abd61de6866f719f0a44c4c2a",
+        "official_tokens_including_bos": 2048,
+        "fits_current_64_token_package": false,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "over-limit",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-15.txt",
+        "sha256": "e6dcaa5d76961117afff79902e92e9b41b412cf2143ad6a8d5ffb16d92253d3a",
+        "official_tokens_including_bos": 2048,
+        "fits_current_64_token_package": false,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "vocabulary-0",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-16.txt",
+        "sha256": "7e5608ab610017afe6c1894fdd4f56848823dcb1d12302bd49751d16a290f774",
+        "official_tokens_including_bos": 2,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "vocabulary-1",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-17.txt",
+        "sha256": "ef7bc2a80eda9e5da5d7e37dbe97aefad799459eaab44deb2408e298f48c4097",
+        "official_tokens_including_bos": 2,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "vocabulary-2",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-18.txt",
+        "sha256": "81e4b39da954ed57b34f3cbc2dd5d621e54ae6d43c143287b1e25ea2473e18ed",
+        "official_tokens_including_bos": 2,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "vocabulary-3",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-19.txt",
+        "sha256": "e04eb29020eaa961e99d3162635e9fe9585c5a1121bd88784c1378aa8837195c",
+        "official_tokens_including_bos": 2,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "vocabulary-4",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-20.txt",
+        "sha256": "9751304413d0f83e9f77f5fafee8505dac1b7f6795ce16477cec31b32ba2c4f6",
+        "official_tokens_including_bos": 2,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "vocabulary-5",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-21.txt",
+        "sha256": "c48683c065449d13cc8f2b5a7cf3aa37197fe00e2b7a125432e0a94906830d06",
+        "official_tokens_including_bos": 2,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "vocabulary-6",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-22.txt",
+        "sha256": "2940bc5eb24ef9a6ddfa48310346072fbfefec2f95d3dcda13cba51cbe6c2058",
+        "official_tokens_including_bos": 2,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "vocabulary-7",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-23.txt",
+        "sha256": "50ac81f970325a3e011f2437818adde426e1278dee5670dd359edfca43a72d79",
+        "official_tokens_including_bos": 2,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "vocabulary-8",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-24.txt",
+        "sha256": "f2195c2ecb872f1376cd1f4ec441ebe516c8e4ac7d88405e46fb91fb23281cbf",
+        "official_tokens_including_bos": 2,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "vocabulary-9",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-25.txt",
+        "sha256": "5dc27af287fa554aa10fec9de8d724a7964572f1ffd24c2b00e1a3a860ce7679",
+        "official_tokens_including_bos": 2,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "vocabulary-10",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-26.txt",
+        "sha256": "6085a6c7445a2588e522921e7cc3b31c7bed6889f1c383cf25429fc0177d16ae",
+        "official_tokens_including_bos": 2,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "vocabulary-11",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-27.txt",
+        "sha256": "eb3bdc2260ee9f6ceee3ea21ddf4f69e61d10721d894b8142fcfc5850200f9b5",
+        "official_tokens_including_bos": 2,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "vocabulary-12",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-28.txt",
+        "sha256": "0aca0a19dc1a744da7f020241c00c5f2b5c15f2fe6e65639414dcb82e872b036",
+        "official_tokens_including_bos": 2,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "vocabulary-13",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-29.txt",
+        "sha256": "43f9b89c0b9d22d8110ead813ea3949f20592a8bfc3c777d2d49e64da3b0cc9b",
+        "official_tokens_including_bos": 2,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "vocabulary-14",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-30.txt",
+        "sha256": "dd73c350f0b8f2e35a2642df334baad72d97f39b8771defa4d308b357a00bec5",
+        "official_tokens_including_bos": 2,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "vocabulary-15",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-31.txt",
+        "sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+        "official_tokens_including_bos": 2,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "vocabulary-16",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-32.txt",
+        "sha256": "540647ba037b42dabeea5ed7a53f8d4cd7304a118957472d751d3811f1d76d31",
+        "official_tokens_including_bos": 2,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "vocabulary-17",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-33.txt",
+        "sha256": "7082b06443ade5a6d320b503331a8f74be8144eaf9fec82dae36c7c4a884b024",
+        "official_tokens_including_bos": 2,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "vocabulary-18",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-34.txt",
+        "sha256": "7e414e6ac41ac7a0658ce2807548af8fb48b145f9b74aa77c9b526c569804bbc",
+        "official_tokens_including_bos": 2,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "vocabulary-19",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-35.txt",
+        "sha256": "d0f3beb09da054835e3092a5ae443f60f4c1e8757c206825ba120670a6782f6d",
+        "official_tokens_including_bos": 2,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "vocabulary-20",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-36.txt",
+        "sha256": "356eb4200356beb63fdf38ab221a617d8fdacee3669a8ae0bb0e609a15258822",
+        "official_tokens_including_bos": 2,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "vocabulary-21",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-37.txt",
+        "sha256": "0a3e27b8ca818264d75c8d816c12922c0e6d1c919204e329c580fbc9429ab4f9",
+        "official_tokens_including_bos": 2,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "vocabulary-22",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-38.txt",
+        "sha256": "1314e03cffc22b11c36b34dd6cb2a425eb0af25178f0ac06e9bf0a31c9c4ad13",
+        "official_tokens_including_bos": 2,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "vocabulary-23",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-39.txt",
+        "sha256": "ba1a1f4aac477b1192567ca2a08c2bd122e6b022dbfc612f262e95bbf04b98a8",
+        "official_tokens_including_bos": 2,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "vocabulary-24",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-40.txt",
+        "sha256": "02983856320b180ca3332cff530e4942f51b9eb9c0f58b806df6c4897148b687",
+        "official_tokens_including_bos": 2,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "vocabulary-25",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-41.txt",
+        "sha256": "c27ece183439d3f845e48c212b44b88b9c86af0198554d2bb9a03c4aaec06b96",
+        "official_tokens_including_bos": 2,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "vocabulary-26",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-42.txt",
+        "sha256": "5af2bc45bf58d8aa5548acd60b522dfb8473ab076b4da9d5538880a074e59ca7",
+        "official_tokens_including_bos": 2,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "vocabulary-27",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-43.txt",
+        "sha256": "4b7ebfc88ae81e33f7dfe3b54e5cbe417caa1514eb2a22c4d0a15bc1d327ef46",
+        "official_tokens_including_bos": 2,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "vocabulary-28",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-44.txt",
+        "sha256": "82bd5fa121475065233e46e1622b2b6c89e1e2c14e48c058e0ba42537d1a324b",
+        "official_tokens_including_bos": 2,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "vocabulary-29",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-45.txt",
+        "sha256": "6df37daaa46ce714fa410768b63f415dfad094df33eb34ac1af332074fd15a1c",
+        "official_tokens_including_bos": 2,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "vocabulary-30",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-46.txt",
+        "sha256": "9d6f965ac832e40a5df6c06afe983e3b449c07b843ff51ce76204de05c690d11",
+        "official_tokens_including_bos": 2,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "vocabulary-31",
+        "group": "existing_48_cases",
+        "file": "outputs/tokenizer-v2/prompt-47.txt",
+        "sha256": "95be0d831e68d112ba60a47a3b7fe0e4100f04e6ebd62854f7e194aef5b267fd",
+        "official_tokens_including_bos": 2,
+        "fits_current_64_token_package": true,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "prompt.txt",
+        "group": "published_prompt",
+        "file": "outputs/futz12-comparison-v1/source/assets/prompt.txt",
+        "sha256": "d3a8da89420764ed944c3f9f69869478f8c3baf4e92eb9a1ef74ac6f1b6ba841",
+        "official_tokens_including_bos": 1080,
+        "fits_current_64_token_package": false,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "prompt2.txt",
+        "group": "published_prompt",
+        "file": "outputs/futz12-comparison-v1/source/assets/prompt2.txt",
+        "sha256": "218b1355f97e5ee5b4f0d839ed4929ca494e41e1dd5cd0fb669936091d7a1b60",
+        "official_tokens_including_bos": 584,
+        "fits_current_64_token_package": false,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "prompt3.txt",
+        "group": "published_prompt",
+        "file": "outputs/futz12-comparison-v1/source/assets/prompt3.txt",
+        "sha256": "b1bef2ce3e4fa7f3923336b69fc87c1d315681fc0398e49e7c35671601a32531",
+        "official_tokens_including_bos": 648,
+        "fits_current_64_token_package": false,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "prompt4.txt",
+        "group": "published_prompt",
+        "file": "outputs/futz12-comparison-v1/source/assets/prompt4.txt",
+        "sha256": "f565ccc6f97a84806c838dcf18ef93e3e1b95640b8d71d26805868d51766ec58",
+        "official_tokens_including_bos": 517,
+        "fits_current_64_token_package": false,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      },
+      {
+        "name": "prompt5.txt",
+        "group": "published_prompt",
+        "file": "outputs/futz12-comparison-v1/source/assets/prompt5.txt",
+        "sha256": "2e133c96f247c0d79ab824afdfdaf8dd9a5c90d7e3241a6a8726b72972be0488",
+        "official_tokens_including_bos": 95,
+        "fits_current_64_token_package": false,
+        "ids_exact": {
+          "ours": true,
+          "futz12": true
+        },
+        "differences": {}
+      }
+    ],
+    "commands": {
+      "ours": [
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/build-tokenizer/ernie-tokenize",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/tokenizer",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-00.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-01.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-02.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-03.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-04.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-05.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-06.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-07.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-08.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-09.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-10.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-11.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-12.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-13.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-14.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-15.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-16.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-17.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-18.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-19.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-20.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-21.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-22.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-23.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-24.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-25.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-26.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-27.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-28.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-29.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-30.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-31.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-32.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-33.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-34.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-35.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-36.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-37.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-38.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-39.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-40.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-41.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-42.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-43.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-44.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-45.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-46.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-47.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/futz12-comparison-v1/source/assets/prompt.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/futz12-comparison-v1/source/assets/prompt2.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/futz12-comparison-v1/source/assets/prompt3.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/futz12-comparison-v1/source/assets/prompt4.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/futz12-comparison-v1/source/assets/prompt5.txt"
+      ],
+      "futz12": [
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/futz12-comparison-v1/futz12-tokenize",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/futz12-comparison-v1/model-metadata/text_encoder/tokenizer/vocab.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/futz12-comparison-v1/model-metadata/text_encoder/tokenizer/merges.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-00.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-01.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-02.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-03.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-04.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-05.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-06.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-07.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-08.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-09.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-10.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-11.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-12.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-13.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-14.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-15.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-16.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-17.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-18.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-19.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-20.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-21.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-22.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-23.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-24.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-25.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-26.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-27.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-28.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-29.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-30.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-31.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-32.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-33.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-34.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-35.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-36.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-37.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-38.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-39.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-40.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-41.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-42.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-43.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-44.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-45.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-46.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/tokenizer-v2/prompt-47.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/futz12-comparison-v1/source/assets/prompt.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/futz12-comparison-v1/source/assets/prompt2.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/futz12-comparison-v1/source/assets/prompt3.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/futz12-comparison-v1/source/assets/prompt4.txt",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/futz12-comparison-v1/source/assets/prompt5.txt"
+      ]
+    },
+    "binary_sha256": {
+      "ours": "ec1b2ce41cfd20db1f570266f6f925b9fcf9b4ab39526423435682835f4ee6c0",
+      "futz12": "13011f435feaceb478a250fd5024dfbf6119d7e363ecb47b4568b34b8022cb99"
+    }
+  },
+  "graph_layers": {
+    "dit/chunks.ncnn.param": {
+      "Input": 10,
+      "Split": 153,
+      "RMSNorm": 144,
+      "BinaryOp": 396,
+      "Gemm": 252,
+      "Reshape": 144,
+      "Permute": 144,
+      "ErnieImageRoPE": 72,
+      "SDPA": 36,
+      "GELU": 36
+    },
+    "pe/decoder.ncnn.param": {
+      "Input": 5,
+      "Split": 107,
+      "RMSNorm": 53,
+      "Gemm": 182,
+      "Reshape": 104,
+      "Permute": 104,
+      "Tile": 2,
+      "ExpandDims": 2,
+      "RotaryEmbed": 52,
+      "SDPA": 26,
+      "BinaryOp": 78,
+      "Swish": 26
+    },
+    "text_encoder/language_model_encoder.ncnn.param": {
+      "Input": 4,
+      "Split": 103,
+      "RMSNorm": 50,
+      "Gemm": 175,
+      "Reshape": 100,
+      "Permute": 100,
+      "ExpandDims": 2,
+      "RotaryEmbed": 50,
+      "SDPA": 25,
+      "BinaryOp": 75,
+      "Swish": 25
+    },
+    "vae/decoder_full.ncnn.param": {
+      "Input": 1,
+      "ConvolutionDepthWise": 1,
+      "PixelShuffle": 1,
+      "Convolution": 36,
+      "Split": 15,
+      "GroupNorm": 30,
+      "Swish": 29,
+      "BinaryOp": 15,
+      "Reshape": 2,
+      "Permute": 2,
+      "MultiHeadAttention": 1,
+      "Interp": 3
+    }
+  },
+  "evidence_sha256": {
+    "run_checks.py": "ab842f7443ffb0908558d49ace01cdcf8f8f4d836416eef166e58e983264d0fd",
+    "tokenizer_comparison.cpp": "31014cab62fc76c0f0822c7543c205ba1123e4ed90ae22febd8976633a003616",
+    "source-manifest.json": "a671201d3ed1c16508e07a6936243f33af6077cc9339940be06af537954deb77",
+    "model-metadata-manifest.json": "79747419205d7e9a9e081a51d869cf33a8172dd06dd99f202f76321951c23f4c",
+    "readme-build-v2.log": "fd475583dbda84a1abb953fde2a40138834c1f4820af54d1f781c4f2b6b5dfe8",
+    "ours-tokenizer-v2.log": "b2fd3abc04367d83deabbff8b0b19ed151ff52f015fe0f207430bc6cd03a7df3",
+    "futz12-tokenizer-v2.log": "dedb845c068bba7bf5c3f2bf96a642e1a11d8a3fba20f6ae3a58d45f8a0e47d4"
+  }
+}

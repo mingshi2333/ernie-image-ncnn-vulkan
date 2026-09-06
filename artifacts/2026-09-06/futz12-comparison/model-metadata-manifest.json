@@ -1,0 +1,48 @@
+{
+  "revision": "140a052f7919f279de7f697fa54f33bd1c0cac2b",
+  "scope": "Only graph and tokenizer metadata, no binary weights",
+  "files": [
+    {
+      "path": "README.md",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/README.md",
+      "sha256": "3e0e15fa0c5cc81675bd69af8eb469d128a725c1a7bfc71f03b7877b7b650567",
+      "bytes": 21
+    },
+    {
+      "path": "dit/chunks.ncnn.param",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/dit/chunks.ncnn.param",
+      "sha256": "74ccdb234ef4e7844a0857942adaf1338163ad093562f6033f7da53c437e7abe",
+      "bytes": 116782
+    },
+    {
+      "path": "text_encoder/language_model_encoder.ncnn.param",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/text_encoder/language_model_encoder.ncnn.param",
+      "sha256": "f4a7e07f9d6d8eea5851f952ee9089c94a903ad16a886ea624367d7da7590314",
+      "bytes": 57168
+    },
+    {
+      "path": "pe/decoder.ncnn.param",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/pe/decoder.ncnn.param",
+      "sha256": "0dd27e936dd5c1a5da820e282a6a183248893aba6cad7ec78f16548550cc1ac4",
+      "bytes": 62331
+    },
+    {
+      "path": "vae/decoder_full.ncnn.param",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/vae/decoder_full.ncnn.param",
+      "sha256": "f4469da7c4cdf42375cf83adec075aa02b4d289c68e2fbd0f76142d4f3571bf9",
+      "bytes": 11469
+    },
+    {
+      "path": "text_encoder/tokenizer/vocab.txt",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/text_encoder/tokenizer/vocab.txt",
+      "sha256": "3f916858add7a114e507108a2fafab4edb5152d978268e590bebdfbaf11685fe",
+      "bytes": 1402887
+    },
+    {
+      "path": "text_encoder/tokenizer/merges.txt",
+      "url": "https://huggingface.co/wuyex/ernie-image-ncnn/resolve/140a052f7919f279de7f697fa54f33bd1c0cac2b/text_encoder/tokenizer/merges.txt",
+      "sha256": "ac79ec80145198ae5419ce3433b56fa092d415d5ef483b58cb7a4a0dc0df5b7b",
+      "bytes": 3127364
+    }
+  ]
+}
