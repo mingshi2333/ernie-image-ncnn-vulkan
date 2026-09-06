@@ -21,3 +21,7 @@
 实际 CLI SHA256 `d366c835fe8d8a7de06db804cae094a4b81b1c64ccdbb005551d8942aee7c267`；GPU context contract SHA256 `c085cf23f83696fa09bb809c1b328631a77b0c522c07133a4c5cc1bdc91c26c7`。构建证据声明 4 GiB memory.max、swap.max=0、CPU 8/10、2 CPU quota，memory.events 的 OOM / OOM-kill 为 0；不是推理峰值测量。
 
 本结论限缺驱动错误恢复及接口小合同。新安装包的迁移隔离、实际 ICD 装载和离线完整生成还需独立新运行证据；不外推 Windows/macOS、完整质量或性能验收。
+
+## 新安装消费补充
+
+随后完成的 `/tmp/ernie-d3-vulkan-install-v3/result.json` 状态 passed。本审查另逐文件重算移动后安装前缀全部 75 文件 size/SHA，全部匹配。实际命令包含移动前缀、bwrap 整个项目 tmpfs 隐藏、unshare-net、外部消费者 configure/build/test 和 CLI help/diagnose，均 exit 0；损坏包实际 exit 1 且输出精确 `Unexpected schema-3 fields`。这次 installed diagnose 枚举三设备（NVIDIA 与两份 llvmpipe），不是缺驱动分支；缺驱动由前述定向 CTest 单独验证。这里只增加真实隔离安装消费证据，完整离线模型生成仍待执行。
