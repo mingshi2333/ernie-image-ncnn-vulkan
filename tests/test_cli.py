@@ -12,6 +12,61 @@ RUNNER = Path(os.environ.get('ERNIE_TEST_RUNNER', ROOT/'build/ernie-image'))
 
 @unittest.skipUnless(RUNNER.is_file(), 'Build the native generator first')
 class CliTests(unittest.TestCase):
+    def test_help_is_available_without_model_or_device(self):
+        for args in ([], ['-h'], ['--help'], ['--help-all']):
+            with self.subTest(args=args):
+                result = subprocess.run([str(RUNNER), *args], text=True,
+                                        capture_output=True, timeout=10)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertIn('--model', result.stdout)
+                self.assertIn('--prompt-file', result.stdout)
+                if args == ['--help-all']:
+                    self.assertIn('--trace-dir', result.stdout)
+                    self.assertIn('--report-json', result.stdout)
+                else:
+                    self.assertIn('--help-all', result.stdout)
+                    self.assertNotIn('--trace-dir', result.stdout)
+
+    def test_cpu_selects_fp32_only_when_precision_is_omitted(self):
+        self.assertIn('Cannot open model package',
+                      self.request('--prompt', 'cat', '--device', 'cpu'))
+        for precision in ('fp16', 'bf16'):
+            for args in (['--device', 'cpu', '--precision', precision],
+                         ['--precision', precision, '--device', 'cpu']):
+                with self.subTest(args=args):
+                    self.assertIn('CPU generation requires --precision fp32',
+                                  self.request('--prompt', 'cat', *args))
+
+    def test_missing_arguments_explain_how_to_continue(self):
+        cases = [
+            (['--prompt', 'cat', '--output', 'new.png'], 'Missing --model DIR'),
+            (['--model', 'absent', '--output', 'new.png'], 'Missing prompt'),
+            (['--model', 'absent', '--prompt', 'cat'], 'Missing --output NEW.png'),
+        ]
+        for args, message in cases:
+            with self.subTest(args=args):
+                result = subprocess.run([str(RUNNER), *args], text=True,
+                                        capture_output=True, timeout=10)
+                self.assertEqual(result.returncode, 1)
+                self.assertIn(message, result.stderr)
+
+    def test_existing_image_is_reported_and_preserved_before_loading(self):
+        with tempfile.TemporaryDirectory() as folder:
+            output = Path(folder) / 'existing.png'
+            output.write_bytes(b'original image')
+            result = subprocess.run([str(RUNNER), '--model', 'absent', '--prompt', 'cat',
+                                     '--output', str(output)], text=True,
+                                    capture_output=True, timeout=10)
+            self.assertEqual(result.returncode, 1)
+            self.assertIn('Output already exists: ' + str(output), result.stderr)
+            self.assertEqual(output.read_bytes(), b'original image')
+
+    def test_device_and_precision_errors_name_the_option(self):
+        self.assertIn('Device must be cpu or vulkan',
+                      self.request('--prompt', 'cat', '--device', 'cuda'))
+        self.assertIn('Precision must be fp32, fp16, or bf16',
+                      self.request('--prompt', 'cat', '--precision', 'fp64'))
+
     def test_generation_report_options(self):
         self.assertIn('report path is empty', self.request('--prompt', 'cat', '--report-json', ''))
         self.assertIn('requires generation', self.request('--verify-model', '--report-json', 'new-report.json'))

@@ -27,7 +27,7 @@ int main(int argc, char **argv)
         auto request = options.generation;
         if (options.help)
         {
-            std::cout << ernie::cli::usage();
+            std::cout << ernie::cli::usage(options.help_all);
             return 0;
         }
         if (options.diagnose_only)

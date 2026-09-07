@@ -55,8 +55,38 @@ void output_extension(const fs::path &path)
         throw std::invalid_argument("Output extension must be PNG, JPEG, BMP, or TGA");
 }
 } // namespace
-const char *usage()
+const char *usage(bool all)
 {
+    if (!all)
+        return "ERNIE-Image-Turbo - local text-to-image\n"
+               "Usage: ernie-image --model DIR (--prompt TEXT | --prompt-file UTF8.txt) --output NEW.png\n"
+               "\n"
+               "Quick start:\n"
+               "  ernie-image --model models/turbo1024-s64-portable --prompt 'A red apple on a wooden table.' --output apple.png\n"
+               "\n"
+               "Common options:\n"
+               "  --model DIR              Prepared model package (weights are downloaded separately)\n"
+               "  --prompt TEXT            Image description; use --prompt-file for a UTF-8 text file\n"
+               "  --output FILE            New PNG, JPEG, BMP or TGA file; parent folders are created\n"
+               "  --width N --height N     Output size; shared packages require both dimensions\n"
+               "  --device cpu|vulkan      Compute device (default: vulkan)\n"
+               "  --precision fp32|fp16|bf16  Default: fp16 on Vulkan, fp32 with --device cpu\n"
+               "  --seed N                 Random seed (default: 42)\n"
+               "  --steps N                Denoising steps (default: 8, Turbo)\n"
+               "  --threads N              CPU threads (default: 4)\n"
+               "  --gpu N                  Vulkan device index; see --diagnose\n"
+               "  --pe-model DIR           Optional prompt enhancer package\n"
+               "  --input IMAGE            Image-to-image; requires a package with an encoder\n"
+               "  --strength 0..1          Image-to-image strength (default: 0.5)\n"
+               "\n"
+               "Checks and help:\n"
+               "  --diagnose               Show available devices without loading weights\n"
+               "  --model DIR --verify-model  Verify every model file without generating an image\n"
+               "  -h, --help               Show this help (also shown with no arguments)\n"
+               "  --help-all               All options: memory, reports, sampling and diagnostics\n"
+               "\n"
+               "Use --precision fp32 for the documented FP32 comparisons. BF16 is experimental.\n"
+               "Existing output files are preserved. Examples and model preparation: README.md\n";
     return "ernie-image --model DIR (--prompt TEXT | --prompt-file UTF8.txt) --output NEW.{png|jpg|bmp|tga}\n"
            "            [--device cpu|vulkan] [--precision fp32|fp16|bf16]\n"
            "            [--width N --height N] [--seed N] [--steps N] [--threads N]\n"
@@ -82,11 +112,18 @@ const char *usage()
            "PE is optional CPU FP32, with up to 2048 output tokens by default.\n"
            "PE sampling defaults: temperature 0.6, top-p 0.95, seed 42; --pe-greedy disables sampling.\n"
            "Reviewed model instances; FP32 text encoder, residuals, Euler master latent and\n"
-           "FP32 VAE (CPU default). CFG=1. BF16 quality is experimental.\n";
+           "FP32 VAE (CPU default). CFG=1. BF16 quality is experimental.\n"
+           "Default precision: Vulkan fp16; --device cpu selects fp32 unless explicitly overridden.\n"
+           "Use -h or --help for common options; --help-all shows this full reference.\n";
 }
 Options parse_options(int argc, char **argv)
 {
     Options out;
+    if (argc <= 1)
+    {
+        out.help = true;
+        return out;
+    }
     auto &r = out.generation;
     std::set<std::string> seen;
     bool have_prompt = false, from_file = false, pe_option = false, background_option = false,
@@ -95,9 +132,10 @@ Options parse_options(int argc, char **argv)
     for (int i = 1; i < argc; ++i)
     {
         const std::string flag(argv[i]);
-        if (flag == "--help")
+        if (flag == "--help" || flag == "-h" || flag == "--help-all")
         {
             out.help = true;
+            out.help_all = flag == "--help-all";
             return out;
         }
         if (flag == "--prompt" || flag == "--prompt-file")
@@ -250,6 +288,8 @@ Options parse_options(int argc, char **argv)
         else
             throw std::invalid_argument("Unknown argument: " + flag);
     }
+    if (r.device == "cpu" && !seen.count("--precision"))
+        r.precision = "fp32";
     if (seen.count("--report-json"))
     {
         if (out.report_json.empty()) throw std::invalid_argument("Generation report path is empty");
@@ -307,13 +347,29 @@ Options parse_options(int argc, char **argv)
         throw std::invalid_argument("Strength-zero img2img does not consume prompt, PE, embeddings, or text reduction");
     if (!out.resize.empty() && (!r.width || !r.height))
         throw std::invalid_argument("--resize requires explicit --width and --height");
-    if ((r.model.empty() && !(out.verify_only && !r.pe_model.empty())) ||
-        (!out.verify_only && (out.output.empty() || (!have_prompt && !prompt_optional) || fs::exists(out.output))) ||
-        (!r.trace.empty() && fs::exists(r.trace)) || (r.device != "cpu" && r.device != "vulkan") ||
-        (r.precision != "fp32" && r.precision != "fp16" && r.precision != "bf16") ||
-        (r.device == "cpu" && r.precision != "fp32") || (r.vae_device != "cpu" && r.vae_device != "vulkan") ||
-        (r.vae_convolution != "sgemm" && r.vae_convolution != "direct"))
-        throw std::invalid_argument("Invalid request; see --help and use new output paths");
+    if (r.model.empty() && !(out.verify_only && !r.pe_model.empty()))
+        throw std::invalid_argument("Missing --model DIR; select a prepared model package");
+    if (!out.verify_only)
+    {
+        if (!have_prompt && !prompt_optional)
+            throw std::invalid_argument("Missing prompt; use --prompt TEXT or --prompt-file UTF8.txt");
+        if (out.output.empty())
+            throw std::invalid_argument("Missing --output NEW.png; choose a new image path");
+        if (fs::exists(fs::symlink_status(out.output)))
+            throw std::invalid_argument("Output already exists: " + out.output.u8string() + "; choose a new image path");
+    }
+    if (!r.trace.empty() && fs::exists(r.trace))
+        throw std::invalid_argument("Trace directory already exists; choose a new --trace-dir path");
+    if (r.device != "cpu" && r.device != "vulkan")
+        throw std::invalid_argument("Device must be cpu or vulkan; use --diagnose to list devices");
+    if (r.precision != "fp32" && r.precision != "fp16" && r.precision != "bf16")
+        throw std::invalid_argument("Precision must be fp32, fp16, or bf16");
+    if (r.device == "cpu" && r.precision != "fp32")
+        throw std::invalid_argument("CPU generation requires --precision fp32; omit --precision to select it automatically");
+    if (r.vae_device != "cpu" && r.vae_device != "vulkan")
+        throw std::invalid_argument("VAE device must be cpu or vulkan");
+    if (r.vae_convolution != "sgemm" && r.vae_convolution != "direct")
+        throw std::invalid_argument("VAE convolution must be direct or sgemm");
     return out;
 }
 } // namespace ernie::cli

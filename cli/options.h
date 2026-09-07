@@ -12,8 +12,8 @@ struct Options
     std::array<uint8_t, 3> background{255, 255, 255};
     std::string resize;
     bool background_explicit = false;
-    bool help = false, verify_only = false, diagnose_only = false;
+    bool help = false, help_all = false, verify_only = false, diagnose_only = false;
 };
 Options parse_options(int argc, char **argv);
-const char *usage();
+const char *usage(bool all = false);
 } // namespace ernie::cli

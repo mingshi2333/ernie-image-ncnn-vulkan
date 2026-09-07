@@ -2,7 +2,30 @@
 
 The first supported configuration is Linux, ERNIE-Image-Turbo, batch one,
 8 Euler steps and CFG 1, with optional CPU prompt enhancement. Model dimensions and
-maximum prompt length are properties of the selected static package.
+maximum prompt length are properties of the selected static package. Shared
+packages select a text source after tokenization and accept explicit runtime
+dimensions. For the shortest build and first-image path, see the
+[quick start](../README.md#构建与运行).
+
+## Everyday CLI use
+
+Running the executable with no arguments, `-h`, or `--help` shows common options
+and an example. `--help-all` includes memory controls, sampling, reports and
+diagnostic inputs. `--diagnose` lists devices without loading model weights.
+
+Generation needs a prepared `--model DIR`, one of `--prompt TEXT` or
+`--prompt-file UTF8.txt`, and a new `--output FILE`. Missing options and existing
+output paths are reported before loading weights. Parent output directories are
+created automatically; existing images are never overwritten.
+
+The CLI defaults to Vulkan FP16, eight steps, seed 42 and four CPU threads.
+Selecting `--device cpu` automatically chooses FP32 when `--precision` is
+omitted. Explicit CPU FP16/BF16 requests are rejected with an explanation.
+This convenience belongs to the CLI; C++ callers still set both `request.device`
+and `request.precision` when selecting CPU execution. Use `--precision fp32`
+for the FP32 path described in the [pixel comparisons](../README.md#与官方的实测误差).
+
+## Build and install
 
 Build with a C++17 compiler, CMake 3.19+, Cargo, libpng development headers,
 and Vulkan development headers/driver when using a GPU:

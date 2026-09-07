@@ -6,7 +6,7 @@
 
 | 层 | CMake 目标 / 入口 | 职责 |
 |---|---|---|
-| 应用 | `ernie-image` / `cli/` | 解析参数、读取输入图、保存 PNG、显示进度和完成报告 |
+| 应用 | `ernie-image` / `cli/` | 解析参数、读取输入图、保存 PNG/JPEG/BMP/TGA、显示进度和完成报告 |
 | 公共接口 | `ernie::pipeline` / `include/ernie/pipeline.h` | `GenerationRequest`、RGB 结果、进度回调、校验和设备诊断 |
 | 流水线 | `ernie-pipeline` / `src/pipeline.cpp` | 请求校验、组件调用、阶段释放和运行统计 |
 | 模型组件 | `ernie-runtime`、`ernie-pe` | 文本编码、PE 会话、DiT、去噪、图生图和原生算子；VAE 解码实现归入 `ernie-pipeline` |
@@ -17,6 +17,8 @@
 `ernie-image` 链接 `ernie::pipeline` 和 libpng；公共头文件只依赖 C++ 标准库。推理实现依赖 ncnn，调用者不需要使用 `ncnn::Mat`。`ernie::generate` 返回像素与实际请求结果，图像文件由调用方处理；可选 trace 由流水线保存用于诊断。
 
 原生生成不调用 Python。`tools/` 的下载、转换、打包和官方对照属于开发阶段。Rust tokenizer 编译为原生静态库，运行时不需要 Cargo。
+
+日常命令行行为集中在 `cli/options.cpp`：无参数、`-h`、`--help` 显示常用帮助，`--help-all` 展开完整参数；选择 CPU 且未指定精度时填入 FP32，明确指定的不兼容精度仍报错。公共 `GenerationRequest` 的默认值保持不变，C++ 调用者自行指定设备和精度。用户输入错误在模型加载前返回具体原因，模型数学和缓存组件不处理这些规则。
 
 ## 模块到源码
 

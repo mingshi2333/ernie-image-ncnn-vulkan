@@ -62,6 +62,8 @@ int main()
         std::vector<char*> pointers;
         for (auto& value : arguments) pointers.push_back(value.data());
         auto options = ernie::cli::parse_options(int(pointers.size()), pointers.data());
+        require(options.generation.device == "vulkan" && options.generation.precision == "fp16",
+                "Default Vulkan request changed");
         require(options.generation.model == root.u8string() && options.generation.prompt == prompt &&
                 options.output == output && options.report_json == report, "UTF-8 CLI path or prompt changed");
 
