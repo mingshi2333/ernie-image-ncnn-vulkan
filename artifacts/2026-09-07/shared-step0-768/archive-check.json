@@ -1,0 +1,9 @@
+{
+  "source_files_reconstructed_and_current": 335,
+  "source_patch_sha256": "53172e9246342941a2b5d82d578d989de086f919d45dfa3700044e97ebed5416",
+  "retained_local_files": 24,
+  "initial_test_failure": "Three modules not found because PYTHONPATH was outside the service; corrected invocation passed20.",
+  "initial_audit_failure": "Wrong parent directory for ncnn; corrected local helper path, no model rerun.",
+  "inference_math_changed": false,
+  "plan_sha256": "d223454f05f387e336e5b37718a61c13b9dcf8339fab5671ceb760c1a5a7d5df"
+}

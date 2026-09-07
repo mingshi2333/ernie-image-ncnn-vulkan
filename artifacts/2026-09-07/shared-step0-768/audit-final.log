@@ -1,0 +1,7 @@
+Running as unit: ernie-step0-768-final-audit-v2.service
+{"plan_sha256": "d223454f05f387e336e5b37718a61c13b9dcf8339fab5671ceb760c1a5a7d5df", "source_files_unchanged": 335, "exact_official_copied_inputs": 5, "exact_saved_expected": true, "official_time_features_sha256": "cbdb74f8ed28761a4f99c179b272f8182f9bae2a3b6243e971b3334d68d00b6d", "native_time_features_sha256": "0f8858bd249998b7665bbffed0b0669df9e64b9fe857fb49152cd37ac0977c22", "package_source_and_runtime_binding_authenticated": true, "copied_python_sources_unchanged": 112, "runner_sha256": "1d754f49534434cf8e3882b271714060394f5233b6a13eb3a0cf2c7e7bcb665a", "ncnn_clean_pinned": true, "all_model_commands_complete": true, "limitation": "This authenticates existing records and selected inputs; it does not repeat full model inference or claim complete native quality acceptance."}
+          Finished with result: success
+Main processes terminated with: code=exited, status=0/SUCCESS
+               Service runtime: 130ms
+             CPU time consumed: 131ms
+                   Memory peak: 14.1M (swap: 0B)

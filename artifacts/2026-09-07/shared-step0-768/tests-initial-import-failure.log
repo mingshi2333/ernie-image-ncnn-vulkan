@@ -1,0 +1,3 @@
+Started ernie-step0-768-tools-check-v1.service - [systemd-run] /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python -m unittest test_diagnose_pipeline_step test_pipeline_reference test_pipeline_package -v.
+ernie-step0-768-tools-check-v1.service: Main process exited, code=exited, status=1/FAILURE
+ernie-step0-768-tools-check-v1.service: Failed with result 'exit-code'.

@@ -1,0 +1,7 @@
+Running as unit: ernie-step0-768-official-review-v1.service
+{"phase": "official", "complete_execution": true, "exact_bytes": false, "nrmse": 4.656369338155069e-05, "max_abs": 0.003206968307495117, "max_abs_limit": 0.06720055599212647, "criterion_passed": true, "distance_to_official": {"nrmse": 4.656369338155069e-05, "max_abs": 0.003206968307495117}}
+          Finished with result: success
+Main processes terminated with: code=exited, status=0/SUCCESS
+               Service runtime: 211ms
+             CPU time consumed: 326ms
+                   Memory peak: 67.4M (swap: 0B)

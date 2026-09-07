@@ -1,0 +1,33 @@
+Running as unit: ernie-step0-768-tools-check-v2.service
+test_corrupt_input_is_rejected_before_runner (test_diagnose_pipeline_step.PipelineStepTest.test_corrupt_input_is_rejected_before_runner) ... ok
+test_fixed_cli_retains_36_blocks_and_both_heads (test_diagnose_pipeline_step.PipelineStepTest.test_fixed_cli_retains_36_blocks_and_both_heads) ... /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/lib64/python3.14/site-packages/diffusers/schedulers/scheduling_flow_match_euler_discrete.py:343: DeprecationWarning: __array__ implementation doesn't accept a copy keyword, so passing copy=False failed. __array__ must implement 'dtype' and 'copy' keyword arguments. To learn more, see the migration guide https://numpy.org/devdocs/numpy_2_0_migration_guide.html#adapting-to-changes-in-the-copy-keyword
+  sigmas = np.array(sigmas).astype(np.float32)
+ok
+test_invalid_step_or_incomplete_reference_precedes_package_read (test_diagnose_pipeline_step.PipelineStepTest.test_invalid_step_or_incomplete_reference_precedes_package_read) ... ok
+test_selected_text_source_or_geometry_cannot_differ_from_oracle (test_diagnose_pipeline_step.PipelineStepTest.test_selected_text_source_or_geometry_cannot_differ_from_oracle) ... ok
+test_shared_cli_passes_package_and_real_token_count_without_raw_models (test_diagnose_pipeline_step.PipelineStepTest.test_shared_cli_passes_package_and_real_token_count_without_raw_models) ... ok
+test_unknown_shared_oracle_is_rejected_before_output (test_diagnose_pipeline_step.PipelineStepTest.test_unknown_shared_oracle_is_rejected_before_output) ... ok
+test_complete_reference_has_exact_25_boundaries (test_pipeline_reference.ReferenceContractTest.test_complete_reference_has_exact_25_boundaries) ... ok
+test_empty_or_missing_step_is_rejected (test_pipeline_reference.ReferenceContractTest.test_empty_or_missing_step_is_rejected) ... ok
+test_missing_conditioning_prediction_or_final_is_rejected (test_pipeline_reference.ReferenceContractTest.test_missing_conditioning_prediction_or_final_is_rejected) ... ok
+test_resigned_shared_metadata_cannot_replace_pinned_source_inventory (test_pipeline_reference.ReferenceContractTest.test_resigned_shared_metadata_cannot_replace_pinned_source_inventory) ... ok
+test_runtime_target_cannot_replace_source_config_or_omit_target_binding (test_pipeline_reference.ReferenceContractTest.test_runtime_target_cannot_replace_source_config_or_omit_target_binding) ... ok
+test_step_identity_shape_dtype_and_token_type_are_checked (test_pipeline_reference.ReferenceContractTest.test_step_identity_shape_dtype_and_token_type_are_checked) ... ok
+test_suffix_bool_count_and_changed_config_are_rejected (test_pipeline_reference.ReferenceContractTest.test_suffix_bool_count_and_changed_config_are_rejected) ... ok
+test_whole_fixture_digest_and_source_binding_are_both_required (test_pipeline_reference.ReferenceContractTest.test_whole_fixture_digest_and_source_binding_are_both_required) ... ok
+test_legacy_selection_stays_compatible_and_rejects_mismatch (test_pipeline_package.ValidationPackageTest.test_legacy_selection_stays_compatible_and_rejects_mismatch) ... ok
+test_runtime_target_preserves_source_identity_and_original_instance (test_pipeline_package.ValidationPackageTest.test_runtime_target_preserves_source_identity_and_original_instance) ... ok
+test_shared_authenticates_then_selects_exact_instance (test_pipeline_package.ValidationPackageTest.test_shared_authenticates_then_selects_exact_instance) ... ok
+test_shared_requires_existing_oracle (test_pipeline_package.ValidationPackageTest.test_shared_requires_existing_oracle) ... ok
+test_shared_verification_failure_cannot_be_bypassed_by_matching_shape (test_pipeline_package.ValidationPackageTest.test_shared_verification_failure_cannot_be_bypassed_by_matching_shape) ... ok
+test_three_exported_buckets_follow_actual_reference_tokens (test_pipeline_package.ValidationPackageTest.test_three_exported_buckets_follow_actual_reference_tokens) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.026s
+
+OK
+          Finished with result: success
+Main processes terminated with: code=exited, status=0/SUCCESS
+               Service runtime: 3.239s
+             CPU time consumed: 2.685s
+                   Memory peak: 692.3M (swap: 0B)

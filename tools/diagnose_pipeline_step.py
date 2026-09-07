@@ -14,8 +14,30 @@ from diffusers import FlowMatchEulerDiscreteScheduler
 from diffusers.models.embeddings import get_timestep_embedding
 from export_dit_block import save_tensor
 from package_model import verify_package
+from pipeline_package import validation_package
+from pipeline_reference import full_reference_contract, reviewed_shared_reference
 from prepare_block import ROOT, sha256
 from validate_block_sequence import run
+
+
+def reference_package(model, reference, step):
+    """Bind a complete saved oracle to the fixed or shared runtime package."""
+    saved = json.loads((reference/'fixture.json').read_text())
+    full_reference_contract(saved, saved['config'], saved['prompt'], saved['steps'])
+    if type(step) is not int or not 0 <= step < saved['steps']:
+        raise ValueError('Require a valid zero-based step')
+    cfg = saved['config']
+    selected, binding = validation_package(
+        model, cfg['packed_width']*16, cfg['packed_height']*16, reference=reference)
+    if selected != cfg:
+        raise ValueError('Reference differs from the selected package configuration')
+    if binding is None:
+        package, _ = verify_package(model)
+        if package['config'] != cfg:
+            raise ValueError('Reference differs from the verified fixed package')
+    else:
+        reviewed_shared_reference(reference/'fixture.json', binding, model/'manifest.json')
+    return saved, cfg, binding
 
 
 def main():
@@ -26,14 +48,13 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--precision', choices=['fp32', 'fp16', 'bf16'], default='fp32')
     parser.add_argument('--runner', type=Path, default=ROOT/'build/ernie-block-sequence-runner')
+    parser.add_argument('--threads', type=int, default=4)
+    parser.add_argument('--host-weights', action='store_true', help='Request RAM weights; compute remains Vulkan')
     args = parser.parse_args()
-    package, _ = verify_package(args.model)
-    saved = json.loads((args.reference/'fixture.json').read_text())
-    cfg = package['config']
-    if (args.output.exists() or not saved.get('complete') or saved['config'] != cfg
-            or not 0 <= args.step < saved['steps']):
-        parser.error('Require a new output, a complete matching reference and a valid step')
-    torch.set_num_threads(4)
+    if args.output.exists() or not 1 <= args.threads <= 256:
+        parser.error('Require a new output and 1..256 threads')
+    saved, cfg, binding = reference_package(args.model, args.reference, args.step)
+    torch.set_num_threads(args.threads)
     torch.set_grad_enabled(False)
     args.output.mkdir(parents=True)
     runner = args.output/'runner.snapshot'
@@ -66,12 +87,15 @@ def main():
     entries['in2'] = save_tensor(fixture_dir/'in2.f32', features)
     fixture = {
         'scope': 'One teacher-forced DiT prediction; official input latent, text, time features, RoPE and mask',
+        'native_acceptance_eligible': False,
         'config': cfg, 'step': args.step, 'timestep': timestep.item(),
         'tokens': cfg['packed_height']*cfg['packed_width']+cfg['dit_text_tokens'],
         'inputs': {k: v for k, v in entries.items() if k != 'expected'},
         'expected': entries['expected'],
         'reference_fixture_sha256': sha256(args.reference/'fixture.json'),
         'package_manifest_sha256': sha256(args.model/'manifest.json'),
+        'package_binding': binding,
+        'threads': args.threads, 'host_weights_requested': args.host_weights,
         'source_snapshot': {p.name: sha256(p) for p in sorted(scripts.iterdir())},
         # The existing full-pipeline tensor gates, unchanged.
         'gates': {'fp32': {'atol': .0002, 'rtol': .01, 'nrmse': .003},
@@ -79,11 +103,18 @@ def main():
                   'bf16': {'atol': .03, 'rtol': .25, 'nrmse': .15}},
     }
     (fixture_dir/'fixture.json').write_text(json.dumps(fixture, indent=2)+'\n')
-    extra = ['--input-head', str((args.model/'dit/input').resolve()),
-             '--output-head', str((args.model/'dit/output').resolve()),
-             '--width', str(cfg['packed_width']), '--height', str(cfg['packed_height']),
-             '--text-tokens', str(cfg['dit_text_tokens'])]
-    result = run([args.model/f'dit/block-{i:02d}' for i in range(36)], fixture_dir, fixture,
+    extra = ['--width', str(cfg['packed_width']), '--height', str(cfg['packed_height']),
+             '--text-tokens', str(cfg['dit_text_tokens']), '--threads', str(args.threads)]
+    if args.host_weights:
+        extra += ['--host-weights']
+    if binding is None:
+        models = [args.model/f'dit/block-{i:02d}' for i in range(36)]
+        extra += ['--input-head', str((args.model/'dit/input').resolve()),
+                  '--output-head', str((args.model/'dit/output').resolve())]
+    else:
+        models = []
+        extra += ['--package', str(args.model.resolve()), '--valid-text-tokens', str(len(saved['ids']))]
+    result = run(models, fixture_dir, fixture,
                  args.output/'native', runner, 'vulkan', args.precision, 'stream', extra_args=extra)
     print(json.dumps({k: result.get(k) for k in ('passed', 'failure', 'nrmse', 'max_abs_error', 'max_abs_limit')}))
     return 0 if result['passed'] else 1

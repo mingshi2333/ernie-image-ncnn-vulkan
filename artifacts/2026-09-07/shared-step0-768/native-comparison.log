@@ -1,0 +1,7 @@
+Running as unit: ernie-step0-768-native-review-v1.service
+{"phase": "native", "complete_execution": true, "exact_bytes": true, "nrmse": 0.0, "max_abs": 0.0, "max_abs_limit": null, "criterion_passed": true, "distance_to_official": {"nrmse": 3.136612132753735e-05, "max_abs": 0.0012018680572509766}}
+          Finished with result: success
+Main processes terminated with: code=exited, status=0/SUCCESS
+               Service runtime: 221ms
+             CPU time consumed: 205ms
+                   Memory peak: 31.9M (swap: 0B)

@@ -61,6 +61,17 @@ ctest --test-dir build --output-on-failure \
 
 共享包的单步诊断可直接使用 `ernie-block-sequence-runner --package`，复用原生生成器的包校验、实际文本桶选择和内存中的图实例化，不必导出另一套固定目录。此模式需要 `ERNIE_BUILD_TOKENIZER=ON`，与原始 `--model` / heads 参数互斥。`--valid-text-tokens` 是包含 BOS 的实际长度；`--text-tokens` 是所选来源的 DiT 填充长度。这里的 `--width` / `--height` 是 **packed latent 尺寸**，与生成器 CLI 的像素单位不同。
 
+`tools/diagnose_pipeline_step.py` 同样接受共享包。它从完整参考读取像素尺寸与实际 token 数，复用 `validation_package` 和已登记的来源认证，再将包与尺寸交给上述原生入口。原有 schema-1/2 固定包入口继续验证完整包并传递 36 个块及两个 head。`--threads` 同时控制参考时间特征准备和原生预测，默认 4；`--host-weights` 显式请求 RAM 权重。示例中的 2 线程是运行设置，不是硬件要求。
+
+```sh
+.venv/bin/python tools/diagnose_pipeline_step.py \
+  --model models/turbo-shared-v2 --reference saved-768/reference \
+  --step 0 --precision fp32 --threads 2 --host-weights \
+  --runner build/ernie-block-sequence-runner --output outputs/shared-step0-new
+```
+
+参考必须是完整且与所选来源匹配的已认证记录；工具检查所需输入张量的散列和大小。输出目录必须不存在，结果始终标记为单步诊断。`tools/diagnose_time_features_native.cpp` 可另外读取生产时间特征，参数为新输出文件和可选的零起点步号 0..7；省略步号保留此前第 6 步行为。
+
 例如，已认证的 768×768 / 15-token 单步输入对应：
 
 ```sh
@@ -74,6 +85,8 @@ build/ernie-block-sequence-runner --package models/turbo-shared-v2 \
 `fixture` 必须包含按原生布局保存的六份 FP32 输入：`in0` latent、`in1` padded text、`in2` 时间特征、`in3/4` cos/sin、`in5` mask，文件名分别为 `in0.f32` 至 `in5.f32`。调用者仍须核对输入散列及其来源；探针校验模型包和输入大小，不把任意文件认证为官方数据。先用全部原生输入确认该入口复现已保存的预测，再进行官方输入对照；单步结果不替代自由运行验收。
 
 共享 768 开发样例的实际 `prediction-6` 已完成这项复现。换入全部官方输入时最大误差为 0.000172；只替换 latent 为 0.000243，只替换文本则仍为 0.236499。该步主要对已累积的 latent 偏差敏感；前面具体算子的贡献尚未确定。原生和官方各 8 次保存的 Euler 更新均与分开的 FP32 乘加逐字节一致。完整 18/25 负结果保持，详见 [单步执行及条件替换记录](../artifacts/2026-09-07/shared-step768/README.md)。
+
+随后第 0 步也逐字节复现了旧原生预测。相对保存的完整官方预测，原生输入的最大差为 0.001202；换入全部官方准备的输入后为 0.003207，均在原单步容差内。这项替换没有改善早期差异，因此不能简单归因于原生文本或时间特征，也不能据此认定原生条件更准确；DiT 内部阶段及 CPU/CUDA 位置函数的计算差异仍需检查。新增共享包 Python 命令参与了这次真实执行，见 [首次预测记录](../artifacts/2026-09-07/shared-step0-768/README.md)。
 
 单独构造 ncnn `MemoryData` 测试模型时，带类型标签的权重流必须指定 `21=0`；默认原始流模式不能读取带标签的测试数据。早期错误夹具和错误轴比较应记录为无效诊断，不作为模型质量证据。
 

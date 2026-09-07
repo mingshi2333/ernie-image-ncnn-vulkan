@@ -1,0 +1,247 @@
+diff --git a/tools/diagnose_pipeline_step.py b/tools/diagnose_pipeline_step.py
+index a322193..1c67212 100644
+--- a/tools/diagnose_pipeline_step.py
++++ b/tools/diagnose_pipeline_step.py
+@@ -14,10 +14,32 @@ from diffusers import FlowMatchEulerDiscreteScheduler
+ from diffusers.models.embeddings import get_timestep_embedding
+ from export_dit_block import save_tensor
+ from package_model import verify_package
++from pipeline_package import validation_package
++from pipeline_reference import full_reference_contract, reviewed_shared_reference
+ from prepare_block import ROOT, sha256
+ from validate_block_sequence import run
+ 
+ 
++def reference_package(model, reference, step):
++    """Bind a complete saved oracle to the fixed or shared runtime package."""
++    saved = json.loads((reference/'fixture.json').read_text())
++    full_reference_contract(saved, saved['config'], saved['prompt'], saved['steps'])
++    if type(step) is not int or not 0 <= step < saved['steps']:
++        raise ValueError('Require a valid zero-based step')
++    cfg = saved['config']
++    selected, binding = validation_package(
++        model, cfg['packed_width']*16, cfg['packed_height']*16, reference=reference)
++    if selected != cfg:
++        raise ValueError('Reference differs from the selected package configuration')
++    if binding is None:
++        package, _ = verify_package(model)
++        if package['config'] != cfg:
++            raise ValueError('Reference differs from the verified fixed package')
++    else:
++        reviewed_shared_reference(reference/'fixture.json', binding, model/'manifest.json')
++    return saved, cfg, binding
++
++
+ def main():
+     parser = argparse.ArgumentParser(description=__doc__)
+     parser.add_argument('--model', type=Path, required=True)
+@@ -26,14 +48,13 @@ def main():
+     parser.add_argument('--output', type=Path, required=True)
+     parser.add_argument('--precision', choices=['fp32', 'fp16', 'bf16'], default='fp32')
+     parser.add_argument('--runner', type=Path, default=ROOT/'build/ernie-block-sequence-runner')
++    parser.add_argument('--threads', type=int, default=4)
++    parser.add_argument('--host-weights', action='store_true', help='Request RAM weights; compute remains Vulkan')
+     args = parser.parse_args()
+-    package, _ = verify_package(args.model)
+-    saved = json.loads((args.reference/'fixture.json').read_text())
+-    cfg = package['config']
+-    if (args.output.exists() or not saved.get('complete') or saved['config'] != cfg
+-            or not 0 <= args.step < saved['steps']):
+-        parser.error('Require a new output, a complete matching reference and a valid step')
+-    torch.set_num_threads(4)
++    if args.output.exists() or not 1 <= args.threads <= 256:
++        parser.error('Require a new output and 1..256 threads')
++    saved, cfg, binding = reference_package(args.model, args.reference, args.step)
++    torch.set_num_threads(args.threads)
+     torch.set_grad_enabled(False)
+     args.output.mkdir(parents=True)
+     runner = args.output/'runner.snapshot'
+@@ -66,12 +87,15 @@ def main():
+     entries['in2'] = save_tensor(fixture_dir/'in2.f32', features)
+     fixture = {
+         'scope': 'One teacher-forced DiT prediction; official input latent, text, time features, RoPE and mask',
++        'native_acceptance_eligible': False,
+         'config': cfg, 'step': args.step, 'timestep': timestep.item(),
+         'tokens': cfg['packed_height']*cfg['packed_width']+cfg['dit_text_tokens'],
+         'inputs': {k: v for k, v in entries.items() if k != 'expected'},
+         'expected': entries['expected'],
+         'reference_fixture_sha256': sha256(args.reference/'fixture.json'),
+         'package_manifest_sha256': sha256(args.model/'manifest.json'),
++        'package_binding': binding,
++        'threads': args.threads, 'host_weights_requested': args.host_weights,
+         'source_snapshot': {p.name: sha256(p) for p in sorted(scripts.iterdir())},
+         # The existing full-pipeline tensor gates, unchanged.
+         'gates': {'fp32': {'atol': .0002, 'rtol': .01, 'nrmse': .003},
+@@ -79,11 +103,18 @@ def main():
+                   'bf16': {'atol': .03, 'rtol': .25, 'nrmse': .15}},
+     }
+     (fixture_dir/'fixture.json').write_text(json.dumps(fixture, indent=2)+'\n')
+-    extra = ['--input-head', str((args.model/'dit/input').resolve()),
+-             '--output-head', str((args.model/'dit/output').resolve()),
+-             '--width', str(cfg['packed_width']), '--height', str(cfg['packed_height']),
+-             '--text-tokens', str(cfg['dit_text_tokens'])]
+-    result = run([args.model/f'dit/block-{i:02d}' for i in range(36)], fixture_dir, fixture,
++    extra = ['--width', str(cfg['packed_width']), '--height', str(cfg['packed_height']),
++             '--text-tokens', str(cfg['dit_text_tokens']), '--threads', str(args.threads)]
++    if args.host_weights:
++        extra += ['--host-weights']
++    if binding is None:
++        models = [args.model/f'dit/block-{i:02d}' for i in range(36)]
++        extra += ['--input-head', str((args.model/'dit/input').resolve()),
++                  '--output-head', str((args.model/'dit/output').resolve())]
++    else:
++        models = []
++        extra += ['--package', str(args.model.resolve()), '--valid-text-tokens', str(len(saved['ids']))]
++    result = run(models, fixture_dir, fixture,
+                  args.output/'native', runner, 'vulkan', args.precision, 'stream', extra_args=extra)
+     print(json.dumps({k: result.get(k) for k in ('passed', 'failure', 'nrmse', 'max_abs_error', 'max_abs_limit')}))
+     return 0 if result['passed'] else 1
+diff --git a/tools/diagnose_time_features_native.cpp b/tools/diagnose_time_features_native.cpp
+index 7de2f6b..abdcd62 100644
+--- a/tools/diagnose_time_features_native.cpp
++++ b/tools/diagnose_time_features_native.cpp
+@@ -11,17 +11,21 @@
+ uint32_t bits(float x) { uint32_t value; std::memcpy(&value,&x,4); return value; }
+ int main(int argc,char **argv) {
+     try {
+-        if(argc!=2) throw std::invalid_argument("Require new output filename");
++        if(argc!=2 && argc!=3) throw std::invalid_argument("Require new output filename [zero-based step]");
+         if(std::ifstream(argv[1]).good()) throw std::invalid_argument("Output exists");
++        size_t consumed=0;
++        const int step=argc==3 ? std::stoi(argv[2],&consumed) : 6;
++        if(step<0 || step>=8 || (argc==3 && consumed!=std::strlen(argv[2])))
++            throw std::invalid_argument("Step must be an integer in [0,7]");
+         const auto schedule=ernie::FlowSchedule::turbo(8);
+-        const float value=schedule.timesteps.at(6);
++        const float value=schedule.timesteps.at(step);
+         const auto decimal=std::to_string(value);
+         const float reparsed=std::stof(decimal);
+         const auto features=ernie::timestep_features(value);
+         std::ofstream out(argv[1],std::ios::binary);
+         out.write(static_cast<const char*>(features.data),4096*4);out.close();
+         if(!out)throw std::runtime_error("Output write failed");
+-        std::cout<<std::setprecision(17)<<"{\"step\":6,\"steps\":8,\"timestep\":"<<value
++        std::cout<<std::setprecision(17)<<"{\"step\":"<<step<<",\"steps\":8,\"timestep\":"<<value
+                  <<",\"timestep_bits\":"<<bits(value)<<",\"std_to_string\":\""<<decimal
+                  <<"\",\"reparsed_bits\":"<<bits(reparsed)<<"}\n";
+     } catch(const std::exception &e) {std::cerr<<e.what()<<'\n';return 1;}
+diff --git a/tests/test_diagnose_pipeline_step.py b/tests/test_diagnose_pipeline_step.py
+new file mode 100644
+index 0000000..2d13dd5
+--- /dev/null
++++ b/tests/test_diagnose_pipeline_step.py
+@@ -0,0 +1,114 @@
++"""The single-step command must use authenticated runtime geometry and inputs."""
++import contextlib
++import io
++import json
++from pathlib import Path
++import sys
++import tempfile
++import unittest
++from unittest.mock import patch
++
++import numpy as np
++
++sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
++import diagnose_pipeline_step as diagnostic
++from test_pipeline_reference import fixture
++
++
++class PipelineStepTest(unittest.TestCase):
++    def setUp(self):
++        self.temp = tempfile.TemporaryDirectory()
++        self.addCleanup(self.temp.cleanup)
++        self.root = Path(self.temp.name)
++        self.model, self.reference = self.root/'model', self.root/'reference'
++        self.model.mkdir(); self.reference.mkdir()
++        self.saved = fixture()
++        for entry in [*self.saved['inputs'].values(), self.saved['outputs'][0]['prediction']]:
++            path = self.reference/entry['file']
++            np.zeros(entry['shape'], dtype='<f4').tofile(path)
++            entry['sha256'] = diagnostic.sha256(path)
++        self.write_reference()
++        (self.model/'manifest.json').write_text(json.dumps({'config': self.saved['config']}))
++        (self.root/'runner').write_bytes(b'synthetic runner; execution is mocked')
++        (self.root/'tools').mkdir()
++        (self.root/'tools/snapshot.py').write_text('# synthetic source snapshot\n')
++
++    def write_reference(self):
++        (self.reference/'fixture.json').write_text(json.dumps(self.saved))
++
++    def invoke(self, binding):
++        argv = ['diagnose_pipeline_step.py', '--model', str(self.model),
++                '--reference', str(self.reference), '--step', '0',
++                '--output', str(self.root/'output'), '--runner', str(self.root/'runner'),
++                '--threads', '2', '--host-weights']
++        with patch.object(sys, 'argv', argv), patch.object(diagnostic, 'ROOT', self.root), \
++                patch.object(diagnostic, 'validation_package', return_value=(self.saved['config'], binding)) as select, \
++                patch.object(diagnostic, 'verify_package', return_value=({'config': self.saved['config']}, {})) as fixed, \
++                patch.object(diagnostic, 'reviewed_shared_reference') as authenticate, \
++                patch.object(diagnostic, 'run', return_value={'passed': True}) as execute, \
++                contextlib.redirect_stdout(io.StringIO()):
++            self.assertEqual(diagnostic.main(), 0)
++        select.assert_called_once_with(self.model, 32, 32, reference=self.reference)
++        return fixed, authenticate, execute.call_args
++
++    def test_shared_cli_passes_package_and_real_token_count_without_raw_models(self):
++        binding = {'schema_version': 3, 'source_manifest_sha256': 'b'*64}
++        fixed, authenticate, call = self.invoke(binding)
++        fixed.assert_not_called()
++        authenticate.assert_called_once_with(self.reference/'fixture.json', binding, self.model/'manifest.json')
++        self.assertEqual(call.args[0], [])
++        extra = call.kwargs['extra_args']
++        self.assertNotIn('--input-head', extra)
++        self.assertEqual(extra[extra.index('--package')+1], str(self.model))
++        self.assertEqual(extra[extra.index('--valid-text-tokens')+1], '2')
++        self.assertEqual(extra[extra.index('--width')+1], '2')
++        self.assertEqual(extra[extra.index('--threads')+1], '2')
++        self.assertIn('--host-weights', extra)
++        saved = json.loads((self.root/'output/fixture/fixture.json').read_text())
++        self.assertFalse(saved['native_acceptance_eligible'])
++        self.assertEqual(saved['package_binding'], binding)
++        self.assertEqual(saved['inputs']['in0']['sha256'], self.saved['inputs']['initial']['sha256'])
++
++    def test_fixed_cli_retains_36_blocks_and_both_heads(self):
++        fixed, authenticate, call = self.invoke(None)
++        fixed.assert_called_once_with(self.model)
++        authenticate.assert_not_called()
++        self.assertEqual(call.args[0], [self.model/f'dit/block-{i:02d}' for i in range(36)])
++        extra = call.kwargs['extra_args']
++        self.assertNotIn('--package', extra)
++        self.assertEqual(extra[extra.index('--input-head')+1], str(self.model/'dit/input'))
++        self.assertEqual(extra[extra.index('--output-head')+1], str(self.model/'dit/output'))
++
++    def test_unknown_shared_oracle_is_rejected_before_output(self):
++        with patch.object(diagnostic, 'validation_package', return_value=(self.saved['config'], {})), \
++                self.assertRaisesRegex(ValueError, 'no matching reviewed source binding'):
++            diagnostic.reference_package(self.model, self.reference, 0)
++        self.assertFalse((self.root/'output').exists())
++
++    def test_invalid_step_or_incomplete_reference_precedes_package_read(self):
++        with patch.object(diagnostic, 'validation_package') as select:
++            for step in (-1, 8, True):
++                with self.assertRaises(ValueError):
++                    diagnostic.reference_package(self.model, self.reference, step)
++            self.saved['outputs'].pop()
++            self.write_reference()
++            with self.assertRaises(ValueError):
++                diagnostic.reference_package(self.model, self.reference, 0)
++            select.assert_not_called()
++
++    def test_selected_text_source_or_geometry_cannot_differ_from_oracle(self):
++        for key in ('packed_width', 'text_bucket'):
++            different = dict(self.saved['config'], **{key: self.saved['config'][key]+1})
++            with patch.object(diagnostic, 'validation_package', return_value=(different, {})), \
++                    self.assertRaisesRegex(ValueError, 'selected package configuration'):
++                diagnostic.reference_package(self.model, self.reference, 0)
++
++    def test_corrupt_input_is_rejected_before_runner(self):
++        (self.reference/self.saved['inputs']['initial']['file']).write_bytes(b'corrupt')
++        with self.assertRaisesRegex(ValueError, 'checksum or shape differs'):
++            self.invoke(None)
++        self.assertFalse((self.root/'output/native').exists())
++
++
++if __name__ == '__main__':
++    unittest.main()

@@ -1,0 +1,76 @@
+[
+  {
+    "label": "native-time",
+    "command": [
+      "/var/tmp/ernie-step0-768-v1/time-features.snapshot",
+      "/var/tmp/ernie-step0-768-v1/native-time.f32",
+      "0"
+    ],
+    "return_code": 0,
+    "stdout": "{\"step\":0,\"steps\":8,\"timestep\":1000,\"timestep_bits\":1148846080,\"std_to_string\":\"1000.000000\",\"reparsed_bits\":1148846080}\n",
+    "stderr": "",
+    "output_exists": true,
+    "sha256": "0f8858bd249998b7665bbffed0b0669df9e64b9fe857fb49152cd37ac0977c22"
+  },
+  {
+    "label": "legacy-default",
+    "command": [
+      "/var/tmp/ernie-step0-768-v1/time-features.snapshot",
+      "/var/tmp/ernie-step0-768-v1/legacy-default.f32"
+    ],
+    "return_code": 0,
+    "stdout": "{\"step\":6,\"steps\":8,\"timestep\":571.4285888671875,\"timestep_bits\":1141824366,\"std_to_string\":\"571.428589\",\"reparsed_bits\":1141824366}\n",
+    "stderr": "",
+    "output_exists": true,
+    "sha256": "5919ea0805bf18fa0de6fcb1ebf080cd7e62af72ec411a57f5f9dce71cd604c1"
+  },
+  {
+    "label": "explicit-six",
+    "command": [
+      "/var/tmp/ernie-step0-768-v1/time-features.snapshot",
+      "/var/tmp/ernie-step0-768-v1/explicit-six.f32",
+      "6"
+    ],
+    "return_code": 0,
+    "stdout": "{\"step\":6,\"steps\":8,\"timestep\":571.4285888671875,\"timestep_bits\":1141824366,\"std_to_string\":\"571.428589\",\"reparsed_bits\":1141824366}\n",
+    "stderr": "",
+    "output_exists": true,
+    "sha256": "5919ea0805bf18fa0de6fcb1ebf080cd7e62af72ec411a57f5f9dce71cd604c1"
+  },
+  {
+    "label": "negative",
+    "command": [
+      "/var/tmp/ernie-step0-768-v1/time-features.snapshot",
+      "/var/tmp/ernie-step0-768-v1/negative.f32",
+      "-1"
+    ],
+    "return_code": 1,
+    "stdout": "",
+    "stderr": "Step must be an integer in [0,7]\n",
+    "output_exists": false
+  },
+  {
+    "label": "too-large",
+    "command": [
+      "/var/tmp/ernie-step0-768-v1/time-features.snapshot",
+      "/var/tmp/ernie-step0-768-v1/too-large.f32",
+      "8"
+    ],
+    "return_code": 1,
+    "stdout": "",
+    "stderr": "Step must be an integer in [0,7]\n",
+    "output_exists": false
+  },
+  {
+    "label": "trailing",
+    "command": [
+      "/var/tmp/ernie-step0-768-v1/time-features.snapshot",
+      "/var/tmp/ernie-step0-768-v1/trailing.f32",
+      "1x"
+    ],
+    "return_code": 1,
+    "stdout": "",
+    "stderr": "Step must be an integer in [0,7]\n",
+    "output_exists": false
+  }
+]

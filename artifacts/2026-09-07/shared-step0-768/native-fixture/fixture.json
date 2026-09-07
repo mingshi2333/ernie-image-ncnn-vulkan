@@ -1,0 +1,72 @@
+{
+  "in0": {
+    "file": "in0.f32",
+    "shape": [
+      1,
+      128,
+      48,
+      48
+    ],
+    "sha256": "4c51a446e05065412158fd8b786b5d73a2f4d5c11877a0265158fca80b4ff061",
+    "source": "/var/tmp/ernie-runtime-squares-v1/768/native/trace/initial.f32"
+  },
+  "in1": {
+    "file": "in1.f32",
+    "shape": [
+      1,
+      64,
+      3072
+    ],
+    "sha256": "5fed4f8e9131c3b0bf5fa7bfab06c5d6f9e9a72524b672cc9cd25a78302f28e5",
+    "source": "/var/tmp/ernie-runtime-squares-v1/768/native/trace/padded-text.f32"
+  },
+  "in2": {
+    "file": "in2.f32",
+    "shape": [
+      1,
+      4096
+    ],
+    "sha256": "0f8858bd249998b7665bbffed0b0669df9e64b9fe857fb49152cd37ac0977c22",
+    "source": "/var/tmp/ernie-step0-768-v1/native-time.f32"
+  },
+  "in3": {
+    "file": "in3.f32",
+    "shape": [
+      1,
+      2368,
+      128
+    ],
+    "sha256": "7abde85db566cc2454d08098cffe2bbb36d9302c1880aa48a19ed7d10813c015",
+    "source": "/var/tmp/ernie-runtime-squares-v1/768/native/trace/constant-0.f32"
+  },
+  "in4": {
+    "file": "in4.f32",
+    "shape": [
+      1,
+      2368,
+      128
+    ],
+    "sha256": "0985f1e5e25ac9e4f8d6d250ce2ea8d406a0651e7cfb897eb02d4bd6916a1b84",
+    "source": "/var/tmp/ernie-runtime-squares-v1/768/native/trace/constant-1.f32"
+  },
+  "in5": {
+    "file": "in5.f32",
+    "shape": [
+      2368,
+      2368
+    ],
+    "sha256": "efdaa3b629cda9a9fb586903985f62d1bf683a94f78d83b4682316e2c66e202d",
+    "source": "/var/tmp/ernie-runtime-squares-v1/768/native/trace/constant-2.f32"
+  },
+  "expected": {
+    "file": "expected.f32",
+    "shape": [
+      1,
+      128,
+      48,
+      48
+    ],
+    "sha256": "1bfdfde48932ccc8215858abe3bf773e45fe0c77a683de59eadc342599113f24",
+    "source": "/var/tmp/ernie-runtime-squares-v1/768/native/trace/prediction-0.f32"
+  }
+}
