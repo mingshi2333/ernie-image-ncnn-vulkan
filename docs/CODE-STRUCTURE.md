@@ -43,7 +43,7 @@ ernie-image-ncnn-vulkan/
 │   ├── shape_graph.*        # 完整图身份与允许变化的形状字段
 │   └── tensor_io.*          # 诊断张量的读写
 ├── tokenizer/               # Rust C ABI、官方 Tokenizers、完整包校验
-├── cmake/                   # 固定依赖、shader 派生与安装包导出
+├── cmake/                   # 固定依赖、经审查的构建目录派生与安装包导出
 ├── probes/                  # 转换/诊断用原生程序
 ├── tools/                   # 下载、转换、打包、官方参考与验收脚本
 ├── tests/                   # 不需要下载权重的回归检查及小型 fixtures
@@ -80,6 +80,8 @@ PE 的 26 层和缓存全部释放后才开始图像文本编码；文本权重�
 构建依赖为 `ernie-image → ernie::pipeline → ernie-runtime / ernie-pe / ernie-tokenizer`。只有 CLI 链接 libpng。公共接口头文件只依赖 C++ 标准库。`tests/test_pipeline_api.cpp` 作为外部调用者编译，不包含私有 ncnn 头。
 
 ## 构建和维护约定
+
+`cmake/ErnieModelReader.cmake` 提供默认关闭的读取缓冲区实验：先认证固定 ncnn 的 `modelbin.cpp`，只在构建目录生成两行元素计数修正，再替换该编译单元。它不修改第三方检出、不涉及权重放置或模型数学；`tests/test_model_reader.cpp` 直接调用实际 ModelBin，核对分配量、解码位模式、映射路径与文件截断。开关和验证范围见 [组件复现说明](REPRODUCE-COMPONENTS.md#普通读取的临时权重缓冲区实验)。
 
 `weight_placement.*` 管理每个 DiT 组件加载前的权重放置决定：读取实际计算堆的 Vulkan 预算与本进程使用量，结合权重大小估计、可调余量及原有大序列偏好，选择 GPU 或系统内存。`WeightPlacement` 不持有模型权重、设备命令或后台线程；`block_sequence` 与 heads 仍负责在 GPU 完成后销毁 Net。API/CLI 只传递 auto/device/host 与余量，详细 trace 和返回值记录请求原因及计数。运行中激活迁移尚未实现。有界的跨步 RAM 权重复用由独立 `WeightSession` 管理，默认关闭；`host_memory.*` 负责 Linux 主机及 cgroup 余量读取。放置选择、缓存所有权和可用内存估计各自保持独立。
 

@@ -1,0 +1,112 @@
+{
+  "files": {
+    "README.md": {
+      "bytes": 5529,
+      "sha256": "da8f3812daeb21ac84a976fc82e8d9e2100512960a45c471f4d1227948d828ca"
+    },
+    "baseline-identity.json": {
+      "bytes": 39167,
+      "sha256": "daa7afcbd9a2e39316df202e8d850189560fd21c41704d8acee8acb8131dda4f"
+    },
+    "build-cpu-off.log": {
+      "bytes": 379,
+      "sha256": "0e3172d94832a5d27a2d90731c9590b478e8514412a7e967b64982bbbb58bf76"
+    },
+    "build-cpu-on.log": {
+      "bytes": 464,
+      "sha256": "11f52332e9abcd6bd4f4119ddc6da7e08622d19520566870438c00b830839a71"
+    },
+    "build-vulkan-off.log": {
+      "bytes": 934,
+      "sha256": "a27d9d1c56b24a5efe1796dbb34f827c7647f194538ed6fba40b80f989a6532e"
+    },
+    "build-vulkan-on.log": {
+      "bytes": 1606,
+      "sha256": "0eca2ca534a0e6fe6d37db528c0f0cbcb7c3e2b5a258cf0fb2ee2c8dbdca4ee2"
+    },
+    "candidate-identity.json": {
+      "bytes": 84722,
+      "sha256": "fa63c7a0129b7b275fa23b598e732c564c8bd8495c96266f49ae93e5a58d29a5"
+    },
+    "ci-config-check.json": {
+      "bytes": 271,
+      "sha256": "4e1ddd6c955e8103fc01e955eb1d58e20d9f0b442f529fc64000b94f6d906213"
+    },
+    "configure-cpu-off.log": {
+      "bytes": 287,
+      "sha256": "cf96a27ac2baf178a59d5a49cdce00e85fd0789a97c1dd9fa385af95b14eb2d4"
+    },
+    "configure-cpu-on.log": {
+      "bytes": 287,
+      "sha256": "6fe97fe0823c596630594f9ad86f6565254386ca0a8adf14ef2dbcf94c89825e"
+    },
+    "configure-vulkan-off.log": {
+      "bytes": 279,
+      "sha256": "d7d516de037b51fe23c42336b8cb58211c4de09d9b8311ec2a33788724fea27f"
+    },
+    "configure-vulkan-on.log": {
+      "bytes": 279,
+      "sha256": "21396e8c364101386229f8376ab96d4c2345c11fb337b545dfd3ed872a0060fd"
+    },
+    "ctest-cpu-off.log": {
+      "bytes": 3448,
+      "sha256": "c63aa54861fdf098cc3347f08abc30e84f973f29eb8887f5b95805805725a8bf"
+    },
+    "ctest-cpu-on.log": {
+      "bytes": 3444,
+      "sha256": "f26dd6b797e4cf5ec3e63b2356e57f4e8d545068ddef3d8e77b84fda3d392e17"
+    },
+    "ctest-vulkan-off.log": {
+      "bytes": 3376,
+      "sha256": "475ec94bfff6bd98c034761385f8dae064e1549138a73de39bcc5e67f1307962"
+    },
+    "ctest-vulkan-on.log": {
+      "bytes": 3372,
+      "sha256": "065d8abb214f2f07797689476797ce761fa0fe64dc062ab6397d6531ad6f172e"
+    },
+    "model-reader.patch": {
+      "bytes": 824,
+      "sha256": "e6bf1ed6e1691778ae1faad856fcad7e511f546278cba6f955a0c5dc241c4382"
+    },
+    "modified-source-rejection.log": {
+      "bytes": 240,
+      "sha256": "0ffc3da4b87dbb2dc49001292861307fe070496d027f7a15b8324979779036db"
+    },
+    "restore-build-cpu.log": {
+      "bytes": 367,
+      "sha256": "01162253f09538001e2b8952d18694608612a485c1bf5dddef5db2450052b44c"
+    },
+    "restore-build-vulkan.log": {
+      "bytes": 1508,
+      "sha256": "e222857405dec4b92dfb9f0d9d171f8974d0e80c126a3cc8289786d7d7c55b11"
+    },
+    "restore-configure-cpu.log": {
+      "bytes": 287,
+      "sha256": "cf96a27ac2baf178a59d5a49cdce00e85fd0789a97c1dd9fa385af95b14eb2d4"
+    },
+    "restore-configure-vulkan.log": {
+      "bytes": 279,
+      "sha256": "740734bfee2c885cf9d67e5c33f4f8b229bf263e1c1a69f1ef4e028e2b851a6d"
+    },
+    "restored-baselines.json": {
+      "bytes": 936,
+      "sha256": "f5096fcd3937e34740853039df839957f73669f07dbd0b7a4880176902c75724"
+    },
+    "source-checks.json": {
+      "bytes": 299,
+      "sha256": "47706f92366889026473b09e0824b50bca8511104fa76f4c62927515fdb6d80a"
+    },
+    "source-inventory.json": {
+      "bytes": 49251,
+      "sha256": "ba49f69c14a5106698437a9e2e328726536a862ef212c58dad6d32554d3ff1e5"
+    },
+    "validation.json": {
+      "bytes": 4918,
+      "sha256": "f07b97d6af667dd929c8eb8e41f39495d4a309f5f0bba278cffdf0c89776454f"
+    },
+    "vulkan-baseline-identity.json": {
+      "bytes": 41422,
+      "sha256": "5e6df784231964676f77f697ea3a7a27f06e1f6feb5a7320a5aa495cf7a347f7"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+[1/7] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/__/__/compact-model-reader/modelbin.cpp.o
+[2/7] Building CXX object tests/CMakeFiles/ernie-model-reader-contract.dir/test_model_reader.cpp.o
+[3/7] Linking CXX static library ncnn/src/libncnn.a
+[4/7] Linking CXX executable ernie-component-files-contract
+[5/7] Linking CXX executable ernie-model-loading-contract
+[6/7] Linking CXX executable ernie-model-reader-contract
+[7/7] Linking CXX executable ernie-image

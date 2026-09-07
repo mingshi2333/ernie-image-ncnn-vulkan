@@ -1,0 +1,40 @@
+[  1%] Built target SPIRV
+[  1%] Built target ernie-execution-metrics
+[ 34%] Built target ncnn-generate-spirv
+[ 34%] Built target ernie-tokenizer-rust
+[ 35%] Built target ernie-shape-plan
+[ 42%] Built target glslang
+[ 42%] Built target ernie-tokenizer
+[ 42%] Built target ernie-shape-graph
+[ 42%] Built target ernie-model-package
+[ 42%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/__/__/compact-model-reader/modelbin.cpp.o
+[ 42%] Linking CXX static library libncnn.a
+[ 94%] Built target ncnn
+[ 97%] Built target ernie-runtime
+[ 97%] Built target ernie-pe
+[ 98%] Built target ernie-pipeline
+[ 98%] Linking CXX executable ../ernie-image
+[100%] Built target ernie-image
+[  1%] Built target SPIRV
+[ 37%] Built target ncnn-generate-spirv
+[ 44%] Built target glslang
+[100%] Built target ncnn
+[100%] Building CXX object tests/CMakeFiles/ernie-model-reader-contract.dir/test_model_reader.cpp.o
+[100%] Linking CXX executable ../ernie-model-reader-contract
+[100%] Built target ernie-model-reader-contract
+[  2%] Built target SPIRV
+[  2%] Built target ernie-shape-plan
+[ 36%] Built target ncnn-generate-spirv
+[ 43%] Built target glslang
+[ 96%] Built target ncnn
+[100%] Built target ernie-runtime
+[100%] Linking CXX executable ../ernie-model-loading-contract
+[100%] Built target ernie-model-loading-contract
+[  1%] Built target SPIRV
+[  2%] Built target ernie-shape-plan
+[ 36%] Built target ncnn-generate-spirv
+[ 43%] Built target glslang
+[ 95%] Built target ncnn
+[ 98%] Built target ernie-runtime
+[100%] Linking CXX executable ../ernie-component-files-contract
+[100%] Built target ernie-component-files-contract

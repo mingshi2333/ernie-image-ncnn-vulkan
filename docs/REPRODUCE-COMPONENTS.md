@@ -98,3 +98,21 @@ build-tokenizer/ernie-tokenize models/tokenizer prompt.txt
 `tokenizer/Cargo.lock` 固定传递依赖和校验值。构建使用 `--locked`。当前 C++ 层完整保留 UTF-8 输入，包括文本文件中的 NUL 字节，非法 UTF-8 明确拒绝。官方 JSON 决定 ByteLevel/BPE/special-token 行为，调用显式启用 special tokens，使用 2048 token 右截断，不 padding。
 
 已验证的 48 个样本含多语种、Unicode 组合字符、emoji、BOS/special tokens、空文本和长文本。`ignore_merges=true` 配置被保留，当前候选扫描未找到开关前后不同的真实词表反例，不能宣称已经建立该开关的差异测试覆盖。Tokenizer 通过不代表 26 层 Mistral3 文本编码器已移植。
+
+## 普通读取的临时权重缓冲区实验
+
+固定 ncnn 版本的 FP16/BF16 普通读取分支把对齐后的**字节数**传给 `vector<unsigned short>::resize`，临时数组因此分配了所需空间的两倍。`ERNIE_EXPERIMENT_COMPACT_MODEL_READER` 默认关闭；开启后只修正这两处元素计数。CMake 核对原文件 SHA256，并在构建目录编译派生文件；原始第三方检出保持不变，未审查的源文件会被拒绝。
+
+```sh
+cmake -S . -B build-reader -DCMAKE_BUILD_TYPE=Release \
+  -DERNIE_ENABLE_VULKAN=OFF \
+  -DERNIE_EXPERIMENT_COMPACT_MODEL_READER=ON
+cmake --build build-reader --parallel 2 \
+  --target ernie-model-reader-contract ernie-model-loading-contract ernie-component-files-contract
+ctest --test-dir build-reader \
+  -R '^(model_reader_cpu|model_loading_cpu|component_files_contract_cpu)$' -V
+```
+
+要验证原始行为，使用独立构建目录并将该开关设为 `OFF`。`model_reader_cpu` 会根据实际构建设置核对两种分配量，同时验证 FP16/BF16 解码、4 字节尾部对齐、映射读取和截断输入。Linux CI 包含额外的 CPU 开启配置；修改工作流本身不代表远程任务已经通过。
+
+这项修改只影响实际走普通读取分支的磁盘 FP16/BF16 权重，FP32 文件和成功取得映射引用的分支不变。即使推理用 FP32，磁盘权重仍可能以无损 BF16 存储。约 8 MiB 的输入在该测试中将临时数组从约 16 MiB 减为约 8 MiB；这不是整个程序内存减半，也不证明出图加速或 GPU 自动溢出到 RAM。当前 CPU/Vulkan 两种构建在开关 OFF/ON 下各通过 3 项 CPU 执行检查；完整模型和重复计时尚待验证，见 [固定证据](../artifacts/2026-09-07/compact-model-reader/README.md)。

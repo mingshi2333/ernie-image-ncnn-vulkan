@@ -1,0 +1,18 @@
+{
+  "parsed": true,
+  "configurations": [
+    {
+      "vulkan": "OFF",
+      "compact_reader": "OFF"
+    },
+    {
+      "vulkan": "ON",
+      "compact_reader": "OFF"
+    },
+    {
+      "vulkan": "OFF",
+      "compact_reader": "ON"
+    }
+  ],
+  "remote_executed": false
+}

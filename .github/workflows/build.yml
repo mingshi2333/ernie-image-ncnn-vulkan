@@ -21,6 +21,10 @@ jobs:
       fail-fast: false
       matrix:
         vulkan: ['OFF', 'ON']
+        compact_reader: ['OFF']
+        include:
+          - vulkan: 'OFF'
+            compact_reader: 'ON'
     steps:
       # https://github.com/actions/checkout (v7, verified 2026-09-05)
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
@@ -38,6 +42,7 @@ jobs:
         run: >-
           cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
           -DERNIE_ENABLE_VULKAN=${{ matrix.vulkan }}
+          -DERNIE_EXPERIMENT_COMPACT_MODEL_READER=${{ matrix.compact_reader }}
           -DERNIE_BUILD_TOKENIZER=ON -DERNIE_BUILD_GENERATOR=ON -DERNIE_INSTALL_SDK=ON
           -DNCNN_SYSTEM_GLSLANG=OFF -DNCNN_INT8=OFF -DNCNN_WEIGHT_QUANT=OFF
       - name: Build

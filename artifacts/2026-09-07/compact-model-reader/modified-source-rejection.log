@@ -1,0 +1,6 @@
+CMake Error at cmake/ErnieModelReader.cmake:12 (message):
+  Compact model reader requires the reviewed pinned modelbin.cpp
+Call Stack (most recent call first):
+  /tmp/ernie-reader-reject-jhxyoi6e/test.cmake:3 (ernie_prepare_model_reader)
+
+

@@ -1,0 +1,33 @@
+{
+  "cpu": {
+    "option": "OFF",
+    "ncnn_archive": {
+      "bytes": 17273420,
+      "sha256": "b48f09d96b00585376f95ad671aea0bdbd4ea7db84885418627c7360683c77ef"
+    },
+    "archive_matches_baseline": true,
+    "binary": {
+      "bytes": 29210784,
+      "sha256": "5f6b86a2c90580bb0c12497100130158b5efd7ffb82473178dbf7d9826ca2e42"
+    },
+    "reader_test": {
+      "bytes": 11485104,
+      "sha256": "e4e179fa9c4a2d5d197908803d109f8e9bbeacc5aa1ba8302e5bfe7f3f142d3a"
+    },
+    "reader_test_matches_baseline": true
+  },
+  "vulkan": {
+    "option": "OFF",
+    "ncnn_archive": {
+      "bytes": 23198344,
+      "sha256": "c8e58dc6abb73915ae61c52400fab307df1d477752ffe3f2db694b9d4570bd17"
+    },
+    "archive_matches_baseline": true,
+    "binary": {
+      "bytes": 36944136,
+      "sha256": "ff2f934f317a602f3d098bf6d74cd7c2e2a6de725ed8fcf04d8d1e2bcbaa3e1c"
+    },
+    "binary_matches_baseline": true
+  },
+  "ncnn_checkout_clean": true
+}

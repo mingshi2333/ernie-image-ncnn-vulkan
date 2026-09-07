@@ -1,0 +1,106 @@
+{
+  "cpu_executed_test_names": [
+    "component_files_contract_cpu",
+    "model_loading_cpu",
+    "model_reader_cpu"
+  ],
+  "configurations": [
+    {
+      "vulkan": false,
+      "compact_reader": false,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "observed_reader_rows": [
+        "FP16 count=1 payload=4 vector_bytes=8 bit_exact=true",
+        "FP16 count=2 payload=4 vector_bytes=8 bit_exact=true",
+        "FP16 count=3 payload=8 vector_bytes=16 bit_exact=true",
+        "FP16 count=17 payload=36 vector_bytes=72 bit_exact=true",
+        "FP16 count=2049 payload=4100 vector_bytes=8200 bit_exact=true",
+        "FP16 count=65537 payload=131076 vector_bytes=262152 bit_exact=true",
+        "FP16 count=4194305 payload=8388612 vector_bytes=16777224 bit_exact=true",
+        "BF16 count=1 payload=4 vector_bytes=8 bit_exact=true",
+        "BF16 count=2 payload=4 vector_bytes=8 bit_exact=true",
+        "BF16 count=3 payload=8 vector_bytes=16 bit_exact=true",
+        "BF16 count=17 payload=36 vector_bytes=72 bit_exact=true",
+        "BF16 count=2049 payload=4100 vector_bytes=8200 bit_exact=true",
+        "BF16 count=65537 payload=131076 vector_bytes=262152 bit_exact=true",
+        "BF16 count=4194305 payload=8388612 vector_bytes=16777224 bit_exact=true"
+      ]
+    },
+    {
+      "vulkan": false,
+      "compact_reader": true,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "observed_reader_rows": [
+        "FP16 count=1 payload=4 vector_bytes=4 bit_exact=true",
+        "FP16 count=2 payload=4 vector_bytes=4 bit_exact=true",
+        "FP16 count=3 payload=8 vector_bytes=8 bit_exact=true",
+        "FP16 count=17 payload=36 vector_bytes=36 bit_exact=true",
+        "FP16 count=2049 payload=4100 vector_bytes=4100 bit_exact=true",
+        "FP16 count=65537 payload=131076 vector_bytes=131076 bit_exact=true",
+        "FP16 count=4194305 payload=8388612 vector_bytes=8388612 bit_exact=true",
+        "BF16 count=1 payload=4 vector_bytes=4 bit_exact=true",
+        "BF16 count=2 payload=4 vector_bytes=4 bit_exact=true",
+        "BF16 count=3 payload=8 vector_bytes=8 bit_exact=true",
+        "BF16 count=17 payload=36 vector_bytes=36 bit_exact=true",
+        "BF16 count=2049 payload=4100 vector_bytes=4100 bit_exact=true",
+        "BF16 count=65537 payload=131076 vector_bytes=131076 bit_exact=true",
+        "BF16 count=4194305 payload=8388612 vector_bytes=8388612 bit_exact=true"
+      ]
+    },
+    {
+      "vulkan": true,
+      "compact_reader": false,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "observed_reader_rows": [
+        "FP16 count=1 payload=4 vector_bytes=8 bit_exact=true",
+        "FP16 count=2 payload=4 vector_bytes=8 bit_exact=true",
+        "FP16 count=3 payload=8 vector_bytes=16 bit_exact=true",
+        "FP16 count=17 payload=36 vector_bytes=72 bit_exact=true",
+        "FP16 count=2049 payload=4100 vector_bytes=8200 bit_exact=true",
+        "FP16 count=65537 payload=131076 vector_bytes=262152 bit_exact=true",
+        "FP16 count=4194305 payload=8388612 vector_bytes=16777224 bit_exact=true",
+        "BF16 count=1 payload=4 vector_bytes=8 bit_exact=true",
+        "BF16 count=2 payload=4 vector_bytes=8 bit_exact=true",
+        "BF16 count=3 payload=8 vector_bytes=16 bit_exact=true",
+        "BF16 count=17 payload=36 vector_bytes=72 bit_exact=true",
+        "BF16 count=2049 payload=4100 vector_bytes=8200 bit_exact=true",
+        "BF16 count=65537 payload=131076 vector_bytes=262152 bit_exact=true",
+        "BF16 count=4194305 payload=8388612 vector_bytes=16777224 bit_exact=true"
+      ]
+    },
+    {
+      "vulkan": true,
+      "compact_reader": true,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "observed_reader_rows": [
+        "FP16 count=1 payload=4 vector_bytes=4 bit_exact=true",
+        "FP16 count=2 payload=4 vector_bytes=4 bit_exact=true",
+        "FP16 count=3 payload=8 vector_bytes=8 bit_exact=true",
+        "FP16 count=17 payload=36 vector_bytes=36 bit_exact=true",
+        "FP16 count=2049 payload=4100 vector_bytes=4100 bit_exact=true",
+        "FP16 count=65537 payload=131076 vector_bytes=131076 bit_exact=true",
+        "FP16 count=4194305 payload=8388612 vector_bytes=8388612 bit_exact=true",
+        "BF16 count=1 payload=4 vector_bytes=4 bit_exact=true",
+        "BF16 count=2 payload=4 vector_bytes=4 bit_exact=true",
+        "BF16 count=3 payload=8 vector_bytes=8 bit_exact=true",
+        "BF16 count=17 payload=36 vector_bytes=36 bit_exact=true",
+        "BF16 count=2049 payload=4100 vector_bytes=4100 bit_exact=true",
+        "BF16 count=65537 payload=131076 vector_bytes=131076 bit_exact=true",
+        "BF16 count=4194305 payload=8388612 vector_bytes=8388612 bit_exact=true"
+      ]
+    }
+  ],
+  "gpu_execution": false,
+  "candidate_complete_model_execution": false,
+  "candidate_image_speed_result": false,
+  "default_changed": false,
+  "remote_ci_executed": false
+}

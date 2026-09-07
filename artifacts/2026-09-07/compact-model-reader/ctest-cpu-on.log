@@ -1,0 +1,61 @@
+UpdateCTestConfiguration  from :/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu/DartConfiguration.tcl
+Parse Config file:/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu/DartConfiguration.tcl
+Test project /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 18
+    Start 18: component_files_contract_cpu
+
+18: Test command: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu/ernie-component-files-contract
+18: Working Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu/tests
+18: Test timeout computed to be: 1500
+18: Memory/file graph equivalence, lifetime and bounded component inputs passed
+1/3 Test #18: component_files_contract_cpu .....   Passed    0.00 sec
+test 22
+    Start 22: model_loading_cpu
+
+22: Test command: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu/ernie-model-loading-contract
+22: Working Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu/tests
+22: Test timeout computed to be: 1500
+22: fopen /tmp/ernie-model-loading-150641697576509/absent.bin failed
+22: fopen /tmp/ernie-model-loading-150641697576509/absent.bin failed
+22: CPU FP32/BF16 files: both loading modes, build defaults, repeated extraction, mapping ownership and missing-file rejection pass
+2/3 Test #22: model_loading_cpu ................   Passed    0.00 sec
+test 23
+    Start 23: model_reader_cpu
+
+23: Test command: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu/ernie-model-reader-contract
+23: Working Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu/tests
+23: Test timeout computed to be: 1500
+23: ModelBin read float16_weights failed 35
+23: ModelBin read flag_struct failed 2
+23: ModelBin read bfloat16_weights failed 35
+23: ModelBin read flag_struct failed 2
+23: FP16 count=1 payload=4 vector_bytes=4 bit_exact=true
+23: FP16 count=2 payload=4 vector_bytes=4 bit_exact=true
+23: FP16 count=3 payload=8 vector_bytes=8 bit_exact=true
+23: FP16 count=17 payload=36 vector_bytes=36 bit_exact=true
+23: FP16 count=2049 payload=4100 vector_bytes=4100 bit_exact=true
+23: FP16 count=65537 payload=131076 vector_bytes=131076 bit_exact=true
+23: FP16 count=4194305 payload=8388612 vector_bytes=8388612 bit_exact=true
+23: BF16 count=1 payload=4 vector_bytes=4 bit_exact=true
+23: BF16 count=2 payload=4 vector_bytes=4 bit_exact=true
+23: BF16 count=3 payload=8 vector_bytes=8 bit_exact=true
+23: BF16 count=17 payload=36 vector_bytes=36 bit_exact=true
+23: BF16 count=2049 payload=4100 vector_bytes=4100 bit_exact=true
+23: BF16 count=65537 payload=131076 vector_bytes=131076 bit_exact=true
+23: BF16 count=4194305 payload=8388612 vector_bytes=8388612 bit_exact=true
+3/3 Test #23: model_reader_cpu .................   Passed    0.09 sec
+
+The following tests passed:
+	component_files_contract_cpu
+	model_loading_cpu
+	model_reader_cpu
+
+100% tests passed, 0 tests failed out of 3
+
+Total Test time (real) =   0.10 sec
