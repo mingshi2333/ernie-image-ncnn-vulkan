@@ -531,3 +531,44 @@ The standard-library-only C++ API exposes `GenerationRequest::dit_weights`
 and `gpu_reserve_mib`, plus request counts in `GenerationResult`. Explicit
 DiT placement controls require a Vulkan generation device; CPU text and VAE
 placement remain controlled by their existing settings.
+
+### Optional prepared-weight cache
+
+Vulkan FP32 generation can retain a bounded subset of prepared DiT blocks in
+RAM across denoising steps. Enable it with `--dit-cache-mib N`; the default is
+zero, so existing generation continues to stream. Use `auto` or `host` weight
+placement. Explicit device-only weights and lower storage precision are rejected
+with this cache enabled. Heads continue to stream.
+
+```sh
+./build/ernie-image --model MODEL --prompt "A red apple" --output cached.png \
+  --device vulkan --precision fp32 --dit-weights auto \
+  --dit-cache-mib 6144 --ram-reserve-mib 3072
+```
+
+These are example budgets, not model hardware requirements. Cache admission
+checks Linux host availability and the current cgroup-v2 memory limits. Before
+each block, low headroom evicts idle cached blocks; it never evicts a block
+whose lease is still active. If availability cannot be read, blocks stream
+without cache admission. Windows/macOS availability readers are not implemented
+for this optional cache yet. The configurable RAM reserve defaults to 3072 MiB.
+
+After loading, the cache inspects the pinned FP32 DiT weight buffers. It rejects
+any weight in device-local memory, including ncnn's host-to-device allocation
+fallback, and unknown graph layers. Its charge includes unique Vulkan weight
+buffer memory requirements, retained CPU weight payloads, and a 64 MiB margin
+per Net. This covers the cached subset, not total process RSS, transient loading
+buffers, the current streamed block, activation pools, or all driver overhead.
+The RAM reserve is an estimate of headroom, not protection against every OOM.
+
+Admitted blocks stay cached while other blocks stream. This avoids the repeated
+misses an LRU cache would cause when scanning 36 blocks with a smaller cache.
+Each block still computes on Vulkan from the current step's inputs. No DiT K/V,
+hidden states, or predictions are reused. All cached weights are released before
+VAE decoding. No background prefetch or asynchronous failure recovery is added.
+
+The CLI and `GenerationResult` report actual hits, loads, peak charged bytes,
+peak cached Nets, pressure evictions and unavailable host-budget queries.
+Detailed tracing also writes `weight-cache.txt`; placement traces cover only
+actual loads, with `reason=cache` when auto selects RAM for cache admission.
+The cache remains opt-in pending repeated timing and wider image/device checks.

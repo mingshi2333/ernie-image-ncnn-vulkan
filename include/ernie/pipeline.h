@@ -53,6 +53,10 @@ struct GenerationRequest
     // Extra headroom beyond estimated weight payload; a policy setting, not a
     // guarantee that the remaining activation/workspace allocations will fit.
     uint32_t gpu_reserve_mib = 512;
+    // Opt-in FP32 Vulkan prepared-weight cache in RAM; 0 keeps streaming.
+    // Charged weight bytes plus margin, not a whole-process memory ceiling.
+    uint32_t dit_cache_mib = 0;
+    uint32_t ram_reserve_mib = 3072;
 };
 
 struct GenerationResult
@@ -65,6 +69,9 @@ struct GenerationResult
     double elapsed_seconds = 0, vae_seconds = 0;
     uint64_t host_weight_requests = 0, device_weight_requests = 0;
     uint64_t unavailable_memory_queries = 0;
+    uint64_t weight_cache_hits = 0, weight_cache_loads = 0;
+    uint64_t weight_cache_peak_bytes = 0, weight_cache_peak_nets = 0;
+    uint64_t weight_cache_evictions = 0, unavailable_host_memory_queries = 0;
 };
 
 struct Progress

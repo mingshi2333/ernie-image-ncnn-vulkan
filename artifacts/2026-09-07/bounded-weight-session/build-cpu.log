@@ -1,0 +1,34 @@
+[0/1] Re-running CMake...
+-- CMAKE_INSTALL_PREFIX = /usr/local
+-- NCNN_VERSION_STRING = 1.0.20260907
+-- Target arch: x86 64bit
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu
+[1/28] Building CXX object src/CMakeFiles/ernie-runtime.dir/ernie_gelu.cpp.o
+[2/28] Building CXX object src/CMakeFiles/ernie-runtime.dir/ernie_rmsnorm.cpp.o
+[3/28] Building CXX object src/CMakeFiles/ernie-runtime.dir/weight_placement.cpp.o
+[4/28] Building CXX object src/CMakeFiles/ernie-runtime.dir/image_encoder.cpp.o
+[5/28] Building CXX object src/CMakeFiles/ernie-runtime.dir/block_sequence.cpp.o
+[6/28] Building CXX object src/CMakeFiles/ernie-runtime.dir/weight_session.cpp.o
+[7/28] Building CXX object src/CMakeFiles/ernie-runtime.dir/dit.cpp.o
+[8/28] Building CXX object src/CMakeFiles/ernie-runtime.dir/denoiser.cpp.o
+[9/28] Building CXX object src/CMakeFiles/ernie-runtime.dir/text_encoder.cpp.o
+[10/28] Linking CXX static library src/libernie-runtime.a
+[11/28] Building CXX object src/CMakeFiles/ernie-pe.dir/prompt_enhancer.cpp.o
+[12/28] Linking CXX static library src/libernie-pe.a
+[13/28] Building CXX object src/CMakeFiles/ernie-pipeline.dir/runtime_info.cpp.o
+[14/28] Building CXX object cli/CMakeFiles/ernie-image.dir/main.cpp.o
+[15/28] Building CXX object src/CMakeFiles/ernie-pipeline.dir/pipeline.cpp.o
+[16/28] Linking CXX static library src/libernie-pipeline.a
+[17/28] Building CXX object cli/CMakeFiles/ernie-image.dir/options.cpp.o
+[18/28] Building CXX object tests/CMakeFiles/ernie-pipeline-api-contract.dir/test_pipeline_api.cpp.o
+[19/28] Building CXX object tests/CMakeFiles/ernie-request-validation-contract.dir/test_request_validation.cpp.o
+[20/28] Building CXX object cli/CMakeFiles/ernie-image.dir/image_io.cpp.o
+[21/28] Building CXX object tests/CMakeFiles/ernie-weight-placement-contract.dir/test_weight_placement.cpp.o
+[22/28] Building CXX object tests/CMakeFiles/ernie-weight-session-contract.dir/test_weight_session.cpp.o
+[23/28] Linking CXX executable ernie-image
+[24/28] Linking CXX executable ernie-pipeline-api-contract
+[25/28] Linking CXX executable ernie-request-validation-contract
+[26/28] Linking CXX executable ernie-weight-placement-contract
+[27/28] Linking CXX executable ernie-weight-session-contract

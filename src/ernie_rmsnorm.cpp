@@ -2,6 +2,9 @@
 #include "ernie_rmsnorm.h"
 #include "layer.h"
 #include <memory>
+#if NCNN_VULKAN
+#include "vulkan/rmsnorm_vulkan.h"
+#endif
 
 namespace ernie {
 namespace {
@@ -152,4 +155,15 @@ int register_layernorm(ncnn::Net& net)
 {
     return net.register_custom_layer("LayerNorm", ErnieLayerNorm_layer_creator);
 }
+#if NCNN_VULKAN
+void append_rmsnorm_weights(const ncnn::Layer& layer, std::vector<ncnn::VkMat>& gpu,
+                           std::vector<ncnn::Mat>& cpu)
+{
+    const auto& norm = static_cast<const ErnieRMSNorm&>(layer);
+    const auto& native = *static_cast<const ncnn::RMSNorm_vulkan*>(norm.gpu.get());
+    gpu.push_back(native.gamma_data_gpu);
+    cpu.push_back(native.gamma_data);
+    cpu.push_back(static_cast<const ncnn::RMSNorm*>(norm.cpu.get())->gamma_data);
+}
+#endif
 } // namespace ernie

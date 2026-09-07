@@ -1,0 +1,47 @@
+{
+  "builds": {
+    "vulkan": {
+      "log": "build-vulkan.log",
+      "return_code": 0
+    },
+    "cpu": {
+      "log": "build-cpu.log",
+      "return_code": 0
+    }
+  },
+  "ctest": [
+    {
+      "build": "build-dev",
+      "log": "ctest-vulkan.log",
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "build": "build-install-cpu",
+      "log": "ctest-cpu.log",
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "build": "build-dev",
+      "log": "ctest-sdk-vulkan.log",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "initial_build_failures": [
+    {
+      "attempt": 1,
+      "reason": "systemd user service defaulted to /home/mingshi; explicit working directory added before building"
+    },
+    {
+      "attempt": 2,
+      "reason": "new Vulkan buffer query needed the ncnn namespace; corrected, both builds and all affected tests then passed"
+    }
+  ],
+  "formal_performance": false,
+  "full_model": "complete: 25 tensors and PNG byte-identical; bounded cache reused actual weights"
+}

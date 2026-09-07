@@ -18,6 +18,9 @@ class CliTests(unittest.TestCase):
                                                      '--precision', 'fp32', '--dit-weights', 'host'))
         for value in ('-1', '4294967296', '12x'):
             self.assertIn('Invalid integer', self.request('--prompt', 'cat', '--gpu-reserve-mib', value))
+            self.assertIn('Invalid integer', self.request('--prompt', 'cat', '--dit-cache-mib', value))
+            self.assertIn('Invalid integer', self.request('--prompt', 'cat', '--ram-reserve-mib', value))
+        self.assertIn('requires Vulkan FP32', self.request('--prompt', 'cat', '--dit-cache-mib', '1024'))
 
     def request(self, *args):
         with tempfile.TemporaryDirectory() as folder:

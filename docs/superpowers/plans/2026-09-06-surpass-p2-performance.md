@@ -30,6 +30,8 @@
 
 ## Task O2: 有界权重会话和单块预取
 
+**2026-09-07 进展：** 有界 FP32 RAM 准备权重会话已实现，可选开启，完整512回归通过，见[实测](../../../artifacts/2026-09-07/bounded-weight-session/README.md)。单块预取、全部开发 fixtures 与重复配对性能仍未完成，本任务保持开放。
+
 **Files:** Create `src/weight_session.h`, `src/weight_session.cpp`, `tests/test_weight_session.cpp`；Extend `src/block_sequence.h`, `src/block_sequence.cpp`, `src/dit.cpp`, `src/denoiser.cpp`, `src/pipeline.cpp`, `src/CMakeLists.txt`, `tests/CMakeLists.txt`。
 
 **Interfaces:** `WeightBudget { host_bytes, device_bytes, prefetch_depth }`；`WeightSession::acquire(block_id)` 返回受会话管理的 lease；`release_after(lease, completion)` 只有已完成的 command 才可回收相关权重。`cancel()` 必须 join worker、等待必要设备完成并释放资源。开始只允许 `prefetch_depth=0/1`，租约不可复制成独立所有者。

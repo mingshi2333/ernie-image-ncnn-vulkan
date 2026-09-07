@@ -3,6 +3,7 @@
 #include "ernie_gelu.h"
 #include "ernie_attention.h"
 #include <chrono>
+#include <algorithm>
 #include <filesystem>
 #include <memory>
 #include <stdexcept>
@@ -94,18 +95,21 @@ ncnn::Mat run_block_sequence(const std::vector<ComponentFiles>& models, const nc
 ncnn::VkMat run_block_sequence(const std::vector<ComponentFiles>& models, const ncnn::VkMat& input,
     const std::vector<ncnn::VkMat>& constants, const ncnn::VulkanDevice* device,
     const ncnn::Option& option, WeightPolicy policy, BlockSequenceStats& stats,
-    const VulkanStageObserver& observer, WeightPlacement* placement)
+    const VulkanStageObserver& observer, WeightPlacement* placement, WeightSession* session)
 {
     check_request(models.size(), constants.size(), policy);
     if (!device || !option.use_vulkan_compute || !option.blob_vkallocator || !option.staging_vkallocator)
         throw std::invalid_argument("Vulkan sequence requires device and session allocators");
+    if (session && policy != WeightPolicy::Stream)
+        throw std::invalid_argument("Weight session requires streamed execution");
     const bool collect_details=stats.collect_details;
     stats = {};
     stats.collect_details=collect_details;
     auto configure = [device](ncnn::Net& net) { net.set_vulkan_device(device); };
-    auto load_block = [&](size_t i) {
+    auto load_block = [&](size_t i, bool prefer_host = false) {
         auto selected = option;
-        if (placement) selected.use_weights_in_host_memory = placement->use_host(models[i], option.use_weights_in_host_memory);
+        if (placement) selected.use_weights_in_host_memory = placement->use_host(models[i], option.use_weights_in_host_memory, prefer_host);
+        else if (prefer_host) selected.use_weights_in_host_memory = true;
         return load(models[i], selected, configure, stats, int(i));
     };
     std::vector<std::unique_ptr<ncnn::Net>> resident;
@@ -115,12 +119,26 @@ ncnn::VkMat run_block_sequence(const std::vector<ComponentFiles>& models, const 
     ncnn::VkMat current = input;
     for (size_t i = 0; i < models.size(); ++i)
     {
-        auto streamed = policy == WeightPolicy::Stream ? load_block(i) : nullptr;
-        auto& net = policy == WeightPolicy::Stream ? *streamed : *resident[i];
+        WeightSession::Lease lease;
+        if (session)
+        {
+            const auto bytes = std::filesystem::file_size(models[i].weight_path);
+            if (bytes > (UINT64_MAX - 64ull * 1024 * 1024) / 2)
+                throw std::overflow_error("Weight cache estimate overflow");
+            const auto loaded = stats.load_seconds.size();
+            lease = session->acquire(i, models[i], &option, bytes * 2 + 64ull * 1024 * 1024,
+                                    [&](bool host) { return load_block(i, host); });
+            if (stats.load_seconds.size() == loaded) stats.load_seconds.push_back(0);
+            stats.peak_loaded_nets = std::max(stats.peak_loaded_nets,
+                int(session->stats().cached_nets + (lease.cached() ? 0 : 1)));
+        }
+        auto streamed = !session && policy == WeightPolicy::Stream ? load_block(i) : nullptr;
+        auto& net = session ? lease.net() : policy == WeightPolicy::Stream ? *streamed : *resident[i];
         for (const auto* layer : net.layers())
             if (!layer->support_vulkan && layer->type != "Input" && layer->type != "Split")
                 throw std::runtime_error("Sequence graph contains a compute layer without Vulkan support");
         const auto start = Clock::now();
+        const auto submissions_before = attention_internal_submissions(net);
         {
         auto extractor = net.create_extractor();
         extractor.set_blob_vkallocator(option.blob_vkallocator);
@@ -134,12 +152,13 @@ ncnn::VkMat run_block_sequence(const std::vector<ComponentFiles>& models, const 
         try { check(extractor.extract("out0", next, command), "extract device block output");
             check(command.submit_and_wait(), "complete block before releasing weights"); }
         catch (...) { if(stats.collect_details) stats.details.push_back({int(i),"extract_compute_composite","failed",std::chrono::duration<double>(Clock::now()-start).count()}); throw; }
-        stats.compute_submissions += 1 + attention_internal_submissions(net);
+        stats.compute_submissions += 1 + attention_internal_submissions(net) - submissions_before;
         current = next;
         stats.compute_seconds.push_back(std::chrono::duration<double>(Clock::now() - start).count());
         if(stats.collect_details) stats.details.push_back({int(i),"extract_compute_composite","complete",stats.compute_seconds.back()});
         if (observer) observer("block-" + std::to_string(i), current);
         }
+        if (session) lease.complete();
         if (streamed) { const auto destroy=Clock::now();streamed.reset();if(stats.collect_details) stats.details.push_back({int(i),"net_destroy","complete",std::chrono::duration<double>(Clock::now()-destroy).count()}); }
         // command, extractor, then the streamed Net are destroyed in this order.
         // current remains owned by the caller's blob allocator.
@@ -158,10 +177,10 @@ ncnn::Mat run_block_sequence(const std::vector<std::string>& models, const ncnn:
 ncnn::VkMat run_block_sequence(const std::vector<std::string>& models, const ncnn::VkMat& input,
     const std::vector<ncnn::VkMat>& constants, const ncnn::VulkanDevice* device,
     const ncnn::Option& option, WeightPolicy policy, BlockSequenceStats& stats,
-    const VulkanStageObserver& observer, WeightPlacement* placement)
+    const VulkanStageObserver& observer, WeightPlacement* placement, WeightSession* session)
 {
     check_request(models.size(), constants.size(), policy);
-    return run_block_sequence(component_files(models, "block"), input, constants, device, option, policy, stats, observer, placement);
+    return run_block_sequence(component_files(models, "block"), input, constants, device, option, policy, stats, observer, placement, session);
 }
 #endif
 } // namespace ernie

@@ -90,6 +90,11 @@ void validate_request(const GenerationRequest &r)
     parse_weight_memory(r.dit_weights);
     if (r.device != "vulkan" && (r.dit_weights != "auto" || r.gpu_reserve_mib != 512))
         throw std::invalid_argument("DiT weight placement requires Vulkan generation");
+    if ((r.dit_cache_mib || r.ram_reserve_mib != 3072) &&
+        (r.device != "vulkan" || r.precision != "fp32" || r.dit_weights == "device"))
+        throw std::invalid_argument("DiT RAM cache requires Vulkan FP32 and auto/host weights");
+    if (!r.dit_cache_mib && r.ram_reserve_mib != 3072)
+        throw std::invalid_argument("RAM reserve requires a nonzero DiT cache budget");
     if (!std::isfinite(r.strength) || r.strength < 0.f || r.strength > 1.f)
         throw std::invalid_argument("Strength must be finite and in [0,1]");
     if (bool(r.width) != bool(r.height))
@@ -242,6 +247,12 @@ ncnn::Mat run_dit(const ModelPackage &package, const ncnn::Mat &initial, const s
                     << " reserve_bytes=" << decision.reserve_bytes << '\n';
                 if (!placement_trace) throw std::runtime_error("Cannot write weight placement trace");
             });
+        std::unique_ptr<WeightSession> weight_session;
+        if (request.dit_cache_mib)
+            weight_session = std::make_unique<WeightSession>(WeightBudget{
+                std::uint64_t(request.dit_cache_mib) * 1024 * 1024,
+                std::uint64_t(request.ram_reserve_mib) * 1024 * 1024},
+                host_memory_available_reader(), dit_host_weight_inspector(device));
         ncnn::VkMat gpu_latent;
         try { gpu_latent = ernie::denoise(dit, gpu_initial, gpu_constants, steps, device, option, stats,
                            [&](size_t i, const ncnn::VkMat &prediction, const ncnn::VkMat &sample)
@@ -259,11 +270,30 @@ ncnn::Mat run_dit(const ModelPackage &package, const ncnn::Mat &initial, const s
                                    write_tensor(trace / ("step-" + std::to_string(i) + ".f32"), x);
                                }
                                progress(i);
-                           }, start_step, metrics.metrics != nullptr, &placement); }
+                           }, start_step, metrics.metrics != nullptr, &placement, weight_session.get()); }
         catch (...) { for(size_t k=reported_steps;k<stats.size();++k)metrics.denoise_step(stats[k],start_step+int(k));throw; }
         result.host_weight_requests = placement.host_requests();
         result.device_weight_requests = placement.device_requests();
         result.unavailable_memory_queries = placement.unavailable_queries();
+        if (weight_session)
+        {
+            const auto cache_stats = weight_session->stats();
+            result.weight_cache_hits = cache_stats.hits;
+            result.weight_cache_loads = cache_stats.loads;
+            result.weight_cache_peak_bytes = cache_stats.peak_bytes;
+            result.weight_cache_peak_nets = cache_stats.peak_nets;
+            result.weight_cache_evictions = cache_stats.evictions;
+            result.unavailable_host_memory_queries = cache_stats.unavailable_queries;
+            if (!trace.empty())
+                trace_text(trace / "weight-cache.txt", "hits=" + std::to_string(cache_stats.hits) +
+                    "\nloads=" + std::to_string(cache_stats.loads) +
+                    "\nadmissions=" + std::to_string(cache_stats.admissions) +
+                    "\nevictions=" + std::to_string(cache_stats.evictions) +
+                    "\npeak_charged_bytes=" + std::to_string(cache_stats.peak_bytes) +
+                    "\npeak_nets=" + std::to_string(cache_stats.peak_nets) +
+                    "\nunavailable_queries=" + std::to_string(cache_stats.unavailable_queries) + "\n");
+            weight_session.reset(); // Release all DiT weights before VAE.
+        }
         if (placement_trace.is_open())
         {
             placement_trace.close();

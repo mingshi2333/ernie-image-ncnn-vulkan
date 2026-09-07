@@ -2,7 +2,9 @@
 
 ERNIE-Image-Turbo 本地文生图的 C++ / ncnn / Vulkan 实现。**可以离线生成 1024×1024 PNG，已提供独立模型包、文件完整性检查和安装入口。** 推理程序不依赖 Python，不访问网络。当前支持 Linux、batch=1、Turbo 8 步、CFG=1、可选 CPU 提示词增强器（PE），仍是实验版本。
 
-**2026-09-07：DiT 已支持按实时显存预算选择 GPU/RAM 权重。** 默认 `--dit-weights auto` 在每个组件加载前读取预算及已用量；也可用 `--dit-weights host` 指定 RAM。完整 512×512 受控 RAM 分支的 25 个张量与 PNG 均与已验证基线逐字节相同，见[实现、测试及限制](artifacts/2026-09-07/adaptive-weight-placement/README.md)。当前尚未实现激活自动卸载或跨去噪步的权重缓存，此项没有取得加速结论。
+**2026-09-07：DiT 已支持按实时显存预算选择 GPU/RAM 权重。** 默认 `--dit-weights auto` 在每个组件加载前读取预算及已用量；也可用 `--dit-weights host` 指定 RAM。完整 512×512 受控 RAM 分支的 25 个张量与 PNG 均与已验证基线逐字节相同，见[实现、测试及限制](artifacts/2026-09-07/adaptive-weight-placement/README.md)。激活自动卸载和 Vulkan 分配失败后的恢复仍未实现。
+
+**可选的 FP32 RAM 权重缓存已完成一次完整出图回归。** `--dit-cache-mib` 在预算内复用已准备的 DiT 块，读取 RAM 余量并在压力下回收空闲缓存，默认关闭。512×512 八步测试缓存 6 个块、命中 42 次，块加载由 288 次降至 246 次，25 个张量及 PNG 逐字节相同。本次诊断耗时 469.113 秒，前次同输入 RAM 测试 526.741 秒；这不是重复配对的正式性能结论。缓存计账峰值约 5.30 GiB，整卡显存采样峰值 2376 MiB，无 OOM。见[实现与实测](artifacts/2026-09-07/bounded-weight-session/README.md)及[运行参数](docs/RUNNING.md#optional-prepared-weight-cache)。
 
 **2026-09-07：共享包已接入实验性运行时尺寸范围和自动文本桶选择。** 宽高可按 16 的倍数规划为 16..2048，面积不超过 2097152；原生程序按实际提示词长度选择包内独立导出的 32/64/2048 桶，复用同一套权重。最大 10240-token 单块在权重放入系统内存后完成了真实 Vulkan FP32 对照；三个来源、13 组尺寸的 2496 个原生图实例化检查通过。**范围已接入代码，完整尺寸矩阵的官方/原生出图对照仍未完成。** 见[本轮证据及限制](artifacts/2026-09-07/runtime-range-and-buckets/README.md)。原先 1376×768 的完整执行结果保留在[历史记录](artifacts/2026-09-07/runtime-shape1376/README.md)。
 
@@ -89,7 +91,7 @@ build/ernie-image --model models/turbo1024-s64-portable \
 
 DiT 保留三轴 RoPE、erf GELU、shared AdaLN 和最终非 affine LayerNorm。真实文本条件下，残差激活可超过 FP16 的 65504 上限。两个残差相加点使用 `ErnieResidualAdd` 保持 FP32，RMSNorm / LayerNorm 临时计算也使用 FP32，归一化后的投影输入返回模型存储精度。每步 Euler 检查有限值，Vulkan 仅下载 128 个状态浮点数。CPU VAE 的 GroupNorm 使用 FP64 均值与中心方差归约，其余激活和 affine 运算为 FP32。
 
-36 层 DiT 每次只加载一块，GPU 中间激活保留在设备上，调用方共享 Vulkan pipeline cache。FP32 注意力对 softmax 分母和概率乘 V 使用 Kahan 累加；查询按最多 128 行处理，每行保留全部 K/V。4160-token、32 头的单个分数矩阵由约 2.06 GiB 降至 65 MiB，代价是增加同步提交；FP16 Flash 和原生 KV cache 路径保留。模型文件的 BF16 表示无损保存官方 BF16 权重，每块约 416MiB，36 块共约 14.63GiB；加载仍会展开和准备权重，文件缩小不代表内存同比缩小。
+36 层 DiT 默认每次只加载一块，GPU 中间激活保留在设备上，调用方共享 Vulkan pipeline cache。FP32 注意力对 softmax 分母和概率乘 V 使用 Kahan 累加；查询按最多 128 行处理，每行保留全部 K/V。4160-token、32 头的单个分数矩阵由约 2.06 GiB 降至 65 MiB，代价是增加同步提交；FP16 Flash 和原生 KV cache 路径保留。模型文件的 BF16 表示无损保存官方 BF16 权重，每块约 416MiB，36 块共约 14.63GiB；加载仍会展开和准备权重，文件缩小不代表内存同比缩小。
 
 高分辨率 VAE 使用完整图指纹约束下的两处空间 reshape 特化，并通过独立执行的目标分辨率官方参考。原先整图 pnnx 转换因主机内存持续增长而停止，失败记录保留；不把特化后的成功写成整图导出成功。
 

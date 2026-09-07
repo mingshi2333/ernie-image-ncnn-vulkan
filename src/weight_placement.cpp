@@ -49,7 +49,7 @@ WeightPlacement::WeightPlacement(WeightMemory mode, std::uint64_t reserve_bytes,
                                BudgetReader reader, Observer observer)
     : mode_(mode), reserve_bytes_(reserve_bytes), reader_(std::move(reader)), observer_(std::move(observer)) {}
 
-bool WeightPlacement::use_host(const ComponentFiles& files, bool shape_prefers_host)
+bool WeightPlacement::use_host(const ComponentFiles& files, bool shape_prefers_host, bool cache_prefers_host)
 {
     // Reviewed packages store BF16 or FP32 weights. Twice the on-disk bytes is
     // a conservative payload estimate at FP32, including for lower storage
@@ -58,7 +58,12 @@ bool WeightPlacement::use_host(const ComponentFiles& files, bool shape_prefers_h
     if (file_bytes > std::numeric_limits<std::uint64_t>::max() / 2)
         throw std::overflow_error("Weight byte estimate overflow");
     const auto memory = mode_ == WeightMemory::Auto && reader_ ? reader_() : std::nullopt;
-    const auto d = choose_weight_placement(mode_, shape_prefers_host, file_bytes * 2, reserve_bytes_, memory);
+    auto d = choose_weight_placement(mode_, shape_prefers_host, file_bytes * 2, reserve_bytes_, memory);
+    if (mode_ == WeightMemory::Auto && cache_prefers_host)
+    {
+        d.host = true;
+        d.reason = "cache";
+    }
     if (mode_ == WeightMemory::Auto && !memory) ++unavailable_queries_;
     if (d.host) ++host_requests_; else ++device_requests_;
     if (observer_) observer_(files, d);

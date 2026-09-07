@@ -1,0 +1,19 @@
+Test project /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev
+    Start  7: pipeline_api_contract
+1/7 Test  #7: pipeline_api_contract ............   Passed    0.23 sec
+    Start  8: request_validation_contract
+2/7 Test  #8: request_validation_contract ......   Passed    0.24 sec
+    Start 16: cli_contract
+3/7 Test #16: cli_contract .....................   Passed    0.58 sec
+    Start 22: weight_placement_cpu
+4/7 Test #22: weight_placement_cpu .............   Passed    0.00 sec
+    Start 23: weight_session_cpu
+5/7 Test #23: weight_session_cpu ...............   Passed    0.00 sec
+    Start 24: weight_session_vulkan
+6/7 Test #24: weight_session_vulkan ............   Passed    0.71 sec
+    Start 25: weight_placement_vulkan
+7/7 Test #25: weight_placement_vulkan ..........   Passed    0.59 sec
+
+100% tests passed, 0 tests failed out of 7
+
+Total Test time (real) =   2.37 sec

@@ -44,6 +44,9 @@ int main()
         rejected("DiT weights", [](auto &r) { r.dit_weights = "invalid"; });
         rejected("requires Vulkan", [](auto &r) { r.dit_weights = "host"; });
         rejected("requires Vulkan", [](auto &r) { r.gpu_reserve_mib = 0; });
+        rejected("requires Vulkan FP32", [](auto &r) { r.dit_cache_mib = 1; });
+        rejected("requires Vulkan FP32", [](auto &r) { r.device = "vulkan"; r.precision = "fp16"; r.dit_cache_mib = 1; });
+        rejected("requires Vulkan FP32", [](auto &r) { r.device = "vulkan"; r.dit_weights = "device"; r.dit_cache_mib = 1; });
         rejected("Threads", [](auto &r) { r.threads = 257; });
         rejected("GPU index", [](auto &r) { r.gpu_index = -2; });
         rejected("GPU index requires", [](auto &r) { r.gpu_index = 0; });

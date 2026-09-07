@@ -1,0 +1,17 @@
+Test project /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu
+    Start  3: pipeline_api_contract
+1/6 Test  #3: pipeline_api_contract ............   Passed    0.00 sec
+    Start  4: request_validation_contract
+2/6 Test  #4: request_validation_contract ......   Passed    0.00 sec
+    Start 11: cli_contract
+3/6 Test #11: cli_contract .....................   Passed    0.11 sec
+    Start 12: installed_cpp_consumer
+4/6 Test #12: installed_cpp_consumer ...........   Passed    1.12 sec
+    Start 17: weight_placement_cpu
+5/6 Test #17: weight_placement_cpu .............   Passed    0.00 sec
+    Start 18: weight_session_cpu
+6/6 Test #18: weight_session_cpu ...............   Passed    0.01 sec
+
+100% tests passed, 0 tests failed out of 6
+
+Total Test time (real) =   1.25 sec

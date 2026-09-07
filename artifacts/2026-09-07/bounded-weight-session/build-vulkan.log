@@ -1,0 +1,78 @@
+[  1%] Built target SPIRV
+[  1%] Built target ernie-execution-metrics
+[ 33%] Built target ncnn-generate-spirv
+[ 40%] Built target glslang
+[ 40%] Built target ernie-tokenizer-rust
+[ 40%] Built target ernie-shape-plan
+[ 40%] Built target ernie-tokenizer
+[ 41%] Built target ernie-shape-graph
+[ 41%] Built target ernie-model-package
+[ 94%] Built target ncnn
+[ 94%] Building CXX object src/CMakeFiles/ernie-runtime.dir/weight_session.cpp.o
+[ 94%] Building CXX object src/CMakeFiles/ernie-runtime.dir/dit.cpp.o
+[ 94%] Building CXX object src/CMakeFiles/ernie-runtime.dir/denoiser.cpp.o
+[ 95%] Building CXX object src/CMakeFiles/ernie-runtime.dir/text_encoder.cpp.o
+[ 95%] Linking CXX static library libernie-runtime.a
+[ 97%] Built target ernie-runtime
+[ 97%] Building CXX object src/CMakeFiles/ernie-pe.dir/prompt_enhancer.cpp.o
+[ 97%] Linking CXX static library libernie-pe.a
+[ 97%] Built target ernie-pe
+[ 97%] Building CXX object src/CMakeFiles/ernie-pipeline.dir/pipeline.cpp.o
+[ 97%] Building CXX object src/CMakeFiles/ernie-pipeline.dir/runtime_info.cpp.o
+[ 97%] Linking CXX static library libernie-pipeline.a
+[ 98%] Built target ernie-pipeline
+[ 98%] Building CXX object cli/CMakeFiles/ernie-image.dir/image_io.cpp.o
+[100%] Building CXX object cli/CMakeFiles/ernie-image.dir/main.cpp.o
+[100%] Building CXX object cli/CMakeFiles/ernie-image.dir/options.cpp.o
+[100%] Linking CXX executable ../ernie-image
+[100%] Built target ernie-image
+[  1%] Built target SPIRV
+[  1%] Built target ernie-shape-plan
+[ 34%] Built target ncnn-generate-spirv
+[ 41%] Built target glslang
+[ 95%] Built target ncnn
+[ 98%] Built target ernie-runtime
+[100%] Building CXX object tests/CMakeFiles/ernie-weight-session-contract.dir/test_weight_session.cpp.o
+[100%] Linking CXX executable ../ernie-weight-session-contract
+[100%] Built target ernie-weight-session-contract
+[  1%] Built target SPIRV
+[  1%] Built target ernie-shape-plan
+[ 34%] Built target ncnn-generate-spirv
+[ 41%] Built target glslang
+[ 96%] Built target ncnn
+[100%] Built target ernie-runtime
+[100%] Building CXX object tests/CMakeFiles/ernie-weight-placement-contract.dir/test_weight_placement.cpp.o
+[100%] Linking CXX executable ../ernie-weight-placement-contract
+[100%] Built target ernie-weight-placement-contract
+[  1%] Built target SPIRV
+[  1%] Built target ernie-execution-metrics
+[ 34%] Built target ncnn-generate-spirv
+[ 40%] Built target glslang
+[ 40%] Built target ernie-tokenizer-rust
+[ 40%] Built target ernie-shape-plan
+[ 40%] Built target ernie-tokenizer
+[ 42%] Built target ernie-shape-graph
+[ 42%] Built target ernie-model-package
+[ 95%] Built target ncnn
+[ 98%] Built target ernie-runtime
+[ 98%] Built target ernie-pe
+[100%] Built target ernie-pipeline
+[100%] Building CXX object tests/CMakeFiles/ernie-pipeline-api-contract.dir/test_pipeline_api.cpp.o
+[100%] Linking CXX executable ../ernie-pipeline-api-contract
+[100%] Built target ernie-pipeline-api-contract
+[  1%] Built target SPIRV
+[  1%] Built target ernie-execution-metrics
+[ 34%] Built target ncnn-generate-spirv
+[ 40%] Built target glslang
+[ 40%] Built target ernie-tokenizer-rust
+[ 40%] Built target ernie-shape-plan
+[ 40%] Built target ernie-tokenizer
+[ 42%] Built target ernie-shape-graph
+[ 42%] Built target ernie-model-package
+[ 95%] Built target ncnn
+[ 98%] Built target ernie-runtime
+[ 98%] Built target ernie-pe
+[100%] Built target ernie-pipeline
+[100%] Building CXX object tests/CMakeFiles/ernie-request-validation-contract.dir/test_request_validation.cpp.o
+[100%] Linking CXX executable ../ernie-request-validation-contract
+[100%] Built target ernie-request-validation-contract

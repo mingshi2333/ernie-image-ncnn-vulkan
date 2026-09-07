@@ -106,6 +106,13 @@ int main(int argc, char **argv)
             std::cout << "DiT weight placement requests: GPU=" << result.device_weight_requests
                       << " RAM=" << result.host_weight_requests
                       << " budget unavailable=" << result.unavailable_memory_queries << '\n';
+        if (options.generation.dit_cache_mib)
+            std::cerr << "DiT weight cache: hits=" << result.weight_cache_hits
+                      << " loads=" << result.weight_cache_loads
+                      << " peak charged bytes=" << result.weight_cache_peak_bytes
+                      << " peak nets=" << result.weight_cache_peak_nets
+                      << " evictions=" << result.weight_cache_evictions
+                      << " host budget unavailable=" << result.unavailable_host_memory_queries << '\n';
         const auto write_start = std::chrono::steady_clock::now();
 #ifdef ERNIE_CLI_ALLOCATION_METRICS
         failure_phase="image_write_failed";
