@@ -4,6 +4,7 @@
 #include <fstream>
 #include <map>
 #include <stdexcept>
+#include <string>
 namespace fs = std::filesystem;
 namespace ernie
 {
