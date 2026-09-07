@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 #pragma once
 #include "component_files.h"
+#include "host_memory.h"
 #include "net.h"
 #include <cstdint>
 #include <functional>
@@ -29,7 +30,7 @@ class WeightSession
 {
     struct State;
 public:
-    using AvailableReader = std::function<std::optional<std::uint64_t>()>;
+    using AvailableReader = HostAvailableReader;
     using Inspector = std::function<std::optional<std::uint64_t>(const ncnn::Net&)>;
     using Loader = std::function<std::unique_ptr<ncnn::Net>(bool prefer_host)>;
     class Lease
@@ -69,9 +70,6 @@ private:
     std::shared_ptr<State> state_;
 };
 
-// Host availability only. Linux also considers the current cgroup-v2 ancestry;
-// platforms without a reader return unavailable and disable cache admission.
-WeightSession::AvailableReader host_memory_available_reader();
 #if NCNN_VULKAN
 // Fixed ncnn FP32 DiT graphs only. Reject unknown/low-storage graphs and any
 // weight in DEVICE_LOCAL memory, including a host allocator's GPU fallback.

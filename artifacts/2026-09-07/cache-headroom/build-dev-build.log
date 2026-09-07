@@ -1,0 +1,64 @@
+[  1%] Built target SPIRV
+[  1%] Built target ernie-execution-metrics
+[ 34%] Built target ncnn-generate-spirv
+[ 34%] Built target ernie-tokenizer-rust
+[ 34%] Built target ernie-shape-plan
+[ 35%] Built target ernie-tokenizer
+[ 42%] Built target glslang
+[ 42%] Built target ernie-shape-graph
+[ 42%] Built target ernie-model-package
+[ 95%] Built target ncnn
+[ 96%] Building CXX object src/CMakeFiles/ernie-runtime.dir/host_memory.cpp.o
+[ 96%] Linking CXX static library libernie-runtime.a
+[ 98%] Built target ernie-runtime
+[ 98%] Built target ernie-pe
+[100%] Built target ernie-pipeline
+[100%] Linking CXX executable ../ernie-image
+[100%] Built target ernie-image
+[  1%] Built target SPIRV
+[  1%] Built target ernie-shape-plan
+[ 34%] Built target ncnn-generate-spirv
+[ 41%] Built target glslang
+[ 95%] Built target ncnn
+[ 98%] Built target ernie-runtime
+[ 98%] Building CXX object tests/CMakeFiles/ernie-host-memory-contract.dir/test_host_memory.cpp.o
+[100%] Linking CXX executable ../ernie-host-memory-contract
+[100%] Built target ernie-host-memory-contract
+[  1%] Built target SPIRV
+[  1%] Built target ernie-shape-plan
+[ 35%] Built target ncnn-generate-spirv
+[ 42%] Built target glslang
+[ 96%] Built target ncnn
+[100%] Built target ernie-runtime
+[100%] Linking CXX executable ../ernie-weight-session-contract
+[100%] Built target ernie-weight-session-contract
+[  1%] Built target SPIRV
+[  1%] Built target ernie-execution-metrics
+[ 34%] Built target ncnn-generate-spirv
+[ 40%] Built target glslang
+[ 40%] Built target ernie-tokenizer-rust
+[ 40%] Built target ernie-shape-plan
+[ 42%] Built target ernie-tokenizer
+[ 42%] Built target ernie-shape-graph
+[ 42%] Built target ernie-model-package
+[ 94%] Built target ncnn
+[ 97%] Built target ernie-runtime
+[ 97%] Built target ernie-pe
+[ 98%] Built target ernie-pipeline
+[100%] Linking CXX executable ../ernie-pipeline-api-contract
+[100%] Built target ernie-pipeline-api-contract
+[  1%] Built target SPIRV
+[  1%] Built target ernie-execution-metrics
+[ 34%] Built target ncnn-generate-spirv
+[ 41%] Built target glslang
+[ 41%] Built target ernie-tokenizer-rust
+[ 41%] Built target ernie-shape-plan
+[ 42%] Built target ernie-tokenizer
+[ 42%] Built target ernie-shape-graph
+[ 42%] Built target ernie-model-package
+[ 95%] Built target ncnn
+[ 98%] Built target ernie-runtime
+[ 98%] Built target ernie-pe
+[100%] Built target ernie-pipeline
+[100%] Linking CXX executable ../ernie-request-validation-contract
+[100%] Built target ernie-request-validation-contract

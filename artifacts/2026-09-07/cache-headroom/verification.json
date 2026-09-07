@@ -1,0 +1,75 @@
+{
+  "frozen_bindings_verified": 394,
+  "plan_sha256": "59ccefdc99bbe5ec9e297793a6841cbd5b92fbb2bd9727bca298d8c3352b010f",
+  "comparison_sha256": "e1cf055ddc80069d58bff336d2556dd7f1c4ab19a8dfd94d3be742c901ccbc25",
+  "native_pids_finished": [
+    2841441
+  ],
+  "ncnn_revision": "6a1bf000f363714839a36793addc8c879d3d899e",
+  "ncnn_clean": true,
+  "test_runs": [
+    {
+      "log": "build-dev-ctest-attempt-8.log",
+      "passed": 10,
+      "command": [
+        "ctest",
+        "--test-dir",
+        "build-dev",
+        "--output-on-failure",
+        "-V",
+        "-R",
+        "^(pipeline_api_contract|request_validation_contract|cli_contract|host_memory_cpu|weight_session_cpu|weight_session_vulkan|weight_session_mapped_vulkan|weight_session_bf16_file_vulkan|weight_session_mapped_bf16_file_vulkan|installed_cpp_consumer)$"
+      ]
+    },
+    {
+      "log": "build-install-cpu-ctest-attempt-11.log",
+      "passed": 6,
+      "command": [
+        "ctest",
+        "--test-dir",
+        "build-install-cpu",
+        "--output-on-failure",
+        "-V",
+        "-R",
+        "^(pipeline_api_contract|request_validation_contract|cli_contract|host_memory_cpu|weight_session_cpu|weight_session_vulkan|weight_session_mapped_vulkan|weight_session_bf16_file_vulkan|weight_session_mapped_bf16_file_vulkan|installed_cpp_consumer)$"
+      ]
+    },
+    {
+      "log": "build-dev-ctest.log",
+      "passed": 7,
+      "command": [
+        "ctest",
+        "--test-dir",
+        "build-dev",
+        "--output-on-failure",
+        "-V",
+        "-R",
+        "^(host_memory_cpu|weight_session_.*|installed_cpp_consumer)$"
+      ]
+    },
+    {
+      "log": "build-install-cpu-ctest.log",
+      "passed": 3,
+      "command": [
+        "ctest",
+        "--test-dir",
+        "build-install-cpu",
+        "--output-on-failure",
+        "-V",
+        "-R",
+        "^(host_memory_cpu|weight_session_.*|installed_cpp_consumer)$"
+      ]
+    }
+  ],
+  "final_policy_checks": 10,
+  "memory_events": {
+    "low": 0,
+    "high": 0,
+    "max": 133919,
+    "oom": 0,
+    "oom_kill": 0,
+    "oom_group_kill": 0,
+    "sock_throttled": 0
+  },
+  "scope": "One traced development regression; no paired performance, activation spilling or general OOM recovery claim."
+}

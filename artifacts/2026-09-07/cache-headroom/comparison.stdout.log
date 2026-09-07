@@ -1,0 +1,71 @@
+{
+  "scope": "Same native mapped512 plus 6GiB RAM cache and 3GiB reserve, with clean inactive-file headroom estimation and no duplicate weight reserve on hits; all prior resource limits and native arguments unchanged. Traced regression, not formal paired performance.",
+  "plan_sha256": "59ccefdc99bbe5ec9e297793a6841cbd5b92fbb2bd9727bca298d8c3352b010f",
+  "float_tensors": 25,
+  "total_elements": 4981760,
+  "png": {
+    "baseline_sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+    "cached_ram_sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+    "pixels_equal": true,
+    "maximum_channel_difference": 0,
+    "bitwise_equal": true
+  },
+  "weight_cache": {
+    "hits": 13,
+    "loads": 275,
+    "admissions": 54,
+    "evictions": 54,
+    "peak_charged_bytes": 5687678976,
+    "peak_nets": 6,
+    "unavailable_queries": 0
+  },
+  "observed_model_mapping_files": 59,
+  "model_loading_requested": "mapped",
+  "weight_requests": {
+    "host": 291,
+    "device": 0,
+    "unavailable": 0,
+    "minimum_available_bytes": 5710675968,
+    "maximum_available_bytes": 6368264192,
+    "allocator_fallback_logged": false
+  },
+  "previous_combined_wall_seconds": 386.0956382910081,
+  "previous_cache": {
+    "hits": 0,
+    "loads": 288,
+    "admissions": 12,
+    "evictions": 12,
+    "peak_charged_bytes": 5687678976,
+    "peak_nets": 6,
+    "unavailable_queries": 0
+  },
+  "sampled_native_memory": {
+    "VmHWM": 9800302592,
+    "VmRSS": 9760870400,
+    "RssAnon": 6569431040,
+    "RssFile": 3263877120,
+    "RssShmem": 8192,
+    "VmSwap": 0
+  },
+  "cgroup_memory_stat_peaks": {
+    "anon": 6577225728,
+    "file": 15978192896,
+    "inactive_file": 15762714624,
+    "active_file": 14398824448,
+    "file_mapped": 2968989696,
+    "file_dirty": 9297920,
+    "file_writeback": 0,
+    "shmem": 16384,
+    "unevictable": 0,
+    "slab_reclaimable": 33646992
+  },
+  "process": {
+    "wall_seconds": 378.97046137801954,
+    "peak_memory_current": 17179869184,
+    "minimum_host_available": 12560400384,
+    "peak_gpu_whole_device_mib": 2339,
+    "memory_events": "low 0\nhigh 0\nmax 133919\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "return_code": 0
+  },
+  "passed": true
+}

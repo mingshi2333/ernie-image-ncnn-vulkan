@@ -1,0 +1,18 @@
+[1/18] Building CXX object src/CMakeFiles/ernie-runtime.dir/weight_session.cpp.o
+[2/18] Building CXX object src/CMakeFiles/ernie-runtime.dir/host_memory.cpp.o
+[3/18] Building CXX object src/CMakeFiles/ernie-runtime.dir/block_sequence.cpp.o
+[4/18] Building CXX object src/CMakeFiles/ernie-runtime.dir/dit.cpp.o
+[5/18] Building CXX object src/CMakeFiles/ernie-runtime.dir/denoiser.cpp.o
+[6/18] Building CXX object src/CMakeFiles/ernie-runtime.dir/text_encoder.cpp.o
+[7/18] Linking CXX static library src/libernie-runtime.a
+[8/18] Building CXX object src/CMakeFiles/ernie-pe.dir/prompt_enhancer.cpp.o
+[9/18] Linking CXX static library src/libernie-pe.a
+[10/18] Building CXX object tests/CMakeFiles/ernie-weight-session-contract.dir/test_weight_session.cpp.o
+[11/18] Building CXX object src/CMakeFiles/ernie-pipeline.dir/pipeline.cpp.o
+[12/18] Linking CXX static library src/libernie-pipeline.a
+[13/18] Building CXX object tests/CMakeFiles/ernie-host-memory-contract.dir/test_host_memory.cpp.o
+[14/18] Linking CXX executable ernie-image
+[15/18] Linking CXX executable ernie-pipeline-api-contract
+[16/18] Linking CXX executable ernie-weight-session-contract
+[17/18] Linking CXX executable ernie-request-validation-contract
+[18/18] Linking CXX executable ernie-host-memory-contract

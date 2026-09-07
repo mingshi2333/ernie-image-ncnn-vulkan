@@ -34,6 +34,8 @@
 
 **运行时加载增量：** 同一程序现在可选择 stdio/mapped。映射与6GiB缓存的完整512组合保持25张量/PNG逐字节相同，但触及本次16GiB cgroup限制后12次回收、零命中，原最低命中要求失败；无OOM。保留[该负面结果](../../../artifacts/2026-09-07/runtime-model-loading/README.md)，两项优化继续默认关闭，不能从历史单次耗时推定组合收益。
 
+**RAM 估计修复：** 独立 `host_memory.*` 对干净非活跃文件页估计回收余量，仍受主机与所有上级限额约束；缓存命中不再重复预留载荷。相同输入、参数和限额的完整512现在命中13次、加载275次，25张量/PNG仍逐字节相同，原最低命中要求通过。仍有54次压力回收、cgroup max133919，无OOM；最终策略10项相关检查通过。[本轮证据](../../../artifacts/2026-09-07/cache-headroom/README.md)仅证明部分复用，反复准入/回收、重复配对速度和本任务其余条目保持开放。
+
 **Files:** Create `src/weight_session.h`, `src/weight_session.cpp`, `tests/test_weight_session.cpp`；Extend `src/block_sequence.h`, `src/block_sequence.cpp`, `src/dit.cpp`, `src/denoiser.cpp`, `src/pipeline.cpp`, `src/CMakeLists.txt`, `tests/CMakeLists.txt`。
 
 **Interfaces:** `WeightBudget { host_bytes, device_bytes, prefetch_depth }`；`WeightSession::acquire(block_id)` 返回受会话管理的 lease；`release_after(lease, completion)` 只有已完成的 command 才可回收相关权重。`cancel()` 必须 join worker、等待必要设备完成并释放资源。开始只允许 `prefetch_depth=0/1`，租约不可复制成独立所有者。

@@ -558,8 +558,18 @@ with this cache enabled. Heads continue to stream.
 ```
 
 These are example budgets, not model hardware requirements. Cache admission
-checks Linux host availability and the current cgroup-v2 memory limits. Before
-each block, low headroom evicts idle cached blocks; it never evicts a block
+checks Linux host availability and the current cgroup-v2 memory limits. The
+estimate includes conservative credit for clean inactive file pages, limited
+by both `inactive_file` and non-shmem `file` bytes, with dirty/writeback pages
+deducted. It does not credit swap, active pages, anonymous/pinned weights or
+reclaimable slab. Every finite ancestor and the host's `MemAvailable` still
+limit the result. Missing or malformed optional `memory.stat` data gives zero
+credit; required input failures disable admission. Membership and limits are
+read again, including after process migration. This follows the counter
+distinctions in the [Linux cgroup-v2 documentation](https://docs.kernel.org/admin-guide/cgroup-v2.html#memory-interface-files);
+reclaim credit is an estimate, not a guarantee of immediate allocation success.
+
+Before each block, low headroom evicts idle cached blocks; it never evicts a block
 whose lease is still active. If availability cannot be read, blocks stream
 without cache admission. Windows/macOS availability readers are not implemented
 for this optional cache yet. The configurable RAM reserve defaults to 3072 MiB.
@@ -577,6 +587,9 @@ misses an LRU cache would cause when scanning 36 blocks with a smaller cache.
 Each block still computes on Vulkan from the current step's inputs. No DiT K/V,
 hidden states, or predictions are reused. All cached weights are released before
 VAE decoding. No background prefetch or asynchronous failure recovery is added.
+An existing cached block needs the configured RAM reserve but does not reserve
+a second copy of its weight payload. An uncached block still requires the
+estimated load payload as additional headroom.
 
 The CLI and `GenerationResult` report actual hits, loads, peak charged bytes,
 peak cached Nets, pressure evictions and unavailable host-budget queries.
@@ -591,3 +604,12 @@ completed without OOM; the original minimum-hit expectation failed. Mapped file
 pages and prepared weights compete within the process group's memory limit,
 so enabling both does not guarantee useful reuse. Both remain opt-in; see the
 [combined run and preserved negative result](../artifacts/2026-09-07/runtime-model-loading/README.md).
+
+After the headroom and cache-hit reservation fixes described above, the same
+mapped512 input, budgets and limits produce 13 hits and 275 block loads; all
+25 tensors and the PNG remain byte-exact. There are still 54 pressure evictions
+and the cgroup reaches its 16 GiB limit without OOM. This establishes partial
+reuse, not stable retention or a formal speed improvement. The sampled native
+process high-water mark is about 9.13 GiB, separately from file-cache-inclusive
+cgroup usage. See the [headroom regression](../artifacts/2026-09-07/cache-headroom/README.md)
+for exact measurements, tests and remaining limitations.

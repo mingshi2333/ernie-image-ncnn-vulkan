@@ -1,0 +1,199 @@
+UpdateCTestConfiguration  from :/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/DartConfiguration.tcl
+Parse Config file:/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/DartConfiguration.tcl
+Test project /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 17
+    Start 17: installed_cpp_consumer
+
+17: Test command: /home/mingshi/.local/bin/python3.13 "-m" "unittest" "discover" "-s" "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tests" "-p" "test_install.py" "-v"
+17: Working Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/tests
+17: Environment variables: 
+17:  ERNIE_INSTALL_BUILD=/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev
+17:  ERNIE_INSTALL_CONFIG=Release
+17: Test timeout computed to be: 900
+17: test_relocated_installation (test_install.InstalledConsumerTest.test_relocated_installation) ... ok
+17: 
+17: ----------------------------------------------------------------------
+17: Ran 1 test in 1.336s
+17: 
+17: OK
+1/7 Test #17: installed_cpp_consumer ...................   Passed    1.37 sec
+test 23
+    Start 23: weight_session_cpu
+
+23: Test command: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/ernie-weight-session-contract
+23: Working Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/tests
+23: Test timeout computed to be: 1500
+23: Budget, repeated scan, pressure, identity, failure, move and cancellation contracts passed
+2/7 Test #23: weight_session_cpu .......................   Passed    0.00 sec
+test 24
+    Start 24: host_memory_cpu
+
+24: Test command: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/ernie-host-memory-contract
+24: Working Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/tests
+24: Test timeout computed to be: 1500
+24: Live Linux available estimate=4142510080 bytes
+24: File-cache credit, real pressure, ancestors, changing inputs, corruption, missing counters and overflow contracts pass
+3/7 Test #24: host_memory_cpu ..........................   Passed    0.00 sec
+test 26
+    Start 26: weight_session_vulkan
+
+26: Test command: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/ernie-weight-session-contract "vulkan"
+26: Working Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/tests
+26: Test timeout computed to be: 1500
+26: [0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+26: [0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+26: [0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+26: [0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+26: [1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+26: [1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+26: [1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+26: [1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+26: [2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+26: [2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+26: [2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+26: [2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+26: overwrite built-in layer type RMSNorm
+26: overwrite built-in layer type LayerNorm
+26: overwrite built-in layer type SDPA
+26: overwrite built-in layer type RMSNorm
+26: overwrite built-in layer type LayerNorm
+26: overwrite built-in layer type SDPA
+26: overwrite built-in layer type RMSNorm
+26: overwrite built-in layer type LayerNorm
+26: overwrite built-in layer type SDPA
+26: overwrite built-in layer type RMSNorm
+26: overwrite built-in layer type LayerNorm
+26: overwrite built-in layer type SDPA
+26: overwrite built-in layer type RMSNorm
+26: overwrite built-in layer type LayerNorm
+26: overwrite built-in layer type SDPA
+26: Host available=4066054144
+26: Vulkan cache hits=4 loads=5 peak charged bytes=150994944 nets=2
+4/7 Test #26: weight_session_vulkan ....................   Passed    0.64 sec
+test 27
+    Start 27: weight_session_mapped_vulkan
+
+27: Test command: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/ernie-weight-session-contract "vulkan" "mapped"
+27: Working Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/tests
+27: Test timeout computed to be: 1500
+27: [0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+27: [0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+27: [0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+27: [0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+27: [1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+27: [1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+27: [1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+27: [1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+27: [2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+27: [2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+27: [2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+27: [2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+27: overwrite built-in layer type RMSNorm
+27: overwrite built-in layer type LayerNorm
+27: overwrite built-in layer type SDPA
+27: overwrite built-in layer type RMSNorm
+27: overwrite built-in layer type LayerNorm
+27: overwrite built-in layer type SDPA
+27: overwrite built-in layer type RMSNorm
+27: overwrite built-in layer type LayerNorm
+27: overwrite built-in layer type SDPA
+27: overwrite built-in layer type RMSNorm
+27: overwrite built-in layer type LayerNorm
+27: overwrite built-in layer type SDPA
+27: overwrite built-in layer type RMSNorm
+27: overwrite built-in layer type LayerNorm
+27: overwrite built-in layer type SDPA
+27: Host available=4067016704
+27: Vulkan cache hits=4 loads=5 peak charged bytes=150994944 nets=2
+5/7 Test #27: weight_session_mapped_vulkan .............   Passed    0.56 sec
+test 28
+    Start 28: weight_session_bf16_file_vulkan
+
+28: Test command: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/ernie-weight-session-contract "vulkan" "stdio" "bf16"
+28: Working Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/tests
+28: Test timeout computed to be: 1500
+28: [0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+28: [0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+28: [0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+28: [0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+28: [1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+28: [1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+28: [1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+28: [1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+28: [2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+28: [2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+28: [2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+28: [2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+28: overwrite built-in layer type RMSNorm
+28: overwrite built-in layer type LayerNorm
+28: overwrite built-in layer type SDPA
+28: overwrite built-in layer type RMSNorm
+28: overwrite built-in layer type LayerNorm
+28: overwrite built-in layer type SDPA
+28: overwrite built-in layer type RMSNorm
+28: overwrite built-in layer type LayerNorm
+28: overwrite built-in layer type SDPA
+28: overwrite built-in layer type RMSNorm
+28: overwrite built-in layer type LayerNorm
+28: overwrite built-in layer type SDPA
+28: overwrite built-in layer type RMSNorm
+28: overwrite built-in layer type LayerNorm
+28: overwrite built-in layer type SDPA
+28: Host available=4066791424
+28: Vulkan cache hits=4 loads=5 peak charged bytes=150994944 nets=2
+6/7 Test #28: weight_session_bf16_file_vulkan ..........   Passed    0.56 sec
+test 29
+    Start 29: weight_session_mapped_bf16_file_vulkan
+
+29: Test command: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/ernie-weight-session-contract "vulkan" "mapped" "bf16"
+29: Working Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/tests
+29: Test timeout computed to be: 1500
+29: [0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+29: [0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+29: [0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+29: [0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+29: [1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+29: [1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+29: [1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+29: [1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+29: [2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+29: [2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+29: [2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+29: [2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+29: overwrite built-in layer type RMSNorm
+29: overwrite built-in layer type LayerNorm
+29: overwrite built-in layer type SDPA
+29: overwrite built-in layer type RMSNorm
+29: overwrite built-in layer type LayerNorm
+29: overwrite built-in layer type SDPA
+29: overwrite built-in layer type RMSNorm
+29: overwrite built-in layer type LayerNorm
+29: overwrite built-in layer type SDPA
+29: overwrite built-in layer type RMSNorm
+29: overwrite built-in layer type LayerNorm
+29: overwrite built-in layer type SDPA
+29: overwrite built-in layer type RMSNorm
+29: overwrite built-in layer type LayerNorm
+29: overwrite built-in layer type SDPA
+29: Host available=4066824192
+29: Vulkan cache hits=4 loads=5 peak charged bytes=150994944 nets=2
+7/7 Test #29: weight_session_mapped_bf16_file_vulkan ...   Passed    0.55 sec
+
+The following tests passed:
+	installed_cpp_consumer
+	weight_session_cpu
+	host_memory_cpu
+	weight_session_vulkan
+	weight_session_mapped_vulkan
+	weight_session_bf16_file_vulkan
+	weight_session_mapped_bf16_file_vulkan
+
+100% tests passed, 0 tests failed out of 7
+
+Total Test time (real) =   3.68 sec

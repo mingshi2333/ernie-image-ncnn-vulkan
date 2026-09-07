@@ -1,0 +1,167 @@
+{
+  "plan.json": {
+    "source": "/var/tmp/ernie-cache-headroom512-v1/plan.json",
+    "bytes": 89283,
+    "sha256": "59ccefdc99bbe5ec9e297793a6841cbd5b92fbb2bd9727bca298d8c3352b010f"
+  },
+  "build-identity.json": {
+    "source": "/var/tmp/ernie-cache-headroom512-v1/build-identity.json",
+    "bytes": 956,
+    "sha256": "b93f0292c985e96ddfca2b0cd4ff4c1f42d59a7c0342a95787efdcae8615bc54"
+  },
+  "run.py": {
+    "source": "/var/tmp/ernie-cache-headroom512-v1/run.py",
+    "bytes": 1146,
+    "sha256": "3adfb392e1676152a882e85378d8b220ecf67b9d6f3d7d051832512edeeef4bb"
+  },
+  "supervisor.py": {
+    "source": "/var/tmp/ernie-cache-headroom512-v1/supervisor.py",
+    "bytes": 7205,
+    "sha256": "624eb9de916ec02338232ed32b4b07a07fb0efb224bb8f2582d25d9437dd229a"
+  },
+  "comparison.json": {
+    "source": "/var/tmp/ernie-cache-headroom512-v1/comparison.json",
+    "bytes": 10866,
+    "sha256": "e1cf055ddc80069d58bff336d2556dd7f1c4ab19a8dfd94d3be742c901ccbc25"
+  },
+  "native-process.json": {
+    "source": "/var/tmp/ernie-cache-headroom512-v1/native/process.json",
+    "bytes": 13726,
+    "sha256": "3b224d5bf4f1b91650380ba58bc4ba7a799fb50f2a2675612caec6b5d59844e4"
+  },
+  "native-worker-result.json": {
+    "source": "/var/tmp/ernie-cache-headroom512-v1/native/worker-result.json",
+    "bytes": 1807,
+    "sha256": "439c719136176fc37760af4af7c11f74d333d277b99f1d62680ce250c51a375e"
+  },
+  "native-command-0.log": {
+    "source": "/var/tmp/ernie-cache-headroom512-v1/native/command-0.log",
+    "bytes": 38619,
+    "sha256": "2cc70066b01989741e598d098b1f6eef39e23c22c4282036492186af50280df5"
+  },
+  "native-runner.log": {
+    "source": "/var/tmp/ernie-cache-headroom512-v1/native/runner.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "model-loading.txt": {
+    "source": "/var/tmp/ernie-cache-headroom512-v1/native/trace/model-loading.txt",
+    "bytes": 70,
+    "sha256": "7600a5822ac13681d854c74e811f5abf411a9a57d9a11bf3e854ab68016c84dd"
+  },
+  "weight-cache.txt": {
+    "source": "/var/tmp/ernie-cache-headroom512-v1/native/trace/weight-cache.txt",
+    "bytes": 109,
+    "sha256": "e761fd5080f7bf2872732ef5a3c480750b68fbcf2625b923c38641d26b4930f5"
+  },
+  "weight-placement.txt": {
+    "source": "/var/tmp/ernie-cache-headroom512-v1/native/trace/weight-placement.txt",
+    "bytes": 67164,
+    "sha256": "ca48f7aca9da73cdc8a4d27965fc76aa6e636d16f235e2e62e1d3df505754f77"
+  },
+  "shape.txt": {
+    "source": "/var/tmp/ernie-cache-headroom512-v1/native/trace/shape.txt",
+    "bytes": 111,
+    "sha256": "52a32ebf5bbe9117281b7779994185b00879bca411edd1936529c8fdbbd8de1d"
+  },
+  "prepare.py": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-headroom-v1/prepare.py",
+    "bytes": 5561,
+    "sha256": "f76cf5373d4fab0a27e55a97f79b25e222f1388945169eb3946ae297775efa2c"
+  },
+  "compare.py": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-headroom-v1/compare.py",
+    "bytes": 5128,
+    "sha256": "58d32990e911bff1f8f6d2287df4ee5408f82278fac4d24a9ace5751ab7218ae"
+  },
+  "check.py": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-headroom-v1/check.py",
+    "bytes": 2065,
+    "sha256": "7583940c6827e9c41bbafe424ad09b4f1838b82051b2f969bf3b6da03b138c38"
+  },
+  "archive.py": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-headroom-v1/archive.py",
+    "bytes": 4194,
+    "sha256": "0f6212610353cd468c3f779a11397e6adc56c79d45d03c736c2f1240822d649c"
+  },
+  "checks.json": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-headroom-v1/checks.json",
+    "bytes": 5636,
+    "sha256": "1c489f688ac52b3f3ae79996bd42495782773317621164af378462eff13136cb"
+  },
+  "verification.json": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-headroom-v1/verification.json",
+    "bytes": 2239,
+    "sha256": "4ffacc51d96114946e2dd3faf33da8d2b3a812d583e37b04df9fa8b19ecd5f49"
+  },
+  "build-dev-build-attempt-7.log": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-headroom-v1/build-dev-build-attempt-7.log",
+    "bytes": 3240,
+    "sha256": "26512f150aafa89dc77e9bd6d06baee39199e934c9162667e41d7fd49a5bfd21"
+  },
+  "build-dev-build.log": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-headroom-v1/build-dev-build.log",
+    "bytes": 2495,
+    "sha256": "170c9d56d53fc8f11aee7f64001d85a91893c9f00e91bf8897d1bbe32b32c380"
+  },
+  "build-dev-configure-attempt-6.log": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-headroom-v1/build-dev-configure-attempt-6.log",
+    "bytes": 279,
+    "sha256": "740734bfee2c885cf9d67e5c33f4f8b229bf263e1c1a69f1ef4e028e2b851a6d"
+  },
+  "build-dev-configure.log": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-headroom-v1/build-dev-configure.log",
+    "bytes": 279,
+    "sha256": "21396e8c364101386229f8376ab96d4c2345c11fb337b545dfd3ed872a0060fd"
+  },
+  "build-dev-ctest-attempt-8.log": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-headroom-v1/build-dev-ctest-attempt-8.log",
+    "bytes": 21594,
+    "sha256": "039fb3ed4623336483a7255c2cb7c9abb67543ebf5b179f01669146e8808fbaf"
+  },
+  "build-dev-ctest.log": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-headroom-v1/build-dev-ctest.log",
+    "bytes": 12256,
+    "sha256": "65052c22784d75c37b9946f445292e325190cf8ad123b47f552571bbe323a30b"
+  },
+  "build-install-cpu-build-attempt-10.log": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-headroom-v1/build-install-cpu-build-attempt-10.log",
+    "bytes": 1276,
+    "sha256": "66ba6350dae32ff5cb6abc89189db50c5960d64af79ce910c864a9f84f6dd35b"
+  },
+  "build-install-cpu-build.log": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-headroom-v1/build-install-cpu-build.log",
+    "bytes": 506,
+    "sha256": "fb53974b639ca4142b967db7eac38995049f6f13e93f7a0e240f4f6a4082f7f1"
+  },
+  "build-install-cpu-configure-attempt-9.log": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-headroom-v1/build-install-cpu-configure-attempt-9.log",
+    "bytes": 287,
+    "sha256": "6fe97fe0823c596630594f9ad86f6565254386ca0a8adf14ef2dbcf94c89825e"
+  },
+  "build-install-cpu-configure.log": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-headroom-v1/build-install-cpu-configure.log",
+    "bytes": 287,
+    "sha256": "6fe97fe0823c596630594f9ad86f6565254386ca0a8adf14ef2dbcf94c89825e"
+  },
+  "build-install-cpu-ctest-attempt-11.log": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-headroom-v1/build-install-cpu-ctest-attempt-11.log",
+    "bytes": 8540,
+    "sha256": "3214cf05ff19767bc56559c883d873eeeb1d2bd4ae1c18e0fa02f8655c6f3cb9"
+  },
+  "build-install-cpu-ctest.log": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-headroom-v1/build-install-cpu-ctest.log",
+    "bytes": 2756,
+    "sha256": "6a4369f7131e09c95241264bcdcde357f10e0f7f75ede8a5e6b362f7447769dc"
+  },
+  "comparison.stdout.log": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-headroom-v1/comparison.stdout.log",
+    "bytes": 2231,
+    "sha256": "91f03b11f54c1e39cd34cf9daccd9f8bbe1e36d4df922589bb70e348b8dead3b"
+  },
+  "supervisor.stdout.log": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-headroom-v1/supervisor.stdout.log",
+    "bytes": 11262,
+    "sha256": "73e215f5c7654f5807d6e6479b333ba5ff2b87f66d553cf7d755c3389e3d3acf"
+  }
+}

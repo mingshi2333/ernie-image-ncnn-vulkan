@@ -1,10 +1,8 @@
 // SPDX-License-Identifier: MIT
 #include "weight_session.h"
 #include <algorithm>
-#include <fstream>
 #include <limits>
 #include <map>
-#include <sstream>
 #include <stdexcept>
 #include <utility>
 #if NCNN_VULKAN
@@ -80,7 +78,7 @@ WeightSession::Lease WeightSession::acquire(std::size_t block, const ComponentFi
     s.identities.emplace(block, files);
     // Recheck between completed components; never evict a Net in flight.
     if (s.budget.host_bytes)
-        while (!s.headroom(estimate) && !s.idle.empty()) s.evict_one();
+        while (!s.idle.empty() && !s.headroom(s.idle.count(block) ? 0 : estimate)) s.evict_one();
     auto found = s.idle.find(block);
     if (found != s.idle.end())
     {
@@ -156,54 +154,6 @@ void WeightSession::Lease::release(bool completed)
     }
     s.active = false;
     state_.reset();
-}
-
-WeightSession::AvailableReader host_memory_available_reader()
-{
-#if defined(__linux__)
-    // Cache only static cgroup paths. Re-read usage/limits for each admission.
-    std::vector<std::filesystem::path> groups;
-    std::ifstream cgroup("/proc/self/cgroup");
-    std::string line;
-    while (std::getline(cgroup, line))
-        if (line.rfind("0::/", 0) == 0)
-        {
-            const auto root = std::filesystem::path("/sys/fs/cgroup");
-            auto path = root / std::filesystem::path(line.substr(3)).relative_path();
-            for (; path != root && path != path.parent_path(); path = path.parent_path()) groups.push_back(path);
-            groups.push_back(root);
-        }
-    return [groups]() -> std::optional<std::uint64_t> {
-        std::ifstream meminfo("/proc/meminfo");
-        std::string line;
-        std::optional<std::uint64_t> available;
-        while (std::getline(meminfo, line))
-            if (line.rfind("MemAvailable:", 0) == 0)
-            {
-                std::istringstream row(line.substr(13));
-                std::uint64_t kib; std::string unit;
-                if (!(row >> kib >> unit) || unit != "kB" || kib > UINT64_MAX / 1024) return std::nullopt;
-                available = kib * 1024;
-                break;
-            }
-        if (!available || groups.empty()) return std::nullopt;
-        for (const auto& path : groups)
-        {
-            std::ifstream limit_file(path / "memory.max");
-            std::string limit;
-            if (!(limit_file >> limit)) continue; // Root/controller may have no limit.
-            if (limit == "max") continue;
-            std::uint64_t maximum, current;
-            std::istringstream value(limit);
-            std::ifstream usage(path / "memory.current");
-            if (!(value >> maximum) || !(usage >> current)) return std::nullopt;
-            *available = std::min(*available, current < maximum ? maximum - current : 0);
-        }
-        return available;
-    };
-#else
-    return []() -> std::optional<std::uint64_t> { return std::nullopt; };
-#endif
 }
 
 #if NCNN_VULKAN

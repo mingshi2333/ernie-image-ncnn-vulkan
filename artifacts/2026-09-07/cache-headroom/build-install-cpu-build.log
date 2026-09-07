@@ -1,0 +1,8 @@
+[1/8] Building CXX object tests/CMakeFiles/ernie-host-memory-contract.dir/test_host_memory.cpp.o
+[2/8] Building CXX object src/CMakeFiles/ernie-runtime.dir/host_memory.cpp.o
+[3/8] Linking CXX static library src/libernie-runtime.a
+[4/8] Linking CXX executable ernie-pipeline-api-contract
+[5/8] Linking CXX executable ernie-image
+[6/8] Linking CXX executable ernie-weight-session-contract
+[7/8] Linking CXX executable ernie-host-memory-contract
+[8/8] Linking CXX executable ernie-request-validation-contract

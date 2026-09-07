@@ -81,6 +81,21 @@ void state_contract()
     }
     available = 1000;
     {
+        WeightSession hit({20, 30}, reader, inspect);
+        auto first = hit.acquire(0, files, &request, 10, load); first.complete();
+        available = 35; // Enough reserve to reuse, not enough for another load.
+        auto same = hit.acquire(0, files, &request, 10, load);
+        require(same.cached() && hit.stats().hits == 1 && hit.stats().loads == 1 &&
+                hit.stats().evictions == 0, "Cache hit reserved a second copy of its weights");
+        same.complete();
+        available = 29;
+        auto pressured = hit.acquire(0, files, &request, 10, load);
+        require(!pressured.cached() && hit.stats().evictions == 1 && hit.stats().loads == 2,
+                "Cache hit ignored the RAM reserve under actual pressure");
+        pressured.complete();
+    }
+    available = 1000;
+    {
         WeightSession failure({20, 30}, reader, inspect);
         fails([&] { failure.acquire(0, files, &request, 10, [](bool) -> std::unique_ptr<ncnn::Net> { throw std::runtime_error("read failure"); }); });
         auto lease = failure.acquire(0, files, &request, 10, load);

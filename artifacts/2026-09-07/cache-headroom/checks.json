@@ -1,0 +1,178 @@
+[
+  {
+    "command": [
+      "cmake",
+      "-S",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference",
+      "-B",
+      "build-dev"
+    ],
+    "returncode": 0,
+    "seconds": 0.5205610329867341,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-headroom-v1/build-dev-configure-attempt-6.log"
+  },
+  {
+    "command": [
+      "cmake",
+      "--build",
+      "build-dev",
+      "--parallel",
+      "2",
+      "--target",
+      "ernie-image",
+      "ernie-host-memory-contract",
+      "ernie-weight-session-contract",
+      "ernie-pipeline-api-contract",
+      "ernie-request-validation-contract"
+    ],
+    "returncode": 0,
+    "seconds": 7.341988965985365,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-headroom-v1/build-dev-build-attempt-7.log"
+  },
+  {
+    "command": [
+      "ctest",
+      "--test-dir",
+      "build-dev",
+      "--output-on-failure",
+      "-V",
+      "-R",
+      "^(pipeline_api_contract|request_validation_contract|cli_contract|host_memory_cpu|weight_session_cpu|weight_session_vulkan|weight_session_mapped_vulkan|weight_session_bf16_file_vulkan|weight_session_mapped_bf16_file_vulkan|installed_cpp_consumer)$"
+    ],
+    "returncode": 0,
+    "seconds": 4.92286638499354,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-headroom-v1/build-dev-ctest-attempt-8.log"
+  },
+  {
+    "command": [
+      "cmake",
+      "-S",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference",
+      "-B",
+      "build-install-cpu"
+    ],
+    "returncode": 0,
+    "seconds": 0.25589160100207664,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-headroom-v1/build-install-cpu-configure-attempt-9.log"
+  },
+  {
+    "command": [
+      "cmake",
+      "--build",
+      "build-install-cpu",
+      "--parallel",
+      "2",
+      "--target",
+      "ernie-image",
+      "ernie-host-memory-contract",
+      "ernie-weight-session-contract",
+      "ernie-pipeline-api-contract",
+      "ernie-request-validation-contract"
+    ],
+    "returncode": 0,
+    "seconds": 3.1934356720012147,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-headroom-v1/build-install-cpu-build-attempt-10.log"
+  },
+  {
+    "command": [
+      "ctest",
+      "--test-dir",
+      "build-install-cpu",
+      "--output-on-failure",
+      "-V",
+      "-R",
+      "^(pipeline_api_contract|request_validation_contract|cli_contract|host_memory_cpu|weight_session_cpu|weight_session_vulkan|weight_session_mapped_vulkan|weight_session_bf16_file_vulkan|weight_session_mapped_bf16_file_vulkan|installed_cpp_consumer)$"
+    ],
+    "returncode": 0,
+    "seconds": 1.18509485697723,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-headroom-v1/build-install-cpu-ctest-attempt-11.log"
+  },
+  {
+    "command": [
+      "cmake",
+      "-S",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference",
+      "-B",
+      "build-dev"
+    ],
+    "returncode": 0,
+    "seconds": 0.3777945570182055,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-headroom-v1/build-dev-configure.log"
+  },
+  {
+    "command": [
+      "cmake",
+      "--build",
+      "build-dev",
+      "--parallel",
+      "2",
+      "--target",
+      "ernie-image",
+      "ernie-host-memory-contract",
+      "ernie-weight-session-contract",
+      "ernie-pipeline-api-contract",
+      "ernie-request-validation-contract"
+    ],
+    "returncode": 0,
+    "seconds": 3.5339401850069407,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-headroom-v1/build-dev-build.log"
+  },
+  {
+    "command": [
+      "ctest",
+      "--test-dir",
+      "build-dev",
+      "--output-on-failure",
+      "-V",
+      "-R",
+      "^(host_memory_cpu|weight_session_.*|installed_cpp_consumer)$"
+    ],
+    "returncode": 0,
+    "seconds": 3.6828320269996766,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-headroom-v1/build-dev-ctest.log"
+  },
+  {
+    "command": [
+      "cmake",
+      "-S",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference",
+      "-B",
+      "build-install-cpu"
+    ],
+    "returncode": 0,
+    "seconds": 0.24276106999604963,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-headroom-v1/build-install-cpu-configure.log"
+  },
+  {
+    "command": [
+      "cmake",
+      "--build",
+      "build-install-cpu",
+      "--parallel",
+      "2",
+      "--target",
+      "ernie-image",
+      "ernie-host-memory-contract",
+      "ernie-weight-session-contract",
+      "ernie-pipeline-api-contract",
+      "ernie-request-validation-contract"
+    ],
+    "returncode": 0,
+    "seconds": 1.167698297998868,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-headroom-v1/build-install-cpu-build.log"
+  },
+  {
+    "command": [
+      "ctest",
+      "--test-dir",
+      "build-install-cpu",
+      "--output-on-failure",
+      "-V",
+      "-R",
+      "^(host_memory_cpu|weight_session_.*|installed_cpp_consumer)$"
+    ],
+    "returncode": 0,
+    "seconds": 1.076824668009067,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-headroom-v1/build-install-cpu-ctest.log"
+  }
+]
