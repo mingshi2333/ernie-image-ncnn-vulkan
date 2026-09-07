@@ -9,6 +9,16 @@ import re
 # This binds the whole fixture, including official environment and tensor hashes;
 # a caller cannot establish provenance by editing fields inside that fixture.
 REVIEWED_SHARED_REFERENCES = {
+    'dbfd637a06f43812307c5745a3df86cc7daa501f5be40afa5c50d0e7af36ebc1': {
+        'source_manifest_sha256': '9cc1dc0e605256e405a049b6a8d58f98a9f138b2a16c6d40be6bb35595743154',
+        'evidence': 'artifacts/2026-09-07/runtime-squares/README.md',
+        'scope': '1024x1024 official FP32 development reference; common saved initial bytes; 32 text bucket and 64 DiT slots; eight complete steps; native comparison remains 24/25',
+    },
+    '731ebbab21841d98635d65e72960804c21cb42007a25928483cf7b069ebffd7f': {
+        'source_manifest_sha256': '9cc1dc0e605256e405a049b6a8d58f98a9f138b2a16c6d40be6bb35595743154',
+        'evidence': 'artifacts/2026-09-07/runtime-squares/README.md',
+        'scope': '768x768 official FP32 development reference; common saved initial bytes; 32 text bucket and 64 DiT slots; eight complete steps; native comparison remains 18/25',
+    },
     '307dbd99c6beb731fafccf86822873bb9f961737ce8f224da34f8c78909e84d0': {
         'source_manifest_sha256': '9cc1dc0e605256e405a049b6a8d58f98a9f138b2a16c6d40be6bb35595743154',
         'evidence': 'artifacts/2026-09-07/runtime-rectangles-and-mapped512/README.md',

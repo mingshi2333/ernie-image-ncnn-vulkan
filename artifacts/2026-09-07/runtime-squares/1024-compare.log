@@ -1,0 +1,14 @@
+{
+  "total_elements": 31720448,
+  "passed_tensors": 24,
+  "png": {
+    "mae": 0.0007610321044921875,
+    "max_abs": 1.0,
+    "different_channel_samples": 2394,
+    "total_channel_samples": 3145728,
+    "reference_sha256": "b24e5096ababf34b372a6f55c04789156c864af63ddbc0fa0a7b2ddc906b41ba",
+    "native_sha256": "5a1a4ac18464e889adf73576a6d1d3056ad466b0f9f3134e9c873fdbdb238ad3",
+    "passed": true
+  },
+  "passed": false
+}

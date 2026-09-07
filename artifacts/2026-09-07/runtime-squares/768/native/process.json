@@ -1,0 +1,58 @@
+{
+  "phase": "native",
+  "command": [
+    "systemd-run",
+    "--user",
+    "--scope",
+    "--quiet",
+    "--unit=ernie-square-768-v1-native",
+    "--property=MemoryMax=17179869184",
+    "--property=MemorySwapMax=0",
+    "--property=CPUQuota=200%",
+    "taskset",
+    "-c",
+    "4,6",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+    "/var/tmp/ernie-runtime-squares-v1/768/run.py",
+    "native",
+    "fd6d3c8618303a7fb403383e115f42ba6198f69f73d4bbf2e6a4f7fb9b90e90d"
+  ],
+  "plan_sha256": "fd6d3c8618303a7fb403383e115f42ba6198f69f73d4bbf2e6a4f7fb9b90e90d",
+  "limits": {
+    "memory_max_bytes": 17179869184,
+    "host_available_min_bytes": 3221225472,
+    "gpu_whole_device_max_mib": 6144,
+    "timeout_seconds_per_phase": 1800
+  },
+  "peak_memory_current": 13847592960,
+  "minimum_host_available": 14434471936,
+  "peak_gpu_whole_device_mib": 2821,
+  "complete": true,
+  "last_compute_processes": [
+    {
+      "pid": 4349,
+      "mib": 50,
+      "owned": false
+    },
+    {
+      "pid": 11253,
+      "mib": 85,
+      "owned": false
+    },
+    {
+      "pid": 1808405,
+      "mib": 5,
+      "owned": false
+    }
+  ],
+  "peak_owned_compute_mib": 1127,
+  "cgroup_seen": true,
+  "observed_limits": {
+    "memory.max": "17179869184",
+    "memory.swap.max": "0",
+    "cpu.max": "200000 100000"
+  },
+  "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+  "return_code": 0,
+  "wall_seconds": 642.8089833410049
+}

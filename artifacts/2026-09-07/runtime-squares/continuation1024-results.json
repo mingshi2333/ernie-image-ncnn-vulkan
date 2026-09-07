@@ -1,0 +1,34 @@
+[
+  {
+    "case": "1024",
+    "phase": "native",
+    "argv": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/var/tmp/ernie-runtime-squares-v1/1024/supervisor.py",
+      "native"
+    ],
+    "return_code": 0,
+    "wall_seconds": 849.9784987519961
+  },
+  {
+    "case": "1024",
+    "phase": "official",
+    "argv": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/var/tmp/ernie-runtime-squares-v1/1024/supervisor.py",
+      "official"
+    ],
+    "return_code": 0,
+    "wall_seconds": 345.009260766994
+  },
+  {
+    "case": "1024",
+    "phase": "compare",
+    "argv": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/var/tmp/ernie-runtime-squares-v1/1024/compare.py"
+    ],
+    "return_code": 1,
+    "wall_seconds": 1.674611398979323
+  }
+]

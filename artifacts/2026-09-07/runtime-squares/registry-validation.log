@@ -1,0 +1,62 @@
+Running as unit: ernie-square-registry-review-v1.service
+test_complete_reference_has_exact_25_boundaries (test_pipeline_reference.ReferenceContractTest.test_complete_reference_has_exact_25_boundaries) ... ok
+test_empty_or_missing_step_is_rejected (test_pipeline_reference.ReferenceContractTest.test_empty_or_missing_step_is_rejected) ... ok
+test_missing_conditioning_prediction_or_final_is_rejected (test_pipeline_reference.ReferenceContractTest.test_missing_conditioning_prediction_or_final_is_rejected) ... ok
+test_resigned_shared_metadata_cannot_replace_pinned_source_inventory (test_pipeline_reference.ReferenceContractTest.test_resigned_shared_metadata_cannot_replace_pinned_source_inventory) ... ok
+test_runtime_target_cannot_replace_source_config_or_omit_target_binding (test_pipeline_reference.ReferenceContractTest.test_runtime_target_cannot_replace_source_config_or_omit_target_binding) ... ok
+test_step_identity_shape_dtype_and_token_type_are_checked (test_pipeline_reference.ReferenceContractTest.test_step_identity_shape_dtype_and_token_type_are_checked) ... ok
+test_suffix_bool_count_and_changed_config_are_rejected (test_pipeline_reference.ReferenceContractTest.test_suffix_bool_count_and_changed_config_are_rejected) ... ok
+test_whole_fixture_digest_and_source_binding_are_both_required (test_pipeline_reference.ReferenceContractTest.test_whole_fixture_digest_and_source_binding_are_both_required) ... ok
+test_legacy_selection_stays_compatible_and_rejects_mismatch (test_pipeline_package.ValidationPackageTest.test_legacy_selection_stays_compatible_and_rejects_mismatch) ... ok
+test_runtime_target_preserves_source_identity_and_original_instance (test_pipeline_package.ValidationPackageTest.test_runtime_target_preserves_source_identity_and_original_instance) ... ok
+test_shared_authenticates_then_selects_exact_instance (test_pipeline_package.ValidationPackageTest.test_shared_authenticates_then_selects_exact_instance) ... ok
+test_shared_requires_existing_oracle (test_pipeline_package.ValidationPackageTest.test_shared_requires_existing_oracle) ... ok
+test_shared_verification_failure_cannot_be_bypassed_by_matching_shape (test_pipeline_package.ValidationPackageTest.test_shared_verification_failure_cannot_be_bypassed_by_matching_shape) ... ok
+test_three_exported_buckets_follow_actual_reference_tokens (test_pipeline_package.ValidationPackageTest.test_three_exported_buckets_follow_actual_reference_tokens) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.007s
+
+OK
+{
+  "scope": "Current registry authenticates both complete official fixtures, source manifest objects, runtime bindings and target configurations; this check does not rehash all model weight objects or rerun inference.",
+  "registered": [
+    {
+      "side": 768,
+      "authenticated": true,
+      "complete_boundaries": 25,
+      "reference": "/var/tmp/ernie-runtime-squares-v1/768/official/reference/fixture.json",
+      "reviewed": {
+        "fixture_sha256": "731ebbab21841d98635d65e72960804c21cb42007a25928483cf7b069ebffd7f",
+        "source_manifest_sha256": "9cc1dc0e605256e405a049b6a8d58f98a9f138b2a16c6d40be6bb35595743154",
+        "evidence": "artifacts/2026-09-07/runtime-squares/README.md",
+        "scope": "768x768 official FP32 development reference; common saved initial bytes; 32 text bucket and 64 DiT slots; eight complete steps; native comparison remains 18/25"
+      }
+    },
+    {
+      "side": 1024,
+      "authenticated": true,
+      "complete_boundaries": 25,
+      "reference": "/var/tmp/ernie-runtime-squares-v1/1024/official/reference/fixture.json",
+      "reviewed": {
+        "fixture_sha256": "dbfd637a06f43812307c5745a3df86cc7daa501f5be40afa5c50d0e7af36ebc1",
+        "source_manifest_sha256": "9cc1dc0e605256e405a049b6a8d58f98a9f138b2a16c6d40be6bb35595743154",
+        "evidence": "artifacts/2026-09-07/runtime-squares/README.md",
+        "scope": "1024x1024 official FP32 development reference; common saved initial bytes; 32 text bucket and 64 DiT slots; eight complete steps; native comparison remains 24/25"
+      }
+    }
+  ],
+  "tests_run": 14,
+  "failures": 0,
+  "errors": 0,
+  "successful": true,
+  "source_sha256": {
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tools/pipeline_package.py": "dc62a59b17903b71c17df598bcd8fc1f73a97f0242d18e69639efd13970bc5f0",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tools/pipeline_reference.py": "ff77c165d747eb3c6654810d7bf234b3b84e98fe3397b565b2c7230ea6404c46"
+  }
+}
+          Finished with result: success
+Main processes terminated with: code=exited, status=0/SUCCESS
+               Service runtime: 111ms
+             CPU time consumed: 83ms
+                   Memory peak: 17.4M (swap: 0B)

@@ -1,0 +1,37 @@
+{
+  "scope": "Current registry authenticates both complete official fixtures, source manifest objects, runtime bindings and target configurations; this check does not rehash all model weight objects or rerun inference.",
+  "registered": [
+    {
+      "side": 768,
+      "authenticated": true,
+      "complete_boundaries": 25,
+      "reference": "/var/tmp/ernie-runtime-squares-v1/768/official/reference/fixture.json",
+      "reviewed": {
+        "fixture_sha256": "731ebbab21841d98635d65e72960804c21cb42007a25928483cf7b069ebffd7f",
+        "source_manifest_sha256": "9cc1dc0e605256e405a049b6a8d58f98a9f138b2a16c6d40be6bb35595743154",
+        "evidence": "artifacts/2026-09-07/runtime-squares/README.md",
+        "scope": "768x768 official FP32 development reference; common saved initial bytes; 32 text bucket and 64 DiT slots; eight complete steps; native comparison remains 18/25"
+      }
+    },
+    {
+      "side": 1024,
+      "authenticated": true,
+      "complete_boundaries": 25,
+      "reference": "/var/tmp/ernie-runtime-squares-v1/1024/official/reference/fixture.json",
+      "reviewed": {
+        "fixture_sha256": "dbfd637a06f43812307c5745a3df86cc7daa501f5be40afa5c50d0e7af36ebc1",
+        "source_manifest_sha256": "9cc1dc0e605256e405a049b6a8d58f98a9f138b2a16c6d40be6bb35595743154",
+        "evidence": "artifacts/2026-09-07/runtime-squares/README.md",
+        "scope": "1024x1024 official FP32 development reference; common saved initial bytes; 32 text bucket and 64 DiT slots; eight complete steps; native comparison remains 24/25"
+      }
+    }
+  ],
+  "tests_run": 14,
+  "failures": 0,
+  "errors": 0,
+  "successful": true,
+  "source_sha256": {
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tools/pipeline_package.py": "dc62a59b17903b71c17df598bcd8fc1f73a97f0242d18e69639efd13970bc5f0",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tools/pipeline_reference.py": "ff77c165d747eb3c6654810d7bf234b3b84e98fe3397b565b2c7230ea6404c46"
+  }
+}

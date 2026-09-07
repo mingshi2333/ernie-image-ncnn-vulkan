@@ -1,0 +1,32 @@
+[
+  {
+    "command": [
+      "bwrap",
+      "--die-with-parent",
+      "--unshare-net",
+      "--ro-bind",
+      "/",
+      "/",
+      "--bind",
+      "/var/tmp/ernie-runtime-squares-v1/1024",
+      "/var/tmp/ernie-runtime-squares-v1/1024",
+      "--dev-bind",
+      "/dev",
+      "/dev",
+      "--proc",
+      "/proc",
+      "--chdir",
+      "/var/tmp/ernie-runtime-squares-v1/1024",
+      "--setenv",
+      "TMPDIR",
+      "/var/tmp/ernie-runtime-squares-v1/1024/temporary",
+      "--setenv",
+      "XDG_CACHE_HOME",
+      "/var/tmp/ernie-runtime-squares-v1/1024/cache",
+      "--",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/var/tmp/ernie-runtime-squares-v1/1024/worker.py"
+    ],
+    "return_code": 0
+  }
+]

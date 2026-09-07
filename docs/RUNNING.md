@@ -184,6 +184,14 @@ image comparisons across the entire range are still pending. The installed
 disabled, passing all 25 tensor checks and PNG max difference 1/255. The 64x64
 example also passes the numerical comparison, but both official and native
 images show gray textures. See the [actual image and SDK checks](../artifacts/2026-09-07/runtime-images-and-sdk/README.md).
+The same shared source32 package now also completes native and official
+768x768 and 1024x1024 FP32 generation from identical saved initial bytes, with
+networking disabled and the original project hidden from native execution.
+Both use RAM weights, stdio loading and no prepared cache. Neither has an OOM;
+PNG maximum differences are 2/255 and 1/255 respectively. Tensor gates remain
+18/25 and 24/25, so these are complete executions with outstanding numerical
+differences. They do not test automatic placement under real GPU exhaustion.
+See the [complete square canaries and preserved failures](../artifacts/2026-09-07/runtime-squares/README.md).
 Graph instantiation and
 one maximum-length block are narrower evidence; see the
 [current report](../artifacts/2026-09-07/runtime-range-and-buckets/README.md).

@@ -1,0 +1,52 @@
+{
+  "prompt": "A red apple on a wooden table, soft daylight, realistic photo.",
+  "ids": [
+    1,
+    1065,
+    4804,
+    46227,
+    1408,
+    1261,
+    32656,
+    4234,
+    1044,
+    6444,
+    85352,
+    1044,
+    43905,
+    16649,
+    1046
+  ],
+  "tokens": 32,
+  "valid_tokens": 15,
+  "blocks": 25,
+  "scope": "Real prompt through official embedding and Mistral blocks 0..24; no final norm",
+  "source_sha256": "9ea45a8f5747615468c29a64f81f3e6d4bd02e60c294efa9369af4ce5ca08362",
+  "expected": {
+    "file": "expected.f32",
+    "shape": [
+      1,
+      15,
+      3072
+    ],
+    "dtype": "float32_le",
+    "sha256": "9b45fd22e5d40edbfb70249e7af20e490a75ed703ac2f1f572011ebdd81cb470"
+  },
+  "gates": {
+    "fp32": {
+      "nrmse": 0.0002,
+      "atol": 0.0002,
+      "rtol": 0.0002
+    },
+    "fp16": {
+      "nrmse": 0.03,
+      "atol": 0.03,
+      "rtol": 0.03
+    },
+    "bf16": {
+      "nrmse": 0.15,
+      "atol": 0.2,
+      "rtol": 0.2
+    }
+  }
+}
