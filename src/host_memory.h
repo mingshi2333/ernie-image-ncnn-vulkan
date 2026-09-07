@@ -18,10 +18,13 @@ struct HostMemoryFiles
 };
 HostAvailableReader linux_host_memory_available_reader(HostMemoryFiles);
 
-// Estimated allocatable headroom, limited by MemAvailable and every finite
+// Estimated allocatable headroom. Linux uses MemAvailable and every finite
 // cgroup-v2 ancestor. Credit at most half the clean active + inactive file pages;
 // they are not equivalent to anonymous or pinned weights. No swap is credited.
-// Missing optional file statistics give no reclaim credit. Unreadable required
-// inputs and unsupported platforms return unavailable, disabling admission.
+// Missing optional file statistics give no reclaim credit. Windows bounds
+// available physical RAM by remaining process commit and virtual address space.
+// Windows Job membership and Wine leave the optional cache disabled until their
+// full enclosing limits can be established. Streaming generation is unaffected.
+// Required query failures and unsupported platforms disable cache admission.
 HostAvailableReader host_memory_available_reader();
 } // namespace ernie

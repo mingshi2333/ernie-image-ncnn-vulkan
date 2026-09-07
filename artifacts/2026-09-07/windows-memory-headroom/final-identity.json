@@ -1,0 +1,39 @@
+{
+  "base_commit": "0836b78edc41771fe06981a8571591b7ed14a463",
+  "platforms": {
+    "windows": {
+      "build": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1",
+      "files": {
+        "/var/tmp/ernie-windows-headroom-v2/binaries/windows/ernie-image.exe": {
+          "bytes": 22115394,
+          "sha256": "46df787cad1352b2f8efadfc89c38adc7df872a3938b3edd83a088c718029da6"
+        },
+        "/var/tmp/ernie-windows-headroom-v2/binaries/windows/ernie-host-memory-contract.exe": {
+          "bytes": 256647,
+          "sha256": "82c0666bf83a06746647125a6dcd0c96b3f39bc67ddba9752b5eb20f50b7c33d"
+        },
+        "/var/tmp/ernie-windows-headroom-v2/binaries/windows/ernie-weight-session-contract.exe": {
+          "bytes": 10835122,
+          "sha256": "32c2f36a399bea69ddd3ae4291c376210687555901d955686187748ec272a9f3"
+        }
+      }
+    },
+    "linux": {
+      "build": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu",
+      "files": {
+        "/var/tmp/ernie-windows-headroom-v2/binaries/linux/ernie-image": {
+          "bytes": 29210544,
+          "sha256": "30cae0f37ab51bd6bf4a2755c2e69a24f92e509d90e52883dfa707a99a1cf136"
+        },
+        "/var/tmp/ernie-windows-headroom-v2/binaries/linux/ernie-host-memory-contract": {
+          "bytes": 86576,
+          "sha256": "221294e01c3146b7f50a7a6d06a2e4db43b2b0c0f910a381ce5088961ef9be40"
+        },
+        "/var/tmp/ernie-windows-headroom-v2/binaries/linux/ernie-weight-session-contract": {
+          "bytes": 11580320,
+          "sha256": "5703e62647e4ecf2a29614a44bb0a933a0dbd4dd3dfc9bc96e6430a463898e50"
+        }
+      }
+    }
+  }
+}

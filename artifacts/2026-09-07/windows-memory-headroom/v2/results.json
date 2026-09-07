@@ -1,0 +1,92 @@
+[
+  {
+    "name": "windows-build",
+    "argv": [
+      "cmake",
+      "--build",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1",
+      "--parallel",
+      "2",
+      "--target",
+      "ernie-host-memory-contract",
+      "ernie-weight-session-contract",
+      "ernie-image"
+    ],
+    "return_code": 0,
+    "seconds": 8.23009021699545
+  },
+  {
+    "name": "linux-build",
+    "argv": [
+      "cmake",
+      "--build",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu",
+      "--parallel",
+      "2",
+      "--target",
+      "ernie-host-memory-contract",
+      "ernie-weight-session-contract",
+      "ernie-image"
+    ],
+    "return_code": 0,
+    "seconds": 3.220533839019481
+  },
+  {
+    "name": "linux-tests",
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu",
+      "-R",
+      "^(host_memory_cpu|weight_session_cpu)$",
+      "--verbose",
+      "--output-junit",
+      "/var/tmp/ernie-windows-headroom-v2/linux-tests.xml"
+    ],
+    "return_code": 0,
+    "seconds": 0.01573909999569878
+  },
+  {
+    "name": "windows-tests",
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1",
+      "-R",
+      "^(host_memory_cpu|weight_session_cpu)$",
+      "--verbose",
+      "--output-junit",
+      "/var/tmp/ernie-windows-headroom-v2/windows-tests.xml"
+    ],
+    "return_code": 0,
+    "seconds": 16.194405018002726
+  },
+  {
+    "name": "windows-help",
+    "argv": [
+      "/usr/bin/wine",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-image.exe",
+      "--help"
+    ],
+    "return_code": 0,
+    "seconds": 5.0233981420169584
+  },
+  {
+    "name": "wine-stop",
+    "argv": [
+      "/usr/bin/wineserver",
+      "-k"
+    ],
+    "return_code": 0,
+    "seconds": 0.06373884400818497
+  },
+  {
+    "name": "wine-exit",
+    "argv": [
+      "/usr/bin/wineserver",
+      "-w"
+    ],
+    "return_code": 0,
+    "seconds": 0.0013856010045856237
+  }
+]

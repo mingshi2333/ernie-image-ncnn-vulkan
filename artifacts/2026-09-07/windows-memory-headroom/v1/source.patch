@@ -1,0 +1,89 @@
+diff --git a/docs/RUNNING.md b/docs/RUNNING.md
+index 8840715..e55f96a 100644
+--- a/docs/RUNNING.md
++++ b/docs/RUNNING.md
+@@ -636,8 +636,13 @@ total. This is an estimate, not a guarantee of immediate allocation success.
+ 
+ Before each block, low headroom evicts idle cached blocks; it never evicts a block
+ whose lease is still active. If availability cannot be read, blocks stream
+-without cache admission. Windows/macOS availability readers are not implemented
+-for this optional cache yet. The configurable RAM reserve defaults to 3072 MiB.
++without cache admission. On Windows, `GlobalMemoryStatusEx` limits the estimate
++to available physical RAM, remaining process commit allowance and free virtual
++address space. The commit allowance only lowers the physical-RAM estimate; no
++page-file capacity is added as extra RAM. These fields are described in
++[Microsoft's MEMORYSTATUSEX documentation](https://learn.microsoft.com/en-us/windows/win32/api/sysinfoapi/ns-sysinfoapi-memorystatusex).
++The macOS availability reader is not implemented for this optional cache yet.
++The configurable RAM reserve defaults to 3072 MiB.
+ 
+ After loading, the cache inspects the pinned FP32 DiT weight buffers. It rejects
+ any weight in device-local memory, including ncnn's host-to-device allocation
+diff --git a/src/host_memory.cpp b/src/host_memory.cpp
+index e81e868..f0ffab7 100644
+--- a/src/host_memory.cpp
++++ b/src/host_memory.cpp
+@@ -8,6 +8,12 @@
+ #include <string>
+ #include <utility>
+ #include <vector>
++#if defined(_WIN32)
++#ifndef NOMINMAX
++#define NOMINMAX
++#endif
++#include <windows.h>
++#endif
+ 
+ namespace ernie {
+ namespace {
+@@ -150,6 +156,17 @@ HostAvailableReader host_memory_available_reader()
+ {
+ #if defined(__linux__)
+     return linux_host_memory_available_reader({});
++#elif defined(_WIN32)
++    return []() -> std::optional<Bytes> {
++        MEMORYSTATUSEX memory{};
++        memory.dwLength = sizeof(memory);
++        if (!GlobalMemoryStatusEx(&memory)) return std::nullopt;
++        // ullAvailPageFile is the process's remaining commit allowance, not
++        // additional RAM. Physical availability is always an upper bound;
++        // also respect commit and virtual-address-space exhaustion.
++        return std::min({Bytes(memory.ullAvailPhys), Bytes(memory.ullAvailPageFile),
++                         Bytes(memory.ullAvailVirtual)});
++    };
+ #else
+     return []() -> std::optional<Bytes> { return std::nullopt; };
+ #endif
+diff --git a/src/host_memory.h b/src/host_memory.h
+index a4b2121..de2b1cb 100644
+--- a/src/host_memory.h
++++ b/src/host_memory.h
+@@ -18,10 +18,11 @@ struct HostMemoryFiles
+ };
+ HostAvailableReader linux_host_memory_available_reader(HostMemoryFiles);
+ 
+-// Estimated allocatable headroom, limited by MemAvailable and every finite
++// Estimated allocatable headroom. Linux uses MemAvailable and every finite
+ // cgroup-v2 ancestor. Credit at most half the clean active + inactive file pages;
+ // they are not equivalent to anonymous or pinned weights. No swap is credited.
+-// Missing optional file statistics give no reclaim credit. Unreadable required
+-// inputs and unsupported platforms return unavailable, disabling admission.
++// Missing optional file statistics give no reclaim credit. Windows bounds
++// available physical RAM by remaining process commit and virtual address space.
++// Required query failures and unsupported platforms disable cache admission.
+ HostAvailableReader host_memory_available_reader();
+ } // namespace ernie
+diff --git a/tests/test_host_memory.cpp b/tests/test_host_memory.cpp
+index 6db93b6..107a72c 100644
+--- a/tests/test_host_memory.cpp
++++ b/tests/test_host_memory.cpp
+@@ -157,6 +157,10 @@ int main()
+         const auto live = ernie::host_memory_available_reader()();
+         require(live && *live, "Live Linux memory query unavailable");
+         std::cout << "Live Linux available estimate=" << *live << " bytes\n";
++#elif defined(_WIN32)
++        const auto live = ernie::host_memory_available_reader()();
++        require(live && *live, "Live Windows memory query unavailable");
++        std::cout << "Live Windows available estimate=" << *live << " bytes\n";
+ #endif
+         std::cout << "File LRU movement, bounded credit, real pressure, ancestors, changing inputs, corruption, "
+                      "missing counters and overflow contracts pass\n";

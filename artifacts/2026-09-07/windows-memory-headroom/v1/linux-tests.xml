@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Linux-clang++"
+	tests="2"
+	failures="0"
+	disabled="0"
+	skipped="0"
+	hostname="mios-pc"
+	time="0"
+	timestamp="2026-09-07T11:54:41"
+	>
+	<testcase name="weight_session_cpu" classname="weight_session_cpu" time="0.00338505" status="run">
+		<properties/>
+		<system-out>Budget, repeated scan, pressure, identity, failure, move and cancellation contracts passed
+</system-out>
+	</testcase>
+	<testcase name="host_memory_cpu" classname="host_memory_cpu" time="0.00357146" status="run">
+		<properties/>
+		<system-out>Live Linux available estimate=4043165696 bytes
+File LRU movement, bounded credit, real pressure, ancestors, changing inputs, corruption, missing counters and overflow contracts pass
+</system-out>
+	</testcase>
+</testsuite>

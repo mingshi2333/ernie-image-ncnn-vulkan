@@ -636,8 +636,19 @@ total. This is an estimate, not a guarantee of immediate allocation success.
 
 Before each block, low headroom evicts idle cached blocks; it never evicts a block
 whose lease is still active. If availability cannot be read, blocks stream
-without cache admission. Windows/macOS availability readers are not implemented
-for this optional cache yet. The configurable RAM reserve defaults to 3072 MiB.
+without cache admission. On Windows, `GlobalMemoryStatusEx` limits the estimate
+to available physical RAM, remaining process commit allowance and free virtual
+address space. The commit allowance only lowers the physical-RAM estimate; no
+page-file capacity is added as extra RAM. These fields are described in
+[Microsoft's MEMORYSTATUSEX documentation](https://learn.microsoft.com/en-us/windows/win32/api/sysinfoapi/ns-sysinfoapi-memorystatusex).
+Processes in a Windows Job keep streaming without cache admission: querying the
+current job alone does not establish all enclosing limits for nested jobs, as
+described in [QueryInformationJobObject](https://learn.microsoft.com/en-us/windows/win32/api/jobapi2/nf-jobapi2-queryinformationjobobject).
+Wine also keeps this cache disabled because its Windows memory query did not
+reflect the Linux cgroup limit in the local test. These restrictions concern the
+optional cache; they do not disable RAM weight placement or generation.
+The macOS availability reader is not implemented for this optional cache yet.
+The configurable RAM reserve defaults to 3072 MiB.
 
 After loading, the cache inspects the pinned FP32 DiT weight buffers. It rejects
 any weight in device-local memory, including ncnn's host-to-device allocation

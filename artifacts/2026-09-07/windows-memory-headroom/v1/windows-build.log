@@ -1,0 +1,16 @@
+[1/16] Building CXX object src/CMakeFiles/ernie-runtime.dir/weight_session.cpp.obj
+[2/16] Building CXX object src/CMakeFiles/ernie-runtime.dir/host_memory.cpp.obj
+[3/16] Building CXX object src/CMakeFiles/ernie-runtime.dir/block_sequence.cpp.obj
+[4/16] Building CXX object src/CMakeFiles/ernie-runtime.dir/dit.cpp.obj
+[5/16] Building CXX object src/CMakeFiles/ernie-runtime.dir/denoiser.cpp.obj
+[6/16] Building CXX object src/CMakeFiles/ernie-runtime.dir/text_encoder.cpp.obj
+[7/16] Linking CXX static library src/libernie-runtime.a
+[8/16] Building CXX object src/CMakeFiles/ernie-pe.dir/prompt_enhancer.cpp.obj
+[9/16] Linking CXX static library src/libernie-pe.a
+[10/16] Building CXX object tests/CMakeFiles/ernie-weight-session-contract.dir/test_weight_session.cpp.obj
+[11/16] Building CXX object src/CMakeFiles/ernie-pipeline.dir/pipeline.cpp.obj
+[12/16] Linking CXX static library src/libernie-pipeline.a
+[13/16] Building CXX object tests/CMakeFiles/ernie-host-memory-contract.dir/test_host_memory.cpp.obj
+[14/16] Linking CXX executable ernie-weight-session-contract.exe
+[15/16] Linking CXX executable ernie-host-memory-contract.exe
+[16/16] Linking CXX executable ernie-image.exe

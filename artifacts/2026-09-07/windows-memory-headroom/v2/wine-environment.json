@@ -1,0 +1,7 @@
+{
+  "WINEPREFIX": "/var/tmp/ernie-windows-headroom-v1/wine-prefix",
+  "WINEARCH": "win64",
+  "WINEDEBUG": "-all",
+  "WINEDLLOVERRIDES": "winemenubuilder.exe=d",
+  "WINEPATH": "Z:\\var\\tmp\\ernie-windows-cpu-v1\\runtime"
+}

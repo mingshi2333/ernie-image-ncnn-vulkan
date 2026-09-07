@@ -1,0 +1,45 @@
+[
+  {
+    "name": "windows-tests-v2",
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1",
+      "-R",
+      "^(host_memory_cpu|weight_session_cpu)$",
+      "--verbose",
+      "--output-junit",
+      "/var/tmp/ernie-windows-headroom-v1/windows-tests-v2.xml"
+    ],
+    "return_code": 0,
+    "seconds": 15.893535189999966
+  },
+  {
+    "name": "windows-help-v2",
+    "argv": [
+      "/usr/bin/wine",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-image.exe",
+      "--help"
+    ],
+    "return_code": 0,
+    "seconds": 5.174845129979076
+  },
+  {
+    "name": "wine-stop-v2",
+    "argv": [
+      "/usr/bin/wineserver",
+      "-k"
+    ],
+    "return_code": 0,
+    "seconds": 0.06389558099908754
+  },
+  {
+    "name": "wine-exit-v2",
+    "argv": [
+      "/usr/bin/wineserver",
+      "-w"
+    ],
+    "return_code": 0,
+    "seconds": 0.0015542010078206658
+  }
+]

@@ -1,0 +1,85 @@
+[
+  {
+    "name": "windows-build",
+    "argv": [
+      "cmake",
+      "--build",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1",
+      "--parallel",
+      "2",
+      "--target",
+      "ernie-host-memory-contract",
+      "ernie-weight-session-contract",
+      "ernie-image"
+    ],
+    "return_code": 0,
+    "seconds": 8.330637475999538
+  },
+  {
+    "name": "linux-build",
+    "argv": [
+      "cmake",
+      "--build",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu",
+      "--parallel",
+      "2",
+      "--target",
+      "ernie-host-memory-contract",
+      "ernie-weight-session-contract",
+      "ernie-image"
+    ],
+    "return_code": 0,
+    "seconds": 3.4704532049945556
+  },
+  {
+    "name": "linux-tests",
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu",
+      "-R",
+      "^(host_memory_cpu|weight_session_cpu)$",
+      "--verbose",
+      "--output-junit",
+      "/var/tmp/ernie-windows-headroom-v1/linux-tests.xml"
+    ],
+    "return_code": 0,
+    "seconds": 0.032958792988210917
+  },
+  {
+    "name": "wine-init",
+    "argv": [
+      "/usr/bin/wineboot",
+      "-i"
+    ],
+    "return_code": 0,
+    "seconds": 27.31595407499117
+  },
+  {
+    "name": "wine-persistence",
+    "argv": [
+      "/usr/bin/wineserver",
+      "-p60"
+    ],
+    "return_code": 2,
+    "seconds": 0.0026702809846028686
+  },
+  {
+    "name": "wine-stop",
+    "argv": [
+      "/usr/bin/wineserver",
+      "-k"
+    ],
+    "return_code": 0,
+    "seconds": 0.16402220699819736
+  },
+  {
+    "name": "wine-exit",
+    "argv": [
+      "/usr/bin/wineserver",
+      "-w"
+    ],
+    "return_code": 0,
+    "seconds": 0.0014319070032797754
+  }
+]

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Win32-ninja-build"
+	tests="2"
+	failures="0"
+	disabled="0"
+	skipped="0"
+	hostname="mios-pc"
+	time="15"
+	timestamp="2026-09-07T11:57:22"
+	>
+	<testcase name="weight_session_cpu" classname="weight_session_cpu" time="7.94774" status="run">
+		<properties/>
+		<system-out>Budget, repeated scan, pressure, identity, failure, move and cancellation contracts passed
+</system-out>
+	</testcase>
+	<testcase name="host_memory_cpu" classname="host_memory_cpu" time="7.89581" status="run">
+		<properties/>
+		<system-out>Live Windows available estimate=18668998656 bytes
+File LRU movement, bounded credit, real pressure, ancestors, changing inputs, corruption, missing counters and overflow contracts pass
+</system-out>
+	</testcase>
+</testsuite>

@@ -5,6 +5,12 @@
 #include <iostream>
 #include <stdexcept>
 #include <string>
+#if defined(_WIN32)
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#include <windows.h>
+#endif
 
 namespace {
 namespace fs = std::filesystem;
@@ -157,6 +163,35 @@ int main()
         const auto live = ernie::host_memory_available_reader()();
         require(live && *live, "Live Linux memory query unavailable");
         std::cout << "Live Linux available estimate=" << *live << " bytes\n";
+#elif defined(_WIN32)
+        BOOL in_job = FALSE;
+        require(IsProcessInJob(GetCurrentProcess(), nullptr, &in_job), "Windows Job query failed");
+        const bool wine = GetProcAddress(GetModuleHandleW(L"ntdll.dll"), "wine_get_version") != nullptr;
+        auto live_reader = ernie::host_memory_available_reader();
+        const auto live = live_reader();
+        MEMORYSTATUSEX memory{};
+        memory.dwLength = sizeof(memory);
+        require(GlobalMemoryStatusEx(&memory), "Windows physical-memory query failed");
+        if (wine || in_job)
+            require(!live, "Unverified enclosing memory limits admitted cached weights");
+        else
+            require(live && *live && *live <= memory.ullTotalPhys,
+                    "Native Windows headroom unavailable or exceeds physical capacity");
+        std::cout << "Windows raw available RAM=" << memory.ullAvailPhys
+                  << " Wine=" << wine << " Job=" << in_job
+                  << " cache headroom=" << (live ? std::to_string(*live) : "unavailable") << '\n';
+        if (!in_job)
+        {
+            const auto job = CreateJobObjectW(nullptr, nullptr);
+            require(job != nullptr, "Cannot create the test process's Windows Job");
+            const bool assigned = AssignProcessToJobObject(job, GetCurrentProcess());
+            CloseHandle(job);
+            require(assigned, "Cannot assign this test process to its Windows Job");
+            require(IsProcessInJob(GetCurrentProcess(), nullptr, &in_job) && in_job,
+                    "Test process did not enter its Windows Job");
+            require(!live_reader(), "Job membership change reused old headroom");
+            std::cout << "Actual Windows Job assignment disables cache admission\n";
+        }
 #endif
         std::cout << "File LRU movement, bounded credit, real pressure, ancestors, changing inputs, corruption, "
                      "missing counters and overflow contracts pass\n";
