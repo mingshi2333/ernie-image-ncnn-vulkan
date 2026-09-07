@@ -1,0 +1,74 @@
+[
+  {
+    "name": "cpu-configure",
+    "argv": [
+      "cmake",
+      "-S",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference",
+      "-B",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu",
+      "-DERNIE_INSTALL_SDK=ON",
+      "-DERNIE_ENABLE_ALLOCATION_METRICS=OFF"
+    ]
+  },
+  {
+    "name": "cpu-build",
+    "argv": [
+      "cmake",
+      "--build",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu",
+      "--target",
+      "ernie-image",
+      "--parallel",
+      "2"
+    ]
+  },
+  {
+    "name": "cpu-install-consumer",
+    "argv": [
+      "python3",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tests/test_install.py",
+      "--build",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu",
+      "--output",
+      "/var/tmp/ernie-runtime-sdk-v1-cpu",
+      "--isolate-source"
+    ]
+  },
+  {
+    "name": "vulkan-configure",
+    "argv": [
+      "cmake",
+      "-S",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference",
+      "-B",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev",
+      "-DERNIE_INSTALL_SDK=ON",
+      "-DERNIE_ENABLE_ALLOCATION_METRICS=OFF"
+    ]
+  },
+  {
+    "name": "vulkan-build",
+    "argv": [
+      "cmake",
+      "--build",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev",
+      "--target",
+      "ernie-image",
+      "--parallel",
+      "2"
+    ]
+  },
+  {
+    "name": "vulkan-install-consumer",
+    "argv": [
+      "python3",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tests/test_install.py",
+      "--build",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev",
+      "--output",
+      "/var/tmp/ernie-runtime-sdk-v1-vulkan",
+      "--isolate-source"
+    ]
+  }
+]

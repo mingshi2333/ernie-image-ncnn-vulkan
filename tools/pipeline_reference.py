@@ -9,6 +9,16 @@ import re
 # This binds the whole fixture, including official environment and tensor hashes;
 # a caller cannot establish provenance by editing fields inside that fixture.
 REVIEWED_SHARED_REFERENCES = {
+    'e68f3d8c112ef7a988161b539845eff6c356fe00fdc0d3e7444d625e99bc50d3': {
+        'source_manifest_sha256': '9cc1dc0e605256e405a049b6a8d58f98a9f138b2a16c6d40be6bb35595743154',
+        'evidence': 'artifacts/2026-09-07/runtime-images-and-sdk/README.md',
+        'scope': '512x512 official FP32 development reference; common saved initial bytes; CUDA blocks with TF32 disabled; eight complete steps',
+    },
+    '03ceedfd835cadc1a4450e31b43195fdc217dc59743b5a6c76948c8566802e63': {
+        'source_manifest_sha256': '9cc1dc0e605256e405a049b6a8d58f98a9f138b2a16c6d40be6bb35595743154',
+        'evidence': 'artifacts/2026-09-07/runtime-images-and-sdk/README.md',
+        'scope': '64x64 official FP32 development reference; native saved initial bytes; eight complete steps; 32 text bucket and 64 DiT slots',
+    },
     '930d1593ea6e4246e03edd990fbdf3a805de1b378ea2a5bbc8b15695a762f128': {
         'source_manifest_sha256': '72bb195a2d0b3ef2a25f873666f51f4bbec4b391744518597be87206a551efc1',
         'evidence': 'artifacts/2026-09-07/fixed1376-native-pipeline/README.md',

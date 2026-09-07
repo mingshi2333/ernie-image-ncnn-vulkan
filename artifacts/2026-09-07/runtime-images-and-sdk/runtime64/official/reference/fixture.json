@@ -1,0 +1,357 @@
+{
+  "prompt": "A red apple on a wooden table, soft daylight, realistic photo.",
+  "config": {
+    "packed_width": 4,
+    "packed_height": 4,
+    "text_bucket": 32,
+    "dit_text_tokens": 64,
+    "text_layers": 25,
+    "dit_layers": 36
+  },
+  "ids": [
+    1,
+    1065,
+    4804,
+    46227,
+    1408,
+    1261,
+    32656,
+    4234,
+    1044,
+    6444,
+    85352,
+    1044,
+    43905,
+    16649,
+    1046
+  ],
+  "steps": 8,
+  "start_step": 0,
+  "scope": "Native prompt-to-PNG versus staged pinned official FP32 modules; PE off, CFG=1; identical saved initial latent",
+  "reference_environment": {
+    "torch": "2.12.1+cu130",
+    "pipeline_source_sha256": "26fbecb8c9d13a46b15aea7d599224bb03ad93e683ce3935d7a932d71316a9fd",
+    "dit_blocks_device": "cpu",
+    "heads_text_vae_device": "cpu",
+    "dtype": "float32",
+    "allow_tf32": false,
+    "cuda_device": null
+  },
+  "inputs": {
+    "initial": {
+      "file": "initial-input.f32",
+      "shape": [
+        1,
+        128,
+        4,
+        4
+      ],
+      "dtype": "float32_le",
+      "sha256": "137c555c662956814560ae9ac88d5cca239ca82778c15f77baa62b3af2a28474"
+    },
+    "text": {
+      "file": "text.f32",
+      "shape": [
+        1,
+        15,
+        3072
+      ],
+      "dtype": "float32_le",
+      "sha256": "9b45fd22e5d40edbfb70249e7af20e490a75ed703ac2f1f572011ebdd81cb470"
+    },
+    "padded-text": {
+      "file": "padded-text.f32",
+      "shape": [
+        1,
+        64,
+        3072
+      ],
+      "dtype": "float32_le",
+      "sha256": "e23fa7eab8f1f5cd34ab7e3e9486b0f099a9d32dbea1db4c0a4b376eb9d20f28"
+    },
+    "constant-0": {
+      "file": "constant-0.f32",
+      "shape": [
+        1,
+        80,
+        128
+      ],
+      "dtype": "float32_le",
+      "sha256": "a21b17bd9c793e5210896fe3644837ae37bcba100a28b543d3f19b70ec2e78ed"
+    },
+    "constant-1": {
+      "file": "constant-1.f32",
+      "shape": [
+        1,
+        80,
+        128
+      ],
+      "dtype": "float32_le",
+      "sha256": "cbce265a5d8cf24d086d1047e23ff05b7388c4c00de1b36ee3ffeb9821a61076"
+    },
+    "constant-2": {
+      "file": "constant-2.f32",
+      "shape": [
+        80,
+        80
+      ],
+      "dtype": "float32_le",
+      "sha256": "cd2d1d90f55c3444ab122b17db9a943ab55b56f2a4ee3b9cd46f856b4d63c283"
+    }
+  },
+  "outputs": [
+    {
+      "prediction": {
+        "file": "prediction-0.f32",
+        "shape": [
+          1,
+          128,
+          4,
+          4
+        ],
+        "dtype": "float32_le",
+        "sha256": "a2cba5274ec7dffe4fe8b76834b8e4c1dcfb538eff29766f325c93304bc96dce"
+      },
+      "step": {
+        "file": "step-0.f32",
+        "shape": [
+          1,
+          128,
+          4,
+          4
+        ],
+        "dtype": "float32_le",
+        "sha256": "bad8d3a1b8d4c907c3c358d884486b2bf7e87e508bc2e2910a73994958f7c485"
+      }
+    },
+    {
+      "prediction": {
+        "file": "prediction-1.f32",
+        "shape": [
+          1,
+          128,
+          4,
+          4
+        ],
+        "dtype": "float32_le",
+        "sha256": "081384dbe1d71e02eaffac86a8b5059cd7dea190e60453e665c1be5d01b9f7f9"
+      },
+      "step": {
+        "file": "step-1.f32",
+        "shape": [
+          1,
+          128,
+          4,
+          4
+        ],
+        "dtype": "float32_le",
+        "sha256": "bad7f9bec9f5d3be77c4685735e7f7e19969c9c48dabff6b9921cce48aeee9d5"
+      }
+    },
+    {
+      "prediction": {
+        "file": "prediction-2.f32",
+        "shape": [
+          1,
+          128,
+          4,
+          4
+        ],
+        "dtype": "float32_le",
+        "sha256": "015fcd0d202d4a04d0065c20909836cb5e9a89f67aaacdc5d04bb099cddf6ecc"
+      },
+      "step": {
+        "file": "step-2.f32",
+        "shape": [
+          1,
+          128,
+          4,
+          4
+        ],
+        "dtype": "float32_le",
+        "sha256": "c7a835206c68f1e78bf729997145b06c8f466744b476bdced856afe97e8bb99c"
+      }
+    },
+    {
+      "prediction": {
+        "file": "prediction-3.f32",
+        "shape": [
+          1,
+          128,
+          4,
+          4
+        ],
+        "dtype": "float32_le",
+        "sha256": "77c5f7f3c0315a89f3158a574ebf04b71dcf31560132ca8fdf80fa1f07e4d656"
+      },
+      "step": {
+        "file": "step-3.f32",
+        "shape": [
+          1,
+          128,
+          4,
+          4
+        ],
+        "dtype": "float32_le",
+        "sha256": "c9a2f22d0a64e0badbb1d6d3dc4cfe25cd9ab81f780a1d8322e3fed5c3c69288"
+      }
+    },
+    {
+      "prediction": {
+        "file": "prediction-4.f32",
+        "shape": [
+          1,
+          128,
+          4,
+          4
+        ],
+        "dtype": "float32_le",
+        "sha256": "44517ea546571c8c8b8b56833eb31cc97a5f1a4a5a865066d642a4f05b7973a2"
+      },
+      "step": {
+        "file": "step-4.f32",
+        "shape": [
+          1,
+          128,
+          4,
+          4
+        ],
+        "dtype": "float32_le",
+        "sha256": "9b49604d62368a1cfebd19afcee19274863963782d22612186a2d6c1793b4bb5"
+      }
+    },
+    {
+      "prediction": {
+        "file": "prediction-5.f32",
+        "shape": [
+          1,
+          128,
+          4,
+          4
+        ],
+        "dtype": "float32_le",
+        "sha256": "98763e1f5703083eec4614b3882e97320727f073adfdf7ba68fe1d40fae27ee9"
+      },
+      "step": {
+        "file": "step-5.f32",
+        "shape": [
+          1,
+          128,
+          4,
+          4
+        ],
+        "dtype": "float32_le",
+        "sha256": "e428521388c769392845643e2455a1411cb35abf054c96d81200ef84bd73e8e7"
+      }
+    },
+    {
+      "prediction": {
+        "file": "prediction-6.f32",
+        "shape": [
+          1,
+          128,
+          4,
+          4
+        ],
+        "dtype": "float32_le",
+        "sha256": "3c6cc23fb0ad50cfa996078b99ad2e382814f32b95340e1ef369a3bc195ea1f9"
+      },
+      "step": {
+        "file": "step-6.f32",
+        "shape": [
+          1,
+          128,
+          4,
+          4
+        ],
+        "dtype": "float32_le",
+        "sha256": "507ed5ca78f8dcc756011f57b6104ba4041577c48fdb7ff1e7c5744939d24770"
+      }
+    },
+    {
+      "prediction": {
+        "file": "prediction-7.f32",
+        "shape": [
+          1,
+          128,
+          4,
+          4
+        ],
+        "dtype": "float32_le",
+        "sha256": "4f23bf894fd8f4c3769e77ad0233fdd698837e22c063ce3a5aef9e790212070a"
+      },
+      "step": {
+        "file": "step-7.f32",
+        "shape": [
+          1,
+          128,
+          4,
+          4
+        ],
+        "dtype": "float32_le",
+        "sha256": "1044107a1d51bae8fdae4cac784aa084e8340f919d9e1e7b395700b775cef0c0"
+      }
+    }
+  ],
+  "source_sha256": "44d2a0a67d822b8368d764d476cb9450746f61d5abd3b06e23401ad83f502267",
+  "complete": true,
+  "runtime_source": {
+    "source_manifest_sha256": "9cc1dc0e605256e405a049b6a8d58f98a9f138b2a16c6d40be6bb35595743154",
+    "source_config": {
+      "packed_width": 64,
+      "packed_height": 64,
+      "text_bucket": 32,
+      "dit_text_tokens": 64,
+      "text_layers": 25,
+      "dit_layers": 36
+    },
+    "target_config": {
+      "packed_width": 4,
+      "packed_height": 4,
+      "text_bucket": 32,
+      "dit_text_tokens": 64,
+      "text_layers": 25,
+      "dit_layers": 36
+    },
+    "official_weight_provenance": {
+      "source_manifest_sha256": "72bb195a2d0b3ef2a25f873666f51f4bbec4b391744518597be87206a551efc1",
+      "identical_runtime_assets": 71
+    }
+  },
+  "final": {
+    "final": {
+      "file": "final.f32",
+      "shape": [
+        1,
+        128,
+        4,
+        4
+      ],
+      "dtype": "float32_le",
+      "sha256": "1044107a1d51bae8fdae4cac784aa084e8340f919d9e1e7b395700b775cef0c0"
+    },
+    "unpacked": {
+      "file": "unpacked.f32",
+      "shape": [
+        1,
+        32,
+        8,
+        8
+      ],
+      "dtype": "float32_le",
+      "sha256": "a7c67e0d07a3577ed2d671477583e44866ffab8f8c10394419541f2fe06c91a8"
+    },
+    "decoded": {
+      "file": "decoded.f32",
+      "shape": [
+        1,
+        3,
+        64,
+        64
+      ],
+      "dtype": "float32_le",
+      "sha256": "6ffe18525a2c89613d946ee3a21520f2bb45e91bb11e0ba000c7b23c9d138537"
+    }
+  },
+  "reference_png_sha256": "69df7a88d6bcc71af1a97d0948d214038a6081b1dada5215998ffa547386abc5"
+}

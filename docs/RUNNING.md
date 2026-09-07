@@ -174,7 +174,12 @@ that actual run. See [the full evidence](../artifacts/2026-09-07/fixed1376-nativ
 
 The schema-3 runtime now accepts an experimental bounded shape contract: each
 axis is a multiple of 16 in [16,2048], with at most 2097152 pixels. Complete
-image comparisons across this range are still pending. Graph instantiation and
+image comparisons across the entire range are still pending. The installed
+512x512 native FP32 example completes with the source hidden and networking
+disabled, passing all 25 tensor checks and PNG max difference 1/255. The 64x64
+example also passes the numerical comparison, but both official and native
+images show gray textures. See the [actual image and SDK checks](../artifacts/2026-09-07/runtime-images-and-sdk/README.md).
+Graph instantiation and
 one maximum-length block are narrower evidence; see the
 [current report](../artifacts/2026-09-07/runtime-range-and-buckets/README.md).
 
@@ -187,9 +192,14 @@ python tools/package_dynamic_model.py --schema3 \
   --source models/portable-turbo1024-s32-v1 --output models/turbo-shared-v2
 build/ernie-image --model models/turbo-shared-v2 \
   --prompt 'A red apple on a wooden table, soft daylight, realistic photo.' \
-  --width 64 --height 64 --precision fp32 --text-down-vector \
-  --steps 8 --seed 20260905 --output outputs/shared-64.png
+  --width 512 --height 512 --precision fp32 --text-down-vector \
+  --steps 8 --seed 20260905 --output outputs/shared-512.png
 ```
+
+This command uses the native seeded noise generator. The recorded official/native
+comparison instead shares exact saved FP32 noise bytes. In this development
+checkout, adding `--latent outputs/runtime512-official-v2/initial.f32` selects
+those bytes; an identical integer seed across frameworks is not sufficient.
 
 Generation uses the native executable and this package. It never converts a
 new model or writes temporary parameter files when the dimensions change.

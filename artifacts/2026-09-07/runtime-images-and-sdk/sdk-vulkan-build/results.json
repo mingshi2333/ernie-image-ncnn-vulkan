@@ -1,0 +1,45 @@
+[
+  {
+    "name": "vulkan-configure",
+    "argv": [
+      "cmake",
+      "-S",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference",
+      "-B",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev",
+      "-DERNIE_INSTALL_SDK=ON",
+      "-DERNIE_ENABLE_ALLOCATION_METRICS=OFF",
+      "-DNCNN_SYSTEM_GLSLANG=OFF"
+    ],
+    "return_code": 0,
+    "seconds": 0.4308570300054271
+  },
+  {
+    "name": "vulkan-build",
+    "argv": [
+      "cmake",
+      "--build",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev",
+      "--target",
+      "ernie-image",
+      "--parallel",
+      "2"
+    ],
+    "return_code": 0,
+    "seconds": 110.67089979900629
+  },
+  {
+    "name": "vulkan-install-consumer",
+    "argv": [
+      "python3",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tests/test_install.py",
+      "--build",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev",
+      "--output",
+      "/var/tmp/ernie-runtime-sdk-v1-vulkan",
+      "--isolate-source"
+    ],
+    "return_code": 1,
+    "seconds": 0.09384916597628035
+  }
+]

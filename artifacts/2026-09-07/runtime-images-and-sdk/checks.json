@@ -1,0 +1,14 @@
+{
+  "pipeline_reference_tests": {
+    "passed": 8,
+    "failed": 0
+  },
+  "pipeline_package_tests": {
+    "passed": 6,
+    "failed": 0
+  },
+  "reference_input_pre_forward_checks": {
+    "passed": 7,
+    "model_forwards": 0
+  }
+}

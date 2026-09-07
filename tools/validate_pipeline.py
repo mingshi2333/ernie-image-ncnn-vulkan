@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Check native prompt-to-PNG against staged official modules with identical initial noise."""
 import argparse
+import hashlib
 import inspect
 import json
 import os
@@ -22,15 +23,54 @@ from export_vae import load_vae
 from prepare_block import ROOT,sha256
 from validate_text import real_reference
 from prompt_io import read_prompt
-from pipeline_package import validation_package
+from pipeline_package import select_shared_instance, validation_package
 from pipeline_reference import full_reference_contract, reviewed_shared_reference
 
-def reference(package,prompt,output,steps,device='cpu',initial_path=None,start_step=0):
+def reference(package,prompt,output,steps,device='cpu',initial_path=None,start_step=0,*,
+              runtime_size=None,source_weights_package=None):
+    """Run official modules, optionally at a runtime size of a pinned source.
+
+    runtime_size is (width, height). The original portable source and its text
+    bucket stay intact; this does not create or authenticate a native target graph.
+    Older pinned sources can use official weight provenance from another pinned
+    package only when every non-graph runtime asset has the same identity.
+    """
     if type(start_step) is not int or start_step < 0 or start_step > steps:
         raise ValueError('Reference start step must be in [0,steps]')
-    package_manifest=json.loads((package/'manifest.json').read_text())
+    manifest_bytes=(package/'manifest.json').read_bytes()
+    package_manifest=json.loads(manifest_bytes)
     cfg=package_manifest['config']
+    runtime_binding=None
+    if runtime_size is not None:
+        if package_manifest.get('schema_version')!=2 or len(runtime_size)!=2:
+            raise ValueError('Runtime reference requires a pinned portable source and (width,height)')
+        source_digest=hashlib.sha256(manifest_bytes).hexdigest()
+        source={'source_manifest_sha256':source_digest,'config':cfg,
+                'runtime_bindings':package_manifest['files']}
+        selected,_=select_shared_instance([source],*runtime_size)
+        cfg=selected['config']
+        runtime_binding={'source_manifest_sha256':source_digest,
+                         'source_config':package_manifest['config'],'target_config':cfg}
     source_weights=package_manifest.get('source_weights')
+    if source_weights_package is not None:
+        if runtime_binding is None or source_weights:
+            raise ValueError('Weight provenance fallback requires a pinned runtime source without source hashes')
+        donor_bytes=(Path(source_weights_package)/'manifest.json').read_bytes()
+        donor=json.loads(donor_bytes)
+        donor_digest=hashlib.sha256(donor_bytes).hexdigest()
+        if donor.get('schema_version')!=2:
+            raise ValueError('Official weight provenance requires a pinned portable source')
+        select_shared_instance([{'source_manifest_sha256':donor_digest,'config':donor['config'],
+                                 'runtime_bindings':donor['files']}])
+        def numerical_assets(manifest):
+            return {name:digest for name,digest in manifest['files'].items()
+                    if name!='model.cfg' and not name.endswith('.param')}
+        assets=numerical_assets(package_manifest)
+        if assets!=numerical_assets(donor):
+            raise ValueError('Official weight provenance package has different runtime assets')
+        source_weights=donor.get('source_weights')
+        runtime_binding['official_weight_provenance']={
+            'source_manifest_sha256':donor_digest,'identical_runtime_assets':len(assets)}
     if package_manifest['schema_version']==2 and (not source_weights or len(source_weights.get('text',[]))!=25 or len(source_weights.get('dit',[]))!=36):
         raise ValueError('Portable package lacks official source hashes; rebuild it with package_model.py or reuse a verified --reference')
     h,w,text_tokens=cfg['packed_height'],cfg['packed_width'],cfg['dit_text_tokens']
@@ -56,6 +96,8 @@ def reference(package,prompt,output,steps,device='cpu',initial_path=None,start_s
         'inputs':{'initial':save_tensor(output/'initial-input.f32',initial),'text':save_tensor(output/'text.f32',text_valid),
                   'padded-text':save_tensor(output/'padded-text.f32',text)},'outputs':[],
         'source_sha256':sha256(__file__),'complete':False}
+    if runtime_binding is not None:
+        fixture['runtime_source']=runtime_binding
     for i in range(3):fixture['inputs'][f'constant-{i}']=save_tensor(output/f'constant-{i}.f32',synth[7+i])
     heads,_=load_heads()
     scheduler=FlowMatchEulerDiscreteScheduler(num_train_timesteps=1000,shift=4.)
@@ -84,9 +126,18 @@ def reference(package,prompt,output,steps,device='cpu',initial_path=None,start_s
             if manifest['sha256']!=expected_hash:raise ValueError('Official and converted DiT source differs')
             block=block.to(device)
             x=block(x,block_freqs,temb,attention_mask=block_mask);del block
+            cuda_memory={}
+            if device=='cuda':
+                # The oracle streams weights too. Retaining freed CUDA blocks
+                # across differently sized projections can exhaust the device
+                # budget even after the module itself has been destroyed.
+                cuda_memory={'allocated_bytes':torch.cuda.memory_allocated(),
+                             'reserved_before_release':torch.cuda.memory_reserved()}
+                torch.cuda.empty_cache()
+                cuda_memory['reserved_after_release']=torch.cuda.memory_reserved()
             if (index+1)%6==0:
                 print(json.dumps({'reference_step':i,'blocks_complete':index+1,
-                    'elapsed_seconds':time.perf_counter()-start}),flush=True)
+                    'elapsed_seconds':time.perf_counter()-start,**cuda_memory}),flush=True)
         x=x.cpu()
         patches=heads.final_linear(heads.final_norm(x,captured['c']))[:h*w]
         prediction=patches.transpose(0,1).reshape(1,h,w,128).permute(0,3,1,2).contiguous()

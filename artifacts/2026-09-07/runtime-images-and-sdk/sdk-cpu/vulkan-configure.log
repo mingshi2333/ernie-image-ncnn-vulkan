@@ -1,0 +1,7 @@
+CMake Error at cmake/Dependencies.cmake:29 (message):
+  The relocatable Ernie SDK requires NCNN_SYSTEM_GLSLANG=OFF
+Call Stack (most recent call first):
+  CMakeLists.txt:23 (include)
+
+
+-- Configuring incomplete, errors occurred!

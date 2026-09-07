@@ -1,0 +1,7 @@
+width=512
+height=512
+valid_text_tokens=15
+text_bucket=32
+dit_text_tokens=64
+total_tokens=1088
+dit_weights=device

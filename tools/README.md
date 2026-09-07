@@ -21,4 +21,6 @@
 
 `pipeline_package.py` 统一旧包和共享包的配置/实例绑定；`pipeline_reference.py` 限定完整边界分母与版本控制中的参考来源。共享包的验证器和证据收集器都核对真实 CAS 对象及源 manifest。新的官方参考应先完成独立执行和来源审查，不能仅写入一组彼此匹配的散列。诊断用 teacher forcing、saved embeddings 和图生图 suffix 各自保留不同的范围，不进入完整文生图通过数。
 
+运行时尺寸的官方参考可通过 `validate_pipeline.reference(..., runtime_size=(width, height))` 从已认证的原始 schema-2 包执行，不修改源包或创建伪造的固定尺寸包。调用方仍需禁用梯度并限制线程及资源。旧来源若缺少官方权重散列，可显式传入 `source_weights_package`；该包也必须命中固定来源散列，且全部非图运行文件与原包同一，才能借用其权重来源记录。参考 fixture 同时保存原配置、目标配置和两个来源身份；原生用户入口不调用此 Python 参考。
+
 现有脚本保持可直接执行及原来的同目录导入，以兼容历史运行快照。新功能优先扩展任务入口，不增加另一套并行命名或隐式下载行为。

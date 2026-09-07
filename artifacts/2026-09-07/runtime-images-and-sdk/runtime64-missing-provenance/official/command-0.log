@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime64-official-v1/worker.py", line 11, in <module>
+    fixture=reference(Path(request['package']),request['prompt'],base/'official/reference',request['steps'],
+        initial_path=Path(request['initial']),runtime_size=tuple(request['runtime_size']))
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime64-official-v1/source/tools/validate_pipeline.py", line 53, in reference
+    raise ValueError('Portable package lacks official source hashes; rebuild it with package_model.py or reuse a verified --reference')
+ValueError: Portable package lacks official source hashes; rebuild it with package_model.py or reuse a verified --reference

@@ -1,0 +1,16 @@
+[
+  {
+    "name": "cpu-configure",
+    "argv": [
+      "cmake",
+      "-S",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference",
+      "-B",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu",
+      "-DERNIE_INSTALL_SDK=ON",
+      "-DERNIE_ENABLE_ALLOCATION_METRICS=OFF"
+    ],
+    "return_code": 1,
+    "seconds": 0.1583868539892137
+  }
+]

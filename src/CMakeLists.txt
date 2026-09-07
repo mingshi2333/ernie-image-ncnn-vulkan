@@ -52,4 +52,4 @@ endif()
 
 # Standalone host-side accounting; no ncnn dependency or runtime instrumentation.
 add_library(ernie-execution-metrics STATIC execution_metrics.cpp)
-target_include_directories(ernie-execution-metrics PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
+target_include_directories(ernie-execution-metrics PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>")

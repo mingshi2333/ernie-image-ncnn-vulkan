@@ -1,0 +1,35 @@
+[
+  {
+    "case": "pinned-source-with-identical-assets",
+    "result": "correct source selected before model forward"
+  },
+  {
+    "case": "missing-weight-provenance",
+    "result": "rejected before model forward",
+    "error": "Portable package lacks official source hashes; rebuild it with package_model.py or reuse a verified --reference"
+  },
+  {
+    "case": "changed-donor-identity",
+    "result": "rejected before model forward",
+    "error": "Unknown or duplicate shared source configuration"
+  },
+  {
+    "case": "changed-source-identity",
+    "result": "rejected before model forward",
+    "error": "Unknown or duplicate shared source configuration"
+  },
+  {
+    "case": "nonmultiple-dimension",
+    "result": "rejected before model forward",
+    "error": "Invalid shared runtime dimensions"
+  },
+  {
+    "case": "area-overflow-contract",
+    "result": "rejected before model forward",
+    "error": "Invalid shared runtime dimensions"
+  },
+  {
+    "case": "legacy-fixed-reference",
+    "result": "correct source selected before model forward"
+  }
+]
