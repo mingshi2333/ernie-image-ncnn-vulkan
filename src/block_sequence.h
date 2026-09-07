@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 #pragma once
 #include "component_files.h"
+#include "weight_placement.h"
 #include "net.h"
 #include <functional>
 #include <string>
@@ -44,11 +45,11 @@ ncnn::Mat run_block_sequence(const std::vector<std::string>& models, const ncnn:
 ncnn::VkMat run_block_sequence(const std::vector<ComponentFiles>& models, const ncnn::VkMat& input,
     const std::vector<ncnn::VkMat>& constants, const ncnn::VulkanDevice* device,
     const ncnn::Option& option, WeightPolicy policy, BlockSequenceStats& stats,
-    const VulkanStageObserver& observer = {});
+    const VulkanStageObserver& observer = {}, WeightPlacement* placement = nullptr);
 
 ncnn::VkMat run_block_sequence(const std::vector<std::string>& models, const ncnn::VkMat& input,
     const std::vector<ncnn::VkMat>& constants, const ncnn::VulkanDevice* device,
     const ncnn::Option& option, WeightPolicy policy, BlockSequenceStats& stats,
-    const VulkanStageObserver& observer = {});
+    const VulkanStageObserver& observer = {}, WeightPlacement* placement = nullptr);
 #endif
 } // namespace ernie

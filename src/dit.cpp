@@ -44,12 +44,13 @@ std::vector<ncnn::Mat> head(const ComponentFiles& files, const std::vector<ncnn:
 #if NCNN_VULKAN
 std::vector<ncnn::VkMat> head(const ComponentFiles& files, const std::vector<ncnn::VkMat>& inputs,
                               size_t outputs, const ncnn::VulkanDevice* device, const ncnn::Option& option,
-                              DitStats& stats,const char* component)
+                              DitStats& stats,const char* component, WeightPlacement* placement)
 {
     auto start=Clock::now();
     auto net=std::make_unique<ncnn::Net>();
     net->opt = option;
     net->opt.blob_vkallocator = net->opt.workspace_vkallocator = net->opt.staging_vkallocator = nullptr;
+    if (placement) net->opt.use_weights_in_host_memory = placement->use_host(files, option.use_weights_in_host_memory);
     net->set_vulkan_device(device);
     try { check(register_layers(*net), "register layers");load_component_param(*net,files); } catch (...) { if(stats.collect_details) stats.details.push_back({component,"net_setup_param","failed",std::chrono::duration<double>(Clock::now()-start).count()});throw; }
     if(stats.collect_details) stats.details.push_back({component,"net_setup_param","complete",std::chrono::duration<double>(Clock::now()-start).count()});
@@ -128,7 +129,7 @@ ncnn::Mat run_dit(const ComponentFiles& input_head, const std::vector<ComponentF
 ncnn::VkMat run_dit(const ComponentFiles& input_head, const std::vector<ComponentFiles>& blocks,
     const ComponentFiles& output_head, const std::vector<ncnn::VkMat>& inputs,
     const ncnn::VulkanDevice* device, const ncnn::Option& option, DitStats& stats,
-    const VulkanStageObserver& observer)
+    const VulkanStageObserver& observer, WeightPlacement* placement)
 {
     if (inputs.size() != 6 || !device || !option.use_vulkan_compute
         || !option.blob_vkallocator || !option.staging_vkallocator)
@@ -138,7 +139,7 @@ ncnn::VkMat run_dit(const ComponentFiles& input_head, const std::vector<Componen
     stats.collect_details=collect_details;
     stats.blocks.collect_details=collect_details;
     auto start = Clock::now();
-    auto projected = head(input_head, {inputs[0], inputs[1], inputs[2]}, 8, device, option,stats,"input-head");
+    auto projected = head(input_head, {inputs[0], inputs[1], inputs[2]}, 8, device, option,stats,"input-head", placement);
     stats.input_head_seconds = std::chrono::duration<double>(Clock::now() - start).count();
     if (observer)
         for (size_t i = 0; i < projected.size(); ++i) observer("head-" + std::to_string(i), projected[i]);
@@ -149,9 +150,9 @@ ncnn::VkMat run_dit(const ComponentFiles& input_head, const std::vector<Componen
         check(command.submit_and_wait(), "prepare shared modulation");
     }
     constants.insert(constants.end(), inputs.begin() + 3, inputs.end());
-    const auto current = run_block_sequence(blocks, projected[0], constants, device, option, WeightPolicy::Stream, stats.blocks, observer);
+    const auto current = run_block_sequence(blocks, projected[0], constants, device, option, WeightPolicy::Stream, stats.blocks, observer, placement);
     start = Clock::now();
-    auto result = head(output_head, {current, projected[1]}, 1, device, option,stats,"output-head")[0];
+    auto result = head(output_head, {current, projected[1]}, 1, device, option,stats,"output-head", placement)[0];
     stats.output_head_seconds = std::chrono::duration<double>(Clock::now() - start).count();
     return result;
 }
@@ -167,10 +168,10 @@ ncnn::Mat run_dit(const std::string& input_head, const std::vector<std::string>&
 ncnn::VkMat run_dit(const std::string& input_head, const std::vector<std::string>& blocks,
     const std::string& output_head, const std::vector<ncnn::VkMat>& inputs,
     const ncnn::VulkanDevice* device, const ncnn::Option& option, DitStats& stats,
-    const VulkanStageObserver& observer)
+    const VulkanStageObserver& observer, WeightPlacement* placement)
 {
     return run_dit(component_files(std::filesystem::path(input_head), "head"), component_files(blocks, "block"),
-                   component_files(std::filesystem::path(output_head), "head"), inputs, device, option, stats, observer);
+                   component_files(std::filesystem::path(output_head), "head"), inputs, device, option, stats, observer, placement);
 }
 #endif
 } // namespace ernie

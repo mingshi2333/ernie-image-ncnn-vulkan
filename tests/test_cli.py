@@ -12,6 +12,13 @@ RUNNER = Path(os.environ.get('ERNIE_TEST_RUNNER', ROOT/'build/ernie-image'))
 
 @unittest.skipUnless(RUNNER.is_file(), 'Build the native generator first')
 class CliTests(unittest.TestCase):
+    def test_weight_placement_options(self):
+        self.assertIn('DiT weights', self.request('--prompt', 'cat', '--dit-weights', 'invalid'))
+        self.assertIn('requires Vulkan', self.request('--prompt', 'cat', '--device', 'cpu',
+                                                     '--precision', 'fp32', '--dit-weights', 'host'))
+        for value in ('-1', '4294967296', '12x'):
+            self.assertIn('Invalid integer', self.request('--prompt', 'cat', '--gpu-reserve-mib', value))
+
     def request(self, *args):
         with tempfile.TemporaryDirectory() as folder:
             result = subprocess.run([str(RUNNER), '--model', str(Path(folder)/'absent'),

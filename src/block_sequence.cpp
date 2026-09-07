@@ -94,7 +94,7 @@ ncnn::Mat run_block_sequence(const std::vector<ComponentFiles>& models, const nc
 ncnn::VkMat run_block_sequence(const std::vector<ComponentFiles>& models, const ncnn::VkMat& input,
     const std::vector<ncnn::VkMat>& constants, const ncnn::VulkanDevice* device,
     const ncnn::Option& option, WeightPolicy policy, BlockSequenceStats& stats,
-    const VulkanStageObserver& observer)
+    const VulkanStageObserver& observer, WeightPlacement* placement)
 {
     check_request(models.size(), constants.size(), policy);
     if (!device || !option.use_vulkan_compute || !option.blob_vkallocator || !option.staging_vkallocator)
@@ -103,14 +103,19 @@ ncnn::VkMat run_block_sequence(const std::vector<ComponentFiles>& models, const 
     stats = {};
     stats.collect_details=collect_details;
     auto configure = [device](ncnn::Net& net) { net.set_vulkan_device(device); };
+    auto load_block = [&](size_t i) {
+        auto selected = option;
+        if (placement) selected.use_weights_in_host_memory = placement->use_host(models[i], option.use_weights_in_host_memory);
+        return load(models[i], selected, configure, stats, int(i));
+    };
     std::vector<std::unique_ptr<ncnn::Net>> resident;
     if (policy == WeightPolicy::Resident)
-        for (size_t i=0;i<models.size();++i) resident.push_back(load(models[i], option, configure, stats, int(i)));
+        for (size_t i=0;i<models.size();++i) resident.push_back(load_block(i));
     stats.peak_loaded_nets = policy == WeightPolicy::Resident ? int(models.size()) : 1;
     ncnn::VkMat current = input;
     for (size_t i = 0; i < models.size(); ++i)
     {
-        auto streamed = policy == WeightPolicy::Stream ? load(models[i], option, configure, stats, int(i)) : nullptr;
+        auto streamed = policy == WeightPolicy::Stream ? load_block(i) : nullptr;
         auto& net = policy == WeightPolicy::Stream ? *streamed : *resident[i];
         for (const auto* layer : net.layers())
             if (!layer->support_vulkan && layer->type != "Input" && layer->type != "Split")
@@ -153,10 +158,10 @@ ncnn::Mat run_block_sequence(const std::vector<std::string>& models, const ncnn:
 ncnn::VkMat run_block_sequence(const std::vector<std::string>& models, const ncnn::VkMat& input,
     const std::vector<ncnn::VkMat>& constants, const ncnn::VulkanDevice* device,
     const ncnn::Option& option, WeightPolicy policy, BlockSequenceStats& stats,
-    const VulkanStageObserver& observer)
+    const VulkanStageObserver& observer, WeightPlacement* placement)
 {
     check_request(models.size(), constants.size(), policy);
-    return run_block_sequence(component_files(models, "block"), input, constants, device, option, policy, stats, observer);
+    return run_block_sequence(component_files(models, "block"), input, constants, device, option, policy, stats, observer, placement);
 }
 #endif
 } // namespace ernie

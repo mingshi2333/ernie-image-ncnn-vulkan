@@ -29,6 +29,7 @@ ernie-image-ncnn-vulkan/
 │   ├── conditioning.*       # 文本补齐、DiT RoPE 和 mask
 │   ├── denoiser.* / dit.*   # 去噪调度和一轮 DiT
 │   ├── block_sequence.*     # 分块加载和设备激活传递
+│   ├── weight_placement.*   # DiT 实时显存预算查询与 GPU/RAM 权重选择
 │   ├── image_encoder.*      # 已认证 encoder 图的 RGB→mean/packed/normalized
 │   ├── img2img.*            # strength、保存噪声和原始 schedule suffix
 │   ├── vae.* / latent_ops.* # VAE 解码、latent 打包与 Euler
@@ -76,6 +77,8 @@ PE 的 26 层和缓存全部释放后才开始图像文本编码；文本权重�
 构建依赖为 `ernie-image → ernie::pipeline → ernie-runtime / ernie-pe / ernie-tokenizer`。只有 CLI 链接 libpng。公共接口头文件只依赖 C++ 标准库。`tests/test_pipeline_api.cpp` 作为外部调用者编译，不包含私有 ncnn 头。
 
 ## 构建和维护约定
+
+`weight_placement.*` 管理每个 DiT 组件加载前的权重放置决定：读取实际计算堆的 Vulkan 预算与本进程使用量，结合权重大小估计、可调余量及原有大序列偏好，选择 GPU 或系统内存。`WeightPlacement` 不持有模型权重、设备命令或后台线程；`block_sequence` 与 heads 仍负责在 GPU 完成后销毁 Net。API/CLI 只传递 auto/device/host 与余量，详细 trace 和返回值记录请求原因及计数。运行中激活迁移与跨去噪步的有界权重缓存尚未实现，不能把这一选择策略称为完整的内存分页系统。
 
 根目录是唯一文档化构建入口；各目录自己的 `CMakeLists.txt` 管理该目录的目标。所有原生可执行文件仍生成在 `build/` 根目录，已有转换命令不需要改路径。日常开发默认构建回归测试和 probes。只构建用户程序时可追加：
 

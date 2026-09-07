@@ -1,0 +1,21 @@
+{
+  "scope": "new adaptive weight policy and affected public CLI/API/SDK checks",
+  "vulkan_ctest": {
+    "passed": 5,
+    "failed": 0,
+    "log": "vulkan-ctest.log"
+  },
+  "cpu_ctest": {
+    "passed": 5,
+    "failed": 0,
+    "log": "cpu-tests.log"
+  },
+  "vulkan_sdk": {
+    "passed": 1,
+    "failed": 0,
+    "log": "vulkan-install.log"
+  },
+  "setup_note": "First multi-target build completed the generator but could not find the test target because BUILD_TESTING was OFF. Enabled BUILD_TESTING in both existing builds and built affected targets successfully.",
+  "cpu_build_return_code": 0,
+  "vulkan_build_return_code": 0
+}

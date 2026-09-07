@@ -1,0 +1,45 @@
+{
+  "phase": "native",
+  "command": [
+    "systemd-run",
+    "--user",
+    "--scope",
+    "--quiet",
+    "--unit=ernie-weight-placement512-v1-native",
+    "--property=MemoryMax=17179869184",
+    "--property=MemorySwapMax=0",
+    "--property=CPUQuota=200%",
+    "taskset",
+    "-c",
+    "4,6",
+    "/usr/bin/python3",
+    "/var/tmp/ernie-weight-placement512-v1/run.py",
+    "native",
+    "4d811426f6ad0d112785df970dcf1dcece41af3707e9c0dd1694ffdbc94f85d5"
+  ],
+  "plan_sha256": "4d811426f6ad0d112785df970dcf1dcece41af3707e9c0dd1694ffdbc94f85d5",
+  "limits": {
+    "memory_max_bytes": 17179869184,
+    "host_available_min_bytes": 3221225472,
+    "gpu_whole_device_max_mib": 6144,
+    "timeout_seconds_per_phase": 1800
+  },
+  "peak_memory_current": 4618027008,
+  "minimum_host_available": 14738100224,
+  "peak_gpu_whole_device_mib": 2363,
+  "complete": true,
+  "cgroup_seen": true,
+  "observed_limits": {
+    "memory.max": "17179869184",
+    "memory.swap.max": "0",
+    "cpu.max": "200000 100000"
+  },
+  "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+  "return_code": 0,
+  "observed_model_mappings": {},
+  "observed_native_pids": [
+    2744153
+  ],
+  "mapping_sample_seconds": 0.5,
+  "wall_seconds": 526.7412298929994
+}

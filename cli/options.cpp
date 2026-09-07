@@ -61,6 +61,7 @@ const char *usage()
            "            [--device cpu|vulkan] [--precision fp32|fp16|bf16]\n"
            "            [--width N --height N] [--seed N] [--steps N] [--threads N]\n"
            "            [--gpu N] [--text-device cpu]\n"
+           "            [--dit-weights auto|device|host] [--gpu-reserve-mib N] (host uses RAM)\n"
            "            [--text-down-vector] (optional FP32 text reduction candidate)\n"
            "            [--vae-device cpu|vulkan] [--vae-convolution direct|sgemm]\n"
            "            [--pe-model DIR] [--pe-max-tokens N] [--pe-greedy]\n"
@@ -153,6 +154,10 @@ Options parse_options(int argc, char **argv)
             r.vae_convolution = value;
         else if (flag == "--text-device")
             r.text_device = value;
+        else if (flag == "--dit-weights")
+            r.dit_weights = value;
+        else if (flag == "--gpu-reserve-mib")
+            r.gpu_reserve_mib = integer(value);
         else if (flag == "--background")
         {
             out.background = color(value);

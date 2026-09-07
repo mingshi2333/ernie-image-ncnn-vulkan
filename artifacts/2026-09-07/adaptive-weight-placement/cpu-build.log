@@ -1,0 +1,22 @@
+[1/22] Building CXX object src/CMakeFiles/ernie-runtime.dir/weight_placement.cpp.o
+[2/22] Building CXX object src/CMakeFiles/ernie-runtime.dir/image_encoder.cpp.o
+[3/22] Building CXX object src/CMakeFiles/ernie-runtime.dir/block_sequence.cpp.o
+[4/22] Building CXX object src/CMakeFiles/ernie-runtime.dir/dit.cpp.o
+[5/22] Building CXX object src/CMakeFiles/ernie-runtime.dir/denoiser.cpp.o
+[6/22] Building CXX object src/CMakeFiles/ernie-runtime.dir/text_encoder.cpp.o
+[7/22] Linking CXX static library src/libernie-runtime.a
+[8/22] Building CXX object src/CMakeFiles/ernie-pe.dir/prompt_enhancer.cpp.o
+[9/22] Linking CXX static library src/libernie-pe.a
+[10/22] Building CXX object src/CMakeFiles/ernie-pipeline.dir/runtime_info.cpp.o
+[11/22] Building CXX object src/CMakeFiles/ernie-pipeline.dir/pipeline.cpp.o
+[12/22] Linking CXX static library src/libernie-pipeline.a
+[13/22] Building CXX object cli/CMakeFiles/ernie-image.dir/main.cpp.o
+[14/22] Building CXX object cli/CMakeFiles/ernie-image.dir/options.cpp.o
+[15/22] Building CXX object tests/CMakeFiles/ernie-pipeline-api-contract.dir/test_pipeline_api.cpp.o
+[16/22] Building CXX object tests/CMakeFiles/ernie-request-validation-contract.dir/test_request_validation.cpp.o
+[17/22] Building CXX object cli/CMakeFiles/ernie-image.dir/image_io.cpp.o
+[18/22] Building CXX object tests/CMakeFiles/ernie-weight-placement-contract.dir/test_weight_placement.cpp.o
+[19/22] Linking CXX executable ernie-image
+[20/22] Linking CXX executable ernie-pipeline-api-contract
+[21/22] Linking CXX executable ernie-weight-placement-contract
+[22/22] Linking CXX executable ernie-request-validation-contract

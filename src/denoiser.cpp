@@ -88,7 +88,7 @@ ncnn::Mat denoise(const DenoiseModel &model, const ncnn::Mat &initial,
 ncnn::VkMat denoise(const DenoiseModel &model, const ncnn::VkMat &initial,
                     const std::vector<ncnn::VkMat> &constants, int steps, const ncnn::VulkanDevice *device,
                     const ncnn::Option &option, std::vector<DenoiseStepStats> &stats,
-                    const VulkanStepObserver &observer, int start_step, bool collect_details)
+                    const VulkanStepObserver &observer, int start_step, bool collect_details, WeightPlacement* placement)
 {
     check_request(model, initial, constants.size());
     if (start_step < 0 || start_step > steps)
@@ -122,7 +122,7 @@ ncnn::VkMat denoise(const DenoiseModel &model, const ncnn::VkMat &initial,
                                               constants[1], constants[2], constants[3]};
         ncnn::VkMat prediction;
         try {
-            const auto output=run_dit(model.input_head, model.blocks, model.output_head, inputs, device, option, step.dit);
+            const auto output=run_dit(model.input_head, model.blocks, model.output_head, inputs, device, option, step.dit, {}, placement);
             ncnn::VkMat next;
             ncnn::VkCompute command(device);
             device->convert_packing(output, prediction, 1, 1, command, option);

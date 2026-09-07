@@ -30,11 +30,11 @@ ncnn::Mat run_dit(const std::string& input_head, const std::vector<std::string>&
 ncnn::VkMat run_dit(const ComponentFiles& input_head, const std::vector<ComponentFiles>& blocks,
     const ComponentFiles& output_head, const std::vector<ncnn::VkMat>& inputs,
     const ncnn::VulkanDevice* device, const ncnn::Option& option, DitStats& stats,
-    const VulkanStageObserver& observer = {});
+    const VulkanStageObserver& observer = {}, WeightPlacement* placement = nullptr);
 
 ncnn::VkMat run_dit(const std::string& input_head, const std::vector<std::string>& blocks,
     const std::string& output_head, const std::vector<ncnn::VkMat>& inputs,
     const ncnn::VulkanDevice* device, const ncnn::Option& option, DitStats& stats,
-    const VulkanStageObserver& observer = {});
+    const VulkanStageObserver& observer = {}, WeightPlacement* placement = nullptr);
 #endif
 }

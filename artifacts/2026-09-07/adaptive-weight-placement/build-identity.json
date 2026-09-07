@@ -1,0 +1,26 @@
+{
+  "head": "8daca4a63bfbcb98ce77c7734ee55107e953438d",
+  "uncommitted_implementation": true,
+  "ncnn_head": "6a1bf000f363714839a36793addc8c879d3d899e",
+  "binary": {
+    "bytes": 36855032,
+    "sha256": "48db9c4dfb9d24cd970d6732f0bfaa66a67caabd13faab1fb01f07e2790d194e"
+  },
+  "settings": [
+    "BUILD_TESTING:BOOL=ON",
+    "CMAKE_BUILD_TYPE:STRING=Release",
+    "CMAKE_CXX_COMPILER:STRING=/usr/bin/clang++",
+    "ERNIE_ALLOW_UNPINNED_NCNN:BOOL=OFF",
+    "ERNIE_BUILD_ALLOCATION_PROBE:BOOL=OFF",
+    "ERNIE_BUILD_GENERATOR:BOOL=ON",
+    "ERNIE_BUILD_PROBES:BOOL=ON",
+    "ERNIE_BUILD_TESTS:UNINITIALIZED=ON",
+    "ERNIE_BUILD_TOKENIZER:BOOL=ON",
+    "ERNIE_ENABLE_ALLOCATION_METRICS:BOOL=OFF",
+    "ERNIE_ENABLE_VULKAN:BOOL=ON",
+    "ERNIE_EXPERIMENT_MAPPED_MODEL_LOADING:BOOL=OFF",
+    "ERNIE_INSTALL_SDK:BOOL=ON",
+    "ERNIE_MINIMAL_NCNN:BOOL=ON",
+    "ERNIE_NCNN_SOURCE_DIR:PATH=/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/third_party/ncnn"
+  ]
+}

@@ -482,3 +482,52 @@ The tested archive's executable also has an authenticated
 Relinking the frozen objects to produce that map yields the exact same binary.
 Its selected archive members and final input-section contributions are recorded
 separately from dependency availability and redistribution decisions.
+
+## Adaptive DiT weight placement
+
+Vulkan generation defaults to `--dit-weights auto`. Before loading each DiT
+input head, block and output head, it queries the compute heap's driver budget
+and current process usage. It requests RAM weights when estimated remaining
+headroom is smaller than the estimated weight payload plus the configured
+reserve. The existing large-sequence preference (more than 6144 total tokens)
+also requests RAM. This token count is unrelated to the test supervisor's
+6144 MiB whole-device guard.
+
+```sh
+# Query the driver before each DiT component; leave 512 MiB extra headroom.
+./build/ernie-image --model MODEL --prompt "A red apple" --output auto.png \
+  --dit-weights auto --gpu-reserve-mib 512
+
+# Explicit RAM placement; computation still runs on Vulkan.
+./build/ernie-image --model MODEL --prompt "A red apple" --output ram.png \
+  --dit-weights host
+```
+
+`--dit-weights device` requests GPU weights regardless of the automatic policy.
+`--gpu-reserve-mib` is extra headroom, not a GPU usage cap. Its default 512 MiB
+is a configurable engineering setting, not a model requirement. The payload
+estimate is twice the stored weight file size, covering expansion of the
+reviewed BF16 files to FP32; it is not a bound on total inference memory.
+
+The query uses `max(heapBudget - heapUsage, 0)` from
+[`VK_EXT_memory_budget`](https://docs.vulkan.org/refpages/latest/refpages/source/VK_EXT_memory_budget.html).
+These are driver estimates that can change as other applications run. The
+pinned ncnn `get_heap_budget()` reports the budget without subtracting usage,
+so it is not used as a free-memory counter. When the extension is unavailable,
+auto keeps the existing shape preference and records the missing budget;
+explicit host/device placement remains available.
+
+Placement changes happen before a new component loads, after preceding work
+has completed. GPU activations and workspace still need device memory. This
+does not implement activation spilling, recovery after a failed Vulkan
+command, or a retained RAM cache of all 36 blocks. ncnn can itself fall back
+from host allocation to device allocation, so the CLI/API report placement
+**requests**, not an allocator-level guarantee. Detailed tracing adds
+`weight-placement.txt`, with each request's reason, remaining-byte estimate,
+weight-byte estimate and reserve. Normal generation reports GPU/RAM request
+counts without tensor downloads.
+
+The standard-library-only C++ API exposes `GenerationRequest::dit_weights`
+and `gpu_reserve_mib`, plus request counts in `GenerationResult`. Explicit
+DiT placement controls require a Vulkan generation device; CPU text and VAE
+placement remain controlled by their existing settings.

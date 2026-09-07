@@ -102,6 +102,10 @@ int main(int argc, char **argv)
 #else
         const auto result = ernie::generate(request,progress);
 #endif
+        if (result.host_weight_requests || result.device_weight_requests)
+            std::cout << "DiT weight placement requests: GPU=" << result.device_weight_requests
+                      << " RAM=" << result.host_weight_requests
+                      << " budget unavailable=" << result.unavailable_memory_queries << '\n';
         const auto write_start = std::chrono::steady_clock::now();
 #ifdef ERNIE_CLI_ALLOCATION_METRICS
         failure_phase="image_write_failed";

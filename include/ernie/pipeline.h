@@ -49,6 +49,10 @@ struct GenerationRequest
     int input_source_width = 0, input_source_height = 0;
     std::array<uint8_t, 3> input_alpha_background{255, 255, 255};
     std::array<uint8_t, 3> input_resize_background{0, 0, 0};
+    std::string dit_weights = "auto"; // auto, device, host (RAM); Vulkan DiT only.
+    // Extra headroom beyond estimated weight payload; a policy setting, not a
+    // guarantee that the remaining activation/workspace allocations will fit.
+    uint32_t gpu_reserve_mib = 512;
 };
 
 struct GenerationResult
@@ -59,6 +63,8 @@ struct GenerationResult
     bool pe_eos = false;
     size_t pe_generated_tokens = 0;
     double elapsed_seconds = 0, vae_seconds = 0;
+    uint64_t host_weight_requests = 0, device_weight_requests = 0;
+    uint64_t unavailable_memory_queries = 0;
 };
 
 struct Progress

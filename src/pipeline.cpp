@@ -20,6 +20,7 @@
 #include <cmath>
 #include <filesystem>
 #include <fstream>
+#include <iomanip>
 #include <limits>
 #include <random>
 #include <stdexcept>
@@ -86,6 +87,9 @@ void validate_request(const GenerationRequest &r)
         throw std::invalid_argument("GPU index requires a Vulkan generation or VAE device");
     if (r.text_device != "cpu")
         throw std::invalid_argument("Only CPU text encoding is currently supported");
+    parse_weight_memory(r.dit_weights);
+    if (r.device != "vulkan" && (r.dit_weights != "auto" || r.gpu_reserve_mib != 512))
+        throw std::invalid_argument("DiT weight placement requires Vulkan generation");
     if (!std::isfinite(r.strength) || r.strength < 0.f || r.strength > 1.f)
         throw std::invalid_argument("Strength must be finite and in [0,1]");
     if (bool(r.width) != bool(r.height))
@@ -145,7 +149,7 @@ RgbImage rgb_image(const ncnn::Mat &decoded)
 }
 ncnn::Mat run_dit(const ModelPackage &package, const ncnn::Mat &initial, const std::vector<ncnn::Mat> &constants,
                   const ncnn::Option &cpu, const GenerationRequest &request, const ProgressCallback &notify,
-                  int start_step, MetricsRecorder& metrics)
+                  int start_step, MetricsRecorder& metrics, GenerationResult& result)
 {
     const auto &backend = request.device, &precision = request.precision;
     const int steps = request.steps;
@@ -219,6 +223,25 @@ ncnn::Mat run_dit(const ModelPackage &package, const ncnn::Mat &initial, const s
             check(upload.submit_and_wait(), "Upload conditioning");
             metrics.since(ExecutionPhase::Upload,transfer_start);metrics.submissions(1);
         }
+        std::ofstream placement_trace;
+        if (!trace.empty())
+        {
+            placement_trace.open(trace / "weight-placement.txt", std::ios::binary);
+            if (!placement_trace) throw std::runtime_error("Cannot write weight placement trace");
+        }
+        WeightPlacement placement(parse_weight_memory(request.dit_weights),
+            std::uint64_t(request.gpu_reserve_mib) * 1024 * 1024,
+            vulkan_memory_budget_reader(device, gpu_initial.data->memory_type_index),
+            [&](const ComponentFiles& files, const WeightPlacementDecision& decision) {
+                if (trace.empty()) return;
+                placement_trace << std::quoted(files.weight_path) << " requested=" << (decision.host ? "host" : "device")
+                    << " reason=" << decision.reason << " available_bytes=";
+                if (decision.available_bytes) placement_trace << *decision.available_bytes;
+                else placement_trace << "unavailable";
+                placement_trace << " estimated_weight_bytes=" << decision.weight_bytes
+                    << " reserve_bytes=" << decision.reserve_bytes << '\n';
+                if (!placement_trace) throw std::runtime_error("Cannot write weight placement trace");
+            });
         ncnn::VkMat gpu_latent;
         try { gpu_latent = ernie::denoise(dit, gpu_initial, gpu_constants, steps, device, option, stats,
                            [&](size_t i, const ncnn::VkMat &prediction, const ncnn::VkMat &sample)
@@ -236,8 +259,16 @@ ncnn::Mat run_dit(const ModelPackage &package, const ncnn::Mat &initial, const s
                                    write_tensor(trace / ("step-" + std::to_string(i) + ".f32"), x);
                                }
                                progress(i);
-                           }, start_step, metrics.metrics != nullptr); }
+                           }, start_step, metrics.metrics != nullptr, &placement); }
         catch (...) { for(size_t k=reported_steps;k<stats.size();++k)metrics.denoise_step(stats[k],start_step+int(k));throw; }
+        result.host_weight_requests = placement.host_requests();
+        result.device_weight_requests = placement.device_requests();
+        result.unavailable_memory_queries = placement.unavailable_queries();
+        if (placement_trace.is_open())
+        {
+            placement_trace.close();
+            if (!placement_trace) throw std::runtime_error("Cannot finish weight placement trace");
+        }
         ncnn::VkCompute download(device);
         Clock::time_point transfer_start;if(metrics.metrics)transfer_start=Clock::now();
         download.record_download(gpu_latent, latent, high);
@@ -399,7 +430,7 @@ GenerationResult generate_impl(const GenerationRequest &r, const ProgressCallbac
                    "\nheight=" + std::to_string(h * 16) + "\nvalid_text_tokens=" + std::to_string(ids.size()) +
                    "\ntext_bucket=" + std::to_string(bucket) + "\ndit_text_tokens=" + std::to_string(cfg.dit_text_tokens) +
                    "\ntotal_tokens=" + std::to_string(w * h + cfg.dit_text_tokens) +
-                   "\ndit_weights=" + (r.device == "cpu" || host_weights ? std::string("host") : std::string("device")) + "\n");
+                   "\ndit_weights=" + (r.device == "cpu" ? std::string("host") : r.dit_weights) + "\n");
     }
     ncnn::Mat text;
     const auto text_start = Clock::now();
@@ -463,7 +494,7 @@ GenerationResult generate_impl(const GenerationRequest &r, const ProgressCallbac
     }
     auto dit_option = cpu;
     dit_option.use_weights_in_host_memory = host_weights;
-    const auto latent = run_dit(package, initial, constants, dit_option, r, notify, start_step,metrics);
+    const auto latent = run_dit(package, initial, constants, dit_option, r, notify, start_step,metrics,result);
     const auto mean = read_tensor(package.file("vae/bn-mean.f32"), 128),
                variance = read_tensor(package.file("vae/bn-variance.f32"), 128);
     const auto unpacked = unpack_for_vae(latent, mean, variance, r.threads);

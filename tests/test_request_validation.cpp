@@ -41,6 +41,9 @@ int main()
     try
     {
         rejected("Threads", [](auto &r) { r.threads = 0; });
+        rejected("DiT weights", [](auto &r) { r.dit_weights = "invalid"; });
+        rejected("requires Vulkan", [](auto &r) { r.dit_weights = "host"; });
+        rejected("requires Vulkan", [](auto &r) { r.gpu_reserve_mib = 0; });
         rejected("Threads", [](auto &r) { r.threads = 257; });
         rejected("GPU index", [](auto &r) { r.gpu_index = -2; });
         rejected("GPU index requires", [](auto &r) { r.gpu_index = 0; });

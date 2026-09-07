@@ -1,0 +1,98 @@
+[
+  {
+    "file": "plan.json",
+    "source": "/var/tmp/ernie-weight-placement512-v1/plan.json",
+    "bytes": 80390,
+    "sha256": "4d811426f6ad0d112785df970dcf1dcece41af3707e9c0dd1694ffdbc94f85d5"
+  },
+  {
+    "file": "build-identity.json",
+    "source": "/var/tmp/ernie-weight-placement512-v1/build-identity.json",
+    "bytes": 956,
+    "sha256": "44c42020bb8894498b7fbfc1ec3756782994b9d83379316bb96c9f637422b2fd"
+  },
+  {
+    "file": "comparison.json",
+    "source": "/var/tmp/ernie-weight-placement512-v1/comparison.json",
+    "bytes": 9890,
+    "sha256": "35b1cab5c07e29807f2e8109efe4c42849f711ed4459c31f093dc3d0169d859b"
+  },
+  {
+    "file": "run.py",
+    "source": "/var/tmp/ernie-weight-placement512-v1/run.py",
+    "bytes": 1146,
+    "sha256": "3adfb392e1676152a882e85378d8b220ecf67b9d6f3d7d051832512edeeef4bb"
+  },
+  {
+    "file": "supervisor.py",
+    "source": "/var/tmp/ernie-weight-placement512-v1/supervisor.py",
+    "bytes": 5824,
+    "sha256": "7ca7080a95a4000b3bd2a3a3365a79634417353b984a1bb74e97baf749dbe7f4"
+  },
+  {
+    "file": "native-process.json",
+    "source": "/var/tmp/ernie-weight-placement512-v1/native/process.json",
+    "bytes": 1267,
+    "sha256": "fe76a858cd03180943cf92feb531019097bc4534e9d03b5ef56ae386142c95ef"
+  },
+  {
+    "file": "native-command.log",
+    "source": "/var/tmp/ernie-weight-placement512-v1/native/command-0.log",
+    "bytes": 39934,
+    "sha256": "4251d8a7e31904fb80453c7105dd7225b2bb00d69a8d88b6b5dec80f455a5468"
+  },
+  {
+    "file": "native-worker-result.json",
+    "source": "/var/tmp/ernie-weight-placement512-v1/native/worker-result.json",
+    "bytes": 1708,
+    "sha256": "b07b56a124a0c4d53d6f6520e345863e00a917a44b6d7e9dd335151c1e33beeb"
+  },
+  {
+    "file": "weight-placement.txt",
+    "source": "/var/tmp/ernie-weight-placement512-v1/native/trace/weight-placement.txt",
+    "bytes": 70840,
+    "sha256": "960f0298b66b6663e22652766eb6727aafe57fcb807d7d4a8c7f527ae9fed765"
+  },
+  {
+    "file": "prepare.py",
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/weight-placement-v1/prepare.py",
+    "bytes": 3257,
+    "sha256": "264004622d366195901e3e1402eee29d62327792e90272e608f2ff9540a66537"
+  },
+  {
+    "file": "compare.py",
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/weight-placement-v1/compare.py",
+    "bytes": 3663,
+    "sha256": "ed318bad60db3e5a512f96d9db5d52eb52c0825aaba7a3b28db2b5519a4895c6"
+  },
+  {
+    "file": "checks.json",
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/weight-placement-v1/checks.json",
+    "bytes": 628,
+    "sha256": "861aea02e2ac050f8ba38237620037b2ab4ab64f6430f1b2023d54e4b914c16c"
+  },
+  {
+    "file": "vulkan-ctest.log",
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/weight-placement-v1/vulkan-ctest.log",
+    "bytes": 12700,
+    "sha256": "2afe4acc734f4fd3c95f81487617e092e20daa21c4cddfca82425c4d20751e8c"
+  },
+  {
+    "file": "cpu-tests.log",
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/weight-placement-v1/cpu-tests.log",
+    "bytes": 717,
+    "sha256": "5333ce7f7dd3baa4680b74d0a64f11b188a0c3b3cbe0b33f80147417fa85b5f5"
+  },
+  {
+    "file": "vulkan-install.log",
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/weight-placement-v1/vulkan-install.log",
+    "bytes": 289,
+    "sha256": "22845596989ae969a18d9b4b6c2d803a307c3772a1f1e749d6e5c5b117185ab1"
+  },
+  {
+    "file": "cpu-build.log",
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/weight-placement-v1/cpu-build.log",
+    "bytes": 1641,
+    "sha256": "aa0642480db0a5848d4b4cd86d3712fcfe1db7cd01323d786be7cca4898d9515"
+  }
+]
