@@ -17,7 +17,8 @@ bool reviewed_shape_config(const ModelConfig &c)
 {
     return (c.packed_width == 4 && c.packed_height == 4 && c.text_bucket == 32 && c.dit_text_tokens == 272) ||
            (c.packed_width == 32 && c.packed_height == 24 && c.text_bucket == 2048 && c.dit_text_tokens == 2048) ||
-           (c.packed_width == 64 && c.packed_height == 64 && c.text_bucket == 64 && c.dit_text_tokens == 64);
+           (c.packed_width == 64 && c.packed_height == 64 && c.text_bucket == 64 && c.dit_text_tokens == 64) ||
+           (c.packed_width == 86 && c.packed_height == 48 && c.text_bucket == 64 && c.dit_text_tokens == 64);
 }
 ModelConfig model_config(const fs::path &path)
 {

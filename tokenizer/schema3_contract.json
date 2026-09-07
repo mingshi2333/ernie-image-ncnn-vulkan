@@ -19,6 +19,18 @@
       "dit_layers": 36
     }
   },
+  "reviewed_runtime_targets": {
+    "72bb195a2d0b3ef2a25f873666f51f4bbec4b391744518597be87206a551efc1": [
+      {
+        "packed_width": 86,
+        "packed_height": 48,
+        "text_bucket": 64,
+        "dit_text_tokens": 64,
+        "text_layers": 25,
+        "dit_layers": 36
+      }
+    ]
+  },
   "math": {
     "encoder_posterior": "mode_first_32_channels_no_sampling",
     "packing": "pixel_unshuffle_2",

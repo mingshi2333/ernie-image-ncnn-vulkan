@@ -1,0 +1,24 @@
+{
+  "scope": "Build a standalone physical-copy CAS package from the two original sources, then verify every object with the executed native binary; no additional image inference",
+  "output": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared",
+  "commands": [
+    [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-shape1376-v1/source/tools/package_dynamic_model.py",
+      "--schema3",
+      "--source",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo512x384-s2048-portable",
+      "--source",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo1024-s64-portable",
+      "--output",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared"
+    ],
+    [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-shape1376-v1/ernie-image.snapshot",
+      "--model",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared",
+      "--verify-model"
+    ]
+  ],
+  "results": []
+}

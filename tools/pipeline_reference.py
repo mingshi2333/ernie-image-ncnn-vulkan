@@ -9,6 +9,11 @@ import re
 # This binds the whole fixture, including official environment and tensor hashes;
 # a caller cannot establish provenance by editing fields inside that fixture.
 REVIEWED_SHARED_REFERENCES = {
+    '930d1593ea6e4246e03edd990fbdf3a805de1b378ea2a5bbc8b15695a762f128': {
+        'source_manifest_sha256': '72bb195a2d0b3ef2a25f873666f51f4bbec4b391744518597be87206a551efc1',
+        'evidence': 'artifacts/2026-09-07/fixed1376-native-pipeline/README.md',
+        'scope': '1376x768 apple official FP32 development reference; eight complete steps; unchanged 1024 source weights',
+    },
     '8d7638b1808b4b435565d4045ffc39e3a06fb1de35f8a52f23de75aec2feae11': {
         'source_manifest_sha256': 'ef98859ac741f6923680fb02de39e663fa3fa01943eff9d2d85c6ddaf40c9e59',
         'evidence': 'artifacts/2026-09-06/native-vector-pipeline/README.md',
@@ -89,9 +94,14 @@ def reviewed_shared_reference(path, binding, package_manifest=None):
         matches = [i for i in manifest['instances']
                    if i['source_manifest_sha256'] == binding['source_manifest_sha256']]
         if (manifest.get('schema_version') != 3 or len(matches) != 1
-                or matches[0]['config'] != json.loads(path.read_text())['config']
                 or matches[0]['runtime_bindings'] != binding.get('runtime_bindings')):
             raise ValueError('Shared result instance binding differs')
+        from pipeline_package import select_shared_instance
+        target_config = json.loads(path.read_text())['config']
+        selected, runtime_target = select_shared_instance(
+            matches, target_config['packed_width'] * 16, target_config['packed_height'] * 16)
+        if selected['config'] != target_config or binding.get('runtime_target') != runtime_target:
+            raise ValueError('Shared result runtime target binding differs')
         # A new self-consistent shared manifest is not a trusted source manifest.
         # The selected source object must retain the registry's immutable digest.
         objects = package_manifest.parent / 'objects'

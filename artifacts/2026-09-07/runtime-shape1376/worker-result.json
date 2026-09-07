@@ -1,0 +1,30 @@
+[
+  {
+    "command": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-shape1376-v1/source/tools/validate_pipeline.py",
+      "--model",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/shared-runtime-schema3-probe-v1",
+      "--runner",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-shape1376-v1/ernie-image.snapshot",
+      "--prompt-file",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-shape1376-v1/prompt.txt",
+      "--precision",
+      "fp32",
+      "--width",
+      "1376",
+      "--height",
+      "768",
+      "--steps",
+      "8",
+      "--latent",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/official/validation/reference/initial.f32",
+      "--output",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-shape1376-v1/native/validation",
+      "--reference",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/f1-pipeline1376-v2/official/validation/reference",
+      "--text-down-vector"
+    ],
+    "return_code": 1
+  }
+]

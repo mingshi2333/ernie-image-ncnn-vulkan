@@ -1,0 +1,38 @@
+[
+  {
+    "command": [
+      "cmake",
+      "--build",
+      "build-o2/component64-on",
+      "--parallel",
+      "2",
+      "--target",
+      "ernie-shape-plan-contract"
+    ],
+    "return_code": 0,
+    "wall_seconds": 0.42776600799697917
+  },
+  {
+    "command": [
+      "ctest",
+      "--test-dir",
+      "build-o2/component64-on",
+      "--output-on-failure",
+      "-R",
+      "^shape_plan_contract$"
+    ],
+    "return_code": 0,
+    "wall_seconds": 0.008216246002120897
+  },
+  {
+    "command": [
+      "build-o2/component64-on/ernie-model-package-contract",
+      "outputs/shared-runtime-schema3-probe-v1",
+      "1376",
+      "768",
+      "models/turbo1376x768-s64-portable"
+    ],
+    "return_code": 0,
+    "wall_seconds": 42.28692916799628
+  }
+]

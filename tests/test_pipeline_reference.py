@@ -63,6 +63,46 @@ class ReferenceContractTest(unittest.TestCase):
         data = fixture(); data['ids'] = [True, 2]
         with self.assertRaises(ValueError): self.check(data)
 
+    def test_runtime_target_cannot_replace_source_config_or_omit_target_binding(self):
+        import pipeline_package
+        source_config = dict(packed_width=64, packed_height=64, text_bucket=64,
+                             dit_text_tokens=64, text_layers=25, dit_layers=36)
+        target_config = dict(source_config, packed_width=86, packed_height=48)
+        files = {'dit/block-35/block.ncnn.bin': 'b' * 64}
+        source = dict(schema_version=2, portable=True, config=source_config, files=files)
+        source_bytes = json.dumps(source).encode()
+        digest = hashlib.sha256(source_bytes).hexdigest()
+        instance = dict(source_manifest_sha256=digest, config=source_config, runtime_bindings=files)
+        contract = {'source_manifests': {digest: source_config},
+                    'reviewed_runtime_targets': {digest: [target_config]}}
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / 'objects').mkdir()
+            (root / 'objects' / digest).write_bytes(source_bytes)
+            fixture_path = root / 'fixture.json'
+            fixture_path.write_text(json.dumps({'config': target_config}))
+            fixture_digest = hashlib.sha256(fixture_path.read_bytes()).hexdigest()
+            manifest = {'schema_version': 3, 'instances': [instance]}
+            manifest_path = root / 'manifest.json'
+            manifest_path.write_text(json.dumps(manifest))
+            trusted = {fixture_digest: {'source_manifest_sha256': digest}}
+            with patch.object(pipeline_package, 'shared_contract', return_value=contract), \
+                    patch.dict(reference.REVIEWED_SHARED_REFERENCES, trusted, clear=True):
+                _, target = pipeline_package.select_shared_instance([instance], 1376, 768)
+                binding = {'source_manifest_sha256': digest, 'runtime_bindings': files,
+                           'shared_manifest_sha256': hashlib.sha256(manifest_path.read_bytes()).hexdigest(),
+                           'runtime_target': target}
+                reference.reviewed_shared_reference(fixture_path, binding, manifest_path)
+                for altered in ({k: v for k, v in binding.items() if k != 'runtime_target'},
+                                {**binding, 'runtime_target': {**target, 'source_config': target_config}}):
+                    with self.assertRaises(ValueError):
+                        reference.reviewed_shared_reference(fixture_path, altered, manifest_path)
+                manifest['instances'][0]['config'] = target_config
+                manifest_path.write_text(json.dumps(manifest))
+                binding['shared_manifest_sha256'] = hashlib.sha256(manifest_path.read_bytes()).hexdigest()
+                with self.assertRaises(ValueError):
+                    reference.reviewed_shared_reference(fixture_path, binding, manifest_path)
+
     def test_whole_fixture_digest_and_source_binding_are_both_required(self):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / 'fixture.json'; path.write_text(json.dumps(fixture()))

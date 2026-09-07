@@ -1,0 +1,50 @@
+Test project /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-o2/component64-on
+    Start 15: package_integrity
+1/5 Test #15: package_integrity ................   Passed    0.36 sec
+    Start 16: cli_contract
+2/5 Test #16: cli_contract .....................   Passed    0.75 sec
+    Start 38: shape_plan_contract
+Could not find executable /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-o2/component64-on/ernie-shape-plan-contract
+Looked in the following places:
+/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-o2/component64-on/ernie-shape-plan-contract
+/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-o2/component64-on/ernie-shape-plan-contract
+/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-o2/component64-on/Release/ernie-shape-plan-contract
+/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-o2/component64-on/Release/ernie-shape-plan-contract
+/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-o2/component64-on/Debug/ernie-shape-plan-contract
+/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-o2/component64-on/Debug/ernie-shape-plan-contract
+/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-o2/component64-on/MinSizeRel/ernie-shape-plan-contract
+/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-o2/component64-on/MinSizeRel/ernie-shape-plan-contract
+/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-o2/component64-on/RelWithDebInfo/ernie-shape-plan-contract
+/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-o2/component64-on/RelWithDebInfo/ernie-shape-plan-contract
+/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-o2/component64-on/Deployment/ernie-shape-plan-contract
+/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-o2/component64-on/Deployment/ernie-shape-plan-contract
+/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-o2/component64-on/Development/ernie-shape-plan-contract
+/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-o2/component64-on/Development/ernie-shape-plan-contract
+home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-o2/component64-on/ernie-shape-plan-contract
+home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-o2/component64-on/ernie-shape-plan-contract
+home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-o2/component64-on/Release/ernie-shape-plan-contract
+home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-o2/component64-on/Release/ernie-shape-plan-contract
+home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-o2/component64-on/Debug/ernie-shape-plan-contract
+home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-o2/component64-on/Debug/ernie-shape-plan-contract
+home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-o2/component64-on/MinSizeRel/ernie-shape-plan-contract
+home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-o2/component64-on/MinSizeRel/ernie-shape-plan-contract
+home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-o2/component64-on/RelWithDebInfo/ernie-shape-plan-contract
+home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-o2/component64-on/RelWithDebInfo/ernie-shape-plan-contract
+home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-o2/component64-on/Deployment/ernie-shape-plan-contract
+home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-o2/component64-on/Deployment/ernie-shape-plan-contract
+home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-o2/component64-on/Development/ernie-shape-plan-contract
+home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-o2/component64-on/Development/ernie-shape-plan-contract
+Unable to find executable: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-o2/component64-on/ernie-shape-plan-contract
+3/5 Test #38: shape_plan_contract ..............***Not Run   0.00 sec
+    Start 39: shape_graph_contract
+4/5 Test #39: shape_graph_contract .............   Passed    0.00 sec
+    Start 41: model_package_contract
+5/5 Test #41: model_package_contract ...........   Passed    0.00 sec
+
+80% tests passed, 1 tests failed out of 5
+
+Total Test time (real) =   1.12 sec
+
+The following tests FAILED:
+	 38 - shape_plan_contract (Not Run)
+Errors while running CTest

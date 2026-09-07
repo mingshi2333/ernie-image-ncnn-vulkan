@@ -1,0 +1,30 @@
+{
+  "command": [
+    "systemd-run",
+    "--user",
+    "--scope",
+    "--quiet",
+    "--unit=ernie-runtime-shape-store-check-v1",
+    "-p",
+    "MemoryMax=4G",
+    "-p",
+    "MemorySwapMax=0",
+    "-p",
+    "CPUQuota=200%",
+    "taskset",
+    "-c",
+    "8,10",
+    ".venv/bin/python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_dynamic_package.py",
+    "-v"
+  ],
+  "return_code": 0,
+  "wall_seconds": 0.36285287600185256,
+  "scope": "Existing small object-store and shared-package regression checks after adding runtime target registry"
+}

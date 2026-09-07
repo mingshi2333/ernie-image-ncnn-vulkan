@@ -5,7 +5,8 @@
 namespace ernie
 {
 // Full-hash-reviewed graph text instantiation; no file writes or weight copies.
-// Targets remain restricted to independently exported static configurations.
+// Targets remain restricted to configurations with reviewed component and
+// complete execution evidence; that evidence can retain numerical failures.
 std::string shape_graph_sha256(const std::string &bytes);
 std::string instantiate_shape_graph(const std::string &kind, const std::string &graph,
                                     const ModelConfig &source, const ModelConfig &target);

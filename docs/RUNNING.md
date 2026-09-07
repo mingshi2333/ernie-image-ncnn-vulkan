@@ -158,9 +158,10 @@ The output uses the existing fixed-package protocol and contains 136 runtime
 files. Add `--link` during packaging to share local source weights instead of
 copying them; that development package requires the source to remain present.
 The text capacity is 64 tokens including BOS, giving 4192 combined tokens.
-This option does not expand the schema-3 shared-instance registry or provide an
-encoder for this shape. Broader prompt-quality acceptance remains separate from
-the fixed development case.
+This command produces a separate static package. A shared package can instead
+instantiate this spatial target at runtime from the same 1024 source, as described
+below. An encoder is not available at this shape. Broader prompt-quality
+acceptance remains separate from the fixed development case.
 
 The complete 1376x768 apple fixture has executed all eight native steps and CPU
 decoding, but remains **quality_gate_failed**: 23/25 tensor checks pass;
@@ -168,6 +169,55 @@ prediction-7 and decoded fail their fixed maximum-error limits. PNG MAE is
 0.005041/255 and max error is 3 versus the original limit of 2. The portable
 package passes Python/native verification and matches all 136 runtime files of
 that actual run. See [the full evidence](../artifacts/2026-09-07/fixed1376-native-pipeline/README.md).
+
+## Shared weights and runtime dimensions
+
+Prepare a shared package once from the reviewed portable source packages:
+
+```sh
+python tools/package_dynamic_model.py --schema3 \
+  --source models/turbo512x384-s2048-portable \
+  --source models/turbo1024-s64-portable --output models/turbo-shared
+build/ernie-image --model models/turbo-shared --verify-model
+build/ernie-image --model models/turbo-shared \
+  --prompt 'A red apple on a wooden table, soft daylight, realistic photo.' \
+  --width 1376 --height 768 --precision fp32 --text-down-vector \
+  --steps 8 --seed 42 --output outputs/shared-1376.png
+```
+
+Generation requires only the native executable and this package. The program
+instantiates the 1376x768 graphs in memory from the existing 1024 templates and
+loads the original shared weight objects. Changing to a supported resolution
+does not run Python or create another copy of the weights.
+
+| Requested size | Source needed in the shared package | Text capacity, including BOS |
+|---|---|---:|
+| 512x384 | 512x384/s2048 | 2048 |
+| 1024x1024 | 1024x1024/s64 | 64 |
+| 1376x768 | 1024x1024/s64 | 64 |
+
+The 1376 target is registered against the exact source manifest and the full
+reviewed graph topology. The original source configuration and requested
+configuration are kept separately so the template dimensions can be verified
+before replacement. The 64 instantiated graph texts match the independently
+executed static package, and its 71 weights/other nonspatial assets are unchanged.
+The complete runtime-target run then executes native text encoding, all eight
+FP32 Vulkan steps and CPU VAE. Every one of its 25 compared tensors and its PNG
+are bitwise equal to the preceding fixed-package run. The historical comparison
+against the official reference remains 23/25 tensor gates, PNG MAE 0.00504116 and
+max3 versus the old max2 cutoff. The native executable exits successfully, with
+no OOM events. See [the execution record](../artifacts/2026-09-07/runtime-shape1376/README.md)
+for the saved inputs, results and resource scope. This is one development prompt,
+not a broad perceptual-quality assessment.
+
+Other shapes, the transposed 768x1376 orientation, and a 1376x768/2048-token target
+remain unavailable. This is an incremental runtime-shape implementation, not the
+full planned dynamic range. Encoder availability is also resolution-specific:
+selecting 1376x768 does not expose an encoder attached to the 1024 source.
+Shared source manifests and their object inventory remain unchanged.
+
+The numerical gates are project-selected regression criteria; their calibration
+and perceptual limits are explained in [numerical diagnostics](NUMERICAL-DIAGNOSTICS.md).
 
 ## Optional native prompt enhancement
 

@@ -1,0 +1,28 @@
+[
+  {
+    "command": [
+      "cargo",
+      "test",
+      "--release",
+      "--locked",
+      "--manifest-path",
+      "tokenizer/Cargo.toml",
+      "--target-dir",
+      "build-o2/component64-on/cargo"
+    ],
+    "return_code": 0,
+    "wall_seconds": 9.605406222006422
+  },
+  {
+    "command": [
+      "ctest",
+      "--test-dir",
+      "build-o2/component64-on",
+      "--output-on-failure",
+      "-R",
+      "^(shape_plan_contract|shape_graph_contract|model_package_contract|package_integrity|cli_contract)$"
+    ],
+    "return_code": 8,
+    "wall_seconds": 1.1233875609905226
+  }
+]

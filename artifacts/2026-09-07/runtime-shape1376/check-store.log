@@ -1,0 +1,26 @@
+test_cannot_overwrite_existing_candidate (test_dynamic_package.DynamicPackageTests.test_cannot_overwrite_existing_candidate) ... ok
+test_duplicate_json_rejected (test_dynamic_package.DynamicPackageTests.test_duplicate_json_rejected) ... ok
+test_final_layer_missing (test_dynamic_package.DynamicPackageTests.test_final_layer_missing) ... ok
+test_independent_graph_validator_is_required (test_dynamic_package.DynamicPackageTests.test_independent_graph_validator_is_required) ... ok
+test_manifest_masquerade_rejected (test_dynamic_package.DynamicPackageTests.test_manifest_masquerade_rejected) ... ok
+test_object_size_lie (test_dynamic_package.DynamicPackageTests.test_object_size_lie) ... ok
+test_runtime_claim_and_numeric_policy_rejected (test_dynamic_package.DynamicPackageTests.test_runtime_claim_and_numeric_policy_rejected) ... ok
+test_same_size_weight_corruption (test_dynamic_package.DynamicPackageTests.test_same_size_weight_corruption) ... ok
+test_shared_store_relocation_and_offline_policy (test_dynamic_package.DynamicPackageTests.test_shared_store_relocation_and_offline_policy) ... ok
+test_symlink_object_rejected (test_dynamic_package.DynamicPackageTests.test_symlink_object_rejected) ... ok
+test_unknown_source_identity (test_dynamic_package.DynamicPackageTests.test_unknown_source_identity) ... ok
+test_unlisted_object_rejected (test_dynamic_package.DynamicPackageTests.test_unlisted_object_rejected) ... ok
+test_unreviewed_shape_metadata (test_dynamic_package.DynamicPackageTests.test_unreviewed_shape_metadata) ... ok
+test_unsafe_object_path (test_dynamic_package.DynamicPackageTests.test_unsafe_object_path) ... ok
+test_bn_identity_or_encoder_claim_rejected (test_dynamic_package.SharedRuntimePackageTests.test_bn_identity_or_encoder_claim_rejected) ... ok
+test_reviewed_encoder_manifest_is_bound_to_source_and_cas (test_dynamic_package.SharedRuntimePackageTests.test_reviewed_encoder_manifest_is_bound_to_source_and_cas) ... ok
+test_runtime_resolves_complete_shared_inventory (test_dynamic_package.SharedRuntimePackageTests.test_runtime_resolves_complete_shared_inventory) ... ok
+test_shared_builder_emits_native_manifest_only (test_dynamic_package.SharedRuntimePackageTests.test_shared_builder_emits_native_manifest_only) ... ok
+test_size_and_graph_corruption_rejected (test_dynamic_package.SharedRuntimePackageTests.test_size_and_graph_corruption_rejected) ... ok
+test_tail_layer_missing (test_dynamic_package.SharedRuntimePackageTests.test_tail_layer_missing) ... ok
+test_unreviewed_source_and_shape (test_dynamic_package.SharedRuntimePackageTests.test_unreviewed_source_and_shape) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 0.261s
+
+OK

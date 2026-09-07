@@ -198,6 +198,10 @@ pub unsafe extern "C" fn ernie_model_package_config(handle:*const shared_package
     match handle.as_ref(){Some(p) if !config.is_null()=>{std::ptr::copy_nonoverlapping(p.config.as_ptr(),config,4);p.schema as i32},_=>-1}
 }
 #[no_mangle]
+pub unsafe extern "C" fn ernie_model_package_source_config(handle:*const shared_package::ResolvedPackage,config:*mut i32)->i32{
+    match handle.as_ref(){Some(p) if !config.is_null()=>{std::ptr::copy_nonoverlapping(p.source_config.as_ptr(),config,4);p.schema as i32},_=>-1}
+}
+#[no_mangle]
 pub unsafe extern "C" fn ernie_model_package_file(handle:*const shared_package::ResolvedPackage,name:*const u8,length:usize,output:*mut u8,capacity:usize)->i32{
     let result=catch_unwind(AssertUnwindSafe(||->Result<(),String>{
         let p=handle.as_ref().ok_or("Null package handle")?;

@@ -30,7 +30,13 @@ use crate::package::{hash, required_files};
 use serde_json::Value;
 use std::{collections::{BTreeMap, BTreeSet}, fs, path::{Path, PathBuf}};
 
-pub struct ResolvedPackage { pub config: [i32; 4], pub files: BTreeMap<String, PathBuf>, pub schema: u32 }
+pub struct ResolvedPackage {
+    pub config: [i32; 4],
+    pub source_config: [i32; 4],
+    pub files: BTreeMap<String, PathBuf>,
+    pub schema: u32,
+    source_manifest: String,
+}
 fn json(path: &Path) -> Result<Value,String> {
     let meta=fs::symlink_metadata(path).map_err(|e|e.to_string())?;
     if !meta.is_file() || meta.len()>4*1024*1024 {return Err("Invalid bounded package metadata".into());}
@@ -112,7 +118,9 @@ fn verify_contract(root:&Path,contract:&Value)->Result<Vec<ResolvedPackage>,Stri
         }
         // Exact source manifest checksum binds model.cfg, all layer graphs and weights.
         // C++ additionally enforces the canonical full-graph allowlist before instantiation.
-        out.push(ResolvedPackage{config:config(pinned)?,files,schema:3});
+        let source_config = config(pinned)?;
+        out.push(ResolvedPackage{config:source_config,source_config,files,schema:3,
+                                 source_manifest:digest.to_owned()});
     }
     if encoder_source.is_some_and(|source|!seen.contains(source)) {return Err("Reviewed encoder source instance is absent".into());}
     if used!=objects.keys().cloned().collect(){return Err("Unbound shared objects".into());}
@@ -122,24 +130,99 @@ fn verify_contract(root:&Path,contract:&Value)->Result<Vec<ResolvedPackage>,Stri
     if entries!=["manifest.json".to_string(),"objects".to_string()].into_iter().collect(){return Err("Unlisted package entries".into());}
     Ok(out)
 }
+fn select(mut packages:Vec<ResolvedPackage>,contract:&Value,width:i32,height:i32)
+    ->Result<ResolvedPackage,String>
+{
+    if width==0 {
+        if packages.len()!=1 {return Err("Multiple static instances require explicit width and height".into());}
+        return Ok(packages.remove(0));
+    }
+    // Preserve exact-instance selection and defaults, including its reviewed encoder.
+    if let Some(index)=packages.iter().position(|p|
+        p.config[0].checked_mul(16)==Some(width) && p.config[1].checked_mul(16)==Some(height)) {
+        return Ok(packages.remove(index));
+    }
+    let mut selected=None;
+    for (index,package) in packages.iter().enumerate() {
+        let Some(targets)=contract["reviewed_runtime_targets"].get(&package.source_manifest) else {continue};
+        for target in targets.as_array().ok_or("Invalid runtime target registry")? {
+            keys(target,&["packed_width","packed_height","text_bucket","dit_text_tokens","text_layers","dit_layers"])?;
+            let c=config(target)?;
+            if c[0]<1 || c[0]>128 || c[1]<1 || c[1]>128 || c[0]*c[1]+c[3]>6144 ||
+                c[2]!=package.source_config[2] || c[3]!=package.source_config[3] ||
+                target["text_layers"].as_u64()!=Some(25) || target["dit_layers"].as_u64()!=Some(36) {
+                return Err("Runtime target changes the reviewed model contract".into());
+            }
+            if c[0]*16==width && c[1]*16==height {
+                if selected.replace((index,c)).is_some() {return Err("Ambiguous runtime target".into());}
+            }
+        }
+    }
+    let (index,c)=selected.ok_or("Unreviewed/unavailable target shape")?;
+    let mut package=packages.remove(index);
+    package.config=c;
+    // Encoder spatial graphs have a separate execution registry. A decoder
+    // target must never make the source-resolution encoder appear available.
+    package.files.remove("vae/encoder.ncnn.param");
+    package.files.remove("vae/encoder.ncnn.bin");
+    Ok(package)
+}
+
 pub fn open(root:&Path,width:i32,height:i32)->Result<ResolvedPackage,String>{
     if width<0||height<0||(width==0)!=(height==0)||width>2048||height>2048||width%16!=0||height%16!=0||i64::from(width)*i64::from(height)>2097152{return Err("Invalid requested WH".into());}
     let manifest=json(&root.join("manifest.json"))?;
     if manifest["schema_version"].as_u64()==Some(3){
-        let all=verify(root)?;
-        if width==0&&all.len()!=1{return Err("Multiple static instances require explicit width and height".into());}
-        return all.into_iter().find(|p|width==0||(p.config[0].checked_mul(16)==Some(width)&&p.config[1].checked_mul(16)==Some(height))).ok_or("Unreviewed/unavailable target shape".into());
+        let contract:Value=serde_json::from_str(include_str!("../schema3_contract.json")).map_err(|e|e.to_string())?;
+        let all=verify_contract(root,&contract)?;
+        return select(all,&contract,width,height);
     }
     crate::package::verify(root)?;
     let cfg=config(&manifest["config"])?;
     if width!=0&&(cfg[0].checked_mul(16)!=Some(width)||cfg[1].checked_mul(16)!=Some(height)){return Err("Static package resolution mismatch".into());}
-    Ok(ResolvedPackage{config:cfg,files:required_files().into_iter().map(|n|{let p=root.join(&n);(n,p)}).collect(),schema:manifest["schema_version"].as_u64().ok_or("Missing schema")? as u32})
+    Ok(ResolvedPackage{config:cfg,source_config:cfg,files:required_files().into_iter().map(|n|{let p=root.join(&n);(n,p)}).collect(),schema:manifest["schema_version"].as_u64().ok_or("Missing schema")? as u32,source_manifest:String::new()})
 }
 #[cfg(test)]
 mod tests {
     use super::*;
     #[test]fn contract_keeps_reviewed_shapes_and_bn_asymmetry(){let c:Value=serde_json::from_str(include_str!("../schema3_contract.json")).unwrap();assert_eq!(c["source_manifests"].as_object().unwrap().len(),2);assert_eq!(c["reviewed_encoders"].as_object().unwrap().len(),2);assert_eq!(c["reviewed_encoders"]["ef98859ac741f6923680fb02de39e663fa3fa01943eff9d2d85c6ddaf40c9e59"]["width"],512);assert_eq!(c["reviewed_encoders"]["72bb195a2d0b3ef2a25f873666f51f4bbec4b391744518597be87206a551efc1"]["width"],1024);assert_ne!(c["math"]["encoder_bn_eps"],c["math"]["decoder_inverse_bn_eps"]);assert_eq!(c["encoder"]["status"],"unavailable");}
     #[test]fn malformed_digest_and_config_fail(){for s in ["../oops","A",&"A".repeat(64)]{assert!(sha(s).is_err());}assert!(config(&serde_json::json!({"packed_width":true})).is_err());}
+
+    fn runtime_source() -> ResolvedPackage {
+        ResolvedPackage {
+            config:[64,64,64,64], source_config:[64,64,64,64], schema:3,
+            source_manifest:"72bb195a2d0b3ef2a25f873666f51f4bbec4b391744518597be87206a551efc1".into(),
+            files:[("dit/block-35/block.ncnn.bin".into(),PathBuf::from("objects/unchanged-weight")),
+                   ("vae/encoder.ncnn.param".into(),PathBuf::from("objects/source-encoder-graph")),
+                   ("vae/encoder.ncnn.bin".into(),PathBuf::from("objects/source-encoder-weight"))].into_iter().collect(),
+        }
+    }
+    #[test]
+    fn runtime_target_keeps_source_weights_and_hides_wrong_size_encoder() {
+        let contract:Value=serde_json::from_str(include_str!("../schema3_contract.json")).unwrap();
+        let package=select(vec![runtime_source()],&contract,1376,768).unwrap();
+        assert_eq!(package.config,[86,48,64,64]);
+        assert_eq!(package.source_config,[64,64,64,64]);
+        assert_eq!(package.files["dit/block-35/block.ncnn.bin"],PathBuf::from("objects/unchanged-weight"));
+        assert!(!package.files.contains_key("vae/encoder.ncnn.param"));
+        assert!(!package.files.contains_key("vae/encoder.ncnn.bin"));
+        for (width,height) in [(0,0),(1024,1024)] {
+            let original=select(vec![runtime_source()],&contract,width,height).unwrap();
+            assert_eq!(original.config,original.source_config);
+            assert!(original.files.contains_key("vae/encoder.ncnn.param"));
+        }
+    }
+    #[test]
+    fn runtime_target_requires_exact_source_and_registered_orientation() {
+        let contract:Value=serde_json::from_str(include_str!("../schema3_contract.json")).unwrap();
+        for (width,height) in [(768,1376),(1360,768),(2048,1024)] {
+            assert!(select(vec![runtime_source()],&contract,width,height).is_err());
+        }
+        let mut other=runtime_source();other.source_manifest="0".repeat(64);
+        assert!(select(vec![other],&contract,1376,768).is_err());
+        assert!(select(vec![runtime_source(),runtime_source()],&contract,1376,768).is_err());
+        let mut wrong_bucket=runtime_source();wrong_bucket.source_config[2]=2048;
+        assert!(select(vec![wrong_bucket],&contract,1376,768).is_err());
+    }
 }
 
 #[cfg(test)]

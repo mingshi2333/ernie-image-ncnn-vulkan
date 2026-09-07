@@ -56,6 +56,27 @@ class ValidationPackageTest(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'checksum'):
                 package.validation_package(self.root, 512, 384, reference=self.root)
 
+    def test_runtime_target_preserves_source_identity_and_original_instance(self):
+        contract = package.shared_contract()
+        digest = '72bb195a2d0b3ef2a25f873666f51f4bbec4b391744518597be87206a551efc1'
+        source = {'source_manifest_sha256': digest, 'config': contract['source_manifests'][digest],
+                  'runtime_bindings': {'dit/block-35/block.ncnn.bin': 'b' * 64}}
+        target, selection = package.select_shared_instance([source], 1376, 768)
+        self.assertEqual(target['config']['packed_width'], 86)
+        self.assertEqual(target['config']['packed_height'], 48)
+        self.assertEqual(target['source_manifest_sha256'], digest)
+        self.assertEqual(target['runtime_bindings'], source['runtime_bindings'])
+        self.assertEqual(selection['source_config'], source['config'])
+        self.assertEqual(source['config']['packed_width'], 64)
+        self.assertEqual(package.select_shared_instance([source], 1024, 1024), (source, None))
+        for dimensions in ((768, 1376), (1360, 768), (2048, 1024)):
+            with self.assertRaises(ValueError):
+                package.select_shared_instance([source], *dimensions)
+        for invalid in ({**source, 'source_manifest_sha256': '0' * 64},
+                        {**source, 'config': {**source['config'], 'text_bucket': 2048}}):
+            with self.assertRaises(ValueError):
+                package.select_shared_instance([invalid], 1376, 768)
+
 
 if __name__ == '__main__':
     unittest.main()

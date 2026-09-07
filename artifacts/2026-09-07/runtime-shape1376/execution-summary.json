@@ -1,0 +1,34 @@
+{
+  "execution_status": "completed",
+  "numerical_regression_status": "historical_thresholds_not_all_met",
+  "fixed_package_output_equivalence": "bitwise_equal_all_25_tensors_and_png",
+  "perceptual_quality_status": "not_assessed_by_this_fixture",
+  "formal_performance_status": "not_a_controlled_comparison",
+  "source_files_unchanged_since_freeze": 311,
+  "resource_samples": 15994,
+  "resource_samples_sha256": "e150e36504ebab1692dffce26abc3e1f74a829a0743c5f86f6a2a684c77a612a",
+  "resource_samples_local_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-shape1376-v1/native/samples.jsonl",
+  "runtime_manifest_sha256": "dcf566507557ac1056cf4a8d2620c697920f49a0d391dfeaf6e692c5678424a0",
+  "native_resources": {
+    "scope": "One native run including SHA256 verification and trace; not a controlled performance comparison",
+    "max_rss_kib": 6153812,
+    "total_seconds": 775.464,
+    "model_verification_seconds": 18.5749
+  },
+  "supervisor_resources": {
+    "wall_seconds": 838.7504345189955,
+    "peak_memory_current": 12328783872,
+    "minimum_host_available": 11404804096,
+    "peak_gpu_whole_device_mib": 5246,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "observed_limits": {
+      "memory.max": "17179869184",
+      "memory.swap.max": "0",
+      "cpu.max": "200000 100000"
+    }
+  },
+  "native_return_code": 0,
+  "validator_return_code": 1,
+  "complete_tensor_elements": 32098304,
+  "scope_note": "Full native generation completed. Supervisor complete=false reflects propagated numerical validator exit1, not native execution or memory failure. Resource samples include file caches and desktop GPU usage."
+}

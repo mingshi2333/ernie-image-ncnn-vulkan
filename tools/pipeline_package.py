@@ -5,8 +5,37 @@ provenance to the validator; the native runtime resolves every actual component.
 """
 from pathlib import Path
 
-from package_dynamic_model import read_json, verify_shared_package
+from package_dynamic_model import read_json, shared_contract, verify_shared_package
 from package_model import sha256
+
+
+def select_shared_instance(instances, width=None, height=None):
+    """Select a source and an explicitly reviewed spatial target without I/O."""
+    exact = [item for item in instances if width is None or
+             (item['config']['packed_width'] * 16 == width
+              and item['config']['packed_height'] * 16 == height)]
+    if len(exact) == 1:
+        return exact[0], None
+    if exact or width is None:
+        raise ValueError('Select exactly one shared instance with --width and --height')
+    contract = shared_contract()
+    candidates = []
+    for item in instances:
+        digest = item['source_manifest_sha256']
+        if item['config'] != contract['source_manifests'].get(digest):
+            continue
+        for target in contract.get('reviewed_runtime_targets', {}).get(digest, []):
+            if (target['packed_width'] * 16, target['packed_height'] * 16) == (width, height):
+                if any(target[k] != item['config'][k]
+                       for k in ('text_bucket', 'dit_text_tokens', 'text_layers', 'dit_layers')):
+                    raise ValueError('Runtime target changes the reviewed model contract')
+                candidates.append(({**item, 'config': target}, {
+                    'source_config': item['config'], 'target_config': target,
+                    'scope': 'Reviewed spatial graph instantiation; existing weights; target encoder unavailable',
+                }))
+    if len(candidates) != 1:
+        raise ValueError('Select exactly one available shared runtime target')
+    return candidates[0]
 
 
 def validation_package(model, width=None, height=None, *, reference=None, reference_only=False):
@@ -27,18 +56,15 @@ def validation_package(model, width=None, height=None, *, reference=None, refere
         raise ValueError('Shared-package validation requires an existing verified --reference')
     # Authenticate the entire object inventory before selecting an instance.
     manifest = verify_shared_package(model)
-    candidates = manifest['instances']
-    if width is not None:
-        candidates = [item for item in candidates
-                      if item['config']['packed_width'] * 16 == width
-                      and item['config']['packed_height'] * 16 == height]
-    if len(candidates) != 1:
-        raise ValueError('Select exactly one shared instance with --width and --height')
-    selected = candidates[0]
-    return selected['config'], {
+    selected, runtime_target = select_shared_instance(manifest['instances'], width, height)
+    binding = {
         'schema_version': 3,
         'source_manifest_sha256': selected['source_manifest_sha256'],
         'shared_manifest_sha256': sha256(model / 'manifest.json'),
         'runtime_bindings': selected['runtime_bindings'],
         'scope': 'Verified pinned static instance; native CAS resolution; existing official oracle',
     }
+    if runtime_target is not None:
+        binding['runtime_target'] = runtime_target
+        binding['scope'] = 'Verified pinned source with reviewed runtime spatial target; existing official oracle'
+    return selected['config'], binding

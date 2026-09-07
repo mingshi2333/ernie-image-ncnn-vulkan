@@ -1,0 +1,40 @@
+{
+  "phase": "native",
+  "command": [
+    "systemd-run",
+    "--user",
+    "--scope",
+    "--quiet",
+    "--unit=ernie-runtime-shape1376-v1-native",
+    "--property=MemoryMax=17179869184",
+    "--property=MemorySwapMax=0",
+    "--property=CPUQuota=200%",
+    "taskset",
+    "-c",
+    "4,6",
+    "/usr/bin/python3",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-shape1376-v1/run.py",
+    "native",
+    "50aa7b633c3e17b28e7be9d17a099b1044782ecaa305d8ff64710b95d1709106"
+  ],
+  "plan_sha256": "50aa7b633c3e17b28e7be9d17a099b1044782ecaa305d8ff64710b95d1709106",
+  "limits": {
+    "memory_max_bytes": 17179869184,
+    "host_available_min_bytes": 3221225472,
+    "gpu_whole_device_max_mib": 6144,
+    "timeout_seconds_per_phase": 1800
+  },
+  "peak_memory_current": 12328783872,
+  "minimum_host_available": 11404804096,
+  "peak_gpu_whole_device_mib": 5246,
+  "complete": false,
+  "cgroup_seen": true,
+  "observed_limits": {
+    "memory.max": "17179869184",
+    "memory.swap.max": "0",
+    "cpu.max": "200000 100000"
+  },
+  "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+  "return_code": 1,
+  "wall_seconds": 838.7504345189955
+}

@@ -1,0 +1,13 @@
+   Compiling ernie-tokenizer-bridge v0.1.0 (/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tokenizer)
+    Finished `release` profile [optimized] target(s) in 9.58s
+     Running unittests src/lib.rs (build-o2/component64-on/cargo/release/deps/ernie_tokenizer_bridge-6e2efd61d0cb694d)
+
+running 5 tests
+test shared_package::tests::contract_keeps_reviewed_shapes_and_bn_asymmetry ... ok
+test shared_package::tests::malformed_digest_and_config_fail ... ok
+test shared_package::tests::runtime_target_keeps_source_weights_and_hides_wrong_size_encoder ... ok
+test shared_package::tests::runtime_target_requires_exact_source_and_registered_orientation ... ok
+test shared_package::corruption_tests::small_store_positive_and_corruption_matrix ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

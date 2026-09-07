@@ -22,12 +22,14 @@ int main(int argc,char **argv)
         rejected([]{shape_graph_sha256(std::string(1024*1024+1,'x'));});
         ModelConfig a{4,4,32,272},b{64,64,64,64};
         require(reviewed_shape_config(a) && reviewed_shape_config(b));
+        require(reviewed_shape_config(ModelConfig{86,48,64,64}));
+        require(!reviewed_shape_config(ModelConfig{48,86,64,64}));
         rejected([&]{instantiate_shape_graph("text","",a,b);});
         rejected([&]{instantiate_shape_graph("unknown","",a,a);});
         rejected([&]{instantiate_shape_graph("vae","7767517\n1 1\n",a,a);});
         rejected([&]{instantiate_shape_graph("vae","",a,ModelConfig{32,32,32,32});});
         rejected([]{validate_model_config(ModelConfig{128,128,32,32});});
         rejected([]{validate_model_config(ModelConfig{-1,4,32,32});});
-        std::cout<<"Offline graph contract checks passed; runtime schema 3 remains unsupported\n";
+        std::cout<<"Reviewed graph contract checks passed; no model inference\n";
     } catch(const std::exception &e) {std::cerr<<e.what()<<'\n';return 1;}
 }

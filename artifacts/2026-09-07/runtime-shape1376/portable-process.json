@@ -1,0 +1,78 @@
+{
+  "scope": "Build a standalone physical-copy CAS package from the two original sources, then verify every object with the executed native binary; no additional image inference",
+  "output": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared",
+  "commands": [
+    [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-shape1376-v1/source/tools/package_dynamic_model.py",
+      "--schema3",
+      "--source",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo512x384-s2048-portable",
+      "--source",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo1024-s64-portable",
+      "--output",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared"
+    ],
+    [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-shape1376-v1/ernie-image.snapshot",
+      "--model",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared",
+      "--verify-model"
+    ]
+  ],
+  "results": [
+    {
+      "command": [
+        "systemd-run",
+        "--user",
+        "--scope",
+        "--quiet",
+        "--unit=ernie-runtime-shape-portable-v1-0",
+        "-p",
+        "MemoryMax=4G",
+        "-p",
+        "MemorySwapMax=0",
+        "-p",
+        "CPUQuota=200%",
+        "taskset",
+        "-c",
+        "4,6",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-shape1376-v1/source/tools/package_dynamic_model.py",
+        "--schema3",
+        "--source",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo512x384-s2048-portable",
+        "--source",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo1024-s64-portable",
+        "--output",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared"
+      ],
+      "return_code": 0,
+      "wall_seconds": 109.71695612100302
+    },
+    {
+      "command": [
+        "systemd-run",
+        "--user",
+        "--scope",
+        "--quiet",
+        "--unit=ernie-runtime-shape-portable-v1-1",
+        "-p",
+        "MemoryMax=4G",
+        "-p",
+        "MemorySwapMax=0",
+        "-p",
+        "CPUQuota=200%",
+        "taskset",
+        "-c",
+        "4,6",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-shape1376-v1/ernie-image.snapshot",
+        "--model",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared",
+        "--verify-model"
+      ],
+      "return_code": 0,
+      "wall_seconds": 21.404492957008188
+    }
+  ]
+}

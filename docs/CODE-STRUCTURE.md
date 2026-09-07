@@ -71,6 +71,8 @@ PE 的 26 层和缓存全部释放后才开始图像文本编码；文本权重�
 
 图像模型包由 `ModelPackage` 在 Rust 层完整验证，随后以 `ComponentFiles` 传递内存中的图文本与权重文件路径。文本编码、DiT heads/blocks、VAE encoder 和 VAE 解码使用同一加载边界；组件不解析 JSON，也不负责查找包。旧 probes 的目录参数通过适配器进入同一加载器。schema-3 将已审查的 512×384/s2048 与 1024×1024/s64 实例绑定到共享对象；不生成临时 param，不按尺寸复制权重。两个固定尺寸现在均允许附加经目标尺寸证据认证的 encoder；旧包继续显式报告 encoder unavailable，其他形状拒绝图生图。多实例生成必须指定宽高。512×384 共享实例的完整原生 PE→图像已经通过[独立质量复核](../artifacts/2026-09-06/shared-native-pipeline/README.md)，全部 25 个边界及 PNG 与原固定包逐位一致。1024×1024 生产 strength=0 重建的六个边界与 PNG 已通过[独立复核](../.superpowers/sdd/2026-09-06-surpass-reference/task-F2-strength0-1024-review.md)；此证据不覆盖正 strength 去噪或其他输入。
 
+原生空间尺寸实例化继续沿用这一边界：`shared_package.rs` 在验证原始包后选择 `schema3_contract.json` 中按源 manifest 登记的目标；`ModelPackage` 分别保存源配置与目标配置，`shape_graph.cpp` 只在内存中替换完整图指纹允许的字段，模型组件仍只接收 `ComponentFiles`。首个目标是用 1024×1024/s64 源生成 1376×768/s64，不复制权重、不写临时图、不复制第二套流水线。文本桶保持原独立导出版本；VAE encoder 的尺寸注册独立于文生图目标，源尺寸编码器不会被误认为新尺寸可用。
+
 构建依赖为 `ernie-image → ernie::pipeline → ernie-runtime / ernie-pe / ernie-tokenizer`。只有 CLI 链接 libpng。公共接口头文件只依赖 C++ 标准库。`tests/test_pipeline_api.cpp` 作为外部调用者编译，不包含私有 ncnn 头。
 
 ## 构建和维护约定
