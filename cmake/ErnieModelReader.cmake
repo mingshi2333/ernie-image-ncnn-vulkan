@@ -7,11 +7,13 @@ function(ernie_prepare_model_reader source)
         return()
     endif()
     set(original "${source}/src/modelbin.cpp")
-    file(SHA256 "${original}" source_sha)
+    file(READ "${original}" contents)
+    # Match Git's canonical source independently of checkout line endings.
+    string(REPLACE "\r\n" "\n" contents "${contents}")
+    string(SHA256 source_sha "${contents}")
     if(NOT source_sha STREQUAL "eefc538407f88ca9cb3c1c3bde30eb4aa764b1d1c5f4bba9ab9cdd9119c3cb78")
         message(FATAL_ERROR "Compact model reader requires the reviewed pinned modelbin.cpp")
     endif()
-    file(READ "${original}" contents)
     foreach(storage float16 bfloat16)
         # align_data_size is bytes; vector<unsigned short>::resize takes elements.
         string(REPLACE "                ${storage}_weights.resize(align_data_size);"

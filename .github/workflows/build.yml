@@ -154,6 +154,14 @@ jobs:
         run: ctest --test-dir build --output-on-failure --output-junit "$PWD/build/ctest-results.xml"
       - name: Model download contracts with local HTTP fixtures
         run: python3 -W error::ResourceWarning -m unittest tests.test_model_download tests.test_release_manifest -v
+      - name: Record macOS Vulkan crash details
+        if: failure()
+        run: |
+          if test -x build/ernie-gelu-probe; then
+            lldb --batch -o run -k 'thread backtrace all' -- build/ernie-gelu-probe vulkan fp32 > build/vulkan-backtrace.log 2>&1 || true
+            cat build/vulkan-backtrace.log
+            otool -L build/ernie-gelu-probe > build/vulkan-libraries.log
+          fi
       - name: Save configure and test records
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
@@ -163,4 +171,5 @@ jobs:
             build/CMakeCache.txt
             build/ctest-results.xml
             build/Testing/Temporary/*.log
+            build/vulkan-*.log
           retention-days: 14
