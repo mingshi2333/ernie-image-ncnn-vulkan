@@ -1,0 +1,43 @@
+{
+  "scope": "Launch-time snapshot only, not current completion or final resource maxima",
+  "snapshot_utc": "2026-09-07T11:36:43.499470+00:00",
+  "protocol_commit": "99e9fa8",
+  "unified_exec_session": 56706,
+  "progress": {
+    "status": "running",
+    "case": "1376x768",
+    "phase": "native",
+    "child_pid": 3345712,
+    "started_monotonic": 168862.082471826,
+    "completed_commands": 0
+  },
+  "processes": {
+    "master": {
+      "pid": 3345676,
+      "command": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python /var/tmp/ernie-runtime-large-v1/run_batch.py"
+    },
+    "supervisor": {
+      "pid": 3345712,
+      "command": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python /var/tmp/ernie-runtime-large-v1/1376x768/supervisor.py native"
+    },
+    "native": {
+      "pid": 3345721,
+      "command": "/var/tmp/ernie-runtime-large-v1/ernie-image.snapshot --model /var/tmp/ernie-runtime-large-v1/1376x768/model --prompt A red apple on a wooden table, soft daylight, realistic photo. --output /var/tmp/ernie-runtime-large-v1/1376x768/native/native.png --trace-dir /var/tmp/ernie-runtime-large-v1/1376x768/native/trace --report-json /var/tmp/ernie-runtime-large-v1/1376x768/native/report.json --width 1376 --height 768 --latent /var/tmp/ernie-runtime-large-v1/1376x768/initial.f32 --steps 8 --threads 2 --device vulkan --precision fp32 --text-down-vector --vae-device cpu --vae-convolution direct --dit-weights host --model-loading stdio --dit-cache-mib 0"
+    }
+  },
+  "progress_lines": [
+    "Text conditioned: 15 tokens, 15.8755 s, embeddings computed",
+    "Denoise 1/8: 94.6666 s"
+  ],
+  "cgroup_memory_events_at_snapshot": {
+    "low": 0,
+    "high": 0,
+    "max": 0,
+    "oom": 0,
+    "oom_kill": 0,
+    "oom_group_kill": 0,
+    "sock_throttled": 0
+  },
+  "current_state_path": "/var/tmp/ernie-runtime-large-v1/progress.json",
+  "do_not_restart_existing_batch": true
+}
