@@ -1,0 +1,7 @@
+Running as unit: ernie-large-preflight-v1.service
+{"preflight_checks": 17, "bindings": 1744, "passed": true}
+          Finished with result: success
+Main processes terminated with: code=exited, status=0/SUCCESS
+               Service runtime: 244ms
+             CPU time consumed: 236ms
+                   Memory peak: 12.8M (swap: 0B)

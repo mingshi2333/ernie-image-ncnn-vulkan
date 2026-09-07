@@ -1,0 +1,67 @@
+diff --git a/src/host_memory.cpp b/src/host_memory.cpp
+index e81e868..884775e 100644
+--- a/src/host_memory.cpp
++++ b/src/host_memory.cpp
+@@ -8,6 +8,12 @@
+ #include <string>
+ #include <utility>
+ #include <vector>
++#if defined(_WIN32)
++#ifndef NOMINMAX
++#define NOMINMAX
++#endif
++#include <windows.h>
++#endif
+ 
+ namespace ernie {
+ namespace {
+@@ -150,6 +156,28 @@ HostAvailableReader host_memory_available_reader()
+ {
+ #if defined(__linux__)
+     return linux_host_memory_available_reader({});
++#elif defined(_WIN32)
++    return []() -> std::optional<Bytes> {
++        BOOL in_job = FALSE;
++        if (!IsProcessInJob(GetCurrentProcess(), nullptr, &in_job) || in_job)
++            return std::nullopt;
++        // NULL JobObject queries cover only the immediate job, not every
++        // ancestor. Do not admit cached weights using only the host totals.
++        const auto ntdll = GetModuleHandleW(L"ntdll.dll");
++        if (!ntdll || GetProcAddress(ntdll, "wine_get_version")) return std::nullopt;
++        // Wine's GlobalMemoryStatusEx did not reflect the actual Linux cgroup
++        // limit in execution. Keep streaming until that boundary is supported.
++        MEMORYSTATUSEX memory{};
++        memory.dwLength = sizeof(memory);
++        if (!GlobalMemoryStatusEx(&memory)) return std::nullopt;
++        if (!IsProcessInJob(GetCurrentProcess(), nullptr, &in_job) || in_job)
++            return std::nullopt; // Membership can change during the query.
++        // ullAvailPageFile is the process's remaining commit allowance, not
++        // additional RAM. Physical availability is always an upper bound;
++        // also respect commit and virtual-address-space exhaustion.
++        return std::min({Bytes(memory.ullAvailPhys), Bytes(memory.ullAvailPageFile),
++                         Bytes(memory.ullAvailVirtual)});
++    };
+ #else
+     return []() -> std::optional<Bytes> { return std::nullopt; };
+ #endif
+diff --git a/src/host_memory.h b/src/host_memory.h
+index a4b2121..395a0ce 100644
+--- a/src/host_memory.h
++++ b/src/host_memory.h
+@@ -18,10 +18,13 @@ struct HostMemoryFiles
+ };
+ HostAvailableReader linux_host_memory_available_reader(HostMemoryFiles);
+ 
+-// Estimated allocatable headroom, limited by MemAvailable and every finite
++// Estimated allocatable headroom. Linux uses MemAvailable and every finite
+ // cgroup-v2 ancestor. Credit at most half the clean active + inactive file pages;
+ // they are not equivalent to anonymous or pinned weights. No swap is credited.
+-// Missing optional file statistics give no reclaim credit. Unreadable required
+-// inputs and unsupported platforms return unavailable, disabling admission.
++// Missing optional file statistics give no reclaim credit. Windows bounds
++// available physical RAM by remaining process commit and virtual address space.
++// Windows Job membership and Wine leave the optional cache disabled until their
++// full enclosing limits can be established. Streaming generation is unaffected.
++// Required query failures and unsupported platforms disable cache admission.
+ HostAvailableReader host_memory_available_reader();
+ } // namespace ernie

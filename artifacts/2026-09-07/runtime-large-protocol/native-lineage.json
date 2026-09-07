@@ -1,0 +1,11 @@
+{
+  "source_head": "990e8ef07591c2f7564d538462d51b8961263655",
+  "preparation_head": "0443a6d070b637e872c9f8362806b15455d19c5e",
+  "binary_sha256": "92559ea493adabfb1a0b2fbf1d69e21ccb79d7c9f2dbd37cb25898d7654da1c0",
+  "current_native_changes": [
+    "src/host_memory.cpp",
+    "src/host_memory.h"
+  ],
+  "native_patch_sha256": "ec67a209b92c080656ac63e8f12de447477d53c3aa10b62e6522da3ddf409808",
+  "scope": "Reuse the completed 64/512/768/1024 Linux generator and official source snapshot; changes since its source are Windows memory-reader code and header comments; this is the frozen 990e8ef generator, not a current-HEAD build."
+}

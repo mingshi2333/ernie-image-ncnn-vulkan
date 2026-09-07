@@ -1,0 +1,24 @@
+Running as unit: ernie-large-policy-v1.service
+test_contradictory_result (__main__.PolicyTests.test_contradictory_result) ... ok
+test_malformed_json (__main__.PolicyTests.test_malformed_json) ... ok
+test_missing_file (__main__.PolicyTests.test_missing_file) ... ok
+test_missing_tensor (__main__.PolicyTests.test_missing_tensor) ... ok
+test_native_contract (__main__.PolicyTests.test_native_contract) ... ok
+test_non_boolean_tensor (__main__.PolicyTests.test_non_boolean_tensor) ... ok
+test_numeric_failure (__main__.PolicyTests.test_numeric_failure) ... ok
+test_pass (__main__.PolicyTests.test_pass) ... ok
+test_serial_continues_numeric_failure (__main__.PolicyTests.test_serial_continues_numeric_failure) ... ok
+test_serial_stops_execution_failure (__main__.PolicyTests.test_serial_stops_execution_failure) ... ok
+test_traceback (__main__.PolicyTests.test_traceback) ... ok
+test_wrong_container (__main__.PolicyTests.test_wrong_container) ... ok
+test_wrong_exit (__main__.PolicyTests.test_wrong_exit) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.088s
+
+OK
+          Finished with result: success
+Main processes terminated with: code=exited, status=0/SUCCESS
+               Service runtime: 144ms
+             CPU time consumed: 133ms
+                   Memory peak: 24.9M (swap: 0B)

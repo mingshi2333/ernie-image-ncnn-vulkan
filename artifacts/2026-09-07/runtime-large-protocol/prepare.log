@@ -1,0 +1,10 @@
+Running as unit: ernie-large-prepare-v1.service
+{"case": "1376x768", "plan_sha256": "3a0624af14fab9fcd592769e5a225e073f0c0850cf5ee1e4fe9378fb3fbbaaa8", "bindings": 436, "initial_sha256": "7d3f82b9ef8e1d9b9096c79e37635c549fc4fa61850f33ff61bbadff2b0a5a44"}
+{"case": "768x1376", "plan_sha256": "38f8d9a6528bc00aa9207bc225a7afde81a189a84410864d07c0ddd486c8afdc", "bindings": 436, "initial_sha256": "7d3f82b9ef8e1d9b9096c79e37635c549fc4fa61850f33ff61bbadff2b0a5a44"}
+{"case": "2048x1024", "plan_sha256": "fb9819aba4c6b3335750aa8e357cb92b8e97677abcaaaf4a23547889fbeac025", "bindings": 436, "initial_sha256": "c8ae8aa50267bd8f281285aa32e79d2746e341d2048988914bca371b0363a4a5"}
+{"case": "1024x2048", "plan_sha256": "45adf91a244b8ccdc99f70c5b00340d210eded823e8d00fc99211275fe3545b9", "bindings": 436, "initial_sha256": "c8ae8aa50267bd8f281285aa32e79d2746e341d2048988914bca371b0363a4a5"}
+          Finished with result: success
+Main processes terminated with: code=exited, status=0/SUCCESS
+               Service runtime: 405ms
+             CPU time consumed: 417ms
+                   Memory peak: 139.1M (swap: 0B)

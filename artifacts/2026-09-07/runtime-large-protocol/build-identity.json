@@ -1,0 +1,11 @@
+{
+  "source_head": "990e8ef07591c2f7564d538462d51b8961263655",
+  "source_files": 334,
+  "binary_sha256": "92559ea493adabfb1a0b2fbf1d69e21ccb79d7c9f2dbd37cb25898d7654da1c0",
+  "binary_bytes": 36943896,
+  "ncnn_revision": "6a1bf000f363714839a36793addc8c879d3d899e",
+  "ncnn_archive_sha256": "c8e58dc6abb73915ae61c52400fab307df1d477752ffe3f2db694b9d4570bd17",
+  "compact_reader": false,
+  "default_mapped_loading": false,
+  "scope": "Current Linux Vulkan build with Windows path fixes; no inference math changes; not the older memory grid or compact-reader binary"
+}

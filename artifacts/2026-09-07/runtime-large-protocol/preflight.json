@@ -1,0 +1,87 @@
+[
+  {
+    "case": "1376x768",
+    "check": "hidden-original-source",
+    "return_code": 0
+  },
+  {
+    "case": "1376x768",
+    "check": "native-help",
+    "return_code": 0
+  },
+  {
+    "case": "1376x768",
+    "check": "native-isolated-network",
+    "return_code": 0
+  },
+  {
+    "case": "1376x768",
+    "check": "official-isolated-network",
+    "return_code": 0
+  },
+  {
+    "case": "768x1376",
+    "check": "hidden-original-source",
+    "return_code": 0
+  },
+  {
+    "case": "768x1376",
+    "check": "native-help",
+    "return_code": 0
+  },
+  {
+    "case": "768x1376",
+    "check": "native-isolated-network",
+    "return_code": 0
+  },
+  {
+    "case": "768x1376",
+    "check": "official-isolated-network",
+    "return_code": 0
+  },
+  {
+    "case": "2048x1024",
+    "check": "hidden-original-source",
+    "return_code": 0
+  },
+  {
+    "case": "2048x1024",
+    "check": "native-help",
+    "return_code": 0
+  },
+  {
+    "case": "2048x1024",
+    "check": "native-isolated-network",
+    "return_code": 0
+  },
+  {
+    "case": "2048x1024",
+    "check": "official-isolated-network",
+    "return_code": 0
+  },
+  {
+    "case": "1024x2048",
+    "check": "hidden-original-source",
+    "return_code": 0
+  },
+  {
+    "case": "1024x2048",
+    "check": "native-help",
+    "return_code": 0
+  },
+  {
+    "case": "1024x2048",
+    "check": "native-isolated-network",
+    "return_code": 0
+  },
+  {
+    "case": "1024x2048",
+    "check": "official-isolated-network",
+    "return_code": 0
+  },
+  {
+    "check": "frozen-bindings-and-case-syntax",
+    "bindings": 1744,
+    "passed": true
+  }
+]

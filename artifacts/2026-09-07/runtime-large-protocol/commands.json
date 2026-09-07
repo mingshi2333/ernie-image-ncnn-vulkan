@@ -1,0 +1,158 @@
+[
+  {
+    "case": "1376x768",
+    "phase": "native",
+    "argv": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/var/tmp/ernie-runtime-large-v1/1376x768/supervisor.py",
+      "native"
+    ]
+  },
+  {
+    "case": "1376x768",
+    "phase": "official",
+    "argv": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/var/tmp/ernie-runtime-large-v1/1376x768/supervisor.py",
+      "official"
+    ]
+  },
+  {
+    "case": "1376x768",
+    "phase": "compare",
+    "argv": [
+      "systemd-run",
+      "--user",
+      "--wait",
+      "--pipe",
+      "--unit=ernie-large-1376x768-compare-v1",
+      "--property=AllowedCPUs=12,14",
+      "--property=CPUQuota=200%",
+      "--property=MemoryMax=4G",
+      "--property=MemorySwapMax=0",
+      "/usr/bin/env",
+      "OMP_NUM_THREADS=2",
+      "OPENBLAS_NUM_THREADS=2",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/var/tmp/ernie-runtime-large-v1/1376x768/compare.py"
+    ]
+  },
+  {
+    "case": "768x1376",
+    "phase": "native",
+    "argv": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/var/tmp/ernie-runtime-large-v1/768x1376/supervisor.py",
+      "native"
+    ]
+  },
+  {
+    "case": "768x1376",
+    "phase": "official",
+    "argv": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/var/tmp/ernie-runtime-large-v1/768x1376/supervisor.py",
+      "official"
+    ]
+  },
+  {
+    "case": "768x1376",
+    "phase": "compare",
+    "argv": [
+      "systemd-run",
+      "--user",
+      "--wait",
+      "--pipe",
+      "--unit=ernie-large-768x1376-compare-v1",
+      "--property=AllowedCPUs=12,14",
+      "--property=CPUQuota=200%",
+      "--property=MemoryMax=4G",
+      "--property=MemorySwapMax=0",
+      "/usr/bin/env",
+      "OMP_NUM_THREADS=2",
+      "OPENBLAS_NUM_THREADS=2",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/var/tmp/ernie-runtime-large-v1/768x1376/compare.py"
+    ]
+  },
+  {
+    "case": "2048x1024",
+    "phase": "native",
+    "argv": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/var/tmp/ernie-runtime-large-v1/2048x1024/supervisor.py",
+      "native"
+    ]
+  },
+  {
+    "case": "2048x1024",
+    "phase": "official",
+    "argv": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/var/tmp/ernie-runtime-large-v1/2048x1024/supervisor.py",
+      "official"
+    ]
+  },
+  {
+    "case": "2048x1024",
+    "phase": "compare",
+    "argv": [
+      "systemd-run",
+      "--user",
+      "--wait",
+      "--pipe",
+      "--unit=ernie-large-2048x1024-compare-v1",
+      "--property=AllowedCPUs=12,14",
+      "--property=CPUQuota=200%",
+      "--property=MemoryMax=4G",
+      "--property=MemorySwapMax=0",
+      "/usr/bin/env",
+      "OMP_NUM_THREADS=2",
+      "OPENBLAS_NUM_THREADS=2",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/var/tmp/ernie-runtime-large-v1/2048x1024/compare.py"
+    ]
+  },
+  {
+    "case": "1024x2048",
+    "phase": "native",
+    "argv": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/var/tmp/ernie-runtime-large-v1/1024x2048/supervisor.py",
+      "native"
+    ]
+  },
+  {
+    "case": "1024x2048",
+    "phase": "official",
+    "argv": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/var/tmp/ernie-runtime-large-v1/1024x2048/supervisor.py",
+      "official"
+    ]
+  },
+  {
+    "case": "1024x2048",
+    "phase": "compare",
+    "argv": [
+      "systemd-run",
+      "--user",
+      "--wait",
+      "--pipe",
+      "--unit=ernie-large-1024x2048-compare-v1",
+      "--property=AllowedCPUs=12,14",
+      "--property=CPUQuota=200%",
+      "--property=MemoryMax=4G",
+      "--property=MemorySwapMax=0",
+      "/usr/bin/env",
+      "OMP_NUM_THREADS=2",
+      "OPENBLAS_NUM_THREADS=2",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/var/tmp/ernie-runtime-large-v1/1024x2048/compare.py"
+    ]
+  }
+]
