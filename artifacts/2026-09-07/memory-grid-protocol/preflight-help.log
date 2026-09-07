@@ -1,0 +1,81 @@
+usage: benchmark_pipeline.py [-h] --model MODEL --output OUTPUT
+                             [--runner RUNNER] [--prompt PROMPT |
+                             --prompt-file PROMPT_FILE] [--seed SEED]
+                             [--steps STEPS] [--precision {fp16,fp32,bf16}]
+                             [--device {vulkan,cpu}]
+                             [--vae-device {cpu,vulkan}]
+                             [--vae-convolution {direct,sgemm}]
+                             [--width WIDTH] [--height HEIGHT]
+                             [--threads THREADS] [--gpu GPU]
+                             [--text-device {cpu}] [--text-down-vector]
+                             [--dit-weights {auto,device,host}]
+                             [--gpu-reserve-mib GPU_RESERVE_MIB]
+                             [--dit-cache-mib DIT_CACHE_MIB]
+                             [--ram-reserve-mib RAM_RESERVE_MIB]
+                             [--model-loading {default,stdio,mapped}]
+                             [--nvidia-sampling-index NVIDIA_SAMPLING_INDEX]
+                             [--no-gpu-sampling] [--timeout TIMEOUT] [--trace]
+                             [--pe-model PE_MODEL]
+                             [--pe-max-tokens PE_MAX_TOKENS]
+                             [--pe-prompt-file PE_PROMPT_FILE]
+                             [--latent LATENT] [--noise-sha256 NOISE_SHA256]
+                             [--input-image INPUT_IMAGE]
+                             [--input-image-sha256 INPUT_IMAGE_SHA256]
+                             [--decoded-rgb-sha256 DECODED_RGB_SHA256]
+                             [--strength STRENGTH]
+                             [--resize {stretch,fit,crop}]
+
+Run one native prompt-to-PNG job with saved inputs and bounded resource
+sampling.
+
+options:
+  -h, --help            show this help message and exit
+  --model MODEL
+  --output OUTPUT
+  --runner RUNNER
+  --prompt PROMPT
+  --prompt-file PROMPT_FILE
+  --seed SEED
+  --steps STEPS
+  --precision {fp16,fp32,bf16}
+  --device {vulkan,cpu}
+  --vae-device {cpu,vulkan}
+  --vae-convolution {direct,sgemm}
+  --width WIDTH
+  --height HEIGHT
+  --threads THREADS
+  --gpu GPU             Native Vulkan device index; independent of NVIDIA
+                        sampling index
+  --text-device {cpu}
+  --text-down-vector
+  --dit-weights {auto,device,host}
+  --gpu-reserve-mib GPU_RESERVE_MIB
+  --dit-cache-mib DIT_CACHE_MIB
+  --ram-reserve-mib RAM_RESERVE_MIB
+  --model-loading {default,stdio,mapped}
+  --nvidia-sampling-index NVIDIA_SAMPLING_INDEX
+                        Whole-device diagnostic only; not matched Vulkan
+                        allocation data
+  --no-gpu-sampling     Disable optional NVIDIA diagnostics, e.g. for other
+                        GPU vendors
+  --timeout TIMEOUT
+  --trace               Diagnostic only; formal paired timing requires trace
+                        disabled
+  --pe-model PE_MODEL
+  --pe-max-tokens PE_MAX_TOKENS
+  --pe-prompt-file PE_PROMPT_FILE
+                        Optional PE input; currently unsupported by the native
+                        CLI
+  --latent LATENT       Saved little-endian FP32 initial noise; required for
+                        formal comparison
+  --noise-sha256 NOISE_SHA256
+                        Expected frozen SHA256 of --latent; required for
+                        formal comparison
+  --input-image INPUT_IMAGE
+                        Frozen img2img source image
+  --input-image-sha256 INPUT_IMAGE_SHA256
+                        Expected frozen SHA256 of --input-image
+  --decoded-rgb-sha256 DECODED_RGB_SHA256
+                        Expected SHA256 after decoding --input-image as RGB
+  --strength STRENGTH   Img2img strength in (0,1]
+  --resize {stretch,fit,crop}

@@ -1,0 +1,11 @@
+test_changed_image_is_a_failed_trial (__main__.GridContract.test_changed_image_is_a_failed_trial) ... ok
+test_changed_source_and_duplicate_schedule_rejected (__main__.GridContract.test_changed_source_and_duplicate_schedule_rejected) ... ok
+test_complete_uses_only_three_measurements_and_keeps_formal_open (__main__.GridContract.test_complete_uses_only_three_measurements_and_keeps_formal_open) ... ok
+test_failure_never_drops_a_run_or_produces_aggregate (__main__.GridContract.test_failure_never_drops_a_run_or_produces_aggregate) ... ok
+test_master_stops_after_first_failed_supervisor_and_rejects_restart (__main__.GridContract.test_master_stops_after_first_failed_supervisor_and_rejects_restart) ... ok
+test_missing_and_malformed_terminal_records_are_failures (__main__.GridContract.test_missing_and_malformed_terminal_records_are_failures) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.251s
+
+OK

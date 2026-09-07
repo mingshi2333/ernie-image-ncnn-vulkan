@@ -1,0 +1,120 @@
+{
+  "base": "/var/tmp/ernie-memory-grid512-v1",
+  "source_commit": "b6b80d32c19f0c31b97ab31b2010e32d0bf9c8af",
+  "grid_sha256": "04d0e4e7454436853e4031e1eee55d367cfb2a2edd33038c71eb7319081d8a1b",
+  "bindings": 374,
+  "trials": [
+    {
+      "id": "00-warmup-mapped-off",
+      "phase": "warmup",
+      "repeat": -1,
+      "config": "mapped-off",
+      "order": 0
+    },
+    {
+      "id": "01-warmup-mapped-cache",
+      "phase": "warmup",
+      "repeat": -1,
+      "config": "mapped-cache",
+      "order": 1
+    },
+    {
+      "id": "02-warmup-stdio-off",
+      "phase": "warmup",
+      "repeat": -1,
+      "config": "stdio-off",
+      "order": 2
+    },
+    {
+      "id": "03-warmup-stdio-cache",
+      "phase": "warmup",
+      "repeat": -1,
+      "config": "stdio-cache",
+      "order": 3
+    },
+    {
+      "id": "04-measured-mapped-cache",
+      "phase": "measured",
+      "repeat": 0,
+      "config": "mapped-cache",
+      "order": 4
+    },
+    {
+      "id": "05-measured-stdio-off",
+      "phase": "measured",
+      "repeat": 0,
+      "config": "stdio-off",
+      "order": 5
+    },
+    {
+      "id": "06-measured-stdio-cache",
+      "phase": "measured",
+      "repeat": 0,
+      "config": "stdio-cache",
+      "order": 6
+    },
+    {
+      "id": "07-measured-mapped-off",
+      "phase": "measured",
+      "repeat": 0,
+      "config": "mapped-off",
+      "order": 7
+    },
+    {
+      "id": "08-measured-stdio-off",
+      "phase": "measured",
+      "repeat": 1,
+      "config": "stdio-off",
+      "order": 8
+    },
+    {
+      "id": "09-measured-stdio-cache",
+      "phase": "measured",
+      "repeat": 1,
+      "config": "stdio-cache",
+      "order": 9
+    },
+    {
+      "id": "10-measured-mapped-off",
+      "phase": "measured",
+      "repeat": 1,
+      "config": "mapped-off",
+      "order": 10
+    },
+    {
+      "id": "11-measured-mapped-cache",
+      "phase": "measured",
+      "repeat": 1,
+      "config": "mapped-cache",
+      "order": 11
+    },
+    {
+      "id": "12-measured-stdio-cache",
+      "phase": "measured",
+      "repeat": 2,
+      "config": "stdio-cache",
+      "order": 12
+    },
+    {
+      "id": "13-measured-mapped-off",
+      "phase": "measured",
+      "repeat": 2,
+      "config": "mapped-off",
+      "order": 13
+    },
+    {
+      "id": "14-measured-mapped-cache",
+      "phase": "measured",
+      "repeat": 2,
+      "config": "mapped-cache",
+      "order": 14
+    },
+    {
+      "id": "15-measured-stdio-off",
+      "phase": "measured",
+      "repeat": 2,
+      "config": "stdio-off",
+      "order": 15
+    }
+  ]
+}

@@ -84,3 +84,7 @@
 - [ ] 串行执行对应验证器，再跑 P0 `--suite performance --development`（该模式仅报告调优，不写最终胜出）；P3 尚未实现的图生图 case 记 incomplete，待 F2 后补全，不能从正式六项分母删去。提交 `perf: validate stage device policies and batched PE prefill`。
 
 **Acceptance:** 默认设备策略只使用通过正确性和资源验收的路径。P2 结束报告 S/M 目标的开发测量进度，正式胜出仍等待 P5。
+
+## 2026-09-07 重复开发比较已启动
+
+同一最终程序的四组 stdio/mapped × cacheOFF/ON 比较已经预先固定并启动，每组一次预热、三次测量。详见 [运行前协议](../../../artifacts/2026-09-07/memory-grid-protocol/README.md)。所有组显式使用 RAM 权重，输入/精度/线程相同，trace/分配插桩关闭；失败保留并停止后续，16次全部通过前不汇总速度。此时没有完整结果，默认设置不变。仍需完成 O2 其余任务和正式参考项目 S/M 比较。
