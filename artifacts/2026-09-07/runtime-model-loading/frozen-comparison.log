@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime-model-loading-v1/compare.py", line 41, in <module>
+    assert cache['hits'] >= plan['expected_cache']['minimum_hits']
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

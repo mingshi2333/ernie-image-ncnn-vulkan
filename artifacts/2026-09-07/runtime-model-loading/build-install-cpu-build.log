@@ -1,0 +1,19 @@
+[1/19] Building CXX object src/CMakeFiles/ernie-runtime.dir/image_encoder.cpp.o
+[2/19] Linking CXX static library src/libernie-runtime.a
+[3/19] Building CXX object src/CMakeFiles/ernie-pe.dir/prompt_enhancer.cpp.o
+[4/19] Linking CXX static library src/libernie-pe.a
+[5/19] Building CXX object src/CMakeFiles/ernie-pipeline.dir/runtime_info.cpp.o
+[6/19] Building CXX object cli/CMakeFiles/ernie-image.dir/main.cpp.o
+[7/19] Building CXX object src/CMakeFiles/ernie-pipeline.dir/pipeline.cpp.o
+[8/19] Linking CXX static library src/libernie-pipeline.a
+[9/19] Building CXX object cli/CMakeFiles/ernie-image.dir/options.cpp.o
+[10/19] Building CXX object tests/CMakeFiles/ernie-pipeline-api-contract.dir/test_pipeline_api.cpp.o
+[11/19] Building CXX object tests/CMakeFiles/ernie-request-validation-contract.dir/test_request_validation.cpp.o
+[12/19] Building CXX object cli/CMakeFiles/ernie-image.dir/image_io.cpp.o
+[13/19] Building CXX object tests/CMakeFiles/ernie-weight-session-contract.dir/test_weight_session.cpp.o
+[14/19] Building CXX object tests/CMakeFiles/ernie-model-loading-contract.dir/test_model_loading.cpp.o
+[15/19] Linking CXX executable ernie-image
+[16/19] Linking CXX executable ernie-pipeline-api-contract
+[17/19] Linking CXX executable ernie-weight-session-contract
+[18/19] Linking CXX executable ernie-request-validation-contract
+[19/19] Linking CXX executable ernie-model-loading-contract

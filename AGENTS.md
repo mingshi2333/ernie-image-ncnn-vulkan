@@ -25,6 +25,8 @@ Latest additional execution evidence: `artifacts/2026-09-07/runtime-rectangles-a
 
 ## Code organization
 
+- Latest loading-policy evidence: `artifacts/2026-09-07/runtime-model-loading/README.md`. Runtime `--model-loading default|stdio|mapped` permits one binary to choose image text/DiT/VAE loading; default preserves the existing CMake setting, OFF. PE is unchanged. Sixteen effective CPU/Vulkan/API/CLI/installed-consumer checks pass, including both FP32/BF16 files and mapped cache lifetimes. Full512 mapped+6GiB cache preserves all25 tensors/4981760 finite values and PNG exactly, but reaches the16GiB cgroup with max45089, OOM0,12evictions and0hits. Original minimum-hit checker fails and remains preserved; additional review has all_checks_pass=false. WholeGPU2372MiB, cgrouppeak17179869184B includes file cache and is not RSS, scope386.096s is traced/unpaired. Both mapping and cache remain opt-in; do not claim combined reuse benefit or close O2/S/M. All jobs finished.
+
 
 - Read docs/CODE-STRUCTURE.md. Public generation types live in include/ernie/pipeline.h; cli/ owns arguments and PNG I/O; src/pipeline.cpp owns stage orchestration. Keep model math and cache sessions in their components.
 - Keep the public header independent of ncnn/PNG headers. The pipeline returns RGB pixels and reports progress through callbacks.

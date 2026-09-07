@@ -1,0 +1,152 @@
+[
+  {
+    "command": [
+      "cmake",
+      "--build",
+      "build-dev",
+      "--parallel",
+      "2",
+      "--target",
+      "ernie-image",
+      "ernie-model-loading-contract",
+      "ernie-weight-session-contract",
+      "ernie-pipeline-api-contract",
+      "ernie-request-validation-contract"
+    ],
+    "returncode": 2,
+    "seconds": 4.699317136022728,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime-model-loading-v1/build-dev-build-attempt-2.log"
+  },
+  {
+    "command": [
+      "cmake",
+      "-S",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference",
+      "-B",
+      "build-dev"
+    ],
+    "returncode": 0,
+    "seconds": 0.37346093499218114,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime-model-loading-v1/build-dev-configure-attempt-4.log"
+  },
+  {
+    "command": [
+      "cmake",
+      "--build",
+      "build-dev",
+      "--parallel",
+      "2",
+      "--target",
+      "ernie-image",
+      "ernie-model-loading-contract",
+      "ernie-weight-session-contract",
+      "ernie-pipeline-api-contract",
+      "ernie-request-validation-contract"
+    ],
+    "returncode": 0,
+    "seconds": 3.62746945899562,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime-model-loading-v1/build-dev-build-attempt-5.log"
+  },
+  {
+    "command": [
+      "ctest",
+      "--test-dir",
+      "build-dev",
+      "--output-on-failure",
+      "-V",
+      "-R",
+      "^(pipeline_api_contract|request_validation_contract|cli_contract|model_loading_cpu|weight_session_cpu|weight_session_vulkan|weight_session_mapped_vulkan|weight_session_bf16_file_vulkan|weight_session_mapped_bf16_file_vulkan|installed_cpp_consumer)$"
+    ],
+    "returncode": 8,
+    "seconds": 4.661371685011545,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime-model-loading-v1/build-dev-ctest-attempt-6.log"
+  },
+  {
+    "command": [
+      "cmake",
+      "-S",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference",
+      "-B",
+      "build-dev"
+    ],
+    "returncode": 0,
+    "seconds": 0.35538285301299766,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime-model-loading-v1/build-dev-configure.log"
+  },
+  {
+    "command": [
+      "cmake",
+      "--build",
+      "build-dev",
+      "--parallel",
+      "2",
+      "--target",
+      "ernie-image",
+      "ernie-model-loading-contract",
+      "ernie-weight-session-contract",
+      "ernie-pipeline-api-contract",
+      "ernie-request-validation-contract"
+    ],
+    "returncode": 0,
+    "seconds": 1.6648529470257927,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime-model-loading-v1/build-dev-build.log"
+  },
+  {
+    "command": [
+      "ctest",
+      "--test-dir",
+      "build-dev",
+      "--output-on-failure",
+      "-V",
+      "-R",
+      "^model_loading_cpu$"
+    ],
+    "returncode": 0,
+    "seconds": 0.011203519999980927,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime-model-loading-v1/build-dev-ctest.log"
+  },
+  {
+    "command": [
+      "cmake",
+      "-S",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference",
+      "-B",
+      "build-install-cpu"
+    ],
+    "returncode": 0,
+    "seconds": 0.24440555801265873,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime-model-loading-v1/build-install-cpu-configure.log"
+  },
+  {
+    "command": [
+      "cmake",
+      "--build",
+      "build-install-cpu",
+      "--parallel",
+      "2",
+      "--target",
+      "ernie-image",
+      "ernie-model-loading-contract",
+      "ernie-weight-session-contract",
+      "ernie-pipeline-api-contract",
+      "ernie-request-validation-contract"
+    ],
+    "returncode": 0,
+    "seconds": 3.2864365160057787,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime-model-loading-v1/build-install-cpu-build.log"
+  },
+  {
+    "command": [
+      "ctest",
+      "--test-dir",
+      "build-install-cpu",
+      "--output-on-failure",
+      "-V",
+      "-R",
+      "^(pipeline_api_contract|request_validation_contract|cli_contract|model_loading_cpu|weight_session_cpu|weight_session_vulkan|weight_session_mapped_vulkan|weight_session_bf16_file_vulkan|weight_session_mapped_bf16_file_vulkan|installed_cpp_consumer)$"
+    ],
+    "returncode": 0,
+    "seconds": 1.157589743990684,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime-model-loading-v1/build-install-cpu-ctest.log"
+  }
+]

@@ -31,6 +31,7 @@ ernie-image-ncnn-vulkan/
 │   ├── block_sequence.*     # 分块加载和设备激活传递
 │   ├── weight_placement.*   # DiT 实时显存预算查询与 GPU/RAM 权重选择
 │   ├── weight_session.*     # 请求内有界 RAM 权重复用、租约与内存压力回收
+│   ├── model_loading.h      # 运行时选择映射/文件读取，保留既有构建默认值
 │   ├── image_encoder.*      # 已认证 encoder 图的 RGB→mean/packed/normalized
 │   ├── img2img.*            # strength、保存噪声和原始 schedule suffix
 │   ├── vae.* / latent_ops.* # VAE 解码、latent 打包与 Euler

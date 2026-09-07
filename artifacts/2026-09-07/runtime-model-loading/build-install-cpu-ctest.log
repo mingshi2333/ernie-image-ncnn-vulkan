@@ -1,0 +1,118 @@
+UpdateCTestConfiguration  from :/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu/DartConfiguration.tcl
+Parse Config file:/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu/DartConfiguration.tcl
+Test project /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 3
+    Start  3: pipeline_api_contract
+
+3: Test command: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu/ernie-pipeline-api-contract
+3: Working Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu/tests
+3: Test timeout computed to be: 1500
+3: Public C++ API builds without private headers and reports runtime capabilities
+1/6 Test  #3: pipeline_api_contract ............   Passed    0.00 sec
+test 4
+    Start  4: request_validation_contract
+
+4: Test command: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu/ernie-request-validation-contract
+4: Working Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu/tests
+4: Test timeout computed to be: 1500
+4: Request validation rejects invalid and unavailable configurations before model loading
+2/6 Test  #4: request_validation_contract ......   Passed    0.00 sec
+test 11
+    Start 11: cli_contract
+
+11: Test command: /home/mingshi/.local/bin/python3.13 "-m" "unittest" "discover" "-s" "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tests" "-p" "test_cli.py" "-v"
+11: Working Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu/tests
+11: Environment variables: 
+11:  ERNIE_TEST_RUNNER=/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu/ernie-image
+11: Test timeout computed to be: 1500
+11: test_bf16_request_obeys_compiled_device_support (test_cli.CliTests.test_bf16_request_obeys_compiled_device_support) ... ok
+11: test_diagnose_lists_runtime_without_loading_a_model (test_cli.CliTests.test_diagnose_lists_runtime_without_loading_a_model) ... ok
+11: test_diagnose_reads_only_bounded_model_config_metadata (test_cli.CliTests.test_diagnose_reads_only_bounded_model_config_metadata) ... ok
+11: test_diagnose_rejects_generation_options (test_cli.CliTests.test_diagnose_rejects_generation_options) ... ok
+11: test_dimensions_must_be_multiples_of_sixteen (test_cli.CliTests.test_dimensions_must_be_multiples_of_sixteen) ... ok
+11: test_dimensions_require_both_axes (test_cli.CliTests.test_dimensions_require_both_axes) ... ok
+11: test_duplicate_prompt_cannot_silently_replace_first (test_cli.CliTests.test_duplicate_prompt_cannot_silently_replace_first) ... ok
+11: test_gpu_requires_a_vulkan_stage (test_cli.CliTests.test_gpu_requires_a_vulkan_stage) ... ok
+11: test_img2img_only_options_require_input (test_cli.CliTests.test_img2img_only_options_require_input) ... ok
+11: test_img2img_reads_input_before_model_loading (test_cli.CliTests.test_img2img_reads_input_before_model_loading) ... ok
+11: test_invalid_img2img_metadata_is_rejected (test_cli.CliTests.test_invalid_img2img_metadata_is_rejected) ... ok
+11: test_invalid_utf8_prompt_file_is_rejected (test_cli.CliTests.test_invalid_utf8_prompt_file_is_rejected) ... ok
+11: test_metrics_rejects_empty_path_before_model_loading (test_cli.CliTests.test_metrics_rejects_empty_path_before_model_loading) ... ok
+11: test_missing_driver_diagnosis_keeps_metadata_and_strict_inference (test_cli.CliTests.test_missing_driver_diagnosis_keeps_metadata_and_strict_inference) ... ok
+11: test_missing_prompt_file_is_reported_before_model_loading (test_cli.CliTests.test_missing_prompt_file_is_reported_before_model_loading) ... ok
+11: test_model_loading_options (test_cli.CliTests.test_model_loading_options) ... ok
+11: test_output_format_is_checked_before_model_loading (test_cli.CliTests.test_output_format_is_checked_before_model_loading) ... ok
+11: test_pe_cannot_change_prompt_of_precomputed_embeddings (test_cli.CliTests.test_pe_cannot_change_prompt_of_precomputed_embeddings) ... ok
+11: test_pe_options_require_an_explicit_model (test_cli.CliTests.test_pe_options_require_an_explicit_model) ... ok
+11: test_pe_rejects_infinite_temperature (test_cli.CliTests.test_pe_rejects_infinite_temperature) ... ok
+11: test_pe_rejects_invalid_top_p (test_cli.CliTests.test_pe_rejects_invalid_top_p) ... ok
+11: test_prompt_file_is_bounded_before_model_loading (test_cli.CliTests.test_prompt_file_is_bounded_before_model_loading) ... ok
+11: test_prompt_sources_are_mutually_exclusive (test_cli.CliTests.test_prompt_sources_are_mutually_exclusive) ... ok
+11: test_rectangular_request_reaches_model_validation (test_cli.CliTests.test_rectangular_request_reaches_model_validation) ... ok
+11: test_repeated_resolution_cannot_silently_override (test_cli.CliTests.test_repeated_resolution_cannot_silently_override) ... ok
+11: test_resize_requires_explicit_target (test_cli.CliTests.test_resize_requires_explicit_target) ... ok
+11: test_strength_zero_does_not_require_prompt (test_cli.CliTests.test_strength_zero_does_not_require_prompt) ... ok
+11: test_strength_zero_rejects_unused_prompt_or_pe (test_cli.CliTests.test_strength_zero_rejects_unused_prompt_or_pe) ... ok
+11: test_threads_are_strictly_bounded (test_cli.CliTests.test_threads_are_strictly_bounded) ... ok
+11: test_unsupported_text_device_is_explicit (test_cli.CliTests.test_unsupported_text_device_is_explicit) ... ok
+11: test_vector_reduction_flag_reaches_model_validation (test_cli.CliTests.test_vector_reduction_flag_reaches_model_validation) ... ok
+11: test_vector_reduction_requires_native_text (test_cli.CliTests.test_vector_reduction_requires_native_text) ... ok
+11: test_weight_placement_options (test_cli.CliTests.test_weight_placement_options) ... ok
+11: 
+11: ----------------------------------------------------------------------
+11: Ran 33 tests in 0.063s
+11: 
+11: OK
+3/6 Test #11: cli_contract .....................   Passed    0.09 sec
+test 12
+    Start 12: installed_cpp_consumer
+
+12: Test command: /home/mingshi/.local/bin/python3.13 "-m" "unittest" "discover" "-s" "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tests" "-p" "test_install.py" "-v"
+12: Working Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu/tests
+12: Environment variables: 
+12:  ERNIE_INSTALL_BUILD=/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu
+12:  ERNIE_INSTALL_CONFIG=Release
+12: Test timeout computed to be: 900
+12: test_relocated_installation (test_install.InstalledConsumerTest.test_relocated_installation) ... ok
+12: 
+12: ----------------------------------------------------------------------
+12: Ran 1 test in 1.016s
+12: 
+12: OK
+4/6 Test #12: installed_cpp_consumer ...........   Passed    1.05 sec
+test 18
+    Start 18: weight_session_cpu
+
+18: Test command: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu/ernie-weight-session-contract
+18: Working Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu/tests
+18: Test timeout computed to be: 1500
+18: Budget, repeated scan, pressure, identity, failure, move and cancellation contracts passed
+5/6 Test #18: weight_session_cpu ...............   Passed    0.00 sec
+test 19
+    Start 19: model_loading_cpu
+
+19: Test command: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu/ernie-model-loading-contract
+19: Working Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu/tests
+19: Test timeout computed to be: 1500
+19: fopen /tmp/ernie-model-loading-142265874767445/absent.bin failed
+19: fopen /tmp/ernie-model-loading-142265874767445/absent.bin failed
+19: CPU FP32/BF16 files: both loading modes, build defaults, repeated extraction, mapping ownership and missing-file rejection pass
+6/6 Test #19: model_loading_cpu ................   Passed    0.00 sec
+
+The following tests passed:
+	pipeline_api_contract
+	request_validation_contract
+	cli_contract
+	installed_cpp_consumer
+	weight_session_cpu
+	model_loading_cpu
+
+100% tests passed, 0 tests failed out of 6
+
+Total Test time (real) =   1.15 sec

@@ -1,0 +1,26 @@
+UpdateCTestConfiguration  from :/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/DartConfiguration.tcl
+Parse Config file:/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/DartConfiguration.tcl
+Test project /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 24
+    Start 24: model_loading_cpu
+
+24: Test command: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/ernie-model-loading-contract
+24: Working Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/tests
+24: Test timeout computed to be: 1500
+24: fopen /tmp/ernie-model-loading-142261185631549/absent.bin failed
+24: fopen /tmp/ernie-model-loading-142261185631549/absent.bin failed
+24: CPU FP32/BF16 files: both loading modes, build defaults, repeated extraction, mapping ownership and missing-file rejection pass
+1/1 Test #24: model_loading_cpu ................   Passed    0.00 sec
+
+The following tests passed:
+	model_loading_cpu
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   0.00 sec

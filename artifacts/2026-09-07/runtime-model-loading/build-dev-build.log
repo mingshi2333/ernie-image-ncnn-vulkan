@@ -1,0 +1,58 @@
+[  1%] Built target SPIRV
+[  1%] Built target ernie-execution-metrics
+[ 34%] Built target ncnn-generate-spirv
+[ 34%] Built target ernie-tokenizer-rust
+[ 34%] Built target ernie-shape-plan
+[ 40%] Built target glslang
+[ 40%] Built target ernie-tokenizer
+[ 42%] Built target ernie-shape-graph
+[ 43%] Built target ernie-model-package
+[ 95%] Built target ncnn
+[ 97%] Built target ernie-runtime
+[ 97%] Built target ernie-pe
+[ 98%] Built target ernie-pipeline
+[100%] Built target ernie-image
+[  1%] Built target ernie-shape-plan
+[  1%] Built target SPIRV
+[ 35%] Built target ncnn-generate-spirv
+[ 42%] Built target glslang
+[ 97%] Built target ncnn
+[100%] Built target ernie-runtime
+[100%] Building CXX object tests/CMakeFiles/ernie-model-loading-contract.dir/test_model_loading.cpp.o
+[100%] Linking CXX executable ../ernie-model-loading-contract
+[100%] Built target ernie-model-loading-contract
+[  1%] Built target SPIRV
+[  1%] Built target ernie-shape-plan
+[ 35%] Built target ncnn-generate-spirv
+[ 42%] Built target glslang
+[ 97%] Built target ncnn
+[100%] Built target ernie-runtime
+[100%] Built target ernie-weight-session-contract
+[  1%] Built target SPIRV
+[  1%] Built target ernie-execution-metrics
+[ 34%] Built target ncnn-generate-spirv
+[ 41%] Built target glslang
+[ 41%] Built target ernie-tokenizer-rust
+[ 41%] Built target ernie-shape-plan
+[ 41%] Built target ernie-tokenizer
+[ 42%] Built target ernie-shape-graph
+[ 43%] Built target ernie-model-package
+[ 96%] Built target ncnn
+[ 98%] Built target ernie-runtime
+[ 98%] Built target ernie-pe
+[100%] Built target ernie-pipeline
+[100%] Built target ernie-pipeline-api-contract
+[  1%] Built target SPIRV
+[  1%] Built target ernie-execution-metrics
+[ 34%] Built target ncnn-generate-spirv
+[ 41%] Built target glslang
+[ 41%] Built target ernie-tokenizer-rust
+[ 41%] Built target ernie-shape-plan
+[ 41%] Built target ernie-tokenizer
+[ 42%] Built target ernie-shape-graph
+[ 43%] Built target ernie-model-package
+[ 96%] Built target ncnn
+[ 98%] Built target ernie-runtime
+[ 98%] Built target ernie-pe
+[100%] Built target ernie-pipeline
+[100%] Built target ernie-request-validation-contract

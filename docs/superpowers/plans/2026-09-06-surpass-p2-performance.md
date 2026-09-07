@@ -32,6 +32,8 @@
 
 **2026-09-07 进展：** 有界 FP32 RAM 准备权重会话已实现，可选开启，完整512回归通过，见[实测](../../../artifacts/2026-09-07/bounded-weight-session/README.md)。单块预取、全部开发 fixtures 与重复配对性能仍未完成，本任务保持开放。
 
+**运行时加载增量：** 同一程序现在可选择 stdio/mapped。映射与6GiB缓存的完整512组合保持25张量/PNG逐字节相同，但触及本次16GiB cgroup限制后12次回收、零命中，原最低命中要求失败；无OOM。保留[该负面结果](../../../artifacts/2026-09-07/runtime-model-loading/README.md)，两项优化继续默认关闭，不能从历史单次耗时推定组合收益。
+
 **Files:** Create `src/weight_session.h`, `src/weight_session.cpp`, `tests/test_weight_session.cpp`；Extend `src/block_sequence.h`, `src/block_sequence.cpp`, `src/dit.cpp`, `src/denoiser.cpp`, `src/pipeline.cpp`, `src/CMakeLists.txt`, `tests/CMakeLists.txt`。
 
 **Interfaces:** `WeightBudget { host_bytes, device_bytes, prefetch_depth }`；`WeightSession::acquire(block_id)` 返回受会话管理的 lease；`release_after(lease, completion)` 只有已完成的 command 才可回收相关权重。`cancel()` 必须 join worker、等待必要设备完成并释放资源。开始只允许 `prefetch_depth=0/1`，租约不可复制成独立所有者。

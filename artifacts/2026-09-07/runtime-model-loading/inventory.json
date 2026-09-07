@@ -1,0 +1,147 @@
+{
+  "plan.json": {
+    "source": "/var/tmp/ernie-runtime-mapped-cache512-v1/plan.json",
+    "bytes": 87965,
+    "sha256": "9880c5f49d73d133c12d3ec3e01c17d8031b7088d4c7ab286b124e49e4bb5d32"
+  },
+  "build-identity.json": {
+    "source": "/var/tmp/ernie-runtime-mapped-cache512-v1/build-identity.json",
+    "bytes": 956,
+    "sha256": "7ff3ca91c8cc5074aed855b8556085c0bbcb25a6eaa53a5eb07edb81508a74b3"
+  },
+  "run.py": {
+    "source": "/var/tmp/ernie-runtime-mapped-cache512-v1/run.py",
+    "bytes": 1146,
+    "sha256": "3adfb392e1676152a882e85378d8b220ecf67b9d6f3d7d051832512edeeef4bb"
+  },
+  "supervisor.py": {
+    "source": "/var/tmp/ernie-runtime-mapped-cache512-v1/supervisor.py",
+    "bytes": 5828,
+    "sha256": "72b0605da32acd87a2bccfacf1b4ec16abee8280032f36fc24a8dc9792254cce"
+  },
+  "native-process.json": {
+    "source": "/var/tmp/ernie-runtime-mapped-cache512-v1/native/process.json",
+    "bytes": 13384,
+    "sha256": "82b0a3cd11bfb25503274c4b72b6f4816eeb60e7655d576ea1866a1e942eb67e"
+  },
+  "native-worker-result.json": {
+    "source": "/var/tmp/ernie-runtime-mapped-cache512-v1/native/worker-result.json",
+    "bytes": 1873,
+    "sha256": "8c3106f6d9dd376a3bedc0de0efb9f6065317ee698151342724ad71daffbe28c"
+  },
+  "native-command-0.log": {
+    "source": "/var/tmp/ernie-runtime-mapped-cache512-v1/native/command-0.log",
+    "bytes": 40092,
+    "sha256": "c3d1444c9fca743cd17193d3522db47b82bc527c79672939bf2dbabdfdee0d66"
+  },
+  "native-runner.log": {
+    "source": "/var/tmp/ernie-runtime-mapped-cache512-v1/native/runner.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "model-loading.txt": {
+    "source": "/var/tmp/ernie-runtime-mapped-cache512-v1/native/trace/model-loading.txt",
+    "bytes": 70,
+    "sha256": "7600a5822ac13681d854c74e811f5abf411a9a57d9a11bf3e854ab68016c84dd"
+  },
+  "weight-cache.txt": {
+    "source": "/var/tmp/ernie-runtime-mapped-cache512-v1/native/trace/weight-cache.txt",
+    "bytes": 108,
+    "sha256": "2b39e754f4fb4b731da193d42aae46fce636353eddd795d028b8f907d95ebdca"
+  },
+  "shape.txt": {
+    "source": "/var/tmp/ernie-runtime-mapped-cache512-v1/native/trace/shape.txt",
+    "bytes": 111,
+    "sha256": "52a32ebf5bbe9117281b7779994185b00879bca411edd1936529c8fdbbd8de1d"
+  },
+  "prepare.py": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime-model-loading-v1/prepare.py",
+    "bytes": 3618,
+    "sha256": "b454ee0e5862d513f8a56173c49e2b94f602a33515c1016af720b19574afb667"
+  },
+  "compare.py": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime-model-loading-v1/compare.py",
+    "bytes": 4827,
+    "sha256": "b06cc92f1e3b1193641db2bee840d075cf5be4bf477b7281b2ac0320896069a5"
+  },
+  "check.py": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime-model-loading-v1/check.py",
+    "bytes": 2068,
+    "sha256": "4a51b20aef083713d4184274a24b852b54effb7dcfe485f8d8a1bdde426d3f81"
+  },
+  "review.py": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime-model-loading-v1/review.py",
+    "bytes": 3494,
+    "sha256": "d0a516da253a6c4e40647ecaf2bef8af3296d931635a207a6ef595d905c05725"
+  },
+  "review.json": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime-model-loading-v1/review.json",
+    "bytes": 4828,
+    "sha256": "6d0ddaaec642062ba30f99ff6015a025f65386e8e9ef55b25ab76f2f66322578"
+  },
+  "checks.json": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime-model-loading-v1/checks.json",
+    "bytes": 4836,
+    "sha256": "e3541761eae5f653dbb1d420e856de33560a27ccc9d4eb25d0cdb3a04aa16460"
+  },
+  "build-dev-build-attempt-2.log": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime-model-loading-v1/build-dev-build-attempt-2.log",
+    "bytes": 1564,
+    "sha256": "c90ffb213b551b115f9676dd5f72e252e26eaaf0e2c9a32b2652870c7ff22543"
+  },
+  "build-dev-build-attempt-5.log": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime-model-loading-v1/build-dev-build-attempt-5.log",
+    "bytes": 2643,
+    "sha256": "96be78f42dbc1e1fcc4c09862b3dceca96099a4aec45858b359b4be1da59f409"
+  },
+  "build-dev-build.log": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime-model-loading-v1/build-dev-build.log",
+    "bytes": 2136,
+    "sha256": "7aec7d7da1b9ee3911b1f0d59f97f82ac7d676e23b7641289977bbbb9cdf7620"
+  },
+  "build-dev-configure-attempt-4.log": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime-model-loading-v1/build-dev-configure-attempt-4.log",
+    "bytes": 279,
+    "sha256": "21396e8c364101386229f8376ab96d4c2345c11fb337b545dfd3ed872a0060fd"
+  },
+  "build-dev-configure.log": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime-model-loading-v1/build-dev-configure.log",
+    "bytes": 279,
+    "sha256": "21396e8c364101386229f8376ab96d4c2345c11fb337b545dfd3ed872a0060fd"
+  },
+  "build-dev-ctest-attempt-6.log": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime-model-loading-v1/build-dev-ctest-attempt-6.log",
+    "bytes": 21579,
+    "sha256": "7ce216d96d2ebf9f7f38ebcd3b4f9f10b40e20dc34bf3bd03e8ed7e821e10620"
+  },
+  "build-dev-ctest.log": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime-model-loading-v1/build-dev-ctest.log",
+    "bytes": 1378,
+    "sha256": "3de40522b298e746c5b05751bbe3a3e7274c5fdfd27243456c845a1ab90802ec"
+  },
+  "build-install-cpu-build.log": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime-model-loading-v1/build-install-cpu-build.log",
+    "bytes": 1405,
+    "sha256": "2a292ab4b8373391f71f0767db73189790fe864529c7437463df183e2e4cfefc"
+  },
+  "build-install-cpu-configure.log": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime-model-loading-v1/build-install-cpu-configure.log",
+    "bytes": 287,
+    "sha256": "6fe97fe0823c596630594f9ad86f6565254386ca0a8adf14ef2dbcf94c89825e"
+  },
+  "build-install-cpu-ctest.log": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime-model-loading-v1/build-install-cpu-ctest.log",
+    "bytes": 8642,
+    "sha256": "18b0ea1779097dfdb51c2b74f117a70b068159c38f98b1068902ba9f586d8f0e"
+  },
+  "frozen-comparison.log": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime-model-loading-v1/frozen-comparison.log",
+    "bytes": 337,
+    "sha256": "71b4881651b746c3188b254310380ca4b9a145086a0199c0cd51ec9cfa32c13b"
+  },
+  "supervisor.stdout.log": {
+    "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime-model-loading-v1/supervisor.stdout.log",
+    "bytes": 11034,
+    "sha256": "8fcfac090672faa67e300c2e00188c2b1203947aee3393c267e5d43b6835a80f"
+  }
+}

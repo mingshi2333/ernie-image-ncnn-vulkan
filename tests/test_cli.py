@@ -12,6 +12,14 @@ RUNNER = Path(os.environ.get('ERNIE_TEST_RUNNER', ROOT/'build/ernie-image'))
 
 @unittest.skipUnless(RUNNER.is_file(), 'Build the native generator first')
 class CliTests(unittest.TestCase):
+    def test_model_loading_options(self):
+        self.assertIn('Model loading', self.request('--prompt', 'cat', '--model-loading', 'invalid'))
+        for mode in ('default', 'stdio', 'mapped'):
+            self.assertIn('Cannot open model package', self.request('--prompt', 'cat', '--device', 'cpu',
+                '--precision', 'fp32', '--model-loading', mode))
+        self.assertIn('Duplicate option', self.request('--prompt', 'cat',
+            '--model-loading', 'mapped', '--model-loading', 'stdio'))
+
     def test_weight_placement_options(self):
         self.assertIn('DiT weights', self.request('--prompt', 'cat', '--dit-weights', 'invalid'))
         self.assertIn('requires Vulkan', self.request('--prompt', 'cat', '--device', 'cpu',

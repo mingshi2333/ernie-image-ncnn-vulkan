@@ -12,7 +12,7 @@ int main()
         if (request.threads != 4 || request.gpu_index != -1 || request.text_device != "cpu" ||
             request.input_image || request.strength != .5f || request.input_resize != "none" ||
             request.input_source_width || request.input_source_height || request.dit_cache_mib ||
-            request.ram_reserve_mib != 3072 ||
+            request.ram_reserve_mib != 3072 || request.model_loading != "default" ||
             request.input_alpha_background != std::array<uint8_t,3>{255,255,255} ||
             request.input_resize_background != std::array<uint8_t,3>{0,0,0})
             throw std::runtime_error("Public request defaults changed unexpectedly");

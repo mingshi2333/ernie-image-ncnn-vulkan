@@ -1,0 +1,32 @@
+-- CMAKE_INSTALL_PREFIX = /usr/local
+-- NCNN_VERSION_STRING = 1.0.20260907
+-- Target arch: x86 64bit
+-- Configuring done (0.2s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev
+[  1%] Built target SPIRV
+[  1%] Built target ernie-execution-metrics
+[ 34%] Built target ncnn-generate-spirv
+[ 34%] Built target ernie-tokenizer-rust
+[ 34%] Built target ernie-shape-plan
+[ 40%] Built target glslang
+[ 40%] Built target ernie-tokenizer
+[ 42%] Built target ernie-shape-graph
+[ 43%] Built target ernie-model-package
+[ 95%] Built target ncnn
+[ 95%] Building CXX object src/CMakeFiles/ernie-runtime.dir/image_encoder.cpp.o
+[ 95%] Linking CXX static library libernie-runtime.a
+[ 97%] Built target ernie-runtime
+[ 97%] Building CXX object src/CMakeFiles/ernie-pe.dir/prompt_enhancer.cpp.o
+[ 97%] Linking CXX static library libernie-pe.a
+[ 97%] Built target ernie-pe
+[ 97%] Building CXX object src/CMakeFiles/ernie-pipeline.dir/pipeline.cpp.o
+[ 97%] Building CXX object src/CMakeFiles/ernie-pipeline.dir/runtime_info.cpp.o
+[ 97%] Linking CXX static library libernie-pipeline.a
+[ 98%] Built target ernie-pipeline
+[ 98%] Building CXX object cli/CMakeFiles/ernie-image.dir/image_io.cpp.o
+[ 98%] Building CXX object cli/CMakeFiles/ernie-image.dir/main.cpp.o
+[100%] Building CXX object cli/CMakeFiles/ernie-image.dir/options.cpp.o
+[100%] Linking CXX executable ../ernie-image
+[100%] Built target ernie-image
+gmake: *** No rule to make target 'ernie-model-loading-contract'.  Stop.

@@ -1,0 +1,394 @@
+{
+  "phase": "native",
+  "command": [
+    "systemd-run",
+    "--user",
+    "--scope",
+    "--quiet",
+    "--unit=ernie-runtime-mapped-cache512-v1-native",
+    "--property=MemoryMax=17179869184",
+    "--property=MemorySwapMax=0",
+    "--property=CPUQuota=200%",
+    "taskset",
+    "-c",
+    "4,6",
+    "/usr/bin/python3",
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/run.py",
+    "native",
+    "9880c5f49d73d133c12d3ec3e01c17d8031b7088d4c7ab286b124e49e4bb5d32"
+  ],
+  "plan_sha256": "9880c5f49d73d133c12d3ec3e01c17d8031b7088d4c7ab286b124e49e4bb5d32",
+  "limits": {
+    "memory_max_bytes": 17179869184,
+    "host_available_min_bytes": 3221225472,
+    "gpu_whole_device_max_mib": 6144,
+    "timeout_seconds_per_phase": 1800
+  },
+  "peak_memory_current": 17179869184,
+  "minimum_host_available": 10789851136,
+  "peak_gpu_whole_device_mib": 2372,
+  "complete": true,
+  "cgroup_seen": true,
+  "observed_limits": {
+    "memory.max": "17179869184",
+    "memory.swap.max": "0",
+    "cpu.max": "200000 100000"
+  },
+  "memory_events": "low 0\nhigh 0\nmax 45089\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+  "return_code": 0,
+  "observed_model_mappings": {
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/6d0876f542983ebe20b22f14c8d29043a7168a121bca92c5eb20031b435200cc": {
+      "observations": 1,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/ab986f5419d56dacafc7e7ec752894c8d8ef75af336e40adbf867b60a2d697a2": {
+      "observations": 1,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/04769adc1fe5d5535ee6d7aafa07c41443e1a20f0ac60fe19b32ad7f3540a2fb": {
+      "observations": 1,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/aeef7837fede83d69f688623bded6393313b4422db30c78ace901335c03fed75": {
+      "observations": 1,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/9b38c18ea1314894c68bfbf32a2f8faef6edb7cb0fa75857feba236406af071e": {
+      "observations": 1,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/caf5d68e464878ede6f35ebed1244235819b0eefdf062b6ed64bffc3b041e6c9": {
+      "observations": 1,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/ad7549e2834ef5674c2af4df4ce7f944fb8cf4513939be0d0fa42d1b98a9e37c": {
+      "observations": 1,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/206452059b660cec2ed31d11568b63c33cf249a83ba9dbe1db55b010757f6ab9": {
+      "observations": 1,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/3d9a72983d75edb40d81c863c12f233579c43b270d9b59759bd9cc15df535bf3": {
+      "observations": 1,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/fda643dc97be8a4a0f4062a797504bf31c85d57e8503cc4ef79b7b46d5444539": {
+      "observations": 1,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/7ed7b10d6a06f8ac96c33dbbacad49e5b9e4e2ed7907b22148d6b0990cdc98c9": {
+      "observations": 1,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/d341897dfa4838e6043876a21ee96df446225e82f5e0acdd73e551af4b366d80": {
+      "observations": 1,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/c95c1bf205ccc36b3e2929833401d516516429364128af4dc93e5627dec14978": {
+      "observations": 1,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/df13c864bf2b8654c613a692d02f18f2653b86ac8009542906210796a9b255e2": {
+      "observations": 1,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/c37cc370efa7aa0e15547930ff068473880b73a25911ade7ffb79da78c942d80": {
+      "observations": 1,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/e77d348649874c64e061a11d7ce8dc5a80386663694c391e4f10a1f971613641": {
+      "observations": 1,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/71ae8ad707abdc445491541d61720c6c681629dc3657413e1d73b758b82ff518": {
+      "observations": 1,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/b7a4c4a5a0178fe8c3c3714c8adddde7e9c8b19a6e452a36f383607467e50117": {
+      "observations": 1,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/5eeaa815af96a89f1e7deede0aa38972c56d0106dc4f7326a822d00b0953fb60": {
+      "observations": 1,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/ffe744797efe17ec271d1c227521da4669c0a29a229f58a73b7e2b43fe98573a": {
+      "observations": 1,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/e78aec5262fe279e23c4ccbf77a79f5f6ec96d3cce9232c9f8c24ea86c311142": {
+      "observations": 12,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/e8dd207d95dd18b9c7854e5cde577e6b00272b3ad82721bae54bdd7eacaa03bd": {
+      "observations": 86,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/7d71103492badc66e9648c6b47386e7a74b0f4c2d5049928b58adfa4112e756a": {
+      "observations": 77,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/2d955fee1d1c252b89c4e4fce725bbdc4cc0b265b7b7645068aa46ce29d5d7ec": {
+      "observations": 71,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/d7d09618455a56e332d0599d5c6d4dbb2d78449190ce815fb63c0941b907cea2": {
+      "observations": 63,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/4b814157d769982e812ea6003a3cb9b49a39e78cb370bfd5354ad54b11b52c04": {
+      "observations": 55,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/1358b4012f49efae33e96552f329833f6ad4daa29bff810095276241346b9b9d": {
+      "observations": 49,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/44cb70e0d647d3a0efa1a7f8b05d598d5f5883b27c900d57721b2400897fa58d": {
+      "observations": 18,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/c9effd9ee1157695a5826d5bbe73cdbfa0dc9cb6236c0bc7d35504d2dbce379b": {
+      "observations": 17,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/ce9be146b96e7114f38d9e5d302cd8ffd76256938f0637d781c35834fc40b4a9": {
+      "observations": 16,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/3447289c18f403af1f40083606165400bcef4532bb80b77b687aa955dcabadda": {
+      "observations": 16,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/db8f96b926994dd6ed3d4397f4834b40fc1eadcb4dd7dc894e9901e1e153f07d": {
+      "observations": 16,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/b2978e670679a13455712dd0ae3539c564c538ac647a5b9523b9aaec44f9ecaf": {
+      "observations": 17,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/4e406ff6bdfe324b8501ea42b7be0533983d43a46e7dbc0a1d339653d1ebb8c4": {
+      "observations": 18,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/97ead49cb373501419179e2a833e5d038476a49f7f9f3b9072ef0d8343bd9cd1": {
+      "observations": 20,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/029f377846cc1e856222ecbf0a503a57e3b1087f19436ef1e434594c953d74b6": {
+      "observations": 16,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/0321f883d79cab6606ac3d2736344043625f3a0fed9bb1f5fcfdd33d1acd07da": {
+      "observations": 18,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/a7e7fcebef4f2071906a1136e21c8f900a7831007958ad6f2806e88bd8827667": {
+      "observations": 17,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/29b8e2ea335b5292727cc1b71ea61eb72110c9c8214fe8bfc74b44ee787bd3c2": {
+      "observations": 17,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/647de30014ffacce8777c7f7998fcfb4c10c6476a99fa4460970c194f2b5fda4": {
+      "observations": 19,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/080e5e4679be71706ad531028124776537ad867956b7ac74470b4087943e3c84": {
+      "observations": 17,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/e85a84dd84b9e9ba371e749e3aace5b66f7c530fc27a3f88b40242cfde6e2eab": {
+      "observations": 17,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/67bd50f2b67c0520f11b59b4480b20cbfae23d8fa38b4d768ee23df77bbf929c": {
+      "observations": 18,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/b61ca47e0c78d15a358c29e8781dab22cfd3545f2c56bb1ad8e21c6d0d1e86da": {
+      "observations": 17,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/0dc22ff1bb47327920ccf1e365e35ad9bed74b1fbdfff92a06b212339c2de68e": {
+      "observations": 17,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/a41d27f2df77e559a77cdfe9e647a83b3b73ed47333f6970bf388fb75e0249c0": {
+      "observations": 19,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/dfe958123ae5320ddd2650ac9da1568a8e2481c9e0270669cdd25eed4ed44131": {
+      "observations": 16,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/0ea52c543d1a9ce23cd38fa8d4ca427fc4ae8e7497a925dee2e5d950a4d05b9a": {
+      "observations": 18,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/40829e1746f2968c3bdaeccf0c044114e5a9b9c18661a7b97dd15d2178c8a660": {
+      "observations": 16,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/04beb23cde4cf71afb94b9587fe183300c5989487e24a825784ca3bfbb64dfd0": {
+      "observations": 18,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/5890ebff0a4c5b9a094997243c1ae6032d9a505a7a4181f529168105d77fa0e0": {
+      "observations": 17,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/8bf344c0a809a7a84ca1623850439e2cb87abbe557f595cd9fa0ba3b3abef1ea": {
+      "observations": 16,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/a222603adb356f3ef89b3241155806873f54aeaf4b1c3b45e66c1ad5df379d0f": {
+      "observations": 18,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/fef41291e07b134c1d2fb256aeaa2e69d85e3541f518c95d342cd81f2a7d1368": {
+      "observations": 18,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/8203efb4bc3c5fad2fd7500bda1d7e2fd2fb9193687bdd99da18a63c0c74a6c7": {
+      "observations": 17,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/f2ee83864b592c33c545da832da6f619be20d79a9c12a65fab2cebfba61285b5": {
+      "observations": 16,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/cd7fc11a5e4ff7b2753e66914e0445720f58e582feb4327bc24825a99b8365e1": {
+      "observations": 20,
+      "permissions": [
+        "r--p"
+      ]
+    },
+    "/var/tmp/ernie-runtime-mapped-cache512-v1/model/objects/ee7db4b3725079f9baeb8587bcad56fd3f04d92254b90d86acc894c1ec63cd24": {
+      "observations": 37,
+      "permissions": [
+        "r--p"
+      ]
+    }
+  },
+  "observed_native_pids": [
+    2814084
+  ],
+  "mapping_sample_seconds": 0.5,
+  "wall_seconds": 386.0956382910081
+}

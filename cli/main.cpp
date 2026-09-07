@@ -106,6 +106,8 @@ int main(int argc, char **argv)
             std::cout << "DiT weight placement requests: GPU=" << result.device_weight_requests
                       << " RAM=" << result.host_weight_requests
                       << " budget unavailable=" << result.unavailable_memory_queries << '\n';
+        std::cerr << "Image model loading requested: "
+                  << (result.mapped_model_loading_requested ? "mapped" : "stdio") << '\n';
         if (options.generation.dit_cache_mib)
             std::cerr << "DiT weight cache: hits=" << result.weight_cache_hits
                       << " loads=" << result.weight_cache_loads

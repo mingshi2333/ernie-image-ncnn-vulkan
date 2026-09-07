@@ -42,6 +42,7 @@ int main()
     {
         rejected("Threads", [](auto &r) { r.threads = 0; });
         rejected("DiT weights", [](auto &r) { r.dit_weights = "invalid"; });
+        rejected("Model loading", [](auto &r) { r.model_loading = "invalid"; });
         rejected("requires Vulkan", [](auto &r) { r.dit_weights = "host"; });
         rejected("requires Vulkan", [](auto &r) { r.gpu_reserve_mib = 0; });
         rejected("requires Vulkan FP32", [](auto &r) { r.dit_cache_mib = 1; });

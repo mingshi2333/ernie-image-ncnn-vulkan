@@ -57,6 +57,9 @@ struct GenerationRequest
     // Charged weight bytes plus margin, not a whole-process memory ceiling.
     uint32_t dit_cache_mib = 0;
     uint32_t ram_reserve_mib = 3072;
+    // Image text/DiT/VAE loading only; the separate prompt enhancer is unchanged.
+    // default preserves the build setting. mapped may fall back to file reads.
+    std::string model_loading = "default"; // default, stdio, mapped.
 };
 
 struct GenerationResult
@@ -72,6 +75,7 @@ struct GenerationResult
     uint64_t weight_cache_hits = 0, weight_cache_loads = 0;
     uint64_t weight_cache_peak_bytes = 0, weight_cache_peak_nets = 0;
     uint64_t weight_cache_evictions = 0, unavailable_host_memory_queries = 0;
+    bool mapped_model_loading_requested = false; // Policy, not observed mapping success.
 };
 
 struct Progress

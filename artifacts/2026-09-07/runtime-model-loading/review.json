@@ -1,0 +1,212 @@
+{
+  "scope": "Additional review, with the original minimum-hit expectation unchanged; not formal performance.",
+  "frozen_checker_returncode": 1,
+  "checks": {
+    "finite_exact_25_tensors": true,
+    "exact_baseline_png": true,
+    "all_288_block_calls_accounted": true,
+    "cache_charge_within_budget": true,
+    "minimum_cache_hits_predeclared": false,
+    "observed_readonly_mappings": true
+  },
+  "weight_cache": {
+    "hits": 0,
+    "loads": 288,
+    "admissions": 12,
+    "evictions": 12,
+    "peak_charged_bytes": 5687678976,
+    "peak_nets": 6,
+    "unavailable_queries": 0
+  },
+  "tensors": [
+    {
+      "name": "constant-0.f32",
+      "elements": 139264,
+      "same_shape": true,
+      "finite": true,
+      "byte_equal": true
+    },
+    {
+      "name": "constant-1.f32",
+      "elements": 139264,
+      "same_shape": true,
+      "finite": true,
+      "byte_equal": true
+    },
+    {
+      "name": "constant-2.f32",
+      "elements": 1183744,
+      "same_shape": true,
+      "finite": true,
+      "byte_equal": true
+    },
+    {
+      "name": "decoded.f32",
+      "elements": 786432,
+      "same_shape": true,
+      "finite": true,
+      "byte_equal": true
+    },
+    {
+      "name": "final.f32",
+      "elements": 131072,
+      "same_shape": true,
+      "finite": true,
+      "byte_equal": true
+    },
+    {
+      "name": "initial.f32",
+      "elements": 131072,
+      "same_shape": true,
+      "finite": true,
+      "byte_equal": true
+    },
+    {
+      "name": "padded-text.f32",
+      "elements": 196608,
+      "same_shape": true,
+      "finite": true,
+      "byte_equal": true
+    },
+    {
+      "name": "prediction-0.f32",
+      "elements": 131072,
+      "same_shape": true,
+      "finite": true,
+      "byte_equal": true
+    },
+    {
+      "name": "prediction-1.f32",
+      "elements": 131072,
+      "same_shape": true,
+      "finite": true,
+      "byte_equal": true
+    },
+    {
+      "name": "prediction-2.f32",
+      "elements": 131072,
+      "same_shape": true,
+      "finite": true,
+      "byte_equal": true
+    },
+    {
+      "name": "prediction-3.f32",
+      "elements": 131072,
+      "same_shape": true,
+      "finite": true,
+      "byte_equal": true
+    },
+    {
+      "name": "prediction-4.f32",
+      "elements": 131072,
+      "same_shape": true,
+      "finite": true,
+      "byte_equal": true
+    },
+    {
+      "name": "prediction-5.f32",
+      "elements": 131072,
+      "same_shape": true,
+      "finite": true,
+      "byte_equal": true
+    },
+    {
+      "name": "prediction-6.f32",
+      "elements": 131072,
+      "same_shape": true,
+      "finite": true,
+      "byte_equal": true
+    },
+    {
+      "name": "prediction-7.f32",
+      "elements": 131072,
+      "same_shape": true,
+      "finite": true,
+      "byte_equal": true
+    },
+    {
+      "name": "step-0.f32",
+      "elements": 131072,
+      "same_shape": true,
+      "finite": true,
+      "byte_equal": true
+    },
+    {
+      "name": "step-1.f32",
+      "elements": 131072,
+      "same_shape": true,
+      "finite": true,
+      "byte_equal": true
+    },
+    {
+      "name": "step-2.f32",
+      "elements": 131072,
+      "same_shape": true,
+      "finite": true,
+      "byte_equal": true
+    },
+    {
+      "name": "step-3.f32",
+      "elements": 131072,
+      "same_shape": true,
+      "finite": true,
+      "byte_equal": true
+    },
+    {
+      "name": "step-4.f32",
+      "elements": 131072,
+      "same_shape": true,
+      "finite": true,
+      "byte_equal": true
+    },
+    {
+      "name": "step-5.f32",
+      "elements": 131072,
+      "same_shape": true,
+      "finite": true,
+      "byte_equal": true
+    },
+    {
+      "name": "step-6.f32",
+      "elements": 131072,
+      "same_shape": true,
+      "finite": true,
+      "byte_equal": true
+    },
+    {
+      "name": "step-7.f32",
+      "elements": 131072,
+      "same_shape": true,
+      "finite": true,
+      "byte_equal": true
+    },
+    {
+      "name": "text.f32",
+      "elements": 46080,
+      "same_shape": true,
+      "finite": true,
+      "byte_equal": true
+    },
+    {
+      "name": "unpacked.f32",
+      "elements": 131072,
+      "same_shape": true,
+      "finite": true,
+      "byte_equal": true
+    }
+  ],
+  "total_elements": 4981760,
+  "png_sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+  "plan_sha256": "9880c5f49d73d133c12d3ec3e01c17d8031b7088d4c7ab286b124e49e4bb5d32",
+  "review_sha256": "d0a516da253a6c4e40647ecaf2bef8af3296d931635a207a6ef595d905c05725",
+  "observed_mapping_files": 58,
+  "process": {
+    "wall_seconds": 386.0956382910081,
+    "peak_memory_current": 17179869184,
+    "minimum_host_available": 10789851136,
+    "peak_gpu_whole_device_mib": 2372,
+    "memory_events": "low 0\nhigh 0\nmax 45089\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "return_code": 0
+  },
+  "all_checks_pass": false
+}

@@ -5,6 +5,7 @@
 #include "image_encoder.h"
 #include "img2img.h"
 #include "model_package.h"
+#include "model_loading.h"
 #include "prompt_enhancer.h"
 #include "pipeline_metrics.h"
 #include "tensor_io.h"
@@ -88,6 +89,7 @@ void validate_request(const GenerationRequest &r)
     if (r.text_device != "cpu")
         throw std::invalid_argument("Only CPU text encoding is currently supported");
     parse_weight_memory(r.dit_weights);
+    request_mapped_model_loading(r.model_loading, false);
     if (r.device != "vulkan" && (r.dit_weights != "auto" || r.gpu_reserve_mib != 512))
         throw std::invalid_argument("DiT weight placement requires Vulkan generation");
     if ((r.dit_cache_mib || r.ram_reserve_mib != 3072) &&
@@ -355,15 +357,23 @@ GenerationResult generate_impl(const GenerationRequest &r, const ProgressCallbac
     ncnn::Option cpu;
     cpu.num_threads = r.threads;
 #if defined(ERNIE_EXPERIMENT_MAPPED_MODEL_LOADING)
-    // The pinned ncnn keeps the file mapping alive for the owning Net.
-    // GPU stage options inherit this request; ncnn may fall back to file reads.
-    cpu.use_mapped_model_loading = true;
+    constexpr bool build_mapped_default = true;
+#else
+    constexpr bool build_mapped_default = false;
 #endif
+    // Each Net owns its mapping, including when retained in the RAM cache.
+    // GPU stage options inherit the policy; ncnn may fall back to file reads.
+    cpu.use_mapped_model_loading = request_mapped_model_loading(r.model_loading, build_mapped_default);
+    result.mapped_model_loading_requested = cpu.use_mapped_model_loading;
     cpu.use_vulkan_compute = false;
     cpu.use_fp16_storage = cpu.use_fp16_packed = cpu.use_fp16_arithmetic = cpu.use_bf16_storage =
         cpu.use_bf16_packed = false;
     cpu.use_sgemm_convolution = false;
     cpu.use_winograd_convolution = false;
+    if (!trace.empty())
+        trace_text(trace / "model-loading.txt", std::string("requested=") +
+                   (result.mapped_model_loading_requested ? "mapped" : "stdio") +
+                   "\nscope=image text, DiT, VAE; excludes prompt enhancer\n");
     ncnn::Mat encoded;
     double encoder_seconds=0;
     if (img2img)

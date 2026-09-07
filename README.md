@@ -12,7 +12,7 @@ ERNIE-Image-Turbo 本地文生图的 C++ / ncnn / Vulkan 实现。**可以离线
 
 同一 1376×768 苹果示例与官方 FP32 对照通过 23/25 项张量数值检查，最后一步预测和解码结果超过原最大误差限；PNG 平均像素差 0.00504/255、最大差 3，原上限为 2。**这些阈值由本项目助手选定，尚未完成感知质量和跨后端波动标定。** 数值未全过不等于出图失败、可见画质损坏或内存不足，详见[阈值来源与适用范围](docs/NUMERICAL-DIAGNOSTICS.md#门槛的来源与适用范围)。中文和长提示词画质、与参考项目的正式比较及其他平台验证仍未完成，当前不能宣称全面超过参考项目。
 
-权重映射加载已接入，默认关闭。新的 512×512 实测中，25 个张量和 PNG 与原版逐字节相同，监督区间用时由 466.87 秒降至 309.79 秒，未触发原 16 GiB 进程组上限或 OOM。文件缓存状态未统一，这仍是单次诊断观测，不能作为正式速度排名或内存优势结论，见[横竖图与映射加载记录](artifacts/2026-09-07/runtime-rectangles-and-mapped512/README.md)。此前 64×64 的逐字节一致结果及触及 10 GiB 上限的记录[继续保留](artifacts/2026-09-07/mapped-model-loading/README.md)。
+权重映射加载现在可用 `--model-loading stdio|mapped` 在同一程序中切换，默认仍关闭。与 6 GiB RAM 权重缓存组合的 512×512 完整回归保持 25 个张量和 PNG 逐字节相同，但在本次 16 GiB 进程组限制下触发缓存回收 12 次、命中为 0，没有通过最低复用要求；无 OOM，见[运行时加载与真实压力记录](artifacts/2026-09-07/runtime-model-loading/README.md)。此前映射单次诊断的 466.87→309.79 秒观测及数值一致结果见[横竖图记录](artifacts/2026-09-07/runtime-rectangles-and-mapped512/README.md)；这些未控制文件缓存状态，不能作为正式速度排名或内存优势结论。更早的 [64×64 记录](artifacts/2026-09-07/mapped-model-loading/README.md)继续保留。
 
 **2026-09-06 新增：2048-token 文本桶、UTF-8 prompt 文件、512×384 非正方形包、BF16 实验入口和完整 CPU PE。** PE 的 315 个 greedy token（含 EOS）、最终文字及每步 logits 全部通过官方 FP32 对照。连接 PE 的完整文生图已运行，24/25 张量和 PNG 通过，解码张量的最大误差仍超限。1080-token 示例为 FP32 19/25、BF16 11/25，两者最大像素差也超限。完整记录见 [功能与结构交付报告](artifacts/2026-09-06/features-and-structure/README.md)。代码现已拆为公共 C++ 接口、CLI、流水线和模型组件，见 [代码结构](docs/CODE-STRUCTURE.md)。
 

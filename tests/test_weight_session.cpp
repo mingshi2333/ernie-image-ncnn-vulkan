@@ -117,7 +117,7 @@ void state_contract()
     std::cout << "Budget, repeated scan, pressure, identity, failure, move and cancellation contracts passed\n";
 }
 #if NCNN_VULKAN
-int vulkan_contract()
+int vulkan_contract(bool mapped, bool bf16)
 {
     struct Context { ~Context() { ncnn::destroy_gpu_instance(); } } context;
     if (ncnn::create_gpu_instance() || ncnn::get_gpu_count() == 0) return 77;
@@ -128,6 +128,7 @@ int vulkan_contract()
     option.use_vulkan_compute = true;
     option.use_fp16_storage = option.use_fp16_packed = option.use_fp16_arithmetic = false;
     option.use_packing_layout = false;
+    option.use_mapped_model_loading = mapped;
     option.num_threads = 1;
     option.blob_vkallocator = option.workspace_vkallocator = &blobs;
     option.staging_vkallocator = &staging;
@@ -144,10 +145,12 @@ int vulkan_contract()
     const auto path = temp.path / "weights.bin";
     {
         std::ofstream file(path, std::ios::binary);
-        const std::uint32_t tag = 0;
+        const std::uint32_t tag = bf16 ? 0x01348b83 : 0;
         const float weight[] = {2.f, 0.f, 0.f, 3.f};
+        const std::uint16_t packed[] = {0x4000, 0, 0, 0x4040};
         file.write(reinterpret_cast<const char*>(&tag), sizeof(tag));
-        file.write(reinterpret_cast<const char*>(weight), sizeof(weight));
+        if (bf16) file.write(reinterpret_cast<const char*>(packed), sizeof(packed));
+        else file.write(reinterpret_cast<const char*>(weight), sizeof(weight));
         require(bool(file), "Cannot write fixture");
     }
     const std::vector<ernie::ComponentFiles> models(3, {graph, path.string()});
@@ -199,10 +202,13 @@ int main(int argc, char** argv)
 {
     try
     {
-        if (argc == 2 && std::string(argv[1]) == "vulkan")
+        if (argc >= 2 && std::string(argv[1]) == "vulkan")
         {
 #if NCNN_VULKAN
-            return vulkan_contract();
+            if (argc > 4 || (argc > 2 && std::string(argv[2]) != "mapped" && std::string(argv[2]) != "stdio") ||
+                (argc > 3 && std::string(argv[3]) != "bf16"))
+                throw std::invalid_argument("Expected vulkan [mapped|stdio [bf16]]");
+            return vulkan_contract(argc > 2 && std::string(argv[2]) == "mapped", argc > 3);
 #else
             return 77;
 #endif

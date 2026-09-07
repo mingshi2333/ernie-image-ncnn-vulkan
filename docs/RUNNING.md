@@ -399,16 +399,27 @@ of that fixture, without adding an official quality or performance result.
 
 ## Experimental mapped model loading
 
-`-DERNIE_EXPERIMENT_MAPPED_MODEL_LOADING=ON` requests the pinned ncnn's
-file mapping loader for the image pipeline's text encoder, DiT and VAE. The
-option is **OFF by default** and does not change precision or model equations.
+`--model-loading mapped` requests the pinned ncnn's file mapping loader for
+the image pipeline's text encoder, DiT and VAE, including an img2img encoder.
+`--model-loading stdio` explicitly uses the ordinary file reader. Both modes
+are available in the same executable, so a comparison does not need a rebuild.
+The default `--model-loading default` preserves the existing build setting:
+`-DERNIE_EXPERIMENT_MAPPED_MODEL_LOADING=ON` enables mapping by default, and
+that CMake option remains **OFF by default**. Neither mode changes precision
+or model equations.
 Each `ncnn::Net` owns its mapping until destruction; ncnn can fall back to its
 ordinary file reader when mapping is unavailable. The separate prompt enhancer
 does not use this option.
 
-Add the option to a separate build configuration and rebuild `ernie-image`.
+For example, append `--model-loading mapped` to an existing generation command.
 The usual model checksum verification still runs before inference. Mapping
-does not eliminate BF16-to-FP32 expansion or Vulkan weight uploads.
+does not eliminate BF16-to-FP32 expansion or Vulkan weight uploads. The CLI,
+`GenerationResult::mapped_model_loading_requested`, and optional
+`model-loading.txt` trace report the selected request; they do not assert
+that every file was successfully mapped. Mapping and the optional RAM weight
+cache can be enabled together: the cached Net also owns its file mapping until
+eviction or the end of the DiT stage. Resident file pages can add to RAM usage
+beyond the cache's charged weight bytes, and cgroup usage includes file cache.
 
 One fixed 64x64, eight-step FP32 diagnostic observed 64 mapped model files and
 retained all 27 trace files and the final PNG byte for byte. Its CLI interval was
@@ -572,3 +583,11 @@ peak cached Nets, pressure evictions and unavailable host-budget queries.
 Detailed tracing also writes `weight-cache.txt`; placement traces cover only
 actual loads, with `reason=cache` when auto selects RAM for cache admission.
 The cache remains opt-in pending repeated timing and wider image/device checks.
+
+A subsequent complete 512x512 run enabled runtime mapped loading with this
+6 GiB cache and a 16 GiB cgroup. All 25 tensors and the PNG remained byte-exact,
+but cgroup memory pressure led to 12 cache evictions and **zero hits**. Generation
+completed without OOM; the original minimum-hit expectation failed. Mapped file
+pages and prepared weights compete within the process group's memory limit,
+so enabling both does not guarantee useful reuse. Both remain opt-in; see the
+[combined run and preserved negative result](../artifacts/2026-09-07/runtime-model-loading/README.md).
