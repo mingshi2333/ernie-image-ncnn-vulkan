@@ -1,0 +1,266 @@
+{
+  "/var/tmp/ernie-runtime-large-v1/1376x768/cache/nvidia/GLCache/4fc983a3650d25efdf8c3d290b25f854/72584a24c389bba7/2690280ae0ccbd98.bin": {
+    "bytes": 2142266,
+    "sha256": "0759b464d3962ed109e8993f2a76cd16ee28d3631fb2c16263cc7ccc38c9746c"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/cache/nvidia/GLCache/4fc983a3650d25efdf8c3d290b25f854/72584a24c389bba7/2690280ae0ccbd98.toc": {
+    "bytes": 4224,
+    "sha256": "4c6b7244dee381fa0af214ca2a4ef7229a82e3c0e9e9fb918ebfe9b79ac85756"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/compare.py": {
+    "bytes": 5381,
+    "sha256": "6769cb5a0c741786622a72048cbc262406117a4890813e272da28993f2fad6c7"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/initial.f32": {
+    "bytes": 2113536,
+    "sha256": "7d3f82b9ef8e1d9b9096c79e37635c549fc4fa61850f33ff61bbadff2b0a5a44"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/native/native.png": {
+    "bytes": 1586834,
+    "sha256": "6750cf94a398e2ce1f12a7285b28e9fcc943ad3bd5d4fd3524935b40d842fbca"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/native/samples.jsonl": {
+    "bytes": 1936297,
+    "sha256": "cac92be42af792ca5906fa1ed28dfdce324d5e6631ce9eb0b7fe0d8fe4db5338"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/native/trace/constant-0.f32": {
+    "bytes": 2146304,
+    "sha256": "7685e4ecb71e215d65dcbbf0a2fd3d200bb473d88604611659f0a210bcca2e49"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/native/trace/constant-1.f32": {
+    "bytes": 2146304,
+    "sha256": "070a1f813e3c1cec9aa966bd9b4ff3ba365653202b4b9080aae0fcd324227376"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/native/trace/constant-2.f32": {
+    "bytes": 70291456,
+    "sha256": "df3fa4a17d3ef832f5fdf51273dad1429f5672fe858e7b9af64023ca85ca2c7c"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/native/trace/decoded.f32": {
+    "bytes": 12681216,
+    "sha256": "c3d1a07f74e5deb8670a6cc6a4aa0ade670be3f5b45b84a726f20f88a2e28224"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/native/trace/final.f32": {
+    "bytes": 2113536,
+    "sha256": "24bb512c21ebaa36ace946562a2710d6b14c0802da353177da74925568c48fe6"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/native/trace/initial.f32": {
+    "bytes": 2113536,
+    "sha256": "7d3f82b9ef8e1d9b9096c79e37635c549fc4fa61850f33ff61bbadff2b0a5a44"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/native/trace/padded-text.f32": {
+    "bytes": 786432,
+    "sha256": "5fed4f8e9131c3b0bf5fa7bfab06c5d6f9e9a72524b672cc9cd25a78302f28e5"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/native/trace/prediction-0.f32": {
+    "bytes": 2113536,
+    "sha256": "2a720c30775f77cd8f5ecd4e3093218f24dc1b6f9a2fdc0a48f25e6f7914e2b1"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/native/trace/prediction-1.f32": {
+    "bytes": 2113536,
+    "sha256": "96888ba9f38f35a305aa986c092e8278ad1205a9fda2c1cb1029de1a9b33830c"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/native/trace/prediction-2.f32": {
+    "bytes": 2113536,
+    "sha256": "d6d0cd481d46f12f0693db54c47b7ac7d9aece7de808b2934dad33e49453d668"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/native/trace/prediction-3.f32": {
+    "bytes": 2113536,
+    "sha256": "db15f21b6108cdaeee6aca54f5b6bc1b6d8273ccb8584daa100cd24b7ceef565"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/native/trace/prediction-4.f32": {
+    "bytes": 2113536,
+    "sha256": "5a9abf09a74214a54891b49783b3c90b18e9fd31f555dcd2663e5748305ac3c6"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/native/trace/prediction-5.f32": {
+    "bytes": 2113536,
+    "sha256": "9ae5ceea2fc07e36e7528c094f50bc6950e1e827b07ff9ddf6740b1f8283e62e"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/native/trace/prediction-6.f32": {
+    "bytes": 2113536,
+    "sha256": "cda3484a51ce1e5cbda9c100c1a2760b5489335f28e241aff4e1dac34cf50c5e"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/native/trace/prediction-7.f32": {
+    "bytes": 2113536,
+    "sha256": "671eb944ca53a49b4b1284d3eed221cf1585bc7076a6c92184c08e6a05a34e37"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/native/trace/step-0.f32": {
+    "bytes": 2113536,
+    "sha256": "af9dbefb0d20d4c1f9537f9c98bb5935a4fcc95e6a51ca8b968f84ba09e711e0"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/native/trace/step-1.f32": {
+    "bytes": 2113536,
+    "sha256": "419f2b9c85a62eec878823307af9b1b606351a5b00441bb7c9c5eb4aa6e5d581"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/native/trace/step-2.f32": {
+    "bytes": 2113536,
+    "sha256": "1cd5d65ef16876212752b40581c6208c1e3dca0d759eb9c35bda3ef16567fd92"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/native/trace/step-3.f32": {
+    "bytes": 2113536,
+    "sha256": "0bb3f10d8c019dede923570c2638c638f6d80b378c121a6a4bb221b960b61155"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/native/trace/step-4.f32": {
+    "bytes": 2113536,
+    "sha256": "92d5cf4c57ba1e9f73e75dd010a48e3c34ce86d26b7d3c785d3e7963d4463eca"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/native/trace/step-5.f32": {
+    "bytes": 2113536,
+    "sha256": "8c7baa03e7adbc0855670a98d19c9642975f47dfb6884c437e57b9097218578f"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/native/trace/step-6.f32": {
+    "bytes": 2113536,
+    "sha256": "11b39da7a85f56a395bb296594ec93a2e1e1479e3d6363a74c81e34d41b6d5e9"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/native/trace/step-7.f32": {
+    "bytes": 2113536,
+    "sha256": "24bb512c21ebaa36ace946562a2710d6b14c0802da353177da74925568c48fe6"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/native/trace/text.f32": {
+    "bytes": 184320,
+    "sha256": "71fbeee3376e92644c967374601c8549988cb6b1b8e4640f5ddd1b1d840d8ec2"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/native/trace/unpacked.f32": {
+    "bytes": 2113536,
+    "sha256": "49d614eae8115ab32569cc5ff91d4c2d87e396689768829e6383c634f467a7a4"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/official/reference/constant-0.f32": {
+    "bytes": 2146304,
+    "sha256": "c7cf8931b8ae07cb6130aa3d2890e779489773dda16d13d7289930656ac872de"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/official/reference/constant-1.f32": {
+    "bytes": 2146304,
+    "sha256": "35e0b3944aadc2ab83e270ea26c6a370b9a120b876fce36cb7c27fba028612e6"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/official/reference/constant-2.f32": {
+    "bytes": 70291456,
+    "sha256": "df3fa4a17d3ef832f5fdf51273dad1429f5672fe858e7b9af64023ca85ca2c7c"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/official/reference/decoded.f32": {
+    "bytes": 12681216,
+    "sha256": "0df4bd128edab950c531a2ea605f1d448a95f05547d24a2130282b39046711db"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/official/reference/final.f32": {
+    "bytes": 2113536,
+    "sha256": "0bad3bbc81932a7a7fbad8071acbe64d3d3c6fff71d585cae28728cee379c473"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/official/reference/initial-input.f32": {
+    "bytes": 2113536,
+    "sha256": "7d3f82b9ef8e1d9b9096c79e37635c549fc4fa61850f33ff61bbadff2b0a5a44"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/official/reference/initial.f32": {
+    "bytes": 2113536,
+    "sha256": "7d3f82b9ef8e1d9b9096c79e37635c549fc4fa61850f33ff61bbadff2b0a5a44"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/official/reference/padded-text.f32": {
+    "bytes": 786432,
+    "sha256": "e23fa7eab8f1f5cd34ab7e3e9486b0f099a9d32dbea1db4c0a4b376eb9d20f28"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/official/reference/prediction-0.f32": {
+    "bytes": 2113536,
+    "sha256": "3b5913e2e4e2b9520d502cba21f1cfba861020d0e53f086f5b8324fcc1e8d9c5"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/official/reference/prediction-1.f32": {
+    "bytes": 2113536,
+    "sha256": "f11ce37330d3e3d0fcc6f1ece815ee1d6fa8fcb203fa6046bb4046702ccdb31f"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/official/reference/prediction-2.f32": {
+    "bytes": 2113536,
+    "sha256": "1388fae6fe4967ce83a0c107953c843d9e264810a3f03abc7494f4faf90da172"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/official/reference/prediction-3.f32": {
+    "bytes": 2113536,
+    "sha256": "c30487f6e6aa7bb8c8eb4efe79453c45711de5e08fd89c34fb418f1ff61d72c3"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/official/reference/prediction-4.f32": {
+    "bytes": 2113536,
+    "sha256": "6eb03bf5910fed83938986463b625e1a2fc7440fed9af893d19004fcb8a7ffa0"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/official/reference/prediction-5.f32": {
+    "bytes": 2113536,
+    "sha256": "430763001f00896e82695a4fc38bc20fef14d2c631e74fbb33c167d5aafafea1"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/official/reference/prediction-6.f32": {
+    "bytes": 2113536,
+    "sha256": "db072567c4064c00525d798f07cfeac1f341f990a65fea51808cb6e018958303"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/official/reference/prediction-7.f32": {
+    "bytes": 2113536,
+    "sha256": "6b2b8f0291537d244e957121116bf8df16a3ec8bb92bf607e714c938a9c78f11"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/official/reference/reference.png": {
+    "bytes": 1647917,
+    "sha256": "520b8239565d68ab41b1f68fbc22893bdcad17efd7b84481e0947715393598c3"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/official/reference/step-0.f32": {
+    "bytes": 2113536,
+    "sha256": "e49cf3fb033a002e987383460e5709bc630ab8cd125bc9f38c90f5d7afa946cd"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/official/reference/step-1.f32": {
+    "bytes": 2113536,
+    "sha256": "1b50a0e46a954e5051cbcaeacc7eb06e751c120075d1bbf6c442a600286b285c"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/official/reference/step-2.f32": {
+    "bytes": 2113536,
+    "sha256": "467131ed4cd4ec429f1ef278508d8c26f6eaa0b94e2306e5ad02a0be0d115c0b"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/official/reference/step-3.f32": {
+    "bytes": 2113536,
+    "sha256": "edca1307218b53265c3bd72c1cd61eda7e2f8e1ae8b9ced27256949bbed26806"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/official/reference/step-4.f32": {
+    "bytes": 2113536,
+    "sha256": "62756b742c69593b5395f14147a63ed4ea4ae2bb617cb99c12faf1090651f699"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/official/reference/step-5.f32": {
+    "bytes": 2113536,
+    "sha256": "5236316d2a99f4ae78354137a8f73aada4d67eccb78a630ec06c27efbe5b7980"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/official/reference/step-6.f32": {
+    "bytes": 2113536,
+    "sha256": "8c0767ae656ec827710ef072e0ac0260413665815e3287571652193898d5aec4"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/official/reference/step-7.f32": {
+    "bytes": 2113536,
+    "sha256": "0bad3bbc81932a7a7fbad8071acbe64d3d3c6fff71d585cae28728cee379c473"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/official/reference/text/expected.f32": {
+    "bytes": 184320,
+    "sha256": "9b45fd22e5d40edbfb70249e7af20e490a75ed703ac2f1f572011ebdd81cb470"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/official/reference/text/fixture.json": {
+    "bytes": 955,
+    "sha256": "857f55dcc206ab0854ad527c2253e3ba0a3a82c8fd3ea8fa4b522d743219596c"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/official/reference/text/ids.txt": {
+    "bytes": 77,
+    "sha256": "306c32c4d1a66c6cd3cfdeb1579b686c63be71387bee9f30e90fbbed3c4fdba9"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/official/reference/text.f32": {
+    "bytes": 184320,
+    "sha256": "9b45fd22e5d40edbfb70249e7af20e490a75ed703ac2f1f572011ebdd81cb470"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/official/reference/unpacked.f32": {
+    "bytes": 2113536,
+    "sha256": "f95d62229809eed51d5374e8e939503e8402c12376f27e4294c7e990d8fd6418"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/official/samples.jsonl": {
+    "bytes": 814712,
+    "sha256": "05bc13e84c5d3ac9d33221e670ceb736f3fea2c9c3121b2795b4b76c5ca91d01"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/plan.json": {
+    "bytes": 87166,
+    "sha256": "3a0624af14fab9fcd592769e5a225e073f0c0850cf5ee1e4fe9378fb3fbbaaa8"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/run.py": {
+    "bytes": 1146,
+    "sha256": "3adfb392e1676152a882e85378d8b220ecf67b9d6f3d7d051832512edeeef4bb"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/supervisor.py": {
+    "bytes": 5330,
+    "sha256": "312f91c181995ae7598e8408c8a3cb7789d49c6132999cac8c9e7b5e49a50794"
+  },
+  "/var/tmp/ernie-runtime-large-v1/1376x768/worker.py": {
+    "bytes": 1393,
+    "sha256": "efea379558d188edc3f0dd9d519aa973709cbe6207fa52c88e00fa9a25bf720a"
+  }
+}

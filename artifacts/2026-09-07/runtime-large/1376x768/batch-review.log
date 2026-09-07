@@ -1,0 +1,16 @@
+Running as unit: ernie-large-1376x768-review-v1.service
+{
+  "reference_fixture_sha256": "00910909df1bc271ccddaeafc235783f2b131b3c158283340598095de18d8c06",
+  "verified_bindings": 436,
+  "complete_execution_both": true,
+  "finite_elements": 32098304,
+  "passed_tensors": 25,
+  "png_mae": 0.0006172909601098192,
+  "png_max_abs": 1,
+  "all_quality_gates_passed": true
+}
+          Finished with result: success
+Main processes terminated with: code=exited, status=0/SUCCESS
+               Service runtime: 1.270s
+             CPU time consumed: 1.567s
+                   Memory peak: 589.9M (swap: 0B)

@@ -1,0 +1,102 @@
+{
+  "batch-compare.log": {
+    "bytes": 709,
+    "sha256": "00a45d6f09ba6a1b2d6d4bd2eff84d8d1f19718a520afa7ed27a9d8037cdd836"
+  },
+  "batch-native.log": {
+    "bytes": 1293,
+    "sha256": "afd64d328ddcf68ae33c5f4e2a4413fe10600819483f75855dad5471ed2a78be"
+  },
+  "batch-official.log": {
+    "bytes": 1346,
+    "sha256": "7087cca553065bb61f3a156393509c2c1cd770866916f36f55fb50b04e73176a"
+  },
+  "batch-register.log": {
+    "bytes": 3951,
+    "sha256": "407ecc0646a65b2a7674e87520a46c07d6cdf11a501c8507a8fad8bf9a9bb038"
+  },
+  "batch-review.log": {
+    "bytes": 597,
+    "sha256": "aa15dcde572c3d0ae9b8d32dec8242647dd31ae36ab90e85f6898b785373e9c0"
+  },
+  "comparison.json": {
+    "bytes": 11894,
+    "sha256": "8cc5cf32b9e968ea9a758044ac5c36f5c5f353540eb3be8a8d57cf35c6ae09d8"
+  },
+  "native/command-0.log": {
+    "bytes": 39976,
+    "sha256": "b4f336e45cbfa6e70681f7b742e46a7a0dfdf2fe7aa48c32c248d3eb025206f6"
+  },
+  "native/process.json": {
+    "bytes": 1513,
+    "sha256": "c502e4b4ba79acbf4a3bdcc4ddcc6d0ef82df4e7657864e1eabbe7bc608f2346"
+  },
+  "native/report.json": {
+    "bytes": 2241,
+    "sha256": "1f628af122ddd518ae0953d75c9b1948e3ff76dedbba075e75dda3b4e9fcdc39"
+  },
+  "native/runner.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "native/trace/ids.txt": {
+    "bytes": 77,
+    "sha256": "306c32c4d1a66c6cd3cfdeb1579b686c63be71387bee9f30e90fbbed3c4fdba9"
+  },
+  "native/trace/model-loading.txt": {
+    "bytes": 69,
+    "sha256": "07a72852c1f0590851b1ce67a78ac587686b0ce945869dc97ca13d5ee942f033"
+  },
+  "native/trace/prompt.txt": {
+    "bytes": 62,
+    "sha256": "e631f4e8903437dc03ed25b2186468983bd29d13a59b86b6b5b251bae4ec7ac6"
+  },
+  "native/trace/shape.txt": {
+    "bytes": 112,
+    "sha256": "f4bc92b0ec3014c6f0a1492c7fc23117a41ef3d948cfca4e4ce24427f7564dcf"
+  },
+  "native/trace/weight-placement.txt": {
+    "bytes": 72360,
+    "sha256": "584c03cf94819bb6def80382559500dc7f31c7c0b9d333a7f8f8eb91fe2b808c"
+  },
+  "native/worker-result.json": {
+    "bytes": 1834,
+    "sha256": "b00af8b953c6d6d88ba8fae0919bd580dfe7ac294f2db6cd29042559cbdac024"
+  },
+  "official/command-0.log": {
+    "bytes": 59262,
+    "sha256": "f117cbdeaa672acbb13c2270d8677bdda0e189652e84d9c340982cf88ea9da48"
+  },
+  "official/process.json": {
+    "bytes": 1594,
+    "sha256": "4b9c899172c164746e36a0331be773cc224368d307010c89331d8006d9b4e38e"
+  },
+  "official/reference/fixture.json": {
+    "bytes": 8225,
+    "sha256": "00910909df1bc271ccddaeafc235783f2b131b3c158283340598095de18d8c06"
+  },
+  "official/runner.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "official/worker-result.json": {
+    "bytes": 792,
+    "sha256": "72c64181dc93d9852cb9f30d9a3b20d4bb52f7ece31bdfc8b5b3c41f34dc4206"
+  },
+  "registry-validation.json": {
+    "bytes": 1191,
+    "sha256": "4817ab782744634392acdd542fdb9306721f457f0645b0746e41b4623acaa2af"
+  },
+  "request.json": {
+    "bytes": 659,
+    "sha256": "4152eb138c90fd35a72c61de7a4e93e7cc2ddc836b68e7acd9fb8b23e2ad6c42"
+  },
+  "retained-local-files.json": {
+    "bytes": 12239,
+    "sha256": "614742b57c97c82f6b228056bae62c9c97804449edd60130d772cc02f5660aa1"
+  },
+  "root-review.json": {
+    "bytes": 10224,
+    "sha256": "71239c2a720072e0f9cc093e6d067019faae191d740fb655c3fa4aa46fe4b58b"
+  }
+}

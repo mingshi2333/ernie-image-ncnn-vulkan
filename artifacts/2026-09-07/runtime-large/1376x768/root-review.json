@@ -1,0 +1,367 @@
+{
+  "scope": "Independent root re-read of complete1376x768 sources, inputs, execution, all25 finite tensors and PNG; no model rerun",
+  "source_head": "990e8ef07591c2f7564d538462d51b8961263655",
+  "plan_sha256": "3a0624af14fab9fcd592769e5a225e073f0c0850cf5ee1e4fe9378fb3fbbaaa8",
+  "reference_fixture_sha256": "00910909df1bc271ccddaeafc235783f2b131b3c158283340598095de18d8c06",
+  "verified_bindings": 436,
+  "complete_execution_both": true,
+  "rows": [
+    {
+      "name": "initial",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 0.0,
+      "max_abs": 0.0,
+      "max_abs_limit": 0.0011329578399658204,
+      "passed": true
+    },
+    {
+      "name": "text",
+      "elements": 46080,
+      "finite": true,
+      "nrmse": 1.7925431556488268e-06,
+      "max_abs": 0.00091552734375,
+      "max_abs_limit": 0.11998079833984376,
+      "passed": true
+    },
+    {
+      "name": "padded-text",
+      "elements": 196608,
+      "finite": true,
+      "nrmse": 1.7925431556488268e-06,
+      "max_abs": 0.00091552734375,
+      "max_abs_limit": 0.11998079833984376,
+      "passed": true
+    },
+    {
+      "name": "constant-0",
+      "elements": 536576,
+      "finite": true,
+      "nrmse": 1.7699527742225935e-08,
+      "max_abs": 5.960464477539063e-08,
+      "max_abs_limit": 0.0004,
+      "passed": true
+    },
+    {
+      "name": "constant-1",
+      "elements": 536576,
+      "finite": true,
+      "nrmse": 1.535951552033486e-08,
+      "max_abs": 5.960464477539063e-08,
+      "max_abs_limit": 0.00039999831914901737,
+      "passed": true
+    },
+    {
+      "name": "constant-2",
+      "elements": 17572864,
+      "finite": true,
+      "nrmse": 0.0,
+      "max_abs": 0.0,
+      "max_abs_limit": 2.0000000300949325e+26,
+      "passed": true
+    },
+    {
+      "name": "prediction-0",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 2.2762833784088437e-05,
+      "max_abs": 0.0013860762119293213,
+      "max_abs_limit": 0.06712994594573975,
+      "passed": true
+    },
+    {
+      "name": "step-0",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 1.1199367881821306e-06,
+      "max_abs": 4.774332046508789e-05,
+      "max_abs_limit": 0.04492636222839355,
+      "passed": true
+    },
+    {
+      "name": "prediction-1",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 3.392374204112441e-05,
+      "max_abs": 0.002002120018005371,
+      "max_abs_limit": 0.06911467094421388,
+      "passed": true
+    },
+    {
+      "name": "step-1",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 2.4254416890385006e-06,
+      "max_abs": 8.475780487060547e-05,
+      "max_abs_limit": 0.04250970859527588,
+      "passed": true
+    },
+    {
+      "name": "prediction-2",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 3.987698964329328e-05,
+      "max_abs": 0.0025038719177246094,
+      "max_abs_limit": 0.06747955341339112,
+      "passed": true
+    },
+    {
+      "name": "step-2",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 4.421422015816189e-06,
+      "max_abs": 0.00019949674606323242,
+      "max_abs_limit": 0.040301265907287595,
+      "passed": true
+    },
+    {
+      "name": "prediction-3",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 4.280620439206589e-05,
+      "max_abs": 0.0026602745056152344,
+      "max_abs_limit": 0.0728962423324585,
+      "passed": true
+    },
+    {
+      "name": "step-3",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 7.67778754940937e-06,
+      "max_abs": 0.0003794729709625244,
+      "max_abs_limit": 0.03877195615768433,
+      "passed": true
+    },
+    {
+      "name": "prediction-4",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 4.496335393600972e-05,
+      "max_abs": 0.002620220184326172,
+      "max_abs_limit": 0.07512667675018311,
+      "passed": true
+    },
+    {
+      "name": "step-4",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 1.3087523851235944e-05,
+      "max_abs": 0.0006260871887207031,
+      "max_abs_limit": 0.038445887756347656,
+      "passed": true
+    },
+    {
+      "name": "prediction-5",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 4.747824736321981e-05,
+      "max_abs": 0.0027818679809570312,
+      "max_abs_limit": 0.07299598712921143,
+      "passed": true
+    },
+    {
+      "name": "step-5",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 2.1693504074588237e-05,
+      "max_abs": 0.0010001063346862793,
+      "max_abs_limit": 0.0408107234954834,
+      "passed": true
+    },
+    {
+      "name": "prediction-6",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 5.5463064311417364e-05,
+      "max_abs": 0.003311634063720703,
+      "max_abs_limit": 0.07184253234863282,
+      "passed": true
+    },
+    {
+      "name": "step-6",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 3.4982134704517775e-05,
+      "max_abs": 0.0014914274215698242,
+      "max_abs_limit": 0.04674424667358398,
+      "passed": true
+    },
+    {
+      "name": "prediction-7",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 7.224094209929823e-05,
+      "max_abs": 0.004397153854370117,
+      "max_abs_limit": 0.07284058113098145,
+      "passed": true
+    },
+    {
+      "name": "step-7",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 5.016600397463813e-05,
+      "max_abs": 0.0022025108337402344,
+      "max_abs_limit": 0.07289633293151856,
+      "passed": true
+    },
+    {
+      "name": "final",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 5.016600397463813e-05,
+      "max_abs": 0.0022025108337402344,
+      "max_abs_limit": 0.07289633293151856,
+      "passed": true
+    },
+    {
+      "name": "unpacked",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 5.012961341785536e-05,
+      "max_abs": 0.0038688182830810547,
+      "max_abs_limit": 0.1267706253051758,
+      "passed": true
+    },
+    {
+      "name": "decoded",
+      "elements": 3170304,
+      "finite": true,
+      "nrmse": 2.1387127584617608e-05,
+      "max_abs": 0.0005970597267150879,
+      "max_abs_limit": 0.013387291622161866,
+      "passed": true
+    }
+  ],
+  "finite_elements": 32098304,
+  "passed_tensors": 25,
+  "png_mae": 0.0006172909601098192,
+  "png_max_abs": 1,
+  "png_passed": true,
+  "all_quality_gates_passed": true,
+  "native_png_sha256": "6750cf94a398e2ce1f12a7285b28e9fcc943ad3bd5d4fd3524935b40d842fbca",
+  "official_png_sha256": "520b8239565d68ab41b1f68fbc22893bdcad17efd7b84481e0947715393598c3",
+  "processes": {
+    "native": {
+      "phase": "native",
+      "command": [
+        "systemd-run",
+        "--user",
+        "--scope",
+        "--quiet",
+        "--unit=ernie-large-1376x768-v1-native",
+        "--property=MemoryMax=17179869184",
+        "--property=MemorySwapMax=0",
+        "--property=CPUQuota=200%",
+        "taskset",
+        "-c",
+        "4,6",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+        "/var/tmp/ernie-runtime-large-v1/1376x768/run.py",
+        "native",
+        "3a0624af14fab9fcd592769e5a225e073f0c0850cf5ee1e4fe9378fb3fbbaaa8"
+      ],
+      "plan_sha256": "3a0624af14fab9fcd592769e5a225e073f0c0850cf5ee1e4fe9378fb3fbbaaa8",
+      "limits": {
+        "memory_max_bytes": 17179869184,
+        "host_available_min_bytes": 3221225472,
+        "gpu_whole_device_max_mib": 6144,
+        "timeout_seconds_per_phase": 1800
+      },
+      "peak_memory_current": 12162719744,
+      "minimum_host_available": 11177623552,
+      "peak_gpu_whole_device_mib": 3669,
+      "complete": true,
+      "last_compute_processes": [
+        {
+          "pid": 4349,
+          "mib": 35,
+          "owned": false
+        },
+        {
+          "pid": 11253,
+          "mib": 86,
+          "owned": false
+        },
+        {
+          "pid": 1808405,
+          "mib": 5,
+          "owned": false
+        }
+      ],
+      "peak_owned_compute_mib": 1664,
+      "cgroup_seen": true,
+      "observed_limits": {
+        "memory.max": "17179869184",
+        "memory.swap.max": "0",
+        "cpu.max": "200000 100000"
+      },
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "return_code": 0,
+      "wall_seconds": 863.021028232004
+    },
+    "official": {
+      "phase": "official",
+      "command": [
+        "systemd-run",
+        "--user",
+        "--scope",
+        "--quiet",
+        "--unit=ernie-large-1376x768-v1-official",
+        "--property=MemoryMax=17179869184",
+        "--property=MemorySwapMax=0",
+        "--property=CPUQuota=200%",
+        "taskset",
+        "-c",
+        "4,6",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+        "/var/tmp/ernie-runtime-large-v1/1376x768/run.py",
+        "official",
+        "3a0624af14fab9fcd592769e5a225e073f0c0850cf5ee1e4fe9378fb3fbbaaa8"
+      ],
+      "plan_sha256": "3a0624af14fab9fcd592769e5a225e073f0c0850cf5ee1e4fe9378fb3fbbaaa8",
+      "limits": {
+        "memory_max_bytes": 17179869184,
+        "host_available_min_bytes": 3221225472,
+        "gpu_whole_device_max_mib": 6144,
+        "timeout_seconds_per_phase": 1800
+      },
+      "peak_memory_current": 15254056960,
+      "minimum_host_available": 13204803584,
+      "peak_gpu_whole_device_mib": 4219,
+      "complete": true,
+      "last_compute_processes": [
+        {
+          "pid": 4349,
+          "mib": 35,
+          "owned": false
+        },
+        {
+          "pid": 11253,
+          "mib": 85,
+          "owned": false
+        },
+        {
+          "pid": 1808405,
+          "mib": 5,
+          "owned": false
+        },
+        {
+          "pid": 3365991,
+          "mib": 136,
+          "owned": true
+        }
+      ],
+      "peak_owned_compute_mib": 2226,
+      "cgroup_seen": true,
+      "observed_limits": {
+        "memory.max": "17179869184",
+        "memory.swap.max": "0",
+        "cpu.max": "200000 100000"
+      },
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "return_code": 0,
+      "wall_seconds": 362.28659438801697
+    }
+  },
+  "reviewer_sha256": "4c409ceaba3d3640ae8336370a58c0e0233cd31af9eba9a8ee5363d6991e8af1"
+}

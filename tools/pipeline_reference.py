@@ -9,6 +9,11 @@ import re
 # This binds the whole fixture, including official environment and tensor hashes;
 # a caller cannot establish provenance by editing fields inside that fixture.
 REVIEWED_SHARED_REFERENCES = {
+    '00910909df1bc271ccddaeafc235783f2b131b3c158283340598095de18d8c06': {
+        'source_manifest_sha256': '9cc1dc0e605256e405a049b6a8d58f98a9f138b2a16c6d40be6bb35595743154',
+        'evidence': 'artifacts/2026-09-07/runtime-large/README.md',
+        'scope': '1376x768 official FP32 development reference; common saved initial bytes; 32 text bucket and 64 DiT slots; eight complete steps; all25 native tensor gates and PNG pass in this fixture',
+    },
     'dbfd637a06f43812307c5745a3df86cc7daa501f5be40afa5c50d0e7af36ebc1': {
         'source_manifest_sha256': '9cc1dc0e605256e405a049b6a8d58f98a9f138b2a16c6d40be6bb35595743154',
         'evidence': 'artifacts/2026-09-07/runtime-squares/README.md',
