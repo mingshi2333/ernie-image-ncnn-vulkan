@@ -1,0 +1,88 @@
+[
+  {
+    "command": [
+      "cmake",
+      "-S",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference",
+      "-B",
+      "build-dev"
+    ],
+    "returncode": 0,
+    "seconds": 0.4757231929979753,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/benchmark-runtime-v1/build-dev-configure.log"
+  },
+  {
+    "command": [
+      "cmake",
+      "--build",
+      "build-dev",
+      "--parallel",
+      "2",
+      "--target",
+      "ernie-image",
+      "ernie-generation-report-contract",
+      "ernie-pipeline-api-contract",
+      "ernie-request-validation-contract"
+    ],
+    "returncode": 0,
+    "seconds": 6.545210295997094,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/benchmark-runtime-v1/build-dev-build.log"
+  },
+  {
+    "command": [
+      "ctest",
+      "--test-dir",
+      "build-dev",
+      "--output-on-failure",
+      "-V",
+      "-R",
+      "^(generation_report_writer|generation_report_json|pipeline_api_contract|request_validation_contract|cli_contract|installed_cpp_consumer)$"
+    ],
+    "returncode": 0,
+    "seconds": 2.7290392970026005,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/benchmark-runtime-v1/build-dev-ctest.log"
+  },
+  {
+    "command": [
+      "cmake",
+      "-S",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference",
+      "-B",
+      "build-install-cpu"
+    ],
+    "returncode": 0,
+    "seconds": 0.26398552299360745,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/benchmark-runtime-v1/build-install-cpu-configure.log"
+  },
+  {
+    "command": [
+      "cmake",
+      "--build",
+      "build-install-cpu",
+      "--parallel",
+      "2",
+      "--target",
+      "ernie-image",
+      "ernie-generation-report-contract",
+      "ernie-pipeline-api-contract",
+      "ernie-request-validation-contract"
+    ],
+    "returncode": 0,
+    "seconds": 3.389571827981854,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/benchmark-runtime-v1/build-install-cpu-build.log"
+  },
+  {
+    "command": [
+      "ctest",
+      "--test-dir",
+      "build-install-cpu",
+      "--output-on-failure",
+      "-V",
+      "-R",
+      "^(generation_report_writer|generation_report_json|pipeline_api_contract|request_validation_contract|cli_contract|installed_cpp_consumer)$"
+    ],
+    "returncode": 0,
+    "seconds": 1.2207130909955595,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/benchmark-runtime-v1/build-install-cpu-ctest.log"
+  }
+]

@@ -1,0 +1,19 @@
+[  1%] Built target SPIRV
+[  1%] Built target ernie-execution-metrics
+[  7%] Built target glslang
+[ 40%] Built target ncnn-generate-spirv
+[ 40%] Built target ernie-tokenizer-rust
+[ 40%] Built target ernie-shape-plan
+[ 40%] Built target ernie-tokenizer
+[ 42%] Built target ernie-shape-graph
+[ 42%] Built target ernie-model-package
+[ 94%] Built target ncnn
+[ 97%] Built target ernie-runtime
+[ 97%] Built target ernie-pe
+[ 98%] Built target ernie-pipeline
+[ 98%] Building CXX object cli/CMakeFiles/ernie-image.dir/generation_report.cpp.o
+[ 98%] Linking CXX executable ../ernie-image
+[100%] Built target ernie-image
+Building CXX object tests/CMakeFiles/ernie-generation-report-contract.dir/__/cli/generation_report.cpp.o
+Linking CXX executable ../ernie-generation-report-contract
+Built target ernie-generation-report-contract

@@ -1,0 +1,14 @@
+test_fixed_geometry_and_shared_verifier_fail_closed (test_benchmark_request.BenchmarkRequestTests.test_fixed_geometry_and_shared_verifier_fail_closed) ... ok
+test_input_mutation_during_run_is_rejected (test_benchmark_request.BenchmarkRequestTests.test_input_mutation_during_run_is_rejected) ... ok
+test_instrumented_run_is_functional_but_not_speed_eligible (test_benchmark_request.BenchmarkRequestTests.test_instrumented_run_is_functional_but_not_speed_eligible) ... ok
+test_log_text_cannot_spoof_completion_settings_or_timing (test_benchmark_request.BenchmarkRequestTests.test_log_text_cannot_spoof_completion_settings_or_timing) ... ok
+test_long_native_tokens_select_independent_source (test_benchmark_request.BenchmarkRequestTests.test_long_native_tokens_select_independent_source) ... ok
+test_native_strength_rounding (test_benchmark_request.BenchmarkRequestTests.test_native_strength_rounding) ... ok
+test_noise_size_and_finiteness (test_benchmark_request.BenchmarkRequestTests.test_noise_size_and_finiteness) ... ok
+test_shared_runtime_selection_and_all_memory_controls (test_benchmark_request.BenchmarkRequestTests.test_shared_runtime_selection_and_all_memory_controls) ... ok
+test_wrong_report_never_certifies_successful_png (test_benchmark_request.BenchmarkRequestTests.test_wrong_report_never_certifies_successful_png) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.134s
+
+OK

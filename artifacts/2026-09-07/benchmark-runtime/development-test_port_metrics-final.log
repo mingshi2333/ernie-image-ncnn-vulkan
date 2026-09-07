@@ -1,0 +1,29 @@
+test_benchmark_does_not_treat_pillow_alpha_conversion_as_native_identity (test_port_metrics.PortMetricsTest.test_benchmark_does_not_treat_pillow_alpha_conversion_as_native_identity) ... {"passed": true, "failure": null, "image": {"size": [512, 384], "mode": "RGB", "sha256": "598837f882359804db88260afd23fab2aa5b9674de07cedc9fde344e6dc6fc8b"}, "total_seconds": 1.25, "max_rss_kib": null, "gpu_device_total_mib": null}
+ok
+test_benchmark_rejects_unpaired_img2img_arguments (test_port_metrics.PortMetricsTest.test_benchmark_rejects_unpaired_img2img_arguments) ... ok
+test_benchmark_snapshots_and_binds_img2img_inputs (test_port_metrics.PortMetricsTest.test_benchmark_snapshots_and_binds_img2img_inputs) ... {"passed": true, "failure": null, "image": {"size": [512, 384], "mode": "RGB", "sha256": "598837f882359804db88260afd23fab2aa5b9674de07cedc9fde344e6dc6fc8b"}, "total_seconds": 1.25, "max_rss_kib": null, "gpu_device_total_mib": null}
+ok
+test_cases_cannot_reuse_one_input_or_disable_frozen_pe (test_port_metrics.PortMetricsTest.test_cases_cannot_reuse_one_input_or_disable_frozen_pe) ... ok
+test_complete_grid_with_wrong_frozen_shape_or_steps_is_incomplete (test_port_metrics.PortMetricsTest.test_complete_grid_with_wrong_frozen_shape_or_steps_is_incomplete) ... ok
+test_default_unit_contract_is_version_control_only (test_port_metrics.PortMetricsTest.test_default_unit_contract_is_version_control_only) ... ok
+test_each_side_must_supply_actual_evidence_and_trace_false (test_port_metrics.PortMetricsTest.test_each_side_must_supply_actual_evidence_and_trace_false) ... ok
+test_failed_reference_is_not_infinite_speedup (test_port_metrics.PortMetricsTest.test_failed_reference_is_not_infinite_speedup) ... ok
+test_frozen_denominator_completes_and_allows_different_devices (test_port_metrics.PortMetricsTest.test_frozen_denominator_completes_and_allows_different_devices) ... ok
+test_image_identity_is_read_only_from_controlled_snapshot (test_port_metrics.PortMetricsTest.test_image_identity_is_read_only_from_controlled_snapshot) ... ok
+test_img2img_rgb_strength_and_resize_are_bound (test_port_metrics.PortMetricsTest.test_img2img_rgb_strength_and_resize_are_bound) ... ok
+test_missing_frozen_field_or_wrong_protocol_never_completes (test_port_metrics.PortMetricsTest.test_missing_frozen_field_or_wrong_protocol_never_completes) ... ok
+test_missing_repeat_duplicate_unexpected_and_warmup_are_incomplete (test_port_metrics.PortMetricsTest.test_missing_repeat_duplicate_unexpected_and_warmup_are_incomplete) ... ok
+test_missing_sampler_still_writes_failure_result (test_port_metrics.PortMetricsTest.test_missing_sampler_still_writes_failure_result) ... {"passed": false, "failure": "synthetic nvidia-smi missing", "image": null, "total_seconds": null, "max_rss_kib": null, "gpu_device_total_mib": null}
+ok
+test_positive_high_exit_status_does_not_invent_signal (test_port_metrics.PortMetricsTest.test_positive_high_exit_status_does_not_invent_signal) ... ok
+test_precision_and_pe_mismatch_rejected_but_device_mismatch_allowed (test_port_metrics.PortMetricsTest.test_precision_and_pe_mismatch_rejected_but_device_mismatch_allowed) ... ok
+test_protocol_rejects_short_duplicate_or_zero_calibration (test_port_metrics.PortMetricsTest.test_protocol_rejects_short_duplicate_or_zero_calibration) ... ok
+test_schedule_is_fixed (test_port_metrics.PortMetricsTest.test_schedule_is_fixed) ... ok
+test_side_identity_mismatch_is_rejected_for_that_reason (test_port_metrics.PortMetricsTest.test_side_identity_mismatch_is_rejected_for_that_reason) ... ok
+test_synthetic_crash_persists_signal_and_category (test_port_metrics.PortMetricsTest.test_synthetic_crash_persists_signal_and_category) ... ok
+test_synthetic_timeout_persists_timing_and_category (test_port_metrics.PortMetricsTest.test_synthetic_timeout_persists_timing_and_category) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 0.265s
+
+OK

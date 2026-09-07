@@ -3,6 +3,7 @@ from pathlib import Path
 from unittest.mock import patch
 sys.path.insert(0,str(Path(__file__).parents[1]/"tools"))
 import benchmark_pipeline
+from benchmark_fixture import FIXED_CONFIG, FIXED_MANIFEST, NOISE, fake_timing
 from benchmark_pipeline import run_timed_command
 from port_metrics import build_protocol, paired_schedule, summarize_pairs, validate_measurement, _canonical, _digest
 
@@ -164,13 +165,9 @@ class PortMetricsTest(unittest.TestCase):
                   '--device','cpu','--precision','fp32','--latent',str(root/'noise.f32'),
                   '--noise-sha256','noise','--input-image',str(image),'--strength','.5',
                   '--input-image-sha256',sha(raw),'--decoded-rgb-sha256',sha(decoded)]
-            (root/'noise.f32').write_bytes(b'noise')
-            def fake_timing(command,timeout,log):
-                target=Path(command[command.index('--output')+1]);Image.new('RGB',(512,384)).save(target)
-                return {'return_code':0,'failure_category':None,'wall_started_monotonic_ns':1,
-                        'wall_finished_monotonic_ns':2,'wall_seconds':1e-9}
+            (root/'noise.f32').write_bytes(NOISE)
             with patch.object(sys,'argv',argv),\
-                 patch.object(benchmark_pipeline,'verify_package',return_value=({'config':{'packed_width':32,'packed_height':24}},None)),\
+                 patch.object(benchmark_pipeline,'verify_benchmark_package',return_value=(FIXED_MANIFEST,FIXED_CONFIG)),\
                  patch('source_inventory.source_files',return_value=[]),\
                  patch.object(benchmark_pipeline,'run_timed_command',side_effect=fake_timing):
                 self.assertEqual(benchmark_pipeline.main(),0)
@@ -193,17 +190,13 @@ class PortMetricsTest(unittest.TestCase):
             Image.new('RGBA',(1,1),(255,0,0,0)).save(image)
             raw=image.read_bytes();pillow_rgb=Image.open(image).convert('RGB').tobytes()
             sha=lambda value:hashlib.sha256(value).hexdigest()
-            output=root/'output';(root/'noise.f32').write_bytes(b'noise')
+            output=root/'output';(root/'noise.f32').write_bytes(NOISE)
             argv=['benchmark_pipeline','--model',str(model),'--runner',str(runner),'--output',str(output),
                   '--device','cpu','--precision','fp32','--latent',str(root/'noise.f32'),
-                  '--noise-sha256',sha(b'noise'),'--input-image',str(image),'--strength','.5',
+                  '--noise-sha256',sha(NOISE),'--input-image',str(image),'--strength','.5',
                   '--input-image-sha256',sha(raw),'--decoded-rgb-sha256',sha(pillow_rgb)]
-            def fake_timing(command,timeout,log):
-                Image.new('RGB',(512,384)).save(Path(command[command.index('--output')+1]))
-                return {'return_code':0,'failure_category':None,'wall_started_monotonic_ns':1,
-                        'wall_finished_monotonic_ns':2,'wall_seconds':1e-9}
             with patch.object(sys,'argv',argv),\
-                 patch.object(benchmark_pipeline,'verify_package',return_value=({'config':{'packed_width':32,'packed_height':24}},None)),\
+                 patch.object(benchmark_pipeline,'verify_benchmark_package',return_value=(FIXED_MANIFEST,FIXED_CONFIG)),\
                  patch('source_inventory.source_files',return_value=[]),\
                  patch.object(benchmark_pipeline,'run_timed_command',side_effect=fake_timing):
                 self.assertEqual(benchmark_pipeline.main(),0)
@@ -249,7 +242,7 @@ class PortMetricsTest(unittest.TestCase):
             root=Path(temporary);model=root/"model";model.mkdir();(model/"manifest.json").write_text("{}")
             runner=root/"runner";runner.write_text("unused");output=root/"output"
             argv=["benchmark_pipeline","--model",str(model),"--runner",str(runner),"--output",str(output)]
-            with patch.object(sys,"argv",argv),patch.object(benchmark_pipeline,"verify_package",return_value=({"config":{"packed_width":32,"packed_height":24}},None)),\
+            with patch.object(sys,"argv",argv),patch.object(benchmark_pipeline,"verify_benchmark_package",return_value=(FIXED_MANIFEST,FIXED_CONFIG)),\
                  patch("source_inventory.source_files",return_value=[]),\
                  patch.object(benchmark_pipeline.subprocess,"Popen",side_effect=FileNotFoundError("synthetic nvidia-smi missing")):
                 self.assertEqual(benchmark_pipeline.main(),1)

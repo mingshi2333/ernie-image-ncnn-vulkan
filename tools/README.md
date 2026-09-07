@@ -13,7 +13,7 @@
 | 文本对照 | `validate_text.py` | 原生文本路径对官方真实权重，支持 UTF-8 prompt 文件 |
 | 完整文生图对照 | `validate_pipeline.py` | 相同保存的初始 latent，固定张量/PNG 数值门槛，可连接官方 greedy PE oracle；共享包绑定原源配置与实际空间目标，并使用已审查的完整参考 |
 | 官方图生图 suffix 参考 | `reference_img2img_positive.py` | 认证独立官方 encoder、保存噪声和原始 schedule suffix；当前仅固定 512×384 开发案例，不替代完整文生图 oracle |
-| 测量一轮原生生成 | `benchmark_pipeline.py` | 记录完整包校验、trace 和设备采样范围；不是质量验收 |
+| 测量一轮原生生成 | `benchmark_pipeline.py` | 支持固定/共享包及运行时尺寸，核对原生完成记录、实际文本桶与内存设置；trace 默认关闭，保留独立计时和设备采样范围；不是质量验收 |
 | 核对固定对照项目权重 | `audit_port_weights.py`、`audit_port_relations.py` | 分块规范化实际权重、按固定图连接核对命名角色，并单独报告派生常量与数学差异；不自动证明全图等价或速度 |
 | 归档通过及失败证据 | `collect_parity_evidence.py` | 重新计算误差、核对散列，冻结小型报告；不改原始门槛 |
 

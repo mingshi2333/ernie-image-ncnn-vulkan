@@ -1,0 +1,50 @@
+--- full-run/cli/generation_report.cpp
++++ final/cli/generation_report.cpp
+@@ -78,7 +78,7 @@
+             << ",\"total\":" << p.total << ",\"seconds\":" << p.seconds << '}';
+     }
+     out << "],\"time_scope\":\"host generation and image write; excludes report serialization and process startup\","
+-        << "\"progress_scope\":\"verify/text are cumulative from generation start; denoise is per step\","
++        << "\"progress_scope\":\"verify is cumulative from generation start; text is the text stage; denoise is per step\","
+         << "\"memory_scope\":\"placement requests and charged cache weights; not complete residency or process peak\"}\n";
+     return out.str();
+ }
+--- full-run/tools/benchmark_pipeline.py
++++ final/tools/benchmark_pipeline.py
+@@ -280,7 +280,7 @@
+     if result.get('selection_status')=='verified_native_report':
+         report=result['native_report']
+         result['denoise_seconds']=[p['seconds'] for p in report['progress'] if p['stage']=='denoise']
+-        result['text_completion_seconds']=next(p['seconds'] for p in report['progress'] if p['stage']=='text')
++        result['text_seconds']=next(p['seconds'] for p in report['progress'] if p['stage']=='text')
+         result['total_seconds']=report['total_seconds']
+         result['vae_and_png_seconds']=report['vae_and_image_encode_seconds']
+     result['timing_scope']='external process launch through exit, including native verification, image/report close; Python preverification and postvalidation excluded'
+--- full-run/tests/test_benchmark_request.py
++++ final/tests/test_benchmark_request.py
+@@ -87,6 +87,7 @@
+         self.assertEqual(code, 0)
+         self.assertEqual(result['total_seconds'], 1.25)
+         self.assertEqual(result['vae_and_png_seconds'], .5)
++        self.assertEqual(result['text_seconds'], .5)
+         self.assertEqual(len(result['denoise_seconds']), 8)
+ 
+     def test_instrumented_run_is_functional_but_not_speed_eligible(self):
+--- full-run/tests/test_generation_report.py
++++ final/tests/test_generation_report.py
+@@ -3,11 +3,14 @@
+ import os
+ import subprocess
+ import unittest
++from pathlib import Path
+ 
++RUNNER = Path(os.environ.get('ERNIE_REPORT_RUNNER', Path(__file__).resolve().parents[1] / 'build/ernie-generation-report-contract'))
+ 
++@unittest.skipUnless(RUNNER.is_file(), 'Build the native generation report contract first')
+ class GenerationReportTest(unittest.TestCase):
+     def test_native_json_roundtrip(self):
+-        run = subprocess.run([os.environ['ERNIE_REPORT_RUNNER']], capture_output=True, check=True, timeout=10)
++        run = subprocess.run([str(RUNNER)], capture_output=True, check=True, timeout=10)
+         report = json.loads(run.stdout)
+         self.assertEqual(report['prompt'], '中文 "quote"\\\r\n\t\0')
+         self.assertEqual(report['token_ids'], [1, 23, 131071])

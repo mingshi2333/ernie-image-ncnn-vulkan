@@ -20,7 +20,7 @@
 ernie-image-ncnn-vulkan/
 ├── CMakeLists.txt            # 构建选项、依赖、子目录
 ├── include/ernie/pipeline.h  # 应用侧 C++ 接口：请求、进度、RGB 结果
-├── cli/                     # 参数、UTF-8 提示词文件、PNG、终端输出
+├── cli/                     # 参数、UTF-8 提示词文件、图像 I/O、终端及完成报告
 ├── src/                     # 推理实现，独立于命令行和 PNG 库
 │   ├── pipeline.cpp         # 校验 → PE → 文本 → DiT → VAE
 │   ├── prompt_enhancer.*    # 完整 PE 模型、采样与结束条件
@@ -69,7 +69,7 @@ flowchart LR
     H --> I[调用方保存或显示]
 ```
 
-`ernie::generate` 返回像素和实际使用的提示词，通过回调报告进度，不解析参数、不打印终端、不写 PNG。调用者通过 `GenerationRequest` 明确选择模型、设备、精度及可选 trace。Vulkan 使用 ncnn 的进程级设备上下文，当前应串行调用生成接口。
+`ernie::generate` 返回像素、实际使用的提示词、选中的包/文本配置和 Vulkan 设备索引，通过回调报告进度，不解析参数、不打印终端、不写 PNG。`cli/generation_report.*` 将这些标准 C++ 返回值写成可选的轻量完成记录，不引入 ncnn 或图像库依赖；`tools/benchmark_request.py` 复用已有的完整包校验和共享源选择来核对记录。调用者通过 `GenerationRequest` 明确选择模型、设备、精度及可选 trace。Vulkan 使用 ncnn 的进程级设备上下文，当前应串行调用生成接口。
 
 PE 的 26 层和缓存全部释放后才开始图像文本编码；文本权重在 DiT 前释放；DiT 权重在 VAE 前释放。`PeSession` 只管理缓存，不负责模板、分词或采样。单 token 图使用原生不透明缓存句柄和独立 allocator，prefill 按实际 token 顺序执行，不把 padding 写入历史。
 
@@ -81,7 +81,7 @@ PE 的 26 层和缓存全部释放后才开始图像文本编码；文本权重�
 
 ## 构建和维护约定
 
-`weight_placement.*` 管理每个 DiT 组件加载前的权重放置决定：读取实际计算堆的 Vulkan 预算与本进程使用量，结合权重大小估计、可调余量及原有大序列偏好，选择 GPU 或系统内存。`WeightPlacement` 不持有模型权重、设备命令或后台线程；`block_sequence` 与 heads 仍负责在 GPU 完成后销毁 Net。API/CLI 只传递 auto/device/host 与余量，详细 trace 和返回值记录请求原因及计数。运行中激活迁移与跨去噪步的有界权重缓存尚未实现，不能把这一选择策略称为完整的内存分页系统。
+`weight_placement.*` 管理每个 DiT 组件加载前的权重放置决定：读取实际计算堆的 Vulkan 预算与本进程使用量，结合权重大小估计、可调余量及原有大序列偏好，选择 GPU 或系统内存。`WeightPlacement` 不持有模型权重、设备命令或后台线程；`block_sequence` 与 heads 仍负责在 GPU 完成后销毁 Net。API/CLI 只传递 auto/device/host 与余量，详细 trace 和返回值记录请求原因及计数。运行中激活迁移尚未实现。有界的跨步 RAM 权重复用由独立 `WeightSession` 管理，默认关闭；`host_memory.*` 负责 Linux 主机及 cgroup 余量读取。放置选择、缓存所有权和可用内存估计各自保持独立。
 
 根目录是唯一文档化构建入口；各目录自己的 `CMakeLists.txt` 管理该目录的目标。所有原生可执行文件仍生成在 `build/` 根目录，已有转换命令不需要改路径。日常开发默认构建回归测试和 probes。只构建用户程序时可追加：
 

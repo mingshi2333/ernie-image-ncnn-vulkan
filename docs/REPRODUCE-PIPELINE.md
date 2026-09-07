@@ -148,6 +148,6 @@ build/ernie-image --model models/turbo-portable --verify-model
 
 `--step` 从 0 开始。诊断使用完整官方 fixture 中的输入 latent、文本、位置/mask、官方时间特征和目标预测，应用既有全链路张量门限。长英文 FP32 的该单步 NRMSE 7.42e-5 通过；自由运行对应预测为 0.00349，仍保留失败。FP32 的完整门槛是 NRMSE ≤ 0.003、最大绝对差 ≤ `0.0002 + 0.01 * max(abs(reference))`，PNG MAE ≤ 0.1/255、最大差 ≤ 2/255。
 
-`benchmark_pipeline.py` 只测试原生功能与资源，结果仍明示 `quality_validated=false`。它保留 binary 快照、来源和包散列、实际随机 latent、逐步张量、PNG 散列、GNU time 最大 RSS、100 ms 整卡显存采样及系统内存/swap 前后状态。时延包含 trace 的保存开销；显存样本含其他程序且可能漏过短峰值，不是精确本进程计量。
+`benchmark_pipeline.py` 只测试原生功能与资源，结果仍明示 `quality_validated=false`。现在支持固定包和 schema-3 共享包、运行时宽高、线程/设备和权重放置/加载/缓存参数；保存 binary、提示词、可选的固定噪声及图像输入快照，并用原生 `generation.json` 核对实际文本桶、配置和完成状态。trace 默认关闭，只有 `--trace` 才保存逐步张量；正式速度轮要求关闭 trace 和分配诊断。计时前的全包散列验证可能预热文件缓存，原生进程内仍保留完整验证。GNU time 最大 RSS、100 ms 整卡显存采样与系统内存状态各自记录；整卡样本含其他程序且可能漏过短峰值。具体参数及计时范围见 [运行说明](RUNNING.md#completion-records-and-timing-runs)。
 
 1024 苹果样本已通过完整 8 步官方对照；长英文 FP16/FP32 的部分后期张量未通过，像素比较通过。所有固定样本、失败门限与资源数据见 [Turbo 交付报告](../artifacts/2026-09-05/turbo-delivery/README.md)。少量固定样本的数值验收不能代替广泛的感知质量数据集、重复性能测量和其他设备测试。

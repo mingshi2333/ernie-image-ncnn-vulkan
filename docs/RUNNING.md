@@ -494,6 +494,61 @@ Relinking the frozen objects to produce that map yields the exact same binary.
 Its selected archive members and final input-section contributions are recorded
 separately from dependency availability and redistribution decisions.
 
+## Completion records and timing runs
+
+Add `--report-json NEW.json` to save the actual package/source selection,
+consumed prompt and token IDs, Vulkan device index, resolved loading policy,
+weight-placement requests, cache counters and host timings after a successful
+image write. This small record works in ordinary builds and does not enable
+tensor tracing or allocation instrumentation. Existing files are never replaced.
+`--metrics-json` remains the separate allocation diagnostic interface.
+
+The Python development benchmark accepts fixed schema-1/2 packages and verified
+schema-3 shared packages. Shared packages with multiple sources require explicit
+dimensions. It records the actual source selected after tokenization; the initial
+geometry choice is not treated as the final text bucket.
+
+```sh
+python3 tools/benchmark_pipeline.py --model models/turbo-shared-v2 \
+  --runner build/ernie-image --output outputs/timing-512-new \
+  --width 512 --height 512 --device vulkan --precision fp32 --gpu 0 \
+  --threads 2 --text-down-vector --vae-device cpu --vae-convolution direct \
+  --dit-weights auto --gpu-reserve-mib 512 --model-loading mapped \
+  --dit-cache-mib 0 --latent saved-initial-512.f32 --noise-sha256 FROZEN_SHA256
+```
+
+Replace the saved-noise path and digest with the frozen input for the requested
+dimensions. The example budgets and thread count are experiment settings.
+The wrapper needs Python and Pillow; ordinary native generation still does not.
+It snapshots the executable, prompt, noise and optional input image, checks
+noise size/finiteness, and authenticates every package file or CAS object before
+timing. This preverification can warm the filesystem cache. Native verification
+still runs inside the timed process; these runs must not be described as cold
+cache measurements.
+
+The external wall time covers process launch through exit, including image and
+completion-report writes. Python preverification and result checks are outside
+that interval. Native text progress measures the text stage; verification is
+measured from generation start, and denoising progress is per executed step.
+The report's internal total excludes CLI input preparation, process startup and
+report serialization. Do not add overlapping intervals to that total.
+
+Trace is off by default. `--trace` is diagnostic and makes a run ineligible for
+formal speed rounds; an allocation-instrumented executable is likewise recorded
+as ineligible. Missing or inconsistent native reports, changed snapshots, wrong
+dimensions and incomplete denoising progress prevent a successful benchmark
+result. Human-readable log text does not establish settings or timing identity.
+`formal_comparison_eligible` records prerequisites for a single measurement;
+it does not certify the paired protocol or quality, which remains unvalidated by
+this tool. Failed runs must remain in the comparison record.
+
+NVIDIA sampling remains a whole-device diagnostic, including other processes.
+`--nvidia-sampling-index N` chooses its NVIDIA index independently of the native
+Vulkan `--gpu N`; the wrapper does not assert that those index spaces match.
+Use `--no-gpu-sampling` for other vendors or to disable that diagnostic. GNU time
+reports native-process maximum RSS separately. Neither RSS nor whole-device
+samples replace complete Vulkan allocation measurements.
+
 ## Adaptive DiT weight placement
 
 Vulkan generation defaults to `--dit-weights auto`. Before loading each DiT

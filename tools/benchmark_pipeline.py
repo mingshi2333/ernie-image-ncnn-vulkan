@@ -13,7 +13,8 @@ import time
 import math
 from PIL import Image
 from prepare_block import ROOT, sha256
-from package_model import verify_package
+from benchmark_request import (verify_benchmark_package, validate_native_report, requested_settings,
+                               verify_noise, float32)
 
 _IMAGE_SUFFIX = {'PNG': '.png', 'JPEG': '.jpg', 'BMP': '.bmp', 'TGA': '.tga'}
 
@@ -91,6 +92,19 @@ def main():
     p.add_argument('--device',choices=['vulkan','cpu'],default='vulkan')
     p.add_argument('--vae-device',choices=['cpu','vulkan'],default='cpu')
     p.add_argument('--vae-convolution',choices=['direct','sgemm'],default='direct')
+    p.add_argument('--width',type=int)
+    p.add_argument('--height',type=int)
+    p.add_argument('--threads',type=int,default=4)
+    p.add_argument('--gpu',type=int,help='Native Vulkan device index; independent of NVIDIA sampling index')
+    p.add_argument('--text-device',choices=['cpu'],default='cpu')
+    p.add_argument('--text-down-vector',action='store_true')
+    p.add_argument('--dit-weights',choices=['auto','device','host'],default='auto')
+    p.add_argument('--gpu-reserve-mib',type=int,default=512)
+    p.add_argument('--dit-cache-mib',type=int,default=0)
+    p.add_argument('--ram-reserve-mib',type=int,default=3072)
+    p.add_argument('--model-loading',choices=['default','stdio','mapped'],default='default')
+    p.add_argument('--nvidia-sampling-index',type=int,default=0,help='Whole-device diagnostic only; not matched Vulkan allocation data')
+    p.add_argument('--no-gpu-sampling',action='store_true',help='Disable optional NVIDIA diagnostics, e.g. for other GPU vendors')
     p.add_argument('--timeout',type=int,default=3600)
     p.add_argument('--trace',action='store_true',help='Diagnostic only; formal paired timing requires trace disabled')
     p.add_argument('--pe-model',type=Path)
@@ -107,6 +121,21 @@ def main():
     if args.output.exists() or args.timeout<1 or not 1<=args.steps<=1000 or not 0<=args.seed<=2**32-1:
         p.error('Use a new output and valid timeout, steps and seed')
     if args.device=='cpu' and args.precision!='fp32':p.error('CPU requires fp32')
+    if not 1 <= args.threads <= 256 or (args.gpu is not None and not 0 <= args.gpu <= 63):
+        p.error('Threads must be in [1,256] and GPU in [0,63]')
+    if args.gpu is not None and args.device != 'vulkan' and args.vae_device != 'vulkan':
+        p.error('--gpu requires a Vulkan generation or VAE device')
+    if args.nvidia_sampling_index < 0 or any(not 0 <= v <= 2**32-1 for v in
+            (args.gpu_reserve_mib, args.dit_cache_mib, args.ram_reserve_mib)):
+        p.error('Invalid memory budget or NVIDIA sampling index')
+    if args.device != 'vulkan' and (args.dit_weights != 'auto' or args.gpu_reserve_mib != 512):
+        p.error('Explicit weight placement requires Vulkan')
+    if ((args.dit_cache_mib or args.ram_reserve_mib != 3072) and
+            (args.device != 'vulkan' or args.precision != 'fp32' or args.dit_weights == 'device')):
+        p.error('Weight cache requires Vulkan FP32 with auto or host weights')
+    if not args.dit_cache_mib and args.ram_reserve_mib != 3072:
+        p.error('RAM reserve requires an enabled weight cache')
+    if not 1 <= args.pe_max_tokens <= 2048:p.error('PE max tokens must be in [1,2048]')
     unsupported=[]
     if args.pe_prompt_file is not None:unsupported.append('--pe-prompt-file')
     if unsupported:
@@ -120,7 +149,14 @@ def main():
         p.error('--input-image and --strength must be provided together')
     if args.strength is not None and (not math.isfinite(args.strength) or not 0 < args.strength <= 1):
         p.error('Benchmark img2img strength must be finite and in (0,1]')
-    manifest,_=verify_package(args.model)
+    if args.strength is not None:
+        args.strength=float32(args.strength)
+        if args.strength == 0:p.error('Benchmark strength must remain positive at native FP32 precision')
+    try:
+        manifest,cfg=verify_benchmark_package(args.model,args.width,args.height)
+        width=cfg['packed_width']*16;height=cfg['packed_height']*16
+    except (OSError, ValueError, KeyError) as error:
+        p.error(str(error))
     args.output.mkdir(parents=True)
     runner=args.output/'ernie-image.snapshot';shutil.copy2(args.runner,runner)
     prompt_snapshot=args.output/'prompt.txt'
@@ -129,6 +165,11 @@ def main():
     latent_snapshot=None
     if args.latent:
         latent_snapshot=args.output/'initial.f32';shutil.copy2(args.latent,latent_snapshot)
+        try:verify_noise(latent_snapshot,width,height)
+        except ValueError as error:
+            (args.output/'result.json').write_text(json.dumps({'passed':False,'status':'incomplete',
+                'failure_category':'invalid_input','failure':str(error)},indent=2)+'\n')
+            return 2
     input_snapshot=None;actual_input_sha256=None;actual_decoded_rgb_sha256=None;decoded_rgb_identity_status=None
     if args.input_image:
         temporary_snapshot=args.output/'input.snapshot'
@@ -141,14 +182,19 @@ def main():
     command=[str(runner.resolve()),'--model',str(args.model.resolve()),*prompt_args,
         '--output',str((args.output/'native.png').resolve()),'--seed',str(args.seed),'--steps',str(args.steps),
         '--device',args.device,'--precision',args.precision,'--vae-device',args.vae_device,
-        '--vae-convolution',args.vae_convolution]
+        '--vae-convolution',args.vae_convolution,'--width',str(width),'--height',str(height),
+        '--threads',str(args.threads),'--text-device',args.text_device,'--dit-weights',args.dit_weights,
+        '--gpu-reserve-mib',str(args.gpu_reserve_mib),'--dit-cache-mib',str(args.dit_cache_mib),
+        '--ram-reserve-mib',str(args.ram_reserve_mib),'--model-loading',args.model_loading,
+        '--report-json',str((args.output/'generation.json').resolve())]
+    if args.gpu is not None:command+=['--gpu',str(args.gpu)]
+    if args.text_down_vector:command+=['--text-down-vector']
     if args.trace:command+=['--trace-dir',str((args.output/'trace').resolve())]
     if args.pe_model:command+=['--pe-model',str(args.pe_model.resolve()),'--pe-greedy','--pe-max-tokens',str(args.pe_max_tokens)]
     if latent_snapshot:command+=['--latent',str(latent_snapshot.resolve())]
-    cfg=manifest['config'];width=cfg['packed_width']*16;height=cfg['packed_height']*16
     if input_snapshot:
         command+=['--input',str(input_snapshot.resolve()),'--strength',str(args.strength),
-                  '--width',str(width),'--height',str(height),'--resize',args.resize]
+                  '--resize',args.resize]
     pe_manifest=args.pe_model/'manifest.json' if args.pe_model else None
     pe_identity=sha256(pe_manifest) if pe_manifest and pe_manifest.is_file() else None
     actual_noise_sha256=sha256(latent_snapshot) if latent_snapshot else None
@@ -159,7 +205,9 @@ def main():
     formal_eligible=noise_identity_proven and image_identity_proven and (args.pe_model is None or pe_identity is not None) and not args.trace
     result={'scope':'One native functional run; no full-resolution official denoising reference or perceptual quality gate',
         'passed':False,'quality_validated':False,'status':'pending','prompt':args.prompt if not args.prompt_file else None,
-        'prompt_file':str(args.prompt_file.resolve()) if args.prompt_file else None,'config':manifest['config'],
+        'prompt_file':str(args.prompt_file.resolve()) if args.prompt_file else None,
+        'config':None,'initial_package_config':cfg,'requested_settings':requested_settings(args),
+        'selection_status':'pending_native_report','package_schema_version':manifest['schema_version'],
         'command':command,'runner_sha256':sha256(runner),'benchmark_sha256':sha256(__file__),
         'package_manifest_sha256':sha256(args.model/'manifest.json'),'system_memory_before_kib':memory(),
         'prompt_sha256':sha256(prompt_snapshot),'prompt_snapshot':str(prompt_snapshot.resolve()),
@@ -171,13 +219,15 @@ def main():
         'strength':args.strength,'resize_policy':({'mode':args.resize,'width':width,'height':height,
             'filter':'bilinear','coordinate_transform':'half_pixel','antialias':False} if input_snapshot else None),
         'shape':[width,height],'shape_order':'WH',
-        'pe_manifest_sha256':pe_identity,'formal_comparison_eligible':formal_eligible,
+        'pe_manifest_sha256':pe_identity,'formal_comparison_eligible':False,
         'formal_ineligibility_reasons':([] if noise_identity_proven else ['saved FP32 noise and matching frozen SHA256 are required'])+
             ([] if not args.pe_model or pe_identity else ['PE package manifest identity is required'])+
             ([] if image_identity_proven else ['input image bytes and native-equivalent decoded RGB must match frozen SHA256'])+
             ([] if not args.trace else ['trace must be disabled']),
         'trace':args.trace,'timing_scope':'end_to_end_external_process_launch_through_output_close',
-        'gpu_sampling_scope':'Whole NVIDIA device 0, includes other processes, 100 ms samples; not exact allocator/process VRAM',
+        'package_preverification':'all package files/objects hashed before timing; file cache warmed but not controlled; native verification also timed',
+        'gpu_sampling_scope':f'Whole NVIDIA device {args.nvidia_sampling_index}; mapping to selected Vulkan index unverified; includes other processes; 100 ms samples; not allocator/process VRAM',
+        'gpu_sampling_enabled':not args.no_gpu_sampling and (args.device=='vulkan' or args.vae_device=='vulkan'),
         'precision':{'dit':args.precision,'residual':'fp32','text':'fp32','euler':'fp32',
                      'vae':'fp32 with FP64 CPU GroupNorm reductions' if args.vae_device=='cpu' else 'fp32'}}
     from source_inventory import source_files
@@ -188,35 +238,52 @@ def main():
     try:
         with (args.output/'gpu-device-memory.log').open('w') as gpu_log:
             try:
-                if args.device=='vulkan' or args.vae_device=='vulkan':
-                    sampler=subprocess.Popen(['nvidia-smi','--query-gpu=memory.used','--format=csv,noheader,nounits','--id=0','--loop-ms=100'],stdout=gpu_log,stderr=subprocess.DEVNULL)
+                if result['gpu_sampling_enabled']:
+                    sampler=subprocess.Popen(['nvidia-smi','--query-gpu=memory.used','--format=csv,noheader,nounits',f'--id={args.nvidia_sampling_index}','--loop-ms=100'],stdout=gpu_log,stderr=subprocess.DEVNULL)
                 timed=['/usr/bin/time','-v','-o',str((args.output/'resources.log').resolve()),*command]
                 result.update(run_timed_command(timed,args.timeout,args.output/'runner.log'))
             finally:
                 if sampler is not None:sampler.terminate();sampler.wait(timeout=5)
-        if result['return_code']:raise RuntimeError(f"Native inference failed: {result['failure_category']}; inspect runner.log")
+        if result['return_code'] != 0:raise RuntimeError(f"Native inference failed: {result['failure_category']}; inspect runner.log")
         with Image.open(args.output/'native.png') as picture:
             picture.load();result['image']={'size':list(picture.size),'mode':picture.mode,'sha256':sha256(args.output/'native.png')}
-        cfg=manifest['config']
-        result['passed']=result['image']['size']==[cfg['packed_width']*16,cfg['packed_height']*16] and result['image']['mode']=='RGB'
+        report=json.loads((args.output/'generation.json').read_text())
+        cfg,binding=validate_native_report(report,args,manifest,width,height)
+        for path,digest in ((runner,result['runner_sha256']),(prompt_snapshot,result['prompt_sha256']),
+                (args.model/'manifest.json',result['package_manifest_sha256']),
+                (latent_snapshot,actual_noise_sha256),(input_snapshot,actual_input_sha256),
+                (pe_manifest,pe_identity)):
+            if path is not None and sha256(path)!=digest:raise ValueError('Run input or runner identity changed during execution')
+        if args.pe_model is None and report['prompt'] != prompt_snapshot.read_bytes().decode('utf-8-sig'):
+            raise ValueError('Native consumed prompt differs from the immutable input')
+        result.update(config=cfg,shared_source_binding=binding,selection_status='verified_native_report',
+                      native_report=report,native_report_sha256=sha256(args.output/'generation.json'))
+        result['passed']=result['image']['size']==[width,height] and result['image']['mode']=='RGB'
         result['status']='ok' if result['passed'] else 'failed'
+        result['formal_comparison_eligible']=bool(result['passed'] and formal_eligible and not report['allocation_instrumentation'])
+        if report['allocation_instrumentation']:result['formal_ineligibility_reasons'].append('allocation instrumentation must be disabled for speed rounds')
         if args.trace:result['trace_sha256']={path.name:sha256(path) for path in sorted((args.output/'trace').iterdir()) if path.is_file()}
-    except (OSError,ValueError,RuntimeError,subprocess.TimeoutExpired) as error:
+    except (OSError,ValueError,RuntimeError,KeyError,TypeError,subprocess.TimeoutExpired) as error:
         result['passed']=False
         result['status']='incomplete'
         result['failure']=str(error)
-        result.setdefault('failure_category','runtime_failure')
+        result['formal_comparison_eligible']=False
+        if not result.get('failure_category'):result['failure_category']='runtime_failure'
     result['system_memory_after_kib']=memory()
     samples=[int(line) for line in (args.output/'gpu-device-memory.log').read_text().splitlines() if line.isdigit()]
     if samples:result['gpu_device_total_mib']={'first':samples[0],'sampled_peak':max(samples),'samples':len(samples)}
     resources=(args.output/'resources.log').read_text() if (args.output/'resources.log').exists() else ''
     match=re.search(r'Maximum resident set size \(kbytes\):\s*(\d+)',resources)
     if match:result['max_rss_kib']=int(match[1])
-    log=(args.output/'runner.log').read_text(errors='replace') if (args.output/'runner.log').exists() else ''
-    result['denoise_seconds']=[float(value) for value in re.findall(r'Denoise \d+/\d+: ([\d.]+) s',log)]
-    for field,pattern in [('total_seconds',r'Total: ([\d.]+) s'),('vae_and_png_seconds',r'VAE and PNG: ([\d.]+) s'),('text_seconds',r'Text conditioned: \d+ tokens, ([\d.]+) s')]:
-        match=re.search(pattern,log)
-        if match:result[field]=float(match[1])
+    # Human-readable output may contain a multiline enhanced prompt. Only the
+    # structured producer record supplies stage timings and effective settings.
+    if result.get('selection_status')=='verified_native_report':
+        report=result['native_report']
+        result['denoise_seconds']=[p['seconds'] for p in report['progress'] if p['stage']=='denoise']
+        result['text_seconds']=next(p['seconds'] for p in report['progress'] if p['stage']=='text')
+        result['total_seconds']=report['total_seconds']
+        result['vae_and_png_seconds']=report['vae_and_image_encode_seconds']
+    result['timing_scope']='external process launch through exit, including native verification, image/report close; Python preverification and postvalidation excluded'
     (args.output/'result.json').write_text(json.dumps(result,indent=2,ensure_ascii=False)+'\n')
     print(json.dumps({k:result.get(k) for k in ('passed','failure','image','total_seconds','max_rss_kib','gpu_device_total_mib')}),flush=True)
     return 0 if result['passed'] else 1

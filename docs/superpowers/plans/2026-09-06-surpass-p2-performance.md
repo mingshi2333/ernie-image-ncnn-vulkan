@@ -12,6 +12,8 @@
 
 继承 [总计划](2026-09-06-surpass-reference.md)。所有新增接口与命令均为待实现目标。不得用 trace 运行计时、整卡采样冒充进程分配、取消包完整校验，或将全部展开 FP32 权重常驻 32GB 主机。已有共享 pipeline cache、设备 latent 与查询分块属于基线，不能重新算成新增收益。
 
+**2026-09-07 普通构建测量入口：** `benchmark_pipeline.py` 已接入共享包、运行时宽高及内存/加载/线程选项，用轻量原生完成报告核对实际文本桶和配置。真实512 traceOFF完整生成与PNG基线逐字节相同，原生外部区间386.854秒，42hits/246loads；初始12项相关CTest与36项Python检查通过。原始计时标签的复核修正、最终重建检查和全部测量范围见[测试工具实测](../../../artifacts/2026-09-07/benchmark-runtime/README.md)。它提供重复比较入口，尚不完成阶段成本分解、O2收益或正式S/M。
+
 ## Task O1: 建立可解释的成本分解
 
 **Files:** Create `src/execution_metrics.h`, `src/execution_metrics.cpp`, `tests/test_execution_metrics.cpp`；Extend `src/block_sequence.cpp`, `src/dit.cpp`, `src/denoiser.cpp`, `src/vae.cpp`, `src/pipeline.cpp`, `probes/block_sequence_runner.cpp`, `tools/benchmark_pipeline.py`, `src/CMakeLists.txt`, `tests/CMakeLists.txt`。

@@ -8,7 +8,7 @@ namespace ernie::cli
 struct Options
 {
     GenerationRequest generation;
-    std::filesystem::path output, input, metrics_json;
+    std::filesystem::path output, input, metrics_json, report_json;
     std::array<uint8_t, 3> background{255, 255, 255};
     std::string resize;
     bool background_explicit = false;

@@ -1,0 +1,31 @@
+{
+  "scope": "After the frozen full run and comparator completed, correct metadata only; no inference math, inputs, settings or numeric timings changed.",
+  "raw_run_preserved": true,
+  "full_run_binary_sha256": "20ab4f77a8c1f937470885d65c9967f1024c8c495aacfbec6c298fec6cbf51fa",
+  "corrections": [
+    "Raw generation.json progress_scope incorrectly described text as cumulative. src/pipeline.cpp emits elapsed(text_start), so text measures only the text stage.",
+    "Restore legacy benchmark result key text_seconds; the raw run key text_completion_seconds contains the same stage duration.",
+    "JSON writer test now follows the existing optional build-path convention when run outside CTest; both explicit CTest targets passed after this harness change."
+  ],
+  "files": {
+    "cli/generation_report.cpp": {
+      "before_sha256": "b0c6ac0ec028671e2a0e55123d58c6992bb4a796f7c1fa8713d1d38211835951",
+      "after_sha256": "2324c9ae9c7cacf69c7dbc3e4c3689d8b7c1c5787fd26d9417d004c8b36405a5"
+    },
+    "tools/benchmark_pipeline.py": {
+      "before_sha256": "374b9a8db2db80907e5fecfa639d7b2f3425dc97af48032aea51d69c0c0f0d5a",
+      "after_sha256": "de15e329a28575d8e23b70edfa3330eeda4ddd3898bef93abb4b729a61dd2ac2"
+    },
+    "tests/test_benchmark_request.py": {
+      "before_sha256": "43b23da4635ba40c67abf41cbf388cd796c6eb83951e2ab257ad1e8078ce158a",
+      "after_sha256": "5de9e65070a609730a87922050c65d01cf3b628adec4ca48d92576e6a4d15272"
+    },
+    "tests/test_generation_report.py": {
+      "before_sha256": "b372980c9e15a25dc7f2a4119eec9525c01ca342bdf1fa86d2860e0046d65449",
+      "after_sha256": "2b2c610f93f6dd3e54eb0fc0a5dc0b25583eb624fdf109a97db06d669b622c80"
+    }
+  },
+  "full_model_rerun_after_description_fix": false,
+  "final_binary_sha256": "ff2f934f317a602f3d098bf6d74cd7c2e2a6de725ed8fcf04d8d1e2bcbaa3e1c",
+  "final_cpu_binary_sha256": "5f6b86a2c90580bb0c12497100130158b5efd7ffb82473178dbf7d9826ca2e42"
+}

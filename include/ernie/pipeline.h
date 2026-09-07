@@ -76,6 +76,10 @@ struct GenerationResult
     uint64_t weight_cache_peak_bytes = 0, weight_cache_peak_nets = 0;
     uint64_t weight_cache_evictions = 0, unavailable_host_memory_queries = 0;
     bool mapped_model_loading_requested = false; // Policy, not observed mapping success.
+    // Resolved package/source metadata, available without tensor tracing.
+    int model_schema = 0, text_bucket = 0, dit_text_tokens = 0;
+    int source_width = 0, source_height = 0;
+    int vulkan_gpu_index = -1; // -1 when no stage uses Vulkan.
 };
 
 struct Progress

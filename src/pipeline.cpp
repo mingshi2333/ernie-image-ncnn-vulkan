@@ -354,6 +354,18 @@ GenerationResult generate_impl(const GenerationRequest &r, const ProgressCallbac
         fs::create_directories(trace);
     GenerationResult result;
     result.prompt = r.prompt;
+    const auto record_selection = [&] {
+        result.model_schema = package.schema();
+        result.text_bucket = package.config().text_bucket;
+        result.dit_text_tokens = package.config().dit_text_tokens;
+        result.source_width = package.source_config().packed_width * 16;
+        result.source_height = package.source_config().packed_height * 16;
+    };
+    record_selection();
+#if NCNN_VULKAN
+    if (gpu.available())
+        result.vulkan_gpu_index = r.gpu_index >= 0 ? r.gpu_index : ncnn::get_default_gpu_index();
+#endif
     ncnn::Option cpu;
     cpu.num_threads = r.threads;
 #if defined(ERNIE_EXPERIMENT_MAPPED_MODEL_LOADING)
@@ -450,6 +462,7 @@ GenerationResult generate_impl(const GenerationRequest &r, const ProgressCallbac
                         package.file("tokenizer/tokenizer_config.json"));
     const auto ids = tokenizer.encode(result.prompt);
     package.select_text_tokens(ids.size());
+    record_selection();
     const auto cfg = package.config();
     const int bucket = cfg.text_bucket;
     std::optional<ShapePlan> shape;

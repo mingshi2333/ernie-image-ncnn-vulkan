@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 #include "image_io.h"
 #include "options.h"
+#include "generation_report.h"
 #include <chrono>
 #include <iostream>
 #ifdef ERNIE_CLI_ALLOCATION_METRICS
@@ -83,8 +84,11 @@ int main(int argc, char **argv)
 #ifdef ERNIE_CLI_ALLOCATION_METRICS
         failure_phase="generation_failed";
 #endif
+        std::vector<ernie::Progress> reported_progress;
         const ernie::ProgressCallback progress = [&](const ernie::Progress &p)
             {
+                if (!options.report_json.empty() && (p.stage == "verify" || p.stage == "text" || p.stage == "denoise"))
+                    reported_progress.push_back(p);
                 if (p.stage == "verify")
                     std::cout << "Model verified: " << p.seconds << " s";
                 else if (p.stage == "text")
@@ -126,6 +130,15 @@ int main(int argc, char **argv)
         failure_phase="report_write_failed";
         if (metrics)metrics->finish("success","",ncnn::get_gpu_instance()!=VK_NULL_HANDLE);
 #endif
+        if (!options.report_json.empty())
+            ernie::cli::write_generation_report(options.report_json, request, result, reported_progress,
+                write_seconds,
+#ifdef ERNIE_CLI_ALLOCATION_METRICS
+                true
+#else
+                false
+#endif
+            );
         if (!request.pe_model.empty())
             std::cout << "PE generated " << result.pe_generated_tokens << " tokens, "
                       << (result.pe_eos ? "EOS reached" : "token limit reached")

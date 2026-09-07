@@ -12,6 +12,23 @@ RUNNER = Path(os.environ.get('ERNIE_TEST_RUNNER', ROOT/'build/ernie-image'))
 
 @unittest.skipUnless(RUNNER.is_file(), 'Build the native generator first')
 class CliTests(unittest.TestCase):
+    def test_generation_report_options(self):
+        self.assertIn('report path is empty', self.request('--prompt', 'cat', '--report-json', ''))
+        self.assertIn('requires generation', self.request('--verify-model', '--report-json', 'new-report.json'))
+        self.assertIn('Duplicate option', self.request('--prompt', 'cat', '--report-json', 'a', '--report-json', 'b'))
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / 'existing.json'
+            path.write_text('preserved')
+            self.assertIn('new generation report path', self.request('--prompt', 'cat', '--report-json', str(path)))
+            self.assertEqual(path.read_text(), 'preserved')
+            target = Path(folder) / 'new.png'
+            run = subprocess.run([str(RUNNER), '--model', 'absent', '--prompt', 'cat',
+                '--output', str(target), '--report-json', str(target)], text=True, capture_output=True, timeout=10)
+            self.assertIn('paths must differ', run.stderr)
+            self.assertFalse(target.exists())
+        self.assertIn('Cannot open model package', self.request('--prompt', 'cat', '--device', 'cpu',
+            '--precision', 'fp32', '--report-json', str(Path(folder) / 'new.json')))
+
     def test_model_loading_options(self):
         self.assertIn('Model loading', self.request('--prompt', 'cat', '--model-loading', 'invalid'))
         for mode in ('default', 'stdio', 'mapped'):

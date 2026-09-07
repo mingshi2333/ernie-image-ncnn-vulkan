@@ -1,0 +1,160 @@
+UpdateCTestConfiguration  from :/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/DartConfiguration.tcl
+Parse Config file:/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/DartConfiguration.tcl
+Test project /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 7
+    Start  7: generation_report_writer
+
+7: Test command: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/ernie-generation-report-contract
+7: Working Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/tests
+7: Test timeout computed to be: 1500
+7: {"schema_version":1,"status":"success","trace_enabled":false,"allocation_instrumentation":false,"shape":[512,384],"shape_order":"WH","model":{"schema_version":3,"source_width":1024,"source_height":1024,"text_bucket":32,"dit_text_tokens":64},"vulkan_gpu_index":0,"request":{"device":"vulkan","precision":"fp16","vae_device":"cpu","vae_convolution":"direct","text_device":"cpu","text_down_vector":false,"threads":4,"steps":8,"seed":42,"dit_weights":"auto","gpu_reserve_mib":512,"dit_cache_mib":0,"ram_reserve_mib":3072,"model_loading":"default","img2img":false,"resize":"none","strength":null},"model_loading_requested":"mapped","placement_requests":{"gpu":0,"ram":262,"budget_unavailable":0},"weight_cache":{"hits":42,"loads":0,"peak_charged_bytes":5687678976,"peak_nets":0,"evictions":0,"budget_unavailable":0},"prompt":"中文 \"quote\"\\\u000d\u000a\u0009\u0000","token_ids":[1,23,131071],"pe":{"enabled":false,"greedy":false,"max_tokens":2048,"generated_tokens":0,"eos":false},"generation_seconds":1.25,"image_write_seconds":0.125,"vae_and_image_encode_seconds":0.875,"total_seconds":1.375,"progress":[{"stage":"text","current":3,"total":32,"seconds":0.5},{"stage":"denoise","current":1,"total":1,"seconds":0.125}],"time_scope":"host generation and image write; excludes report serialization and process startup","progress_scope":"verify/text are cumulative from generation start; denoise is per step","memory_scope":"placement requests and charged cache weights; not complete residency or process peak"}
+1/6 Test  #7: generation_report_writer .........   Passed    0.00 sec
+test 8
+    Start  8: pipeline_api_contract
+
+8: Test command: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/ernie-pipeline-api-contract
+8: Working Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/tests
+8: Test timeout computed to be: 1500
+8: [0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+8: [0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+8: [0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+8: [0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+8: [1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+8: [1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+8: [1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+8: [1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+8: [2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+8: [2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+8: [2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+8: [2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+8: Public C++ API builds without private headers and reports runtime capabilities
+2/6 Test  #8: pipeline_api_contract ............   Passed    0.42 sec
+test 9
+    Start  9: request_validation_contract
+
+9: Test command: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/ernie-request-validation-contract
+9: Working Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/tests
+9: Test timeout computed to be: 1500
+9: [0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+9: [0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+9: [0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+9: [0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+9: [1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+9: [1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+9: [1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+9: [1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+9: [2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+9: [2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+9: [2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+9: [2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+9: [0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+9: [0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+9: [0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+9: [0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+9: [1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+9: [1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+9: [1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+9: [1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+9: [2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+9: [2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+9: [2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+9: [2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+9: Request validation rejects invalid and unavailable configurations before model loading
+3/6 Test  #9: request_validation_contract ......   Passed    0.22 sec
+test 15
+    Start 15: generation_report_json
+
+15: Test command: /home/mingshi/.local/bin/python3.13 "-m" "unittest" "discover" "-s" "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tests" "-p" "test_generation_report.py" "-v"
+15: Working Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/tests
+15: Environment variables: 
+15:  ERNIE_REPORT_RUNNER=/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/ernie-generation-report-contract
+15: Test timeout computed to be: 1500
+15: test_native_json_roundtrip (test_generation_report.GenerationReportTest.test_native_json_roundtrip) ... ok
+15: 
+15: ----------------------------------------------------------------------
+15: Ran 1 test in 0.002s
+15: 
+15: OK
+4/6 Test #15: generation_report_json ...........   Passed    0.04 sec
+test 18
+    Start 18: cli_contract
+
+18: Test command: /home/mingshi/.local/bin/python3.13 "-m" "unittest" "discover" "-s" "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tests" "-p" "test_cli.py" "-v"
+18: Working Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/tests
+18: Environment variables: 
+18:  ERNIE_TEST_RUNNER=/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/ernie-image
+18: Test timeout computed to be: 1500
+18: test_bf16_request_obeys_compiled_device_support (test_cli.CliTests.test_bf16_request_obeys_compiled_device_support) ... ok
+18: test_diagnose_lists_runtime_without_loading_a_model (test_cli.CliTests.test_diagnose_lists_runtime_without_loading_a_model) ... ok
+18: test_diagnose_reads_only_bounded_model_config_metadata (test_cli.CliTests.test_diagnose_reads_only_bounded_model_config_metadata) ... ok
+18: test_diagnose_rejects_generation_options (test_cli.CliTests.test_diagnose_rejects_generation_options) ... ok
+18: test_dimensions_must_be_multiples_of_sixteen (test_cli.CliTests.test_dimensions_must_be_multiples_of_sixteen) ... ok
+18: test_dimensions_require_both_axes (test_cli.CliTests.test_dimensions_require_both_axes) ... ok
+18: test_duplicate_prompt_cannot_silently_replace_first (test_cli.CliTests.test_duplicate_prompt_cannot_silently_replace_first) ... ok
+18: test_generation_report_options (test_cli.CliTests.test_generation_report_options) ... ok
+18: test_gpu_requires_a_vulkan_stage (test_cli.CliTests.test_gpu_requires_a_vulkan_stage) ... ok
+18: test_img2img_only_options_require_input (test_cli.CliTests.test_img2img_only_options_require_input) ... ok
+18: test_img2img_reads_input_before_model_loading (test_cli.CliTests.test_img2img_reads_input_before_model_loading) ... ok
+18: test_invalid_img2img_metadata_is_rejected (test_cli.CliTests.test_invalid_img2img_metadata_is_rejected) ... ok
+18: test_invalid_utf8_prompt_file_is_rejected (test_cli.CliTests.test_invalid_utf8_prompt_file_is_rejected) ... ok
+18: test_metrics_rejects_empty_path_before_model_loading (test_cli.CliTests.test_metrics_rejects_empty_path_before_model_loading) ... ok
+18: test_missing_driver_diagnosis_keeps_metadata_and_strict_inference (test_cli.CliTests.test_missing_driver_diagnosis_keeps_metadata_and_strict_inference) ... ok
+18: test_missing_prompt_file_is_reported_before_model_loading (test_cli.CliTests.test_missing_prompt_file_is_reported_before_model_loading) ... ok
+18: test_model_loading_options (test_cli.CliTests.test_model_loading_options) ... ok
+18: test_output_format_is_checked_before_model_loading (test_cli.CliTests.test_output_format_is_checked_before_model_loading) ... ok
+18: test_pe_cannot_change_prompt_of_precomputed_embeddings (test_cli.CliTests.test_pe_cannot_change_prompt_of_precomputed_embeddings) ... ok
+18: test_pe_options_require_an_explicit_model (test_cli.CliTests.test_pe_options_require_an_explicit_model) ... ok
+18: test_pe_rejects_infinite_temperature (test_cli.CliTests.test_pe_rejects_infinite_temperature) ... ok
+18: test_pe_rejects_invalid_top_p (test_cli.CliTests.test_pe_rejects_invalid_top_p) ... ok
+18: test_prompt_file_is_bounded_before_model_loading (test_cli.CliTests.test_prompt_file_is_bounded_before_model_loading) ... ok
+18: test_prompt_sources_are_mutually_exclusive (test_cli.CliTests.test_prompt_sources_are_mutually_exclusive) ... ok
+18: test_rectangular_request_reaches_model_validation (test_cli.CliTests.test_rectangular_request_reaches_model_validation) ... ok
+18: test_repeated_resolution_cannot_silently_override (test_cli.CliTests.test_repeated_resolution_cannot_silently_override) ... ok
+18: test_resize_requires_explicit_target (test_cli.CliTests.test_resize_requires_explicit_target) ... ok
+18: test_strength_zero_does_not_require_prompt (test_cli.CliTests.test_strength_zero_does_not_require_prompt) ... ok
+18: test_strength_zero_rejects_unused_prompt_or_pe (test_cli.CliTests.test_strength_zero_rejects_unused_prompt_or_pe) ... ok
+18: test_threads_are_strictly_bounded (test_cli.CliTests.test_threads_are_strictly_bounded) ... ok
+18: test_unsupported_text_device_is_explicit (test_cli.CliTests.test_unsupported_text_device_is_explicit) ... ok
+18: test_vector_reduction_flag_reaches_model_validation (test_cli.CliTests.test_vector_reduction_flag_reaches_model_validation) ... ok
+18: test_vector_reduction_requires_native_text (test_cli.CliTests.test_vector_reduction_requires_native_text) ... ok
+18: test_weight_placement_options (test_cli.CliTests.test_weight_placement_options) ... ok
+18: 
+18: ----------------------------------------------------------------------
+18: Ran 34 tests in 0.542s
+18: 
+18: OK
+5/6 Test #18: cli_contract .....................   Passed    0.57 sec
+test 19
+    Start 19: installed_cpp_consumer
+
+19: Test command: /home/mingshi/.local/bin/python3.13 "-m" "unittest" "discover" "-s" "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tests" "-p" "test_install.py" "-v"
+19: Working Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/tests
+19: Environment variables: 
+19:  ERNIE_INSTALL_BUILD=/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev
+19:  ERNIE_INSTALL_CONFIG=Release
+19: Test timeout computed to be: 900
+19: test_relocated_installation (test_install.InstalledConsumerTest.test_relocated_installation) ... ok
+19: 
+19: ----------------------------------------------------------------------
+19: Ran 1 test in 1.415s
+19: 
+19: OK
+6/6 Test #19: installed_cpp_consumer ...........   Passed    1.45 sec
+
+The following tests passed:
+	generation_report_writer
+	pipeline_api_contract
+	request_validation_contract
+	generation_report_json
+	cli_contract
+	installed_cpp_consumer
+
+100% tests passed, 0 tests failed out of 6
+
+Total Test time (real) =   2.71 sec

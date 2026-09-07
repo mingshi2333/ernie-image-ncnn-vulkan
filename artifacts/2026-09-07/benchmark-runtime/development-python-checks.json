@@ -1,0 +1,50 @@
+[
+  {
+    "command": [
+      ".venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_port_metrics.py",
+      "-v"
+    ],
+    "returncode": 0,
+    "seconds": 0.3339196369925048,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/benchmark-runtime-v1/test_port_metrics-final.log"
+  },
+  {
+    "command": [
+      ".venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_benchmark_request.py",
+      "-v"
+    ],
+    "returncode": 0,
+    "seconds": 0.1970410689827986,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/benchmark-runtime-v1/test_benchmark_request-final.log"
+  },
+  {
+    "command": [
+      ".venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_pipeline_package.py",
+      "-v"
+    ],
+    "returncode": 0,
+    "seconds": 0.055032108997693285,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/benchmark-runtime-v1/test_pipeline_package-final.log"
+  }
+]

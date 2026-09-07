@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "scope": "Frozen full-run inputs and raw record verified; final changes restricted to documented reporting labels/key and test path fallback. Inference sources unchanged after full run.",
+  "frozen_bindings": 669,
+  "documented_post_run_changes": [
+    "cli/generation_report.cpp",
+    "tests/test_benchmark_request.py",
+    "tests/test_generation_report.py",
+    "tools/benchmark_pipeline.py"
+  ],
+  "raw_full_run_binary_sha256": "20ab4f77a8c1f937470885d65c9967f1024c8c495aacfbec6c298fec6cbf51fa",
+  "final_binary_sha256": "ff2f934f317a602f3d098bf6d74cd7c2e2a6de725ed8fcf04d8d1e2bcbaa3e1c",
+  "final_full_model_run": false,
+  "final_native_report_accepted_by_current_validator": true,
+  "native_pids_terminal": [
+    2900979
+  ],
+  "ncnn_clean_and_pinned": true
+}

@@ -1,0 +1,31 @@
+UpdateCTestConfiguration  from :/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu/DartConfiguration.tcl
+Parse Config file:/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu/DartConfiguration.tcl
+Test project /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 10
+    Start 10: generation_report_json
+
+10: Test command: /home/mingshi/.local/bin/python3.13 "-m" "unittest" "discover" "-s" "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tests" "-p" "test_generation_report.py" "-v"
+10: Working Directory: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu/tests
+10: Environment variables: 
+10:  ERNIE_REPORT_RUNNER=/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu/ernie-generation-report-contract
+10: Test timeout computed to be: 1500
+10: test_native_json_roundtrip (test_generation_report.GenerationReportTest.test_native_json_roundtrip) ... ok
+10: 
+10: ----------------------------------------------------------------------
+10: Ran 1 test in 0.002s
+10: 
+10: OK
+1/1 Test #10: generation_report_json ...........   Passed    0.04 sec
+
+The following tests passed:
+	generation_report_json
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   0.04 sec

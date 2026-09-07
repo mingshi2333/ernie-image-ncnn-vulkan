@@ -1,0 +1,60 @@
+[
+  {
+    "command": [
+      "cmake",
+      "--build",
+      "build-dev",
+      "--parallel",
+      "2",
+      "--target",
+      "ernie-image",
+      "ernie-generation-report-contract"
+    ],
+    "returncode": 0,
+    "seconds": 1.6466841710207518,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/benchmark-runtime-v1/build-dev-scope-build.log"
+  },
+  {
+    "command": [
+      "ctest",
+      "--test-dir",
+      "build-dev",
+      "--output-on-failure",
+      "-V",
+      "-R",
+      "^(generation_report_writer|generation_report_json|cli_contract)$"
+    ],
+    "returncode": 0,
+    "seconds": 0.9459609849727713,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/benchmark-runtime-v1/build-dev-scope-ctest.log"
+  },
+  {
+    "command": [
+      "cmake",
+      "--build",
+      "build-install-cpu",
+      "--parallel",
+      "2",
+      "--target",
+      "ernie-image",
+      "ernie-generation-report-contract"
+    ],
+    "returncode": 0,
+    "seconds": 0.7617286820022855,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/benchmark-runtime-v1/build-install-cpu-scope-build.log"
+  },
+  {
+    "command": [
+      "ctest",
+      "--test-dir",
+      "build-install-cpu",
+      "--output-on-failure",
+      "-V",
+      "-R",
+      "^(generation_report_writer|generation_report_json|cli_contract)$"
+    ],
+    "returncode": 0,
+    "seconds": 0.14041795700904913,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/benchmark-runtime-v1/build-install-cpu-scope-ctest.log"
+  }
+]

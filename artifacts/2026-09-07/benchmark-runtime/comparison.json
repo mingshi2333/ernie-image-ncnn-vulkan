@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "scope": "Actual shared-package trace-OFF timing-tool integration and exact PNG regression; one run, not formal paired speed or new full-tensor validation",
+  "source_bindings": 669,
+  "plan_sha256": "10b17b424ed67d8604930b5651871c7b7a085a4f85e876de7f6f8c514cf35fda",
+  "binary_sha256": "20ab4f77a8c1f937470885d65c9967f1024c8c495aacfbec6c298fec6cbf51fa",
+  "image_sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+  "wrapper_native_process_seconds": 386.853920829,
+  "native_report_total_seconds": 386.32606970399996,
+  "supervisor_seconds": 404.47827715499443,
+  "max_rss_kib": 9560916,
+  "native_memory_observed": {
+    "VmHWM": 9790377984,
+    "VmRSS": 9764257792,
+    "RssAnon": 6528536576,
+    "RssFile": 3261878272,
+    "RssShmem": 8192,
+    "VmSwap": 0
+  },
+  "whole_gpu_peak_mib": 2336,
+  "cgroup_peak_including_file_cache_bytes": 17180102656,
+  "memory_events": {
+    "low": 0,
+    "high": 0,
+    "max": 347682,
+    "oom": 0,
+    "oom_kill": 0,
+    "oom_group_kill": 0,
+    "sock_throttled": 0
+  },
+  "placement_requests": {
+    "gpu": 0,
+    "ram": 262,
+    "budget_unavailable": 0
+  },
+  "cache": {
+    "hits": 42,
+    "loads": 246,
+    "peak_charged_bytes": 5687678976,
+    "peak_nets": 6,
+    "evictions": 0,
+    "budget_unavailable": 0
+  },
+  "official_quality_revalidated": false,
+  "formal_speed_comparison_complete": false
+}
