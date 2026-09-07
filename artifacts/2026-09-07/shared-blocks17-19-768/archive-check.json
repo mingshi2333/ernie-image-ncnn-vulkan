@@ -1,0 +1,19 @@
+{
+  "source_head": "77085eb0a22783e7e409ef8d0d1f76a3ebdd7d51",
+  "source_files_reconstructed_and_current": 336,
+  "source_patch": {
+    "bytes": 9483,
+    "sha256": "3417046d3a4c18cd5a2cc8fd8c41711a82b935370703310cd356a7c310f87b97"
+  },
+  "copied_small_files": 43,
+  "retained_files": 162,
+  "plan_sha256": "f5a8b08f09cb31b3cb3629ced64c83f9518f3f5baf940193bf501754f2d2075c",
+  "verified_bindings": 390,
+  "inference_source_changed": false,
+  "probe_changed": true,
+  "native_acceptance_eligible": false,
+  "official_replays": 3,
+  "native_replays": 3,
+  "native_calls": 9,
+  "all_model_processes_complete": true
+}

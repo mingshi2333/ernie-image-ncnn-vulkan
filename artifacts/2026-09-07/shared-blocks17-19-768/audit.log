@@ -1,0 +1,137 @@
+Running as unit: ernie-blocks17-19-768-audit-v1.service
+{
+  "passed": true,
+  "verified_bindings": 390,
+  "native_outputs": 87293952,
+  "comparisons": [
+    {
+      "block": 17,
+      "accumulated": {
+        "block": 17,
+        "variant": "native-replay",
+        "values": 9699328,
+        "actual_sha256": "84db16bde76bdd7d717b21d6f8eac03d40dcf1fdbadedd53f2a1d9fdc57ffbd6",
+        "max_abs_error": 1.0106201171875,
+        "nrmse": 9.787622311128972e-06,
+        "reference_max_abs": 73075.7109375
+      },
+      "teacher_cpu_rope": {
+        "block": 17,
+        "variant": "official-cpu-rope",
+        "values": 9699328,
+        "actual_sha256": "2767887e89039feca90fb8ff002e8bc8b0dd3f2ed7929eda29b8b602e266404c",
+        "max_abs_error": 0.007080078125,
+        "nrmse": 7.15549504290315e-07,
+        "reference_max_abs": 73075.7109375
+      },
+      "teacher_cuda_rope": {
+        "block": 17,
+        "variant": "official-cuda-rope",
+        "values": 9699328,
+        "actual_sha256": "1f92cff8cb31388724fc41536ef2684fd4006a8687bad3b1d02628ec806a1ac4",
+        "max_abs_error": 0.00634765625,
+        "nrmse": 7.136946284748304e-07,
+        "reference_max_abs": 73075.7109375
+      },
+      "accumulated_to_aligned_nrmse_ratio": 13.714019863152366,
+      "cpu_to_cuda_rope_output_difference": {
+        "max_abs_error": 0.00390625,
+        "nrmse": 4.534405401252701e-07,
+        "reference_max_abs": 73075.7109375
+      }
+    },
+    {
+      "block": 18,
+      "accumulated": {
+        "block": 18,
+        "variant": "native-replay",
+        "values": 9699328,
+        "actual_sha256": "387e33e92744d9eb1d66ec935a1d3dd1091c5ee3f5607d5373371b2d46741072",
+        "max_abs_error": 2.201416015625,
+        "nrmse": 2.041034790811087e-05,
+        "reference_max_abs": 73033.4375
+      },
+      "teacher_cpu_rope": {
+        "block": 18,
+        "variant": "official-cpu-rope",
+        "values": 9699328,
+        "actual_sha256": "7af3e0b6b19ff6e3d93afa8f7d3c7ccc35170146bd242d316046f414cb3ccdb3",
+        "max_abs_error": 0.0068359375,
+        "nrmse": 7.424977846743448e-07,
+        "reference_max_abs": 73033.4375
+      },
+      "teacher_cuda_rope": {
+        "block": 18,
+        "variant": "official-cuda-rope",
+        "values": 9699328,
+        "actual_sha256": "580c68ae930e20cb8b80731d4ce5d58474490162cdbc4ad4206410c150c6dcfb",
+        "max_abs_error": 0.004638671875,
+        "nrmse": 7.427295249343421e-07,
+        "reference_max_abs": 73033.4375
+      },
+      "accumulated_to_aligned_nrmse_ratio": 27.48018925182106,
+      "cpu_to_cuda_rope_output_difference": {
+        "max_abs_error": 0.0048828125,
+        "nrmse": 4.741652496234838e-07,
+        "reference_max_abs": 73033.4375
+      }
+    },
+    {
+      "block": 19,
+      "accumulated": {
+        "block": 19,
+        "variant": "native-replay",
+        "values": 9699328,
+        "actual_sha256": "4e6c39433d547865fd0d0f66765dd5bf5e3f0efc568bcff03fc4165ee9103ea4",
+        "max_abs_error": 4.284423828125,
+        "nrmse": 4.228583842843487e-05,
+        "reference_max_abs": 73069.546875
+      },
+      "teacher_cpu_rope": {
+        "block": 19,
+        "variant": "official-cpu-rope",
+        "values": 9699328,
+        "actual_sha256": "7a57d13b3897c8a598ea456990f8b98d1bd4a9f1187ffa8307d1d6a53b1d235d",
+        "max_abs_error": 0.006591796875,
+        "nrmse": 8.349379376517691e-07,
+        "reference_max_abs": 73069.546875
+      },
+      "teacher_cuda_rope": {
+        "block": 19,
+        "variant": "official-cuda-rope",
+        "values": 9699328,
+        "actual_sha256": "2050b234568808b8dc9ad79728af4ddf1d254a1b17aa1611fa18e0603d3deba4",
+        "max_abs_error": 0.008544921875,
+        "nrmse": 8.391164615274887e-07,
+        "reference_max_abs": 73069.546875
+      },
+      "accumulated_to_aligned_nrmse_ratio": 50.39328909298202,
+      "cpu_to_cuda_rope_output_difference": {
+        "max_abs_error": 0.005615234375,
+        "nrmse": 5.611654980207304e-07,
+        "reference_max_abs": 73069.546875
+      }
+    }
+  ],
+  "position_tables": {
+    "cos": {
+      "values": 303104,
+      "different_values": 64014,
+      "max_abs_error": 5.960464477539063e-08,
+      "nrmse": 2.8845569539055587e-08,
+      "reference_max_abs": 1.0
+    },
+    "sin": {
+      "values": 303104,
+      "different_values": 43154,
+      "max_abs_error": 5.960464477539063e-08,
+      "nrmse": 3.199902019149811e-08,
+      "reference_max_abs": 0.9999915957450867
+    }
+  }
+}
+          Finished with result: success
+Main processes terminated with: code=exited, status=0/SUCCESS
+               Service runtime: 6.983s
+             CPU time consumed: 7.759s
+                   Memory peak: 1.4G (swap: 0B)

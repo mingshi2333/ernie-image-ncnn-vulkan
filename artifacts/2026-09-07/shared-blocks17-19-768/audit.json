@@ -1,0 +1,341 @@
+{
+  "protocol": "shared-768-step0-blocks17-19-same-input-v1",
+  "plan_sha256": "f5a8b08f09cb31b3cb3629ced64c83f9518f3f5baf940193bf501754f2d2075c",
+  "verified_bindings": 390,
+  "source_files_current_and_frozen": 336,
+  "complete_execution": true,
+  "official_exact_replays": 3,
+  "native_exact_replays": 3,
+  "native_output_values": 87293952,
+  "official_output_values": 29097984,
+  "native_acceptance_eligible": false,
+  "official_gate_applied": false,
+  "rows": [
+    {
+      "block": 17,
+      "variant": "native-replay",
+      "values": 9699328,
+      "actual_sha256": "84db16bde76bdd7d717b21d6f8eac03d40dcf1fdbadedd53f2a1d9fdc57ffbd6",
+      "max_abs_error": 1.0106201171875,
+      "nrmse": 9.787622311128972e-06,
+      "reference_max_abs": 73075.7109375
+    },
+    {
+      "block": 18,
+      "variant": "native-replay",
+      "values": 9699328,
+      "actual_sha256": "387e33e92744d9eb1d66ec935a1d3dd1091c5ee3f5607d5373371b2d46741072",
+      "max_abs_error": 2.201416015625,
+      "nrmse": 2.041034790811087e-05,
+      "reference_max_abs": 73033.4375
+    },
+    {
+      "block": 19,
+      "variant": "native-replay",
+      "values": 9699328,
+      "actual_sha256": "4e6c39433d547865fd0d0f66765dd5bf5e3f0efc568bcff03fc4165ee9103ea4",
+      "max_abs_error": 4.284423828125,
+      "nrmse": 4.228583842843487e-05,
+      "reference_max_abs": 73069.546875
+    },
+    {
+      "block": 17,
+      "variant": "official-cpu-rope",
+      "values": 9699328,
+      "actual_sha256": "2767887e89039feca90fb8ff002e8bc8b0dd3f2ed7929eda29b8b602e266404c",
+      "max_abs_error": 0.007080078125,
+      "nrmse": 7.15549504290315e-07,
+      "reference_max_abs": 73075.7109375
+    },
+    {
+      "block": 18,
+      "variant": "official-cpu-rope",
+      "values": 9699328,
+      "actual_sha256": "7af3e0b6b19ff6e3d93afa8f7d3c7ccc35170146bd242d316046f414cb3ccdb3",
+      "max_abs_error": 0.0068359375,
+      "nrmse": 7.424977846743448e-07,
+      "reference_max_abs": 73033.4375
+    },
+    {
+      "block": 19,
+      "variant": "official-cpu-rope",
+      "values": 9699328,
+      "actual_sha256": "7a57d13b3897c8a598ea456990f8b98d1bd4a9f1187ffa8307d1d6a53b1d235d",
+      "max_abs_error": 0.006591796875,
+      "nrmse": 8.349379376517691e-07,
+      "reference_max_abs": 73069.546875
+    },
+    {
+      "block": 17,
+      "variant": "official-cuda-rope",
+      "values": 9699328,
+      "actual_sha256": "1f92cff8cb31388724fc41536ef2684fd4006a8687bad3b1d02628ec806a1ac4",
+      "max_abs_error": 0.00634765625,
+      "nrmse": 7.136946284748304e-07,
+      "reference_max_abs": 73075.7109375
+    },
+    {
+      "block": 18,
+      "variant": "official-cuda-rope",
+      "values": 9699328,
+      "actual_sha256": "580c68ae930e20cb8b80731d4ce5d58474490162cdbc4ad4206410c150c6dcfb",
+      "max_abs_error": 0.004638671875,
+      "nrmse": 7.427295249343421e-07,
+      "reference_max_abs": 73033.4375
+    },
+    {
+      "block": 19,
+      "variant": "official-cuda-rope",
+      "values": 9699328,
+      "actual_sha256": "2050b234568808b8dc9ad79728af4ddf1d254a1b17aa1611fa18e0603d3deba4",
+      "max_abs_error": 0.008544921875,
+      "nrmse": 8.391164615274887e-07,
+      "reference_max_abs": 73069.546875
+    }
+  ],
+  "comparisons": [
+    {
+      "block": 17,
+      "accumulated": {
+        "block": 17,
+        "variant": "native-replay",
+        "values": 9699328,
+        "actual_sha256": "84db16bde76bdd7d717b21d6f8eac03d40dcf1fdbadedd53f2a1d9fdc57ffbd6",
+        "max_abs_error": 1.0106201171875,
+        "nrmse": 9.787622311128972e-06,
+        "reference_max_abs": 73075.7109375
+      },
+      "teacher_cpu_rope": {
+        "block": 17,
+        "variant": "official-cpu-rope",
+        "values": 9699328,
+        "actual_sha256": "2767887e89039feca90fb8ff002e8bc8b0dd3f2ed7929eda29b8b602e266404c",
+        "max_abs_error": 0.007080078125,
+        "nrmse": 7.15549504290315e-07,
+        "reference_max_abs": 73075.7109375
+      },
+      "teacher_cuda_rope": {
+        "block": 17,
+        "variant": "official-cuda-rope",
+        "values": 9699328,
+        "actual_sha256": "1f92cff8cb31388724fc41536ef2684fd4006a8687bad3b1d02628ec806a1ac4",
+        "max_abs_error": 0.00634765625,
+        "nrmse": 7.136946284748304e-07,
+        "reference_max_abs": 73075.7109375
+      },
+      "accumulated_to_aligned_nrmse_ratio": 13.714019863152366,
+      "cpu_to_cuda_rope_output_difference": {
+        "max_abs_error": 0.00390625,
+        "nrmse": 4.534405401252701e-07,
+        "reference_max_abs": 73075.7109375
+      }
+    },
+    {
+      "block": 18,
+      "accumulated": {
+        "block": 18,
+        "variant": "native-replay",
+        "values": 9699328,
+        "actual_sha256": "387e33e92744d9eb1d66ec935a1d3dd1091c5ee3f5607d5373371b2d46741072",
+        "max_abs_error": 2.201416015625,
+        "nrmse": 2.041034790811087e-05,
+        "reference_max_abs": 73033.4375
+      },
+      "teacher_cpu_rope": {
+        "block": 18,
+        "variant": "official-cpu-rope",
+        "values": 9699328,
+        "actual_sha256": "7af3e0b6b19ff6e3d93afa8f7d3c7ccc35170146bd242d316046f414cb3ccdb3",
+        "max_abs_error": 0.0068359375,
+        "nrmse": 7.424977846743448e-07,
+        "reference_max_abs": 73033.4375
+      },
+      "teacher_cuda_rope": {
+        "block": 18,
+        "variant": "official-cuda-rope",
+        "values": 9699328,
+        "actual_sha256": "580c68ae930e20cb8b80731d4ce5d58474490162cdbc4ad4206410c150c6dcfb",
+        "max_abs_error": 0.004638671875,
+        "nrmse": 7.427295249343421e-07,
+        "reference_max_abs": 73033.4375
+      },
+      "accumulated_to_aligned_nrmse_ratio": 27.48018925182106,
+      "cpu_to_cuda_rope_output_difference": {
+        "max_abs_error": 0.0048828125,
+        "nrmse": 4.741652496234838e-07,
+        "reference_max_abs": 73033.4375
+      }
+    },
+    {
+      "block": 19,
+      "accumulated": {
+        "block": 19,
+        "variant": "native-replay",
+        "values": 9699328,
+        "actual_sha256": "4e6c39433d547865fd0d0f66765dd5bf5e3f0efc568bcff03fc4165ee9103ea4",
+        "max_abs_error": 4.284423828125,
+        "nrmse": 4.228583842843487e-05,
+        "reference_max_abs": 73069.546875
+      },
+      "teacher_cpu_rope": {
+        "block": 19,
+        "variant": "official-cpu-rope",
+        "values": 9699328,
+        "actual_sha256": "7a57d13b3897c8a598ea456990f8b98d1bd4a9f1187ffa8307d1d6a53b1d235d",
+        "max_abs_error": 0.006591796875,
+        "nrmse": 8.349379376517691e-07,
+        "reference_max_abs": 73069.546875
+      },
+      "teacher_cuda_rope": {
+        "block": 19,
+        "variant": "official-cuda-rope",
+        "values": 9699328,
+        "actual_sha256": "2050b234568808b8dc9ad79728af4ddf1d254a1b17aa1611fa18e0603d3deba4",
+        "max_abs_error": 0.008544921875,
+        "nrmse": 8.391164615274887e-07,
+        "reference_max_abs": 73069.546875
+      },
+      "accumulated_to_aligned_nrmse_ratio": 50.39328909298202,
+      "cpu_to_cuda_rope_output_difference": {
+        "max_abs_error": 0.005615234375,
+        "nrmse": 5.611654980207304e-07,
+        "reference_max_abs": 73069.546875
+      }
+    }
+  ],
+  "position_tables": {
+    "cos": {
+      "values": 303104,
+      "different_values": 64014,
+      "max_abs_error": 5.960464477539063e-08,
+      "nrmse": 2.8845569539055587e-08,
+      "reference_max_abs": 1.0
+    },
+    "sin": {
+      "values": 303104,
+      "different_values": 43154,
+      "max_abs_error": 5.960464477539063e-08,
+      "nrmse": 3.199902019149811e-08,
+      "reference_max_abs": 0.9999915957450867
+    }
+  },
+  "processes": {
+    "official": {
+      "phase": "official",
+      "command": [
+        "systemd-run",
+        "--user",
+        "--scope",
+        "--quiet",
+        "--unit=ernie-blocks17-19-768-v1-official",
+        "--property=MemoryMax=17179869184",
+        "--property=MemorySwapMax=0",
+        "--property=CPUQuota=200%",
+        "taskset",
+        "-c",
+        "4,6",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+        "/var/tmp/ernie-blocks17-19-768-v1/run.py",
+        "official",
+        "f5a8b08f09cb31b3cb3629ced64c83f9518f3f5baf940193bf501754f2d2075c"
+      ],
+      "plan_sha256": "f5a8b08f09cb31b3cb3629ced64c83f9518f3f5baf940193bf501754f2d2075c",
+      "limits": {
+        "memory_max_bytes": 17179869184,
+        "host_available_min_bytes": 3221225472,
+        "gpu_whole_device_max_mib": 6144,
+        "timeout_seconds_per_phase": 1800
+      },
+      "peak_memory_current": 1716371456,
+      "minimum_host_available": 16686362624,
+      "peak_gpu_whole_device_mib": 2666,
+      "complete": true,
+      "last_compute_processes": [
+        {
+          "pid": 4349,
+          "mib": 52,
+          "owned": false
+        },
+        {
+          "pid": 11253,
+          "mib": 85,
+          "owned": false
+        },
+        {
+          "pid": 1808405,
+          "mib": 5,
+          "owned": false
+        }
+      ],
+      "peak_owned_compute_mib": 1670,
+      "cgroup_seen": true,
+      "observed_limits": {
+        "memory.max": "17179869184",
+        "memory.swap.max": "0",
+        "cpu.max": "200000 100000"
+      },
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "return_code": 0,
+      "wall_seconds": 9.79780898700119
+    },
+    "native": {
+      "phase": "native",
+      "command": [
+        "systemd-run",
+        "--user",
+        "--scope",
+        "--quiet",
+        "--unit=ernie-blocks17-19-768-v1-native",
+        "--property=MemoryMax=17179869184",
+        "--property=MemorySwapMax=0",
+        "--property=CPUQuota=200%",
+        "taskset",
+        "-c",
+        "4,6",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+        "/var/tmp/ernie-blocks17-19-768-v1/run.py",
+        "native",
+        "f5a8b08f09cb31b3cb3629ced64c83f9518f3f5baf940193bf501754f2d2075c"
+      ],
+      "plan_sha256": "f5a8b08f09cb31b3cb3629ced64c83f9518f3f5baf940193bf501754f2d2075c",
+      "limits": {
+        "memory_max_bytes": 17179869184,
+        "host_available_min_bytes": 3221225472,
+        "gpu_whole_device_max_mib": 6144,
+        "timeout_seconds_per_phase": 1800
+      },
+      "peak_memory_current": 11895750656,
+      "minimum_host_available": 16203702272,
+      "peak_gpu_whole_device_mib": 2739,
+      "complete": true,
+      "last_compute_processes": [
+        {
+          "pid": 4349,
+          "mib": 52,
+          "owned": false
+        },
+        {
+          "pid": 11253,
+          "mib": 85,
+          "owned": false
+        },
+        {
+          "pid": 1808405,
+          "mib": 5,
+          "owned": false
+        }
+      ],
+      "peak_owned_compute_mib": 1044,
+      "cgroup_seen": true,
+      "observed_limits": {
+        "memory.max": "17179869184",
+        "memory.swap.max": "0",
+        "cpu.max": "200000 100000"
+      },
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "return_code": 0,
+      "wall_seconds": 195.88665768798091
+    }
+  },
+  "limitations": "Aligned blocks replace incoming hidden and modulation; these observations do not allocate additive causal shares or prove full-trajectory quality. Old full76818/25 remains unchanged."
+}

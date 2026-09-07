@@ -43,7 +43,7 @@ int main(int argc, char** argv)
     std::string backend = "cpu", precision = "fp32", policy = "stream";
     int tokens = 0, status = 0;
     int width = 0, height = 0, text_tokens = 0;
-    int valid_text_tokens = 0, text_bucket = 0, threads = 4;
+    int valid_text_tokens = 0, text_bucket = 0, threads = 4, block_index = -1;
     bool host_weights = false;
     bool shared_pipeline_cache = true;
     bool large_shape_probe = false;
@@ -68,7 +68,7 @@ int main(int argc, char** argv)
             else if (flag == "--precision") precision = value;
             else if (flag == "--policy") policy = value;
             else if (flag == "--tokens" || flag == "--width" || flag == "--height" || flag == "--text-tokens"
-                     || flag == "--valid-text-tokens" || flag == "--threads")
+                     || flag == "--valid-text-tokens" || flag == "--threads" || flag == "--block-index")
             {
                 size_t consumed = 0;
                 const int number = std::stoi(value, &consumed);
@@ -78,6 +78,11 @@ int main(int argc, char** argv)
                 else if (flag == "--height") height = number;
                 else if (flag == "--valid-text-tokens") valid_text_tokens = number;
                 else if (flag == "--threads") threads = number;
+                else if (flag == "--block-index")
+                {
+                    if (number < 0 || number >= 36) throw std::invalid_argument("Block index must be 0..35");
+                    block_index = number;
+                }
                 else text_tokens = number;
             }
             else throw std::invalid_argument("Unknown argument: " + flag);
@@ -87,7 +92,7 @@ int main(int argc, char** argv)
         const bool packaged = !package_path.empty();
         if ((packaged && (!models.empty() || !input_head.empty() || !output_head.empty() || large_shape_probe
                           || valid_text_tokens < 1 || valid_text_tokens > 2048))
-            || (!packaged && valid_text_tokens != 0))
+            || (!packaged && (valid_text_tokens != 0 || block_index >= 0)))
             throw std::invalid_argument("Package mode requires --valid-text-tokens and excludes raw models/heads or large-shape probing");
         const int token_limit = large_shape_probe || packaged ? 10240 : 6144;
         if ((models.empty() && !packaged) || fixture.empty() || output.empty() || tokens < 1 || tokens > token_limit
@@ -97,7 +102,8 @@ int main(int argc, char** argv)
             || (backend == "cpu" && precision != "fp32"))
             throw std::invalid_argument("Require repeated --model DIR, --fixture DIR, --tokens N, --output FILE "
                 "[--backend cpu|vulkan] [--precision fp32|fp16|bf16] [--policy stream|resident] [--host-weights] "
-                "[--threads N] [--large-shape-probe]; or --package DIR --valid-text-tokens N with matching packed grid/text dimensions");
+                "[--threads N] [--large-shape-probe]; or --package DIR --valid-text-tokens N with matching packed grid/text dimensions "
+                "[--block-index 0..35 for ten-input single-block execution]");
         if (large_shape_probe && (policy != "stream" || !input_head.empty() || !output_head.empty()))
             throw std::invalid_argument("Large-shape probing requires streamed blocks without heads");
         if (fs::exists(output)) throw std::invalid_argument("Output exists; use a new path");
@@ -106,8 +112,8 @@ int main(int argc, char** argv)
             if (fs::exists(trace)) throw std::invalid_argument("Trace exists; use a new path");
             fs::create_directories(trace);
         }
-        const bool dit = packaged || !input_head.empty() || !output_head.empty();
-        if (dit && ((!packaged && (input_head.empty() || output_head.empty())) || policy != "stream"
+        const bool dit = (packaged && block_index < 0) || !input_head.empty() || !output_head.empty();
+        if ((dit || packaged) && ((!packaged && (input_head.empty() || output_head.empty())) || policy != "stream"
             || width < 1 || width > 256 || height < 1 || height > 256 || text_tokens < 1
             || text_tokens > 2048 || width * height + text_tokens != tokens))
             throw std::invalid_argument("DiT mode requires both heads, matching grid/text dimensions and streaming");
@@ -125,9 +131,14 @@ int main(int argc, char** argv)
                 || valid_text_tokens > cfg.text_bucket)
                 throw std::invalid_argument("Package selection differs from fixture dimensions or text capacity");
             text_bucket = cfg.text_bucket;
-            resolved_input = package.component("dit/input/head.ncnn.param", "input");
-            resolved_output = package.component("dit/output/head.ncnn.param", "output");
-            for (int i = 0; i < 36; ++i)
+            if (dit)
+            {
+                resolved_input = package.component("dit/input/head.ncnn.param", "input");
+                resolved_output = package.component("dit/output/head.ncnn.param", "output");
+            }
+            const int first = block_index < 0 ? 0 : block_index;
+            const int end = block_index < 0 ? 36 : block_index + 1;
+            for (int i = first; i < end; ++i)
                 resolved_blocks.push_back(package.component(
                     "dit/block-" + std::string(i < 10 ? "0" : "") + std::to_string(i) + "/block.ncnn.param", "dit"));
 #else
@@ -140,6 +151,12 @@ int main(int argc, char** argv)
             resolved_output = ernie::component_files(output_head, "head");
             resolved_blocks = ernie::component_files(models, "block");
         }
+        else resolved_blocks = ernie::component_files(models, "block");
+        // Production observers number their supplied sequence locally. Keep a
+        // selected package block's trace name tied to its global model index.
+        const auto stage_name = [&](const std::string& name) {
+            return block_index >= 0 && name == "block-0" ? "block-" + std::to_string(block_index) : name;
+        };
         const auto input = dit ? read(fixture / "in0.f32", width * height, 128).reshape(width, height, 128)
                                : read(fixture / "in0.f32", 4096, tokens);
         std::vector<ncnn::Mat> constants;
@@ -168,7 +185,7 @@ int main(int argc, char** argv)
         {
             ernie::CpuStageObserver observer;
             if (!trace.empty()) observer = [&](const std::string& name, const ncnn::Mat& value) {
-                write_stage(trace / (name + ".f32"), value);
+                write_stage(trace / (stage_name(name) + ".f32"), value);
             };
             if (dit)
             {
@@ -177,7 +194,7 @@ int main(int argc, char** argv)
                 result = ernie::run_dit(resolved_input, resolved_blocks, resolved_output, inputs, option, dit_stats, observer);
                 stats = dit_stats.blocks;
             }
-            else result = ernie::run_block_sequence(models, input, constants, option, weight_policy, stats, observer);
+            else result = ernie::run_block_sequence(resolved_blocks, input, constants, option, weight_policy, stats, observer);
         }
         else
         {
@@ -215,7 +232,7 @@ int main(int argc, char** argv)
                 ncnn::VkCompute download(device);
                 download.record_download(value, host, plain);
                 if (download.submit_and_wait()) throw std::runtime_error("Stage download failed");
-                write_stage(trace / (name + ".f32"), host);
+                write_stage(trace / (stage_name(name) + ".f32"), host);
             };
             if (dit)
             {
@@ -224,7 +241,7 @@ int main(int argc, char** argv)
                 gpu_result = ernie::run_dit(resolved_input, resolved_blocks, resolved_output, inputs, device, option, dit_stats, observer);
                 stats = dit_stats.blocks;
             }
-            else gpu_result = ernie::run_block_sequence(models, gpu_input, gpu_constants, device, option, weight_policy, stats, observer);
+            else gpu_result = ernie::run_block_sequence(resolved_blocks, gpu_input, gpu_constants, device, option, weight_policy, stats, observer);
             ncnn::VkCompute download(device);
             ncnn::Option plain = option;
             plain.use_packing_layout = false;
@@ -245,8 +262,9 @@ int main(int argc, char** argv)
                        size_t(result.w) * result.h * sizeof(float));
         if (!file) throw std::runtime_error("Cannot write output");
         std::cout << std::setprecision(9) << "{\"backend\":\"" << backend << "\",\"precision\":\"" << precision
-                  << "\",\"policy\":\"" << policy << "\",\"blocks\":" << (dit ? resolved_blocks.size() : models.size())
+                  << "\",\"policy\":\"" << policy << "\",\"blocks\":" << resolved_blocks.size()
                   << ",\"threads\":" << threads << ",\"package_mode\":" << (packaged ? "true" : "false")
+                  << ",\"block_index\":" << block_index
                   << ",\"text_bucket\":" << text_bucket << ",\"valid_text_tokens\":" << valid_text_tokens
                   << ",\"peak_loaded_nets\":" << stats.peak_loaded_nets
                   << ",\"host_weights\":" << (host_weights ? "true" : "false")

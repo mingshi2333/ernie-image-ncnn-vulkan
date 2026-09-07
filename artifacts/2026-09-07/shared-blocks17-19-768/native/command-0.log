@@ -1,0 +1,9 @@
+{"block": 17, "variant": "native-replay", "return_code": 0, "official_difference": {"max_abs_error": 1.0106201171875, "nrmse": 9.787622311129123e-06, "reference_max_abs": 73075.7109375}, "native_anchor_exact": true}
+{"block": 18, "variant": "native-replay", "return_code": 0, "official_difference": {"max_abs_error": 2.201416015625, "nrmse": 2.0410347908111174e-05, "reference_max_abs": 73033.4375}, "native_anchor_exact": true}
+{"block": 19, "variant": "native-replay", "return_code": 0, "official_difference": {"max_abs_error": 4.284423828125, "nrmse": 4.2285838428435585e-05, "reference_max_abs": 73069.546875}, "native_anchor_exact": true}
+{"block": 17, "variant": "official-cpu-rope", "return_code": 0, "official_difference": {"max_abs_error": 0.007080078125, "nrmse": 7.155495042903261e-07, "reference_max_abs": 73075.7109375}, "native_anchor_exact": false}
+{"block": 18, "variant": "official-cpu-rope", "return_code": 0, "official_difference": {"max_abs_error": 0.0068359375, "nrmse": 7.424977846743559e-07, "reference_max_abs": 73033.4375}, "native_anchor_exact": false}
+{"block": 19, "variant": "official-cpu-rope", "return_code": 0, "official_difference": {"max_abs_error": 0.006591796875, "nrmse": 8.349379376517832e-07, "reference_max_abs": 73069.546875}, "native_anchor_exact": false}
+{"block": 17, "variant": "official-cuda-rope", "return_code": 0, "official_difference": {"max_abs_error": 0.00634765625, "nrmse": 7.136946284748415e-07, "reference_max_abs": 73075.7109375}, "native_anchor_exact": false}
+{"block": 18, "variant": "official-cuda-rope", "return_code": 0, "official_difference": {"max_abs_error": 0.004638671875, "nrmse": 7.427295249343532e-07, "reference_max_abs": 73033.4375}, "native_anchor_exact": false}
+{"block": 19, "variant": "official-cuda-rope", "return_code": 0, "official_difference": {"max_abs_error": 0.008544921875, "nrmse": 8.391164615275027e-07, "reference_max_abs": 73069.546875}, "native_anchor_exact": false}

@@ -1,0 +1,3 @@
+{"block": 17, "output": {"file": "block-17.f32", "shape": [1, 2368, 4096], "dtype": "float32_le", "sha256": "ccbbaeeed08780e4abba6eaa239b2b1df4fd81e428486422105cbe474c9a8b99"}, "exact_replay": true}
+{"block": 18, "output": {"file": "block-18.f32", "shape": [1, 2368, 4096], "dtype": "float32_le", "sha256": "40b4087a897efd11b502073e66f0d0ef8fc085910a3f087f50d767434a7e4477"}, "exact_replay": true}
+{"block": 19, "output": {"file": "block-19.f32", "shape": [1, 2368, 4096], "dtype": "float32_le", "sha256": "192583ec4d775d64bb09754e72b0fe6a54dc8b99b1f04ed71cf40195a4cb8580"}, "exact_replay": true}

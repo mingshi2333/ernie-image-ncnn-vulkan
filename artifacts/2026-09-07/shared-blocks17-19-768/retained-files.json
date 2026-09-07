@@ -1,0 +1,650 @@
+{
+  "/var/tmp/ernie-blocks17-19-768-v1/inputs/cos-cpu.f32": {
+    "bytes": 1212416,
+    "sha256": "44c058b90c4875e4262f10bbf59711fecb20aa3783cee6962d32adacd601ffb5"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/inputs/cos-cuda.f32": {
+    "bytes": 1212416,
+    "sha256": "00c939e1b1716183fb1edad08fdfa8c5b0311f412478e01f5e4709211521e1b2"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/inputs/expected-native-17.f32": {
+    "bytes": 38797312,
+    "sha256": "84db16bde76bdd7d717b21d6f8eac03d40dcf1fdbadedd53f2a1d9fdc57ffbd6"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/inputs/expected-native-18.f32": {
+    "bytes": 38797312,
+    "sha256": "387e33e92744d9eb1d66ec935a1d3dd1091c5ee3f5607d5373371b2d46741072"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/inputs/expected-native-19.f32": {
+    "bytes": 38797312,
+    "sha256": "4e6c39433d547865fd0d0f66765dd5bf5e3f0efc568bcff03fc4165ee9103ea4"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/inputs/expected-official-17.f32": {
+    "bytes": 38797312,
+    "sha256": "ccbbaeeed08780e4abba6eaa239b2b1df4fd81e428486422105cbe474c9a8b99"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/inputs/expected-official-18.f32": {
+    "bytes": 38797312,
+    "sha256": "40b4087a897efd11b502073e66f0d0ef8fc085910a3f087f50d767434a7e4477"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/inputs/expected-official-19.f32": {
+    "bytes": 38797312,
+    "sha256": "192583ec4d775d64bb09754e72b0fe6a54dc8b99b1f04ed71cf40195a4cb8580"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/inputs/frequencies.f32": {
+    "bytes": 1212416,
+    "sha256": "fcf9879831d97771f0fd692362e31d28c0724036e5e3a85c74103be9d0e65d55"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/inputs/hidden-native-17.f32": {
+    "bytes": 38797312,
+    "sha256": "9a1da7f284d2e05b2c954610fa0eef42c472c32d6fffc0836de3580fc90580e8"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/inputs/hidden-native-18.f32": {
+    "bytes": 38797312,
+    "sha256": "84db16bde76bdd7d717b21d6f8eac03d40dcf1fdbadedd53f2a1d9fdc57ffbd6"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/inputs/hidden-native-19.f32": {
+    "bytes": 38797312,
+    "sha256": "387e33e92744d9eb1d66ec935a1d3dd1091c5ee3f5607d5373371b2d46741072"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/inputs/hidden-official-17.f32": {
+    "bytes": 38797312,
+    "sha256": "b451d2c240ec331ea70335829ec0f33e5e71d1cd3dc5813193f2ab10acbe7d84"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/inputs/hidden-official-18.f32": {
+    "bytes": 38797312,
+    "sha256": "ccbbaeeed08780e4abba6eaa239b2b1df4fd81e428486422105cbe474c9a8b99"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/inputs/hidden-official-19.f32": {
+    "bytes": 38797312,
+    "sha256": "40b4087a897efd11b502073e66f0d0ef8fc085910a3f087f50d767434a7e4477"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/inputs/mask.f32": {
+    "bytes": 22429696,
+    "sha256": "efdaa3b629cda9a9fb586903985f62d1bf683a94f78d83b4682316e2c66e202d"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/inputs/mod-native-1.f32": {
+    "bytes": 16384,
+    "sha256": "5d01aaeb98ded3f0a0a6e84bf62ceda0bd391213e0906154e79c3abb51e16561"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/inputs/mod-native-2.f32": {
+    "bytes": 16384,
+    "sha256": "b627a2eb3f005011ce03d765c95bba51479ce99d06228fe0955b4a51bbddb413"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/inputs/mod-native-3.f32": {
+    "bytes": 16384,
+    "sha256": "802d8d00e50c24a4173327b015f5f0d37cd0a1df6926be102cafbae5ef648551"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/inputs/mod-native-4.f32": {
+    "bytes": 16384,
+    "sha256": "3e14ae6801163adcbd8343b8ebd5558b2a32812e12934e21d6271226cfd460e1"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/inputs/mod-native-5.f32": {
+    "bytes": 16384,
+    "sha256": "04d8cab215a3f6ad33678f568c803c0000fb29138c1358d51ee08149a64a1984"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/inputs/mod-native-6.f32": {
+    "bytes": 16384,
+    "sha256": "d5080bdde444c545927d3131483ab77ec202d44a9bd47986b77a3b8c65c2df5c"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/inputs/mod-official-1.f32": {
+    "bytes": 16384,
+    "sha256": "19f47df5a55c12f7000aaa4099e8ac71f8345650632c0165ae0371e9a081b5bd"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/inputs/mod-official-2.f32": {
+    "bytes": 16384,
+    "sha256": "6b26a45f5da7109cfa183e5b2e19b81d71879b2e2c2d4c214a8fdba118a1d4d7"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/inputs/mod-official-3.f32": {
+    "bytes": 16384,
+    "sha256": "91ba320da8653f2b35e71534e87fd58c1c71181d299c41848a26e920c033b93b"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/inputs/mod-official-4.f32": {
+    "bytes": 16384,
+    "sha256": "ef0a7df2eb337885382867900ae2f2a39bf17247817b5b07599e4b30cee8a7fa"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/inputs/mod-official-5.f32": {
+    "bytes": 16384,
+    "sha256": "878938fe3180021eeef73684e6c5828421e9a4f0bba1ba03b5c6f68095112062"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/inputs/mod-official-6.f32": {
+    "bytes": 16384,
+    "sha256": "07eea455cbb723c2e5b3d8d762b8454836201762286de010de4aa0bb8a5614b9"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/inputs/sin-cpu.f32": {
+    "bytes": 1212416,
+    "sha256": "3f4c73a51ec354fca4b6d5ddcdec3157233b10c46505a232570b46fcaab1ab7b"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/inputs/sin-cuda.f32": {
+    "bytes": 1212416,
+    "sha256": "85e302b70bfe515221853809cf34cfb25613b99199adae2e75951691e49b3e71"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-native-replay/actual.f32": {
+    "bytes": 38797312,
+    "sha256": "84db16bde76bdd7d717b21d6f8eac03d40dcf1fdbadedd53f2a1d9fdc57ffbd6"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-native-replay/fixture/fixture.json": {
+    "bytes": 3538,
+    "sha256": "dcd2f97abf2fbdad806ca6646569d4dca94b37945c439b1239ce26bc9a53e103"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-native-replay/fixture/in0.f32": {
+    "bytes": 38797312,
+    "sha256": "9a1da7f284d2e05b2c954610fa0eef42c472c32d6fffc0836de3580fc90580e8"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-native-replay/fixture/in1.f32": {
+    "bytes": 16384,
+    "sha256": "5d01aaeb98ded3f0a0a6e84bf62ceda0bd391213e0906154e79c3abb51e16561"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-native-replay/fixture/in2.f32": {
+    "bytes": 16384,
+    "sha256": "b627a2eb3f005011ce03d765c95bba51479ce99d06228fe0955b4a51bbddb413"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-native-replay/fixture/in3.f32": {
+    "bytes": 16384,
+    "sha256": "802d8d00e50c24a4173327b015f5f0d37cd0a1df6926be102cafbae5ef648551"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-native-replay/fixture/in4.f32": {
+    "bytes": 16384,
+    "sha256": "3e14ae6801163adcbd8343b8ebd5558b2a32812e12934e21d6271226cfd460e1"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-native-replay/fixture/in5.f32": {
+    "bytes": 16384,
+    "sha256": "04d8cab215a3f6ad33678f568c803c0000fb29138c1358d51ee08149a64a1984"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-native-replay/fixture/in6.f32": {
+    "bytes": 16384,
+    "sha256": "d5080bdde444c545927d3131483ab77ec202d44a9bd47986b77a3b8c65c2df5c"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-native-replay/fixture/in7.f32": {
+    "bytes": 1212416,
+    "sha256": "44c058b90c4875e4262f10bbf59711fecb20aa3783cee6962d32adacd601ffb5"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-native-replay/fixture/in8.f32": {
+    "bytes": 1212416,
+    "sha256": "3f4c73a51ec354fca4b6d5ddcdec3157233b10c46505a232570b46fcaab1ab7b"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-native-replay/fixture/in9.f32": {
+    "bytes": 22429696,
+    "sha256": "efdaa3b629cda9a9fb586903985f62d1bf683a94f78d83b4682316e2c66e202d"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-native-replay/result.json": {
+    "bytes": 1946,
+    "sha256": "f1f0a113665a4490d851dbcc694a5a0aa1443c4a4e200d382c59cb0f4a0263c2"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-native-replay/trace/block-17.f32": {
+    "bytes": 38797312,
+    "sha256": "84db16bde76bdd7d717b21d6f8eac03d40dcf1fdbadedd53f2a1d9fdc57ffbd6"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cpu-rope/actual.f32": {
+    "bytes": 38797312,
+    "sha256": "2767887e89039feca90fb8ff002e8bc8b0dd3f2ed7929eda29b8b602e266404c"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cpu-rope/fixture/fixture.json": {
+    "bytes": 3556,
+    "sha256": "c74874f063ebd3c2c41e321c7dae492f32da66f11c35bd61241850f6a03eec56"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cpu-rope/fixture/in0.f32": {
+    "bytes": 38797312,
+    "sha256": "b451d2c240ec331ea70335829ec0f33e5e71d1cd3dc5813193f2ab10acbe7d84"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cpu-rope/fixture/in1.f32": {
+    "bytes": 16384,
+    "sha256": "19f47df5a55c12f7000aaa4099e8ac71f8345650632c0165ae0371e9a081b5bd"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cpu-rope/fixture/in2.f32": {
+    "bytes": 16384,
+    "sha256": "6b26a45f5da7109cfa183e5b2e19b81d71879b2e2c2d4c214a8fdba118a1d4d7"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cpu-rope/fixture/in3.f32": {
+    "bytes": 16384,
+    "sha256": "91ba320da8653f2b35e71534e87fd58c1c71181d299c41848a26e920c033b93b"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cpu-rope/fixture/in4.f32": {
+    "bytes": 16384,
+    "sha256": "ef0a7df2eb337885382867900ae2f2a39bf17247817b5b07599e4b30cee8a7fa"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cpu-rope/fixture/in5.f32": {
+    "bytes": 16384,
+    "sha256": "878938fe3180021eeef73684e6c5828421e9a4f0bba1ba03b5c6f68095112062"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cpu-rope/fixture/in6.f32": {
+    "bytes": 16384,
+    "sha256": "07eea455cbb723c2e5b3d8d762b8454836201762286de010de4aa0bb8a5614b9"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cpu-rope/fixture/in7.f32": {
+    "bytes": 1212416,
+    "sha256": "44c058b90c4875e4262f10bbf59711fecb20aa3783cee6962d32adacd601ffb5"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cpu-rope/fixture/in8.f32": {
+    "bytes": 1212416,
+    "sha256": "3f4c73a51ec354fca4b6d5ddcdec3157233b10c46505a232570b46fcaab1ab7b"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cpu-rope/fixture/in9.f32": {
+    "bytes": 22429696,
+    "sha256": "efdaa3b629cda9a9fb586903985f62d1bf683a94f78d83b4682316e2c66e202d"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cpu-rope/result.json": {
+    "bytes": 1965,
+    "sha256": "5ed6956c5ed4ab529ae56a922057bc3404bea3f98748b82796ad52e6e46ea66c"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cpu-rope/trace/block-17.f32": {
+    "bytes": 38797312,
+    "sha256": "2767887e89039feca90fb8ff002e8bc8b0dd3f2ed7929eda29b8b602e266404c"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cuda-rope/actual.f32": {
+    "bytes": 38797312,
+    "sha256": "1f92cff8cb31388724fc41536ef2684fd4006a8687bad3b1d02628ec806a1ac4"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cuda-rope/fixture/fixture.json": {
+    "bytes": 3559,
+    "sha256": "219348604031dce44eda073f62a9e08023e166730123356864e9c5049cde2878"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cuda-rope/fixture/in0.f32": {
+    "bytes": 38797312,
+    "sha256": "b451d2c240ec331ea70335829ec0f33e5e71d1cd3dc5813193f2ab10acbe7d84"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cuda-rope/fixture/in1.f32": {
+    "bytes": 16384,
+    "sha256": "19f47df5a55c12f7000aaa4099e8ac71f8345650632c0165ae0371e9a081b5bd"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cuda-rope/fixture/in2.f32": {
+    "bytes": 16384,
+    "sha256": "6b26a45f5da7109cfa183e5b2e19b81d71879b2e2c2d4c214a8fdba118a1d4d7"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cuda-rope/fixture/in3.f32": {
+    "bytes": 16384,
+    "sha256": "91ba320da8653f2b35e71534e87fd58c1c71181d299c41848a26e920c033b93b"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cuda-rope/fixture/in4.f32": {
+    "bytes": 16384,
+    "sha256": "ef0a7df2eb337885382867900ae2f2a39bf17247817b5b07599e4b30cee8a7fa"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cuda-rope/fixture/in5.f32": {
+    "bytes": 16384,
+    "sha256": "878938fe3180021eeef73684e6c5828421e9a4f0bba1ba03b5c6f68095112062"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cuda-rope/fixture/in6.f32": {
+    "bytes": 16384,
+    "sha256": "07eea455cbb723c2e5b3d8d762b8454836201762286de010de4aa0bb8a5614b9"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cuda-rope/fixture/in7.f32": {
+    "bytes": 1212416,
+    "sha256": "00c939e1b1716183fb1edad08fdfa8c5b0311f412478e01f5e4709211521e1b2"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cuda-rope/fixture/in8.f32": {
+    "bytes": 1212416,
+    "sha256": "85e302b70bfe515221853809cf34cfb25613b99199adae2e75951691e49b3e71"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cuda-rope/fixture/in9.f32": {
+    "bytes": 22429696,
+    "sha256": "efdaa3b629cda9a9fb586903985f62d1bf683a94f78d83b4682316e2c66e202d"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cuda-rope/result.json": {
+    "bytes": 1970,
+    "sha256": "22782b834312d94eac028c3081d7c8edf168a35432981b0ced714e7b017b0d77"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cuda-rope/trace/block-17.f32": {
+    "bytes": 38797312,
+    "sha256": "1f92cff8cb31388724fc41536ef2684fd4006a8687bad3b1d02628ec806a1ac4"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-native-replay/actual.f32": {
+    "bytes": 38797312,
+    "sha256": "387e33e92744d9eb1d66ec935a1d3dd1091c5ee3f5607d5373371b2d46741072"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-native-replay/fixture/fixture.json": {
+    "bytes": 3538,
+    "sha256": "1ae2bb61b85d437b243507b2bd998c8282975ef6bf7dbb87f1693bc070e448a5"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-native-replay/fixture/in0.f32": {
+    "bytes": 38797312,
+    "sha256": "84db16bde76bdd7d717b21d6f8eac03d40dcf1fdbadedd53f2a1d9fdc57ffbd6"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-native-replay/fixture/in1.f32": {
+    "bytes": 16384,
+    "sha256": "5d01aaeb98ded3f0a0a6e84bf62ceda0bd391213e0906154e79c3abb51e16561"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-native-replay/fixture/in2.f32": {
+    "bytes": 16384,
+    "sha256": "b627a2eb3f005011ce03d765c95bba51479ce99d06228fe0955b4a51bbddb413"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-native-replay/fixture/in3.f32": {
+    "bytes": 16384,
+    "sha256": "802d8d00e50c24a4173327b015f5f0d37cd0a1df6926be102cafbae5ef648551"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-native-replay/fixture/in4.f32": {
+    "bytes": 16384,
+    "sha256": "3e14ae6801163adcbd8343b8ebd5558b2a32812e12934e21d6271226cfd460e1"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-native-replay/fixture/in5.f32": {
+    "bytes": 16384,
+    "sha256": "04d8cab215a3f6ad33678f568c803c0000fb29138c1358d51ee08149a64a1984"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-native-replay/fixture/in6.f32": {
+    "bytes": 16384,
+    "sha256": "d5080bdde444c545927d3131483ab77ec202d44a9bd47986b77a3b8c65c2df5c"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-native-replay/fixture/in7.f32": {
+    "bytes": 1212416,
+    "sha256": "44c058b90c4875e4262f10bbf59711fecb20aa3783cee6962d32adacd601ffb5"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-native-replay/fixture/in8.f32": {
+    "bytes": 1212416,
+    "sha256": "3f4c73a51ec354fca4b6d5ddcdec3157233b10c46505a232570b46fcaab1ab7b"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-native-replay/fixture/in9.f32": {
+    "bytes": 22429696,
+    "sha256": "efdaa3b629cda9a9fb586903985f62d1bf683a94f78d83b4682316e2c66e202d"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-native-replay/result.json": {
+    "bytes": 1944,
+    "sha256": "5b67bf4949357c26f2e30aa5a539e37d0d286bf9ae4ed75f9d8407d314dc203d"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-native-replay/trace/block-18.f32": {
+    "bytes": 38797312,
+    "sha256": "387e33e92744d9eb1d66ec935a1d3dd1091c5ee3f5607d5373371b2d46741072"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cpu-rope/actual.f32": {
+    "bytes": 38797312,
+    "sha256": "7af3e0b6b19ff6e3d93afa8f7d3c7ccc35170146bd242d316046f414cb3ccdb3"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cpu-rope/fixture/fixture.json": {
+    "bytes": 3556,
+    "sha256": "ae3c70e7f9bd4d21c92d50c8e2c831e4140ecf627176df30df555a4d41369943"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cpu-rope/fixture/in0.f32": {
+    "bytes": 38797312,
+    "sha256": "ccbbaeeed08780e4abba6eaa239b2b1df4fd81e428486422105cbe474c9a8b99"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cpu-rope/fixture/in1.f32": {
+    "bytes": 16384,
+    "sha256": "19f47df5a55c12f7000aaa4099e8ac71f8345650632c0165ae0371e9a081b5bd"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cpu-rope/fixture/in2.f32": {
+    "bytes": 16384,
+    "sha256": "6b26a45f5da7109cfa183e5b2e19b81d71879b2e2c2d4c214a8fdba118a1d4d7"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cpu-rope/fixture/in3.f32": {
+    "bytes": 16384,
+    "sha256": "91ba320da8653f2b35e71534e87fd58c1c71181d299c41848a26e920c033b93b"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cpu-rope/fixture/in4.f32": {
+    "bytes": 16384,
+    "sha256": "ef0a7df2eb337885382867900ae2f2a39bf17247817b5b07599e4b30cee8a7fa"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cpu-rope/fixture/in5.f32": {
+    "bytes": 16384,
+    "sha256": "878938fe3180021eeef73684e6c5828421e9a4f0bba1ba03b5c6f68095112062"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cpu-rope/fixture/in6.f32": {
+    "bytes": 16384,
+    "sha256": "07eea455cbb723c2e5b3d8d762b8454836201762286de010de4aa0bb8a5614b9"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cpu-rope/fixture/in7.f32": {
+    "bytes": 1212416,
+    "sha256": "44c058b90c4875e4262f10bbf59711fecb20aa3783cee6962d32adacd601ffb5"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cpu-rope/fixture/in8.f32": {
+    "bytes": 1212416,
+    "sha256": "3f4c73a51ec354fca4b6d5ddcdec3157233b10c46505a232570b46fcaab1ab7b"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cpu-rope/fixture/in9.f32": {
+    "bytes": 22429696,
+    "sha256": "efdaa3b629cda9a9fb586903985f62d1bf683a94f78d83b4682316e2c66e202d"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cpu-rope/result.json": {
+    "bytes": 1962,
+    "sha256": "b37d50fb8636e11580e684a15bce2240714771ff4c9307bbc890f3344f3ba06f"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cpu-rope/trace/block-18.f32": {
+    "bytes": 38797312,
+    "sha256": "7af3e0b6b19ff6e3d93afa8f7d3c7ccc35170146bd242d316046f414cb3ccdb3"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cuda-rope/actual.f32": {
+    "bytes": 38797312,
+    "sha256": "580c68ae930e20cb8b80731d4ce5d58474490162cdbc4ad4206410c150c6dcfb"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cuda-rope/fixture/fixture.json": {
+    "bytes": 3559,
+    "sha256": "24c8796cddb1403e14b245957676f7f31d0c7ad6fec486281593e9b8e50c6283"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cuda-rope/fixture/in0.f32": {
+    "bytes": 38797312,
+    "sha256": "ccbbaeeed08780e4abba6eaa239b2b1df4fd81e428486422105cbe474c9a8b99"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cuda-rope/fixture/in1.f32": {
+    "bytes": 16384,
+    "sha256": "19f47df5a55c12f7000aaa4099e8ac71f8345650632c0165ae0371e9a081b5bd"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cuda-rope/fixture/in2.f32": {
+    "bytes": 16384,
+    "sha256": "6b26a45f5da7109cfa183e5b2e19b81d71879b2e2c2d4c214a8fdba118a1d4d7"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cuda-rope/fixture/in3.f32": {
+    "bytes": 16384,
+    "sha256": "91ba320da8653f2b35e71534e87fd58c1c71181d299c41848a26e920c033b93b"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cuda-rope/fixture/in4.f32": {
+    "bytes": 16384,
+    "sha256": "ef0a7df2eb337885382867900ae2f2a39bf17247817b5b07599e4b30cee8a7fa"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cuda-rope/fixture/in5.f32": {
+    "bytes": 16384,
+    "sha256": "878938fe3180021eeef73684e6c5828421e9a4f0bba1ba03b5c6f68095112062"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cuda-rope/fixture/in6.f32": {
+    "bytes": 16384,
+    "sha256": "07eea455cbb723c2e5b3d8d762b8454836201762286de010de4aa0bb8a5614b9"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cuda-rope/fixture/in7.f32": {
+    "bytes": 1212416,
+    "sha256": "00c939e1b1716183fb1edad08fdfa8c5b0311f412478e01f5e4709211521e1b2"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cuda-rope/fixture/in8.f32": {
+    "bytes": 1212416,
+    "sha256": "85e302b70bfe515221853809cf34cfb25613b99199adae2e75951691e49b3e71"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cuda-rope/fixture/in9.f32": {
+    "bytes": 22429696,
+    "sha256": "efdaa3b629cda9a9fb586903985f62d1bf683a94f78d83b4682316e2c66e202d"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cuda-rope/result.json": {
+    "bytes": 1969,
+    "sha256": "204420f092a9fd34d4d1408821d663a8900a7a03b7bc4f93269d9092b45171d7"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cuda-rope/trace/block-18.f32": {
+    "bytes": 38797312,
+    "sha256": "580c68ae930e20cb8b80731d4ce5d58474490162cdbc4ad4206410c150c6dcfb"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-native-replay/actual.f32": {
+    "bytes": 38797312,
+    "sha256": "4e6c39433d547865fd0d0f66765dd5bf5e3f0efc568bcff03fc4165ee9103ea4"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-native-replay/fixture/fixture.json": {
+    "bytes": 3538,
+    "sha256": "58088745a61dd66455cc74b091bb3dac8f839c530f91be3829d7957d5556677b"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-native-replay/fixture/in0.f32": {
+    "bytes": 38797312,
+    "sha256": "387e33e92744d9eb1d66ec935a1d3dd1091c5ee3f5607d5373371b2d46741072"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-native-replay/fixture/in1.f32": {
+    "bytes": 16384,
+    "sha256": "5d01aaeb98ded3f0a0a6e84bf62ceda0bd391213e0906154e79c3abb51e16561"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-native-replay/fixture/in2.f32": {
+    "bytes": 16384,
+    "sha256": "b627a2eb3f005011ce03d765c95bba51479ce99d06228fe0955b4a51bbddb413"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-native-replay/fixture/in3.f32": {
+    "bytes": 16384,
+    "sha256": "802d8d00e50c24a4173327b015f5f0d37cd0a1df6926be102cafbae5ef648551"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-native-replay/fixture/in4.f32": {
+    "bytes": 16384,
+    "sha256": "3e14ae6801163adcbd8343b8ebd5558b2a32812e12934e21d6271226cfd460e1"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-native-replay/fixture/in5.f32": {
+    "bytes": 16384,
+    "sha256": "04d8cab215a3f6ad33678f568c803c0000fb29138c1358d51ee08149a64a1984"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-native-replay/fixture/in6.f32": {
+    "bytes": 16384,
+    "sha256": "d5080bdde444c545927d3131483ab77ec202d44a9bd47986b77a3b8c65c2df5c"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-native-replay/fixture/in7.f32": {
+    "bytes": 1212416,
+    "sha256": "44c058b90c4875e4262f10bbf59711fecb20aa3783cee6962d32adacd601ffb5"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-native-replay/fixture/in8.f32": {
+    "bytes": 1212416,
+    "sha256": "3f4c73a51ec354fca4b6d5ddcdec3157233b10c46505a232570b46fcaab1ab7b"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-native-replay/fixture/in9.f32": {
+    "bytes": 22429696,
+    "sha256": "efdaa3b629cda9a9fb586903985f62d1bf683a94f78d83b4682316e2c66e202d"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-native-replay/result.json": {
+    "bytes": 1946,
+    "sha256": "6067f2649cac088426e05705e8cf986701d8c3b8b3a6b5491b8c334df74ea403"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-native-replay/trace/block-19.f32": {
+    "bytes": 38797312,
+    "sha256": "4e6c39433d547865fd0d0f66765dd5bf5e3f0efc568bcff03fc4165ee9103ea4"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cpu-rope/actual.f32": {
+    "bytes": 38797312,
+    "sha256": "7a57d13b3897c8a598ea456990f8b98d1bd4a9f1187ffa8307d1d6a53b1d235d"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cpu-rope/fixture/fixture.json": {
+    "bytes": 3556,
+    "sha256": "0779ce1f8e64090271437c276e6e708a7b34d84f17a2d459b2d9a801c5db2288"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cpu-rope/fixture/in0.f32": {
+    "bytes": 38797312,
+    "sha256": "40b4087a897efd11b502073e66f0d0ef8fc085910a3f087f50d767434a7e4477"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cpu-rope/fixture/in1.f32": {
+    "bytes": 16384,
+    "sha256": "19f47df5a55c12f7000aaa4099e8ac71f8345650632c0165ae0371e9a081b5bd"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cpu-rope/fixture/in2.f32": {
+    "bytes": 16384,
+    "sha256": "6b26a45f5da7109cfa183e5b2e19b81d71879b2e2c2d4c214a8fdba118a1d4d7"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cpu-rope/fixture/in3.f32": {
+    "bytes": 16384,
+    "sha256": "91ba320da8653f2b35e71534e87fd58c1c71181d299c41848a26e920c033b93b"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cpu-rope/fixture/in4.f32": {
+    "bytes": 16384,
+    "sha256": "ef0a7df2eb337885382867900ae2f2a39bf17247817b5b07599e4b30cee8a7fa"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cpu-rope/fixture/in5.f32": {
+    "bytes": 16384,
+    "sha256": "878938fe3180021eeef73684e6c5828421e9a4f0bba1ba03b5c6f68095112062"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cpu-rope/fixture/in6.f32": {
+    "bytes": 16384,
+    "sha256": "07eea455cbb723c2e5b3d8d762b8454836201762286de010de4aa0bb8a5614b9"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cpu-rope/fixture/in7.f32": {
+    "bytes": 1212416,
+    "sha256": "44c058b90c4875e4262f10bbf59711fecb20aa3783cee6962d32adacd601ffb5"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cpu-rope/fixture/in8.f32": {
+    "bytes": 1212416,
+    "sha256": "3f4c73a51ec354fca4b6d5ddcdec3157233b10c46505a232570b46fcaab1ab7b"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cpu-rope/fixture/in9.f32": {
+    "bytes": 22429696,
+    "sha256": "efdaa3b629cda9a9fb586903985f62d1bf683a94f78d83b4682316e2c66e202d"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cpu-rope/result.json": {
+    "bytes": 1965,
+    "sha256": "4896b97e53ded8f638d87f9cf9d4b27c97bac2c8085fc60e4acc410029b3765d"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cpu-rope/trace/block-19.f32": {
+    "bytes": 38797312,
+    "sha256": "7a57d13b3897c8a598ea456990f8b98d1bd4a9f1187ffa8307d1d6a53b1d235d"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cuda-rope/actual.f32": {
+    "bytes": 38797312,
+    "sha256": "2050b234568808b8dc9ad79728af4ddf1d254a1b17aa1611fa18e0603d3deba4"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cuda-rope/fixture/fixture.json": {
+    "bytes": 3559,
+    "sha256": "7fa190269da25f2e1d5d94ebd728fe437e629b7e3774ae4a356aff1f1b07f839"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cuda-rope/fixture/in0.f32": {
+    "bytes": 38797312,
+    "sha256": "40b4087a897efd11b502073e66f0d0ef8fc085910a3f087f50d767434a7e4477"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cuda-rope/fixture/in1.f32": {
+    "bytes": 16384,
+    "sha256": "19f47df5a55c12f7000aaa4099e8ac71f8345650632c0165ae0371e9a081b5bd"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cuda-rope/fixture/in2.f32": {
+    "bytes": 16384,
+    "sha256": "6b26a45f5da7109cfa183e5b2e19b81d71879b2e2c2d4c214a8fdba118a1d4d7"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cuda-rope/fixture/in3.f32": {
+    "bytes": 16384,
+    "sha256": "91ba320da8653f2b35e71534e87fd58c1c71181d299c41848a26e920c033b93b"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cuda-rope/fixture/in4.f32": {
+    "bytes": 16384,
+    "sha256": "ef0a7df2eb337885382867900ae2f2a39bf17247817b5b07599e4b30cee8a7fa"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cuda-rope/fixture/in5.f32": {
+    "bytes": 16384,
+    "sha256": "878938fe3180021eeef73684e6c5828421e9a4f0bba1ba03b5c6f68095112062"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cuda-rope/fixture/in6.f32": {
+    "bytes": 16384,
+    "sha256": "07eea455cbb723c2e5b3d8d762b8454836201762286de010de4aa0bb8a5614b9"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cuda-rope/fixture/in7.f32": {
+    "bytes": 1212416,
+    "sha256": "00c939e1b1716183fb1edad08fdfa8c5b0311f412478e01f5e4709211521e1b2"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cuda-rope/fixture/in8.f32": {
+    "bytes": 1212416,
+    "sha256": "85e302b70bfe515221853809cf34cfb25613b99199adae2e75951691e49b3e71"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cuda-rope/fixture/in9.f32": {
+    "bytes": 22429696,
+    "sha256": "efdaa3b629cda9a9fb586903985f62d1bf683a94f78d83b4682316e2c66e202d"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cuda-rope/result.json": {
+    "bytes": 1971,
+    "sha256": "1725e1cf7e10a1158c61f6e357b36d41d494756e7133426c27bd61044058f597"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cuda-rope/trace/block-19.f32": {
+    "bytes": 38797312,
+    "sha256": "2050b234568808b8dc9ad79728af4ddf1d254a1b17aa1611fa18e0603d3deba4"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/native/samples.jsonl": {
+    "bytes": 427460,
+    "sha256": "5f3cb4dab11c2db3c816bfb618457fa20b874bf3f95550a46fb931e2ed1922b3"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/official/results/block-17.f32": {
+    "bytes": 38797312,
+    "sha256": "ccbbaeeed08780e4abba6eaa239b2b1df4fd81e428486422105cbe474c9a8b99"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/official/results/block-18.f32": {
+    "bytes": 38797312,
+    "sha256": "40b4087a897efd11b502073e66f0d0ef8fc085910a3f087f50d767434a7e4477"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/official/results/block-19.f32": {
+    "bytes": 38797312,
+    "sha256": "192583ec4d775d64bb09754e72b0fe6a54dc8b99b1f04ed71cf40195a4cb8580"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/official/samples.jsonl": {
+    "bytes": 21414,
+    "sha256": "e40f5ef32a802cdb0836e148603da0e2c377f315a1e29fd75a04da5ab0cee53b"
+  },
+  "/var/tmp/ernie-blocks17-19-768-v1/runner.snapshot": {
+    "bytes": 36441304,
+    "sha256": "88aaf821aba5a08e1935084953c2a51aad2bb0dc8778ef67bc71fd997f1afa9b"
+  }
+}

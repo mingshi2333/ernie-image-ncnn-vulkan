@@ -75,6 +75,17 @@ ctest --test-dir build --output-on-failure \
 
 已有共享 768×768 首次预测的实际阶段结果见 [阶段对照记录](../artifacts/2026-09-07/shared-stages0-768/README.md)：官方与原生预测分别精确复现各自旧输出，44 个阶段共 358,903,808 个有限值/侧经独立重算。相对误差增长最明显的是从 0 编号的块 17～19，但自由传播轨迹尚不能区分传入误差放大与块内新增误差。该结果没有关闭完整 768 对照的 18/25，也没有改变原阈值；下一项诊断需要对选定块使用相同输入。
 
+共享包还支持 `ernie-block-sequence-runner --package MODEL --block-index N` 的单块诊断。N 为从 0 编号的 0..35；同时提供原有 packed 宽高、文本槽数、总 tokens 和有效文本 tokens。该模式读取块的十个输入 `in0..in9`，跳过 heads，输出 trace 使用全局 `block-N.f32` 名称。省略 `--block-index` 时仍走完整 DiT。
+
+```sh
+./build-dev/ernie-block-sequence-runner --package MODEL --block-index 17 \
+  --fixture TEN_INPUT_FIXTURE --output NEW_OUTPUT.f32 --trace-dir NEW_TRACE \
+  --tokens 2368 --width 48 --height 48 --text-tokens 64 --valid-text-tokens 15 \
+  --backend vulkan --precision fp32 --policy stream --threads 2 --host-weights
+```
+
+[实际块 17～19 对照](../artifacts/2026-09-07/shared-blocks17-19-768/README.md)先验证三个官方和三个原生单块输出分别精确复现旧阶段，再对齐隐状态、六个调制向量、mask 及 CUDA 位置表。局部 NRMSE 为 7.14e-7..8.39e-7，比原累计差异小约 13.7..50.4 倍；CPU/CUDA 位置表替换没有一致降低误差。这支持传入偏差传播的影响，不能据此宣称已找到初始根因或修复了完整轨迹。
+
 `tools/diagnose_pipeline_step.py` 同样接受共享包。它从完整参考读取像素尺寸与实际 token 数，复用 `validation_package` 和已登记的来源认证，再将包与尺寸交给上述原生入口。原有 schema-1/2 固定包入口继续验证完整包并传递 36 个块及两个 head。`--threads` 同时控制参考时间特征准备和原生预测，默认 4；`--host-weights` 显式请求 RAM 权重。示例中的 2 线程是运行设置，不是硬件要求。
 
 ```sh

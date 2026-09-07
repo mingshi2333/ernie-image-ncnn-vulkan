@@ -1,0 +1,722 @@
+[
+  {
+    "block": 17,
+    "variant": "native-replay",
+    "command": [
+      "/var/tmp/ernie-blocks17-19-768-v1/runner.snapshot",
+      "--package",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/models/turbo-shared-v2",
+      "--block-index",
+      "17",
+      "--fixture",
+      "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-native-replay/fixture",
+      "--output",
+      "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-native-replay/actual.f32",
+      "--tokens",
+      "2368",
+      "--width",
+      "48",
+      "--height",
+      "48",
+      "--text-tokens",
+      "64",
+      "--valid-text-tokens",
+      "15",
+      "--threads",
+      "2",
+      "--backend",
+      "vulkan",
+      "--precision",
+      "fp32",
+      "--policy",
+      "stream",
+      "--host-weights",
+      "--trace-dir",
+      "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-native-replay/trace"
+    ],
+    "return_code": 0,
+    "actual": {
+      "file": "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-native-replay/actual.f32",
+      "shape": [
+        1,
+        2368,
+        4096
+      ],
+      "dtype": "float32_le",
+      "bytes": 38797312,
+      "sha256": "84db16bde76bdd7d717b21d6f8eac03d40dcf1fdbadedd53f2a1d9fdc57ffbd6"
+    },
+    "runtime": {
+      "backend": "vulkan",
+      "precision": "fp32",
+      "policy": "stream",
+      "blocks": 1,
+      "threads": 2,
+      "package_mode": true,
+      "block_index": 17,
+      "text_bucket": 32,
+      "valid_text_tokens": 15,
+      "peak_loaded_nets": 1,
+      "host_weights": true,
+      "shared_pipeline_cache": true,
+      "compute_submissions": 19,
+      "load_seconds": [
+        1.8954691
+      ],
+      "compute_seconds": [
+        0.769109515
+      ],
+      "dit_heads": false,
+      "input_head_seconds": 0,
+      "output_head_seconds": 0
+    },
+    "official_difference": {
+      "max_abs_error": 1.0106201171875,
+      "nrmse": 9.787622311129123e-06,
+      "reference_max_abs": 73075.7109375
+    },
+    "native_anchor_exact": true,
+    "native_acceptance_eligible": false,
+    "official_gate_applied": false
+  },
+  {
+    "block": 18,
+    "variant": "native-replay",
+    "command": [
+      "/var/tmp/ernie-blocks17-19-768-v1/runner.snapshot",
+      "--package",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/models/turbo-shared-v2",
+      "--block-index",
+      "18",
+      "--fixture",
+      "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-native-replay/fixture",
+      "--output",
+      "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-native-replay/actual.f32",
+      "--tokens",
+      "2368",
+      "--width",
+      "48",
+      "--height",
+      "48",
+      "--text-tokens",
+      "64",
+      "--valid-text-tokens",
+      "15",
+      "--threads",
+      "2",
+      "--backend",
+      "vulkan",
+      "--precision",
+      "fp32",
+      "--policy",
+      "stream",
+      "--host-weights",
+      "--trace-dir",
+      "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-native-replay/trace"
+    ],
+    "return_code": 0,
+    "actual": {
+      "file": "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-native-replay/actual.f32",
+      "shape": [
+        1,
+        2368,
+        4096
+      ],
+      "dtype": "float32_le",
+      "bytes": 38797312,
+      "sha256": "387e33e92744d9eb1d66ec935a1d3dd1091c5ee3f5607d5373371b2d46741072"
+    },
+    "runtime": {
+      "backend": "vulkan",
+      "precision": "fp32",
+      "policy": "stream",
+      "blocks": 1,
+      "threads": 2,
+      "package_mode": true,
+      "block_index": 18,
+      "text_bucket": 32,
+      "valid_text_tokens": 15,
+      "peak_loaded_nets": 1,
+      "host_weights": true,
+      "shared_pipeline_cache": true,
+      "compute_submissions": 19,
+      "load_seconds": [
+        1.95321536
+      ],
+      "compute_seconds": [
+        0.740509468
+      ],
+      "dit_heads": false,
+      "input_head_seconds": 0,
+      "output_head_seconds": 0
+    },
+    "official_difference": {
+      "max_abs_error": 2.201416015625,
+      "nrmse": 2.0410347908111174e-05,
+      "reference_max_abs": 73033.4375
+    },
+    "native_anchor_exact": true,
+    "native_acceptance_eligible": false,
+    "official_gate_applied": false
+  },
+  {
+    "block": 19,
+    "variant": "native-replay",
+    "command": [
+      "/var/tmp/ernie-blocks17-19-768-v1/runner.snapshot",
+      "--package",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/models/turbo-shared-v2",
+      "--block-index",
+      "19",
+      "--fixture",
+      "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-native-replay/fixture",
+      "--output",
+      "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-native-replay/actual.f32",
+      "--tokens",
+      "2368",
+      "--width",
+      "48",
+      "--height",
+      "48",
+      "--text-tokens",
+      "64",
+      "--valid-text-tokens",
+      "15",
+      "--threads",
+      "2",
+      "--backend",
+      "vulkan",
+      "--precision",
+      "fp32",
+      "--policy",
+      "stream",
+      "--host-weights",
+      "--trace-dir",
+      "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-native-replay/trace"
+    ],
+    "return_code": 0,
+    "actual": {
+      "file": "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-native-replay/actual.f32",
+      "shape": [
+        1,
+        2368,
+        4096
+      ],
+      "dtype": "float32_le",
+      "bytes": 38797312,
+      "sha256": "4e6c39433d547865fd0d0f66765dd5bf5e3f0efc568bcff03fc4165ee9103ea4"
+    },
+    "runtime": {
+      "backend": "vulkan",
+      "precision": "fp32",
+      "policy": "stream",
+      "blocks": 1,
+      "threads": 2,
+      "package_mode": true,
+      "block_index": 19,
+      "text_bucket": 32,
+      "valid_text_tokens": 15,
+      "peak_loaded_nets": 1,
+      "host_weights": true,
+      "shared_pipeline_cache": true,
+      "compute_submissions": 19,
+      "load_seconds": [
+        1.94962967
+      ],
+      "compute_seconds": [
+        0.721803317
+      ],
+      "dit_heads": false,
+      "input_head_seconds": 0,
+      "output_head_seconds": 0
+    },
+    "official_difference": {
+      "max_abs_error": 4.284423828125,
+      "nrmse": 4.2285838428435585e-05,
+      "reference_max_abs": 73069.546875
+    },
+    "native_anchor_exact": true,
+    "native_acceptance_eligible": false,
+    "official_gate_applied": false
+  },
+  {
+    "block": 17,
+    "variant": "official-cpu-rope",
+    "command": [
+      "/var/tmp/ernie-blocks17-19-768-v1/runner.snapshot",
+      "--package",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/models/turbo-shared-v2",
+      "--block-index",
+      "17",
+      "--fixture",
+      "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cpu-rope/fixture",
+      "--output",
+      "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cpu-rope/actual.f32",
+      "--tokens",
+      "2368",
+      "--width",
+      "48",
+      "--height",
+      "48",
+      "--text-tokens",
+      "64",
+      "--valid-text-tokens",
+      "15",
+      "--threads",
+      "2",
+      "--backend",
+      "vulkan",
+      "--precision",
+      "fp32",
+      "--policy",
+      "stream",
+      "--host-weights",
+      "--trace-dir",
+      "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cpu-rope/trace"
+    ],
+    "return_code": 0,
+    "actual": {
+      "file": "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cpu-rope/actual.f32",
+      "shape": [
+        1,
+        2368,
+        4096
+      ],
+      "dtype": "float32_le",
+      "bytes": 38797312,
+      "sha256": "2767887e89039feca90fb8ff002e8bc8b0dd3f2ed7929eda29b8b602e266404c"
+    },
+    "runtime": {
+      "backend": "vulkan",
+      "precision": "fp32",
+      "policy": "stream",
+      "blocks": 1,
+      "threads": 2,
+      "package_mode": true,
+      "block_index": 17,
+      "text_bucket": 32,
+      "valid_text_tokens": 15,
+      "peak_loaded_nets": 1,
+      "host_weights": true,
+      "shared_pipeline_cache": true,
+      "compute_submissions": 19,
+      "load_seconds": [
+        1.9040154
+      ],
+      "compute_seconds": [
+        0.69229616
+      ],
+      "dit_heads": false,
+      "input_head_seconds": 0,
+      "output_head_seconds": 0
+    },
+    "official_difference": {
+      "max_abs_error": 0.007080078125,
+      "nrmse": 7.155495042903261e-07,
+      "reference_max_abs": 73075.7109375
+    },
+    "native_anchor_exact": false,
+    "native_acceptance_eligible": false,
+    "official_gate_applied": false
+  },
+  {
+    "block": 18,
+    "variant": "official-cpu-rope",
+    "command": [
+      "/var/tmp/ernie-blocks17-19-768-v1/runner.snapshot",
+      "--package",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/models/turbo-shared-v2",
+      "--block-index",
+      "18",
+      "--fixture",
+      "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cpu-rope/fixture",
+      "--output",
+      "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cpu-rope/actual.f32",
+      "--tokens",
+      "2368",
+      "--width",
+      "48",
+      "--height",
+      "48",
+      "--text-tokens",
+      "64",
+      "--valid-text-tokens",
+      "15",
+      "--threads",
+      "2",
+      "--backend",
+      "vulkan",
+      "--precision",
+      "fp32",
+      "--policy",
+      "stream",
+      "--host-weights",
+      "--trace-dir",
+      "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cpu-rope/trace"
+    ],
+    "return_code": 0,
+    "actual": {
+      "file": "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cpu-rope/actual.f32",
+      "shape": [
+        1,
+        2368,
+        4096
+      ],
+      "dtype": "float32_le",
+      "bytes": 38797312,
+      "sha256": "7af3e0b6b19ff6e3d93afa8f7d3c7ccc35170146bd242d316046f414cb3ccdb3"
+    },
+    "runtime": {
+      "backend": "vulkan",
+      "precision": "fp32",
+      "policy": "stream",
+      "blocks": 1,
+      "threads": 2,
+      "package_mode": true,
+      "block_index": 18,
+      "text_bucket": 32,
+      "valid_text_tokens": 15,
+      "peak_loaded_nets": 1,
+      "host_weights": true,
+      "shared_pipeline_cache": true,
+      "compute_submissions": 19,
+      "load_seconds": [
+        1.92702912
+      ],
+      "compute_seconds": [
+        0.782348079
+      ],
+      "dit_heads": false,
+      "input_head_seconds": 0,
+      "output_head_seconds": 0
+    },
+    "official_difference": {
+      "max_abs_error": 0.0068359375,
+      "nrmse": 7.424977846743559e-07,
+      "reference_max_abs": 73033.4375
+    },
+    "native_anchor_exact": false,
+    "native_acceptance_eligible": false,
+    "official_gate_applied": false
+  },
+  {
+    "block": 19,
+    "variant": "official-cpu-rope",
+    "command": [
+      "/var/tmp/ernie-blocks17-19-768-v1/runner.snapshot",
+      "--package",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/models/turbo-shared-v2",
+      "--block-index",
+      "19",
+      "--fixture",
+      "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cpu-rope/fixture",
+      "--output",
+      "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cpu-rope/actual.f32",
+      "--tokens",
+      "2368",
+      "--width",
+      "48",
+      "--height",
+      "48",
+      "--text-tokens",
+      "64",
+      "--valid-text-tokens",
+      "15",
+      "--threads",
+      "2",
+      "--backend",
+      "vulkan",
+      "--precision",
+      "fp32",
+      "--policy",
+      "stream",
+      "--host-weights",
+      "--trace-dir",
+      "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cpu-rope/trace"
+    ],
+    "return_code": 0,
+    "actual": {
+      "file": "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cpu-rope/actual.f32",
+      "shape": [
+        1,
+        2368,
+        4096
+      ],
+      "dtype": "float32_le",
+      "bytes": 38797312,
+      "sha256": "7a57d13b3897c8a598ea456990f8b98d1bd4a9f1187ffa8307d1d6a53b1d235d"
+    },
+    "runtime": {
+      "backend": "vulkan",
+      "precision": "fp32",
+      "policy": "stream",
+      "blocks": 1,
+      "threads": 2,
+      "package_mode": true,
+      "block_index": 19,
+      "text_bucket": 32,
+      "valid_text_tokens": 15,
+      "peak_loaded_nets": 1,
+      "host_weights": true,
+      "shared_pipeline_cache": true,
+      "compute_submissions": 19,
+      "load_seconds": [
+        1.96517044
+      ],
+      "compute_seconds": [
+        0.72024556
+      ],
+      "dit_heads": false,
+      "input_head_seconds": 0,
+      "output_head_seconds": 0
+    },
+    "official_difference": {
+      "max_abs_error": 0.006591796875,
+      "nrmse": 8.349379376517832e-07,
+      "reference_max_abs": 73069.546875
+    },
+    "native_anchor_exact": false,
+    "native_acceptance_eligible": false,
+    "official_gate_applied": false
+  },
+  {
+    "block": 17,
+    "variant": "official-cuda-rope",
+    "command": [
+      "/var/tmp/ernie-blocks17-19-768-v1/runner.snapshot",
+      "--package",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/models/turbo-shared-v2",
+      "--block-index",
+      "17",
+      "--fixture",
+      "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cuda-rope/fixture",
+      "--output",
+      "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cuda-rope/actual.f32",
+      "--tokens",
+      "2368",
+      "--width",
+      "48",
+      "--height",
+      "48",
+      "--text-tokens",
+      "64",
+      "--valid-text-tokens",
+      "15",
+      "--threads",
+      "2",
+      "--backend",
+      "vulkan",
+      "--precision",
+      "fp32",
+      "--policy",
+      "stream",
+      "--host-weights",
+      "--trace-dir",
+      "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cuda-rope/trace"
+    ],
+    "return_code": 0,
+    "actual": {
+      "file": "/var/tmp/ernie-blocks17-19-768-v1/native/block-17-official-cuda-rope/actual.f32",
+      "shape": [
+        1,
+        2368,
+        4096
+      ],
+      "dtype": "float32_le",
+      "bytes": 38797312,
+      "sha256": "1f92cff8cb31388724fc41536ef2684fd4006a8687bad3b1d02628ec806a1ac4"
+    },
+    "runtime": {
+      "backend": "vulkan",
+      "precision": "fp32",
+      "policy": "stream",
+      "blocks": 1,
+      "threads": 2,
+      "package_mode": true,
+      "block_index": 17,
+      "text_bucket": 32,
+      "valid_text_tokens": 15,
+      "peak_loaded_nets": 1,
+      "host_weights": true,
+      "shared_pipeline_cache": true,
+      "compute_submissions": 19,
+      "load_seconds": [
+        1.9459015
+      ],
+      "compute_seconds": [
+        0.730260563
+      ],
+      "dit_heads": false,
+      "input_head_seconds": 0,
+      "output_head_seconds": 0
+    },
+    "official_difference": {
+      "max_abs_error": 0.00634765625,
+      "nrmse": 7.136946284748415e-07,
+      "reference_max_abs": 73075.7109375
+    },
+    "native_anchor_exact": false,
+    "native_acceptance_eligible": false,
+    "official_gate_applied": false
+  },
+  {
+    "block": 18,
+    "variant": "official-cuda-rope",
+    "command": [
+      "/var/tmp/ernie-blocks17-19-768-v1/runner.snapshot",
+      "--package",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/models/turbo-shared-v2",
+      "--block-index",
+      "18",
+      "--fixture",
+      "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cuda-rope/fixture",
+      "--output",
+      "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cuda-rope/actual.f32",
+      "--tokens",
+      "2368",
+      "--width",
+      "48",
+      "--height",
+      "48",
+      "--text-tokens",
+      "64",
+      "--valid-text-tokens",
+      "15",
+      "--threads",
+      "2",
+      "--backend",
+      "vulkan",
+      "--precision",
+      "fp32",
+      "--policy",
+      "stream",
+      "--host-weights",
+      "--trace-dir",
+      "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cuda-rope/trace"
+    ],
+    "return_code": 0,
+    "actual": {
+      "file": "/var/tmp/ernie-blocks17-19-768-v1/native/block-18-official-cuda-rope/actual.f32",
+      "shape": [
+        1,
+        2368,
+        4096
+      ],
+      "dtype": "float32_le",
+      "bytes": 38797312,
+      "sha256": "580c68ae930e20cb8b80731d4ce5d58474490162cdbc4ad4206410c150c6dcfb"
+    },
+    "runtime": {
+      "backend": "vulkan",
+      "precision": "fp32",
+      "policy": "stream",
+      "blocks": 1,
+      "threads": 2,
+      "package_mode": true,
+      "block_index": 18,
+      "text_bucket": 32,
+      "valid_text_tokens": 15,
+      "peak_loaded_nets": 1,
+      "host_weights": true,
+      "shared_pipeline_cache": true,
+      "compute_submissions": 19,
+      "load_seconds": [
+        1.91342605
+      ],
+      "compute_seconds": [
+        0.724720551
+      ],
+      "dit_heads": false,
+      "input_head_seconds": 0,
+      "output_head_seconds": 0
+    },
+    "official_difference": {
+      "max_abs_error": 0.004638671875,
+      "nrmse": 7.427295249343532e-07,
+      "reference_max_abs": 73033.4375
+    },
+    "native_anchor_exact": false,
+    "native_acceptance_eligible": false,
+    "official_gate_applied": false
+  },
+  {
+    "block": 19,
+    "variant": "official-cuda-rope",
+    "command": [
+      "/var/tmp/ernie-blocks17-19-768-v1/runner.snapshot",
+      "--package",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/models/turbo-shared-v2",
+      "--block-index",
+      "19",
+      "--fixture",
+      "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cuda-rope/fixture",
+      "--output",
+      "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cuda-rope/actual.f32",
+      "--tokens",
+      "2368",
+      "--width",
+      "48",
+      "--height",
+      "48",
+      "--text-tokens",
+      "64",
+      "--valid-text-tokens",
+      "15",
+      "--threads",
+      "2",
+      "--backend",
+      "vulkan",
+      "--precision",
+      "fp32",
+      "--policy",
+      "stream",
+      "--host-weights",
+      "--trace-dir",
+      "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cuda-rope/trace"
+    ],
+    "return_code": 0,
+    "actual": {
+      "file": "/var/tmp/ernie-blocks17-19-768-v1/native/block-19-official-cuda-rope/actual.f32",
+      "shape": [
+        1,
+        2368,
+        4096
+      ],
+      "dtype": "float32_le",
+      "bytes": 38797312,
+      "sha256": "2050b234568808b8dc9ad79728af4ddf1d254a1b17aa1611fa18e0603d3deba4"
+    },
+    "runtime": {
+      "backend": "vulkan",
+      "precision": "fp32",
+      "policy": "stream",
+      "blocks": 1,
+      "threads": 2,
+      "package_mode": true,
+      "block_index": 19,
+      "text_bucket": 32,
+      "valid_text_tokens": 15,
+      "peak_loaded_nets": 1,
+      "host_weights": true,
+      "shared_pipeline_cache": true,
+      "compute_submissions": 19,
+      "load_seconds": [
+        1.91483184
+      ],
+      "compute_seconds": [
+        0.726900461
+      ],
+      "dit_heads": false,
+      "input_head_seconds": 0,
+      "output_head_seconds": 0
+    },
+    "official_difference": {
+      "max_abs_error": 0.008544921875,
+      "nrmse": 8.391164615275027e-07,
+      "reference_max_abs": 73069.546875
+    },
+    "native_anchor_exact": false,
+    "native_acceptance_eligible": false,
+    "official_gate_applied": false
+  }
+]

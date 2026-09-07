@@ -1,0 +1,11 @@
+{
+  "scope": "Only position-table evaluation; no model forward",
+  "torch": "2.12.1+cu130",
+  "device": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "threads": 2,
+  "cuda_peak_allocated_bytes": 3637248,
+  "cpu_cos_sha256": "44c058b90c4875e4262f10bbf59711fecb20aa3783cee6962d32adacd601ffb5",
+  "cuda_cos_sha256": "00c939e1b1716183fb1edad08fdfa8c5b0311f412478e01f5e4709211521e1b2",
+  "cpu_sin_sha256": "3f4c73a51ec354fca4b6d5ddcdec3157233b10c46505a232570b46fcaab1ab7b",
+  "cuda_sin_sha256": "85e302b70bfe515221853809cf34cfb25613b99199adae2e75951691e49b3e71"
+}

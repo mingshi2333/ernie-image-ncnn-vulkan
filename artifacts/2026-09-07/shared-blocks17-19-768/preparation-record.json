@@ -1,0 +1,9 @@
+{
+  "scope": "Observed Codex execution session 95647 completion",
+  "return_code": 0,
+  "runtime_seconds": 25.63,
+  "cpu_seconds": 25.064,
+  "reported_cgroup_memory_peak": "4G",
+  "retained_memory_events": null,
+  "position_preparation": "No model forward; CUDA position table preparation only"
+}

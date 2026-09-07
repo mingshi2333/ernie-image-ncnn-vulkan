@@ -1,0 +1,211 @@
+[
+  {
+    "command": [
+      "/var/tmp/ernie-blocks17-19-768-v1/runner.snapshot",
+      "--block-index",
+      "-1"
+    ],
+    "return_code": 1,
+    "stdout": "",
+    "stderr": "Block index must be 0..35\n"
+  },
+  {
+    "command": [
+      "/var/tmp/ernie-blocks17-19-768-v1/runner.snapshot",
+      "--block-index",
+      "36"
+    ],
+    "return_code": 1,
+    "stdout": "",
+    "stderr": "Block index must be 0..35\n"
+  },
+  {
+    "command": [
+      "/var/tmp/ernie-blocks17-19-768-v1/runner.snapshot",
+      "--block-index",
+      "17x"
+    ],
+    "return_code": 1,
+    "stdout": "",
+    "stderr": "Invalid token count\n"
+  },
+  {
+    "command": [
+      "/var/tmp/ernie-blocks17-19-768-v1/runner.snapshot",
+      "--block-index"
+    ],
+    "return_code": 1,
+    "stdout": "",
+    "stderr": "Missing value for --block-index\n"
+  },
+  {
+    "command": [
+      "/var/tmp/ernie-blocks17-19-768-v1/runner.snapshot",
+      "--model",
+      "/missing-model",
+      "--block-index",
+      "17"
+    ],
+    "return_code": 1,
+    "stdout": "",
+    "stderr": "Package mode requires --valid-text-tokens and excludes raw models/heads or large-shape probing\n"
+  },
+  {
+    "command": [
+      "/var/tmp/ernie-blocks17-19-768-v1/runner.snapshot",
+      "--package",
+      "/missing-package",
+      "--fixture",
+      "/missing-fixture",
+      "--tokens",
+      "2368",
+      "--width",
+      "48",
+      "--height",
+      "48",
+      "--text-tokens",
+      "64",
+      "--valid-text-tokens",
+      "15",
+      "--output",
+      "/var/tmp/ernie-blocks17-19-768-v1/must-not-exist.f32",
+      "--block-index",
+      "17",
+      "--policy",
+      "resident"
+    ],
+    "return_code": 1,
+    "stdout": "",
+    "stderr": "DiT mode requires both heads, matching grid/text dimensions and streaming\n"
+  },
+  {
+    "command": [
+      "/var/tmp/ernie-blocks17-19-768-v1/runner.snapshot",
+      "--package",
+      "/missing-package",
+      "--fixture",
+      "/missing-fixture",
+      "--tokens",
+      "2368",
+      "--width",
+      "48",
+      "--height",
+      "48",
+      "--text-tokens",
+      "64",
+      "--valid-text-tokens",
+      "15",
+      "--output",
+      "/var/tmp/ernie-blocks17-19-768-v1/must-not-exist.f32",
+      "--block-index",
+      "17",
+      "--width",
+      "47"
+    ],
+    "return_code": 1,
+    "stdout": "",
+    "stderr": "DiT mode requires both heads, matching grid/text dimensions and streaming\n"
+  },
+  {
+    "command": [
+      "/var/tmp/ernie-blocks17-19-768-v1/runner.snapshot",
+      "--package",
+      "/missing-package",
+      "--fixture",
+      "/missing-fixture",
+      "--tokens",
+      "2368",
+      "--width",
+      "48",
+      "--height",
+      "48",
+      "--text-tokens",
+      "64",
+      "--valid-text-tokens",
+      "15",
+      "--output",
+      "/var/tmp/ernie-blocks17-19-768-v1/must-not-exist.f32",
+      "--block-index",
+      "17",
+      "--threads",
+      "0"
+    ],
+    "return_code": 1,
+    "stdout": "",
+    "stderr": "Require repeated --model DIR, --fixture DIR, --tokens N, --output FILE [--backend cpu|vulkan] [--precision fp32|fp16|bf16] [--policy stream|resident] [--host-weights] [--threads N] [--large-shape-probe]; or --package DIR --valid-text-tokens N with matching packed grid/text dimensions [--block-index 0..35 for ten-input single-block execution]\n"
+  },
+  {
+    "command": [
+      "/var/tmp/ernie-blocks17-19-768-v1/runner.snapshot",
+      "--package",
+      "/missing-package",
+      "--fixture",
+      "/missing-fixture",
+      "--tokens",
+      "2368",
+      "--width",
+      "48",
+      "--height",
+      "48",
+      "--text-tokens",
+      "64",
+      "--valid-text-tokens",
+      "15",
+      "--output",
+      "/var/tmp/ernie-blocks17-19-768-v1/must-not-exist.f32",
+      "--block-index",
+      "17",
+      "--input-head",
+      "/missing-head"
+    ],
+    "return_code": 1,
+    "stdout": "",
+    "stderr": "Package mode requires --valid-text-tokens and excludes raw models/heads or large-shape probing\n"
+  },
+  {
+    "command": [
+      "/var/tmp/ernie-blocks17-19-768-v1/runner.snapshot",
+      "--package",
+      "/missing-package",
+      "--fixture",
+      "/missing-fixture",
+      "--tokens",
+      "2368",
+      "--width",
+      "48",
+      "--height",
+      "48",
+      "--text-tokens",
+      "64",
+      "--valid-text-tokens",
+      "15",
+      "--output",
+      "/var/tmp/ernie-blocks17-19-768-v1/must-not-exist.f32",
+      "--block-index",
+      "17",
+      "--large-shape-probe"
+    ],
+    "return_code": 1,
+    "stdout": "",
+    "stderr": "Package mode requires --valid-text-tokens and excludes raw models/heads or large-shape probing\n"
+  },
+  {
+    "scope": "No ERNIE_PROBE_MODEL_PACKAGE macro syntax branch",
+    "command": [
+      "/usr/bin/clang++",
+      "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/src",
+      "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/third_party/ncnn/src",
+      "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/ncnn/src",
+      "-O3",
+      "-DNDEBUG",
+      "-std=gnu++17",
+      "-fPIE",
+      "-fopenmp=libomp",
+      "-fsyntax-only",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/probes/block_sequence_runner.cpp"
+    ],
+    "return_code": 0,
+    "stdout": "",
+    "stderr": ""
+  }
+]
