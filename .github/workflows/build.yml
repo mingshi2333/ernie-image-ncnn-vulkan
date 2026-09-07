@@ -43,6 +43,8 @@ jobs:
         with:
           submodules: recursive
           persist-credentials: false
+      - name: Model download contracts with local HTTP fixtures
+        run: python3 -W error::ResourceWarning -m unittest tests.test_model_download tests.test_release_manifest -v
       - name: Install native build dependencies
         run: |
           sudo apt-get update
@@ -67,8 +69,6 @@ jobs:
         run: |
           cmake --install build --prefix "$RUNNER_TEMP/ernie-install"
           "$RUNNER_TEMP/ernie-install/bin/ernie-image" --help
-      - name: Model download contracts with local HTTP fixtures
-        run: python3 -W error::ResourceWarning -m unittest tests.test_model_download tests.test_release_manifest -v
       - name: Save configure and test records
         if: always()
         # actions/upload-artifact v7, verified 2026-09-08.
@@ -90,6 +90,8 @@ jobs:
         with:
           submodules: recursive
           persist-credentials: false
+      - name: Model download contracts with local HTTP fixtures
+        run: python -W error::ResourceWarning -m unittest tests.test_model_download tests.test_release_manifest -v
       - name: Configure MSVC and native dependencies
         shell: pwsh
         run: |
@@ -120,8 +122,6 @@ jobs:
         # Vulkan is compiled. Device-dependent tests report skips when the
         # hosted Windows VM has no usable Vulkan driver.
         run: ctest --test-dir build --output-on-failure --output-junit "$env:GITHUB_WORKSPACE/build/ctest-results.xml"
-      - name: Model download contracts with local HTTP fixtures
-        run: python -W error::ResourceWarning -m unittest tests.test_model_download tests.test_release_manifest -v
       - name: Save configure and test records
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
@@ -142,6 +142,8 @@ jobs:
         with:
           submodules: recursive
           persist-credentials: false
+      - name: Model download contracts with local HTTP fixtures
+        run: python3 -W error::ResourceWarning -m unittest tests.test_model_download tests.test_release_manifest -v
       - name: Install native dependencies
         run: |
           brew install ninja libpng vulkan-loader molten-vk
@@ -161,13 +163,12 @@ jobs:
       - name: Build native macOS executable and SDK
         run: cmake --build build --parallel 2
       - name: Native CPU, CLI, package and installed-consumer tests
+        id: contracts
         # MoltenVK device availability is recorded by the tests. A skipped
         # device test is not counted as GPU execution evidence.
         run: ctest --test-dir build --output-on-failure --output-junit "$PWD/build/ctest-results.xml"
-      - name: Model download contracts with local HTTP fixtures
-        run: python3 -W error::ResourceWarning -m unittest tests.test_model_download tests.test_release_manifest -v
       - name: Record macOS Vulkan crash details
-        if: failure()
+        if: ${{ failure() && steps.contracts.outcome == 'failure' }}
         run: |
           if test -x build/ernie-gelu-probe; then
             lldb --batch -o run -k 'thread backtrace all' -- build/ernie-gelu-probe vulkan fp32 > build/vulkan-backtrace.log 2>&1 || true

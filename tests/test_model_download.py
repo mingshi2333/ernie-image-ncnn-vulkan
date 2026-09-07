@@ -41,7 +41,9 @@ class DownloadTests(unittest.TestCase):
     def tearDownClass(cls):cls.server.shutdown();cls.server.server_close();cls.thread.join()
     def setUp(self):
         self.tmp=tempfile.TemporaryDirectory();self.addCleanup(self.tmp.cleanup)
-        self.root=Path(self.tmp.name)/'target';self.root.mkdir()
+        # macOS tempfile may spell /private/var as /var (a system symlink).
+        # Ordinary fixtures need a physical root; explicit link cases stay below.
+        self.root=Path(self.tmp.name).resolve()/'target';self.root.mkdir()
         self.server.mode='normal';self.server.requests=[]
         self.m=manifest(f'http://127.0.0.1:{self.server.server_port}/'+ 'a'*40+'/data',DATA)
         self.dest=self.root/'weights/data.bin'
@@ -91,6 +93,11 @@ class DownloadTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'symlink'):self.run_download()
         self.dest.unlink();self.partial();self.m['files'][0]['sha256']='c'*64
         with self.assertRaisesRegex(ValueError,'identity changed'):self.run_download()
+    def test_symlink_output_ancestor_rejected(self):
+        alias=self.root.parent/'alias';alias.symlink_to(self.root,target_is_directory=True)
+        with self.assertRaisesRegex(ValueError,'Symlink output directory'):
+            download(self.m,alias/'nested',emit=lambda _:None)
+        self.assertFalse((self.root/'nested').exists());self.assertFalse(self.server.requests)
     def test_atomic_publish_no_overwrite(self):
         self.partial(DATA)
         original=__import__('os').link
