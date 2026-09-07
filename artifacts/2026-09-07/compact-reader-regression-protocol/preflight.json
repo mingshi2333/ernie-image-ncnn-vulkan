@@ -1,0 +1,9 @@
+{
+  "plan_sha256": "45d43302b30d1e91f2bcfd9eeda6cc79935bd0e59d08c972569e7a59f389fae2",
+  "bindings_verified": 374,
+  "isolated_help_exit_code": 0,
+  "active_grid_rejected": true,
+  "native_output_created": false,
+  "gpu_job_started": false,
+  "initial_helper_issue": "The first help-check incorrectly expected uppercase ERNIE; command exit was 0. Corrected only the check to the actual documented usage prefix."
+}

@@ -1,0 +1,1629 @@
+{
+  "scope": "Full compact-reader candidate regression: saved512/native Vector text/8 Vulkan FP32 steps/CPU direct VAE, stdio and explicit host weights, cacheOFF. TraceON; no speed or whole-process memory claim.",
+  "commands": {
+    "native": [
+      [
+        "bwrap",
+        "--die-with-parent",
+        "--unshare-net",
+        "--ro-bind",
+        "/",
+        "/",
+        "--bind",
+        "/var/tmp/ernie-compact-reader512-v1",
+        "/var/tmp/ernie-compact-reader512-v1",
+        "--ro-bind",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2",
+        "/var/tmp/ernie-compact-reader512-v1/model",
+        "--tmpfs",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan",
+        "--dev-bind",
+        "/dev",
+        "/dev",
+        "--proc",
+        "/proc",
+        "--chdir",
+        "/var/tmp/ernie-compact-reader512-v1",
+        "--setenv",
+        "TMPDIR",
+        "/var/tmp/ernie-compact-reader512-v1/temporary",
+        "--setenv",
+        "XDG_CACHE_HOME",
+        "/var/tmp/ernie-compact-reader512-v1/cache",
+        "--",
+        "/var/tmp/ernie-compact-reader512-v1/ernie-image.snapshot",
+        "--model",
+        "/var/tmp/ernie-compact-reader512-v1/model",
+        "--prompt",
+        "A red apple on a wooden table, soft daylight, realistic photo.",
+        "--output",
+        "/var/tmp/ernie-compact-reader512-v1/native/native.png",
+        "--trace-dir",
+        "/var/tmp/ernie-compact-reader512-v1/native/trace",
+        "--width",
+        "512",
+        "--height",
+        "512",
+        "--latent",
+        "/var/tmp/ernie-compact-reader512-v1/initial.f32",
+        "--steps",
+        "8",
+        "--threads",
+        "2",
+        "--device",
+        "vulkan",
+        "--precision",
+        "fp32",
+        "--text-down-vector",
+        "--vae-device",
+        "cpu",
+        "--vae-convolution",
+        "direct",
+        "--dit-weights",
+        "host",
+        "--gpu-reserve-mib",
+        "512",
+        "--gpu",
+        "0",
+        "--dit-cache-mib",
+        "0",
+        "--ram-reserve-mib",
+        "3072",
+        "--model-loading",
+        "stdio",
+        "--report-json",
+        "/var/tmp/ernie-compact-reader512-v1/native/generation.json"
+      ]
+    ]
+  },
+  "resource_limits": {
+    "memory_max_bytes": 17179869184,
+    "host_available_min_bytes": 3221225472,
+    "gpu_whole_device_max_mib": 6144,
+    "timeout_seconds_per_phase": 1800
+  },
+  "bindings": {
+    "/var/tmp/ernie-compact-reader512-v1/baseline/native.png": {
+      "bytes": 348636,
+      "sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/baseline/process.json": {
+      "bytes": 1153,
+      "sha256": "93685f20563fa2dc4b72e07c88a1634225b389d1be63564ca18cebac1c520082"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/baseline/trace/constant-0.f32": {
+      "bytes": 557056,
+      "sha256": "931dfacc98acd8bc730c3931f81db34a79e3dade18bdfac565115e7b2c488c83"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/baseline/trace/constant-1.f32": {
+      "bytes": 557056,
+      "sha256": "d1dcfb4736111e8c013bf865dbb061d463f7944765f697dd0167c1dd9f2b19cb"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/baseline/trace/constant-2.f32": {
+      "bytes": 4734976,
+      "sha256": "66a6c9f6ee7e8d7ace003ec68a6ba2730cbab8636834161bdb20930e92e432aa"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/baseline/trace/decoded.f32": {
+      "bytes": 3145728,
+      "sha256": "b8cd6903162285b9a0d4242675521f690552a263af048b8e5550b5b464c6c177"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/baseline/trace/final.f32": {
+      "bytes": 524288,
+      "sha256": "5bdb8298279f22e92bfdd6a587eabbaba0ff901d563d42d4a72406a372a1cd59"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/baseline/trace/ids.txt": {
+      "bytes": 77,
+      "sha256": "306c32c4d1a66c6cd3cfdeb1579b686c63be71387bee9f30e90fbbed3c4fdba9"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/baseline/trace/initial.f32": {
+      "bytes": 524288,
+      "sha256": "1c89a002f18b3162b5a43100dc6f50bdd247dd0af8d1944ec87705153819d453"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/baseline/trace/padded-text.f32": {
+      "bytes": 786432,
+      "sha256": "5fed4f8e9131c3b0bf5fa7bfab06c5d6f9e9a72524b672cc9cd25a78302f28e5"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/baseline/trace/prediction-0.f32": {
+      "bytes": 524288,
+      "sha256": "4b135801468a95b74cfd39821bc04ecbb4fd8230bbe2f7e81bec02158d67a190"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/baseline/trace/prediction-1.f32": {
+      "bytes": 524288,
+      "sha256": "bcb2e1ac4f4eb8c0de9c9548e76b33c8a7e774ec4011a142917c0ee66c4e9ca6"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/baseline/trace/prediction-2.f32": {
+      "bytes": 524288,
+      "sha256": "796f225a80ba6206c6539c2be028b9f5af14a9042917db3b5dc191a218271435"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/baseline/trace/prediction-3.f32": {
+      "bytes": 524288,
+      "sha256": "8bf88e8193a69c91b9a34de242b2c68a1b5350d35b666d309511458c297b7723"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/baseline/trace/prediction-4.f32": {
+      "bytes": 524288,
+      "sha256": "5ff5de47efa3e1f2f5b44a84b5586312b0976a198fcbeffd63100a744c1b0ecb"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/baseline/trace/prediction-5.f32": {
+      "bytes": 524288,
+      "sha256": "3f028810c0d93dba50ce681dda15b36e9c5fa9479f2778170d50ef31ed6f3c91"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/baseline/trace/prediction-6.f32": {
+      "bytes": 524288,
+      "sha256": "fb51698b4f608bfd71aa7af8c89f3294cfc428d5add0b1aca9e275c9391d0e2b"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/baseline/trace/prediction-7.f32": {
+      "bytes": 524288,
+      "sha256": "9b76d84a638aa1b4478497bf66560145e331ddfa8c95685ac24384d7ec5f97fc"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/baseline/trace/prompt.txt": {
+      "bytes": 62,
+      "sha256": "e631f4e8903437dc03ed25b2186468983bd29d13a59b86b6b5b251bae4ec7ac6"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/baseline/trace/shape.txt": {
+      "bytes": 113,
+      "sha256": "e0cacd9a19b0e0869a9dd3808e493ae059ef65612ba676e2e80858be3424677f"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/baseline/trace/step-0.f32": {
+      "bytes": 524288,
+      "sha256": "4f85919e03e3aeb408388d5a13e0e51985a6672b5b13a75c03d4240ab637cc72"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/baseline/trace/step-1.f32": {
+      "bytes": 524288,
+      "sha256": "4d663552a69c09d3b2473a1557c2ce2ed27be770b4bcef18e1fda5e856acd3ef"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/baseline/trace/step-2.f32": {
+      "bytes": 524288,
+      "sha256": "ffe17b2b58e0b5ea1335189cca0e0457f368929f088651584d60f129a2708a56"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/baseline/trace/step-3.f32": {
+      "bytes": 524288,
+      "sha256": "da53a327218ff821e8622e4527736dd7a9cef55787d308780f29d232f2a9477b"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/baseline/trace/step-4.f32": {
+      "bytes": 524288,
+      "sha256": "cfcff972545f93e532e2f237de9768ddbf55e6add5d8e74b28219f211a8a5881"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/baseline/trace/step-5.f32": {
+      "bytes": 524288,
+      "sha256": "805a2598139ca91ed485eda0fb071454a93f95165dae73c6dd115b2576e1ba10"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/baseline/trace/step-6.f32": {
+      "bytes": 524288,
+      "sha256": "3df36b9eda0d99fd9930d75fed7a5e19f0a279218761fe446422e318ff7f61bb"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/baseline/trace/step-7.f32": {
+      "bytes": 524288,
+      "sha256": "5bdb8298279f22e92bfdd6a587eabbaba0ff901d563d42d4a72406a372a1cd59"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/baseline/trace/text.f32": {
+      "bytes": 184320,
+      "sha256": "71fbeee3376e92644c967374601c8549988cb6b1b8e4640f5ddd1b1d840d8ec2"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/baseline/trace/unpacked.f32": {
+      "bytes": 524288,
+      "sha256": "d9a124c7beb381f1327951f0c88f9493e8106dab8f3478aa8d4c7fd225e7bf41"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/candidate-identity.json": {
+      "bytes": 84722,
+      "sha256": "fa63c7a0129b7b275fa23b598e732c564c8bd8495c96266f49ae93e5a58d29a5"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/compare.py": {
+      "bytes": 4318,
+      "sha256": "1efec6773a2db2582cbc6a98f86121c51fdc0ddee4804cd295d3fc43c141e0c8"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/derived-modelbin.cpp": {
+      "bytes": 11313,
+      "sha256": "90adcd77b0a3c2cf49142d65f6a8dc74dadc26ef7460c162c2b21721234f7a69"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/ernie-image.snapshot": {
+      "bytes": 36944136,
+      "sha256": "b15ccce8e92962b041df6581926dd7c06f1f75b65b1b2cbb949f927be71ca05a"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/initial.f32": {
+      "bytes": 524288,
+      "sha256": "1c89a002f18b3162b5a43100dc6f50bdd247dd0af8d1944ec87705153819d453"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/model-reader.patch": {
+      "bytes": 824,
+      "sha256": "e6bf1ed6e1691778ae1faad856fcad7e511f546278cba6f955a0c5dc241c4382"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/prepare.py": {
+      "bytes": 5834,
+      "sha256": "fa8ce80f616a31a1424fa870959982400b1dafcad5a0ad268c85760e2829a5ce"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/run.py": {
+      "bytes": 1146,
+      "sha256": "3adfb392e1676152a882e85378d8b220ecf67b9d6f3d7d051832512edeeef4bb"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/.github/workflows/build.yml": {
+      "bytes": 2156,
+      "sha256": "a7d570ef1b800eb25405ea6f7cb6dce631a97301ddc553332bfb73a2d48f83c3"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/CMakeLists.txt": {
+      "bytes": 1645,
+      "sha256": "6e65225873d8f57f6d8b8c7884e2e736f770cd850ac86aff4e0f25e7055d9cfa"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/CMakePresets.json": {
+      "bytes": 1308,
+      "sha256": "4c85b20474ff00942874ff99c38a7d93a27cefbd1a9cce9daacce879c13c13a7"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/cli/CMakeLists.txt": {
+      "bytes": 839,
+      "sha256": "aa7c0652a6301ad92903b8fd3b8f932e882b1f6e16dd01713809939d914448d9"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/cli/allocation_report.cpp": {
+      "bytes": 8737,
+      "sha256": "c8b089190df57a66bc5cb5eb83681482c93cce922d8178410e389d76917d47e0"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/cli/allocation_report.h": {
+      "bytes": 1061,
+      "sha256": "3a5e852dc7b5b0f310e5fb4a369ba1a07c1dfaf3e23ba1a76756ce1b4e03f118"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/cli/generation_report.cpp": {
+      "bytes": 5733,
+      "sha256": "2324c9ae9c7cacf69c7dbc3e4c3689d8b7c1c5787fd26d9417d004c8b36405a5"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/cli/generation_report.h": {
+      "bytes": 720,
+      "sha256": "e7543002f5b2687dd0d1891c940ae05b9a143fc2556e8b020e9bb7c1fccf74b4"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/cli/image_io.cpp": {
+      "bytes": 12530,
+      "sha256": "698c5019b801d396f356def069702d95a8a05b58df2719aa1d47cb93dd0d603d"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/cli/image_io.h": {
+      "bytes": 593,
+      "sha256": "829118f53a6df9f27aacc766e1838ae4da957364dce85520c88e589cc8720466"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/cli/main.cpp": {
+      "bytes": 8106,
+      "sha256": "565dc6d087c5010ca054df1c5a6a3cc5881f0060311594e91d50381abb36b349"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/cli/options.cpp": {
+      "bytes": 14327,
+      "sha256": "928dcc4abe695ce0dbc465d3af4287c15024f89f7236ab36a9c3897ad18ef77f"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/cli/options.h": {
+      "bytes": 533,
+      "sha256": "b2b9cb6aeb74963679832dea1744c78f083688d692073d0bdece4b2112c009fa"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/cli/prompt_file.cpp": {
+      "bytes": 2389,
+      "sha256": "f93019438df5f745f0fd7053c324c5d2f2c0459b4e951265b49af56922d8273c"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/cli/prompt_file.h": {
+      "bytes": 170,
+      "sha256": "55b8837786a5d4796aa4420f8b91b44694603b8b0b0dc7a9b2973014686b02e0"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/cmake/Dependencies.cmake": {
+      "bytes": 2989,
+      "sha256": "a4f3438f0d9e1d87934ad60e775566990ffb83db103d24756eb7a6b236fa511e"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/cmake/ErnieAllocationMetrics.cmake": {
+      "bytes": 1882,
+      "sha256": "eefba815d7b8b3a3bde29b1563ad3c5ead5e00d26f9e871ff5c191f4ae02e486"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/cmake/ErnieAttentionShader.cmake": {
+      "bytes": 3008,
+      "sha256": "ab3422ca9d81cbd3079936f6207e47fba87774d40ace18786ac64028aad37ca1"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/cmake/ErnieConfig.cmake.in": {
+      "bytes": 1320,
+      "sha256": "2326b685ebc9ec77c9613fe8b49e8f1fa58ab074c1c806409aa6d202508f741d"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/cmake/ErnieModelReader.cmake": {
+      "bytes": 1919,
+      "sha256": "c6bf15500ccec8b447b88409a96a28d98fe6fd7323cbfd05bc5388e20557b7cc"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/cmake/Packaging.cmake": {
+      "bytes": 1842,
+      "sha256": "2d2a42f1b001da5c598d79cf0a4b3c035b18b30266fd6a336d622447c5bd996a"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/cmake/derive_allocation_ncnn.py": {
+      "bytes": 7447,
+      "sha256": "cc1b13ecb883708a6f89c57c20affcc88637fa7d82999f82b06f3d71c4872123"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/include/ernie/pipeline.h": {
+      "bytes": 5072,
+      "sha256": "9c96b4be02b2728b97c35245cf4b2dbc0d097e1fa345c0e28571f593142464fa"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/probes/CMakeLists.txt": {
+      "bytes": 1700,
+      "sha256": "ffb9f50bd6e5c99af77df6b587fb82788b27d47737a36dd80e8c4223e6fbe188"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/probes/attention_accuracy_probe.cpp": {
+      "bytes": 5278,
+      "sha256": "18741944332f5adf52b771f48a73e09b20d566c98e1dc242d8ce383da20f9a91"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/probes/attention_diagnostic.cpp": {
+      "bytes": 1343,
+      "sha256": "f1ada77fc926e89c9a474b47521c612154ba815dbe37be720a362ab0569a7724"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/probes/attention_diagnostic.h": {
+      "bytes": 314,
+      "sha256": "5cd7c829968c73c2376b5c5ba214e1c0e0b2117761d9968ecfff6da0cd5cc6e9"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/probes/attention_probe.cpp": {
+      "bytes": 15267,
+      "sha256": "b6d978e330685c7185b5759ee1f1412fdb154b47e95f71affbdea5f07ef175ff"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/probes/attention_workspace_probe.cpp": {
+      "bytes": 6893,
+      "sha256": "6d613b35b4050b099ca13ceaedafb4fa2d78d5f1cd5c9ce3d44ca542cb5a91d4"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/probes/block_runner.cpp": {
+      "bytes": 12160,
+      "sha256": "272b29166cc0df3b89f159dc8fd96ffd5c1cd179b2e8131d2b28dfaf31261ce3"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/probes/block_sequence_runner.cpp": {
+      "bytes": 12531,
+      "sha256": "2b03c0ac417a912917f745a079aa03cb9df05def0fb44d18e5a43c05d7ffe30a"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/probes/denoise_runner.cpp": {
+      "bytes": 11270,
+      "sha256": "eba6e23a4893804ba34f220448fa52d784191ba8237c94a29b1709eb6ce5f094"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/probes/gelu_probe.cpp": {
+      "bytes": 3925,
+      "sha256": "974c9742455849b0863e447e92b258a780f6986108f025815552e8444c7386e1"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/probes/head_runner.cpp": {
+      "bytes": 10206,
+      "sha256": "fdf1e5da90a6d6b634232a72099b0d0ec1188811bc90b3991ca7eb93c4a4b3f5"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/probes/img2img_runner.cpp": {
+      "bytes": 4615,
+      "sha256": "bf41eb0fb8cc5d2d6ebd2273c53dcd1624c74699a2e41855ae62bab722ccd44d"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/probes/latent_runner.cpp": {
+      "bytes": 9312,
+      "sha256": "94fa1eaa1fc34a3da3f3e20ac3ea3f5b7900fc8ba50601c12d39e5163572d560"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/probes/pe_block_runner.cpp": {
+      "bytes": 3558,
+      "sha256": "7819cd07b86e1da28097885076b0d033777551f8960dfad5b09486344b7d0671"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/probes/pe_runner.cpp": {
+      "bytes": 3096,
+      "sha256": "e35b95ffab672fe251fe3201df8baaabfe6f052288ad72d8b2c5b4695eb6befd"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/probes/rmsnorm_probe.cpp": {
+      "bytes": 5864,
+      "sha256": "ea87461d40da14ddcbb52031db2adf43661accb1c81bac00b5604034e64ea26c"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/probes/text_gemm_diagnostic.cpp": {
+      "bytes": 3420,
+      "sha256": "9d74665819ecb322cca6a2e385971c20af4c8550cfbbf7e6e21df0ace80e52c9"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/probes/text_runner.cpp": {
+      "bytes": 15241,
+      "sha256": "01f58bff4d60482c7fa27da6bd11a29452c031a9e049da7d79e5a7170c93939b"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/probes/tokenizer_runner.cpp": {
+      "bytes": 959,
+      "sha256": "e0c9871cb14e6fc1ab36f3d4528332b431dbe187eab48f8713dc102726ce5b0c"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/sources.lock.json": {
+      "bytes": 5387,
+      "sha256": "70e963395854489dc7d8f0f63ed338f2c0c43f7244df2bad026217a66ff3a306"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/CMakeLists.txt": {
+      "bytes": 3313,
+      "sha256": "0a238bee438cd7b537fc9aa2bcfb95777642c4eac9d2a79288081434832ba854"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/allocation_metrics_hook.cpp": {
+      "bytes": 6483,
+      "sha256": "f8eec7eaa38dc1044be10d06c8dea7f671aa876f4ef21d4cc8e9560f280f4473"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/allocation_metrics_hook.h": {
+      "bytes": 3093,
+      "sha256": "1dd30a42130a10c2483d31fab53d3bd5ea7e187165c6fa0af5d69054dfd4df34"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/block_sequence.cpp": {
+      "bytes": 10963,
+      "sha256": "fec46d64c02c8ddb390d6d7db8c6396693f4cf11e2c3004e3dd8bb27b737e7c8"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/block_sequence.h": {
+      "bytes": 2826,
+      "sha256": "676783501549882f33cd0b1850aff7a5cf9374d2c591266028811af9b9342391"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/component_files.cpp": {
+      "bytes": 2782,
+      "sha256": "4171c37def2f07ea1be0e70433b4e0963dca82445d6daeaa329adb30b39a455d"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/component_files.h": {
+      "bytes": 1113,
+      "sha256": "af34a28f6d90a062ce79a5a32d14230aa668f1830f5ec5e9386473e9976dc218"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/conditioning.cpp": {
+      "bytes": 3051,
+      "sha256": "553bfca945a1ba2a404f76e496a54948f0463e4859e73ebd46fc4f23e3b70906"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/conditioning.h": {
+      "bytes": 707,
+      "sha256": "6314254f5d7276564d44c0ac58fd2724666bc83b5ec9980ac9321ce26d649b81"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/denoiser.cpp": {
+      "bytes": 6798,
+      "sha256": "8f2959c21852750c8fa6bd2cdf5e641fff5283c4dd84feda0df0a22bdc967cdc"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/denoiser.h": {
+      "bytes": 2233,
+      "sha256": "81d318c0eda6c655fc49f2889b7576f9ce2bca24f76fe2a7cb0f34f9d9ab9059"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/dit.cpp": {
+      "bytes": 11057,
+      "sha256": "776a8df72941ac0af8e949ab169ca53aec8fa27bc4a093fa75325228f00d1b51"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/dit.h": {
+      "bytes": 2192,
+      "sha256": "8fc1835f095672a102507959164429f091d94c16337d97bab58af5031d6bb1ca"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/ernie_attention.cpp": {
+      "bytes": 9004,
+      "sha256": "56889eab40586f6913cb611dbe64bf976aba250b01d95553fb3ce01fb11d33f4"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/ernie_attention.h": {
+      "bytes": 437,
+      "sha256": "ec0e750d1e891edcf7a1b2eb35674221e8643f83cf8544652cdcaac497fd2a76"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/ernie_gelu.cpp": {
+      "bytes": 3915,
+      "sha256": "7f995432188c01c26f3b5a353eec321713d269b38062336eaf2b0548f0e7fbf9"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/ernie_gelu.h": {
+      "bytes": 199,
+      "sha256": "266da54a4815feb46ff7a5713b1d7ff661579e30ec34693c31c63ea699911d43"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/ernie_groupnorm.cpp": {
+      "bytes": 3278,
+      "sha256": "94d01911eff19ffdeae297bb7c9a524cdef3eaa29922c7c526a48fba4af8ca64"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/ernie_groupnorm.h": {
+      "bytes": 122,
+      "sha256": "182ee12b0aaaf8b25099016ebe627777f462087b611476ca72e77528d07799e3"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/ernie_residual.cpp": {
+      "bytes": 3121,
+      "sha256": "c91a038bf3d3e183cb4c8193fe29f2f9369fe0339f108f7062a9e5329b3082fc"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/ernie_residual.h": {
+      "bytes": 121,
+      "sha256": "961a70bc0b800b5bf123a3b60785f24909c25f722f36f600a35198fa2f450e0d"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/ernie_rmsnorm.cpp": {
+      "bytes": 5565,
+      "sha256": "3a2a669d08f458a342f8d7590a1ff2441e80c41db06ef09e17aed7ba6f2b0cd3"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/ernie_rmsnorm.h": {
+      "bytes": 543,
+      "sha256": "5c0aef16be562b1e94bee6637f75c2fd3862cc22db0f1347ce5b490cd5d40a2c"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/ernie_text_down.cpp": {
+      "bytes": 8007,
+      "sha256": "e15bdbf3536d983eada63e804120a3c1cf4970eeb6774e96d09f990e2797c69d"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/ernie_text_down.h": {
+      "bytes": 438,
+      "sha256": "b217f194b4eb81df3106c72aa66eb015057223fbf13fea80a7877535830a311e"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/execution_metrics.cpp": {
+      "bytes": 6160,
+      "sha256": "c4c5f7594b7e9f0f36577a0275004cc4c0a44d7baa9926d5e4e1f226fa950b25"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/execution_metrics.h": {
+      "bytes": 4165,
+      "sha256": "4927f911cc7f3dce9af3b49256bab4a4921690db26f35a2b5d17bfa7cc8c6a1a"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/gpu_context.cpp": {
+      "bytes": 2098,
+      "sha256": "93ec97c18dd52283ede33b8a941820a0151d907611c8423cbf7a2f18f5275277"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/gpu_context.h": {
+      "bytes": 1116,
+      "sha256": "f787518b4ba078b6345fea6289ae01671e8531f1274d99db478430f1dbd8a1e2"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/host_memory.cpp": {
+      "bytes": 6665,
+      "sha256": "62b872dc005665e95d3012fbafc7fceb1c9251662bd3379d674b33bf2b421d09"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/host_memory.h": {
+      "bytes": 1121,
+      "sha256": "da2422f45c2f1ef607f67a2579232ae25d8c94207ea16e051a76f6bd0a3f0d97"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/image_encoder.cpp": {
+      "bytes": 3507,
+      "sha256": "1e64750b943eb04c87b2b51e2ea11fcfcfd6090953454002f4302e40a73774bf"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/image_encoder.h": {
+      "bytes": 594,
+      "sha256": "f30d4cad464a85605b86ecd26f89cacc68352836b6dd634c949643bd85b5465b"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/img2img.cpp": {
+      "bytes": 2882,
+      "sha256": "e79cbca42ed50530c1565d9ee813a2221a773fce26e78d9306caf160139c813b"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/img2img.h": {
+      "bytes": 705,
+      "sha256": "485032d94f00a1680706d79fccfb6deb657adfc7f455c12e4168a1e4533f9533"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/latent_ops.cpp": {
+      "bytes": 11163,
+      "sha256": "53a4eb604bb59d62f3458bffb39ef66610e93a17a4485694019aa201344cbcf5"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/latent_ops.h": {
+      "bytes": 2375,
+      "sha256": "351c9c76f7a023be892170736ddb6fb5fe2c928cc3aac959d51b7160208f5c34"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/model_config.cpp": {
+      "bytes": 3084,
+      "sha256": "d3d29115abb2c48bb5e4974889dec1616dd45655d438d3ae4927cd08b5ca8b2a"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/model_config.h": {
+      "bytes": 660,
+      "sha256": "5c253a4be997c013b76ad4f9cd8c6209d182d5293a9ef3ac4477ca2fea3b4997"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/model_loading.h": {
+      "bytes": 580,
+      "sha256": "9fe3dd17fffdcc451d7184aca300cc8ab6269876f5d00156eba467d36ee6e1b4"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/model_package.cpp": {
+      "bytes": 4292,
+      "sha256": "71a80e73a524a63684c4747cc80d63174c38b13dc39399e14acd303ac6f4077e"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/model_package.h": {
+      "bytes": 1244,
+      "sha256": "4c750564184cdf495459921364885e8b40ff49bb9686dd8c2e371c61aa067111"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/pe_session.cpp": {
+      "bytes": 4867,
+      "sha256": "18e696a13fe9977e3cab4473c4658c5b2ed3d222e77dad00e23cdaddefb495dd"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/pe_session.h": {
+      "bytes": 1122,
+      "sha256": "36a62105458c8152be483804a91e44c30ad20d302a5acfa4338875ac3d7046b1"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/pipeline.cpp": {
+      "bytes": 30957,
+      "sha256": "f59f861880b7a1b88b61eb447749cb58b0e8b514100eac0516d64d559ee7748b"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/pipeline_metrics.h": {
+      "bytes": 386,
+      "sha256": "9975be9c6d7765b7446302df43bdbe7533f9f9eeca5c6d8aac65e8affe2f459e"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/prompt_enhancer.cpp": {
+      "bytes": 6681,
+      "sha256": "0427680299f445d05b1b6601629274702d66fc55422bdd818d2f8754ef09cb40"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/prompt_enhancer.h": {
+      "bytes": 974,
+      "sha256": "f345c786a251d294f23d08b2997fa6671622db18beca88b052b1b848cf176820"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/runtime_info.cpp": {
+      "bytes": 1472,
+      "sha256": "592da8bd61adba64624d927313b80e18cca677e36a9bcc9ff1516e131ef04b4a"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/sdpa_shader.h.in": {
+      "bytes": 385,
+      "sha256": "6f1d6b539e06eb7ce18345fbccb53775eba5cfa5b93a88be806c576a1b5da9f4"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/shape_graph.cpp": {
+      "bytes": 6506,
+      "sha256": "8b2c809b02fb457f2401cbf8cf99eaca506e1257045e66a84ad20d7ddb3185ea"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/shape_graph.h": {
+      "bytes": 578,
+      "sha256": "c7ea5c0a5e710dc93a0a8991457b1a636797c74ebac273c758559aefe4cf6d90"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/shape_plan.cpp": {
+      "bytes": 2833,
+      "sha256": "145e634923daf64e372168ce7c171be931c30421a6080e89d85f9ffff56424e3"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/shape_plan.h": {
+      "bytes": 1215,
+      "sha256": "eaaea0d3b331579a3481f38bbc4a2448772b30aa5e0a59db83e3db6405611038"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/tensor_io.cpp": {
+      "bytes": 1697,
+      "sha256": "08215bc76fd32c39607550280d7ffe49ff2c70bf802b80a040167074913311b3"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/tensor_io.h": {
+      "bytes": 364,
+      "sha256": "fa3260c5ca9af8ce87160391bc66910dce84b4c1e8dedd566e666c891968e15a"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/text_encoder.cpp": {
+      "bytes": 12937,
+      "sha256": "b51bfeaecab80ff8846dc3a9d0f739b4fd575168df7a8ec9b4bf967f74a0cc47"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/text_encoder.h": {
+      "bytes": 1848,
+      "sha256": "f1d22f40cb3cb64c493aa9d522072139b5c2b96c47e8831c302dc75eeacbd879"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/tokenizer.cpp": {
+      "bytes": 5732,
+      "sha256": "a5790d4273e53c74c42b4c4f84e885d3985982657bffc60bbf7138217c967dfc"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/tokenizer.h": {
+      "bytes": 1362,
+      "sha256": "d8c7f54200edc9db16a1691f83339f7dd3c1a2ed7c99e5ed5d79d458f8257313"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/vae.cpp": {
+      "bytes": 3708,
+      "sha256": "b6a9796470b74ef8a1445b9e7613b65ab0b3eaa650283913a6d1adc04d14c080"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/vae.h": {
+      "bytes": 923,
+      "sha256": "6ad3aaf579b9f1a106946dfb89b1d45d55f8bcc4ff798f2b5777df0e0db5e357"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/weight_placement.cpp": {
+      "bytes": 4342,
+      "sha256": "1865f0064516e1c983009e04e159a39f2dc9333859cf20a13dac9248bc478f9b"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/weight_placement.h": {
+      "bytes": 2293,
+      "sha256": "fe11f2956b7f9d67b9267c55ca372946512e4d6791f1649ba343191c16f5c9aa"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/weight_session.cpp": {
+      "bytes": 8444,
+      "sha256": "22ffead94f1cbc23e5759f54c2e45ea445307b9fca07ba3ee0e79122e8f14470"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/src/weight_session.h": {
+      "bytes": 3033,
+      "sha256": "ff64b45484da195dd1828d6c6b652948babd9021d9d4ce0059e6b755c2440f51"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/CMakeLists.txt": {
+      "bytes": 12236,
+      "sha256": "fcc5946766f0baae9c60b4ba218ff82411fa15cb3794dc8ebdd614a2e32ed4b5"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/allocation-cli/CMakeLists.txt": {
+      "bytes": 1319,
+      "sha256": "8f9b27a876389902a26f9f8d80b8f5c2e1926f883ea15f5040bdcc51d5eda78f"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/benchmark_fixture.py": {
+      "bytes": 2834,
+      "sha256": "5c63f9f1e630f77b59a46da8b76d6b63343c9f7bd33c115034a4a05fbbb95148"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/fixtures/allocation-cli/gpu.h": {
+      "bytes": 181,
+      "sha256": "723f64ae0dc0b9f01513d1efba6b01e7ad1dc386af6cc38cfaf4099eb7d7760f"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/fixtures/pe-chat-template.jinja": {
+      "bytes": 615,
+      "sha256": "0c859484eecf01db103acd02c332610163ee425cd46866d6cb126ee1bee974ea"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/fixtures/text-down-s2048.param": {
+      "bytes": 4184,
+      "sha256": "ba3ca63efa8c105cd556641e1ced6c6d38ffaae974f903e085d138ed9ff96175"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/fixtures/text-down-s32.param": {
+      "bytes": 4158,
+      "sha256": "912dc8a3f8839cca841004f8c5afb4df5c9d5015d4fedbb4deb77d67a62e2523"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/fixtures/text-down-s64.param": {
+      "bytes": 4158,
+      "sha256": "a9776b2928a87a48395a21de3801678c2e7600096028546d53a7a255deecfce7"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/fixtures/text-s2048.ncnn.param": {
+      "bytes": 4184,
+      "sha256": "ba3ca63efa8c105cd556641e1ced6c6d38ffaae974f903e085d138ed9ff96175"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/fixtures/text-s32.ncnn.param": {
+      "bytes": 4158,
+      "sha256": "912dc8a3f8839cca841004f8c5afb4df5c9d5015d4fedbb4deb77d67a62e2523"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/fixtures/text-s64.ncnn.param": {
+      "bytes": 4158,
+      "sha256": "a9776b2928a87a48395a21de3801678c2e7600096028546d53a7a255deecfce7"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/install/CMakeLists.txt": {
+      "bytes": 580,
+      "sha256": "b8cd8ac0251fb028e09f6e925521471e0913e5b9c43385d1043dd0c160b75153"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/install/main.cpp": {
+      "bytes": 1862,
+      "sha256": "3e1e797784c4c614b40f1035cc6bb5e6367b1f6467aec667d71b1974edb82a53"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_acceptance_manifest.py": {
+      "bytes": 8487,
+      "sha256": "9aa782061f31e12eb265ee493c6d89844ce9697cfadcba3a2813173fbccf3ed9"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_allocation_cli.py": {
+      "bytes": 5553,
+      "sha256": "bd08f56d986145681924f0c752e0ddafd6ae30f1a66e5350b52401d4d625e7c6"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_allocation_cli_driver.cpp": {
+      "bytes": 3319,
+      "sha256": "378a0aadb91dd1d269f288fd26d86c3d1a01a0fa366b981998daabfeab7a18b1"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_allocation_metrics_hook.cpp": {
+      "bytes": 2927,
+      "sha256": "45ec2bf62366f30c37fdc3a327c0287496807daedaf13a25040be4df3e1349f3"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_allocation_metrics_vulkan.cpp": {
+      "bytes": 11729,
+      "sha256": "3a8d52b76b9c36bc349b1515252bd3f4d5c4c5f5ef4bf7c6bffdf48986eafa56"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_allocation_patch.py": {
+      "bytes": 1654,
+      "sha256": "c85d6cc83ca32ad83c9b4100249713b68ac7e6a53026a25cbcb734198d8953bd"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_benchmark_request.py": {
+      "bytes": 8564,
+      "sha256": "5de9e65070a609730a87922050c65d01cf3b628adec4ca48d92576e6a4d15272"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_boundary_pair.py": {
+      "bytes": 1372,
+      "sha256": "c8e1122325a0316d5559886e5a179c8c294271086765e03ec363ad46939751ee"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_build_release.py": {
+      "bytes": 6931,
+      "sha256": "f76d657a10af512f4ea722e482c89ae70e4a8be5845d7d1af2e816746bd84e96"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_check_release.py": {
+      "bytes": 12668,
+      "sha256": "a7ad83afa78d3d9ee8766bb196a97b4cb485bd643b7d85a17546b5cd5d315d80"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_cli.py": {
+      "bytes": 13818,
+      "sha256": "0f7990823d4bb6503b0cc192c0684c6e2551b46554e68ec92a4030bb45a133ce"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_compare_ports.py": {
+      "bytes": 4545,
+      "sha256": "a459e1befc151b1a58e53125b09437696d5e36e97604191ef2d436071421a44f"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_component_files.cpp": {
+      "bytes": 3808,
+      "sha256": "47d06b439be720de13039f4aa57e1db5e0493905353e2286fb0fd13cb69ece9b"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_dit_heads_reference.py": {
+      "bytes": 2480,
+      "sha256": "610a89d669e518da29ed3787a2f2005d64d687fc72e6519181c1bde46054435b"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_dynamic_package.py": {
+      "bytes": 9412,
+      "sha256": "b14c06a80bc050ee0ecfe20b856e8905a6e75a78991722a828ba216a08926e73"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_exact_head_stack.py": {
+      "bytes": 1876,
+      "sha256": "c576afb9f742e7cef62ab6f5ca155a0c9c62f7de5c685a355c5d5cfab7b8d59e"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_execution_metrics.cpp": {
+      "bytes": 6515,
+      "sha256": "454a420d8eb0894b121326503740f6432a071f0fe22141f7e4970a344bf2610b"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_generation_report.cpp": {
+      "bytes": 2751,
+      "sha256": "8d6fbadfbcfca0a695dddcf7600d7a0c64a91880dcd775944ffe7aa0754b627c"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_generation_report.py": {
+      "bytes": 1388,
+      "sha256": "2b2c610f93f6dd3e54eb0fc0a5dc0b25583eb624fdf109a97db06d669b622c80"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_gpu_context.cpp": {
+      "bytes": 3941,
+      "sha256": "334565c31c423801c00e2e4cd21ce5dd28dbed181c4b041aca3c403dcf042c45"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_host_memory.cpp": {
+      "bytes": 8626,
+      "sha256": "e02995f5d1b2cdb2e9b7618f39d0c18f63c4e3a47b465e7610cc793b7ca76da8"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_image_encoder.cpp": {
+      "bytes": 2355,
+      "sha256": "b71b6971d1653d88d178bbc3240aa42a0d41573691db1203e474f202b0019bb8"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_image_io.cpp": {
+      "bytes": 8646,
+      "sha256": "b2cead3f1ac79b2ce34d50d54fd892ec535eeef3999f5055a7ffd9e5f852d6e4"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_img2img_contract.cpp": {
+      "bytes": 4783,
+      "sha256": "36f75c39ed0813271abde38a85001fa89a1492f66c270161a7d30fc22b83779a"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_img2img_encoder.py": {
+      "bytes": 6532,
+      "sha256": "bc28d80540a5af26609c49a27931653c21ae1dee3bb1babab17f99854a6c38da"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_img2img_reference.py": {
+      "bytes": 12272,
+      "sha256": "4ded4e691a501e7fdc9fec7794c642a9192021d4e91e548d1a48031b44761c06"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_install.py": {
+      "bytes": 8183,
+      "sha256": "e16ba8c187f469441a177991f9e0c95e86602cc0b8ac94ae5541107e56e4ea67"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_latent_contract.cpp": {
+      "bytes": 2341,
+      "sha256": "5d2a8c45951b535782e9223d6962185c2f63862e7eaddbc7ebe931d28d91d37e"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_mlp81_analysis.py": {
+      "bytes": 914,
+      "sha256": "105abc2b5ec213d766bdce635b6316f8e5b8529da7708e8382969ddaafdc27fe"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_mlp81_contract.py": {
+      "bytes": 894,
+      "sha256": "5a3f0187b83892771cf4298c862b8512258f8f7ad22861eef1bd7f5edf16499c"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_mlp81_launcher.py": {
+      "bytes": 1289,
+      "sha256": "3b346fb8f8513ed7bc73c17ff0e46500298e27443d3b420d95601d0edae12a21"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_mlp81_scope_launch.py": {
+      "bytes": 805,
+      "sha256": "76ad1e77a3298968c08d191df3334f45b04b7fe3f8c7ba8cd68875837fac0feb"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_model_contract.py": {
+      "bytes": 9533,
+      "sha256": "4e8f96e88314fc2c0b9948c9d0b618f16374f169bc3ed5651d717573444d7d79"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_model_download.py": {
+      "bytes": 6758,
+      "sha256": "4388b91005172e055f9c669bdbe747b9d92fe350add6323be4e03ee00fc5d13a"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_model_loading.cpp": {
+      "bytes": 4523,
+      "sha256": "38546ea1e0e13a5eeed12b434ce4283d6f9f29e5c650fc5b4d84a6de10efab12"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_model_package.cpp": {
+      "bytes": 3662,
+      "sha256": "9d75e50ecdf4f5041e37f5b82c7822cd7578d675904ef54a24d16d624114065c"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_model_reader.cpp": {
+      "bytes": 5830,
+      "sha256": "dbde0865fe029567f436a18c980defdd6b085c691fce13e87b16bc885f191dde"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_native_step_replay.py": {
+      "bytes": 1948,
+      "sha256": "26946e102d7e6a1c4f52569405ebec641084c78fe0a907cf56e8631680231693"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_native_step_sensitivity.py": {
+      "bytes": 1930,
+      "sha256": "44b9f66aba353f1368a0386254a9e40e6344f79444a5b6d71231f7bb8329302d"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_official_block_hooks.py": {
+      "bytes": 1257,
+      "sha256": "ec432d7dfc4df49b47f9eed4b2db141aaf16c9f76f6ef48a0971dad0569f7a8e"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_package.py": {
+      "bytes": 6570,
+      "sha256": "cd81a2abbaed7bd625b9a85746abe2fac9e4ff76625f0cab17178bf82ab20cc5"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_parity_evidence.py": {
+      "bytes": 2580,
+      "sha256": "856952d3ea182be119ff8dffc40838751ecf636ac33444a2e2aa832833cae562"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_pe_batch_contract.py": {
+      "bytes": 3418,
+      "sha256": "4e9e867a792a3ab3848a68803eeb34eb18a51d2015713ce47d6647fcf02d7154"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_pe_package.py": {
+      "bytes": 3805,
+      "sha256": "396eedcf2b071e9278feab7b76d74e832b49a058066c29866dbbccc402b47ec3"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_pe_sampling.cpp": {
+      "bytes": 4488,
+      "sha256": "af55b0a9306085bb9ed99e2c51e4aef1218f5f0b8a059fe5524723c174e9589d"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_pipeline_api.cpp": {
+      "bytes": 3253,
+      "sha256": "4ebba95986be37508d31b9d388c4b734164f4a82e015bede6c9264b445bf8643"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_pipeline_package.py": {
+      "bytes": 5882,
+      "sha256": "48ef202aa12e52cd3c00e2dba5f382c09c96f10b5d6da099a8318c46374780fd"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_pipeline_reference.py": {
+      "bytes": 8936,
+      "sha256": "ea57381e251dae787a5d015f1cfaf28379499d7e2bb1be4ef3f5b256f35d2a46"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_port_adapters.py": {
+      "bytes": 7422,
+      "sha256": "ebe260190d6c99efc87e9c95b739df188aea222896958b26484755852d909ab7"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_port_graph_contract.py": {
+      "bytes": 7267,
+      "sha256": "a0ddcfecdbbd12d1ca232cedbd7833a2d4b197708f6ee5694e3ee1bd07c2e1c2"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_port_metrics.py": {
+      "bytes": 16991,
+      "sha256": "a36ceacbafa377a9d95af890034fca0d4644b2ae5dcd2878b7eb5c115e4a5957"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_port_weight_relations.py": {
+      "bytes": 1685,
+      "sha256": "bd56169320e05c00549ce3ba2a916bec20bc2eee64d3b8f51b7ab985bc602660"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_prompt_file.cpp": {
+      "bytes": 1753,
+      "sha256": "556980a65fefe2c684f48b6b4dc6c9c04c17aac93f3fcfacf69e23db78f02979"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_q2_scope_guard.py": {
+      "bytes": 1689,
+      "sha256": "b0a1693933d0a8b6697c930d53724c457f30d63726f3daf7f47bfee542baf43e"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_q2_upstream_branch.py": {
+      "bytes": 656,
+      "sha256": "29bb65926a2f851e2e53cd543f36009195fea12a58fbbf33584010bb87c89526"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_release_dependencies.py": {
+      "bytes": 4413,
+      "sha256": "c0ee23aed5b3b592805ae98158d061c08acf560a17802e8703a81af0eae9944a"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_release_manifest.py": {
+      "bytes": 2937,
+      "sha256": "d1e880cc5c22ca39001819603f3f5149c2efca9ce0ab7330c7b572b44af36391"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_request_validation.cpp": {
+      "bytes": 3527,
+      "sha256": "ca4a5280c60b45a56314049038683e7d685a81b8126405940cd253055e228c24"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_residual_contract.cpp": {
+      "bytes": 6259,
+      "sha256": "9c3ae936678230b827c255c090d53bc98cba96aa49210779c5cb7895bd3da6a0"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_shape_1376_plan.py": {
+      "bytes": 1912,
+      "sha256": "ccfd7f45906d69680e6d3cdd602fa2605b8c1106d01409c67c5d97651893f898"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_shape_contract_audit.py": {
+      "bytes": 2653,
+      "sha256": "0650fa44533e813cd26a103b674f7adb52966b3b6c6fb8341439e67178426a58"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_shape_graph.cpp": {
+      "bytes": 2469,
+      "sha256": "45c9c35decd583d2fec986459d00d48c7b0e0d2886b5d574b0bb4960cccc274b"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_shape_plan.cpp": {
+      "bytes": 2625,
+      "sha256": "3e9c56104598e25c9109d00d90c9d7f3dfaec45fc8eb4ff9c3f17ec37f16e9ed"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_single_block_teacher.py": {
+      "bytes": 975,
+      "sha256": "4cabd39006152ea1d8f4f08c71841d427b4eabb92ef453ada12568d1bfac966c"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_splitk_screen.py": {
+      "bytes": 602,
+      "sha256": "c0d901717e8f917260b947aee1717090fd8d9ec48a18d6db0d28146b649b39cf"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_splitk_teacher.py": {
+      "bytes": 1039,
+      "sha256": "75a00df72b57c8380fc01033fbe5f595a1fd917d092bf65dbd72d2fecd0708d2"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_text_bucket.py": {
+      "bytes": 1446,
+      "sha256": "445dda8f6c9eaa597e7c57ca8c771349d7b0aea4ebf542c540b7b53ed34074b7"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_text_down.cpp": {
+      "bytes": 6632,
+      "sha256": "c9b0bd8fc1a69a4b1375f9ded32003e57e19e4ce140970acf5b2f49c5906ecda"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_text_stage_report.py": {
+      "bytes": 3997,
+      "sha256": "77178bb695330f50bd85205c509ffda56214715885dd1a6c39af029f7130d13c"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_text_trajectory.py": {
+      "bytes": 1888,
+      "sha256": "55d320c9e874ea099a0c315903b8940abaf61d5834ae04b3019615035f10e7bf"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_time_feature_swap.py": {
+      "bytes": 2877,
+      "sha256": "3a923c22fa7195bb861ea466be17d74aea54a37d1469ff2c9227f8d0f1cb502b"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_trajectory_report.py": {
+      "bytes": 5387,
+      "sha256": "7634c1e11bd357ab8f42cbaad060c30f6bfc267dce5280d88a01a82f616310e3"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_up84_contract.py": {
+      "bytes": 1215,
+      "sha256": "487d430c0317f5ced1583ee41379510d136bbce355538920fec3c2079bc90303"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_vae_cross_report.py": {
+      "bytes": 3594,
+      "sha256": "d7fe7d1e323822c17f4a0936cac36c75887016cfe418c0889981d6b3761e7da2"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_vae_decoder_specialize.py": {
+      "bytes": 1943,
+      "sha256": "95535f033fb253ee1877ff92d43843eb3461a8accf417d76e690041dee6aca11"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_vae_encoder_1024.py": {
+      "bytes": 2486,
+      "sha256": "2ac758eb0560ef2a738c3f1b362b66d0084e1273ff16806082d969b3aaaf3253"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_vae_encoder_specialize.py": {
+      "bytes": 777,
+      "sha256": "1164a9efa3096ccf0818f97ff7b563daf6bde818d8ff698b7eae4257f5294a79"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_vae_reference_scope.py": {
+      "bytes": 7968,
+      "sha256": "82d38f1de783583d4ea45dc10e878a15809fe23ce3d77e32c9ddf41ff65d3cca"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_variant.py": {
+      "bytes": 899,
+      "sha256": "4d9eacbb4d05af4ceb6a4b0a9e2a5cfdfde41f10910fefba8550f86593c18065"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_vulkan_inventory.py": {
+      "bytes": 2765,
+      "sha256": "8055fe772780876493a68a4e7485490ddee527c85201798863e7edd82342db14"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_weight_audit.py": {
+      "bytes": 8907,
+      "sha256": "2f886010bf4382b383217a186f36114471771f2d467d1292851210b3434fa734"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_weight_placement.cpp": {
+      "bytes": 7535,
+      "sha256": "a4ec61f188180dc4133bd1b466bf69f39c09612e28a7b9441d866787a7b4a69b"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tests/test_weight_session.cpp": {
+      "bytes": 11488,
+      "sha256": "7514b34cb39b5a45c995b23f7a0b848e94244d0a219b47ff4563776f75ad33d2"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tokenizer/CMakeLists.txt": {
+      "bytes": 1281,
+      "sha256": "31547db1d2cd6486d747612accbe7972ee1c246dcd43ff03ee001e0e1c48e124"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tokenizer/Cargo.lock": {
+      "bytes": 20367,
+      "sha256": "1f4542e4a7135f5683bdf927ab7d4fcea984405700a73821b9cd4d0cd87473e2"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tokenizer/Cargo.toml": {
+      "bytes": 350,
+      "sha256": "0caaf7b9e9f9b1f0ccc96882c1a784d89bdf58710149eb57fcbdf00f70b6ae07"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tokenizer/schema3_contract.json": {
+      "bytes": 4825,
+      "sha256": "8f3940bda3bef4d90976b4d7fd5c9177b827defc3f25e417995505c59bd64625"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tokenizer/src/lib.rs": {
+      "bytes": 12684,
+      "sha256": "8a7a3c6b7773d52e9d9c3caf22321b00ac4939dde64f37983357d872066b1de8"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tokenizer/src/package.rs": {
+      "bytes": 9892,
+      "sha256": "741c1fce54f4214ec0aa68900f3eeafce3baede3d0dc777807948ea3c5396f6a"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tokenizer/src/shared_package.rs": {
+      "bytes": 23378,
+      "sha256": "8c516b6b989b500ecd06b4214b178dbd43ab978249d5e93f03b4e218f2bf0ca1"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/acceptance_manifest.py": {
+      "bytes": 39081,
+      "sha256": "b49c807c608fa340524908d612104d6ae4bf120909ce27f597b1995a12eaac5f"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/audit_port_relations.py": {
+      "bytes": 12240,
+      "sha256": "91220c0a65b3714a0bc203fd83545b00f57f6eb64957edd2aa22ef5aa18ad9c8"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/audit_port_weights.py": {
+      "bytes": 16915,
+      "sha256": "0c447bf1902d8967cb1ccdf0a0b7c6c27f3c0a93ee4ae5bd5f2e7f54e8001241"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/audit_shape_contract.py": {
+      "bytes": 6848,
+      "sha256": "bdba1e2e5c0ddf295bdfbab43b813c95ceaa95cff2ea6d64fd4be60ae0de8ae7"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/audit_text_selection.py": {
+      "bytes": 3040,
+      "sha256": "01fbe97dc10716d3d0b57f0174532d61ecd0ee42e9a54cbbfae58933b65b5d8a"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/benchmark_pipeline.py": {
+      "bytes": 20342,
+      "sha256": "de15e329a28575d8e23b70edfa3330eeda4ddd3898bef93abb4b729a61dd2ac2"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/benchmark_request.py": {
+      "bytes": 7955,
+      "sha256": "21ab568a213cc17eb657d918c2e53c36d9f6e41f8f61a99b58455e8d13d1bc48"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/build_dit_weights.py": {
+      "bytes": 8690,
+      "sha256": "9a1bd308601051e5d0f780309ed402dd7b00847f9434863070c9671432ed1dac"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/build_pe_model.py": {
+      "bytes": 7538,
+      "sha256": "e780b66cb2ae18b0055a1c7d247959f5e9e40aa49cf921fcade556f8660e04b6"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/build_release.py": {
+      "bytes": 20766,
+      "sha256": "706533447552e875e764659048feba6aed1dd9dbea900a892e8b7aca43a0bb8a"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/build_text_weights.py": {
+      "bytes": 7474,
+      "sha256": "ab6ff40f7a66ffc126ba20f158dab015014ab2d8f31510f51b2958db801aa43a"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/check_release.py": {
+      "bytes": 28836,
+      "sha256": "4f959a945ff7496f03084b59832ae47fda0e7b8235c0a1258667ce47a7de57f3"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/collect_component_evidence.py": {
+      "bytes": 7811,
+      "sha256": "c89c6068ac3f324ab844280d3e8a13e6fa4108bc30e53f4e9d37935e01ff7b12"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/collect_delivery_evidence.py": {
+      "bytes": 21229,
+      "sha256": "fc19e399ef79c3c46a157fb52e1e11e6fac6f84e302324d1de9bc6dc1f223e12"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/collect_parity_evidence.py": {
+      "bytes": 9328,
+      "sha256": "5d6ca4275e2c2f5db4a600938d6a35f47d1dc145d97ad86ce0f4f29fe760e85c"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/collect_pipeline_evidence.py": {
+      "bytes": 7122,
+      "sha256": "f5228714bd492b2034519a0ceec7f291b587d9a8c1010121e5a1f39d5c3d6e92"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/compare_pipeline_cache.py": {
+      "bytes": 4077,
+      "sha256": "f9d68c6658124aa1f582ef7637c050f33702fda082b864a2aa8c8a874c403d59"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/compare_ports.py": {
+      "bytes": 10011,
+      "sha256": "65ad0ca34ee94805015b18f9d1585fe279561999ad4e17e7a8fdf57b7fbbcc23"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/compare_reference_backends.py": {
+      "bytes": 3768,
+      "sha256": "1cd28228ec736ac2d3f2da613915ba8322885a09cbaf8873c86004657ff5bf17"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/convert_dit_blocks.py": {
+      "bytes": 6599,
+      "sha256": "bd818f0c9c85caeba3f379bda08546facb0a0cfd56e705bdeb40c1aa2c1bd0d8"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_block_boundary.cpp": {
+      "bytes": 4013,
+      "sha256": "3f93b2c29f363f47c2421e06191e3840813f789345435a6f9a44e1647043a3a5"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_boundary_pair.py": {
+      "bytes": 1684,
+      "sha256": "82e3132e554579d7bcf57b2edc127993464bd8170b788155eacc215869b6302a"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_dit_stages.py": {
+      "bytes": 8564,
+      "sha256": "404c074ca2c0a5bf8ac38c8c2aad1849b2e3b703c4a7ee8bd824ea11f7e2d150"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_down_splitk.cpp": {
+      "bytes": 3634,
+      "sha256": "761250af22c80161c0291cfa2d548d94d1d58e324ed255b04e3f0772fe14e70e"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_exact_head_stack.py": {
+      "bytes": 9439,
+      "sha256": "f98954eaa224c8d023dbb35046469cca8c4c584aee96ebb3688cc33afc2e550a"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_loader_startup_probe.py": {
+      "bytes": 2178,
+      "sha256": "7953d800b4a1da0c5d81bdda5c1d3eb7742d295bb38a5f6342e1ccbc92ab7562"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_mlp81_analysis.py": {
+      "bytes": 4850,
+      "sha256": "0cc4d61b67f5f87148e01e131e0c16bfee721a3893bc4a8cdaab46b4d413fed5"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_mlp81_boundary.cpp": {
+      "bytes": 4025,
+      "sha256": "9b3762af5658908e4bd99ee94401286487802136b78e4a11baea95d1e5f8d755"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_mlp81_contract.py": {
+      "bytes": 5584,
+      "sha256": "4953f8fe31cc989a2717f82d0986df9632c0058e87e7bef3810ec56d2953aa45"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_mlp81_launch.py": {
+      "bytes": 831,
+      "sha256": "07c879d246e92b12d220cbb88b549504e35179166f9f73a2afb41ed4503b3962"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_mlp81_official.py": {
+      "bytes": 5021,
+      "sha256": "192c2fc84516e12b7c1a420cfcc57aa8197f47cd0847d818da939e2547a1ca56"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_mlp81_official_resume.py": {
+      "bytes": 5049,
+      "sha256": "d370f120313c36410d805820f9c3ced05c5b5532295710d9c2ce3308080ca116"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_mlp81_scope_launch.py": {
+      "bytes": 1657,
+      "sha256": "01002b79ddd0f319b1ef6fef4f3aa5049454c31306e3d1d72248646cf58dcf6f"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_mlp81_sequence.py": {
+      "bytes": 1330,
+      "sha256": "b4e9ee34bc614d2aa48f89e8644782c8f0b837b189b61990c26f93e75a1398d9"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_mlp81_sumcheck.py": {
+      "bytes": 1945,
+      "sha256": "f63d098aa7b9215f6fdad514e069fa014cef63319f280d4d3739e05aacb8ba65"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_mlp_sensitivity_cpu.py": {
+      "bytes": 4616,
+      "sha256": "995e28dfca7fe86437048178f848c1a320e677df07a50fb6d78cb169beb76413"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_native_step_replay.py": {
+      "bytes": 10209,
+      "sha256": "4952f2e316268731181c1ae7407be4a5f5a46df43ac5f7195f6a200c9f8a9832"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_native_step_sensitivity.py": {
+      "bytes": 8387,
+      "sha256": "e3840a4867e060a255f3ebe427c3e3e8877059d5a37e506da534f16a23ae8aa3"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_official_block_hooks.py": {
+      "bytes": 8856,
+      "sha256": "28b44db3c270b52b597a7af6dd4f5d1cbf00c13327726aff44811c9970119785"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_official_hook_analysis.py": {
+      "bytes": 7035,
+      "sha256": "fa0a3b0c439bb10de595d4e80f97cc4ce3bcabb46ec848afab79b79c99c2c711"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_pipeline_step.py": {
+      "bytes": 4855,
+      "sha256": "e545a2bd5dc2e521ba20147140b0c2b9242f78217eb86fb207999ddf2db92877"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_q2_scope_guard.py": {
+      "bytes": 6835,
+      "sha256": "7f1b77a0658d3db904734b4cca1620aa6d83666cf871af93582373a2d4ec347e"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_q2_upstream_branch.py": {
+      "bytes": 4810,
+      "sha256": "60a3b18968381a273c721e8a38b4f7ea46808a2d99eb0bc8510d1603d82ab84c"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_single_block_teacher.py": {
+      "bytes": 6042,
+      "sha256": "7b173db67708b4b070090a177248a258b3e3c70044c49d5ba27ccd11476db655"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_splitk_block.cpp": {
+      "bytes": 4318,
+      "sha256": "81a5a01d22c1bea56bdd6b1a725f06afe2a4959ea97489657a3839cc41cf0771"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_splitk_layer.h": {
+      "bytes": 4625,
+      "sha256": "11ad4625b3d2cfcab92bf6bc04340cccd726e56285047bea3c729d31e3bfb92c"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_splitk_screen.py": {
+      "bytes": 4588,
+      "sha256": "93a1c0c0c6feab1c9ac05bf7a2871fbee8a4ae3e81b32621a2c8b9515feebddf"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_splitk_teacher.py": {
+      "bytes": 5876,
+      "sha256": "4f1cddf03851005c06403b56fe101e200f5f4cf52ebc105631b46be53e875bd7"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_text_stages.py": {
+      "bytes": 22896,
+      "sha256": "be2438fdda67a5accf64bdabf87927d592a923537d37a4024f1b9a3791794ee1"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_text_trajectory.py": {
+      "bytes": 6585,
+      "sha256": "07364cb9464f0d4e0a6bb719d1fd744be72491eb6ec270fbc966e0005420414f"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_time_feature_swap.py": {
+      "bytes": 8053,
+      "sha256": "0184577059e637afa30973250132695b3dfac9af2c41d464931eb40bf84f3020"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_time_features_native.cpp": {
+      "bytes": 1346,
+      "sha256": "a77d38655e701858bac5d14752c1bec7ee366d112e7a69fe06b84ea2258e8b16"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_trajectory.py": {
+      "bytes": 10705,
+      "sha256": "dc8d7fd2131e5dcfb2e45ecae0af952681b246a2ca81802c5e5a98ea7d24da93"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_up84_boundary.cpp": {
+      "bytes": 4013,
+      "sha256": "5bcd8c74fb99828326f61cf7b3f6a97a4ff64f6ea6437bde62b939abb69a0a1c"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_up84_launch.py": {
+      "bytes": 1631,
+      "sha256": "97a53fdc68394445c6903363fc96b3f9859dccee92445b2f2d97b68c8bae8efe"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_up84_official.py": {
+      "bytes": 3357,
+      "sha256": "ba08f5af9914f475bb93b9a011c03be4707ce6e154c4bd67d447c6bd79d0f630"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_up84_scope_guard.py": {
+      "bytes": 7571,
+      "sha256": "90c4fd6d9556e7675806d58fe5634f6f20bc6c6d856fb31ed930cc9b098ad1cc"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_up84_sequence.py": {
+      "bytes": 1305,
+      "sha256": "6c44698d50cb9cab988cb877605683c9660d8b3125b533983add5b5972ffc578"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_vae_cross.py": {
+      "bytes": 14132,
+      "sha256": "564c56f0492f5a9d319e709c8b8d635e5438ec7e92bb53bbd9759400c5b7d92a"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_vulkan_discovery.cpp": {
+      "bytes": 706,
+      "sha256": "2f3e6b6990efde5f29d02767fea3766a81c4c4adc1c33b640a9f0849ed5b3ba7"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_vulkan_discovery.py": {
+      "bytes": 4001,
+      "sha256": "ed2f321e6a68de6fcf9bfb4483bdbfbfbe97c68dd51932d7f780e47fed5cee8f"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/diagnose_vulkan_inventory.py": {
+      "bytes": 8484,
+      "sha256": "593e4b0e01b203847ddb492c2e23d8c9b07e82cdfa2e2e43d7979d840ac2bc5d"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/download_model.py": {
+      "bytes": 7896,
+      "sha256": "9fa023714cff17e1ff51a6625ba0c49c49d1e2ab7a6c8b5ce0cf3068aa490fa9"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/export_dit_block.py": {
+      "bytes": 11065,
+      "sha256": "cc2957037b80cce840a0c09e2646c9290d66e7ce6907d57bc14c18978f49a12d"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/export_dit_heads.py": {
+      "bytes": 10530,
+      "sha256": "06ef95f93d6a3015473e0bd9697e63805140bb9607dd1a4dfa8699fd098286bc"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/export_pe_block.py": {
+      "bytes": 6953,
+      "sha256": "03c46d6697f832dfee5eb307f3efcb6e279c139e9d62b372c81393ad303ee067"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/export_text_block.py": {
+      "bytes": 7798,
+      "sha256": "e6b5c3131b6d121c2bf008e9f3fbf8a6400b97ec5e4f1f24623093e6c0727e31"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/export_vae.py": {
+      "bytes": 5875,
+      "sha256": "8c13d207d5787c847c56df026617eed63adc95fc743cddb8dafa2e9044d7f368"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/export_vae_encoder.py": {
+      "bytes": 9387,
+      "sha256": "457e3d057e8b2dd870a21a0e794cfa56ea695896a279f2d36a1514d13cc4bcb8"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/fetch_component.py": {
+      "bytes": 9623,
+      "sha256": "b08fa7fe4c350edca66a9f4154b623ac7b33653476eed4a3f715cb000b361604"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/fetch_pe_components.py": {
+      "bytes": 2664,
+      "sha256": "580ea883a4f316ee5e01ceb9264c98308f203f476fa9e56c8df879ad45da1f58"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/fetch_pipeline_components.py": {
+      "bytes": 2186,
+      "sha256": "6467b3cc89ec796b12c4d8d4a9024a35f1ccec350dc1f04ec6d0b92a80c69661"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/fetch_tokenizer.py": {
+      "bytes": 1952,
+      "sha256": "9a4e0524182c9f87889c4dcdf408e97eed6257fdf7634be86c8eb743e9ab2aad"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/pack_block_weights.py": {
+      "bytes": 5151,
+      "sha256": "7057668992e3520ef435c697198797905b563897c3f2d1227166b777329259f8"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/package_dynamic_model.py": {
+      "bytes": 14410,
+      "sha256": "9fa3779b89f6f21c5f6db5636dbaea4fb01483d9257d02c472a7cc0abec85aae"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/package_model.py": {
+      "bytes": 9714,
+      "sha256": "779dba5a1649303d9b8cbcdf03991b41b7e4d5980532cfb4a3674c20c320aaed"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/pe_package.py": {
+      "bytes": 2903,
+      "sha256": "2f6e8de9c8c5f8e31b30870b0d3f182a3dae5bca9d6a3abe044dfabe3684b193"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/pipeline_package.py": {
+      "bytes": 4794,
+      "sha256": "dc62a59b17903b71c17df598bcd8fc1f73a97f0242d18e69639efd13970bc5f0"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/pipeline_reference.py": {
+      "bytes": 9005,
+      "sha256": "c0016c0e04e91efad7f38beeb83906981ab77a0927e0baf94a3de8c0e949cd47"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/port_adapters.py": {
+      "bytes": 10065,
+      "sha256": "2471b99d22dee72cc54a814cf2a0a865911cc18774682d213336f06daabd38f6"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/port_graph_contract.py": {
+      "bytes": 14368,
+      "sha256": "203bbc72340e0b17e0011a26238005d1166bd3d052d562366ffd8b545d5fe6af"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/port_metrics.py": {
+      "bytes": 12127,
+      "sha256": "dd631b3dfd6923183b9d8d5f7debeb40988878fd4d97556fc26e3a3b83915aad"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/prepare_block.py": {
+      "bytes": 3994,
+      "sha256": "8efa0964ab40017f9ba346979c8efe6ad50e6a4ac5a2dd961d59e8a59e779ff8"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/prepare_pipeline.py": {
+      "bytes": 5798,
+      "sha256": "49606b905c9426bd98daca007b49cb8905ff8db8ec55a3d8841dc5090f835b95"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/prepare_shape_1376.py": {
+      "bytes": 11044,
+      "sha256": "0dbeec116a5451d17adffb58d992dec682bcfe511d2aa7de8895f356b7615bbf"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/prepare_variant.py": {
+      "bytes": 8468,
+      "sha256": "0cbdba3f711063f137a90925cf522d3b0b13165535ec00f92216bfd487f5438d"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/prompt_io.py": {
+      "bytes": 549,
+      "sha256": "5f6b16abe2939eb28b78b2357b618f09c3cab8f7682c338de3a56fe58af47ca4"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/rebucket_dit.py": {
+      "bytes": 4778,
+      "sha256": "fb5420cb036f7b52d50390ee02ecdaf5835185739eab2f813dc05425031a6ae7"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/rebucket_text.py": {
+      "bytes": 3677,
+      "sha256": "ed548e91c257dbe19dcc0172f47286cbc82e58e0bb31d2b61c05a707b97ae41b"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/reference_img2img.py": {
+      "bytes": 11322,
+      "sha256": "976b63b20c0d0e2513de736bc96e3e0673fc0f30712c949fcb752d6d60baa7d0"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/reference_img2img_large.py": {
+      "bytes": 3533,
+      "sha256": "1f5ac39eb1605e35a3a19735cf18c7159789175e4df3643868e93fdeb09b930a"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/reference_img2img_positive.py": {
+      "bytes": 17872,
+      "sha256": "50dd262c2e3c3aa4ed364a7f9e4cb66c6c17a7189b47f1751885d7c671024116"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/reference_pe.py": {
+      "bytes": 6965,
+      "sha256": "bc35accb928b6a4e47bc97a0337ed6c88788de8712e47e7530f0fce25967aed9"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/reference_vae_encoder_1024.py": {
+      "bytes": 3815,
+      "sha256": "db80d5212fa40db4a321783ad0dd1ee0aaa9e239855e0b06e90eae76634f3043"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/reference_vae_encoder_large.py": {
+      "bytes": 3444,
+      "sha256": "123af820512ef22fcaa2321aa4bf02cb35542d5b8945f0ee22677f104797cac8"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/release_dependencies.py": {
+      "bytes": 14766,
+      "sha256": "77aff6f10445443547e82e056eb18ea2ae548838239fce56107cd65ab7ca9b87"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/release_manifest.py": {
+      "bytes": 4048,
+      "sha256": "09a7ce27578afae4510a30c955e1b0f7bdc82fdd15200f56920e7ae0ede916f1"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/run_block_matrix.py": {
+      "bytes": 2350,
+      "sha256": "323f8691075c2e32b673f5bca0c02ddc29bfb944f9e15bc38d1a50873e986906"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/run_probes.py": {
+      "bytes": 4800,
+      "sha256": "943dcc738520548c7327d37b6ae8eb63694349b8a7b8c10f0ecd0a170b3aa561"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/source_inventory.py": {
+      "bytes": 922,
+      "sha256": "6b884d6d77e78eacada86f58eae9bd01ad548d06cef13cc40a968643a4a9b7b5"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/specialize_vae.py": {
+      "bytes": 4639,
+      "sha256": "f0963ab182b2308e759a068765bd03b5ccf1e29ee101e7a3cae7df6985ff32af"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/specialize_vae_encoder.py": {
+      "bytes": 3980,
+      "sha256": "02378e6e3d3cc50c6fb5bcde1cd596ab54f879bc1345185b62a3dacdb839af81"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/specialize_vae_encoder_1024.py": {
+      "bytes": 1245,
+      "sha256": "aeda9ef2b75bdffa34ae4534dd12c6717a3afc1f3574d00db8bc4aff88f8e467"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/vae_reference_scope.py": {
+      "bytes": 15959,
+      "sha256": "360e7f7c6a76c41d56c1319c956862953e2ab3e02bd35e9d16e101e3ffebba21"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/vae_shape_contract.py": {
+      "bytes": 2068,
+      "sha256": "fe62eecadb6103e2baf6830d95709d4c048c93379787e59e6afc46b9c483ce4b"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/validate_block_sequence.py": {
+      "bytes": 9208,
+      "sha256": "8c097f77a87a287d094c01cdd82a444e93061364cb6c8b9ea3478e861f3dd1ad"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/validate_denoiser.py": {
+      "bytes": 10636,
+      "sha256": "a93c24203f999e421cedec578fea6f9f2ae768d550354afe45b8d18c5b761fc1"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/validate_dit.py": {
+      "bytes": 7503,
+      "sha256": "adf01247218f28c6277c1b949df30382405720346d7c784592df26edb9c2f31c"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/validate_dit_block.py": {
+      "bytes": 7428,
+      "sha256": "e2b2a6c257d1eb4c490d0f34e51de43febe738eaded2d78b5e6d4789710f6cb2"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/validate_dit_heads.py": {
+      "bytes": 5864,
+      "sha256": "d47056504fbca0a758cb6a28f3f50e35e02d807889001dc8de9499e90c455510"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/validate_img2img_encoder.py": {
+      "bytes": 16592,
+      "sha256": "20289e35ecbf95c2cd03da04d95e795d34845c34ae88c7f5c231916d5cc7bf8c"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/validate_img2img_positive_result.py": {
+      "bytes": 12013,
+      "sha256": "413c755b6272473ecb6f03e88e7daf595a1b0c61f6b967da9e1e8da440538f8e"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/validate_latent_ops.py": {
+      "bytes": 9471,
+      "sha256": "e1e0ee6901eb22d919428f96aebfe6f64bfea716f8472d58fa9d224d54ef11ed"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/validate_pe.py": {
+      "bytes": 5311,
+      "sha256": "8caa8ae374162abf596117c2b2c994a113e41aa7931520f7ced87b73fb6f80d1"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/validate_pe_block.py": {
+      "bytes": 2890,
+      "sha256": "5672e726a6352ce1d670c373a6cbf146344827d85ebb29ddc3c877125dfa59a7"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/validate_pe_tokenizer.py": {
+      "bytes": 10291,
+      "sha256": "7e9edd6907e9045b41ca479c850d5b97fcdaaaad7351df8fce52459b00d85230"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/validate_pipeline.py": {
+      "bytes": 28361,
+      "sha256": "28b69f9228e6bfa3a91ca74da93d354ab6fe017d4e4adba972fa3a5561b3a8ed"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/validate_text.py": {
+      "bytes": 8064,
+      "sha256": "9ea45a8f5747615468c29a64f81f3e6d4bd02e60c294efa9369af4ce5ca08362"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/validate_time_features.py": {
+      "bytes": 3669,
+      "sha256": "3b26234d277eb0ee9c1fa577d9ffaaa112b008cd1b34a046e970c1e2c15c2019"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source/tools/validate_tokenizer.py": {
+      "bytes": 6016,
+      "sha256": "90e2feca55db888479ca3d92cb043cb6e3de98dcb5f2b44a81c071228f72f78c"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source-checks.json": {
+      "bytes": 299,
+      "sha256": "47706f92366889026473b09e0824b50bca8511104fa76f4c62927515fdb6d80a"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/source-inventory.json": {
+      "bytes": 49251,
+      "sha256": "ba49f69c14a5106698437a9e2e328726536a862ef212c58dad6d32554d3ff1e5"
+    },
+    "/var/tmp/ernie-compact-reader512-v1/supervisor.py": {
+      "bytes": 8096,
+      "sha256": "7927c76d18978d31663605f4856e5a20764845461bf283e9d05c5ba7f930a756"
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/models/turbo-shared-v2/manifest.json": {
+      "bytes": 52446,
+      "sha256": "21b6bc8deae17418c22257b52e928ee048a372342a2517bcb954276257c21d1a"
+    }
+  },
+  "expected_model": {
+    "schema_version": 3,
+    "source_width": 1024,
+    "source_height": 1024,
+    "text_bucket": 32,
+    "dit_text_tokens": 64
+  },
+  "expected_request": {
+    "device": "vulkan",
+    "precision": "fp32",
+    "vae_device": "cpu",
+    "vae_convolution": "direct",
+    "text_device": "cpu",
+    "text_down_vector": true,
+    "threads": 2,
+    "steps": 8,
+    "seed": 42,
+    "dit_weights": "host",
+    "gpu_reserve_mib": 512,
+    "dit_cache_mib": 0,
+    "ram_reserve_mib": 3072,
+    "model_loading": "stdio",
+    "img2img": false,
+    "resize": "none",
+    "strength": null
+  },
+  "prompt": "A red apple on a wooden table, soft daylight, realistic photo.",
+  "token_ids": [
+    1,
+    1065,
+    4804,
+    46227,
+    1408,
+    1261,
+    32656,
+    4234,
+    1044,
+    6444,
+    85352,
+    1044,
+    43905,
+    16649,
+    1046
+  ],
+  "source_commit": "8158dc153d7bb4a20d2f5cf8d3d2ca764a8db524",
+  "prerequisite": "All sixteen existing memory-grid runs must finish successfully and the master must exit. This preparation does not start a model job."
+}

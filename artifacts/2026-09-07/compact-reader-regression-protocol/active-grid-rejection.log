@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/var/tmp/ernie-compact-reader512-v1/supervisor.py", line 16, in <module>
+    assert progress['status'] == 'complete' and len(progress['finished_trials']) == 16, 'Existing memory comparison has not completed'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Existing memory comparison has not completed

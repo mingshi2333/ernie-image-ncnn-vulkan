@@ -1,0 +1,60 @@
+{
+  "scope": "Prepared frozen regression protocol only; native model execution has not started",
+  "files": [
+    {
+      "path": "active-grid-rejection.log",
+      "bytes": 399,
+      "sha256": "0bfd3efa86fe5d176452397ea28d9f144333c2fb84a588ad40213295fd52c5f7"
+    },
+    {
+      "path": "candidate-identity.json",
+      "bytes": 84722,
+      "sha256": "fa63c7a0129b7b275fa23b598e732c564c8bd8495c96266f49ae93e5a58d29a5"
+    },
+    {
+      "path": "compare.py",
+      "bytes": 4318,
+      "sha256": "1efec6773a2db2582cbc6a98f86121c51fdc0ddee4804cd295d3fc43c141e0c8"
+    },
+    {
+      "path": "isolated-help.log",
+      "bytes": 2002,
+      "sha256": "8d60c1877628f0e67862e223b6fac6fb1410024c9fe33f4d48062b03f92d2447"
+    },
+    {
+      "path": "plan.json",
+      "bytes": 74463,
+      "sha256": "45d43302b30d1e91f2bcfd9eeda6cc79935bd0e59d08c972569e7a59f389fae2"
+    },
+    {
+      "path": "preflight.json",
+      "bytes": 414,
+      "sha256": "d82617688ee76fb604a65ab209d38737d6f15dbf3a9afe6f917bfe9e1a1f4af9"
+    },
+    {
+      "path": "prepare.py",
+      "bytes": 5834,
+      "sha256": "fa8ce80f616a31a1424fa870959982400b1dafcad5a0ad268c85760e2829a5ce"
+    },
+    {
+      "path": "run.py",
+      "bytes": 1146,
+      "sha256": "3adfb392e1676152a882e85378d8b220ecf67b9d6f3d7d051832512edeeef4bb"
+    },
+    {
+      "path": "source-checks.json",
+      "bytes": 299,
+      "sha256": "47706f92366889026473b09e0824b50bca8511104fa76f4c62927515fdb6d80a"
+    },
+    {
+      "path": "source-inventory.json",
+      "bytes": 49251,
+      "sha256": "ba49f69c14a5106698437a9e2e328726536a862ef212c58dad6d32554d3ff1e5"
+    },
+    {
+      "path": "supervisor.py",
+      "bytes": 8096,
+      "sha256": "7927c76d18978d31663605f4856e5a20764845461bf283e9d05c5ba7f930a756"
+    }
+  ]
+}
