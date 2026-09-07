@@ -1,0 +1,172 @@
+[
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/ernie-image.snapshot",
+    "bytes": 36944136,
+    "sha256": "b15ccce8e92962b041df6581926dd7c06f1f75b65b1b2cbb949f927be71ca05a"
+  },
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/native/samples.jsonl",
+    "bytes": 1189724,
+    "sha256": "4ba279efe17641ceb3e32df0f5ef9b7cb0c272dd8d232465699541f2032cee1a"
+  },
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/native/native.png",
+    "bytes": 348636,
+    "sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28"
+  },
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/baseline/native.png",
+    "bytes": 348636,
+    "sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28"
+  },
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/native/trace/constant-0.f32",
+    "bytes": 557056,
+    "sha256": "931dfacc98acd8bc730c3931f81db34a79e3dade18bdfac565115e7b2c488c83"
+  },
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/native/trace/constant-1.f32",
+    "bytes": 557056,
+    "sha256": "d1dcfb4736111e8c013bf865dbb061d463f7944765f697dd0167c1dd9f2b19cb"
+  },
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/native/trace/constant-2.f32",
+    "bytes": 4734976,
+    "sha256": "66a6c9f6ee7e8d7ace003ec68a6ba2730cbab8636834161bdb20930e92e432aa"
+  },
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/native/trace/decoded.f32",
+    "bytes": 3145728,
+    "sha256": "b8cd6903162285b9a0d4242675521f690552a263af048b8e5550b5b464c6c177"
+  },
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/native/trace/final.f32",
+    "bytes": 524288,
+    "sha256": "5bdb8298279f22e92bfdd6a587eabbaba0ff901d563d42d4a72406a372a1cd59"
+  },
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/native/trace/ids.txt",
+    "bytes": 77,
+    "sha256": "306c32c4d1a66c6cd3cfdeb1579b686c63be71387bee9f30e90fbbed3c4fdba9"
+  },
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/native/trace/initial.f32",
+    "bytes": 524288,
+    "sha256": "1c89a002f18b3162b5a43100dc6f50bdd247dd0af8d1944ec87705153819d453"
+  },
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/native/trace/model-loading.txt",
+    "bytes": 69,
+    "sha256": "07a72852c1f0590851b1ce67a78ac587686b0ce945869dc97ca13d5ee942f033"
+  },
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/native/trace/padded-text.f32",
+    "bytes": 786432,
+    "sha256": "5fed4f8e9131c3b0bf5fa7bfab06c5d6f9e9a72524b672cc9cd25a78302f28e5"
+  },
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/native/trace/prediction-0.f32",
+    "bytes": 524288,
+    "sha256": "4b135801468a95b74cfd39821bc04ecbb4fd8230bbe2f7e81bec02158d67a190"
+  },
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/native/trace/prediction-1.f32",
+    "bytes": 524288,
+    "sha256": "bcb2e1ac4f4eb8c0de9c9548e76b33c8a7e774ec4011a142917c0ee66c4e9ca6"
+  },
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/native/trace/prediction-2.f32",
+    "bytes": 524288,
+    "sha256": "796f225a80ba6206c6539c2be028b9f5af14a9042917db3b5dc191a218271435"
+  },
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/native/trace/prediction-3.f32",
+    "bytes": 524288,
+    "sha256": "8bf88e8193a69c91b9a34de242b2c68a1b5350d35b666d309511458c297b7723"
+  },
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/native/trace/prediction-4.f32",
+    "bytes": 524288,
+    "sha256": "5ff5de47efa3e1f2f5b44a84b5586312b0976a198fcbeffd63100a744c1b0ecb"
+  },
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/native/trace/prediction-5.f32",
+    "bytes": 524288,
+    "sha256": "3f028810c0d93dba50ce681dda15b36e9c5fa9479f2778170d50ef31ed6f3c91"
+  },
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/native/trace/prediction-6.f32",
+    "bytes": 524288,
+    "sha256": "fb51698b4f608bfd71aa7af8c89f3294cfc428d5add0b1aca9e275c9391d0e2b"
+  },
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/native/trace/prediction-7.f32",
+    "bytes": 524288,
+    "sha256": "9b76d84a638aa1b4478497bf66560145e331ddfa8c95685ac24384d7ec5f97fc"
+  },
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/native/trace/prompt.txt",
+    "bytes": 62,
+    "sha256": "e631f4e8903437dc03ed25b2186468983bd29d13a59b86b6b5b251bae4ec7ac6"
+  },
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/native/trace/shape.txt",
+    "bytes": 111,
+    "sha256": "f5dc10a9088271e6722aacee9995bd5af2ac35bc0576447aae2b59527b673762"
+  },
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/native/trace/step-0.f32",
+    "bytes": 524288,
+    "sha256": "4f85919e03e3aeb408388d5a13e0e51985a6672b5b13a75c03d4240ab637cc72"
+  },
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/native/trace/step-1.f32",
+    "bytes": 524288,
+    "sha256": "4d663552a69c09d3b2473a1557c2ce2ed27be770b4bcef18e1fda5e856acd3ef"
+  },
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/native/trace/step-2.f32",
+    "bytes": 524288,
+    "sha256": "ffe17b2b58e0b5ea1335189cca0e0457f368929f088651584d60f129a2708a56"
+  },
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/native/trace/step-3.f32",
+    "bytes": 524288,
+    "sha256": "da53a327218ff821e8622e4527736dd7a9cef55787d308780f29d232f2a9477b"
+  },
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/native/trace/step-4.f32",
+    "bytes": 524288,
+    "sha256": "cfcff972545f93e532e2f237de9768ddbf55e6add5d8e74b28219f211a8a5881"
+  },
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/native/trace/step-5.f32",
+    "bytes": 524288,
+    "sha256": "805a2598139ca91ed485eda0fb071454a93f95165dae73c6dd115b2576e1ba10"
+  },
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/native/trace/step-6.f32",
+    "bytes": 524288,
+    "sha256": "3df36b9eda0d99fd9930d75fed7a5e19f0a279218761fe446422e318ff7f61bb"
+  },
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/native/trace/step-7.f32",
+    "bytes": 524288,
+    "sha256": "5bdb8298279f22e92bfdd6a587eabbaba0ff901d563d42d4a72406a372a1cd59"
+  },
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/native/trace/text.f32",
+    "bytes": 184320,
+    "sha256": "71fbeee3376e92644c967374601c8549988cb6b1b8e4640f5ddd1b1d840d8ec2"
+  },
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/native/trace/unpacked.f32",
+    "bytes": 524288,
+    "sha256": "d9a124c7beb381f1327951f0c88f9493e8106dab8f3478aa8d4c7fd225e7bf41"
+  },
+  {
+    "path": "/var/tmp/ernie-compact-reader512-v1/native/trace/weight-placement.txt",
+    "bytes": 70840,
+    "sha256": "2f82f4ae57f3bcf545338d80665bfdbf33c6dba70da947cedf2fc6f07d274a52"
+  }
+]

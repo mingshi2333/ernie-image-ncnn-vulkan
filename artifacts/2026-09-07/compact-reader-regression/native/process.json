@@ -1,0 +1,65 @@
+{
+  "phase": "native",
+  "command": [
+    "systemd-run",
+    "--user",
+    "--scope",
+    "--quiet",
+    "--unit=ernie-compact-reader512-v1-native",
+    "--property=MemoryMax=17179869184",
+    "--property=MemorySwapMax=0",
+    "--property=CPUQuota=200%",
+    "taskset",
+    "-c",
+    "4,6",
+    "/usr/bin/python3",
+    "/var/tmp/ernie-compact-reader512-v1/run.py",
+    "native",
+    "45d43302b30d1e91f2bcfd9eeda6cc79935bd0e59d08c972569e7a59f389fae2"
+  ],
+  "plan_sha256": "45d43302b30d1e91f2bcfd9eeda6cc79935bd0e59d08c972569e7a59f389fae2",
+  "limits": {
+    "memory_max_bytes": 17179869184,
+    "host_available_min_bytes": 3221225472,
+    "gpu_whole_device_max_mib": 6144,
+    "timeout_seconds_per_phase": 1800
+  },
+  "peak_memory_current": 2817376256,
+  "minimum_host_available": 16994439168,
+  "peak_gpu_whole_device_mib": 2308,
+  "complete": true,
+  "cgroup_seen": true,
+  "observed_limits": {
+    "memory.max": "17179869184",
+    "memory.swap.max": "0",
+    "cpu.max": "200000 100000"
+  },
+  "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+  "peak_sampled_native_memory": {
+    "VmHWM": 2085281792,
+    "VmRSS": 2085265408,
+    "RssAnon": 1881075712,
+    "RssFile": 210976768,
+    "RssShmem": 8192,
+    "VmSwap": 0
+  },
+  "peak_cgroup_memory_stat": {
+    "anon": 1888854016,
+    "file": 2740989952,
+    "inactive_file": 2725355520,
+    "active_file": 40235008,
+    "file_mapped": 14966784,
+    "file_dirty": 8564736,
+    "file_writeback": 0,
+    "shmem": 16384,
+    "unevictable": 0,
+    "slab_reclaimable": 6567528
+  },
+  "return_code": 0,
+  "observed_model_mappings": {},
+  "observed_native_pids": [
+    3102831
+  ],
+  "mapping_sample_seconds": 0.5,
+  "wall_seconds": 443.70878504699795
+}

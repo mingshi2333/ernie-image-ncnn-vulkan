@@ -1,0 +1,17 @@
+{
+  "scope": "Root validates frozen comparator result and terminal process state; no additional model run or second-agent review",
+  "passed": true,
+  "total_elements": 4981760,
+  "float_tensors": 25,
+  "trace_files": 30,
+  "all_tensors_finite_and_bitwise_equal": true,
+  "png_sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+  "native_process_exited": true,
+  "cgroup_removed": true,
+  "sampled_native_vmhwm_bytes": 2085281792,
+  "cgroup_peak_including_file_cache_bytes": 2817376256,
+  "whole_gpu_sampled_peak_mib": 2308,
+  "wall_seconds_supervisor": 443.70878504699795,
+  "formal_memory_or_speed_acceptance": false,
+  "default_change": null
+}

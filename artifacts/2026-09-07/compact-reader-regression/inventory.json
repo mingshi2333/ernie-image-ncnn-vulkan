@@ -1,0 +1,65 @@
+{
+  "files": [
+    {
+      "path": "compare.py",
+      "bytes": 4318,
+      "sha256": "1efec6773a2db2582cbc6a98f86121c51fdc0ddee4804cd295d3fc43c141e0c8"
+    },
+    {
+      "path": "comparison.json",
+      "bytes": 11475,
+      "sha256": "0e7d4a798b836397fd61be02bed11bd75c66a57bf8d784480d10b832d137fb4e"
+    },
+    {
+      "path": "native/command-0.log",
+      "bytes": 39969,
+      "sha256": "feb42a680886f7a08c9fbb40faf2f1d8169a19779fc0b96c5c16f99a4afe35cf"
+    },
+    {
+      "path": "native/generation.json",
+      "bytes": 2247,
+      "sha256": "a34996fa8cd17df4b24ef6d2ce2ca538fda289a52c5c43befde11af4861a2012"
+    },
+    {
+      "path": "native/process.json",
+      "bytes": 1745,
+      "sha256": "7d00f9020a5380a1b9fef594f5f2947f310bd157f5ae2263a25996851ca4a2d5"
+    },
+    {
+      "path": "native/runner.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "native/worker-result.json",
+      "bytes": 1893,
+      "sha256": "df128c37e26325e8b06cd94c6b721767e894f754553a97271e93b9914a1c71fe"
+    },
+    {
+      "path": "plan.json",
+      "bytes": 74463,
+      "sha256": "45d43302b30d1e91f2bcfd9eeda6cc79935bd0e59d08c972569e7a59f389fae2"
+    },
+    {
+      "path": "retained-local-files.json",
+      "bytes": 6379,
+      "sha256": "9719b86940e5862320f44409704d719911804d14d485ad55725438517a06bc37"
+    },
+    {
+      "path": "root-review.json",
+      "bytes": 673,
+      "sha256": "83c59c3c6f8a12b3a06d44ed60ed60becb9cd62b68303905decbfd3f8ab9a206"
+    },
+    {
+      "path": "run.py",
+      "bytes": 1146,
+      "sha256": "3adfb392e1676152a882e85378d8b220ecf67b9d6f3d7d051832512edeeef4bb"
+    },
+    {
+      "path": "supervisor.py",
+      "bytes": 8096,
+      "sha256": "7927c76d18978d31663605f4856e5a20764845461bf283e9d05c5ba7f930a756"
+    }
+  ],
+  "scope": "Small records; README and inventory excluded"
+}
