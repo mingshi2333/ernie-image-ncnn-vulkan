@@ -5,6 +5,12 @@ on:
     branches: [main, 'codex/surpass-reference']
   pull_request:
   workflow_dispatch:
+    inputs:
+      platform:
+        description: Platform to validate
+        type: choice
+        options: [all, linux, windows, macos]
+        default: all
 
 permissions:
   contents: read
@@ -15,11 +21,12 @@ env:
   RUSTUP_TOOLCHAIN: '1.98.0'
 
 concurrency:
-  group: build-${{ github.ref }}
+  group: build-${{ github.ref }}-${{ inputs.platform || 'all' }}
   cancel-in-progress: true
 
 jobs:
   linux:
+    if: ${{ !inputs.platform || inputs.platform == 'all' || inputs.platform == 'linux' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 35
     strategy:
@@ -75,6 +82,7 @@ jobs:
           retention-days: 14
 
   windows:
+    if: ${{ !inputs.platform || inputs.platform == 'all' || inputs.platform == 'windows' }}
     runs-on: windows-2025
     timeout-minutes: 45
     steps:
@@ -126,6 +134,7 @@ jobs:
           retention-days: 14
 
   macos:
+    if: ${{ !inputs.platform || inputs.platform == 'all' || inputs.platform == 'macos' }}
     runs-on: macos-15
     timeout-minutes: 45
     steps:
@@ -135,15 +144,18 @@ jobs:
           persist-credentials: false
       - name: Install native dependencies
         run: |
-          brew install ninja libpng molten-vk
+          brew install ninja libpng vulkan-loader molten-vk
           rustup toolchain install 1.98.0 --profile minimal --no-self-update
-          echo "DYLD_LIBRARY_PATH=$(brew --prefix molten-vk)/lib" >> "$GITHUB_ENV"
+          echo "VK_DRIVER_FILES=$(brew --prefix molten-vk)/etc/vulkan/icd.d/MoltenVK_icd.json" >> "$GITHUB_ENV"
+          # Apple Paravirtual crashes in the Metal placement-heap texture path.
+          # Exercise ordinary Metal allocation on this VM; no kernels are skipped.
+          echo "MVK_CONFIG_USE_MTLHEAP=0" >> "$GITHUB_ENV"
           rustc --version
           clang++ --version
       - name: Configure Apple Clang and native tokenizer
         run: >-
           cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
-          -DERNIE_ENABLE_VULKAN=ON -DNCNN_SIMPLEVK=ON -DNCNN_SYSTEM_GLSLANG=OFF
+          -DERNIE_ENABLE_VULKAN=ON -DNCNN_SIMPLEVK=OFF -DNCNN_SYSTEM_GLSLANG=OFF
           -DERNIE_BUILD_TOKENIZER=ON -DERNIE_BUILD_GENERATOR=ON -DERNIE_INSTALL_SDK=ON
           -DNCNN_INT8=OFF -DNCNN_WEIGHT_QUANT=OFF
       - name: Build native macOS executable and SDK

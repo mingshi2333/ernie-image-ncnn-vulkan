@@ -18,6 +18,11 @@ set(NCNN_BUILD_TOOLS OFF CACHE BOOL "" FORCE)
 set(NCNN_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(NCNN_BUILD_BENCHMARK OFF CACHE BOOL "" FORCE)
 set(NCNN_INSTALL_SDK ${ERNIE_INSTALL_SDK} CACHE BOOL "" FORCE)
+if(APPLE AND ERNIE_ENABLE_VULKAN)
+    # Use the installed loader on macOS. The pinned simplevk fallback exports a
+    # source-tree .tbd path and direct MoltenVK bypasses loader ICD selection.
+    option(NCNN_SIMPLEVK "minimal in-house vulkan loader" OFF)
+endif()
 if(ERNIE_INSTALL_SDK)
     if(ERNIE_ENABLE_ALLOCATION_METRICS)
         message(FATAL_ERROR "Use a separate non-instrumented build for ERNIE_INSTALL_SDK")
