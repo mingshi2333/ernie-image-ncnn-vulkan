@@ -1,0 +1,23 @@
+	Command being timed: "/var/tmp/ernie-memory-grid512-v1/14-measured-mapped-cache/native/benchmark/ernie-image.snapshot --model /var/tmp/ernie-memory-grid512-v1/14-measured-mapped-cache/model --prompt-file /var/tmp/ernie-memory-grid512-v1/14-measured-mapped-cache/native/benchmark/prompt.txt --output /var/tmp/ernie-memory-grid512-v1/14-measured-mapped-cache/native/benchmark/native.png --seed 42 --steps 8 --device vulkan --precision fp32 --vae-device cpu --vae-convolution direct --width 512 --height 512 --threads 2 --text-device cpu --dit-weights host --gpu-reserve-mib 512 --dit-cache-mib 6144 --ram-reserve-mib 3072 --model-loading mapped --report-json /var/tmp/ernie-memory-grid512-v1/14-measured-mapped-cache/native/benchmark/generation.json --gpu 0 --text-down-vector --latent /var/tmp/ernie-memory-grid512-v1/14-measured-mapped-cache/native/benchmark/initial.f32"
+	User time (seconds): 98.18
+	System time (seconds): 229.57
+	Percent of CPU this job got: 83%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 6:33.30
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 9494340
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2515
+	Minor (reclaiming a frame) page faults: 115169074
+	Voluntary context switches: 83003
+	Involuntary context switches: 47454
+	Swaps: 0
+	File system inputs: 187040328
+	File system outputs: 5312
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

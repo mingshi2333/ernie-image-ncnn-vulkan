@@ -1,0 +1,39 @@
+{
+  "scope": "Root arithmetic recheck from the completed records; not another reviewer or formal peer comparison",
+  "summary": {
+    "stdio-off": {
+      "seconds_median": 500.252387262,
+      "rss_gib_median": 1.8236808776855469,
+      "cgroup_gib_max_including_file_cache": 12.962448120117188
+    },
+    "stdio-cache": {
+      "seconds_median": 465.762091154,
+      "rss_gib_median": 6.276165008544922,
+      "cgroup_gib_max_including_file_cache": 14.25576400756836
+    },
+    "mapped-off": {
+      "seconds_median": 395.930744781,
+      "rss_gib_median": 1.9469490051269531,
+      "cgroup_gib_max_including_file_cache": 16.0
+    },
+    "mapped-cache": {
+      "seconds_median": 393.329858669,
+      "rss_gib_median": 9.102264404296875,
+      "cgroup_gib_max_including_file_cache": 16.00017547607422
+    }
+  },
+  "all16_png_exact": true,
+  "all16_oom_and_kill_zero": true,
+  "all16_native_vmswap_samples_zero": true,
+  "all16_whole_gpu_peak_range_mib": [
+    2284,
+    2391
+  ],
+  "paired_elapsed_reduction_percent": {
+    "stdio-off/mapped-off": 20.853802028207625,
+    "stdio-cache/mapped-cache": 15.449205750656425,
+    "stdio-off/stdio-cache": 6.096442994878693,
+    "mapped-off/mapped-cache": 0.8484781728111068
+  },
+  "default_changes": null
+}

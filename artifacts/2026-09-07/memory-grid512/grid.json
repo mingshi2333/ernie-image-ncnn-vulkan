@@ -1,0 +1,225 @@
+{
+  "schema_version": 1,
+  "scope": "Four-setting within-project repeated 512 development comparison; not the formal peer S/M or quality protocol.",
+  "source_commit": "b6b80d32c19f0c31b97ab31b2010e32d0bf9c8af",
+  "created_utc": "2026-09-07T06:11:51.419568+00:00",
+  "random_seed": 20260907,
+  "order_method": "Seeded shuffle for warmups, followed by three cyclic rotations for measured rounds; fresh process every trial.",
+  "binary_sha256": "ff2f934f317a602f3d098bf6d74cd7c2e2a6de725ed8fcf04d8d1e2bcbaa3e1c",
+  "noise_sha256": "1c89a002f18b3162b5a43100dc6f50bdd247dd0af8d1944ec87705153819d453",
+  "image_sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+  "package_manifest_sha256": "21b6bc8deae17418c22257b52e928ee048a372342a2517bcb954276257c21d1a",
+  "prompt": "A red apple on a wooden table, soft daylight, realistic photo.",
+  "prompt_sha256": "e631f4e8903437dc03ed25b2186468983bd29d13a59b86b6b5b251bae4ec7ac6",
+  "token_ids": [
+    1,
+    1065,
+    4804,
+    46227,
+    1408,
+    1261,
+    32656,
+    4234,
+    1044,
+    6444,
+    85352,
+    1044,
+    43905,
+    16649,
+    1046
+  ],
+  "common_settings": {
+    "device": "vulkan",
+    "precision": "fp32",
+    "vae_device": "cpu",
+    "vae_convolution": "direct",
+    "text_device": "cpu",
+    "text_down_vector": true,
+    "threads": 2,
+    "steps": 8,
+    "seed": 42,
+    "dit_weights": "host",
+    "gpu_reserve_mib": 512,
+    "ram_reserve_mib": 3072,
+    "img2img": false,
+    "resize": "none",
+    "strength": null
+  },
+  "configurations": {
+    "stdio-off": {
+      "model_loading": "stdio",
+      "dit_cache_mib": 0
+    },
+    "stdio-cache": {
+      "model_loading": "stdio",
+      "dit_cache_mib": 6144
+    },
+    "mapped-off": {
+      "model_loading": "mapped",
+      "dit_cache_mib": 0
+    },
+    "mapped-cache": {
+      "model_loading": "mapped",
+      "dit_cache_mib": 6144
+    }
+  },
+  "trials": [
+    {
+      "id": "00-warmup-mapped-off",
+      "phase": "warmup",
+      "repeat": -1,
+      "config": "mapped-off",
+      "order": 0,
+      "plan_sha256": "3ad16f9146144b30c1003972cbebd96449e2fb5b9b7b58e61f9efa7cd83206ed"
+    },
+    {
+      "id": "01-warmup-mapped-cache",
+      "phase": "warmup",
+      "repeat": -1,
+      "config": "mapped-cache",
+      "order": 1,
+      "plan_sha256": "a0b24dc23e4782265b4a6d02e9ea7da20bfa1f07fc0e9b5669b3d27f008b76f2"
+    },
+    {
+      "id": "02-warmup-stdio-off",
+      "phase": "warmup",
+      "repeat": -1,
+      "config": "stdio-off",
+      "order": 2,
+      "plan_sha256": "f644ac433e634a2bd75c96e170704715985cb7dab3f5dbe8edfa0946ed81b4e5"
+    },
+    {
+      "id": "03-warmup-stdio-cache",
+      "phase": "warmup",
+      "repeat": -1,
+      "config": "stdio-cache",
+      "order": 3,
+      "plan_sha256": "892e0e69b78b28b7f7a4f2a8e297d0e3656b5159aa4e8e522bbb0921068eda26"
+    },
+    {
+      "id": "04-measured-mapped-cache",
+      "phase": "measured",
+      "repeat": 0,
+      "config": "mapped-cache",
+      "order": 4,
+      "plan_sha256": "e5cb9c3e0602a7431a7fc3f5db7ac643c3c610459d0627e07d121d79a3321dc4"
+    },
+    {
+      "id": "05-measured-stdio-off",
+      "phase": "measured",
+      "repeat": 0,
+      "config": "stdio-off",
+      "order": 5,
+      "plan_sha256": "5ab57ff0654d11546b8f2dffe5a246af747d2c3d888b0b569291a9c8a0f7cd80"
+    },
+    {
+      "id": "06-measured-stdio-cache",
+      "phase": "measured",
+      "repeat": 0,
+      "config": "stdio-cache",
+      "order": 6,
+      "plan_sha256": "2c12b894ed5428c9a0b28601fa688070366e4bfe4c94e6b6189573caa01077fc"
+    },
+    {
+      "id": "07-measured-mapped-off",
+      "phase": "measured",
+      "repeat": 0,
+      "config": "mapped-off",
+      "order": 7,
+      "plan_sha256": "0e434e10c9d9339100b4b61caa8e241033a61c3168066e4a406bac4740b62d03"
+    },
+    {
+      "id": "08-measured-stdio-off",
+      "phase": "measured",
+      "repeat": 1,
+      "config": "stdio-off",
+      "order": 8,
+      "plan_sha256": "923058bf68a5a30fc1ea308ab955456e803bda0f28331f1427ce680aebfec008"
+    },
+    {
+      "id": "09-measured-stdio-cache",
+      "phase": "measured",
+      "repeat": 1,
+      "config": "stdio-cache",
+      "order": 9,
+      "plan_sha256": "a131586ad2abe761c07292bbc07ce930443f58f1b57ddcb87de30440c36accdb"
+    },
+    {
+      "id": "10-measured-mapped-off",
+      "phase": "measured",
+      "repeat": 1,
+      "config": "mapped-off",
+      "order": 10,
+      "plan_sha256": "6ed9238bcbcb9783387fdb998ee5dba5cf3c9f6972bfcca1fb7026a08ae10d35"
+    },
+    {
+      "id": "11-measured-mapped-cache",
+      "phase": "measured",
+      "repeat": 1,
+      "config": "mapped-cache",
+      "order": 11,
+      "plan_sha256": "5d7b5a814dd5771f6c5aefb56cef6df9d8b5a16687df5fa63d08458b42d971f4"
+    },
+    {
+      "id": "12-measured-stdio-cache",
+      "phase": "measured",
+      "repeat": 2,
+      "config": "stdio-cache",
+      "order": 12,
+      "plan_sha256": "6acca0f2175e2cb73ef358dbb703c71c503f236ba34583e2bcb28dfe728baec9"
+    },
+    {
+      "id": "13-measured-mapped-off",
+      "phase": "measured",
+      "repeat": 2,
+      "config": "mapped-off",
+      "order": 13,
+      "plan_sha256": "7856d5b996ab3e4ec9f4a594a6dd2a22b8e9cec660955a07482ce1c50284f3a8"
+    },
+    {
+      "id": "14-measured-mapped-cache",
+      "phase": "measured",
+      "repeat": 2,
+      "config": "mapped-cache",
+      "order": 14,
+      "plan_sha256": "596f1639d569c2fda12c9a832d7a624786fc58f918046a1cd5d05d6aca88d578"
+    },
+    {
+      "id": "15-measured-stdio-off",
+      "phase": "measured",
+      "repeat": 2,
+      "config": "stdio-off",
+      "order": 15,
+      "plan_sha256": "a2fa77b4c7f177f3f1422abcefb01aa5b2c73e32fbbb2e372885d3e5215f5b45"
+    }
+  ],
+  "resource_limits": {
+    "memory_max_bytes": 17179869184,
+    "host_available_min_bytes": 3221225472,
+    "gpu_whole_device_max_mib": 6144,
+    "timeout_seconds_per_phase": 1800
+  },
+  "bindings_sha256": "de84771b8a5c041647726b06bec5b0509272ad836a7b51c09b3d5b6e2bae84d5",
+  "comparisons": [
+    [
+      "stdio-off",
+      "mapped-off"
+    ],
+    [
+      "stdio-cache",
+      "mapped-cache"
+    ],
+    [
+      "stdio-off",
+      "stdio-cache"
+    ],
+    [
+      "mapped-off",
+      "mapped-cache"
+    ]
+  ],
+  "acceptance": "Every planned run must exit successfully with the frozen identities, exact native request, trace/instrumentation OFF, completed eight steps and byte-exact baseline PNG. Preserve any failure and stop without retry or default promotion. Aggregate only after all sixteen pass.",
+  "measurement_scope": "Native process launch through exit, including native verification, image/report close. Python verifies all files before timing, warming file cache without controlling it. Fresh process and shader-cache directory each trial. No cold-cache or desktop-isolation claim. RSS, whole-device sampled GPU, cgroup including file-cache pressure are distinct; no allocator-complete VRAM claim.",
+  "decision_scope": "Three measured runs per configuration; report medians and within-round ratios, cache hits/evictions and file-cache pressure. No significance or broad default recommendation from this single development fixture.",
+  "placement_scope": "All runs explicitly request RAM weights. This compares loading/cache, not auto placement, actual GPU OOM, activation spilling, or failure recovery."
+}

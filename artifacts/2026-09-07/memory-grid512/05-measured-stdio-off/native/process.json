@@ -1,0 +1,65 @@
+{
+  "phase": "native",
+  "command": [
+    "systemd-run",
+    "--user",
+    "--scope",
+    "--quiet",
+    "--unit=ernie-memory-grid512-v1-05-native",
+    "--property=MemoryMax=17179869184",
+    "--property=MemorySwapMax=0",
+    "--property=CPUQuota=200%",
+    "taskset",
+    "-c",
+    "4,6",
+    "/usr/bin/python3",
+    "/var/tmp/ernie-memory-grid512-v1/05-measured-stdio-off/run.py",
+    "native",
+    "5ab57ff0654d11546b8f2dffe5a246af747d2c3d888b0b569291a9c8a0f7cd80"
+  ],
+  "plan_sha256": "5ab57ff0654d11546b8f2dffe5a246af747d2c3d888b0b569291a9c8a0f7cd80",
+  "limits": {
+    "memory_max_bytes": 17179869184,
+    "host_available_min_bytes": 3221225472,
+    "gpu_whole_device_max_mib": 6144,
+    "timeout_seconds_per_phase": 1800
+  },
+  "peak_memory_current": 8641638400,
+  "minimum_host_available": 16574652416,
+  "peak_gpu_whole_device_mib": 2358,
+  "complete": true,
+  "cgroup_seen": true,
+  "observed_limits": {
+    "memory.max": "17179869184",
+    "memory.swap.max": "0",
+    "cpu.max": "200000 100000"
+  },
+  "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+  "peak_cgroup_memory_stat": {
+    "anon": 1922727936,
+    "file": 8493166592,
+    "inactive_file": 8199856128,
+    "active_file": 630337536,
+    "file_mapped": 142708736,
+    "file_dirty": 1941504,
+    "file_writeback": 0,
+    "shmem": 16384,
+    "unevictable": 0,
+    "slab_reclaimable": 20790144
+  },
+  "peak_sampled_native_memory": {
+    "VmHWM": 2083897344,
+    "VmRSS": 2083897344,
+    "RssAnon": 1882099712,
+    "RssFile": 208584704,
+    "RssShmem": 8192,
+    "VmSwap": 0
+  },
+  "return_code": 0,
+  "observed_model_mappings": {},
+  "observed_native_pids": [
+    2981016
+  ],
+  "mapping_sample_seconds": 0.5,
+  "wall_seconds": 517.1249390179873
+}

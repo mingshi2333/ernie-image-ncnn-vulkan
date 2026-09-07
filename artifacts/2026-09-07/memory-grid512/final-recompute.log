@@ -1,0 +1,216 @@
+{
+  "schema_version": 1,
+  "scope": "Four-setting within-project repeated 512 development comparison; not the formal peer S/M or quality protocol.",
+  "status": "complete",
+  "expected_runs": 16,
+  "completed_runs": 16,
+  "failed_runs": 0,
+  "configuration_summaries": {
+    "stdio-off": {
+      "runs": 3,
+      "wall_seconds": [
+        501.012964423,
+        494.908953773,
+        500.252387262
+      ],
+      "median_wall_seconds": 500.252387262,
+      "minimum_wall_seconds": 494.908953773,
+      "maximum_wall_seconds": 501.012964423,
+      "median_rss_kib": 1912268,
+      "maximum_rss_kib": 2034900,
+      "maximum_cgroup_bytes": 13918322688,
+      "cache_hits": [
+        0,
+        0,
+        0
+      ],
+      "pressure_evictions": [
+        0,
+        0,
+        0
+      ],
+      "max_events": [
+        0,
+        0,
+        0
+      ]
+    },
+    "stdio-cache": {
+      "runs": 3,
+      "wall_seconds": [
+        470.46899465,
+        465.762091154,
+        465.199484122
+      ],
+      "median_wall_seconds": 465.762091154,
+      "minimum_wall_seconds": 465.199484122,
+      "maximum_wall_seconds": 470.46899465,
+      "median_rss_kib": 6581036,
+      "maximum_rss_kib": 6588020,
+      "maximum_cgroup_bytes": 15307010048,
+      "cache_hits": [
+        42,
+        42,
+        42
+      ],
+      "pressure_evictions": [
+        0,
+        0,
+        0
+      ],
+      "max_events": [
+        0,
+        0,
+        0
+      ]
+    },
+    "mapped-off": {
+      "runs": 3,
+      "wall_seconds": [
+        392.991303834,
+        398.020033304,
+        395.930744781
+      ],
+      "median_wall_seconds": 395.930744781,
+      "minimum_wall_seconds": 392.991303834,
+      "maximum_wall_seconds": 398.020033304,
+      "median_rss_kib": 2041524,
+      "maximum_rss_kib": 2070236,
+      "maximum_cgroup_bytes": 17179869184,
+      "cache_hits": [
+        0,
+        0,
+        0
+      ],
+      "pressure_evictions": [
+        0,
+        0,
+        0
+      ],
+      "max_events": [
+        53353,
+        58453,
+        14067
+      ]
+    },
+    "mapped-cache": {
+      "runs": 3,
+      "wall_seconds": [
+        388.353631994,
+        394.642920198,
+        393.329858669
+      ],
+      "median_wall_seconds": 393.329858669,
+      "minimum_wall_seconds": 388.353631994,
+      "maximum_wall_seconds": 394.642920198,
+      "median_rss_kib": 9544416,
+      "maximum_rss_kib": 9558636,
+      "maximum_cgroup_bytes": 17180057600,
+      "cache_hits": [
+        42,
+        42,
+        42
+      ],
+      "pressure_evictions": [
+        0,
+        0,
+        0
+      ],
+      "max_events": [
+        347539,
+        367568,
+        325766
+      ]
+    }
+  },
+  "paired_development_ratios": {
+    "stdio-off/mapped-off": {
+      "pairs": [
+        {
+          "repeat": 0,
+          "left_over_right_wall_ratio": 1.2748703585426626,
+          "left_over_right_rss_ratio": 0.998865115658066
+        },
+        {
+          "repeat": 1,
+          "left_over_right_wall_ratio": 1.2434272457713156,
+          "left_over_right_rss_ratio": 0.9090519148541519
+        },
+        {
+          "repeat": 2,
+          "left_over_right_wall_ratio": 1.2634845711178684,
+          "left_over_right_rss_ratio": 0.9366865145842028
+        }
+      ],
+      "median_wall_ratio": 1.2634845711178684,
+      "median_rss_ratio": 0.9366865145842028
+    },
+    "stdio-cache/mapped-cache": {
+      "pairs": [
+        {
+          "repeat": 0,
+          "left_over_right_wall_ratio": 1.2114448170199388,
+          "left_over_right_rss_ratio": 0.6892217676245858
+        },
+        {
+          "repeat": 1,
+          "left_over_right_wall_ratio": 1.180211445121879,
+          "left_over_right_rss_ratio": 0.6890231942949678
+        },
+        {
+          "repeat": 2,
+          "left_over_right_wall_ratio": 1.1827210008825715,
+          "left_over_right_rss_ratio": 0.6931536052005721
+        }
+      ],
+      "median_wall_ratio": 1.1827210008825715,
+      "median_rss_ratio": 0.6892217676245858
+    },
+    "stdio-off/stdio-cache": {
+      "pairs": [
+        {
+          "repeat": 0,
+          "left_over_right_wall_ratio": 1.0649223862153188,
+          "left_over_right_rss_ratio": 0.30887884371935725
+        },
+        {
+          "repeat": 1,
+          "left_over_right_wall_ratio": 1.0625788641295044,
+          "left_over_right_rss_ratio": 0.2861708151848966
+        },
+        {
+          "repeat": 2,
+          "left_over_right_wall_ratio": 1.0753502622776066,
+          "left_over_right_rss_ratio": 0.29057248737128927
+        }
+      ],
+      "median_wall_ratio": 1.0649223862153188,
+      "median_rss_ratio": 0.29057248737128927
+    },
+    "mapped-off/mapped-cache": {
+      "pairs": [
+        {
+          "repeat": 0,
+          "left_over_right_wall_ratio": 1.0119418783756131,
+          "left_over_right_rss_ratio": 0.21312789816454983
+        },
+        {
+          "repeat": 1,
+          "left_over_right_wall_ratio": 1.0085573893085567,
+          "left_over_right_rss_ratio": 0.21690546598136545
+        },
+        {
+          "repeat": 2,
+          "left_over_right_wall_ratio": 1.0066124807325871,
+          "left_over_right_rss_ratio": 0.21502537301171012
+        }
+      ],
+      "median_wall_ratio": 1.0085573893085567,
+      "median_rss_ratio": 0.21502537301171012
+    }
+  },
+  "formal_peer_speed_complete": false,
+  "formal_memory_complete": false,
+  "full_quality_complete": false,
+  "recommended_default_change": null
+}

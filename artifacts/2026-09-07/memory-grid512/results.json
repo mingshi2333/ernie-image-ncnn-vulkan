@@ -1,0 +1,986 @@
+{
+  "schema_version": 1,
+  "scope": "Four-setting within-project repeated 512 development comparison; not the formal peer S/M or quality protocol.",
+  "status": "complete",
+  "expected_runs": 16,
+  "completed_runs": 16,
+  "failed_runs": 0,
+  "records": [
+    {
+      "id": "00-warmup-mapped-off",
+      "phase": "warmup",
+      "repeat": -1,
+      "config": "mapped-off",
+      "order": 0,
+      "status": "ok",
+      "wall_seconds": 376.358691061,
+      "native_seconds": 375.719923677,
+      "supervisor_seconds": 392.3032673840062,
+      "max_rss_kib": 2020568,
+      "whole_gpu_sampled_peak_mib": 2346,
+      "cgroup_peak_including_file_cache_bytes": 17179869184,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 5091,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0,
+        "sock_throttled": 0
+      },
+      "host_available_min_bytes": 17671520256,
+      "cache": {
+        "hits": 0,
+        "loads": 0,
+        "peak_charged_bytes": 0,
+        "peak_nets": 0,
+        "evictions": 0,
+        "budget_unavailable": 0
+      },
+      "placement_requests": {
+        "gpu": 0,
+        "ram": 304,
+        "budget_unavailable": 0
+      },
+      "image_sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+      "native_vm_swap_peak_bytes": 0,
+      "package_preverification": "all package files/objects hashed before timing; file cache warmed but not controlled; native verification also timed",
+      "records_sha256": {
+        "native/process.json": "2fe2a69d254d460753f7a26f371710ae5a943117b235145061b953536b29eeb0",
+        "native/worker-result.json": "ea192fec46a1440861a9b3add35f45b8a8f01c63599335e2b2ddb62904123300",
+        "native/benchmark/request.json": "9657498673d811bc4040f8ae1ae0c1999ee657693f23dc36f4b1ebb341d79916",
+        "native/benchmark/result.json": "4e408091753ab75e15f3bf5ddde4e28c3f84620d14b1808c67fea7870be65f7d",
+        "native/benchmark/generation.json": "faab0e64d0ab74412b0150aaec43fca785034543a5d39fdc5bd2a439c5dbe857",
+        "native/benchmark/resources.log": "02fd1bf132574b5aeedc8284568072be81c4c0be5d09e01969b8a7a39e93c8d4"
+      }
+    },
+    {
+      "id": "01-warmup-mapped-cache",
+      "phase": "warmup",
+      "repeat": -1,
+      "config": "mapped-cache",
+      "order": 1,
+      "status": "ok",
+      "wall_seconds": 391.97577257,
+      "native_seconds": 391.37736090000004,
+      "supervisor_seconds": 407.19788168900413,
+      "max_rss_kib": 9480828,
+      "whole_gpu_sampled_peak_mib": 2296,
+      "cgroup_peak_including_file_cache_bytes": 17179869184,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 351151,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0,
+        "sock_throttled": 0
+      },
+      "host_available_min_bytes": 13265821696,
+      "cache": {
+        "hits": 42,
+        "loads": 246,
+        "peak_charged_bytes": 5687678976,
+        "peak_nets": 6,
+        "evictions": 0,
+        "budget_unavailable": 0
+      },
+      "placement_requests": {
+        "gpu": 0,
+        "ram": 262,
+        "budget_unavailable": 0
+      },
+      "image_sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+      "native_vm_swap_peak_bytes": 0,
+      "package_preverification": "all package files/objects hashed before timing; file cache warmed but not controlled; native verification also timed",
+      "records_sha256": {
+        "native/process.json": "0a19fdeb680fded301287dfa9101ee6ec7a077588a9fdc25bb251b825de80c79",
+        "native/worker-result.json": "f61d912f6c794891f74f4c35b90f500b93785828e08e722ca262721bf9c6e4ac",
+        "native/benchmark/request.json": "fc612246ee5061f6ec53612c1ab02d55feb8bf4857d0e53b16d627d6d5d4aa3e",
+        "native/benchmark/result.json": "788dd20ac2a05c0ad1d6dde7522fb08d06720f661d7c49faef11e198570c49da",
+        "native/benchmark/generation.json": "1e5c7bc14d44b5397709301f478f545d5787db79c55059c67acb934fb179855d",
+        "native/benchmark/resources.log": "e90ea2acccd8ce28dd787cb47401c428591190cdd60af721ba8abefab3059ca4"
+      }
+    },
+    {
+      "id": "02-warmup-stdio-off",
+      "phase": "warmup",
+      "repeat": -1,
+      "config": "stdio-off",
+      "order": 2,
+      "status": "ok",
+      "wall_seconds": 493.45552901,
+      "native_seconds": 493.096338818,
+      "supervisor_seconds": 509.2717089029902,
+      "max_rss_kib": 1953220,
+      "whole_gpu_sampled_peak_mib": 2369,
+      "cgroup_peak_including_file_cache_bytes": 6385582080,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0,
+        "sock_throttled": 0
+      },
+      "host_available_min_bytes": 17658621952,
+      "cache": {
+        "hits": 0,
+        "loads": 0,
+        "peak_charged_bytes": 0,
+        "peak_nets": 0,
+        "evictions": 0,
+        "budget_unavailable": 0
+      },
+      "placement_requests": {
+        "gpu": 0,
+        "ram": 304,
+        "budget_unavailable": 0
+      },
+      "image_sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+      "native_vm_swap_peak_bytes": 0,
+      "package_preverification": "all package files/objects hashed before timing; file cache warmed but not controlled; native verification also timed",
+      "records_sha256": {
+        "native/process.json": "05a9c3cdff1ca75d6010afb956f41ddb3bc26be1413ac61766289becaf10fc40",
+        "native/worker-result.json": "1388d03cabbabd0fff3d10c09855c413ca370f543c3b2a0909c376f7f5c9c857",
+        "native/benchmark/request.json": "e80b143c6c5488d98a6dfee4e80dfdfb2a896715b4d61c1d65c6fe737969cf7f",
+        "native/benchmark/result.json": "aa28d0208b883275c6026b01ae7478f94759aa91bff9ad27ac43f9c52a8ddfc0",
+        "native/benchmark/generation.json": "eddfc25c4f47deae8c2f0a1ffd1af0663b96deb5336b26e1db750eaad023a91c",
+        "native/benchmark/resources.log": "92fb3cfb38b5daf5700ace2d1b1c41c547012467546694b9dff5e2fab9d17320"
+      }
+    },
+    {
+      "id": "03-warmup-stdio-cache",
+      "phase": "warmup",
+      "repeat": -1,
+      "config": "stdio-cache",
+      "order": 3,
+      "status": "ok",
+      "wall_seconds": 448.82682233,
+      "native_seconds": 448.327012275,
+      "supervisor_seconds": 463.9019683950173,
+      "max_rss_kib": 6576460,
+      "whole_gpu_sampled_peak_mib": 2378,
+      "cgroup_peak_including_file_cache_bytes": 9611681792,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0,
+        "sock_throttled": 0
+      },
+      "host_available_min_bytes": 12126507008,
+      "cache": {
+        "hits": 42,
+        "loads": 246,
+        "peak_charged_bytes": 5687678976,
+        "peak_nets": 6,
+        "evictions": 0,
+        "budget_unavailable": 0
+      },
+      "placement_requests": {
+        "gpu": 0,
+        "ram": 262,
+        "budget_unavailable": 0
+      },
+      "image_sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+      "native_vm_swap_peak_bytes": 0,
+      "package_preverification": "all package files/objects hashed before timing; file cache warmed but not controlled; native verification also timed",
+      "records_sha256": {
+        "native/process.json": "77a8ea4ce3e5d8d54e3cb3241d652aeb78ec4cc2fdbe0158139fbfc21da8e88c",
+        "native/worker-result.json": "53762f1a9a1a55fc6052715745eb3f09c32226672ce526d222c876f6773dd01c",
+        "native/benchmark/request.json": "bca286166973a7a371d43ece418520956c6f1a76331d696ec8edd30d99d691b1",
+        "native/benchmark/result.json": "0d902f2294527a1638f2b0fb0ca71376776396a34081c2f0ea15619546c8b8d7",
+        "native/benchmark/generation.json": "0d6fadd7901cf6e76babe722c8ea2abe32df276a7aa3de392d5b6e378e4ce680",
+        "native/benchmark/resources.log": "889bf30ebee3ac6dee85bd91f7545a65c4f15eb577fcd88892e24aa60cf0b8cb"
+      }
+    },
+    {
+      "id": "04-measured-mapped-cache",
+      "phase": "measured",
+      "repeat": 0,
+      "config": "mapped-cache",
+      "order": 4,
+      "status": "ok",
+      "wall_seconds": 388.353631994,
+      "native_seconds": 387.735069891,
+      "supervisor_seconds": 404.6095939640072,
+      "max_rss_kib": 9558636,
+      "whole_gpu_sampled_peak_mib": 2385,
+      "cgroup_peak_including_file_cache_bytes": 17180000256,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 347539,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0,
+        "sock_throttled": 0
+      },
+      "host_available_min_bytes": 12932386816,
+      "cache": {
+        "hits": 42,
+        "loads": 246,
+        "peak_charged_bytes": 5687678976,
+        "peak_nets": 6,
+        "evictions": 0,
+        "budget_unavailable": 0
+      },
+      "placement_requests": {
+        "gpu": 0,
+        "ram": 262,
+        "budget_unavailable": 0
+      },
+      "image_sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+      "native_vm_swap_peak_bytes": 0,
+      "package_preverification": "all package files/objects hashed before timing; file cache warmed but not controlled; native verification also timed",
+      "records_sha256": {
+        "native/process.json": "da72da0372e202116041953c980e1aa7246217df0235261003310b0ffedd40a2",
+        "native/worker-result.json": "7d87ce9f8ae5bfe2ffb7f37dccff8afcf38a611d6045e2724adcf381dbd736cf",
+        "native/benchmark/request.json": "140e96c1ca7f2588b69bdbf950f445d59165e319ede990a463c341ee62547b71",
+        "native/benchmark/result.json": "a3253ec8e19f6da5d0e43f148be98e6ffd0cbf7249c085efbbec39e5c8f0ce53",
+        "native/benchmark/generation.json": "3e517dc0cded33a0a964cb10fbd54dad4290937a2d808546db729e55b7159a6b",
+        "native/benchmark/resources.log": "d152314a3faaeb4899845de602f89a3c3b36c4d3f05cb9fd85a510a22298e93b"
+      }
+    },
+    {
+      "id": "05-measured-stdio-off",
+      "phase": "measured",
+      "repeat": 0,
+      "config": "stdio-off",
+      "order": 5,
+      "status": "ok",
+      "wall_seconds": 501.012964423,
+      "native_seconds": 500.66525678299996,
+      "supervisor_seconds": 517.1249390179873,
+      "max_rss_kib": 2034900,
+      "whole_gpu_sampled_peak_mib": 2358,
+      "cgroup_peak_including_file_cache_bytes": 8641638400,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0,
+        "sock_throttled": 0
+      },
+      "host_available_min_bytes": 16574652416,
+      "cache": {
+        "hits": 0,
+        "loads": 0,
+        "peak_charged_bytes": 0,
+        "peak_nets": 0,
+        "evictions": 0,
+        "budget_unavailable": 0
+      },
+      "placement_requests": {
+        "gpu": 0,
+        "ram": 304,
+        "budget_unavailable": 0
+      },
+      "image_sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+      "native_vm_swap_peak_bytes": 0,
+      "package_preverification": "all package files/objects hashed before timing; file cache warmed but not controlled; native verification also timed",
+      "records_sha256": {
+        "native/process.json": "8c89da9eedaeb1d05662bfa9694c05e99026f94c04bb5663271108199d08407a",
+        "native/worker-result.json": "911155d91a1afed9d1297cfb339408486b47d342f1c0d24c5f28d0fddb2c6cd4",
+        "native/benchmark/request.json": "8035f3cef6cdf47215aaacf060c6cf296211b2f6b3c2de623fa10912678cbe26",
+        "native/benchmark/result.json": "1010bfe8127c6308af01305ddb3dc52424d4a32c09d010827057149b0e384291",
+        "native/benchmark/generation.json": "fe9e9266186cc80496cf5599822d25d70e82c0769ac4cd056b3c0eefeb1d4522",
+        "native/benchmark/resources.log": "d915346b38553f8eed3ac4dc80c6407694577b92ba8ca34219c32feedef5a6e2"
+      }
+    },
+    {
+      "id": "06-measured-stdio-cache",
+      "phase": "measured",
+      "repeat": 0,
+      "config": "stdio-cache",
+      "order": 6,
+      "status": "ok",
+      "wall_seconds": 470.46899465,
+      "native_seconds": 470.05666151,
+      "supervisor_seconds": 485.80094633999397,
+      "max_rss_kib": 6588020,
+      "whole_gpu_sampled_peak_mib": 2341,
+      "cgroup_peak_including_file_cache_bytes": 15307010048,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0,
+        "sock_throttled": 0
+      },
+      "host_available_min_bytes": 11375243264,
+      "cache": {
+        "hits": 42,
+        "loads": 246,
+        "peak_charged_bytes": 5687678976,
+        "peak_nets": 6,
+        "evictions": 0,
+        "budget_unavailable": 0
+      },
+      "placement_requests": {
+        "gpu": 0,
+        "ram": 262,
+        "budget_unavailable": 0
+      },
+      "image_sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+      "native_vm_swap_peak_bytes": 0,
+      "package_preverification": "all package files/objects hashed before timing; file cache warmed but not controlled; native verification also timed",
+      "records_sha256": {
+        "native/process.json": "ebf587ebcbffe83b74efba517fd059579dd5fe6f6a8b092112156fbd48881832",
+        "native/worker-result.json": "bf78692156171410f56d76f220a1ee9980b23c43db12d099ac7c89c4bbe0bcb5",
+        "native/benchmark/request.json": "0c4feb36404a1c0e329772a5754339ae73226ed20f1b7b5173c9d30f22c8739f",
+        "native/benchmark/result.json": "f3c0c6c0ff1d9f076c958655fd5e3659d0e8bc7c2fd9e1df88e72ab65644d356",
+        "native/benchmark/generation.json": "09355361f5bd08376cceeb667af5bdd8d7d3cca4ceaa1d21565cf4b2f18eb9b2",
+        "native/benchmark/resources.log": "5df007f9a6404d36ba73de009ec026dea6bf88010ab2e18f12085ddc444e79c4"
+      }
+    },
+    {
+      "id": "07-measured-mapped-off",
+      "phase": "measured",
+      "repeat": 0,
+      "config": "mapped-off",
+      "order": 7,
+      "status": "ok",
+      "wall_seconds": 392.991303834,
+      "native_seconds": 392.369173915,
+      "supervisor_seconds": 411.1244477239961,
+      "max_rss_kib": 2037212,
+      "whole_gpu_sampled_peak_mib": 2371,
+      "cgroup_peak_including_file_cache_bytes": 17179869184,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 53353,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0,
+        "sock_throttled": 0
+      },
+      "host_available_min_bytes": 16850980864,
+      "cache": {
+        "hits": 0,
+        "loads": 0,
+        "peak_charged_bytes": 0,
+        "peak_nets": 0,
+        "evictions": 0,
+        "budget_unavailable": 0
+      },
+      "placement_requests": {
+        "gpu": 0,
+        "ram": 304,
+        "budget_unavailable": 0
+      },
+      "image_sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+      "native_vm_swap_peak_bytes": 0,
+      "package_preverification": "all package files/objects hashed before timing; file cache warmed but not controlled; native verification also timed",
+      "records_sha256": {
+        "native/process.json": "81527895b8b67b62bdbbf092ee35cdff14e4265918749b1decda0e9791b7a557",
+        "native/worker-result.json": "b7fe5265a1db959458fa4d1f671908c55fd91e18f57f1299d3d47c0fb456782b",
+        "native/benchmark/request.json": "c178f52fe08d86a4e0a6f7add57bec457e9afac4f56b63465c490139ae3e096d",
+        "native/benchmark/result.json": "72fc79b123f2b2a25d8a021f7428aaaf997556ea0ef2008f636761800b1997ba",
+        "native/benchmark/generation.json": "14282e3d2e388050b31cfef6d1f6237b21204cd9c141940fcc8eea48bb5aa6b4",
+        "native/benchmark/resources.log": "4ed31ad765d88d641190981071a119a738c484be318ddbd4938b6616f4dab247"
+      }
+    },
+    {
+      "id": "08-measured-stdio-off",
+      "phase": "measured",
+      "repeat": 1,
+      "config": "stdio-off",
+      "order": 8,
+      "status": "ok",
+      "wall_seconds": 494.908953773,
+      "native_seconds": 494.324158025,
+      "supervisor_seconds": 509.64513625900145,
+      "max_rss_kib": 1881952,
+      "whole_gpu_sampled_peak_mib": 2347,
+      "cgroup_peak_including_file_cache_bytes": 5233692672,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0,
+        "sock_throttled": 0
+      },
+      "host_available_min_bytes": 17949761536,
+      "cache": {
+        "hits": 0,
+        "loads": 0,
+        "peak_charged_bytes": 0,
+        "peak_nets": 0,
+        "evictions": 0,
+        "budget_unavailable": 0
+      },
+      "placement_requests": {
+        "gpu": 0,
+        "ram": 304,
+        "budget_unavailable": 0
+      },
+      "image_sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+      "native_vm_swap_peak_bytes": 0,
+      "package_preverification": "all package files/objects hashed before timing; file cache warmed but not controlled; native verification also timed",
+      "records_sha256": {
+        "native/process.json": "d7172a9502bf58acc91ac27c40a115932bee1db5253392cb0e70804d4b28624a",
+        "native/worker-result.json": "8d74b01e23bef07730151972be21e833334daca9ebeb591d623dfcd21e506675",
+        "native/benchmark/request.json": "9cfd4a58e62ee3882c1e2011b1b6155d92fc415331f97a07e54ceeff55879657",
+        "native/benchmark/result.json": "8d0d18ab5ec04b298e36880aadd4c2bcf98cf4d758f54d289df76a2021981508",
+        "native/benchmark/generation.json": "f36ce36537523ff74e396cadc0d9338f7888d415c49040c6e823b5ba6db3c042",
+        "native/benchmark/resources.log": "d89c44842106846650eb758c2587423e19a7ace7b57594e25feb44c8b3e72a3a"
+      }
+    },
+    {
+      "id": "09-measured-stdio-cache",
+      "phase": "measured",
+      "repeat": 1,
+      "config": "stdio-cache",
+      "order": 9,
+      "status": "ok",
+      "wall_seconds": 465.762091154,
+      "native_seconds": 465.448453551,
+      "supervisor_seconds": 481.3649096839945,
+      "max_rss_kib": 6576324,
+      "whole_gpu_sampled_peak_mib": 2391,
+      "cgroup_peak_including_file_cache_bytes": 14149931008,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0,
+        "sock_throttled": 0
+      },
+      "host_available_min_bytes": 11718447104,
+      "cache": {
+        "hits": 42,
+        "loads": 246,
+        "peak_charged_bytes": 5687678976,
+        "peak_nets": 6,
+        "evictions": 0,
+        "budget_unavailable": 0
+      },
+      "placement_requests": {
+        "gpu": 0,
+        "ram": 262,
+        "budget_unavailable": 0
+      },
+      "image_sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+      "native_vm_swap_peak_bytes": 0,
+      "package_preverification": "all package files/objects hashed before timing; file cache warmed but not controlled; native verification also timed",
+      "records_sha256": {
+        "native/process.json": "e0f7878a4e9d231360195ab08a1d327d7c50d1660e4dd202644bdc0aa2d46b4e",
+        "native/worker-result.json": "0b87bff8dc2de8b3b6f3c190950bebfc08237a0491f99c59c336a2826418c3ce",
+        "native/benchmark/request.json": "afe49998886a76baf2f90a804468a9e8f5b673d9f71a08e693e4a5b10ba526c7",
+        "native/benchmark/result.json": "5d157d5c48f67f5cf517f9c759e7e686e73a5a85360a8a64f471dee5f4b1b5f7",
+        "native/benchmark/generation.json": "4820657770671a41c45a32094ee0e37e6515ec8d1702214b8b8a73700953cf85",
+        "native/benchmark/resources.log": "b77daf83320f307656cc9bce0a6a13d108df7a7b6648cf97354b20bddae0530b"
+      }
+    },
+    {
+      "id": "10-measured-mapped-off",
+      "phase": "measured",
+      "repeat": 1,
+      "config": "mapped-off",
+      "order": 10,
+      "status": "ok",
+      "wall_seconds": 398.020033304,
+      "native_seconds": 397.588733535,
+      "supervisor_seconds": 415.31032464600867,
+      "max_rss_kib": 2070236,
+      "whole_gpu_sampled_peak_mib": 2363,
+      "cgroup_peak_including_file_cache_bytes": 17179869184,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 58453,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0,
+        "sock_throttled": 0
+      },
+      "host_available_min_bytes": 17283665920,
+      "cache": {
+        "hits": 0,
+        "loads": 0,
+        "peak_charged_bytes": 0,
+        "peak_nets": 0,
+        "evictions": 0,
+        "budget_unavailable": 0
+      },
+      "placement_requests": {
+        "gpu": 0,
+        "ram": 304,
+        "budget_unavailable": 0
+      },
+      "image_sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+      "native_vm_swap_peak_bytes": 0,
+      "package_preverification": "all package files/objects hashed before timing; file cache warmed but not controlled; native verification also timed",
+      "records_sha256": {
+        "native/process.json": "d087228c4802e3010daa49c379079c2c7a8c317bda39375459d49443649a4612",
+        "native/worker-result.json": "970ed0280e39432ea40e332e034f7b09d467bebe129befe7df8b4a7db58ae712",
+        "native/benchmark/request.json": "d07ce916a0aa41df5d36e6ff3f76d8c6f343aced5ac2dec8f50f6d70da9116a4",
+        "native/benchmark/result.json": "232f2dbf8cfc7f8a08448dee2676982488830a2b08e21e44483212d6f62946af",
+        "native/benchmark/generation.json": "fd8ee51d75b0539da5a39c1af544d7a99e31f13b4526db70253ed378b86336ef",
+        "native/benchmark/resources.log": "246a3cd36e1ea25cefd9f7c9d0d46f29391eb8bad99b6a6d88337ab85b3552ca"
+      }
+    },
+    {
+      "id": "11-measured-mapped-cache",
+      "phase": "measured",
+      "repeat": 1,
+      "config": "mapped-cache",
+      "order": 11,
+      "status": "ok",
+      "wall_seconds": 394.642920198,
+      "native_seconds": 394.02685805000004,
+      "supervisor_seconds": 411.14206846198067,
+      "max_rss_kib": 9544416,
+      "whole_gpu_sampled_peak_mib": 2337,
+      "cgroup_peak_including_file_cache_bytes": 17180057600,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 367568,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0,
+        "sock_throttled": 0
+      },
+      "host_available_min_bytes": 12992942080,
+      "cache": {
+        "hits": 42,
+        "loads": 246,
+        "peak_charged_bytes": 5687678976,
+        "peak_nets": 6,
+        "evictions": 0,
+        "budget_unavailable": 0
+      },
+      "placement_requests": {
+        "gpu": 0,
+        "ram": 262,
+        "budget_unavailable": 0
+      },
+      "image_sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+      "native_vm_swap_peak_bytes": 0,
+      "package_preverification": "all package files/objects hashed before timing; file cache warmed but not controlled; native verification also timed",
+      "records_sha256": {
+        "native/process.json": "005cb8fe1c6d2d8d3c80cf061b1ff3244ac6306a18a6104a769ebdd41cc7ad66",
+        "native/worker-result.json": "18d879d3531000cc8df5cd98a8899a86f1f1080cfe3bc764dd75ce0f0292a6b4",
+        "native/benchmark/request.json": "c1382e5b46e2151c2b962746fe39966ba78327bdd485b35ead29a3ebd66e9d11",
+        "native/benchmark/result.json": "437080c63d85e08f72fe4d71e31e2c9381318aa5b7005101f1b69d5da15b91c2",
+        "native/benchmark/generation.json": "ea753533724ffdc901f2df762293a58a91fbc4a6532cb8e0f9c4a02ff73e1a1c",
+        "native/benchmark/resources.log": "4d626348ae46c93976ae024e42e638045cc33ce89d9ce4b2d09a255b259d7a03"
+      }
+    },
+    {
+      "id": "12-measured-stdio-cache",
+      "phase": "measured",
+      "repeat": 2,
+      "config": "stdio-cache",
+      "order": 12,
+      "status": "ok",
+      "wall_seconds": 465.199484122,
+      "native_seconds": 464.872144889,
+      "supervisor_seconds": 480.98658661800437,
+      "max_rss_kib": 6581036,
+      "whole_gpu_sampled_peak_mib": 2314,
+      "cgroup_peak_including_file_cache_bytes": 14100275200,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0,
+        "sock_throttled": 0
+      },
+      "host_available_min_bytes": 12281913344,
+      "cache": {
+        "hits": 42,
+        "loads": 246,
+        "peak_charged_bytes": 5687678976,
+        "peak_nets": 6,
+        "evictions": 0,
+        "budget_unavailable": 0
+      },
+      "placement_requests": {
+        "gpu": 0,
+        "ram": 262,
+        "budget_unavailable": 0
+      },
+      "image_sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+      "native_vm_swap_peak_bytes": 0,
+      "package_preverification": "all package files/objects hashed before timing; file cache warmed but not controlled; native verification also timed",
+      "records_sha256": {
+        "native/process.json": "759249682526826e4f877f2680d8e240e5a19c67103855c055dcacf58bb48a2a",
+        "native/worker-result.json": "7d373d53ce37c5e65e75537db078b61789574bee94d8f55620196f9966fd6634",
+        "native/benchmark/request.json": "0e9e2470b35495f086a1ac75fc2037cd08b395984c3ef8c44ec39f5604467ced",
+        "native/benchmark/result.json": "c75cf03450c34ff53501da18961bcdecb7fb9d10c3e71332957da9e1039f20c3",
+        "native/benchmark/generation.json": "0bbc9c1f923344f6840e42606e6c411d7ec93406b4c0f79bb9609af852f68467",
+        "native/benchmark/resources.log": "3271ec24280c3cb3fc01a5921619793924a140fee762f63d5117c541877887ef"
+      }
+    },
+    {
+      "id": "13-measured-mapped-off",
+      "phase": "measured",
+      "repeat": 2,
+      "config": "mapped-off",
+      "order": 13,
+      "status": "ok",
+      "wall_seconds": 395.930744781,
+      "native_seconds": 395.376894773,
+      "supervisor_seconds": 412.8623397019983,
+      "max_rss_kib": 2041524,
+      "whole_gpu_sampled_peak_mib": 2306,
+      "cgroup_peak_including_file_cache_bytes": 17179869184,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 14067,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0,
+        "sock_throttled": 0
+      },
+      "host_available_min_bytes": 17759268864,
+      "cache": {
+        "hits": 0,
+        "loads": 0,
+        "peak_charged_bytes": 0,
+        "peak_nets": 0,
+        "evictions": 0,
+        "budget_unavailable": 0
+      },
+      "placement_requests": {
+        "gpu": 0,
+        "ram": 304,
+        "budget_unavailable": 0
+      },
+      "image_sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+      "native_vm_swap_peak_bytes": 0,
+      "package_preverification": "all package files/objects hashed before timing; file cache warmed but not controlled; native verification also timed",
+      "records_sha256": {
+        "native/process.json": "272ba47b0bdec1410933c6719a57f47309a60fd199933f868cdd9293a810e808",
+        "native/worker-result.json": "65e6fe781e11e3a85b16050d2986612dd4c30dfc6c663bcb0515c3450f7c87f0",
+        "native/benchmark/request.json": "916d841671d33e75919ef4a3b89d4033bc530cff54885ff7e43ef756404e730a",
+        "native/benchmark/result.json": "692eaab50cbb687880026a3dfa50cfd43014a6595d6690e8c0ce511ddb076909",
+        "native/benchmark/generation.json": "0b71cf08c2faad4f1bbb1bac98556ec71fdbf215c48f2fe6c7356490bbc4ed85",
+        "native/benchmark/resources.log": "c5c5803377f203607cde0d39f49ca660d1a2363d38db9875704b4f67f1a2ad18"
+      }
+    },
+    {
+      "id": "14-measured-mapped-cache",
+      "phase": "measured",
+      "repeat": 2,
+      "config": "mapped-cache",
+      "order": 14,
+      "status": "ok",
+      "wall_seconds": 393.329858669,
+      "native_seconds": 392.704971376,
+      "supervisor_seconds": 409.13773005097755,
+      "max_rss_kib": 9494340,
+      "whole_gpu_sampled_peak_mib": 2335,
+      "cgroup_peak_including_file_cache_bytes": 17179869184,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 325766,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0,
+        "sock_throttled": 0
+      },
+      "host_available_min_bytes": 13093527552,
+      "cache": {
+        "hits": 42,
+        "loads": 246,
+        "peak_charged_bytes": 5687678976,
+        "peak_nets": 6,
+        "evictions": 0,
+        "budget_unavailable": 0
+      },
+      "placement_requests": {
+        "gpu": 0,
+        "ram": 262,
+        "budget_unavailable": 0
+      },
+      "image_sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+      "native_vm_swap_peak_bytes": 0,
+      "package_preverification": "all package files/objects hashed before timing; file cache warmed but not controlled; native verification also timed",
+      "records_sha256": {
+        "native/process.json": "a69a471c0f8e4fd391b9ca5ac5186649115b76fb9654affd57cc37bbbb3c9a26",
+        "native/worker-result.json": "4485016ba964ba1e89e2aee15aec8af165a319f8520fe591ab967176dda20f14",
+        "native/benchmark/request.json": "b118088e6b929cba05c0a189dfce13c811092bf2ee6f9401a750e4ba544ed909",
+        "native/benchmark/result.json": "c09e49a4261909709e40df0189f848e4bd21e69e6c9f04d6ef9e3e5121ae35d5",
+        "native/benchmark/generation.json": "f5f9528841d4b52d8c5bdd1a20c9b852281cf6deb5bee5c0467159c14d252185",
+        "native/benchmark/resources.log": "ee91436336d5d230274218e7934b55f1323f633418869cbbd508b591f8decbe8"
+      }
+    },
+    {
+      "id": "15-measured-stdio-off",
+      "phase": "measured",
+      "repeat": 2,
+      "config": "stdio-off",
+      "order": 15,
+      "status": "ok",
+      "wall_seconds": 500.252387262,
+      "native_seconds": 499.76426736900004,
+      "supervisor_seconds": 516.3795981320145,
+      "max_rss_kib": 1912268,
+      "whole_gpu_sampled_peak_mib": 2284,
+      "cgroup_peak_including_file_cache_bytes": 13918322688,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0,
+        "sock_throttled": 0
+      },
+      "host_available_min_bytes": 17028800512,
+      "cache": {
+        "hits": 0,
+        "loads": 0,
+        "peak_charged_bytes": 0,
+        "peak_nets": 0,
+        "evictions": 0,
+        "budget_unavailable": 0
+      },
+      "placement_requests": {
+        "gpu": 0,
+        "ram": 304,
+        "budget_unavailable": 0
+      },
+      "image_sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+      "native_vm_swap_peak_bytes": 0,
+      "package_preverification": "all package files/objects hashed before timing; file cache warmed but not controlled; native verification also timed",
+      "records_sha256": {
+        "native/process.json": "767d14008b868db5ae7450be724425d30fe742c75b2920d090954d3debc6c24e",
+        "native/worker-result.json": "23d1829aa0ea2e3f94147c044b2e67e84ca2b65af69a02e2e8fccd5e5d2aa33f",
+        "native/benchmark/request.json": "5d95002b7a5cc9b6b979f4ce8fefc35dd3a1a4bb9e5323d8fe30f8d3d27bc192",
+        "native/benchmark/result.json": "ec877da2ab059abefd09721958531a39bf7274648febb6c6a59bd332f27b6595",
+        "native/benchmark/generation.json": "4040b1f3ec53d1197274f00063d3ad9b000c1419541ef6756378fee0ae989de0",
+        "native/benchmark/resources.log": "f35c0ed1bb21c6bd9458caecdb6ba669bcf2ad0762636a6c7d794fd5920d0259"
+      }
+    }
+  ],
+  "configuration_summaries": {
+    "stdio-off": {
+      "runs": 3,
+      "wall_seconds": [
+        501.012964423,
+        494.908953773,
+        500.252387262
+      ],
+      "median_wall_seconds": 500.252387262,
+      "minimum_wall_seconds": 494.908953773,
+      "maximum_wall_seconds": 501.012964423,
+      "median_rss_kib": 1912268,
+      "maximum_rss_kib": 2034900,
+      "maximum_cgroup_bytes": 13918322688,
+      "cache_hits": [
+        0,
+        0,
+        0
+      ],
+      "pressure_evictions": [
+        0,
+        0,
+        0
+      ],
+      "max_events": [
+        0,
+        0,
+        0
+      ]
+    },
+    "stdio-cache": {
+      "runs": 3,
+      "wall_seconds": [
+        470.46899465,
+        465.762091154,
+        465.199484122
+      ],
+      "median_wall_seconds": 465.762091154,
+      "minimum_wall_seconds": 465.199484122,
+      "maximum_wall_seconds": 470.46899465,
+      "median_rss_kib": 6581036,
+      "maximum_rss_kib": 6588020,
+      "maximum_cgroup_bytes": 15307010048,
+      "cache_hits": [
+        42,
+        42,
+        42
+      ],
+      "pressure_evictions": [
+        0,
+        0,
+        0
+      ],
+      "max_events": [
+        0,
+        0,
+        0
+      ]
+    },
+    "mapped-off": {
+      "runs": 3,
+      "wall_seconds": [
+        392.991303834,
+        398.020033304,
+        395.930744781
+      ],
+      "median_wall_seconds": 395.930744781,
+      "minimum_wall_seconds": 392.991303834,
+      "maximum_wall_seconds": 398.020033304,
+      "median_rss_kib": 2041524,
+      "maximum_rss_kib": 2070236,
+      "maximum_cgroup_bytes": 17179869184,
+      "cache_hits": [
+        0,
+        0,
+        0
+      ],
+      "pressure_evictions": [
+        0,
+        0,
+        0
+      ],
+      "max_events": [
+        53353,
+        58453,
+        14067
+      ]
+    },
+    "mapped-cache": {
+      "runs": 3,
+      "wall_seconds": [
+        388.353631994,
+        394.642920198,
+        393.329858669
+      ],
+      "median_wall_seconds": 393.329858669,
+      "minimum_wall_seconds": 388.353631994,
+      "maximum_wall_seconds": 394.642920198,
+      "median_rss_kib": 9544416,
+      "maximum_rss_kib": 9558636,
+      "maximum_cgroup_bytes": 17180057600,
+      "cache_hits": [
+        42,
+        42,
+        42
+      ],
+      "pressure_evictions": [
+        0,
+        0,
+        0
+      ],
+      "max_events": [
+        347539,
+        367568,
+        325766
+      ]
+    }
+  },
+  "paired_development_ratios": {
+    "stdio-off/mapped-off": {
+      "pairs": [
+        {
+          "repeat": 0,
+          "left_over_right_wall_ratio": 1.2748703585426626,
+          "left_over_right_rss_ratio": 0.998865115658066
+        },
+        {
+          "repeat": 1,
+          "left_over_right_wall_ratio": 1.2434272457713156,
+          "left_over_right_rss_ratio": 0.9090519148541519
+        },
+        {
+          "repeat": 2,
+          "left_over_right_wall_ratio": 1.2634845711178684,
+          "left_over_right_rss_ratio": 0.9366865145842028
+        }
+      ],
+      "median_wall_ratio": 1.2634845711178684,
+      "median_rss_ratio": 0.9366865145842028
+    },
+    "stdio-cache/mapped-cache": {
+      "pairs": [
+        {
+          "repeat": 0,
+          "left_over_right_wall_ratio": 1.2114448170199388,
+          "left_over_right_rss_ratio": 0.6892217676245858
+        },
+        {
+          "repeat": 1,
+          "left_over_right_wall_ratio": 1.180211445121879,
+          "left_over_right_rss_ratio": 0.6890231942949678
+        },
+        {
+          "repeat": 2,
+          "left_over_right_wall_ratio": 1.1827210008825715,
+          "left_over_right_rss_ratio": 0.6931536052005721
+        }
+      ],
+      "median_wall_ratio": 1.1827210008825715,
+      "median_rss_ratio": 0.6892217676245858
+    },
+    "stdio-off/stdio-cache": {
+      "pairs": [
+        {
+          "repeat": 0,
+          "left_over_right_wall_ratio": 1.0649223862153188,
+          "left_over_right_rss_ratio": 0.30887884371935725
+        },
+        {
+          "repeat": 1,
+          "left_over_right_wall_ratio": 1.0625788641295044,
+          "left_over_right_rss_ratio": 0.2861708151848966
+        },
+        {
+          "repeat": 2,
+          "left_over_right_wall_ratio": 1.0753502622776066,
+          "left_over_right_rss_ratio": 0.29057248737128927
+        }
+      ],
+      "median_wall_ratio": 1.0649223862153188,
+      "median_rss_ratio": 0.29057248737128927
+    },
+    "mapped-off/mapped-cache": {
+      "pairs": [
+        {
+          "repeat": 0,
+          "left_over_right_wall_ratio": 1.0119418783756131,
+          "left_over_right_rss_ratio": 0.21312789816454983
+        },
+        {
+          "repeat": 1,
+          "left_over_right_wall_ratio": 1.0085573893085567,
+          "left_over_right_rss_ratio": 0.21690546598136545
+        },
+        {
+          "repeat": 2,
+          "left_over_right_wall_ratio": 1.0066124807325871,
+          "left_over_right_rss_ratio": 0.21502537301171012
+        }
+      ],
+      "median_wall_ratio": 1.0085573893085567,
+      "median_rss_ratio": 0.21502537301171012
+    }
+  },
+  "formal_peer_speed_complete": false,
+  "formal_memory_complete": false,
+  "full_quality_complete": false,
+  "recommended_default_change": null
+}

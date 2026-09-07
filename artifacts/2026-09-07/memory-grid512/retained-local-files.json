@@ -1,0 +1,386 @@
+[
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/00-warmup-mapped-off/native/samples.jsonl",
+    "bytes": 1058849,
+    "sha256": "b8834edc479e81b3124bfda3ad7b49859aeb02aeef03f235c2d3df6629a4b894",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/00-warmup-mapped-off/native/benchmark/native.png",
+    "bytes": 348636,
+    "sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/00-warmup-mapped-off/native/benchmark/initial.f32",
+    "bytes": 524288,
+    "sha256": "1c89a002f18b3162b5a43100dc6f50bdd247dd0af8d1944ec87705153819d453",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/00-warmup-mapped-off/native/benchmark/ernie-image.snapshot",
+    "bytes": 36944136,
+    "sha256": "ff2f934f317a602f3d098bf6d74cd7c2e2a6de725ed8fcf04d8d1e2bcbaa3e1c",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/01-warmup-mapped-cache/native/samples.jsonl",
+    "bytes": 1099845,
+    "sha256": "5970f57afcf3e11d9b7626937fe01d4b8211c699dcedf2773a5556906443b15a",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/01-warmup-mapped-cache/native/benchmark/native.png",
+    "bytes": 348636,
+    "sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/01-warmup-mapped-cache/native/benchmark/initial.f32",
+    "bytes": 524288,
+    "sha256": "1c89a002f18b3162b5a43100dc6f50bdd247dd0af8d1944ec87705153819d453",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/01-warmup-mapped-cache/native/benchmark/ernie-image.snapshot",
+    "bytes": 36944136,
+    "sha256": "ff2f934f317a602f3d098bf6d74cd7c2e2a6de725ed8fcf04d8d1e2bcbaa3e1c",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/02-warmup-stdio-off/native/samples.jsonl",
+    "bytes": 1365047,
+    "sha256": "79181ca22e577b63e3e0e5cff54e482538cdbb63765ae376434f923557128e75",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/02-warmup-stdio-off/native/benchmark/native.png",
+    "bytes": 348636,
+    "sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/02-warmup-stdio-off/native/benchmark/initial.f32",
+    "bytes": 524288,
+    "sha256": "1c89a002f18b3162b5a43100dc6f50bdd247dd0af8d1944ec87705153819d453",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/02-warmup-stdio-off/native/benchmark/ernie-image.snapshot",
+    "bytes": 36944136,
+    "sha256": "ff2f934f317a602f3d098bf6d74cd7c2e2a6de725ed8fcf04d8d1e2bcbaa3e1c",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/03-warmup-stdio-cache/native/samples.jsonl",
+    "bytes": 1241172,
+    "sha256": "6a9788d229a94c79a10aa8ffe22285196daa12b853c5337bff74f5565b75a937",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/03-warmup-stdio-cache/native/benchmark/native.png",
+    "bytes": 348636,
+    "sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/03-warmup-stdio-cache/native/benchmark/initial.f32",
+    "bytes": 524288,
+    "sha256": "1c89a002f18b3162b5a43100dc6f50bdd247dd0af8d1944ec87705153819d453",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/03-warmup-stdio-cache/native/benchmark/ernie-image.snapshot",
+    "bytes": 36944136,
+    "sha256": "ff2f934f317a602f3d098bf6d74cd7c2e2a6de725ed8fcf04d8d1e2bcbaa3e1c",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/04-measured-mapped-cache/native/samples.jsonl",
+    "bytes": 1092399,
+    "sha256": "2de3de6bccd64bd05cfeb274e536315ae4d82ff2584672606b26b1b812f01948",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/04-measured-mapped-cache/native/benchmark/native.png",
+    "bytes": 348636,
+    "sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/04-measured-mapped-cache/native/benchmark/initial.f32",
+    "bytes": 524288,
+    "sha256": "1c89a002f18b3162b5a43100dc6f50bdd247dd0af8d1944ec87705153819d453",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/04-measured-mapped-cache/native/benchmark/ernie-image.snapshot",
+    "bytes": 36944136,
+    "sha256": "ff2f934f317a602f3d098bf6d74cd7c2e2a6de725ed8fcf04d8d1e2bcbaa3e1c",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/05-measured-stdio-off/native/samples.jsonl",
+    "bytes": 1387170,
+    "sha256": "f5094f129fc485afd6c0d1dba855a35942e562bac917e027b5c110323cd09ef0",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/05-measured-stdio-off/native/benchmark/native.png",
+    "bytes": 348636,
+    "sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/05-measured-stdio-off/native/benchmark/initial.f32",
+    "bytes": 524288,
+    "sha256": "1c89a002f18b3162b5a43100dc6f50bdd247dd0af8d1944ec87705153819d453",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/05-measured-stdio-off/native/benchmark/ernie-image.snapshot",
+    "bytes": 36944136,
+    "sha256": "ff2f934f317a602f3d098bf6d74cd7c2e2a6de725ed8fcf04d8d1e2bcbaa3e1c",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/06-measured-stdio-cache/native/samples.jsonl",
+    "bytes": 1307690,
+    "sha256": "c15612d3b243ac5b51554acccdfd6492a887bbda53c5312b47f08020266b99cd",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/06-measured-stdio-cache/native/benchmark/native.png",
+    "bytes": 348636,
+    "sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/06-measured-stdio-cache/native/benchmark/initial.f32",
+    "bytes": 524288,
+    "sha256": "1c89a002f18b3162b5a43100dc6f50bdd247dd0af8d1944ec87705153819d453",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/06-measured-stdio-cache/native/benchmark/ernie-image.snapshot",
+    "bytes": 36944136,
+    "sha256": "ff2f934f317a602f3d098bf6d74cd7c2e2a6de725ed8fcf04d8d1e2bcbaa3e1c",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/07-measured-mapped-off/native/samples.jsonl",
+    "bytes": 1108582,
+    "sha256": "74934faa955b2217bdf214a6e0c8e1c94b9aa23f2f26385d77363309541c3cd8",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/07-measured-mapped-off/native/benchmark/native.png",
+    "bytes": 348636,
+    "sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/07-measured-mapped-off/native/benchmark/initial.f32",
+    "bytes": 524288,
+    "sha256": "1c89a002f18b3162b5a43100dc6f50bdd247dd0af8d1944ec87705153819d453",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/07-measured-mapped-off/native/benchmark/ernie-image.snapshot",
+    "bytes": 36944136,
+    "sha256": "ff2f934f317a602f3d098bf6d74cd7c2e2a6de725ed8fcf04d8d1e2bcbaa3e1c",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/08-measured-stdio-off/native/samples.jsonl",
+    "bytes": 1364287,
+    "sha256": "2153d0e414528013e08a75b5d2476f1373d2b8335b443bce7c7caf3bbdb27ef1",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/08-measured-stdio-off/native/benchmark/native.png",
+    "bytes": 348636,
+    "sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/08-measured-stdio-off/native/benchmark/initial.f32",
+    "bytes": 524288,
+    "sha256": "1c89a002f18b3162b5a43100dc6f50bdd247dd0af8d1944ec87705153819d453",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/08-measured-stdio-off/native/benchmark/ernie-image.snapshot",
+    "bytes": 36944136,
+    "sha256": "ff2f934f317a602f3d098bf6d74cd7c2e2a6de725ed8fcf04d8d1e2bcbaa3e1c",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/09-measured-stdio-cache/native/samples.jsonl",
+    "bytes": 1297560,
+    "sha256": "0ca9c47097a1d69f54560d3736ca37773c286a1ff2c7653b431711612387bdc7",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/09-measured-stdio-cache/native/benchmark/native.png",
+    "bytes": 348636,
+    "sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/09-measured-stdio-cache/native/benchmark/initial.f32",
+    "bytes": 524288,
+    "sha256": "1c89a002f18b3162b5a43100dc6f50bdd247dd0af8d1944ec87705153819d453",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/09-measured-stdio-cache/native/benchmark/ernie-image.snapshot",
+    "bytes": 36944136,
+    "sha256": "ff2f934f317a602f3d098bf6d74cd7c2e2a6de725ed8fcf04d8d1e2bcbaa3e1c",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/10-measured-mapped-off/native/samples.jsonl",
+    "bytes": 1119433,
+    "sha256": "4e01041f93539d33237bf63e5a75344ed0dd4e2ecf0c9c9722427c9745da3b00",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/10-measured-mapped-off/native/benchmark/native.png",
+    "bytes": 348636,
+    "sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/10-measured-mapped-off/native/benchmark/initial.f32",
+    "bytes": 524288,
+    "sha256": "1c89a002f18b3162b5a43100dc6f50bdd247dd0af8d1944ec87705153819d453",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/10-measured-mapped-off/native/benchmark/ernie-image.snapshot",
+    "bytes": 36944136,
+    "sha256": "ff2f934f317a602f3d098bf6d74cd7c2e2a6de725ed8fcf04d8d1e2bcbaa3e1c",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/11-measured-mapped-cache/native/samples.jsonl",
+    "bytes": 1109874,
+    "sha256": "9493942a156bb6eb8bfcee857b9ea6aef6615a735ad1d55a455a256fbfe2ae92",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/11-measured-mapped-cache/native/benchmark/native.png",
+    "bytes": 348636,
+    "sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/11-measured-mapped-cache/native/benchmark/initial.f32",
+    "bytes": 524288,
+    "sha256": "1c89a002f18b3162b5a43100dc6f50bdd247dd0af8d1944ec87705153819d453",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/11-measured-mapped-cache/native/benchmark/ernie-image.snapshot",
+    "bytes": 36944136,
+    "sha256": "ff2f934f317a602f3d098bf6d74cd7c2e2a6de725ed8fcf04d8d1e2bcbaa3e1c",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/12-measured-stdio-cache/native/samples.jsonl",
+    "bytes": 1292865,
+    "sha256": "2993c1d889c6c395a761dcb3adc68044bebbf06d71e0ba4ccf273c345e785be0",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/12-measured-stdio-cache/native/benchmark/native.png",
+    "bytes": 348636,
+    "sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/12-measured-stdio-cache/native/benchmark/initial.f32",
+    "bytes": 524288,
+    "sha256": "1c89a002f18b3162b5a43100dc6f50bdd247dd0af8d1944ec87705153819d453",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/12-measured-stdio-cache/native/benchmark/ernie-image.snapshot",
+    "bytes": 36944136,
+    "sha256": "ff2f934f317a602f3d098bf6d74cd7c2e2a6de725ed8fcf04d8d1e2bcbaa3e1c",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/13-measured-mapped-off/native/samples.jsonl",
+    "bytes": 1113487,
+    "sha256": "3b7fe10201358997fa737bdc6cd4ae998af3b830f07187a3d502b0282b9ac68e",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/13-measured-mapped-off/native/benchmark/native.png",
+    "bytes": 348636,
+    "sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/13-measured-mapped-off/native/benchmark/initial.f32",
+    "bytes": 524288,
+    "sha256": "1c89a002f18b3162b5a43100dc6f50bdd247dd0af8d1944ec87705153819d453",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/13-measured-mapped-off/native/benchmark/ernie-image.snapshot",
+    "bytes": 36944136,
+    "sha256": "ff2f934f317a602f3d098bf6d74cd7c2e2a6de725ed8fcf04d8d1e2bcbaa3e1c",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/14-measured-mapped-cache/native/samples.jsonl",
+    "bytes": 1104455,
+    "sha256": "292a719d8338eb64d8c6f87f889c26e331be79f722ce53f0c8cc5eff4c3c5e56",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/14-measured-mapped-cache/native/benchmark/native.png",
+    "bytes": 348636,
+    "sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/14-measured-mapped-cache/native/benchmark/initial.f32",
+    "bytes": 524288,
+    "sha256": "1c89a002f18b3162b5a43100dc6f50bdd247dd0af8d1944ec87705153819d453",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/14-measured-mapped-cache/native/benchmark/ernie-image.snapshot",
+    "bytes": 36944136,
+    "sha256": "ff2f934f317a602f3d098bf6d74cd7c2e2a6de725ed8fcf04d8d1e2bcbaa3e1c",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/15-measured-stdio-off/native/samples.jsonl",
+    "bytes": 1385704,
+    "sha256": "c24ea901358fcc784c0746c23a33ed615daaf777957bc2b1d26b5a13d278e91e",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/15-measured-stdio-off/native/benchmark/native.png",
+    "bytes": 348636,
+    "sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/15-measured-stdio-off/native/benchmark/initial.f32",
+    "bytes": 524288,
+    "sha256": "1c89a002f18b3162b5a43100dc6f50bdd247dd0af8d1944ec87705153819d453",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  },
+  {
+    "path": "/var/tmp/ernie-memory-grid512-v1/15-measured-stdio-off/native/benchmark/ernie-image.snapshot",
+    "bytes": 36944136,
+    "sha256": "ff2f934f317a602f3d098bf6d74cd7c2e2a6de725ed8fcf04d8d1e2bcbaa3e1c",
+    "reason": "Raw samples/outputs/binary retained locally, not copied into Git"
+  }
+]

@@ -660,7 +660,8 @@ The CLI and `GenerationResult` report actual hits, loads, peak charged bytes,
 peak cached Nets, pressure evictions and unavailable host-budget queries.
 Detailed tracing also writes `weight-cache.txt`; placement traces cover only
 actual loads, with `reason=cache` when auto selects RAM for cache admission.
-The cache remains opt-in pending repeated timing and wider image/device checks.
+The cache remains opt-in; the repeated development comparison below and wider
+image/device checks must be considered before any default change.
 
 A subsequent complete 512x512 run enabled runtime mapped loading with this
 6 GiB cache and a 16 GiB cgroup. All 25 tensors and the PNG remained byte-exact,
@@ -685,3 +686,16 @@ with every tensor and the PNG unchanged. This run takes 384.364 seconds versus
 the previous 378.970 seconds, and cgroup max events increase; these uncontrolled
 single trace runs provide no speedup evidence. Cache remains opt-in. See the
 [file-LRU regression](../artifacts/2026-09-07/cache-file-lru/README.md).
+
+The subsequent frozen four-setting development grid completed all sixteen
+fresh-process runs: one warmup and three measured runs per stdio/mapped and
+cache0/6144MiB combination. All PNGs are byte-exact, OOM/OOM-kill is zero.
+Measured wall medians are 500.252/465.762/395.931/393.330 seconds respectively;
+native peak RSS medians are 1.824/6.276/1.947/9.102GiB. In mapped mode the
+paired cache timing change is only about 0.85%, with several GiB extra native
+RSS. Mapping itself has a roughly 20.85% paired elapsed-time reduction with
+cache off, but mapped file pages hit the unchanged cgroup limit. Both options
+remain opt-in. This uses one 512x512 input, explicitly requests RAM weights,
+and has uncontrolled page-cache/background conditions; it does not test actual
+GPU exhaustion or establish formal peer performance. See the complete
+[repeated grid and limits](../artifacts/2026-09-07/memory-grid512/README.md).
