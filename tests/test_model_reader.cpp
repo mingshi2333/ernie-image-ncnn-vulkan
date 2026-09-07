@@ -103,6 +103,20 @@ void verify_values(const ncnn::Mat& values, int count, bool bfloat)
     }
 }
 
+std::size_t vector_allocation(std::size_t elements)
+{
+    // Measure the same empty-vector resize on this standard library. MSVC
+    // adds alignment metadata to large allocations, beyond the element bytes.
+    largest_new.store(0);
+    observe_new.store(true);
+    std::vector<unsigned short> control;
+    control.resize(elements);
+    observe_new.store(false);
+    const auto bytes = largest_new.load();
+    require(bytes >= elements * sizeof(unsigned short), "Missing vector allocation control");
+    return bytes;
+}
+
 void exercise(int count, bool bfloat)
 {
     GeneratedReader reader(count, bfloat);
@@ -111,7 +125,9 @@ void exercise(int count, bool bfloat)
     verify_values(values, count, bfloat);
     require(reader.consumed() == reader.payload() + 4, "Incorrect aligned input consumption");
     const auto multiplier = ERNIE_COMPACT_MODEL_READER_TEST ? 1 : sizeof(unsigned short);
-    require(reader.allocation_at_payload == reader.payload() * multiplier, "Unexpected temporary vector allocation");
+    const auto vector_bytes = reader.payload() * multiplier;
+    const auto expected_allocation = vector_allocation(vector_bytes / sizeof(unsigned short));
+    require(reader.allocation_at_payload == expected_allocation, "Unexpected temporary vector allocation");
 
     // A reference-capable reader takes the same mapped input branch as ncnn.
     std::vector<unsigned char> encoded(4 + reader.payload());
@@ -123,7 +139,8 @@ void exercise(int count, bool bfloat)
     verify_values(ncnn::ModelBinFromDataReader(mapped).load(count, 0), count, bfloat);
     require(cursor == encoded.data() + encoded.size(), "Mapped read lost alignment");
     std::cout << (bfloat ? "BF16" : "FP16") << " count=" << count << " payload=" << reader.payload()
-              << " vector_bytes=" << reader.allocation_at_payload << " bit_exact=true\n";
+              << " vector_bytes=" << reader.allocation_at_payload
+              << " vector_payload_bytes=" << vector_bytes << " bit_exact=true\n";
 }
 } // namespace
 

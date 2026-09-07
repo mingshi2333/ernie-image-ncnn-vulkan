@@ -1,0 +1,3 @@
+# Reviewed fixtures are authenticated byte for byte, including line endings.
+tests/fixtures/*.param text eol=lf
+tests/fixtures/*.jinja text eol=lf
