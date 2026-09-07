@@ -1,0 +1,362 @@
+{
+  "scope": "Independent root re-read of complete768x1376 sources, inputs, execution, all25 finite tensors and PNG; no model rerun",
+  "source_head": "990e8ef07591c2f7564d538462d51b8961263655",
+  "plan_sha256": "38f8d9a6528bc00aa9207bc225a7afde81a189a84410864d07c0ddd486c8afdc",
+  "reference_fixture_sha256": "7192c7e1ddbb04a0bfffd68d0379bfac67ac9f543c7b9963dfe69527c0de1cb5",
+  "verified_bindings": 436,
+  "complete_execution_both": true,
+  "rows": [
+    {
+      "name": "initial",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 0.0,
+      "max_abs": 0.0,
+      "max_abs_limit": 0.0011329578399658204,
+      "passed": true
+    },
+    {
+      "name": "text",
+      "elements": 46080,
+      "finite": true,
+      "nrmse": 1.7925431556488268e-06,
+      "max_abs": 0.00091552734375,
+      "max_abs_limit": 0.11998079833984376,
+      "passed": true
+    },
+    {
+      "name": "padded-text",
+      "elements": 196608,
+      "finite": true,
+      "nrmse": 1.7925431556488268e-06,
+      "max_abs": 0.00091552734375,
+      "max_abs_limit": 0.11998079833984376,
+      "passed": true
+    },
+    {
+      "name": "constant-0",
+      "elements": 536576,
+      "finite": true,
+      "nrmse": 1.7699527742225952e-08,
+      "max_abs": 5.960464477539063e-08,
+      "max_abs_limit": 0.0004,
+      "passed": true
+    },
+    {
+      "name": "constant-1",
+      "elements": 536576,
+      "finite": true,
+      "nrmse": 1.535951552033489e-08,
+      "max_abs": 5.960464477539063e-08,
+      "max_abs_limit": 0.00039999831914901737,
+      "passed": true
+    },
+    {
+      "name": "constant-2",
+      "elements": 17572864,
+      "finite": true,
+      "nrmse": 0.0,
+      "max_abs": 0.0,
+      "max_abs_limit": 2.0000000300949325e+26,
+      "passed": true
+    },
+    {
+      "name": "prediction-0",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 2.2013803134825342e-05,
+      "max_abs": 0.000628352165222168,
+      "max_abs_limit": 0.06968558807373047,
+      "passed": true
+    },
+    {
+      "name": "step-0",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 1.0947894292990786e-06,
+      "max_abs": 2.1696090698242188e-05,
+      "max_abs_limit": 0.04504357833862305,
+      "passed": true
+    },
+    {
+      "name": "prediction-1",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 5.620436170200927e-05,
+      "max_abs": 0.005322694778442383,
+      "max_abs_limit": 0.07891287822723389,
+      "passed": true
+    },
+    {
+      "name": "step-1",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 3.7476501324183077e-06,
+      "max_abs": 0.00022459030151367188,
+      "max_abs_limit": 0.04302575607299804,
+      "passed": true
+    },
+    {
+      "name": "prediction-2",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 7.141029801778932e-05,
+      "max_abs": 0.003982663154602051,
+      "max_abs_limit": 0.0718630506515503,
+      "passed": true
+    },
+    {
+      "name": "step-2",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 7.379150562926572e-06,
+      "max_abs": 0.00021767616271972656,
+      "max_abs_limit": 0.040793976974487306,
+      "passed": true
+    },
+    {
+      "name": "prediction-3",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 9.167619206455157e-05,
+      "max_abs": 0.00722050666809082,
+      "max_abs_limit": 0.06724182147979738,
+      "passed": true
+    },
+    {
+      "name": "step-3",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 1.4493452326058762e-05,
+      "max_abs": 0.0005807876586914062,
+      "max_abs_limit": 0.03938394804000855,
+      "passed": true
+    },
+    {
+      "name": "prediction-4",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 0.00012015863628780459,
+      "max_abs": 0.00768435001373291,
+      "max_abs_limit": 0.06794802684783936,
+      "passed": true
+    },
+    {
+      "name": "step-4",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 2.894857613364103e-05,
+      "max_abs": 0.0010998249053955078,
+      "max_abs_limit": 0.03790295858383179,
+      "passed": true
+    },
+    {
+      "name": "prediction-5",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 9.881683345135932e-05,
+      "max_abs": 0.007647037506103516,
+      "max_abs_limit": 0.07165279407501221,
+      "passed": true
+    },
+    {
+      "name": "step-5",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 4.7950064453868505e-05,
+      "max_abs": 0.002051711082458496,
+      "max_abs_limit": 0.03680503387451172,
+      "passed": true
+    },
+    {
+      "name": "prediction-6",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 0.00020085599076567683,
+      "max_abs": 0.016306161880493164,
+      "max_abs_limit": 0.07133511085510255,
+      "passed": true
+    },
+    {
+      "name": "step-6",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 9.512901039719664e-05,
+      "max_abs": 0.004621267318725586,
+      "max_abs_limit": 0.04719350357055664,
+      "passed": true
+    },
+    {
+      "name": "prediction-7",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 0.0002284396154145739,
+      "max_abs": 0.015517950057983398,
+      "max_abs_limit": 0.0716340353012085,
+      "passed": true
+    },
+    {
+      "name": "step-7",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 0.00014156009668778188,
+      "max_abs": 0.010264158248901367,
+      "max_abs_limit": 0.07288228054046632,
+      "passed": true
+    },
+    {
+      "name": "final",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 0.00014156009668778188,
+      "max_abs": 0.010264158248901367,
+      "max_abs_limit": 0.07288228054046632,
+      "passed": true
+    },
+    {
+      "name": "unpacked",
+      "elements": 528384,
+      "finite": true,
+      "nrmse": 0.00014141991466444515,
+      "max_abs": 0.018414974212646484,
+      "max_abs_limit": 0.12604689140319825,
+      "passed": true
+    },
+    {
+      "name": "decoded",
+      "elements": 3170304,
+      "finite": true,
+      "nrmse": 3.6706008922627486e-05,
+      "max_abs": 0.0017347261309623718,
+      "max_abs_limit": 0.011920951795578004,
+      "passed": true
+    }
+  ],
+  "finite_elements": 32098304,
+  "passed_tensors": 25,
+  "png_mae": 0.0017591372940891474,
+  "png_max_abs": 1,
+  "png_passed": true,
+  "all_quality_gates_passed": true,
+  "native_png_sha256": "b6becd191bce3bae59ff1a759821fb3e582365f1ad4538cfb4afc3886827fca4",
+  "official_png_sha256": "d080c8a6357f1669fc7d556bdcb38b4ff6de432e59a4a70df146778e0ca13abb",
+  "processes": {
+    "native": {
+      "phase": "native",
+      "command": [
+        "systemd-run",
+        "--user",
+        "--scope",
+        "--quiet",
+        "--unit=ernie-large-768x1376-v1-native",
+        "--property=MemoryMax=17179869184",
+        "--property=MemorySwapMax=0",
+        "--property=CPUQuota=200%",
+        "taskset",
+        "-c",
+        "4,6",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+        "/var/tmp/ernie-runtime-large-v1/768x1376/run.py",
+        "native",
+        "38f8d9a6528bc00aa9207bc225a7afde81a189a84410864d07c0ddd486c8afdc"
+      ],
+      "plan_sha256": "38f8d9a6528bc00aa9207bc225a7afde81a189a84410864d07c0ddd486c8afdc",
+      "limits": {
+        "memory_max_bytes": 17179869184,
+        "host_available_min_bytes": 3221225472,
+        "gpu_whole_device_max_mib": 6144,
+        "timeout_seconds_per_phase": 1800
+      },
+      "peak_memory_current": 10066382848,
+      "minimum_host_available": 11054444544,
+      "peak_gpu_whole_device_mib": 3554,
+      "complete": true,
+      "last_compute_processes": [
+        {
+          "pid": 4349,
+          "mib": 37,
+          "owned": false
+        },
+        {
+          "pid": 11253,
+          "mib": 111,
+          "owned": false
+        },
+        {
+          "pid": 1808405,
+          "mib": 5,
+          "owned": false
+        }
+      ],
+      "peak_owned_compute_mib": 1664,
+      "cgroup_seen": true,
+      "observed_limits": {
+        "memory.max": "17179869184",
+        "memory.swap.max": "0",
+        "cpu.max": "200000 100000"
+      },
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "return_code": 0,
+      "wall_seconds": 866.9418099680042
+    },
+    "official": {
+      "phase": "official",
+      "command": [
+        "systemd-run",
+        "--user",
+        "--scope",
+        "--quiet",
+        "--unit=ernie-large-768x1376-v1-official",
+        "--property=MemoryMax=17179869184",
+        "--property=MemorySwapMax=0",
+        "--property=CPUQuota=200%",
+        "taskset",
+        "-c",
+        "4,6",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+        "/var/tmp/ernie-runtime-large-v1/768x1376/run.py",
+        "official",
+        "38f8d9a6528bc00aa9207bc225a7afde81a189a84410864d07c0ddd486c8afdc"
+      ],
+      "plan_sha256": "38f8d9a6528bc00aa9207bc225a7afde81a189a84410864d07c0ddd486c8afdc",
+      "limits": {
+        "memory_max_bytes": 17179869184,
+        "host_available_min_bytes": 3221225472,
+        "gpu_whole_device_max_mib": 6144,
+        "timeout_seconds_per_phase": 1800
+      },
+      "peak_memory_current": 6493028352,
+      "minimum_host_available": 11881676800,
+      "peak_gpu_whole_device_mib": 3980,
+      "complete": true,
+      "last_compute_processes": [
+        {
+          "pid": 4349,
+          "mib": 38,
+          "owned": false
+        },
+        {
+          "pid": 11253,
+          "mib": 110,
+          "owned": false
+        },
+        {
+          "pid": 1808405,
+          "mib": 5,
+          "owned": false
+        }
+      ],
+      "peak_owned_compute_mib": 2226,
+      "cgroup_seen": true,
+      "observed_limits": {
+        "memory.max": "17179869184",
+        "memory.swap.max": "0",
+        "cpu.max": "200000 100000"
+      },
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "return_code": 0,
+      "wall_seconds": 344.1897003640188
+    }
+  },
+  "reviewer_sha256": "4c409ceaba3d3640ae8336370a58c0e0233cd31af9eba9a8ee5363d6991e8af1"
+}

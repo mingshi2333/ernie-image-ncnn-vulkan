@@ -9,6 +9,21 @@ import re
 # This binds the whole fixture, including official environment and tensor hashes;
 # a caller cannot establish provenance by editing fields inside that fixture.
 REVIEWED_SHARED_REFERENCES = {
+    '83aba2fb9636552580adeb221a03108890defb0325b825c0673ebba7642a70b1': {
+        'source_manifest_sha256': '9cc1dc0e605256e405a049b6a8d58f98a9f138b2a16c6d40be6bb35595743154',
+        'evidence': 'artifacts/2026-09-07/runtime-large/README.md',
+        'scope': '1024x2048 official FP32 development reference; common saved initial bytes; 32 text bucket and 64 DiT slots; eight complete steps; all25 native tensor gates and PNG pass in this fixture',
+    },
+    '7192c7e1ddbb04a0bfffd68d0379bfac67ac9f543c7b9963dfe69527c0de1cb5': {
+        'source_manifest_sha256': '9cc1dc0e605256e405a049b6a8d58f98a9f138b2a16c6d40be6bb35595743154',
+        'evidence': 'artifacts/2026-09-07/runtime-large/README.md',
+        'scope': '768x1376 official FP32 development reference; common saved initial bytes; 32 text bucket and 64 DiT slots; eight complete steps; all25 native tensor gates and PNG pass in this fixture',
+    },
+    'bf24c48c4f8ee3a3d46520f4112529531e4ccc51896b92050936dd7a02d66932': {
+        'source_manifest_sha256': '9cc1dc0e605256e405a049b6a8d58f98a9f138b2a16c6d40be6bb35595743154',
+        'evidence': 'artifacts/2026-09-07/runtime-large/README.md',
+        'scope': '2048x1024 official FP32 development reference; common saved initial bytes; 32 text bucket and 64 DiT slots; eight complete steps; all25 native tensor gates and PNG pass in this fixture',
+    },
     '00910909df1bc271ccddaeafc235783f2b131b3c158283340598095de18d8c06': {
         'source_manifest_sha256': '9cc1dc0e605256e405a049b6a8d58f98a9f138b2a16c6d40be6bb35595743154',
         'evidence': 'artifacts/2026-09-07/runtime-large/README.md',

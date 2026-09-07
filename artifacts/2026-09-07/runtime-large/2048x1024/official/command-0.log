@@ -1,0 +1,371 @@
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+Unrecognized keys in `rope_parameters` for 'rope_type'='yarn': {'llama_4_scaling_beta'}
+{"cuda_memory_after_block": 0, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 1, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 2, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 3, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 4, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 5, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 0, "blocks_complete": 6, "elapsed_seconds": 9.163769412989495, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 6, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 7, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 8, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 9, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 10, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 11, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 0, "blocks_complete": 12, "elapsed_seconds": 17.747654101985972, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 12, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 13, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 14, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 15, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 16, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 17, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 0, "blocks_complete": 18, "elapsed_seconds": 26.212980380980298, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 18, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 19, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 20, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 21, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 22, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 23, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 0, "blocks_complete": 24, "elapsed_seconds": 34.57855060999282, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 24, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 25, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 26, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 27, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 28, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 29, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 0, "blocks_complete": 30, "elapsed_seconds": 43.13641167199239, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 30, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 31, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 32, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 33, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 34, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 35, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 0, "blocks_complete": 36, "elapsed_seconds": 51.60414226798457, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"reference_step": 0, "elapsed_seconds": 51.80880969998543}
+{"cuda_memory_after_block": 0, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 1, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 2, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 3, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 4, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 5, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 1, "blocks_complete": 6, "elapsed_seconds": 9.269914419011911, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 6, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 7, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 8, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 9, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 10, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 11, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 1, "blocks_complete": 12, "elapsed_seconds": 18.004406782012666, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 12, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 13, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 14, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 15, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 16, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 17, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 1, "blocks_complete": 18, "elapsed_seconds": 26.5822135930066, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 18, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 19, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 20, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 21, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 22, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 23, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 1, "blocks_complete": 24, "elapsed_seconds": 35.075845523009775, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 24, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 25, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 26, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 27, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 28, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 29, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 1, "blocks_complete": 30, "elapsed_seconds": 43.644987289007986, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 30, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 31, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 32, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 33, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 34, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 35, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 1, "blocks_complete": 36, "elapsed_seconds": 52.853195625997614, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"reference_step": 1, "elapsed_seconds": 53.14621373399859}
+{"cuda_memory_after_block": 0, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 1, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 2, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 3, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 4, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 5, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 2, "blocks_complete": 6, "elapsed_seconds": 9.642582540982403, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 6, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 7, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 8, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 9, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 10, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 11, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 2, "blocks_complete": 12, "elapsed_seconds": 18.56549983198056, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 12, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 13, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 14, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 15, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 16, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 17, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 2, "blocks_complete": 18, "elapsed_seconds": 27.41694653997547, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 18, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 19, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 20, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 21, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 22, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 23, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 2, "blocks_complete": 24, "elapsed_seconds": 36.0678256249812, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 24, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 25, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 26, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 27, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 28, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 29, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 2, "blocks_complete": 30, "elapsed_seconds": 44.67237557598855, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 30, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 31, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 32, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 33, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 34, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 35, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 2, "blocks_complete": 36, "elapsed_seconds": 53.18511382097495, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"reference_step": 2, "elapsed_seconds": 53.39064205798786}
+{"cuda_memory_after_block": 0, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 1, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 2, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 3, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 4, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 5, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 3, "blocks_complete": 6, "elapsed_seconds": 9.329898891010089, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 6, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 7, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 8, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 9, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 10, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 11, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 3, "blocks_complete": 12, "elapsed_seconds": 18.081371084001148, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 12, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 13, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 14, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 15, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 16, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 17, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 3, "blocks_complete": 18, "elapsed_seconds": 26.85703605998424, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 18, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 19, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 20, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 21, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 22, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 23, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 3, "blocks_complete": 24, "elapsed_seconds": 35.383813146996545, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 24, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 25, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 26, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 27, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 28, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 29, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 3, "blocks_complete": 30, "elapsed_seconds": 44.20540950400755, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 30, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 31, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 32, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 33, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 34, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 35, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 3, "blocks_complete": 36, "elapsed_seconds": 52.748071713984245, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"reference_step": 3, "elapsed_seconds": 52.97177065999131}
+{"cuda_memory_after_block": 0, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 1, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 2, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 3, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 4, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 5, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 4, "blocks_complete": 6, "elapsed_seconds": 9.196304290002445, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 6, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 7, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 8, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 9, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 10, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 11, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 4, "blocks_complete": 12, "elapsed_seconds": 17.627759960014373, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 12, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 13, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 14, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 15, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 16, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 17, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 4, "blocks_complete": 18, "elapsed_seconds": 26.255093348998344, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 18, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 19, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 20, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 21, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 22, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 23, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 4, "blocks_complete": 24, "elapsed_seconds": 34.77966440000455, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 24, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 25, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 26, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 27, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 28, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 29, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 4, "blocks_complete": 30, "elapsed_seconds": 43.492180703004124, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 30, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 31, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 32, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 33, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 34, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 35, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 4, "blocks_complete": 36, "elapsed_seconds": 52.00365682900883, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"reference_step": 4, "elapsed_seconds": 52.213624446012545}
+{"cuda_memory_after_block": 0, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 1, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 2, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 3, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 4, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 5, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 5, "blocks_complete": 6, "elapsed_seconds": 9.271167039027205, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 6, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 7, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 8, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 9, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 10, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 11, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 5, "blocks_complete": 12, "elapsed_seconds": 17.669515545014292, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 12, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 13, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 14, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 15, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 16, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 17, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 5, "blocks_complete": 18, "elapsed_seconds": 26.308165258000372, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 18, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 19, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 20, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 21, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 22, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 23, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 5, "blocks_complete": 24, "elapsed_seconds": 35.364963293017354, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 24, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 25, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 26, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 27, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 28, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 29, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 5, "blocks_complete": 30, "elapsed_seconds": 44.188898666005116, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 30, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 31, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 32, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 33, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 34, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 35, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 5, "blocks_complete": 36, "elapsed_seconds": 52.71784142102115, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"reference_step": 5, "elapsed_seconds": 52.930480503011495}
+{"cuda_memory_after_block": 0, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 1, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 2, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 3, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 4, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 5, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 6, "blocks_complete": 6, "elapsed_seconds": 9.291882169025484, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 6, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 7, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 8, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 9, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 10, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 11, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 6, "blocks_complete": 12, "elapsed_seconds": 17.80048854800407, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 12, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 13, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 14, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 15, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 16, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 17, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 6, "blocks_complete": 18, "elapsed_seconds": 26.502574265003204, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 18, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 19, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 20, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 21, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 22, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 23, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 6, "blocks_complete": 24, "elapsed_seconds": 35.30516285501653, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 24, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 25, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 26, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 27, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 28, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 29, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 6, "blocks_complete": 30, "elapsed_seconds": 44.06422200700035, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 30, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 31, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 32, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 33, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 34, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 35, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 6, "blocks_complete": 36, "elapsed_seconds": 52.59854449800332, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"reference_step": 6, "elapsed_seconds": 52.82353524499922}
+{"cuda_memory_after_block": 0, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 1, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 2, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 3, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 4, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 5, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 7, "blocks_complete": 6, "elapsed_seconds": 9.290748281026026, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 6, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 7, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 8, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 9, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 10, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 11, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 7, "blocks_complete": 12, "elapsed_seconds": 17.793283905019052, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 12, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 13, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 14, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 15, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 16, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 17, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 7, "blocks_complete": 18, "elapsed_seconds": 26.52496945002349, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 18, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 19, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 20, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 21, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 22, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 23, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 7, "blocks_complete": 24, "elapsed_seconds": 35.73108217099798, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 24, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 25, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 26, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 27, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 28, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 29, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 7, "blocks_complete": 30, "elapsed_seconds": 45.480551790999016, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"cuda_memory_after_block": 30, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 31, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 32, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 33, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 34, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"cuda_memory_after_block": 35, "allocated_bytes": 1430569984, "reserved_bytes": 3753902080, "peak_allocated_bytes": 3060057088, "peak_reserved_bytes": 3753902080}
+{"reference_step": 7, "blocks_complete": 36, "elapsed_seconds": 54.468114962015534, "allocated_bytes": 421806080, "reserved_before_release": 3753902080, "reserved_after_release": 434110464}
+{"reference_step": 7, "elapsed_seconds": 54.689616183022736}
+{"complete": true, "config": {"packed_width": 128, "packed_height": 64, "text_bucket": 32, "dit_text_tokens": 64, "text_layers": 25, "dit_layers": 36}, "ids": [1, 1065, 4804, 46227, 1408, 1261, 32656, 4234, 1044, 6444, 85352, 1044, 43905, 16649, 1046]}

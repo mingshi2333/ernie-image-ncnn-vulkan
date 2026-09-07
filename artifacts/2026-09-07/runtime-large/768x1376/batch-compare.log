@@ -1,0 +1,20 @@
+Running as unit: ernie-large-768x1376-compare-v1.service
+{
+  "total_elements": 32098304,
+  "passed_tensors": 25,
+  "png": {
+    "mae": 0.0017591372940891474,
+    "max_abs": 1.0,
+    "different_channel_samples": 5577,
+    "total_channel_samples": 3170304,
+    "reference_sha256": "d080c8a6357f1669fc7d556bdcb38b4ff6de432e59a4a70df146778e0ca13abb",
+    "native_sha256": "b6becd191bce3bae59ff1a759821fb3e582365f1ad4538cfb4afc3886827fca4",
+    "passed": true
+  },
+  "passed": true
+}
+          Finished with result: success
+Main processes terminated with: code=exited, status=0/SUCCESS
+               Service runtime: 3.008s
+             CPU time consumed: 3.344s
+                   Memory peak: 742.6M (swap: 0B)

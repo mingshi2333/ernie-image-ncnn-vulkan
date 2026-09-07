@@ -192,12 +192,14 @@ PNG maximum differences are 2/255 and 1/255 respectively. Tensor gates remain
 18/25 and 24/25, so these are complete executions with outstanding numerical
 differences. They do not test automatic placement under real GPU exhaustion.
 See the [complete square canaries and preserved failures](../artifacts/2026-09-07/runtime-squares/README.md).
-The new shared source32 1376x768 case also completes native and official FP32
-generation, with all 25 tensor gates passing, PNG mean channel difference
-0.000617291/255 and maximum 1/255. Both runs have no OOM; an independent
-readback covers all 32,098,304 finite values. This uses explicit RAM weights,
-stdio/cache0 and its own saved input; it does not replace the older source64
-1376x768 failure. The other large shapes are still running. See the
+The four shared source32 large cases (1376x768, 768x1376, 2048x1024 and
+1024x2048) now complete native and official FP32 generation. Every case passes
+all 25 tensor gates and PNG maximum difference 1/255; independent readback
+covers 257,660,928 finite values per side. All eight model executions have no
+OOM. The official 2048x1024 run records cgroup limit events with file cache
+included; this is not a whole-chain max0 result. These traced cases use explicit
+RAM weights, stdio/cache0 and saved inputs; they do not replace the older
+source64 1376x768 failure or establish formal performance superiority. See the
 [large-shape execution records](../artifacts/2026-09-07/runtime-large/README.md).
 Graph instantiation and
 one maximum-length block are narrower evidence; see the

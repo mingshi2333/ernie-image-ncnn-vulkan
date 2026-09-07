@@ -1,0 +1,47 @@
+Running as unit: ernie-large-768x1376-register-v1.service
+test_complete_reference_has_exact_25_boundaries (test_pipeline_reference.ReferenceContractTest.test_complete_reference_has_exact_25_boundaries) ... ok
+test_empty_or_missing_step_is_rejected (test_pipeline_reference.ReferenceContractTest.test_empty_or_missing_step_is_rejected) ... ok
+test_missing_conditioning_prediction_or_final_is_rejected (test_pipeline_reference.ReferenceContractTest.test_missing_conditioning_prediction_or_final_is_rejected) ... ok
+test_resigned_shared_metadata_cannot_replace_pinned_source_inventory (test_pipeline_reference.ReferenceContractTest.test_resigned_shared_metadata_cannot_replace_pinned_source_inventory) ... ok
+test_runtime_target_cannot_replace_source_config_or_omit_target_binding (test_pipeline_reference.ReferenceContractTest.test_runtime_target_cannot_replace_source_config_or_omit_target_binding) ... ok
+test_step_identity_shape_dtype_and_token_type_are_checked (test_pipeline_reference.ReferenceContractTest.test_step_identity_shape_dtype_and_token_type_are_checked) ... ok
+test_suffix_bool_count_and_changed_config_are_rejected (test_pipeline_reference.ReferenceContractTest.test_suffix_bool_count_and_changed_config_are_rejected) ... ok
+test_whole_fixture_digest_and_source_binding_are_both_required (test_pipeline_reference.ReferenceContractTest.test_whole_fixture_digest_and_source_binding_are_both_required) ... ok
+test_legacy_selection_stays_compatible_and_rejects_mismatch (test_pipeline_package.ValidationPackageTest.test_legacy_selection_stays_compatible_and_rejects_mismatch) ... ok
+test_runtime_target_preserves_source_identity_and_original_instance (test_pipeline_package.ValidationPackageTest.test_runtime_target_preserves_source_identity_and_original_instance) ... ok
+test_shared_authenticates_then_selects_exact_instance (test_pipeline_package.ValidationPackageTest.test_shared_authenticates_then_selects_exact_instance) ... ok
+test_shared_requires_existing_oracle (test_pipeline_package.ValidationPackageTest.test_shared_requires_existing_oracle) ... ok
+test_shared_verification_failure_cannot_be_bypassed_by_matching_shape (test_pipeline_package.ValidationPackageTest.test_shared_verification_failure_cannot_be_bypassed_by_matching_shape) ... ok
+test_three_exported_buckets_follow_actual_reference_tokens (test_pipeline_package.ValidationPackageTest.test_three_exported_buckets_follow_actual_reference_tokens) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.007s
+
+OK
+{
+  "scope": "Current registry authentication, source-manifest object and full25-boundary contract; independent all-tensor/command readback precedes registration; this check does not rerun the model.",
+  "case": "768x1376",
+  "shape": [
+    768,
+    1376
+  ],
+  "reviewed": {
+    "fixture_sha256": "7192c7e1ddbb04a0bfffd68d0379bfac67ac9f543c7b9963dfe69527c0de1cb5",
+    "source_manifest_sha256": "9cc1dc0e605256e405a049b6a8d58f98a9f138b2a16c6d40be6bb35595743154",
+    "evidence": "artifacts/2026-09-07/runtime-large/README.md",
+    "scope": "768x1376 official FP32 development reference; common saved initial bytes; 32 text bucket and 64 DiT slots; eight complete steps; all25 native tensor gates and PNG pass in this fixture"
+  },
+  "tests_run": 14,
+  "failures": 0,
+  "errors": 0,
+  "successful": true,
+  "source_sha256": {
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tools/pipeline_package.py": "dc62a59b17903b71c17df598bcd8fc1f73a97f0242d18e69639efd13970bc5f0",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tools/pipeline_reference.py": "b90b0228686d9fa383437a3b051a966b0b519cd47a94d699531c46f438ae735a"
+  }
+}
+          Finished with result: success
+Main processes terminated with: code=exited, status=0/SUCCESS
+               Service runtime: 128ms
+             CPU time consumed: 91ms
+                   Memory peak: 23M (swap: 0B)

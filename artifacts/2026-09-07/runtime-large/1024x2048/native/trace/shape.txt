@@ -1,0 +1,7 @@
+width=1024
+height=2048
+valid_text_tokens=15
+text_bucket=32
+dit_text_tokens=64
+total_tokens=8256
+dit_weights=host

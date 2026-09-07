@@ -1,0 +1,22 @@
+{
+  "scope": "Current registry authentication, source-manifest object and full25-boundary contract; independent all-tensor/command readback precedes registration; this check does not rerun the model.",
+  "case": "1024x2048",
+  "shape": [
+    1024,
+    2048
+  ],
+  "reviewed": {
+    "fixture_sha256": "83aba2fb9636552580adeb221a03108890defb0325b825c0673ebba7642a70b1",
+    "source_manifest_sha256": "9cc1dc0e605256e405a049b6a8d58f98a9f138b2a16c6d40be6bb35595743154",
+    "evidence": "artifacts/2026-09-07/runtime-large/README.md",
+    "scope": "1024x2048 official FP32 development reference; common saved initial bytes; 32 text bucket and 64 DiT slots; eight complete steps; all25 native tensor gates and PNG pass in this fixture"
+  },
+  "tests_run": 14,
+  "failures": 0,
+  "errors": 0,
+  "successful": true,
+  "source_sha256": {
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tools/pipeline_package.py": "dc62a59b17903b71c17df598bcd8fc1f73a97f0242d18e69639efd13970bc5f0",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tools/pipeline_reference.py": "f92e5d17c7ef91cbc6fb4d41a8f5b9218e6689e82c4a450ff42185dfa3728102"
+  }
+}
