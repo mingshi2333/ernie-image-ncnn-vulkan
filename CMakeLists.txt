@@ -3,6 +3,10 @@ project(ernie_image_ncnn_vulkan VERSION 0.1.0 LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+if(MSVC)
+    # The CLI/API and multilingual test fixtures use UTF-8 on every platform.
+    add_compile_options(/utf-8)
+endif()
 # Keep the documented command paths stable when targets live in subdirectories.
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
 include(CTest)
