@@ -179,3 +179,9 @@ if(ERNIE_BUILD_ALLOCATION_PROBE AND ERNIE_ENABLE_VULKAN)
         target_link_libraries(ernie-allocation-vulkan-contract PRIVATE ernie-allocation-metrics)
     endif()
 endif()
+
+add_executable(ernie-pe-prefill-contract test_pe_prefill.cpp)
+target_link_libraries(ernie-pe-prefill-contract PRIVATE ernie-runtime)
+target_compile_definitions(ernie-pe-prefill-contract PRIVATE
+    ERNIE_PE_GRAPH_FIXTURE="${CMAKE_CURRENT_SOURCE_DIR}/fixtures/pe-canonical.param")
+add_test(NAME pe_prefill_cpu COMMAND ernie-pe-prefill-contract)

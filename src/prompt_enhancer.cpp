@@ -67,11 +67,13 @@ uint32_t sample_pe_token(const ncnn::Mat &logits, const PeOptions &options, std:
 
 PeResult enhance_prompt(const std::string &model, const std::string &prompt, int width, int height,
                         const PeOptions &options, const PeProgress &progress, const PeLogits &observe,
-                        int threads)
+                        int threads, int prefill_chunk)
 {
     options_check(options);
     if (threads < 1 || threads > 256)
         throw std::invalid_argument("PE threads must be in [1,256]");
+    if (prefill_chunk < 1 || prefill_chunk > 32)
+        throw std::invalid_argument("PE prefill chunk must be in [1,32]");
     const auto root = std::filesystem::u8path(model);
     verify_package(model);
     Tokenizer tokenizer((root / "tokenizer").u8string());
@@ -98,8 +100,8 @@ PeResult enhance_prompt(const std::string &model, const std::string &prompt, int
     {
         auto net = std::make_unique<ncnn::Net>();
         net->opt = cpu;
-        load_pe_block(*net,
-                      (root / (std::string("block-") + (i < 10 ? "0" : "") + std::to_string(i))).u8string());
+        const auto load = prefill_chunk == 1 ? load_pe_block : load_pe_block_chunked;
+        load(*net, (root / (std::string("block-") + (i < 10 ? "0" : "") + std::to_string(i))).u8string());
         pointers.push_back(net.get());
         blocks.push_back(std::move(net));
         if (progress)
@@ -126,11 +128,44 @@ PeResult enhance_prompt(const std::string &model, const std::string &prompt, int
         return session.step(embedded, cos, sin);
     };
     ncnn::Mat hidden;
-    for (size_t i = 0; i < result.input_ids.size(); ++i)
+    if (prefill_chunk == 1)
     {
-        hidden = advance(result.input_ids[i]);
-        if (progress && ((i + 1) % 8 == 0 || i + 1 == result.input_ids.size()))
-            progress("prefill", int(i + 1), int(result.input_ids.size()));
+        for (size_t i = 0; i < result.input_ids.size(); ++i)
+        {
+            hidden = advance(result.input_ids[i]);
+            if (progress && ((i + 1) % 8 == 0 || i + 1 == result.input_ids.size()))
+                progress("prefill", int(i + 1), int(result.input_ids.size()));
+        }
+    }
+    else
+    {
+        for (size_t first = 0; first < result.input_ids.size();)
+        {
+            const int count = int(std::min(size_t(prefill_chunk), result.input_ids.size() - first));
+            const std::vector<uint32_t> ids(result.input_ids.begin() + first,
+                                            result.input_ids.begin() + first + count);
+            const auto embedded = text_embeddings((root / "embeddings.bf16").u8string(), ids, count);
+            ncnn::Mat cos(128, count), sin(128, count);
+            if (cos.empty() || sin.empty())
+                throw std::bad_alloc();
+            for (int r = 0; r < count; ++r)
+                for (int i = 0; i < 64; ++i)
+                {
+                    const float phase = float(session.position() + r) * frequencies[i];
+                    cos.row(r)[i] = cos.row(r)[i + 64] = std::cos(phase);
+                    sin.row(r)[i] = sin.row(r)[i + 64] = std::sin(phase);
+                }
+            const auto out = session.append_chunk(embedded, cos, sin);
+            first += count;
+            if (first == result.input_ids.size())
+            {
+                hidden = out.row_range(count - 1, 1).clone();
+                if (hidden.empty())
+                    throw std::bad_alloc();
+            }
+            if (progress)
+                progress("prefill", int(first), int(result.input_ids.size()));
+        }
     }
     std::mt19937 random(options.seed);
     for (int i = 0; i < options.max_tokens; ++i)

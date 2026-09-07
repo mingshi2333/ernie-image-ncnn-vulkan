@@ -12,9 +12,9 @@ int main(int argc, char **argv)
 {
     try
     {
-        if (argc != 8)
-            throw std::invalid_argument(
-                "ernie-pe MODEL PROMPT_FILE WIDTH HEIGHT MAX_TOKENS NEW_OUTPUT greedy|sample|tokenize");
+        if (argc < 8 || argc > 10)
+            throw std::invalid_argument("ernie-pe MODEL PROMPT_FILE WIDTH HEIGHT MAX_TOKENS NEW_OUTPUT "
+                                        "greedy|sample|tokenize [PREFILL_CHUNK=1 [THREADS=4]]");
         const fs::path out(argv[6]);
         if (fs::exists(out))
             throw std::invalid_argument("Use new PE output directory");
@@ -26,6 +26,18 @@ int main(int argc, char **argv)
         const std::string mode(argv[7]);
         if (mode != "greedy" && mode != "sample" && mode != "tokenize")
             throw std::invalid_argument("Invalid PE mode");
+        auto integer = [](const char *value)
+        {
+            size_t used = 0;
+            const int number = std::stoi(value, &used);
+            if (used != std::string(value).size())
+                throw std::invalid_argument("Invalid PE integer");
+            return number;
+        };
+        const int chunk = argc >= 9 ? integer(argv[8]) : 1;
+        const int threads = argc >= 10 ? integer(argv[9]) : 4;
+        if (chunk < 1 || chunk > 32 || threads < 1 || threads > 256)
+            throw std::invalid_argument("Invalid PE chunk or threads");
         fs::create_directories(out);
         if (mode == "tokenize")
         {
@@ -52,7 +64,8 @@ int main(int argc, char **argv)
                 file.write(static_cast<const char *>(logits.data), size_t(logits.w) * 4);
                 if (!file)
                     throw std::runtime_error("Cannot write PE logits");
-            });
+            },
+            threads, chunk);
         std::ofstream(out / "enhanced.txt", std::ios::binary) << result.text;
         std::ofstream ids(out / "input-ids.txt"), generated(out / "generated-ids.txt");
         for (auto id : result.input_ids)

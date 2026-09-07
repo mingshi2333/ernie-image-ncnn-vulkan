@@ -14,6 +14,9 @@ class PeSession
     PeSession(const PeSession &) = delete;
     PeSession &operator=(const PeSession &) = delete;
     ncnn::Mat step(const ncnn::Mat &embedded, const ncnn::Mat &cos, const ncnn::Mat &sin);
+    // Explicit candidate for chunk-capable Nets: 1..32 real tokens.
+    // Validated 2D inputs are cloned/normalized to owned storage internally.
+    ncnn::Mat append_chunk(const ncnn::Mat &embedded, const ncnn::Mat &cos, const ncnn::Mat &sin);
     void reset();
     int position() const
     {
@@ -25,6 +28,7 @@ class PeSession
     }
 
   private:
+    ncnn::Mat append_checked(const ncnn::Mat &, const ncnn::Mat &, const ncnn::Mat &, bool single);
     // Destruction order releases every cache handle before the allocator.
     ncnn::UnlockedPoolAllocator cache_allocator_;
     std::vector<const ncnn::Net *> blocks_;
@@ -34,4 +38,5 @@ class PeSession
     bool valid_ = true;
 };
 void load_pe_block(ncnn::Net &net, const std::string &directory);
+void load_pe_block_chunked(ncnn::Net &net, const std::string &directory);
 } // namespace ernie

@@ -1,6 +1,6 @@
 add_library(ernie-runtime STATIC
     ernie_gelu.cpp ernie_rmsnorm.cpp ernie_residual.cpp ernie_groupnorm.cpp ernie_attention.cpp
-    latent_ops.cpp img2img.cpp image_encoder.cpp component_files.cpp weight_placement.cpp host_memory.cpp weight_session.cpp block_sequence.cpp dit.cpp denoiser.cpp text_encoder.cpp ernie_text_down.cpp conditioning.cpp pe_session.cpp)
+    latent_ops.cpp img2img.cpp image_encoder.cpp component_files.cpp weight_placement.cpp host_memory.cpp weight_session.cpp block_sequence.cpp dit.cpp denoiser.cpp text_encoder.cpp ernie_text_down.cpp conditioning.cpp pe_session.cpp pe_graph.cpp)
 target_link_libraries(ernie-runtime PUBLIC ncnn ernie-shape-plan)
 target_include_directories(ernie-runtime PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>")
 if(ERNIE_ENABLE_VULKAN)

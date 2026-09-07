@@ -21,7 +21,8 @@ using PeProgress = std::function<void(const char *, int, int)>;
 using PeLogits = std::function<void(int, const ncnn::Mat &)>;
 // Loads the optional CPU model, enhances one prompt, then releases all weights
 // and caches before the image text encoder/DiT begin.
+// Internal candidate only: chunk1 retains the legacy graph/sequential prefill.
 PeResult enhance_prompt(const std::string &model, const std::string &prompt, int width, int height,
                         const PeOptions &options, const PeProgress &progress = {},
-                        const PeLogits &logits = {}, int threads = 4);
+                        const PeLogits &logits = {}, int threads = 4, int prefill_chunk = 1);
 } // namespace ernie

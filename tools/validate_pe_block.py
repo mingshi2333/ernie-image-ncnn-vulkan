@@ -14,7 +14,11 @@ def main():
     p.add_argument('--model', type=Path, required=True)
     p.add_argument('--runner', type=Path, default=ROOT/'build/ernie-pe-block-runner')
     p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--chunk-plan', help='Optional real-token chunks summing to17, e.g.8,8,1')
+    p.add_argument('--threads', type=int, default=4)
     args = p.parse_args()
+    if not 1 <= args.threads <= 256: p.error('Threads must be in [1,256]')
+    if args.chunk_plan is None and args.threads != 4: p.error('--threads requires --chunk-plan')
     if args.output.exists(): p.error('Use new output directory')
     manifest = json.loads((args.model/'model.json').read_text())
     for name, digest in manifest['files'].items():
@@ -28,6 +32,8 @@ def main():
     runner = args.output/'runner.snapshot'; shutil.copy2(args.runner, runner)
     command = [str(runner.resolve()), str(args.model.resolve()), str(args.model.resolve()),
                str((args.output/'actual.f32').resolve())]
+    if args.chunk_plan is not None:
+        command.extend([args.chunk_plan, str(args.threads)])
     with (args.output/'native.log').open('w') as log:
         rc = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT, timeout=180).returncode
     result = {'passed': False, 'return_code': rc, 'scope': fixture['scope'], 'command': command,
