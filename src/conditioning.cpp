@@ -7,10 +7,11 @@
 #include <stdexcept>
 namespace ernie
 {
-std::vector<ncnn::Mat> dit_constants(const std::string &path, int w, int h, int valid, int text)
+static std::vector<ncnn::Mat> make_constants(const std::string &path, int w, int h, int valid, int text,
+                                            int token_limit)
 {
     if (w < 1 || w > 256 || h < 1 || h > 256 || valid < 1 || text < valid || text > 2048 ||
-        w * h + text > 6144 || std::filesystem::file_size(path) != 64 * 4)
+        w * h + text > token_limit || std::filesystem::file_size(path) != 64 * 4)
         throw std::invalid_argument("Invalid DiT position dimensions or frequency file");
     float frequencies[64];
     std::ifstream file(path, std::ios::binary);
@@ -41,6 +42,17 @@ std::vector<ncnn::Mat> dit_constants(const std::string &path, int w, int h, int 
             m[k] = k >= image + valid ? -1e30f : 0.f;
     }
     return {cos, sin, mask};
+}
+std::vector<ncnn::Mat> dit_constants(const std::string &path, int w, int h, int valid, int text)
+{
+    return make_constants(path, w, h, valid, text, 6144);
+}
+std::vector<ncnn::Mat> dit_constants(const std::string &path, const ShapePlan &shape)
+{
+    const auto checked = ShapePlan::create({{shape.text_bucket}, shape.dit_text_tokens},
+                                            shape.width, shape.height, shape.valid_text_tokens);
+    return make_constants(path, checked.packed_width, checked.packed_height,
+                          checked.valid_text_tokens, checked.dit_text_tokens, 10240);
 }
 ncnn::Mat pad_text(const ncnn::Mat &embeddings, int bucket)
 {

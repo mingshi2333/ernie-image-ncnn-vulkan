@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 #pragma once
 #include "mat.h"
+#include "shape_plan.h"
 #include <string>
 #include <vector>
 namespace ernie
@@ -10,5 +11,6 @@ namespace ernie
 // implements ERNIE's full-width angles, not the Llama half-table convention.
 std::vector<ncnn::Mat> dit_constants(const std::string &frequency_path, int width, int height, int valid_text,
                                      int text_bucket);
+std::vector<ncnn::Mat> dit_constants(const std::string &frequency_path, const ShapePlan &shape);
 ncnn::Mat pad_text(const ncnn::Mat &embeddings, int bucket);
 } // namespace ernie

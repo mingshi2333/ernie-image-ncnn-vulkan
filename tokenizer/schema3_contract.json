@@ -17,19 +17,15 @@
       "dit_text_tokens": 64,
       "text_layers": 25,
       "dit_layers": 36
+    },
+    "9cc1dc0e605256e405a049b6a8d58f98a9f138b2a16c6d40be6bb35595743154": {
+      "packed_width": 64,
+      "packed_height": 64,
+      "text_bucket": 32,
+      "dit_text_tokens": 64,
+      "text_layers": 25,
+      "dit_layers": 36
     }
-  },
-  "reviewed_runtime_targets": {
-    "72bb195a2d0b3ef2a25f873666f51f4bbec4b391744518597be87206a551efc1": [
-      {
-        "packed_width": 86,
-        "packed_height": 48,
-        "text_bucket": 64,
-        "dit_text_tokens": 64,
-        "text_layers": 25,
-        "dit_layers": 36
-      }
-    ]
   },
   "math": {
     "encoder_posterior": "mode_first_32_channels_no_sampling",
@@ -116,5 +112,19 @@
       }
     }
   },
-  "generation_quality_status": "pending_existing_static_gates"
+  "generation_quality_status": "pending_existing_static_gates",
+  "runtime_shape": {
+    "axis_min": 16,
+    "axis_max": 2048,
+    "axis_multiple": 16,
+    "max_pixels": 2097152,
+    "max_total_tokens": 10240,
+    "text_buckets": [
+      32,
+      64,
+      2048
+    ],
+    "host_weights_above_total_tokens": 6144,
+    "status": "experimental; measured graph points and block resource evidence do not imply complete range quality acceptance"
+  }
 }

@@ -15,8 +15,10 @@ class ValidationPackageTest(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
-        self.config = {'packed_width': 32, 'packed_height': 24, 'text_bucket': 2048}
-        self.instance = {'config': self.config, 'source_manifest_sha256': 'a' * 64,
+        self.digest = 'ef98859ac741f6923680fb02de39e663fa3fa01943eff9d2d85c6ddaf40c9e59'
+        self.config = package.shared_contract()['source_manifests'][self.digest]
+        (self.root / 'fixture.json').write_text(json.dumps({'ids': [1, 2]}))
+        self.instance = {'config': self.config, 'source_manifest_sha256': self.digest,
                          'runtime_bindings': {'text/a': 'b' * 64}}
 
     def manifest(self, value):
@@ -39,22 +41,39 @@ class ValidationPackageTest(unittest.TestCase):
 
     def test_shared_authenticates_then_selects_exact_instance(self):
         self.manifest({'schema_version': 3})
-        second = {**self.instance, 'config': {**self.config, 'packed_width': 64, 'packed_height': 64}}
+        digest64 = '72bb195a2d0b3ef2a25f873666f51f4bbec4b391744518597be87206a551efc1'
+        second = {**self.instance, 'source_manifest_sha256': digest64,
+                  'config': package.shared_contract()['source_manifests'][digest64]}
         with patch.object(package, 'verify_shared_package', return_value={'instances': [self.instance, second]}) as verifier:
-            for dimensions in ((None, None), (384, 512)):
+            for dimensions in ((None, None), (384, 513)):
                 with self.assertRaises(ValueError):
                     package.validation_package(self.root, *dimensions, reference=self.root)
             config, binding = package.validation_package(self.root, 512, 384, reference=self.root)
-            self.assertEqual(config, self.config)
+            self.assertEqual(config['packed_width'], 32)
+            self.assertEqual(config['text_bucket'], 64)
             self.assertEqual(binding['runtime_bindings'], self.instance['runtime_bindings'])
-            self.assertEqual(binding['source_manifest_sha256'], 'a' * 64)
-            self.assertEqual(verifier.call_count, 3)
+            self.assertEqual(binding['source_manifest_sha256'], digest64)
+            self.assertEqual(verifier.call_count, 2)
 
     def test_shared_verification_failure_cannot_be_bypassed_by_matching_shape(self):
         self.manifest({'schema_version': 3})
         with patch.object(package, 'verify_shared_package', side_effect=ValueError('Object checksum mismatch')):
             with self.assertRaisesRegex(ValueError, 'checksum'):
                 package.validation_package(self.root, 512, 384, reference=self.root)
+
+    def test_three_exported_buckets_follow_actual_reference_tokens(self):
+        instances = [{'source_manifest_sha256': digest, 'config': config,
+                      'runtime_bindings': {'text/template': str(config['text_bucket'])}}
+                     for digest, config in package.shared_contract()['source_manifests'].items()]
+        for tokens, bucket in ((1, 32), (32, 32), (33, 64), (64, 64), (65, 2048), (2048, 2048)):
+            target, binding = package.select_shared_instance(instances, 2048, 1024, tokens)
+            self.assertEqual(target['config']['text_bucket'], bucket)
+            self.assertEqual(target['config']['dit_text_tokens'], max(bucket, 64))
+            self.assertEqual(target['runtime_bindings']['text/template'], str(bucket))
+            self.assertEqual(binding['target_config']['packed_width'], 128)
+        for tokens in (0, 2049, True):
+            with self.assertRaises(ValueError):
+                package.select_shared_instance(instances, 2048, 1024, tokens)
 
     def test_runtime_target_preserves_source_identity_and_original_instance(self):
         contract = package.shared_contract()
@@ -69,7 +88,7 @@ class ValidationPackageTest(unittest.TestCase):
         self.assertEqual(selection['source_config'], source['config'])
         self.assertEqual(source['config']['packed_width'], 64)
         self.assertEqual(package.select_shared_instance([source], 1024, 1024), (source, None))
-        for dimensions in ((768, 1376), (1360, 768), (2048, 1024)):
+        for dimensions in ((768, 1377), (1361, 768), (2048, 2048)):
             with self.assertRaises(ValueError):
                 package.select_shared_instance([source], *dimensions)
         for invalid in ({**source, 'source_manifest_sha256': '0' * 64},

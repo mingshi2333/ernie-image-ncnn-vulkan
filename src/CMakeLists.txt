@@ -1,7 +1,7 @@
 add_library(ernie-runtime STATIC
     ernie_gelu.cpp ernie_rmsnorm.cpp ernie_residual.cpp ernie_groupnorm.cpp ernie_attention.cpp
     latent_ops.cpp img2img.cpp image_encoder.cpp component_files.cpp block_sequence.cpp dit.cpp denoiser.cpp text_encoder.cpp ernie_text_down.cpp conditioning.cpp pe_session.cpp)
-target_link_libraries(ernie-runtime PUBLIC ncnn)
+target_link_libraries(ernie-runtime PUBLIC ncnn ernie-shape-plan)
 target_include_directories(ernie-runtime PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>")
 if(ERNIE_ENABLE_VULKAN)
     include("${PROJECT_SOURCE_DIR}/cmake/ErnieAttentionShader.cmake")
@@ -33,15 +33,15 @@ if(ERNIE_BUILD_GENERATOR)
     endif()
 endif()
 
-# Independent mathematical planner; intentionally not connected to the pipeline.
+# Shared checked geometry and text-padding plan; independent of ncnn.
 add_library(ernie-shape-plan STATIC shape_plan.cpp)
-target_include_directories(ernie-shape-plan PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
+target_include_directories(ernie-shape-plan PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>")
 
 if(ERNIE_BUILD_TOKENIZER)
     # Full graph allowlist used by offline checks and shared-package generation.
     add_library(ernie-shape-graph STATIC shape_graph.cpp model_config.cpp)
     target_include_directories(ernie-shape-graph PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>")
-    target_link_libraries(ernie-shape-graph PUBLIC ernie-tokenizer)
+    target_link_libraries(ernie-shape-graph PUBLIC ernie-tokenizer ernie-shape-plan)
 endif()
 
 if(ERNIE_BUILD_TOKENIZER)

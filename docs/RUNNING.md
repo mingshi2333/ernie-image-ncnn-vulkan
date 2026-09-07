@@ -172,52 +172,57 @@ that actual run. See [the full evidence](../artifacts/2026-09-07/fixed1376-nativ
 
 ## Shared weights and runtime dimensions
 
-Prepare a shared package once from the reviewed portable source packages:
+The schema-3 runtime now accepts an experimental bounded shape contract: each
+axis is a multiple of 16 in [16,2048], with at most 2097152 pixels. Complete
+image comparisons across this range are still pending. Graph instantiation and
+one maximum-length block are narrower evidence; see the
+[current report](../artifacts/2026-09-07/runtime-range-and-buckets/README.md).
+
+Build the three-bucket package once from the authenticated portable sources:
 
 ```sh
 python tools/package_dynamic_model.py --schema3 \
   --source models/turbo512x384-s2048-portable \
-  --source models/turbo1024-s64-portable --output models/turbo-shared
-build/ernie-image --model models/turbo-shared --verify-model
-build/ernie-image --model models/turbo-shared \
+  --source models/turbo1024-s64-portable \
+  --source models/portable-turbo1024-s32-v1 --output models/turbo-shared-v2
+build/ernie-image --model models/turbo-shared-v2 \
   --prompt 'A red apple on a wooden table, soft daylight, realistic photo.' \
-  --width 1376 --height 768 --precision fp32 --text-down-vector \
-  --steps 8 --seed 42 --output outputs/shared-1376.png
+  --width 64 --height 64 --precision fp32 --text-down-vector \
+  --steps 8 --seed 20260905 --output outputs/shared-64.png
 ```
 
-Generation requires only the native executable and this package. The program
-instantiates the 1376x768 graphs in memory from the existing 1024 templates and
-loads the original shared weight objects. Changing to a supported resolution
-does not run Python or create another copy of the weights.
+Generation uses the native executable and this package. It never converts a
+new model or writes temporary parameter files when the dimensions change.
+The new bundle has 88 unique objects, about 21.67 GiB, including independently
+exported 32/64/2048 text templates and one shared set of weights. Existing
+two-source bundles continue to work with their available 64/2048 buckets.
 
-| Requested size | Source needed in the shared package | Text capacity, including BOS |
-|---|---|---:|
-| 512x384 | 512x384/s2048 | 2048 |
-| 1024x1024 | 1024x1024/s64 | 64 |
-| 1376x768 | 1024x1024/s64 | 64 |
+The actual prompt is tokenized after optional PE. The smallest available bucket
+that can hold all IDs, including BOS, is selected without rereading the weight
+store. The 32-token source retains 64 DiT text slots. Valid length, text-encoder
+bucket and DiT padding are distinct; right padding never becomes valid text.
+Short prompts in existing multi-source shared bundles may therefore select a
+smaller text template than their original geometry-selected default. Static
+schema-1/2 packages preserve their fixed configuration.
 
-The 1376 target is registered against the exact source manifest and the full
-reviewed graph topology. The original source configuration and requested
-configuration are kept separately so the template dimensions can be verified
-before replacement. The 64 instantiated graph texts match the independently
-executed static package, and its 71 weights/other nonspatial assets are unchanged.
-The complete runtime-target run then executes native text encoding, all eight
-FP32 Vulkan steps and CPU VAE. Every one of its 25 compared tensors and its PNG
-are bitwise equal to the preceding fixed-package run. The historical comparison
-against the official reference remains 23/25 tensor gates, PNG MAE 0.00504116 and
-max3 versus the old max2 cutoff. The native executable exits successfully, with
-no OOM events. See [the execution record](../artifacts/2026-09-07/runtime-shape1376/README.md)
-for the saved inputs, results and resource scope. This is one development prompt,
-not a broad perceptual-quality assessment.
+For a combined image/text sequence above 6144 tokens, Vulkan keeps block weights
+in system memory. This policy completed the 10240-token block experiment within
+the existing resource guard. It is not a guarantee for every full image, driver,
+or concurrent desktop workload. A trace records the actual selected shape,
+text bucket, DiT padding and weight placement in `shape.txt`.
 
-Other shapes, the transposed 768x1376 orientation, and a 1376x768/2048-token target
-remain unavailable. This is an incremental runtime-shape implementation, not the
-full planned dynamic range. Encoder availability is also resolution-specific:
-selecting 1376x768 does not expose an encoder attached to the 1024 source.
-Shared source manifests and their object inventory remain unchanged.
+The earlier 1376x768/s64 full pipeline produced the same 25 tensors and PNG as
+its fixed package. Its historical official comparison remains 23/25 numerical
+checks and PNG maximum difference 3 versus the original cutoff 2; see the
+[unaltered execution record](../artifacts/2026-09-07/runtime-shape1376/README.md).
+These project-selected numerical tolerances remain uncalibrated for broad
+perceptual quality; see [numerical diagnostics](NUMERICAL-DIAGNOSTICS.md).
 
-The numerical gates are project-selected regression criteria; their calibration
-and perceptual limits are explained in [numerical diagnostics](NUMERICAL-DIAGNOSTICS.md).
+Image-to-image encoder availability remains independent of decoder dimensions.
+Only an encoder reviewed for the requested geometry is exposed; selecting a new
+text bucket cannot make an encoder for another size available. The three-source
+bundle above contains no encoder. Existing reviewed single-source encoder bundles
+retain their original image-to-image path.
 
 ## Optional native prompt enhancement
 

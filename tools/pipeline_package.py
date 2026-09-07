@@ -9,33 +9,44 @@ from package_dynamic_model import read_json, shared_contract, verify_shared_pack
 from package_model import sha256
 
 
-def select_shared_instance(instances, width=None, height=None):
-    """Select a source and an explicitly reviewed spatial target without I/O."""
-    exact = [item for item in instances if width is None or
-             (item['config']['packed_width'] * 16 == width
-              and item['config']['packed_height'] * 16 == height)]
-    if len(exact) == 1:
-        return exact[0], None
-    if exact or width is None:
-        raise ValueError('Select exactly one shared instance with --width and --height')
+def select_shared_instance(instances, width=None, height=None, valid_text_tokens=None):
+    """Mirror native source/geometry selection using authenticated metadata only."""
+    if not instances:
+        raise ValueError('Missing shared sources')
+    if width is None:
+        if height is not None or len(instances) != 1:
+            raise ValueError('Select a shared resolution with --width and --height')
+        width = instances[0]['config']['packed_width'] * 16
+        height = instances[0]['config']['packed_height'] * 16
+    if (type(width) is not int or type(height) is not int or
+            not 16 <= width <= 2048 or not 16 <= height <= 2048 or
+            width % 16 or height % 16 or width * height > 2097152):
+        raise ValueError('Invalid shared runtime dimensions')
     contract = shared_contract()
-    candidates = []
+    seen = set()
     for item in instances:
         digest = item['source_manifest_sha256']
-        if item['config'] != contract['source_manifests'].get(digest):
-            continue
-        for target in contract.get('reviewed_runtime_targets', {}).get(digest, []):
-            if (target['packed_width'] * 16, target['packed_height'] * 16) == (width, height):
-                if any(target[k] != item['config'][k]
-                       for k in ('text_bucket', 'dit_text_tokens', 'text_layers', 'dit_layers')):
-                    raise ValueError('Runtime target changes the reviewed model contract')
-                candidates.append(({**item, 'config': target}, {
-                    'source_config': item['config'], 'target_config': target,
-                    'scope': 'Reviewed spatial graph instantiation; existing weights; target encoder unavailable',
-                }))
-    if len(candidates) != 1:
-        raise ValueError('Select exactly one available shared runtime target')
-    return candidates[0]
+        if item['config'] != contract['source_manifests'].get(digest) or digest in seen:
+            raise ValueError('Unknown or duplicate shared source configuration')
+        seen.add(digest)
+    if valid_text_tokens is None:
+        source = min(instances, key=lambda item: (
+            (item['config']['packed_width'] * 16, item['config']['packed_height'] * 16) != (width, height),
+            item['config']['text_bucket']))
+    else:
+        if type(valid_text_tokens) is not int or not 1 <= valid_text_tokens <= 2048:
+            raise ValueError('Reference must contain 1..2048 token IDs')
+        candidates = [item for item in instances if item['config']['text_bucket'] >= valid_text_tokens]
+        if not candidates:
+            raise ValueError('Reference exceeds available text buckets')
+        source = min(candidates, key=lambda item: item['config']['text_bucket'])
+    target = {**source['config'], 'packed_width': width // 16, 'packed_height': height // 16}
+    if target == source['config']:
+        return source, None
+    return {**source, 'config': target}, {
+        'source_config': source['config'], 'target_config': target,
+        'scope': 'Reviewed spatial graph instantiation; existing weights; target encoder unavailable',
+    }
 
 
 def validation_package(model, width=None, height=None, *, reference=None, reference_only=False):
@@ -56,7 +67,13 @@ def validation_package(model, width=None, height=None, *, reference=None, refere
         raise ValueError('Shared-package validation requires an existing verified --reference')
     # Authenticate the entire object inventory before selecting an instance.
     manifest = verify_shared_package(model)
-    selected, runtime_target = select_shared_instance(manifest['instances'], width, height)
+    # Selection uses the saved oracle IDs; full fixture authentication follows in
+    # pipeline_reference before any native execution. A mismatched oracle fails.
+    fixture = read_json(Path(reference) / 'fixture.json')
+    ids = fixture.get('ids')
+    if not isinstance(ids, list) or any(type(v) is not int or not 0 <= v < 131072 for v in ids):
+        raise ValueError('Invalid reference token IDs')
+    selected, runtime_target = select_shared_instance(manifest['instances'], width, height, len(ids))
     binding = {
         'schema_version': 3,
         'source_manifest_sha256': selected['source_manifest_sha256'],

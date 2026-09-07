@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Read-only audit of three pinned static packages; never instantiates a graph.
+"""Read-only audit of pinned static source packages; never instantiates a graph.
 
 Only enumerated fields are normalized, then the entire graph is hash checked.
 Matching these static instances is not permission to generate arbitrary shapes.
@@ -21,7 +21,7 @@ RULES = {'text':TEXT, 'dit':DIT,
          'vae':{'reshape_99':{'0':'vae_pixels'},'reshape_100':{'0':'vae_width','1':'vae_height'}}}
 # These complete normalized graph hashes are tied to the reviewed static source instances.
 CONTRACT_HASHES = {'text': 'dda8db13b6e20a00c1133485c3be2ef37db56b1db058e42a405b51d24fc64b0e', 'dit': '51db4065837c28e235784fd0dd196f109ca86822143c025a44ee9372240e4132', 'input': '3710a502802138e8605ca54a9132fb9a9a1888841586c1d7067f7043769bbecb', 'output': '98bf1afc154dd05cf419aafad4aa383af311e44658e644d0c322ffb50431533c', 'vae': '6d68a0f10423b6ca243e229c8a9e8fe98c442b0d061ad5d38667f752cd9eb48f'}
-PINNED_MANIFESTS = {'9c14feef90fe8e3d189466ce2cef3fce78b9fdf772ffdacee5afe02b40d90752': 'pipeline64-residual-v1', 'ef98859ac741f6923680fb02de39e663fa3fa01943eff9d2d85c6ddaf40c9e59': 'turbo512x384-s2048-portable', '72bb195a2d0b3ef2a25f873666f51f4bbec4b391744518597be87206a551efc1': 'turbo1024-s64-portable'}
+PINNED_MANIFESTS = {'9cc1dc0e605256e405a049b6a8d58f98a9f138b2a16c6d40be6bb35595743154': 'portable-turbo1024-s32-v1', '9c14feef90fe8e3d189466ce2cef3fce78b9fdf772ffdacee5afe02b40d90752': 'pipeline64-residual-v1', 'ef98859ac741f6923680fb02de39e663fa3fa01943eff9d2d85c6ddaf40c9e59': 'turbo512x384-s2048-portable', '72bb195a2d0b3ef2a25f873666f51f4bbec4b391744518597be87206a551efc1': 'turbo1024-s64-portable'}
 
 
 def sha(path):

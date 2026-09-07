@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-"""Build/verify shared-weight packages; --schema3 enables the native static protocol.
+"""Build and verify immutable shared-weight packages from pinned static exports.
 
-Without --schema3, contract.json retains the offline candidate format. With
---schema3, manifest.json selects the native shared-object protocol for the two
-pinned portable static sources. This does not imply a complete generation quality
-gate or authorize arbitrary shapes. Encoder weights remain explicitly unavailable;
-the shared native/Python contract records mode, packing and asymmetric BN epsilons.
+--schema3 enables the native shared-object format, with up to three independent
+text templates. Runtime shape planning belongs to the native program; package
+verification alone is not evidence that every shape has passed image comparison.
+Optional encoder components require their own reviewed target-size evidence.
 """
 import argparse
 import hashlib
@@ -66,7 +65,7 @@ def verify_candidate(root, _runtime=None, _extra_bindings=()):
     if (set(c)!={'format','policy','instances','objects'} or c['format']!=FORMAT or c['policy']!=POLICY
             or not isinstance(c['policy'],dict) or any(type(c['policy'][k]) is not type(v) for k,v in POLICY.items())):
         raise ValueError('Invalid offline candidate policy/schema')
-    if not isinstance(c['instances'],list) or not 1<=len(c['instances'])<=2 or not isinstance(c['objects'],dict):raise ValueError('Invalid instance/object inventory')
+    if not isinstance(c['instances'],list) or not 1<=len(c['instances'])<=3 or not isinstance(c['objects'],dict):raise ValueError('Invalid instance/object inventory')
     seen=set();used=set();verified=set()
     def obj(digest):
         digest_name(digest)
@@ -104,7 +103,7 @@ def verify_candidate(root, _runtime=None, _extra_bindings=()):
 def build_candidate(sources,output):
     output=Path(output)
     if output.exists():raise ValueError('Use a new candidate directory')
-    if not 1<=len(sources)<=2:raise ValueError('Use one or two pinned portable static instances')
+    if not 1<=len(sources)<=3:raise ValueError('Use one to three pinned portable static instances')
     inputs=[];seen=set()
     for source in map(Path,sources):
         m=read_json(source/'manifest.json');digest=sha256(source/'manifest.json')

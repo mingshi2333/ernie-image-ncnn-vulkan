@@ -1,0 +1,7 @@
+width=64
+height=64
+valid_text_tokens=15
+text_bucket=32
+dit_text_tokens=64
+total_tokens=80
+dit_weights=device

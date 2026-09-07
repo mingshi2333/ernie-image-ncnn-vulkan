@@ -2,11 +2,11 @@
 # Static implementation archives retain link dependencies but no private headers.
 include(CMakePackageConfigHelpers)
 set_target_properties(ernie-pipeline PROPERTIES EXPORT_NAME pipeline)
-foreach(component runtime pe tokenizer model-package shape-graph)
+foreach(component runtime pe tokenizer model-package shape-graph shape-plan)
     set_target_properties(ernie-${component} PROPERTIES EXPORT_NAME detail-${component})
 endforeach()
 install(TARGETS ernie-pipeline ernie-runtime ernie-pe ernie-tokenizer
-                ernie-model-package ernie-shape-graph
+                ernie-model-package ernie-shape-graph ernie-shape-plan
     EXPORT ErnieTargets ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(FILES "$<TARGET_FILE:ernie-tokenizer-native>" DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(FILES "${PROJECT_SOURCE_DIR}/include/ernie/pipeline.h"

@@ -42,6 +42,7 @@ int main(int argc, char** argv)
     int width = 0, height = 0, text_tokens = 0;
     bool host_weights = false;
     bool shared_pipeline_cache = true;
+    bool large_shape_probe = false;
     try
     {
         for (int i = 1; i < argc; ++i)
@@ -49,6 +50,7 @@ int main(int argc, char** argv)
             const std::string flag = argv[i];
             if (flag == "--host-weights") { host_weights = true; continue; }
             if (flag == "--isolated-pipeline-cache") { shared_pipeline_cache = false; continue; }
+            if (flag == "--large-shape-probe") { large_shape_probe = true; continue; }
             if (i + 1 == argc) throw std::invalid_argument("Missing value for " + flag);
             const std::string value = argv[++i];
             if (flag == "--model") models.push_back(value);
@@ -72,12 +74,18 @@ int main(int argc, char** argv)
             }
             else throw std::invalid_argument("Unknown argument: " + flag);
         }
-        if (models.empty() || fixture.empty() || output.empty() || tokens < 1 || tokens > 6144
+        // The larger range is explicit and probe-only until its resource use is
+        // measured. The generator's existing shape limits remain separate.
+        const int token_limit = large_shape_probe ? 10240 : 6144;
+        if (models.empty() || fixture.empty() || output.empty() || tokens < 1 || tokens > token_limit
             || (backend != "cpu" && backend != "vulkan") || (policy != "stream" && policy != "resident")
             || (precision != "fp32" && precision != "fp16" && precision != "bf16")
             || (backend == "cpu" && precision != "fp32"))
             throw std::invalid_argument("Require repeated --model DIR, --fixture DIR, --tokens N, --output FILE "
-                "[--backend cpu|vulkan] [--precision fp32|fp16|bf16] [--policy stream|resident] [--host-weights]");
+                "[--backend cpu|vulkan] [--precision fp32|fp16|bf16] [--policy stream|resident] [--host-weights] "
+                "[--large-shape-probe]");
+        if (large_shape_probe && (policy != "stream" || !input_head.empty() || !output_head.empty()))
+            throw std::invalid_argument("Large-shape probing requires streamed blocks without heads");
         if (fs::exists(output)) throw std::invalid_argument("Output exists; use a new path");
         if (!trace.empty())
         {

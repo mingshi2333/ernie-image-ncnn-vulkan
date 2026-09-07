@@ -1,0 +1,216 @@
+{
+  "complete": true,
+  "scope": "Full native functional smoke; no new official reference image comparison",
+  "native_return_code": 0,
+  "shape": {
+    "width": "64",
+    "height": "64",
+    "valid_text_tokens": "15",
+    "text_bucket": "32",
+    "dit_text_tokens": "64",
+    "total_tokens": "80",
+    "dit_weights": "device"
+  },
+  "tensor_count": 25,
+  "elements": 320768,
+  "all_finite": true,
+  "png_dimensions": [
+    64,
+    64
+  ],
+  "png_matches_native_decoded_quantization": true,
+  "png_sha256": "f0e379af4ee2ae43547cf3f22dc036fdce62a636027cd844e94aaaf4fdef2be0",
+  "tensors": [
+    {
+      "file": "initial.f32",
+      "elements": 2048,
+      "all_finite": true,
+      "sha256": "137c555c662956814560ae9ac88d5cca239ca82778c15f77baa62b3af2a28474"
+    },
+    {
+      "file": "text.f32",
+      "elements": 46080,
+      "all_finite": true,
+      "sha256": "a3f2cd93ce238155ee75f7bf16bd887425cde87b3c28495794ec7f537cee5fdb"
+    },
+    {
+      "file": "padded-text.f32",
+      "elements": 196608,
+      "all_finite": true,
+      "sha256": "a6a3f6fe91c01596cd25187e6e3e92f387131d308841dbca6770363ddaa259a5"
+    },
+    {
+      "file": "constant-0.f32",
+      "elements": 10240,
+      "all_finite": true,
+      "sha256": "3f2bf8ebff356560f69be6b55be2d31269a897e71fbe9961c7447c373208f813"
+    },
+    {
+      "file": "constant-1.f32",
+      "elements": 10240,
+      "all_finite": true,
+      "sha256": "fa05a931ae449b80a13e55e379993d51dfbf2cfeb40cc9b21c3f9bd25a7c4ed8"
+    },
+    {
+      "file": "constant-2.f32",
+      "elements": 6400,
+      "all_finite": true,
+      "sha256": "cd2d1d90f55c3444ab122b17db9a943ab55b56f2a4ee3b9cd46f856b4d63c283"
+    },
+    {
+      "file": "final.f32",
+      "elements": 2048,
+      "all_finite": true,
+      "sha256": "8f1d821b508a73a70db0e88a2e3ae4304b9eb05648f6ebc101bea6af150962c0"
+    },
+    {
+      "file": "unpacked.f32",
+      "elements": 2048,
+      "all_finite": true,
+      "sha256": "1d5f43e737bc9fcc6ee68de104bea57b682e22aadb828898f25ea2677ed1215d"
+    },
+    {
+      "file": "decoded.f32",
+      "elements": 12288,
+      "all_finite": true,
+      "sha256": "00494745552c614c1cd1d98af99dd28b7fd81acfd7a42f350c51c95c5f098c82"
+    },
+    {
+      "file": "prediction-0.f32",
+      "elements": 2048,
+      "all_finite": true,
+      "sha256": "2b417121ed7f4b7588070e46887ff43d9e63c0d26c83f685ba8a2e89e623ab53"
+    },
+    {
+      "file": "step-0.f32",
+      "elements": 2048,
+      "all_finite": true,
+      "sha256": "c59168f374c93fb6db8cec2125da5081ada88819989879f05687f64acc3bb777"
+    },
+    {
+      "file": "prediction-1.f32",
+      "elements": 2048,
+      "all_finite": true,
+      "sha256": "731ef5511cae5771d6ed00b661ba775bb38627b471dae68b2f5679d9ed854444"
+    },
+    {
+      "file": "step-1.f32",
+      "elements": 2048,
+      "all_finite": true,
+      "sha256": "b1eab47f6e12b3d4f74a148689802d8846bc88d6854a48ac884892fd532e7efd"
+    },
+    {
+      "file": "prediction-2.f32",
+      "elements": 2048,
+      "all_finite": true,
+      "sha256": "41c55183a18fee7c4981add08fb52af447208d80b44de637a69d21795b8a270a"
+    },
+    {
+      "file": "step-2.f32",
+      "elements": 2048,
+      "all_finite": true,
+      "sha256": "33715b5d6c2f6502e2030e72d44001197942e12922d5149e55845f128e9fc95c"
+    },
+    {
+      "file": "prediction-3.f32",
+      "elements": 2048,
+      "all_finite": true,
+      "sha256": "914306e6563fd39ff4099febd9bf71c872356dd86705b589c9acbbaec76d775c"
+    },
+    {
+      "file": "step-3.f32",
+      "elements": 2048,
+      "all_finite": true,
+      "sha256": "a7b8f44b9c527a9c37377c3e71836eb2d0cd2ba498c536cbab66f3565471cb2e"
+    },
+    {
+      "file": "prediction-4.f32",
+      "elements": 2048,
+      "all_finite": true,
+      "sha256": "8cc9871e9fec3e5c897fb0d81bf79ca28b642a853d5624b27c709b5919b4d85e"
+    },
+    {
+      "file": "step-4.f32",
+      "elements": 2048,
+      "all_finite": true,
+      "sha256": "8f7fc1708ed70ca36c9835cd056567358ca83ebf1b5cfcb725c8fa101c071b0c"
+    },
+    {
+      "file": "prediction-5.f32",
+      "elements": 2048,
+      "all_finite": true,
+      "sha256": "595793a3b04f4aac13a83b1f502c8b5199c16dcc42799554e147e2220597854e"
+    },
+    {
+      "file": "step-5.f32",
+      "elements": 2048,
+      "all_finite": true,
+      "sha256": "dc443101928e1c6b5b364f71c8b47c643e316c1d74db6c7aaa31d0ae56a6d6ab"
+    },
+    {
+      "file": "prediction-6.f32",
+      "elements": 2048,
+      "all_finite": true,
+      "sha256": "00d83969fb4ef2a975c2d857628c769e1be7dc1b72e7c70fa455c74e92c1491a"
+    },
+    {
+      "file": "step-6.f32",
+      "elements": 2048,
+      "all_finite": true,
+      "sha256": "03afb112205947882aad726f3fabb7b6c856534128bc2ebfd38c321ea08acc41"
+    },
+    {
+      "file": "prediction-7.f32",
+      "elements": 2048,
+      "all_finite": true,
+      "sha256": "33c1cc53d81cc69ccb01149664d388b5825aae35e978e520cfeb1b482483d36c"
+    },
+    {
+      "file": "step-7.f32",
+      "elements": 2048,
+      "all_finite": true,
+      "sha256": "8f1d821b508a73a70db0e88a2e3ae4304b9eb05648f6ebc101bea6af150962c0"
+    }
+  ],
+  "resources": {
+    "phase": "native",
+    "command": [
+      "systemd-run",
+      "--user",
+      "--scope",
+      "--quiet",
+      "--unit=ernie-buckets64-v1-native",
+      "--property=MemoryMax=17179869184",
+      "--property=MemorySwapMax=0",
+      "--property=CPUQuota=200%",
+      "taskset",
+      "-c",
+      "4,6",
+      "/usr/bin/python3",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-buckets64-v1/run.py",
+      "native",
+      "0cd52231995496dd6f07f0137f8ac41b270b1e82393227f29371b01576417054"
+    ],
+    "plan_sha256": "0cd52231995496dd6f07f0137f8ac41b270b1e82393227f29371b01576417054",
+    "limits": {
+      "memory_max_bytes": 17179869184,
+      "host_available_min_bytes": 3221225472,
+      "gpu_whole_device_max_mib": 6144,
+      "timeout_seconds_per_phase": 1800
+    },
+    "peak_memory_current": 5832331264,
+    "minimum_host_available": 16017383424,
+    "peak_gpu_whole_device_mib": 2715,
+    "complete": true,
+    "cgroup_seen": true,
+    "observed_limits": {
+      "memory.max": "17179869184",
+      "memory.swap.max": "0",
+      "cpu.max": "200000 100000"
+    },
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "return_code": 0,
+    "wall_seconds": 384.77896974401665
+  },
+  "visual_observation": "64x64 output shows gray narrow structures and does not clearly depict the requested red apple; functional execution only, no prompt-following quality acceptance"
+}

@@ -1,0 +1,31 @@
+{
+  "command": [
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-shape-range-host-v1/ernie-block-sequence-runner.snapshot",
+    "--model",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-shape-range-host-v1/model",
+    "--fixture",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-shape-range-v1/official/reference",
+    "--tokens",
+    "10240",
+    "--backend",
+    "vulkan",
+    "--precision",
+    "fp32",
+    "--policy",
+    "stream",
+    "--large-shape-probe",
+    "--host-weights",
+    "--output",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-shape-range-host-v1/native/out0.f32"
+  ],
+  "return_code": 0,
+  "reference_fixture_sha256": "f9aca38a756972490dc27b50b89f18cfe4f97d2439fb9f975e446b6495336bb5",
+  "passed_historical_gate": true,
+  "elements": 41943040,
+  "all_finite": true,
+  "nrmse": 2.754551641499708e-06,
+  "max_abs_error": 0.015869140625,
+  "reference_max_abs": 2926.93505859375,
+  "native_sha256": "e7d9604bb83ae5d1376f3a6b9e30d96521484b8baaf0a1ac91714e29643c452f",
+  "reference_sha256": "c5c8aea62a0c6140e71e5efae86657582fe04ab17e40e4959c54d7ca5435c2d6"
+}

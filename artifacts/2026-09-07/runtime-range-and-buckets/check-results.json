@@ -1,0 +1,48 @@
+{
+  "observed_in_tool_results": true,
+  "rust_shared_package": {
+    "passed": 6,
+    "failed": 0
+  },
+  "python_pipeline_package": {
+    "passed": 6,
+    "failed": 0
+  },
+  "python_pipeline_reference": {
+    "passed": 8,
+    "failed": 0
+  },
+  "python_dynamic_package": {
+    "passed": 21,
+    "failed": 0
+  },
+  "ctest": {
+    "passed": 5,
+    "failed": 0,
+    "names": [
+      "pipeline_api_contract",
+      "shape_plan_contract",
+      "shape_graph_contract",
+      "text_down_contract_cpu",
+      "model_package_contract"
+    ]
+  },
+  "initial_nonfinal_failures": [
+    {
+      "kind": "build command",
+      "detail": "Generator built; remaining requested test target aliases did not exist. Reissued only real contract target names and succeeded."
+    },
+    {
+      "kind": "test fixture maintenance",
+      "detail": "pipeline_package expected verifier call_count 3 after an invalid geometry now fails before verification; corrected to 2."
+    },
+    {
+      "kind": "test fixture maintenance",
+      "detail": "pipeline_reference forged-store test now rejected its unregistered synthetic source earlier. Added a test-only trusted source to continue exercising its intended missing-object and forged-inventory checks. Production registry was not weakened."
+    }
+  ],
+  "sdk": {
+    "status": "not_rerun",
+    "detail": "Existing allocation-instrumented build intentionally rejects ERNIE_INSTALL_SDK=ON. No SDK was emitted. Restored OFF and configuration succeeded; added shape-plan to the export closure with build-only private includes. New SDK installation/consumer proof remains pending."
+  }
+}

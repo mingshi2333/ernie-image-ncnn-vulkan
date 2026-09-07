@@ -31,8 +31,7 @@ static const std::map<std::string,Rules> rules={
 static const Fields hashes={{"text","dda8db13b6e20a00c1133485c3be2ef37db56b1db058e42a405b51d24fc64b0e"},{"dit","51db4065837c28e235784fd0dd196f109ca86822143c025a44ee9372240e4132"},{"input","3710a502802138e8605ca54a9132fb9a9a1888841586c1d7067f7043769bbecb"},{"output","98bf1afc154dd05cf419aafad4aa383af311e44658e644d0c322ffb50431533c"},{"vae","6d68a0f10423b6ca243e229c8a9e8fe98c442b0d061ad5d38667f752cd9eb48f"}};
 static Fields dimensions(const ModelConfig &c)
 {
-    validate_model_config(c);
-    if(!reviewed_shape_config(c)) throw std::invalid_argument("Unreviewed static shape; independent evidence pending");
+    validate_runtime_model_config(c);
     int image=c.packed_width*c.packed_height;
     return {{"packed_width",std::to_string(c.packed_width)},{"packed_height",std::to_string(c.packed_height)},
             {"text_bucket",std::to_string(c.text_bucket)},{"dit_text_tokens",std::to_string(c.dit_text_tokens)},
@@ -44,6 +43,8 @@ std::string instantiate_shape_graph(const std::string &kind,const std::string &g
                                     const ModelConfig &source,const ModelConfig &target)
 {
     if(graph.size()>1024*1024) throw std::invalid_argument("Graph text too large");
+    validate_model_config(source);
+    if(!reviewed_shape_config(source)) throw std::invalid_argument("Unreviewed source template configuration");
     auto source_values=dimensions(source),target_values=dimensions(target);
     if(!rules.count(kind)) throw std::invalid_argument("Unknown graph kind");
     if(kind=="text" && source.text_bucket!=target.text_bucket)

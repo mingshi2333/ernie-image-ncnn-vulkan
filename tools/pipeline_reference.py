@@ -97,10 +97,13 @@ def reviewed_shared_reference(path, binding, package_manifest=None):
                 or matches[0]['runtime_bindings'] != binding.get('runtime_bindings')):
             raise ValueError('Shared result instance binding differs')
         from pipeline_package import select_shared_instance
-        target_config = json.loads(path.read_text())['config']
+        fixture = json.loads(path.read_text())
+        target_config = fixture['config']
         selected, runtime_target = select_shared_instance(
-            matches, target_config['packed_width'] * 16, target_config['packed_height'] * 16)
-        if selected['config'] != target_config or binding.get('runtime_target') != runtime_target:
+            manifest['instances'], target_config['packed_width'] * 16, target_config['packed_height'] * 16,
+            len(fixture['ids']))
+        if (selected['config'] != target_config or binding.get('runtime_target') != runtime_target or
+                selected['source_manifest_sha256'] != binding['source_manifest_sha256']):
             raise ValueError('Shared result runtime target binding differs')
         # A new self-consistent shared manifest is not a trusted source manifest.
         # The selected source object must retain the registry's immutable digest.

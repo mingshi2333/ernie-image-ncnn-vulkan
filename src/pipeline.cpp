@@ -282,11 +282,8 @@ GenerationResult generate_impl(const GenerationRequest &r, const ProgressCallbac
     // or loading PE/text/image weights.
     GpuContext gpu(((!img2img || denoise_image) && r.device == "vulkan") || r.vae_device == "vulkan", r.gpu_index);
     const fs::path trace(r.trace);
-    const ModelPackage package(r.model, request_width, request_height);
-    const auto cfg = package.config();
-    const int w = cfg.packed_width, h = cfg.packed_height, bucket = cfg.text_bucket;
-    if (r.text_down_vector && bucket != 64 && bucket != 2048)
-        throw std::invalid_argument("Vector text reduction requires an independently reviewed 64 or 2048 token graph");
+    ModelPackage package(r.model, request_width, request_height);
+    const int w = package.config().packed_width, h = package.config().packed_height;
     if (notify)
         notify({"verify", 1, 1, elapsed(start)});
     metrics.since(ExecutionPhase::Verify,start);
@@ -381,9 +378,15 @@ GenerationResult generate_impl(const GenerationRequest &r, const ProgressCallbac
     Tokenizer tokenizer(package.file("tokenizer/tokenizer.json"),
                         package.file("tokenizer/tokenizer_config.json"));
     const auto ids = tokenizer.encode(result.prompt);
-    if (ids.empty() || ids.size() > size_t(bucket))
-        throw std::invalid_argument("Prompt exceeds this model's " + std::to_string(bucket) +
-                                    " token bucket");
+    package.select_text_tokens(ids.size());
+    const auto cfg = package.config();
+    const int bucket = cfg.text_bucket;
+    std::optional<ShapePlan> shape;
+    if (package.schema() == 3)
+        shape = ShapePlan::create({{bucket}, cfg.dit_text_tokens}, w * 16, h * 16, ids.size());
+    const bool host_weights = shape && shape->host_weights;
+    if (r.text_down_vector && bucket != 32 && bucket != 64 && bucket != 2048)
+        throw std::invalid_argument("Vector text reduction requires an independent 32, 64 or 2048 token graph");
     result.token_ids = ids;
     if (!trace.empty())
     {
@@ -392,6 +395,11 @@ GenerationResult generate_impl(const GenerationRequest &r, const ProgressCallbac
         for (auto id : ids)
             tokens += std::to_string(id) + '\n';
         trace_text(trace / "ids.txt", tokens);
+        trace_text(trace / "shape.txt", "width=" + std::to_string(w * 16) +
+                   "\nheight=" + std::to_string(h * 16) + "\nvalid_text_tokens=" + std::to_string(ids.size()) +
+                   "\ntext_bucket=" + std::to_string(bucket) + "\ndit_text_tokens=" + std::to_string(cfg.dit_text_tokens) +
+                   "\ntotal_tokens=" + std::to_string(w * h + cfg.dit_text_tokens) +
+                   "\ndit_weights=" + (r.device == "cpu" || host_weights ? std::string("host") : std::string("device")) + "\n");
     }
     ncnn::Mat text;
     const auto text_start = Clock::now();
@@ -418,7 +426,7 @@ GenerationResult generate_impl(const GenerationRequest &r, const ProgressCallbac
     if (!trace.empty())
         write_tensor(trace / "text.f32", text);
     const auto padded = pad_text(text, cfg.dit_text_tokens);
-    const auto rotary =
+    const auto rotary = shape ? dit_constants(package.file("dit/rope-inv-freq.f32"), *shape) :
         dit_constants(package.file("dit/rope-inv-freq.f32"), w, h, int(ids.size()), cfg.dit_text_tokens);
     const std::vector<ncnn::Mat> constants{padded, rotary[0], rotary[1], rotary[2]};
     ncnn::Mat noise;
@@ -453,7 +461,9 @@ GenerationResult generate_impl(const GenerationRequest &r, const ProgressCallbac
         for (size_t i = 0; i < rotary.size(); ++i)
             write_tensor(trace / ("constant-" + std::to_string(i) + ".f32"), rotary[i]);
     }
-    const auto latent = run_dit(package, initial, constants, cpu, r, notify, start_step,metrics);
+    auto dit_option = cpu;
+    dit_option.use_weights_in_host_memory = host_weights;
+    const auto latent = run_dit(package, initial, constants, dit_option, r, notify, start_step,metrics);
     const auto mean = read_tensor(package.file("vae/bn-mean.f32"), 128),
                variance = read_tensor(package.file("vae/bn-variance.f32"), 128);
     const auto unpacked = unpack_for_vae(latent, mean, variance, r.threads);

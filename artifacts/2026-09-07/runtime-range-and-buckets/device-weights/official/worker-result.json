@@ -1,0 +1,10 @@
+[
+  {
+    "command": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-shape-range-v1/worker.py",
+      "official"
+    ],
+    "return_code": 0
+  }
+]

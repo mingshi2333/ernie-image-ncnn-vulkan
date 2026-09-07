@@ -115,7 +115,7 @@ ncnn::Mat run_text_blocks(const std::vector<ComponentFiles> &models, const ncnn:
     if (down_mode==TextDownMode::Vector)
     {
         if (input.dims!=2 || input.w!=3072 || input.elemsize!=4u || input.elempack!=1 ||
-            (input.h!=64 && input.h!=2048) || option.use_fp16_storage || option.use_fp16_packed ||
+            (input.h!=32 && input.h!=64 && input.h!=2048) || option.use_fp16_storage || option.use_fp16_packed ||
             option.use_fp16_arithmetic || option.use_bf16_storage || option.use_bf16_packed)
             throw std::invalid_argument("Vector text down requires reviewed CPU FP32 layout");
         for (size_t i=0;i<constants.size();++i)

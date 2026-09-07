@@ -1,0 +1,65 @@
+{
+  "scope": "Native complete 64x64 functional smoke: three independently exported text sources, automatic 32 bucket, 64 DiT padded tokens; native text, 8 Vulkan FP32 steps, CPU VAE; no official image comparison yet",
+  "commands": {
+    "native": [
+      [
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-buckets64-v1/ernie-image.snapshot",
+        "--model",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2",
+        "--prompt",
+        "A red apple on a wooden table, soft daylight, realistic photo.",
+        "--output",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-buckets64-v1/native/native.png",
+        "--trace-dir",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-buckets64-v1/native/trace",
+        "--width",
+        "64",
+        "--height",
+        "64",
+        "--seed",
+        "20260905",
+        "--steps",
+        "8",
+        "--threads",
+        "2",
+        "--device",
+        "vulkan",
+        "--precision",
+        "fp32",
+        "--text-down-vector",
+        "--vae-device",
+        "cpu",
+        "--vae-convolution",
+        "direct"
+      ]
+    ]
+  },
+  "bindings": {
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-buckets64-v1/ernie-image.snapshot": {
+      "bytes": 36859560,
+      "sha256": "20e15f5fae804abdb3b9f8b38b8215805f1424158aca8d8b765b4de2e60cd4cc"
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-buckets64-v1/run.py": {
+      "bytes": 1146,
+      "sha256": "3adfb392e1676152a882e85378d8b220ecf67b9d6f3d7d051832512edeeef4bb"
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-buckets64-v1/supervisor.py": {
+      "bytes": 4378,
+      "sha256": "e501bd8d7119ed1452af8611e0b9f246c873fc67e2641af0943febdc065c205b"
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/manifest.json": {
+      "bytes": 52446,
+      "sha256": "21b6bc8deae17418c22257b52e928ee048a372342a2517bcb954276257c21d1a"
+    }
+  },
+  "resource_limits": {
+    "memory_max_bytes": 17179869184,
+    "host_available_min_bytes": 3221225472,
+    "gpu_whole_device_max_mib": 6144,
+    "timeout_seconds_per_phase": 1800
+  },
+  "model_manifest_sha256": "21b6bc8deae17418c22257b52e928ee048a372342a2517bcb954276257c21d1a",
+  "model_unique_objects": 88,
+  "model_object_bytes": 23271687765,
+  "source_head": "f5aea6a plus recorded working changes"
+}

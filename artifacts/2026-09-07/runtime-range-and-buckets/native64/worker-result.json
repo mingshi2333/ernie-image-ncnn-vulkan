@@ -1,0 +1,35 @@
+[
+  {
+    "command": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-buckets64-v1/ernie-image.snapshot",
+      "--model",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2",
+      "--prompt",
+      "A red apple on a wooden table, soft daylight, realistic photo.",
+      "--output",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-buckets64-v1/native/native.png",
+      "--trace-dir",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-buckets64-v1/native/trace",
+      "--width",
+      "64",
+      "--height",
+      "64",
+      "--seed",
+      "20260905",
+      "--steps",
+      "8",
+      "--threads",
+      "2",
+      "--device",
+      "vulkan",
+      "--precision",
+      "fp32",
+      "--text-down-vector",
+      "--vae-device",
+      "cpu",
+      "--vae-convolution",
+      "direct"
+    ],
+    "return_code": 0
+  }
+]

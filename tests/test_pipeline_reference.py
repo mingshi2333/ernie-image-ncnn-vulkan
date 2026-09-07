@@ -80,7 +80,7 @@ class ReferenceContractTest(unittest.TestCase):
             (root / 'objects').mkdir()
             (root / 'objects' / digest).write_bytes(source_bytes)
             fixture_path = root / 'fixture.json'
-            fixture_path.write_text(json.dumps({'config': target_config}))
+            fixture_path.write_text(json.dumps({'config': target_config, 'ids': [1, 2]}))
             fixture_digest = hashlib.sha256(fixture_path.read_bytes()).hexdigest()
             manifest = {'schema_version': 3, 'instances': [instance]}
             manifest_path = root / 'manifest.json'
@@ -131,7 +131,10 @@ class ReferenceContractTest(unittest.TestCase):
             mp = root / 'manifest.json'; mp.write_text(json.dumps(manifest))
             binding = {'source_manifest_sha256': source_digest, 'runtime_bindings': forged,
                        'shared_manifest_sha256': hashlib.sha256(mp.read_bytes()).hexdigest()}
-            with patch.dict(reference.REVIEWED_SHARED_REFERENCES, trusted, clear=True):
+            import pipeline_package
+            with patch.dict(reference.REVIEWED_SHARED_REFERENCES, trusted, clear=True), \
+                    patch.object(pipeline_package, 'shared_contract', return_value={
+                        'source_manifests': {source_digest: fixture()['config']}}):
                 with self.assertRaisesRegex(ValueError, 'source manifest object'):
                     reference.reviewed_shared_reference(path, binding, mp)
                 (root / 'objects').mkdir(); (root / 'objects' / source_digest).write_bytes(source_bytes)

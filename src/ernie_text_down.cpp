@@ -14,8 +14,8 @@ namespace ernie
 {
 namespace
 {
-// Complete reviewed graphs: bucket64 SHA a9776b29..., bucket2048 SHA ba3ca63e....
-// BUCKET occurs only at the fields that differ between those two original exports.
+// Complete independently exported 32/64/2048 graphs share this canonical form.
+// BUCKET occurs only at the audited fields; a mismatched source remains rejected.
 constexpr const char* reviewed = R"graph(7767517
 58 75
 Input in0 0 1 in0
@@ -138,7 +138,7 @@ DEFINE_LAYER_CREATOR(ErnieTextDown)
 }
 std::string vector_text_down_graph(const std::string& graph,int bucket)
 {
-    if (graph.size()>65536 || (bucket!=64 && bucket!=2048))
+    if (graph.size()>65536 || (bucket!=32 && bucket!=64 && bucket!=2048))
         throw std::invalid_argument("Unreviewed vector text graph or bucket");
     std::string expected=reviewed;std::size_t pos=0;
     while ((pos=expected.find("BUCKET",pos))!=std::string::npos)

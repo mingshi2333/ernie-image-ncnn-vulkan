@@ -1,0 +1,19 @@
+{
+  "width": 128,
+  "height": 64,
+  "text_tokens": 2048,
+  "valid_text": 2048,
+  "seed": 20260905,
+  "target_config": {
+    "packed_width": 128,
+    "packed_height": 64,
+    "text_bucket": 2048,
+    "dit_text_tokens": 2048,
+    "text_layers": 25,
+    "dit_layers": 36
+  },
+  "source_manifest_sha256": "ef98859ac741f6923680fb02de39e663fa3fa01943eff9d2d85c6ddaf40c9e59",
+  "native_weight_sha256": "e8dd207d95dd18b9c7854e5cde577e6b00272b3ad82721bae54bdd7eacaa03bd",
+  "source_param_sha256": "7fd4d84ac86be722af1fd7cd3fdee70545404914fcda71a663272f0299010f92",
+  "normalized_graph_sha256": "51db4065837c28e235784fd0dd196f109ca86822143c025a44ee9372240e4132"
+}

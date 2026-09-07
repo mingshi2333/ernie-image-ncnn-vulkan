@@ -1,0 +1,165 @@
+{
+  "complete": true,
+  "tokens": 10240,
+  "shape": [
+    1,
+    10240,
+    4096
+  ],
+  "inputs": {
+    "in0": {
+      "file": "in0.f32",
+      "shape": [
+        1,
+        10240,
+        4096
+      ],
+      "dtype": "float32_le",
+      "sha256": "4fb7246428b2bdcbc6973961f2768dfb83444930043f183de925ca537575ec80"
+    },
+    "in1": {
+      "file": "in1.f32",
+      "shape": [
+        1,
+        1,
+        4096
+      ],
+      "dtype": "float32_le",
+      "sha256": "a9d287be3a07af1ae43090521a630122ef6ea0321a9f4142938b9da787c9292c"
+    },
+    "in2": {
+      "file": "in2.f32",
+      "shape": [
+        1,
+        1,
+        4096
+      ],
+      "dtype": "float32_le",
+      "sha256": "3d718003960fabadda555aab8d397cbb7a47175c915a5ff16b3aff87f22a3d38"
+    },
+    "in3": {
+      "file": "in3.f32",
+      "shape": [
+        1,
+        1,
+        4096
+      ],
+      "dtype": "float32_le",
+      "sha256": "7b768f534ffa408497b1c4ff1a90512e30774d7ab96edc291ada389f7c1d940a"
+    },
+    "in4": {
+      "file": "in4.f32",
+      "shape": [
+        1,
+        1,
+        4096
+      ],
+      "dtype": "float32_le",
+      "sha256": "f93a20b601a648cef2880519dda5a09a56b377ed8b2472b0727162a473cf4903"
+    },
+    "in5": {
+      "file": "in5.f32",
+      "shape": [
+        1,
+        1,
+        4096
+      ],
+      "dtype": "float32_le",
+      "sha256": "4fac192e9f93a8ea292a01daf14da49b30ddb19102d8b52d3a1dee872dc31b74"
+    },
+    "in6": {
+      "file": "in6.f32",
+      "shape": [
+        1,
+        1,
+        4096
+      ],
+      "dtype": "float32_le",
+      "sha256": "d152ea327b36cc58b70325d1cd74f1012064239683d43b6acdcebe30428af528"
+    },
+    "in7": {
+      "file": "in7.f32",
+      "shape": [
+        1,
+        10240,
+        128
+      ],
+      "dtype": "float32_le",
+      "sha256": "1a1a8364222c5666c22282a426a7328e5007f6be1532b31235f79e606ebfdd71"
+    },
+    "in8": {
+      "file": "in8.f32",
+      "shape": [
+        1,
+        10240,
+        128
+      ],
+      "dtype": "float32_le",
+      "sha256": "fd91dc07b4b0376191e2003798df9e28cb049f3fa7f8499b56d45652fe0e1b19"
+    },
+    "in9": {
+      "file": "in9.f32",
+      "shape": [
+        10240,
+        10240
+      ],
+      "dtype": "float32_le",
+      "sha256": "6ed5e85372e488807486f4446e2a3a501d319be812e969e3de426db798cc5704"
+    }
+  },
+  "expected": {
+    "file": "expected.f32",
+    "shape": [
+      1,
+      10240,
+      4096
+    ],
+    "dtype": "float32_le",
+    "sha256": "c5c8aea62a0c6140e71e5efae86657582fe04ab17e40e4959c54d7ca5435c2d6"
+  },
+  "gates": {
+    "fp32": {
+      "atol": 0.0002,
+      "rtol": 0.0002,
+      "nrmse": 2e-05
+    },
+    "fp16": {
+      "atol": 0.02,
+      "rtol": 0.02,
+      "nrmse": 0.01
+    },
+    "bf16": {
+      "atol": 0.15,
+      "rtol": 0.08,
+      "nrmse": 0.03
+    }
+  },
+  "input_config": {
+    "width": 128,
+    "height": 64,
+    "text_tokens": 2048,
+    "valid_text": 2048,
+    "seed": 20260905,
+    "target_config": {
+      "packed_width": 128,
+      "packed_height": 64,
+      "text_bucket": 2048,
+      "dit_text_tokens": 2048,
+      "text_layers": 25,
+      "dit_layers": 36
+    },
+    "source_manifest_sha256": "ef98859ac741f6923680fb02de39e663fa3fa01943eff9d2d85c6ddaf40c9e59",
+    "native_weight_sha256": "e8dd207d95dd18b9c7854e5cde577e6b00272b3ad82721bae54bdd7eacaa03bd",
+    "source_param_sha256": "7fd4d84ac86be722af1fd7cd3fdee70545404914fcda71a663272f0299010f92",
+    "normalized_graph_sha256": "51db4065837c28e235784fd0dd196f109ca86822143c025a44ee9372240e4132"
+  },
+  "official_weights_sha256": "6cce36f7a939f04274e78fa4d4c653d60c7190e4e66f9968537312d394600daa",
+  "official_revision": "bc68c81e2a1730a394d5fc9fae70713dee940140",
+  "official_implementation_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.venv/lib/python3.14/site-packages/diffusers/models/transformers/transformer_ernie_image.py",
+  "official_implementation_sha256": "0f1814f63008298707afea5d7bd22d0a16073f0a8e858037c198faa28027e926",
+  "torch_runtime": "2.12.1+cu130",
+  "torch_threads": 2,
+  "device": "cpu",
+  "seconds": 26.82837122300407,
+  "scope": "One actual official block, synthetic hidden/AdaLN and full-length text positions; no heads, denoising trajectory or image"
+}

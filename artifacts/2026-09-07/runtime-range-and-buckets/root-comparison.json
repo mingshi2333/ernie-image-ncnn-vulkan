@@ -1,0 +1,8 @@
+{
+  "all_finite": true,
+  "elements": 41943040,
+  "nrmse": 2.7545516414997144e-06,
+  "max_abs_error": 0.015869140625,
+  "reference_max_abs": 2926.93505859375,
+  "scope": "Independent full root recomputation with different chunk size; one synthetic-input real-weight block only"
+}

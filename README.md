@@ -2,7 +2,7 @@
 
 ERNIE-Image-Turbo 本地文生图的 C++ / ncnn / Vulkan 实现。**可以离线生成 1024×1024 PNG，已提供独立模型包、文件完整性检查和安装入口。** 推理程序不依赖 Python，不访问网络。当前支持 Linux、batch=1、Turbo 8 步、CFG=1、可选 CPU 提示词增强器（PE），仍是实验版本。
 
-**2026-09-07：共享模型包现可在运行时选择 1376×768，复用原有 1024×1024 模板和权重。** 已完成原生文本编码、FP32 8 步去噪和图片解码，25 个中间张量及最终 PNG 与原固定尺寸包逐字节一致；生成时不运行 Python，不另存一套权重。见[运行方法](docs/RUNNING.md#shared-weights-and-runtime-dimensions)和[完整执行记录](artifacts/2026-09-07/runtime-shape1376/README.md)。目前支持的共享尺寸为 512×384、1024×1024、1376×768，仍未实现计划中的完整动态范围。
+**2026-09-07：共享包已接入实验性运行时尺寸范围和自动文本桶选择。** 宽高可按 16 的倍数规划为 16..2048，面积不超过 2097152；原生程序按实际提示词长度选择包内独立导出的 32/64/2048 桶，复用同一套权重。最大 10240-token 单块在权重放入系统内存后完成了真实 Vulkan FP32 对照；三个来源、13 组尺寸的 2496 个原生图实例化检查通过。**范围已接入代码，完整尺寸矩阵的官方/原生出图对照仍未完成。** 见[本轮证据及限制](artifacts/2026-09-07/runtime-range-and-buckets/README.md)。原先 1376×768 的完整执行结果保留在[历史记录](artifacts/2026-09-07/runtime-shape1376/README.md)。
 
 同一 1376×768 苹果示例与官方 FP32 对照通过 23/25 项张量数值检查，最后一步预测和解码结果超过原最大误差限；PNG 平均像素差 0.00504/255、最大差 3，原上限为 2。**这些阈值由本项目助手选定，尚未完成感知质量和跨后端波动标定。** 数值未全过不等于出图失败、可见画质损坏或内存不足，详见[阈值来源与适用范围](docs/NUMERICAL-DIAGNOSTICS.md#门槛的来源与适用范围)。中文和长提示词画质、与参考项目的正式比较及其他平台验证仍未完成，当前不能宣称全面超过参考项目。
 
@@ -65,7 +65,7 @@ build/ernie-image --model models/turbo1024-s64-portable \
   --output outputs/apple-new.png --device vulkan --precision fp16 --seed 42 --steps 8
 ```
 
-输出路径必须不存在，父目录可自动创建。静态包的分辨率固定；共享包支持上述已登记尺寸，两个源实例共用一份权重，具体构建和运行方法见[共享权重与运行时尺寸](docs/RUNNING.md#shared-weights-and-runtime-dimensions)。文本编码桶为 **32、64 或 2048 tokens（含 BOS）**，1024 和 1376 为 64。`--width` 与 `--height` 必须一起给出，且属于所选包可用的尺寸；多实例共享包必须指定宽高。其他尺寸/容量仍需由 `tools/prepare_variant.py` 独立导出和验证。超出所选桶的提示词拒绝，官方分词器的 2048-token 总上限和截断约定保留。CPU 运行需同时指定 `--device cpu --precision fp32`。
+输出路径必须不存在，父目录可自动创建。schema-1/2 静态包维持原尺寸和容量；schema-3 共享包使用上述实验性范围，生成时不需要 Python 或为每个尺寸重新转换。多来源共享包必须同时指定 `--width` 和 `--height`。程序在 PE（若启用）结束后按实际 token 数选择可用的最小文本桶；`turbo-shared-v2` 包含独立 32/64/2048 桶，原两来源包只能选择 64/2048。文本桶 32 的来源保留 64 个 DiT 文本槽，padding 不算有效文本。超出可用容量的提示词拒绝，官方分词器的总上限和截断约定保留。CPU 运行需同时指定 `--device cpu --precision fp32`。见[共享包使用方法](docs/RUNNING.md#shared-weights-and-runtime-dimensions)。
 
 长提示词可使用 `--prompt-file UTF8.txt` 替代 `--prompt`，支持可选 BOM、保留原始空白和 CRLF，最多 1 MiB。`--precision bf16` 可运行完整流程，但现有长提示词质量门槛失败，仍标记为实验选项。
 

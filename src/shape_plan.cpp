@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 #include "shape_plan.h"
+#include <algorithm>
 #include <limits>
 #include <stdexcept>
 namespace ernie
@@ -19,8 +20,16 @@ std::size_t checked_shape_sum(std::size_t a, std::size_t b)
 ShapePlan ShapePlan::create(const ShapeContract &contract, std::int64_t w, std::int64_t h,
                             std::int64_t tokens)
 {
-    if (contract.text_buckets != std::array<int, 3>{32, 64, 2048})
-        throw std::invalid_argument("Only independent text buckets 32/64/2048 are planned");
+    int previous = 0;
+    for (int bucket : contract.text_buckets)
+    {
+        if ((bucket != 32 && bucket != 64 && bucket != 2048) || bucket <= previous)
+            throw std::invalid_argument("Text buckets must be an ordered subset of 32/64/2048");
+        previous = bucket;
+    }
+    if (contract.text_buckets.empty() || contract.minimum_dit_text_tokens < 0 ||
+        contract.minimum_dit_text_tokens > 2048)
+        throw std::invalid_argument("Invalid text padding contract");
     if (w < 16 || w > 2048 || h < 16 || h > 2048 || w % 16 || h % 16 || tokens < 1 || tokens > 2048)
         throw std::invalid_argument("Unsupported mathematical shape");
     const auto area = checked_shape_product(static_cast<std::size_t>(w), static_cast<std::size_t>(h));
@@ -33,14 +42,18 @@ ShapePlan ShapePlan::create(const ShapeContract &contract, std::int64_t w, std::
     s.valid_text_tokens = static_cast<int>(tokens);
     for (int bucket : contract.text_buckets)
         if (tokens <= bucket) { s.text_bucket = bucket; break; }
+    if (!s.text_bucket)
+        throw std::invalid_argument("Prompt exceeds the available text buckets");
+    s.dit_text_tokens = std::max(s.text_bucket, contract.minimum_dit_text_tokens);
     s.image_tokens = checked_shape_product(s.packed_width, s.packed_height);
-    s.total_tokens = checked_shape_sum(s.image_tokens, s.text_bucket);
+    s.total_tokens = checked_shape_sum(s.image_tokens, s.dit_text_tokens);
     s.valid_tokens = checked_shape_sum(s.image_tokens, s.valid_text_tokens);
     s.packed_latent_elements = checked_shape_product(128, s.image_tokens);
     s.packed_latent_bytes = checked_shape_product(4, s.packed_latent_elements);
     s.rgb_bytes = checked_shape_product(3, area);
     s.rope_elements = checked_shape_product(s.total_tokens, 128); // each of cosine and sine
     s.mask_elements = checked_shape_product(s.total_tokens, s.total_tokens); // current dense additive mask
+    s.host_weights = s.total_tokens > 6144;
     return s;
 }
 } // namespace ernie

@@ -202,6 +202,14 @@ pub unsafe extern "C" fn ernie_model_package_source_config(handle:*const shared_
     match handle.as_ref(){Some(p) if !config.is_null()=>{std::ptr::copy_nonoverlapping(p.source_config.as_ptr(),config,4);p.schema as i32},_=>-1}
 }
 #[no_mangle]
+pub unsafe extern "C" fn ernie_model_package_select_text_tokens(handle:*mut shared_package::ResolvedPackage,tokens:usize,error:*mut u8,capacity:usize)->i32 {
+    match catch_unwind(AssertUnwindSafe(||handle.as_mut().ok_or_else(||"Null package handle".to_string())?.select_text_tokens(tokens))) {
+        Ok(Ok(()))=>0,
+        Ok(Err(e))=>{write_error(error,capacity,&e);-1},
+        Err(_)=>{write_error(error,capacity,"Text bucket selection panicked");-1}
+    }
+}
+#[no_mangle]
 pub unsafe extern "C" fn ernie_model_package_file(handle:*const shared_package::ResolvedPackage,name:*const u8,length:usize,output:*mut u8,capacity:usize)->i32{
     let result=catch_unwind(AssertUnwindSafe(||->Result<(),String>{
         let p=handle.as_ref().ok_or("Null package handle")?;

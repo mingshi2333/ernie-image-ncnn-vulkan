@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 #include "shape_plan.h"
+#include <array>
 #include <limits>
 #include <stdexcept>
 #include <iostream>
@@ -20,8 +21,18 @@ int main()
     for(int t : {0,-1,2049}) rejected([&]{ShapePlan::create(c,16,16,t);});
     rejected([&]{ShapePlan::create(c,std::numeric_limits<std::int64_t>::max(),16,1);});
     c.text_buckets={32,128,2048};rejected([&]{ShapePlan::create(c,16,16,33);});
+    for (const auto &buckets : {std::vector<int>{}, {64,32}, {32,32}, {128}})
+        rejected([&]{ShapePlan::create({buckets},16,16,1);});
+    const auto padded = ShapePlan::create({{32},64},64,64,15);
+    require(padded.text_bucket==32 && padded.dit_text_tokens==64 && padded.total_tokens==80 && padded.valid_tokens==31);
+    rejected([]{ShapePlan::create({{32},64},64,64,33);});
+    require(ShapePlan::create({{64,2048}},512,384,15).text_bucket==64);
+    require(ShapePlan::create({},2048,1024,2048).total_tokens==10240);
+    require(ShapePlan::create({},2048,1024,2048).host_weights);
+    require(!ShapePlan::create({},1024,1024,2048).host_weights);
+    require(ShapePlan::create({},1376,768,1080).host_weights);
     auto maximum=std::numeric_limits<std::size_t>::max();
     rejected([&]{checked_shape_product(maximum,2);});rejected([&]{checked_shape_sum(maximum,1);});
     require(checked_shape_product(maximum,0)==0 && checked_shape_product(maximum,1)==maximum && checked_shape_sum(maximum,0)==maximum);
-    std::cout << "Mathematical shape planning passed; graph generation pending\n";
+    std::cout << "Checked shape, bucket selection and memory policy passed; no inference in this test\n";
 }

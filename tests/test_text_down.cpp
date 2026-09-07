@@ -55,6 +55,9 @@ int main(int argc,char** argv)
         const std::string large((std::istreambuf_iterator<char>(large_file)),{});
         require(ernie::vector_text_down_graph(large,2048).find("ErnieTextDown")!=std::string::npos,"2048 template rejected");
         require(derived.find("ErnieTextDown gemm_6 1 1 72 73")!=std::string::npos,"Missing replacement");
+        std::ifstream small_file(fs::path(ERNIE_TEXT_DOWN_FIXTURE).parent_path()/"text-down-s32.param");
+        const std::string small((std::istreambuf_iterator<char>(small_file)),{});
+        require(ernie::vector_text_down_graph(small,32).find("ErnieTextDown")!=std::string::npos,"32 template rejected");
         rejects([&]{ernie::vector_text_down_graph(original,32);});
         rejects([&]{ernie::vector_text_down_graph(original,2048);});
         rejects([&]{ernie::vector_text_down_graph(original+"Input extra 0 1 extra\n",64);});

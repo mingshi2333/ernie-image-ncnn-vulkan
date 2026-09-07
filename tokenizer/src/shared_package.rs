@@ -30,12 +30,20 @@ use crate::package::{hash, required_files};
 use serde_json::Value;
 use std::{collections::{BTreeMap, BTreeSet}, fs, path::{Path, PathBuf}};
 
+#[derive(Clone)]
+pub struct PackageSource {
+    pub config: [i32; 4],
+    pub files: BTreeMap<String, PathBuf>,
+    source_manifest: String,
+}
 pub struct ResolvedPackage {
     pub config: [i32; 4],
     pub source_config: [i32; 4],
     pub files: BTreeMap<String, PathBuf>,
     pub schema: u32,
-    source_manifest: String,
+    // Verified path/metadata records only. Selection never reloads or rehashes
+    // the weight store and never changes an independently exported text graph.
+    sources: Vec<PackageSource>,
 }
 fn json(path: &Path) -> Result<Value,String> {
     let meta=fs::symlink_metadata(path).map_err(|e|e.to_string())?;
@@ -50,11 +58,11 @@ fn sha(s:&str)->Result<(),String>{if s.len()!=64 || !s.bytes().all(|c|c.is_ascii
 fn config(v:&Value)->Result<[i32;4],String>{
     let mut out=[0;4];for (i,k) in ["packed_width","packed_height","text_bucket","dit_text_tokens"].iter().enumerate(){out[i]=i32::try_from(v[k].as_i64().ok_or("Invalid config integer")?).map_err(|_|"Config overflow")?;}Ok(out)
 }
-pub fn verify(root:&Path)->Result<Vec<ResolvedPackage>,String>{
+pub fn verify(root:&Path)->Result<Vec<PackageSource>,String>{
     let contract:Value=serde_json::from_str(include_str!("../schema3_contract.json")).map_err(|e|e.to_string())?;
     verify_contract(root,&contract)
 }
-fn verify_contract(root:&Path,contract:&Value)->Result<Vec<ResolvedPackage>,String>{
+fn verify_contract(root:&Path,contract:&Value)->Result<Vec<PackageSource>,String>{
     let m=json(&root.join("manifest.json"))?;
     keys(&m,&["schema_version","format","instances","objects","math","encoder","generation_quality_status"])?;
     for key in ["schema_version","format","math","generation_quality_status"] {if m[key]!=contract[key]{return Err(format!("Unreviewed schema-3 {key}"));}}
@@ -79,7 +87,7 @@ fn verify_contract(root:&Path,contract:&Value)->Result<Vec<ResolvedPackage>,Stri
     }
     let objects=m["objects"].as_object().ok_or("Missing objects")?;
     let instances=m["instances"].as_array().ok_or("Missing instances")?;
-    if instances.is_empty()||instances.len()>2{return Err("Invalid static instance count".into());}
+    if instances.is_empty()||instances.len()>3{return Err("Invalid static instance count".into());}
     if fs::symlink_metadata(root.join("objects")).map_err(|e|e.to_string())?.file_type().is_symlink(){return Err("Symlink object store".into());}
     let mut used=BTreeSet::new(); let mut seen=BTreeSet::new(); let mut out=Vec::new();
     let mut object=|digest:&str|->Result<PathBuf,String>{
@@ -119,7 +127,7 @@ fn verify_contract(root:&Path,contract:&Value)->Result<Vec<ResolvedPackage>,Stri
         // Exact source manifest checksum binds model.cfg, all layer graphs and weights.
         // C++ additionally enforces the canonical full-graph allowlist before instantiation.
         let source_config = config(pinned)?;
-        out.push(ResolvedPackage{config:source_config,source_config,files,schema:3,
+        out.push(PackageSource{config:source_config,files,
                                  source_manifest:digest.to_owned()});
     }
     if encoder_source.is_some_and(|source|!seen.contains(source)) {return Err("Reviewed encoder source instance is absent".into());}
@@ -130,42 +138,67 @@ fn verify_contract(root:&Path,contract:&Value)->Result<Vec<ResolvedPackage>,Stri
     if entries!=["manifest.json".to_string(),"objects".to_string()].into_iter().collect(){return Err("Unlisted package entries".into());}
     Ok(out)
 }
-fn select(mut packages:Vec<ResolvedPackage>,contract:&Value,width:i32,height:i32)
+fn validate_dimensions(width:i32,height:i32)->Result<(),String> {
+    if width<16 || height<16 || width>2048 || height>2048 || width%16!=0 || height%16!=0 ||
+        i64::from(width)*i64::from(height)>2097152 {
+        return Err("Runtime dimensions require multiples of 16 in [16,2048], area at most 2097152".into());
+    }
+    Ok(())
+}
+fn source_at_shape(sources:&[PackageSource], index:usize, width:i32, height:i32)
+    ->([i32;4], [i32;4], BTreeMap<String,PathBuf>)
+{
+    let source=&sources[index];
+    let mut target=source.config;
+    target[0]=width/16; target[1]=height/16;
+    let mut files=source.files.clone();
+    // Encoder execution has its own spatial evidence. A text-source change can
+    // keep an encoder for the requested geometry, never one for another size.
+    for name in ["vae/encoder.ncnn.param", "vae/encoder.ncnn.bin"] {
+        files.remove(name);
+        if let Some(path)=sources.iter().filter(|p|p.config[0]*16==width && p.config[1]*16==height)
+            .find_map(|p|p.files.get(name)) { files.insert(name.into(),path.clone()); }
+    }
+    (target,source.config,files)
+}
+fn select(sources:Vec<PackageSource>,contract:&Value,mut width:i32,mut height:i32)
     ->Result<ResolvedPackage,String>
 {
+    if sources.is_empty() {return Err("Missing shared sources".into());}
     if width==0 {
-        if packages.len()!=1 {return Err("Multiple static instances require explicit width and height".into());}
-        return Ok(packages.remove(0));
+        if height!=0 || sources.len()!=1 {return Err("Multiple static instances require explicit width and height".into());}
+        width=sources[0].config[0]*16; height=sources[0].config[1]*16;
     }
-    // Preserve exact-instance selection and defaults, including its reviewed encoder.
-    if let Some(index)=packages.iter().position(|p|
-        p.config[0].checked_mul(16)==Some(width) && p.config[1].checked_mul(16)==Some(height)) {
-        return Ok(packages.remove(index));
-    }
-    let mut selected=None;
-    for (index,package) in packages.iter().enumerate() {
-        let Some(targets)=contract["reviewed_runtime_targets"].get(&package.source_manifest) else {continue};
-        for target in targets.as_array().ok_or("Invalid runtime target registry")? {
-            keys(target,&["packed_width","packed_height","text_bucket","dit_text_tokens","text_layers","dit_layers"])?;
-            let c=config(target)?;
-            if c[0]<1 || c[0]>128 || c[1]<1 || c[1]>128 || c[0]*c[1]+c[3]>6144 ||
-                c[2]!=package.source_config[2] || c[3]!=package.source_config[3] ||
-                target["text_layers"].as_u64()!=Some(25) || target["dit_layers"].as_u64()!=Some(36) {
-                return Err("Runtime target changes the reviewed model contract".into());
-            }
-            if c[0]*16==width && c[1]*16==height {
-                if selected.replace((index,c)).is_some() {return Err("Ambiguous runtime target".into());}
-            }
+    validate_dimensions(width,height)?;
+    let mut seen=BTreeSet::new();
+    for source in &sources {
+        let pinned=contract["source_manifests"].get(&source.source_manifest).ok_or("Unknown source manifest")?;
+        if config(pinned)?!=source.config || !seen.insert(&source.source_manifest) {
+            return Err("Unknown or duplicate shared source configuration".into());
         }
     }
-    let (index,c)=selected.ok_or("Unreviewed/unavailable target shape")?;
-    let mut package=packages.remove(index);
-    package.config=c;
-    // Encoder spatial graphs have a separate execution registry. A decoder
-    // target must never make the source-resolution encoder appear available.
-    package.files.remove("vae/encoder.ncnn.param");
-    package.files.remove("vae/encoder.ncnn.bin");
-    Ok(package)
+    // Before tokenization, prefer the original geometry. This preserves legacy
+    // shared-package defaults and lets img2img use its separately reviewed encoder.
+    let index=(0..sources.len()).min_by_key(|&i| {
+        let c=sources[i].config;
+        (c[0]*16!=width || c[1]*16!=height,c[2])
+    }).unwrap();
+    let (config,source_config,files)=source_at_shape(&sources,index,width,height);
+    Ok(ResolvedPackage{config,source_config,files,schema:3,sources})
+}
+impl ResolvedPackage {
+    pub fn select_text_tokens(&mut self,tokens:usize)->Result<(),String> {
+        if tokens==0 || tokens>2048 {return Err("Prompt must contain 1..2048 tokens including BOS".into());}
+        if self.schema!=3 {
+            if tokens>self.config[2] as usize {return Err(format!("Prompt exceeds this model's {} token bucket",self.config[2]));}
+            return Ok(());
+        }
+        let index=(0..self.sources.len()).filter(|&i|tokens<=self.sources[i].config[2] as usize)
+            .min_by_key(|&i|self.sources[i].config[2]).ok_or("Prompt exceeds available text buckets")?;
+        let (config,source_config,files)=source_at_shape(&self.sources,index,self.config[0]*16,self.config[1]*16);
+        self.config=config; self.source_config=source_config; self.files=files;
+        Ok(())
+    }
 }
 
 pub fn open(root:&Path,width:i32,height:i32)->Result<ResolvedPackage,String>{
@@ -179,17 +212,17 @@ pub fn open(root:&Path,width:i32,height:i32)->Result<ResolvedPackage,String>{
     crate::package::verify(root)?;
     let cfg=config(&manifest["config"])?;
     if width!=0&&(cfg[0].checked_mul(16)!=Some(width)||cfg[1].checked_mul(16)!=Some(height)){return Err("Static package resolution mismatch".into());}
-    Ok(ResolvedPackage{config:cfg,source_config:cfg,files:required_files().into_iter().map(|n|{let p=root.join(&n);(n,p)}).collect(),schema:manifest["schema_version"].as_u64().ok_or("Missing schema")? as u32,source_manifest:String::new()})
+    Ok(ResolvedPackage{config:cfg,source_config:cfg,files:required_files().into_iter().map(|n|{let p=root.join(&n);(n,p)}).collect(),schema:manifest["schema_version"].as_u64().ok_or("Missing schema")? as u32,sources:Vec::new()})
 }
 #[cfg(test)]
 mod tests {
     use super::*;
-    #[test]fn contract_keeps_reviewed_shapes_and_bn_asymmetry(){let c:Value=serde_json::from_str(include_str!("../schema3_contract.json")).unwrap();assert_eq!(c["source_manifests"].as_object().unwrap().len(),2);assert_eq!(c["reviewed_encoders"].as_object().unwrap().len(),2);assert_eq!(c["reviewed_encoders"]["ef98859ac741f6923680fb02de39e663fa3fa01943eff9d2d85c6ddaf40c9e59"]["width"],512);assert_eq!(c["reviewed_encoders"]["72bb195a2d0b3ef2a25f873666f51f4bbec4b391744518597be87206a551efc1"]["width"],1024);assert_ne!(c["math"]["encoder_bn_eps"],c["math"]["decoder_inverse_bn_eps"]);assert_eq!(c["encoder"]["status"],"unavailable");}
+    #[test]fn contract_keeps_reviewed_shapes_and_bn_asymmetry(){let c:Value=serde_json::from_str(include_str!("../schema3_contract.json")).unwrap();assert_eq!(c["source_manifests"].as_object().unwrap().len(),3);assert_eq!(c["reviewed_encoders"].as_object().unwrap().len(),2);assert_eq!(c["reviewed_encoders"]["ef98859ac741f6923680fb02de39e663fa3fa01943eff9d2d85c6ddaf40c9e59"]["width"],512);assert_eq!(c["reviewed_encoders"]["72bb195a2d0b3ef2a25f873666f51f4bbec4b391744518597be87206a551efc1"]["width"],1024);assert_ne!(c["math"]["encoder_bn_eps"],c["math"]["decoder_inverse_bn_eps"]);assert_eq!(c["encoder"]["status"],"unavailable");}
     #[test]fn malformed_digest_and_config_fail(){for s in ["../oops","A",&"A".repeat(64)]{assert!(sha(s).is_err());}assert!(config(&serde_json::json!({"packed_width":true})).is_err());}
 
-    fn runtime_source() -> ResolvedPackage {
-        ResolvedPackage {
-            config:[64,64,64,64], source_config:[64,64,64,64], schema:3,
+    fn runtime_source() -> PackageSource {
+        PackageSource {
+            config:[64,64,64,64],
             source_manifest:"72bb195a2d0b3ef2a25f873666f51f4bbec4b391744518597be87206a551efc1".into(),
             files:[("dit/block-35/block.ncnn.bin".into(),PathBuf::from("objects/unchanged-weight")),
                    ("vae/encoder.ncnn.param".into(),PathBuf::from("objects/source-encoder-graph")),
@@ -212,15 +245,42 @@ mod tests {
         }
     }
     #[test]
-    fn runtime_target_requires_exact_source_and_registered_orientation() {
+    fn actual_token_count_selects_smallest_available_export_without_losing_sources() {
         let contract:Value=serde_json::from_str(include_str!("../schema3_contract.json")).unwrap();
-        for (width,height) in [(768,1376),(1360,768),(2048,1024)] {
+        let sources=contract["source_manifests"].as_object().unwrap().iter().map(|(digest,c)| {
+            let cfg=config(c).unwrap();
+            PackageSource { config:cfg, source_manifest:digest.clone(),
+                files:[("text/block-00/text.ncnn.param".into(),PathBuf::from(format!("objects/text-{}",cfg[2])))].into_iter().collect() }
+        }).collect();
+        let mut package=select(sources,&contract,2048,1024).unwrap();
+        for (tokens,bucket) in [(1,32),(32,32),(33,64),(64,64),(65,2048),(2048,2048),(15,32)] {
+            package.select_text_tokens(tokens).unwrap();
+            assert_eq!(package.config,[128,64,bucket,if bucket==32 {64} else {bucket}]);
+            assert_eq!(package.files["text/block-00/text.ncnn.param"],PathBuf::from(format!("objects/text-{bucket}")));
+            assert_eq!(package.sources.len(),3);
+        }
+        let before=package.config;
+        for tokens in [0,2049,usize::MAX] {assert!(package.select_text_tokens(tokens).is_err());assert_eq!(package.config,before);}
+        let mut only64=select(vec![runtime_source()],&contract,1024,1024).unwrap();
+        only64.select_text_tokens(15).unwrap();assert_eq!(only64.config[2],64);
+        assert!(only64.select_text_tokens(65).is_err());
+        let mut legacy=ResolvedPackage{config:[64,64,64,64],source_config:[64,64,64,64],files:BTreeMap::new(),schema:2,sources:Vec::new()};
+        legacy.select_text_tokens(15).unwrap();assert_eq!(legacy.config[2],64);
+        assert!(legacy.select_text_tokens(65).is_err());
+    }
+    #[test]
+    fn runtime_range_keeps_source_identity_and_rejects_invalid_geometry() {
+        let contract:Value=serde_json::from_str(include_str!("../schema3_contract.json")).unwrap();
+        for (width,height) in [(768,1376),(1360,768),(2048,1024),(1024,2048),(16,16),(16,2048),(2048,16)] {
+            assert_eq!(select(vec![runtime_source()],&contract,width,height).unwrap().config[..2],[width/16,height/16]);
+        }
+        for (width,height) in [(0,16),(15,16),(2048,2048),(2049,16),(1377,768)] {
             assert!(select(vec![runtime_source()],&contract,width,height).is_err());
         }
         let mut other=runtime_source();other.source_manifest="0".repeat(64);
         assert!(select(vec![other],&contract,1376,768).is_err());
         assert!(select(vec![runtime_source(),runtime_source()],&contract,1376,768).is_err());
-        let mut wrong_bucket=runtime_source();wrong_bucket.source_config[2]=2048;
+        let mut wrong_bucket=runtime_source();wrong_bucket.config[2]=2048;
         assert!(select(vec![wrong_bucket],&contract,1376,768).is_err());
     }
 }
