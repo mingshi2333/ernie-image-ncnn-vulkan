@@ -1,0 +1,26 @@
+[
+  {
+    "case": "768",
+    "check": "hidden-source",
+    "return_code": 0
+  },
+  {
+    "case": "768",
+    "check": "native-help",
+    "return_code": 0
+  },
+  {
+    "case": "1024",
+    "check": "hidden-source",
+    "return_code": 0
+  },
+  {
+    "case": "1024",
+    "check": "native-help",
+    "return_code": 0
+  },
+  {
+    "check": "source_snapshot_syntax_and_all_860_bindings",
+    "passed": true
+  }
+]

@@ -1,0 +1,54 @@
+[
+  {
+    "case": "768",
+    "phase": "native",
+    "argv": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/var/tmp/ernie-runtime-squares-v1/768/supervisor.py",
+      "native"
+    ]
+  },
+  {
+    "case": "768",
+    "phase": "official",
+    "argv": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/var/tmp/ernie-runtime-squares-v1/768/supervisor.py",
+      "official"
+    ]
+  },
+  {
+    "case": "768",
+    "phase": "compare",
+    "argv": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/var/tmp/ernie-runtime-squares-v1/768/compare.py"
+    ]
+  },
+  {
+    "case": "1024",
+    "phase": "native",
+    "argv": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/var/tmp/ernie-runtime-squares-v1/1024/supervisor.py",
+      "native"
+    ]
+  },
+  {
+    "case": "1024",
+    "phase": "official",
+    "argv": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/var/tmp/ernie-runtime-squares-v1/1024/supervisor.py",
+      "official"
+    ]
+  },
+  {
+    "case": "1024",
+    "phase": "compare",
+    "argv": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/var/tmp/ernie-runtime-squares-v1/1024/compare.py"
+    ]
+  }
+]

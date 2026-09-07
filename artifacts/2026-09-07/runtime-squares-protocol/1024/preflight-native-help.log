@@ -1,0 +1,26 @@
+ernie-image --model DIR (--prompt TEXT | --prompt-file UTF8.txt) --output NEW.{png|jpg|bmp|tga}
+            [--device cpu|vulkan] [--precision fp32|fp16|bf16]
+            [--width N --height N] [--seed N] [--steps N] [--threads N]
+            [--gpu N] [--text-device cpu]
+            [--dit-weights auto|device|host] [--gpu-reserve-mib N] (host uses RAM)
+            [--dit-cache-mib N] [--ram-reserve-mib N] (optional FP32 Vulkan RAM cache)
+            [--model-loading default|stdio|mapped] (image pipeline weights; excludes PE)
+            [--text-down-vector] (optional FP32 text reduction candidate)
+            [--vae-device cpu|vulkan] [--vae-convolution direct|sgemm]
+            [--pe-model DIR] [--pe-max-tokens N] [--pe-greedy]
+            [--pe-temperature N] [--pe-top-p N] [--pe-seed N]
+            [--metrics-json NEW.json] (allocation diagnostic build only; not a speed round)
+            [--report-json NEW.json] (resolved settings and result; no tensor tracing)
+            [--latent FILE.f32] [--embeddings FILE.f32] [--trace-dir NEWDIR]
+            [--input IMAGE --strength 0..1 [--resize stretch|fit|crop] [--background #RRGGBB]]
+ernie-image (--model DIR | --pe-model DIR) --verify-model
+ernie-image [--model DIR] --diagnose
+Text-to-image: ernie-image --model model --prompt cat --output cat.png
+PE: ernie-image --model model --prompt cat --pe-model pe --pe-greedy --output cat.jpg
+Img2img: ernie-image --model model --input source.jpg --prompt style --width 512 --height 384 --resize fit --output result.png
+Resolution defaults to a sole model instance; shared packages require a supported width/height.
+Prompt files: UTF-8, optional BOM, at most 1 MiB; whitespace is preserved.
+PE is optional CPU FP32, with up to 2048 output tokens by default.
+PE sampling defaults: temperature 0.6, top-p 0.95, seed 42; --pe-greedy disables sampling.
+Reviewed model instances; FP32 text encoder, residuals, Euler master latent and
+FP32 VAE (CPU default). CFG=1. BF16 quality is experimental.

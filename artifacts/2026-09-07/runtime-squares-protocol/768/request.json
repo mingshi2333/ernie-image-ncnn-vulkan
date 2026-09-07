@@ -1,0 +1,14 @@
+{
+  "package": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/portable-turbo1024-s32-v1",
+  "source_weights_package": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo1024-s64-portable",
+  "prompt": "A red apple on a wooden table, soft daylight, realistic photo.",
+  "steps": 8,
+  "runtime_size": [
+    768,
+    768
+  ],
+  "initial": "/var/tmp/ernie-runtime-squares-v1/768/initial.f32",
+  "source_head": "990e8ef07591c2f7564d538462d51b8961263655",
+  "reference_device": "cuda",
+  "initial_generation": "NumPy PCG64 seed20260905; saved little-endian FP32 bytes shared by native/official; no cross-framework seed equivalence claim"
+}

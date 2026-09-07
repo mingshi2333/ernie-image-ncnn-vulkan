@@ -1,0 +1,18 @@
+{
+  "/var/tmp/ernie-runtime-squares-v1/commands.json": {
+    "bytes": 1487,
+    "sha256": "b5cbcea9106f82bfaa436d2dd179c3894dc561077a5079867cbf403c6e3acb0f"
+  },
+  "/var/tmp/ernie-runtime-squares-v1/run_batch.py": {
+    "bytes": 690,
+    "sha256": "45abca22c0974c4f4cdc0dbc0b7480c8081739247cc1a20cd84d2ccf7463209e"
+  },
+  "/var/tmp/ernie-runtime-squares-v1/768/plan.json": {
+    "bytes": 86631,
+    "sha256": "fd6d3c8618303a7fb403383e115f42ba6198f69f73d4bbf2e6a4f7fb9b90e90d"
+  },
+  "/var/tmp/ernie-runtime-squares-v1/1024/plan.json": {
+    "bytes": 86658,
+    "sha256": "9f0be7d03d60ee0cfe25bef419a6a02caa6a928956229cca9bb646e214d820da"
+  }
+}
