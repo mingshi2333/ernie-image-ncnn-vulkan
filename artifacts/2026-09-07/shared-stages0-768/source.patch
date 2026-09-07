@@ -1,0 +1,252 @@
+diff --git a/tools/diagnose_dit_stages.py b/tools/diagnose_dit_stages.py
+index e5cda53..d3c40db 100644
+--- a/tools/diagnose_dit_stages.py
++++ b/tools/diagnose_dit_stages.py
+@@ -7,6 +7,7 @@ official CUDA process exits before Vulkan starts, so they never share VRAM.
+ import argparse
+ import json
+ from pathlib import Path
++import re
+ import shutil
+ import subprocess
+ import sys
+@@ -14,6 +15,7 @@ import sys
+ import numpy as np
+ import torch
+ from diffusers import FlowMatchEulerDiscreteScheduler
++from diagnose_pipeline_step import reference_package
+ from export_dit_block import load_block, make_inputs, metrics, save_tensor
+ from export_dit_heads import InputHead, load_heads
+ from prepare_block import ROOT, sha256
+@@ -28,19 +30,51 @@ def tensor(path, entry):
+     return torch.from_numpy(np.fromfile(source, '<f4').copy()).reshape(entry['shape'])
+ 
+ 
++def stage_weight_source(model, saved, binding):
++    """Resolve DiT provenance after reference_package authenticates the oracle."""
++    def object_manifest(digest):
++        if not isinstance(digest, str) or not re.fullmatch('[0-9a-f]{64}', digest):
++            raise ValueError('Invalid official weight provenance digest')
++        path = model/'objects'/digest
++        if path.is_symlink() or path.stat().st_size > 4*1024*1024 or sha256(path) != digest:
++            raise ValueError('Official weight provenance object differs')
++        manifest = json.loads(path.read_text())
++        if manifest.get('schema_version') != 2 or manifest.get('portable') is not True:
++            raise ValueError('Official weight provenance requires a portable source')
++        return manifest
++
++    source = (object_manifest(binding['source_manifest_sha256']) if binding is not None
++              else json.loads((model/'manifest.json').read_text()))
++    weights = source.get('source_weights')
++    provenance = None
++    if not weights and binding is not None:
++        provenance = saved.get('runtime_source', {}).get('official_weight_provenance', {})
++        donor = object_manifest(provenance.get('source_manifest_sha256'))
++        def assets(manifest):
++            return {name: digest for name, digest in manifest['files'].items()
++                    if name != 'model.cfg' and not name.endswith('.param')}
++        original = assets(source)
++        if (original != assets(donor) or len(original) != provenance.get('identical_runtime_assets')
++                or source.get('official_model_revision') != donor.get('official_model_revision')):
++            raise ValueError('Official weight provenance has different runtime assets')
++        weights = donor.get('source_weights')
++    blocks = weights.get('dit') if isinstance(weights, dict) else None
++    if (not isinstance(blocks, list) or len(blocks) != 36 or
++            any(not isinstance(value, str) or not re.fullmatch('[0-9a-f]{64}', value) for value in blocks)):
++        raise ValueError('Require all 36 official DiT weight digests')
++    return blocks, provenance
++
++
+ def oracle(args):
+-    manifest = json.loads((args.model / 'manifest.json').read_text())
+-    cfg = manifest['config']
+-    saved = json.loads((args.reference / 'fixture.json').read_text())
+-    if not saved.get('complete') or cfg != saved['config'] or not 0 <= args.step < saved['steps']:
+-        raise ValueError('Require a complete matching pipeline reference and valid step')
++    saved, cfg, binding = reference_package(args.model, args.reference, args.step)
++    block_weights, provenance = stage_weight_source(args.model, saved, binding)
+     h, w, text = cfg['packed_height'], cfg['packed_width'], cfg['dit_text_tokens']
+     latent_entry = saved['inputs']['initial'] if args.step == 0 else saved['outputs'][args.step-1]['step']
+     latent = tensor(args.reference, latent_entry)
+     embeddings = tensor(args.reference, saved['inputs']['padded-text'])
+     scheduler = FlowMatchEulerDiscreteScheduler(num_train_timesteps=1000, shift=4.)
+     scheduler.set_timesteps(sigmas=torch.linspace(1., 0., saved['steps']+1)[:-1], device='cpu')
+-    heads, _ = load_heads()
++    heads, head_manifests = load_heads(official_root=args.official_root)
+     time_features = heads.time_proj(scheduler.timesteps[args.step].reshape(1))
+     synth, freqs = make_inputs(h, w, text, len(saved['ids']), 20260905)
+     constants = [tensor(args.reference, saved['inputs'][f'constant-{i}']) for i in range(3)]
+@@ -56,6 +90,10 @@ def oracle(args):
+                'config': cfg, 'step': args.step, 'tokens': h*w+text,
+                'inputs': {f'in{i}': save_tensor(fixture_dir/f'in{i}.f32', v) for i, v in enumerate(inputs)},
+                'reference_fixture_sha256': sha256(args.reference/'fixture.json'),
++               'native_acceptance_eligible': False, 'package_binding': binding,
++               'valid_text_tokens': len(saved['ids']), 'threads': args.threads,
++               'official_weight_provenance': provenance, 'block_weight_sha256': block_weights,
++               'head_weight_sha256': {name: item['sha256'] for name, item in head_manifests.items()},
+                'reference_device': args.reference_device, 'source_sha256': sha256(__file__),
+                'gates': {'fp32': {'atol': .0002, 'rtol': .01, 'nrmse': .003},
+                          'fp16': {'atol': .03, 'rtol': .25, 'nrmse': .15}}, 'stages': {}}
+@@ -68,18 +106,23 @@ def oracle(args):
+     freqs = freqs.to(device)
+     mask = constants[-1][None, None].to(device)
+     for index in range(36):
+-        block, component = load_block(ROOT/f'models/official/dit-block-{index:02d}.safetensors', index)
+-        if component['sha256'] != manifest['source_weights']['dit'][index]:
++        block, component = load_block(args.official_root/f'dit-block-{index:02d}.safetensors', index)
++        if component['sha256'] != block_weights[index]:
+             raise ValueError('Official weights differ from package')
+         current = block.to(device)(current, freqs, temb, attention_mask=mask)
+         fixture['stages'][f'block-{index}'] = save_tensor(fixture_dir/f'block-{index}.f32', current.transpose(0, 1))
+         del block
++        if device == 'cuda':
++            # Match the streamed full oracle; dead weight allocations must not
++            # accumulate in PyTorch's cache between differently sized layers.
++            torch.cuda.empty_cache()
+         if (index+1) % 6 == 0:
+             print(json.dumps({'reference_blocks_complete': index+1}), flush=True)
+     patches = heads.final_linear(heads.final_norm(current.cpu(), projected[1]))[:h*w]
+     prediction = patches.transpose(0, 1).reshape(1, h, w, 128).permute(0, 3, 1, 2).contiguous()
+     fixture['expected'] = save_tensor(fixture_dir/'expected.f32', prediction)
+     fixture['saved_prediction_comparison'] = metrics(tensor(args.reference, saved['outputs'][args.step]['prediction']), prediction)
++    fixture['matches_saved_prediction_exactly'] = fixture['expected']['sha256'] == saved['outputs'][args.step]['prediction']['sha256']
+     (fixture_dir/'fixture.json').write_text(json.dumps(fixture, indent=2)+'\n')
+ 
+ 
+@@ -93,11 +136,14 @@ def main():
+     parser.add_argument('--reference-device', choices=['cpu', 'cuda'], default='cuda')
+     parser.add_argument('--oracle-only', action='store_true')
+     parser.add_argument('--runner', type=Path, default=ROOT/'build/ernie-block-sequence-runner')
++    parser.add_argument('--official-root', type=Path, default=ROOT/'models/official')
++    parser.add_argument('--threads', type=int, default=4)
++    parser.add_argument('--host-weights', action='store_true')
+     args = parser.parse_args()
+-    if args.output.exists():
+-        parser.error('Require a new output directory')
++    if args.output.exists() or not 1 <= args.threads <= 256:
++        parser.error('Require a new output directory and 1..256 threads')
+     args.output.mkdir(parents=True)
+-    torch.set_num_threads(4)
++    torch.set_num_threads(args.threads)
+     torch.set_grad_enabled(False)
+     torch.backends.cuda.matmul.allow_tf32 = False
+     torch.backends.cudnn.allow_tf32 = False
+@@ -113,17 +159,26 @@ def main():
+     command = [sys.executable, str(Path(__file__).resolve()), '--model', str(args.model.resolve()),
+                '--reference', str(args.reference.resolve()), '--step', str(args.step),
+                '--output', str((args.output/'oracle').resolve()), '--reference-device', args.reference_device,
++               '--threads', str(args.threads), '--official-root', str(args.official_root.resolve()),
+                '--oracle-only']
+     with (args.output/'oracle.log').open('w') as log:
+         subprocess.run(command, check=True, timeout=1800, stdout=log, stderr=subprocess.STDOUT)
+     fixture_dir = args.output/'oracle/fixture'
+     fixture = json.loads((fixture_dir/'fixture.json').read_text())
+     cfg = fixture['config']
+-    extra = ['--input-head', str((args.model/'dit/input').resolve()),
+-             '--output-head', str((args.model/'dit/output').resolve()),
+-             '--width', str(cfg['packed_width']), '--height', str(cfg['packed_height']),
+-             '--text-tokens', str(cfg['dit_text_tokens']), '--trace-dir', str((args.output/'trace').resolve())]
+-    result = run([args.model/f'dit/block-{i:02d}' for i in range(36)], fixture_dir, fixture,
++    extra = ['--width', str(cfg['packed_width']), '--height', str(cfg['packed_height']),
++             '--text-tokens', str(cfg['dit_text_tokens']), '--trace-dir', str((args.output/'trace').resolve()),
++             '--threads', str(args.threads)]
++    if args.host_weights:
++        extra += ['--host-weights']
++    if fixture['package_binding'] is None:
++        models = [args.model/f'dit/block-{i:02d}' for i in range(36)]
++        extra += ['--input-head', str((args.model/'dit/input').resolve()),
++                  '--output-head', str((args.model/'dit/output').resolve())]
++    else:
++        models = []
++        extra += ['--package', str(args.model.resolve()), '--valid-text-tokens', str(fixture['valid_text_tokens'])]
++    result = run(models, fixture_dir, fixture,
+                  args.output/'native', runner, 'vulkan', args.precision, 'stream', extra_args=extra)
+     comparisons = []
+     if 'failure' not in result:
+@@ -137,6 +192,8 @@ def main():
+                 error['text_tokens'] = metrics(expected[:, n:], actual[:, n:])
+             comparisons.append(error)
+     report = {'scope': fixture['scope'], 'rope_scope': fixture['rope_scope'], 'prediction': result, 'stages': comparisons,
++              'native_acceptance_eligible': False, 'package_binding': fixture['package_binding'],
++              'matches_saved_prediction_exactly': fixture['matches_saved_prediction_exactly'],
+               'saved_prediction_comparison': fixture['saved_prediction_comparison'],
+               'source_snapshot': {p.name: sha256(p) for p in sorted(scripts.iterdir())}}
+     (args.output/'result.json').write_text(json.dumps(report, indent=2)+'\n')
+diff --git a/tests/test_diagnose_dit_stages.py b/tests/test_diagnose_dit_stages.py
+new file mode 100644
+index 0000000..39a4e5b
+--- /dev/null
++++ b/tests/test_diagnose_dit_stages.py
+@@ -0,0 +1,72 @@
++"""Stage tracing must retain the authenticated runtime weight relationship."""
++import hashlib
++import json
++from pathlib import Path
++import sys
++import tempfile
++import unittest
++
++sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
++from diagnose_dit_stages import stage_weight_source
++
++
++class StageWeightSourceTest(unittest.TestCase):
++    def setUp(self):
++        self.temp = tempfile.TemporaryDirectory()
++        self.addCleanup(self.temp.cleanup)
++        self.root = Path(self.temp.name)
++        (self.root/'objects').mkdir()
++        self.blocks = [f'{index:064x}' for index in range(36)]
++        self.source = {'schema_version': 2, 'portable': True, 'official_model_revision': 'pinned',
++                       'files': {'model.cfg': 'config32', 'block.param': 'graph32', 'block.bin': 'weights'}}
++        self.donor = {**self.source, 'files': dict(self.source['files'], **{'model.cfg': 'config64'}),
++                      'source_weights': {'dit': self.blocks}}
++
++    def save_object(self, data):
++        content = json.dumps(data).encode()
++        digest = hashlib.sha256(content).hexdigest()
++        (self.root/'objects'/digest).write_bytes(content)
++        return digest
++
++    def binding(self):
++        source = self.save_object(self.source)
++        donor = self.save_object(self.donor)
++        provenance = {'source_manifest_sha256': donor, 'identical_runtime_assets': 1}
++        return ({'runtime_source': {'official_weight_provenance': provenance}},
++                {'source_manifest_sha256': source})
++
++    def test_shared_donor_can_change_graph_metadata_but_preserves_weights(self):
++        saved, binding = self.binding()
++        weights, provenance = stage_weight_source(self.root, saved, binding)
++        self.assertEqual(weights, self.blocks)
++        self.assertEqual(provenance, saved['runtime_source']['official_weight_provenance'])
++
++    def test_changed_runtime_weight_cannot_supply_provenance(self):
++        self.donor['files']['block.bin'] = 'other-weights'
++        saved, binding = self.binding()
++        with self.assertRaisesRegex(ValueError, 'different runtime assets'):
++            stage_weight_source(self.root, saved, binding)
++
++    def test_changed_cas_object_is_rejected(self):
++        saved, binding = self.binding()
++        path = self.root/'objects'/binding['source_manifest_sha256']
++        path.write_text('{}')
++        with self.assertRaisesRegex(ValueError, 'object differs'):
++            stage_weight_source(self.root, saved, binding)
++
++    def test_missing_donor_or_incomplete_weight_list_is_rejected(self):
++        saved, binding = self.binding()
++        with self.assertRaisesRegex(ValueError, 'provenance digest'):
++            stage_weight_source(self.root, {}, binding)
++        self.donor['source_weights']['dit'] = self.blocks[:-1]
++        saved, binding = self.binding()
++        with self.assertRaisesRegex(ValueError, 'all 36'):
++            stage_weight_source(self.root, saved, binding)
++
++    def test_fixed_package_keeps_its_own_official_weight_list(self):
++        (self.root/'manifest.json').write_text(json.dumps(self.donor))
++        self.assertEqual(stage_weight_source(self.root, {}, None), (self.blocks, None))
++
++
++if __name__ == '__main__':
++    unittest.main()

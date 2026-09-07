@@ -1,0 +1,398 @@
+{
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/native/actual.f32": {
+    "bytes": 1179648,
+    "sha256": "b385ba3376ee4f9cca11427184e35def8c67239bfa3cab31afcc33132a762aec"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-0.f32": {
+    "bytes": 38797312,
+    "sha256": "1a28d6fc8867dd06b2fb1d0a5ef0f3bbfb6e0c8f36d9f9463206e284989ae9d3"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-1.f32": {
+    "bytes": 38797312,
+    "sha256": "cf50366d5053b0d86fb4aaa5cc569a070a5f4185d8b6f4d9ed2c2d1bfec2e9ef"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-10.f32": {
+    "bytes": 38797312,
+    "sha256": "c3d034623d718853957ad05538122f3810f8f8c8988420a358a1b1f9c5f30b69"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-11.f32": {
+    "bytes": 38797312,
+    "sha256": "0676c5afe3afaea47d68a6ec5c4882f57606cda9e6461e799d7c84f8c9dadeaa"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-12.f32": {
+    "bytes": 38797312,
+    "sha256": "ffca73bc903af8e05f9f47c5788fa4cc524f9e6511c86e5d084ffd886c74c7ad"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-13.f32": {
+    "bytes": 38797312,
+    "sha256": "b7ef29ad14499d402a919c02d6f670803f684b010895b01bf29209cb57237dc1"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-14.f32": {
+    "bytes": 38797312,
+    "sha256": "6941ec7018d6ce64cb52968bcba0c7649bef2daa3fce102167c8a32e72e81786"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-15.f32": {
+    "bytes": 38797312,
+    "sha256": "77dc5051214b881a0a8cb85b22588b803c687bd1d6c3c30299edaf7c19586e41"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-16.f32": {
+    "bytes": 38797312,
+    "sha256": "b451d2c240ec331ea70335829ec0f33e5e71d1cd3dc5813193f2ab10acbe7d84"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-17.f32": {
+    "bytes": 38797312,
+    "sha256": "ccbbaeeed08780e4abba6eaa239b2b1df4fd81e428486422105cbe474c9a8b99"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-18.f32": {
+    "bytes": 38797312,
+    "sha256": "40b4087a897efd11b502073e66f0d0ef8fc085910a3f087f50d767434a7e4477"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-19.f32": {
+    "bytes": 38797312,
+    "sha256": "192583ec4d775d64bb09754e72b0fe6a54dc8b99b1f04ed71cf40195a4cb8580"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-2.f32": {
+    "bytes": 38797312,
+    "sha256": "27ff2af96def36796e938395a02e8976582e5e52f2b1d1ac3f10d4151739366e"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-20.f32": {
+    "bytes": 38797312,
+    "sha256": "d2d24954de1d29e4862eee7e1a5d7a0e8f9adc9878d4206ec0dda9cc717352d2"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-21.f32": {
+    "bytes": 38797312,
+    "sha256": "65730f85abfdb6b7489b6da6c1d0326c07589d341efdb97a57c53b1d48236aca"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-22.f32": {
+    "bytes": 38797312,
+    "sha256": "46faf84a5a4f49522c0fa77c8f1fd93c7283be3e86163be73cd4ecccb396c26a"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-23.f32": {
+    "bytes": 38797312,
+    "sha256": "7b7d4af16a4eaa6e763b1a7892d652985955590373649b60864e66c63ed3884d"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-24.f32": {
+    "bytes": 38797312,
+    "sha256": "c3bf6bcbf0787b7d0c42df67a5c789fbf8b49eb9a1388bc939f2d0c32e0f9538"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-25.f32": {
+    "bytes": 38797312,
+    "sha256": "13450e3dc855a6137eb1ee506a8bd66fd0d4b0026bcffd3f2beadc9168e4f24e"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-26.f32": {
+    "bytes": 38797312,
+    "sha256": "28abff7e60df5b736a7954d30d0a385a2104b4ac1e7d155f9ed43a09435d3827"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-27.f32": {
+    "bytes": 38797312,
+    "sha256": "d5a626a8a03a3f7f594a11464bb254ff4c6cbc2b3e3e8bbce1a9dac6dc0bfe3e"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-28.f32": {
+    "bytes": 38797312,
+    "sha256": "525f64dd49c25296342ef90c1769d1129867abece6cfae75927756cdf6140042"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-29.f32": {
+    "bytes": 38797312,
+    "sha256": "67502dbf58e8ebbbb05db4546a53aa04cef592bc0d3fffc579eddfb7987598ce"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-3.f32": {
+    "bytes": 38797312,
+    "sha256": "019376ff5d5cee615e5cb68cdbf5801fd811e569a3687fc8638e2ea6d920598a"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-30.f32": {
+    "bytes": 38797312,
+    "sha256": "49388614c580e9b136ba344f622e0fe92f700fc0caeea74e64de96a69e247f41"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-31.f32": {
+    "bytes": 38797312,
+    "sha256": "756aae51bed77661a88d7bb9ec02aa7013361d9dac39705c3adeeb83fb60fa5c"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-32.f32": {
+    "bytes": 38797312,
+    "sha256": "6d7d84d4d99fafe3a7f6de5e0ad121a50c05ac1edf07c95cd80f2a1cf0a749d3"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-33.f32": {
+    "bytes": 38797312,
+    "sha256": "13f88f1987dc5a98abba287217ea44488fbe57e457e82a31b592389597a4a631"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-34.f32": {
+    "bytes": 38797312,
+    "sha256": "b5d977e11251c096c50f6322791af03f7b0f4f8c3d0fe37b9dfd7efbf5ba669e"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-35.f32": {
+    "bytes": 38797312,
+    "sha256": "3ec8f922205f850a7e319a33ce2d2da4cbc71b02bfba5d2190c39b168ae2bcaf"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-4.f32": {
+    "bytes": 38797312,
+    "sha256": "11ec60ab58bb334ece3e00dd429e686bfced2ece77a2406d1e6047bd01f50810"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-5.f32": {
+    "bytes": 38797312,
+    "sha256": "afce8d533ab9b93c841a28bebe0901fcc00229a7a34fa8b8d833b91caa098b02"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-6.f32": {
+    "bytes": 38797312,
+    "sha256": "19871e31e326994f470247db4c596c67fc4146b38308d1af57da77fc2fcee919"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-7.f32": {
+    "bytes": 38797312,
+    "sha256": "80b68ed10e8530a85128433626ed37ab26f79bb08eca854ce23e18dfadd8227b"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-8.f32": {
+    "bytes": 38797312,
+    "sha256": "14ed3ea6166dd8e7ac625e4e98af18aa19b5ec724fe4b9bc26490da3bd64e42b"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/block-9.f32": {
+    "bytes": 38797312,
+    "sha256": "a728e60e93a2da5c66ecafe966e0fe5fe7a18e69f7a76c3b0d22d8d406103876"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/expected.f32": {
+    "bytes": 1179648,
+    "sha256": "6eac8bdc6aa425fad183f9e250926183a400ceeb7b009f937ef8f34cbb5d6329"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/head-0.f32": {
+    "bytes": 38797312,
+    "sha256": "da2061624fa386bfabd716c58b18a9a00e9c570ac3bd4e597177fff487801335"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/head-1.f32": {
+    "bytes": 16384,
+    "sha256": "1a6a675434cd973f0cf67f41add57f2ff496e50a0f99bc1f322b55ab110c1da1"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/head-2.f32": {
+    "bytes": 16384,
+    "sha256": "19f47df5a55c12f7000aaa4099e8ac71f8345650632c0165ae0371e9a081b5bd"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/head-3.f32": {
+    "bytes": 16384,
+    "sha256": "6b26a45f5da7109cfa183e5b2e19b81d71879b2e2c2d4c214a8fdba118a1d4d7"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/head-4.f32": {
+    "bytes": 16384,
+    "sha256": "91ba320da8653f2b35e71534e87fd58c1c71181d299c41848a26e920c033b93b"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/head-5.f32": {
+    "bytes": 16384,
+    "sha256": "ef0a7df2eb337885382867900ae2f2a39bf17247817b5b07599e4b30cee8a7fa"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/head-6.f32": {
+    "bytes": 16384,
+    "sha256": "878938fe3180021eeef73684e6c5828421e9a4f0bba1ba03b5c6f68095112062"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/head-7.f32": {
+    "bytes": 16384,
+    "sha256": "07eea455cbb723c2e5b3d8d762b8454836201762286de010de4aa0bb8a5614b9"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/in0.f32": {
+    "bytes": 1179648,
+    "sha256": "4c51a446e05065412158fd8b786b5d73a2f4d5c11877a0265158fca80b4ff061"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/in1.f32": {
+    "bytes": 786432,
+    "sha256": "e23fa7eab8f1f5cd34ab7e3e9486b0f099a9d32dbea1db4c0a4b376eb9d20f28"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/in2.f32": {
+    "bytes": 16384,
+    "sha256": "cbdb74f8ed28761a4f99c179b272f8182f9bae2a3b6243e971b3334d68d00b6d"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/in3.f32": {
+    "bytes": 1212416,
+    "sha256": "44c058b90c4875e4262f10bbf59711fecb20aa3783cee6962d32adacd601ffb5"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/in4.f32": {
+    "bytes": 1212416,
+    "sha256": "3f4c73a51ec354fca4b6d5ddcdec3157233b10c46505a232570b46fcaab1ab7b"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/oracle/fixture/in5.f32": {
+    "bytes": 22429696,
+    "sha256": "efdaa3b629cda9a9fb586903985f62d1bf683a94f78d83b4682316e2c66e202d"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/runner.snapshot": {
+    "bytes": 36437088,
+    "sha256": "1d754f49534434cf8e3882b271714060394f5233b6a13eb3a0cf2c7e7bcb665a"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-0.f32": {
+    "bytes": 38797312,
+    "sha256": "c32da53d54ffaca7aae1a7973d11be8bc8c99745066c487ea8e116d90cedf57a"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-1.f32": {
+    "bytes": 38797312,
+    "sha256": "7ee5c948603fc23cf28e9efb7bea0c94e885922f6f9f47d6132d698f0f8782f6"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-10.f32": {
+    "bytes": 38797312,
+    "sha256": "0269f8636780650cec7c8ba2fcba317c7c85a66a916f6fea2da6cd760ec2ed99"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-11.f32": {
+    "bytes": 38797312,
+    "sha256": "26d7bfa5645c4eac8fa81ea82a7ded734b93e766c8b703eb30f92851277da2fd"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-12.f32": {
+    "bytes": 38797312,
+    "sha256": "5eb733f149bfc2858bbb8a79a31e3cc17b4119295739900c4f3b7546245ae668"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-13.f32": {
+    "bytes": 38797312,
+    "sha256": "9d09be284c4ae122f72db8787e2d3ab1f2d8c5d189a30255a21c5b40448872b5"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-14.f32": {
+    "bytes": 38797312,
+    "sha256": "c11901119b93b82fd071d0b02c0598c1434df89c21d691c02dc6e7a36b993437"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-15.f32": {
+    "bytes": 38797312,
+    "sha256": "5dad7fb9e4f7f5fed1a49c2b50499878974947e742af005bc8401940411fc610"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-16.f32": {
+    "bytes": 38797312,
+    "sha256": "9a1da7f284d2e05b2c954610fa0eef42c472c32d6fffc0836de3580fc90580e8"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-17.f32": {
+    "bytes": 38797312,
+    "sha256": "84db16bde76bdd7d717b21d6f8eac03d40dcf1fdbadedd53f2a1d9fdc57ffbd6"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-18.f32": {
+    "bytes": 38797312,
+    "sha256": "387e33e92744d9eb1d66ec935a1d3dd1091c5ee3f5607d5373371b2d46741072"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-19.f32": {
+    "bytes": 38797312,
+    "sha256": "4e6c39433d547865fd0d0f66765dd5bf5e3f0efc568bcff03fc4165ee9103ea4"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-2.f32": {
+    "bytes": 38797312,
+    "sha256": "26b559895fa68ca3deff77eb28b86e0e1f4eaa477d026c319de416d9e70a8575"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-20.f32": {
+    "bytes": 38797312,
+    "sha256": "a3cdd81e15518e95dec667e03914f46761c568f685ab136a4de0d7748421281e"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-21.f32": {
+    "bytes": 38797312,
+    "sha256": "f5b9ff785e9f994a5bc17ffd9533528b777efd5761a9294cdb8aeceb142c0d49"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-22.f32": {
+    "bytes": 38797312,
+    "sha256": "a489b676b0293e7146e18ffc1311c836188177b25bfbea19d5189d390f96458c"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-23.f32": {
+    "bytes": 38797312,
+    "sha256": "600da108294cb45eec778abfc252da815bf30e2a667b4d63ac15a18efa7b2e79"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-24.f32": {
+    "bytes": 38797312,
+    "sha256": "b39381a76626a7c7c86cd03e51306c8d6018b4724f48a57b161e87dc1df5af12"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-25.f32": {
+    "bytes": 38797312,
+    "sha256": "a678e3c3098875d0f9ec24245b9f3ceaaa4663d57ba7a39c8ff5fec3ad9a2da9"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-26.f32": {
+    "bytes": 38797312,
+    "sha256": "df48729b1a1f780022e3a7411b512fd967fcec9eba875b2debf26b0a7d53045b"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-27.f32": {
+    "bytes": 38797312,
+    "sha256": "538cfd88493c5f5a9de9be4072bb1da4014fcff21513be58819e1dca4836244a"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-28.f32": {
+    "bytes": 38797312,
+    "sha256": "b9b17c95818e45688acf669daf3094dd7bf3de77b91f3ecd25f8870d3ab1f7f6"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-29.f32": {
+    "bytes": 38797312,
+    "sha256": "f53fadeed6cca321ad20f67870bcc452ba6041141cc1ed8f3b9c75e5d7ca0067"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-3.f32": {
+    "bytes": 38797312,
+    "sha256": "5572b4354666c4b5c1d585e1b09f1047c140bacaddcf7cae2a3ee54f62a7fa1f"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-30.f32": {
+    "bytes": 38797312,
+    "sha256": "377cfb02289addb3810299bc66a7878fea9b8aaad618359531f66d3e39d1016a"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-31.f32": {
+    "bytes": 38797312,
+    "sha256": "be985ea41fbbc2bb7e3d254cc65a68f7699b37dc85e4808fe44a7158e45eb7e0"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-32.f32": {
+    "bytes": 38797312,
+    "sha256": "4af2b963cedb1b0a89d6c7507f9e916fc13e3adc1a575e156bd1e03bcb4efe5b"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-33.f32": {
+    "bytes": 38797312,
+    "sha256": "7718e603654ef7dc302dee43f3123b5f6aabbf31b5a763cc5399bf39ea1a8278"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-34.f32": {
+    "bytes": 38797312,
+    "sha256": "96bfb4d4afeb64159f9573e59f78d8494760ffe3c44f507fe5e95decfdcbce48"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-35.f32": {
+    "bytes": 38797312,
+    "sha256": "09253f04e7cecc82d62e11ee9e3369df9590ecc77850eecba0aefec98503db90"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-4.f32": {
+    "bytes": 38797312,
+    "sha256": "8d254ab812db8f310f31f354e5c0a29d728c27426250a41d65a0e6ee97ae3100"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-5.f32": {
+    "bytes": 38797312,
+    "sha256": "d7ba5c623a9019e4f6c1e397ccb9887ba59a9f03dd016b3c884db84d815eceef"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-6.f32": {
+    "bytes": 38797312,
+    "sha256": "dfd52c8a2cf9b2c5edc938c6b97b37ca518a6733088e07ae1064a9e50891edc4"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-7.f32": {
+    "bytes": 38797312,
+    "sha256": "c6f2f9af2ef3c4e98502ff30bf7a7b4c1f88ea0f8e68968c98f3ecb86a153ee7"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-8.f32": {
+    "bytes": 38797312,
+    "sha256": "67a6c76c07b5bfb95e2f12f483e4aa9d051b5b69e54214779a1d38949c95abad"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/block-9.f32": {
+    "bytes": 38797312,
+    "sha256": "59d4cacafc7a2b0c236f4f0e6287fb31daf19eafbf7303654823f990825268dd"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/head-0.f32": {
+    "bytes": 38797312,
+    "sha256": "da97ef77f74b94f3d30f0380c24c5802722bdc223b1c10cb3707a05f159a8647"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/head-1.f32": {
+    "bytes": 16384,
+    "sha256": "50c0eda1e9fbb082154746defd0b7f42f87e50998e8c7aae52a021c3211b9e92"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/head-2.f32": {
+    "bytes": 16384,
+    "sha256": "5d01aaeb98ded3f0a0a6e84bf62ceda0bd391213e0906154e79c3abb51e16561"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/head-3.f32": {
+    "bytes": 16384,
+    "sha256": "b627a2eb3f005011ce03d765c95bba51479ce99d06228fe0955b4a51bbddb413"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/head-4.f32": {
+    "bytes": 16384,
+    "sha256": "802d8d00e50c24a4173327b015f5f0d37cd0a1df6926be102cafbae5ef648551"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/head-5.f32": {
+    "bytes": 16384,
+    "sha256": "3e14ae6801163adcbd8343b8ebd5558b2a32812e12934e21d6271226cfd460e1"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/head-6.f32": {
+    "bytes": 16384,
+    "sha256": "04d8cab215a3f6ad33678f568c803c0000fb29138c1358d51ee08149a64a1984"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/diagnostic/trace/head-7.f32": {
+    "bytes": 16384,
+    "sha256": "d5080bdde444c545927d3131483ab77ec202d44a9bd47986b77a3b8c65c2df5c"
+  },
+  "/var/tmp/ernie-stages0-768-v1/native/samples.jsonl": {
+    "bytes": 367056,
+    "sha256": "e32837878dda3c41964eb1b68460249f2af127884feac4479fd2ade63e7f4a64"
+  },
+  "/var/tmp/ernie-stages0-768-v1/runner.snapshot": {
+    "bytes": 36437088,
+    "sha256": "1d754f49534434cf8e3882b271714060394f5233b6a13eb3a0cf2c7e7bcb665a"
+  }
+}

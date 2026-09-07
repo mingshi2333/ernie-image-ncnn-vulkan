@@ -1,0 +1,114 @@
+{
+  "README.md": {
+    "bytes": 5023,
+    "sha256": "734ca9f599c2fd31757370ca3c0e210108bf7d327f6a0f1adb3f5f4811ad5850"
+  },
+  "archive-check.json": {
+    "bytes": 4110,
+    "sha256": "853a2588297d2aa5846ea7cb34b48e75610c2b32a788fcffb14a5b52da6e3686"
+  },
+  "archive.py": {
+    "bytes": 5551,
+    "sha256": "d2cbec93302c7d4a9949d274662410437e07c8426867140a2ab8f4de5574095a"
+  },
+  "audit.json": {
+    "bytes": 34649,
+    "sha256": "d946b1ad7863ca72ee3027ac2417e985e7abdb3950f81183d83518d53397bac9"
+  },
+  "audit.log": {
+    "bytes": 2102,
+    "sha256": "7a15c0ddc5b3c38e9a3f14f26c64a8dba32097cc30c915d044875382fb3c8f20"
+  },
+  "audit_stages.py": {
+    "bytes": 5740,
+    "sha256": "afe92177a43661f593057d91fd523818eb4e5595ffc233d4978df70f6e9c33a6"
+  },
+  "native/command-0.log": {
+    "bytes": 20699,
+    "sha256": "3f34852d5c934d938325bc2a9a76f46d86ca59290096c0a08b4483a7d413392f"
+  },
+  "native/diagnostic/native/gpu-device-memory.log": {
+    "bytes": 4610,
+    "sha256": "3efbf5572e7f42be718f01eb958baaeba9314b7482dfc7b1b302b1e9b699a025"
+  },
+  "native/diagnostic/native/resources.log": {
+    "bytes": 1258,
+    "sha256": "e3f31a7a821487e608299212ea512e5dc29541a127a7d96fd94de9039b432c67"
+  },
+  "native/diagnostic/native/result.json": {
+    "bytes": 3281,
+    "sha256": "4c9ceeaca038be45d5d47686bd80ac59662626e9c4d353a3812fac41c91bee55"
+  },
+  "native/diagnostic/native/runner.log": {
+    "bytes": 6615,
+    "sha256": "20716d550532188005f7b2bc1d70bed5ecbecf6f0fd126e91720eb6fad088f66"
+  },
+  "native/diagnostic/oracle/fixture/fixture.json": {
+    "bytes": 31402,
+    "sha256": "9580036eab49813bd9864bda1c6d8733a14224c28af9dbe757bae68b21e8db08"
+  },
+  "native/diagnostic/oracle.log": {
+    "bytes": 203,
+    "sha256": "42dfac9c290f0820bdcbc9da3d6c1d819545fee5f7a9eea4396df6e682837bb2"
+  },
+  "native/diagnostic/result.json": {
+    "bytes": 53121,
+    "sha256": "960f9712f58a9022692be00b3623238d0aa7e1375d666f7342960d2f3e5eaf4a"
+  },
+  "native/process.json": {
+    "bytes": 1501,
+    "sha256": "20e19b2948e52b302d04ddce772907b62a990eb89fba0ddc346cfcfb30c9cec0"
+  },
+  "native/runner.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "native/worker-result.json": {
+    "bytes": 854,
+    "sha256": "825f0f38bcf7d5456cee1769d151cbd2e227fb8f16da964829554e6665d450ba"
+  },
+  "plan.json": {
+    "bytes": 96674,
+    "sha256": "863167a7f536eb9fd2dc58c3f2af07d07f36e8798663842c383a7d6b9fbe81ce"
+  },
+  "prepare.log": {
+    "bytes": 432,
+    "sha256": "3e4ff00a0d19c4f42e6833afa744e40886dea46b8b5d4bbbc21a06b6485b6017"
+  },
+  "prepare.py": {
+    "bytes": 5534,
+    "sha256": "d9cbdd00f4136ead2a9f76b6e74ccd8de7053589c40bd880bccf3675fa72d6e0"
+  },
+  "retained-files.json": {
+    "bytes": 18402,
+    "sha256": "14424a3272e5b4a812b43be0e9d8921a69f4e131bdc7913a3c12dd77c2fe79d2"
+  },
+  "run.py": {
+    "bytes": 1146,
+    "sha256": "3adfb392e1676152a882e85378d8b220ecf67b9d6f3d7d051832512edeeef4bb"
+  },
+  "source-before.json": {
+    "bytes": 46878,
+    "sha256": "7cf5d8c96ada5de45d541c6c71a43aa87002f3ebc2f23caeca8307d557bac1c0"
+  },
+  "source.patch": {
+    "bytes": 14389,
+    "sha256": "760676f00a702fda71f55fc4154382e68eeb0d818846d82a773c05a8d6766a42"
+  },
+  "supervisor.log": {
+    "bytes": 1281,
+    "sha256": "07efed36f8b0625a04b7b738c1b977f97c6cf711ad2e43a9706bdb515a4ad5ee"
+  },
+  "supervisor.py": {
+    "bytes": 5327,
+    "sha256": "d0059319d9a69480a918e8ad2f8045ae0f79915d0a05d11fdb373b034693355a"
+  },
+  "tests.json": {
+    "bytes": 713,
+    "sha256": "b21fee474544286027ba19afd209fc75c3f11f5a4e82f0df0071ef7a1fd89373"
+  },
+  "tests.log": {
+    "bytes": 5124,
+    "sha256": "5b3b6b0a17c66f857b9eba7e221c22e05f00eb84d47a7b0ac4f16198c0d9de48"
+  }
+}

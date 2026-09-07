@@ -1,0 +1,28 @@
+{
+  "command": [
+    "systemd-run",
+    "--user",
+    "--wait",
+    "--pipe",
+    "--unit=ernie-stages0-768-tools-tests-v1",
+    "--property=AllowedCPUs=12,14",
+    "--property=CPUQuota=200%",
+    "--property=MemoryMax=4G",
+    "--property=MemorySwapMax=0",
+    "--working-directory=/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference",
+    "/usr/bin/env",
+    "OMP_NUM_THREADS=2",
+    "OPENBLAS_NUM_THREADS=2",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "PYTHONPATH=tests:tools",
+    ".venv/bin/python",
+    "-m",
+    "unittest",
+    "test_diagnose_dit_stages",
+    "test_diagnose_pipeline_step",
+    "test_pipeline_reference",
+    "test_pipeline_package",
+    "-v"
+  ],
+  "return_code": 0
+}

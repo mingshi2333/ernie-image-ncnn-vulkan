@@ -1,0 +1,28 @@
+[
+  {
+    "command": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/var/tmp/ernie-stages0-768-v1/source/tools/diagnose_dit_stages.py",
+      "--model",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/models/turbo-shared-v2",
+      "--reference",
+      "/var/tmp/ernie-runtime-squares-v1/768/official/reference",
+      "--step",
+      "0",
+      "--output",
+      "/var/tmp/ernie-stages0-768-v1/native/diagnostic",
+      "--runner",
+      "/var/tmp/ernie-stages0-768-v1/runner.snapshot",
+      "--official-root",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/official",
+      "--threads",
+      "2",
+      "--host-weights",
+      "--precision",
+      "fp32",
+      "--reference-device",
+      "cuda"
+    ],
+    "return_code": 0
+  }
+]

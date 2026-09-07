@@ -59,7 +59,21 @@ ctest --test-dir build --output-on-failure \
 
 阶段诊断复用官方 latent、文本和 CPU 时间特征。native 使用保存的 CPU cos/sin 表；官方 block 在指定参考设备上计算 cos/sin，CPU/CUDA 的最后几位差异仍在比较范围内。中间输出必须显式匹配轴顺序：例如官方 Q norm 的 `B,S,H,D` 与 native 的 `H,S,D` 不能直接按扁平数组比较。
 
+`tools/diagnose_dit_stages.py` 也支持已认证的共享包，参数中的尺寸和文本桶取自完整参考。`--threads` 同时控制官方和原生计算，`--host-weights` 作用于原生 Vulkan 权重；`--official-root` 指向已有官方权重目录，便于使用冻结源码。官方模型按块释放无用的 CUDA 缓存，官方子进程退出后才启动原生跟踪。
+
+```sh
+.venv/bin/python tools/diagnose_dit_stages.py \
+  --model models/turbo-shared-v2 --reference saved-768/reference --step 0 \
+  --official-root models/official --reference-device cuda \
+  --precision fp32 --threads 2 --host-weights \
+  --runner build/ernie-block-sequence-runner --output outputs/shared-stages-new
+```
+
+阶段参考需要完整的 36 个官方 DiT 权重散列。共享 source32 若没有这些来源散列，只能复用已认证完整参考中登记的来源包，且全部非图运行资产必须逐项相同。阶段记录保存 8 个 head 输出、36 个块输出、图像/文本 token 的独立误差，以及新官方预测是否逐字节复现旧参考；阶段误差是诊断数据，不计作完整生成验收。
+
 共享包的单步诊断可直接使用 `ernie-block-sequence-runner --package`，复用原生生成器的包校验、实际文本桶选择和内存中的图实例化，不必导出另一套固定目录。此模式需要 `ERNIE_BUILD_TOKENIZER=ON`，与原始 `--model` / heads 参数互斥。`--valid-text-tokens` 是包含 BOS 的实际长度；`--text-tokens` 是所选来源的 DiT 填充长度。这里的 `--width` / `--height` 是 **packed latent 尺寸**，与生成器 CLI 的像素单位不同。
+
+已有共享 768×768 首次预测的实际阶段结果见 [阶段对照记录](../artifacts/2026-09-07/shared-stages0-768/README.md)：官方与原生预测分别精确复现各自旧输出，44 个阶段共 358,903,808 个有限值/侧经独立重算。相对误差增长最明显的是从 0 编号的块 17～19，但自由传播轨迹尚不能区分传入误差放大与块内新增误差。该结果没有关闭完整 768 对照的 18/25，也没有改变原阈值；下一项诊断需要对选定块使用相同输入。
 
 `tools/diagnose_pipeline_step.py` 同样接受共享包。它从完整参考读取像素尺寸与实际 token 数，复用 `validation_package` 和已登记的来源认证，再将包与尺寸交给上述原生入口。原有 schema-1/2 固定包入口继续验证完整包并传递 36 个块及两个 head。`--threads` 同时控制参考时间特征准备和原生预测，默认 4；`--host-weights` 显式请求 RAM 权重。示例中的 2 线程是运行设置，不是硬件要求。
 

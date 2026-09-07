@@ -1,0 +1,75 @@
+Running as unit: ernie-stages0-768-audit-v1.service
+{
+  "stage_count": 44,
+  "finite_elements_per_side": 358903808,
+  "official_prediction_exact_replay": true,
+  "native_prediction_exact_replay": true,
+  "prediction": {
+    "max_abs_error": 0.003206968307495117,
+    "nrmse": 4.656369338155083e-05,
+    "reference_max_abs": 6.7000555992126465
+  },
+  "largest_nrmse_growth": [
+    {
+      "stage": "block-17",
+      "previous": "block-16",
+      "nrmse_ratio": 2.1045788084482036,
+      "nrmse": 9.787622311129123e-06,
+      "max_abs_error": 1.0106201171875
+    },
+    {
+      "stage": "block-18",
+      "previous": "block-17",
+      "nrmse_ratio": 2.085322385693547,
+      "nrmse": 2.041034790811117e-05,
+      "max_abs_error": 2.201416015625
+    },
+    {
+      "stage": "block-19",
+      "previous": "block-18",
+      "nrmse_ratio": 2.071784303668385,
+      "nrmse": 4.2285838428435585e-05,
+      "max_abs_error": 4.284423828125
+    },
+    {
+      "stage": "block-15",
+      "previous": "block-14",
+      "nrmse_ratio": 1.3032952136772433,
+      "nrmse": 3.7874120962213456e-06,
+      "max_abs_error": 0.0699462890625
+    },
+    {
+      "stage": "block-1",
+      "previous": "block-0",
+      "nrmse_ratio": 1.2851759287892832,
+      "nrmse": 1.0508319325505866e-06,
+      "max_abs_error": 0.01171875
+    },
+    {
+      "stage": "block-20",
+      "previous": "block-19",
+      "nrmse_ratio": 1.2536773612586118,
+      "nrmse": 5.301279833956913e-05,
+      "max_abs_error": 5.47119140625
+    },
+    {
+      "stage": "block-32",
+      "previous": "block-31",
+      "nrmse_ratio": 1.2529914416398185,
+      "nrmse": 6.646164735358274e-05,
+      "max_abs_error": 1.7325439453125
+    },
+    {
+      "stage": "block-14",
+      "previous": "block-13",
+      "nrmse_ratio": 1.2328489797242286,
+      "nrmse": 2.9060277797960867e-06,
+      "max_abs_error": 0.0390625
+    }
+  ]
+}
+          Finished with result: success
+Main processes terminated with: code=exited, status=0/SUCCESS
+               Service runtime: 20.585s
+             CPU time consumed: 20.603s
+                   Memory peak: 648.3M (swap: 0B)
