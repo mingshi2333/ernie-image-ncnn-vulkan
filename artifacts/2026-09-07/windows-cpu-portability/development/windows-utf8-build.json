@@ -1,0 +1,12 @@
+{
+  "platform": "windows",
+  "argv": [
+    "cmake",
+    "--build",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1",
+    "--parallel",
+    "2"
+  ],
+  "return_code": 0,
+  "seconds": 29.570712432992877
+}

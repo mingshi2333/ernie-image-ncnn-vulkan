@@ -1,0 +1,166 @@
+diff --git a/cli/generation_report.cpp b/cli/generation_report.cpp
+index 7b14692..6cad766 100644
+--- a/cli/generation_report.cpp
++++ b/cli/generation_report.cpp
+@@ -8,6 +8,11 @@
+ #include <sstream>
+ #include <stdexcept>
+ #include <system_error>
++#ifdef _WIN32
++#include <fcntl.h>
++#include <io.h>
++#include <sys/stat.h>
++#endif
+ 
+ namespace ernie::cli {
+ namespace {
+@@ -89,7 +94,17 @@ void write_generation_report(const std::filesystem::path& path, const Generation
+     const auto data = generation_report_json(r, s, progress, seconds, instrumented);
+     if (!path.parent_path().empty()) std::filesystem::create_directories(path.parent_path());
+ #ifdef _WIN32
+-    auto* file = _wfopen(path.c_str(), L"wbx");
++    // The Windows CRT may ignore fopen's "x" suffix. Request exclusive
++    // creation on the descriptor before handing ownership to the stream.
++    const int descriptor = _wopen(path.c_str(), _O_BINARY | _O_WRONLY | _O_CREAT | _O_EXCL,
++                                 _S_IREAD | _S_IWRITE);
++    auto* file = descriptor < 0 ? nullptr : _fdopen(descriptor, "wb");
++    if (!file && descriptor >= 0)
++    {
++        const int error = errno;
++        _close(descriptor);
++        errno = error;
++    }
+ #else
+     auto* file = std::fopen(path.c_str(), "wbx");
+ #endif
+diff --git a/probes/CMakeLists.txt b/probes/CMakeLists.txt
+index a888adb..27941a6 100644
+--- a/probes/CMakeLists.txt
++++ b/probes/CMakeLists.txt
+@@ -34,3 +34,6 @@ endif()
+ 
+ # Explicit CPU-only diagnostic; does not change the text runtime.
+ ernie_probe(ernie-text-gemm-diagnostic text_gemm_diagnostic.cpp)
++if(WIN32)
++    target_link_libraries(ernie-text-gemm-diagnostic PRIVATE psapi)
++endif()
+diff --git a/probes/text_gemm_diagnostic.cpp b/probes/text_gemm_diagnostic.cpp
+index c293c59..ba4260a 100644
+--- a/probes/text_gemm_diagnostic.cpp
++++ b/probes/text_gemm_diagnostic.cpp
+@@ -8,7 +8,12 @@
+ #include <iostream>
+ #include <stdexcept>
+ #include <string>
++#ifdef _WIN32
++#include <windows.h>
++#include <psapi.h>
++#else
+ #include <sys/resource.h>
++#endif
+ 
+ int main(int argc, char** argv)
+ {
+@@ -53,12 +58,22 @@ int main(int argc, char** argv)
+         output.close();
+         if (!output) throw std::runtime_error("Output close failed");
+         const auto finished = std::chrono::steady_clock::now();
++#ifdef _WIN32
++        PROCESS_MEMORY_COUNTERS usage{};
++        if (!GetProcessMemoryInfo(GetCurrentProcess(), &usage, sizeof(usage)))
++            throw std::runtime_error("Peak working-set query failed");
++        const auto peak_kib = usage.PeakWorkingSetSize / 1024;
++        const char* peak_name = "peak_working_set_kib";
++#else
+         rusage usage{};
+         if (getrusage(RUSAGE_SELF, &usage)) throw std::runtime_error("RSS query failed");
++        const auto peak_kib = usage.ru_maxrss;
++        const char* peak_name = "peak_rss_kib";
++#endif
+         std::cout << "{\"rows\":" << rows << ",\"threads\":2,\"load_seconds\":"
+                   << std::chrono::duration<double>(loaded - start).count()
+                   << ",\"compute_and_io_seconds\":" << std::chrono::duration<double>(finished - loaded).count()
+-                  << ",\"peak_rss_kib\":" << usage.ru_maxrss << "}\n";
++                  << ",\"" << peak_name << "\":" << peak_kib << "}\n";
+     }
+     catch (const std::exception& e) { std::cerr << e.what() << '\n'; return 1; }
+     return 0;
+diff --git a/tests/test_generation_report.cpp b/tests/test_generation_report.cpp
+index fc93acb..414bdf2 100644
+--- a/tests/test_generation_report.cpp
++++ b/tests/test_generation_report.cpp
+@@ -32,6 +32,7 @@ int main()
+         const auto data = ernie::cli::generation_report_json(request, result, progress, .125, false);
+         ernie::cli::write_generation_report(path, request, result, progress, .125, false);
+         bool rejected = false;
++        result.prompt = "Replacement content must not reach the existing report";
+         try { ernie::cli::write_generation_report(path, request, result, progress, .125, false); }
+         catch (const std::system_error&) { rejected = true; }
+         std::ifstream input(path, std::ios::binary);
+diff --git a/tests/test_text_down.cpp b/tests/test_text_down.cpp
+index bdf7575..2fe3669 100644
+--- a/tests/test_text_down.cpp
++++ b/tests/test_text_down.cpp
+@@ -8,7 +8,11 @@
+ #include <limits>
+ #include <stdexcept>
+ #include <string>
++#ifdef _WIN32
++#include <process.h>
++#else
+ #include <unistd.h>
++#endif
+ namespace fs=std::filesystem;
+ void require(bool ok,const char* message) { if (!ok) throw std::runtime_error(message); }
+ template<class F> void rejects(F action)
+@@ -35,7 +39,12 @@ void structural_weights(const fs::path& p,bool bf16)
+ }
+ int main(int argc,char** argv)
+ {
+-    const fs::path temp=fs::temp_directory_path()/("ernie-text-down-"+std::to_string(getpid()));
++#ifdef _WIN32
++    const auto process_id = _getpid();
++#else
++    const auto process_id = getpid();
++#endif
++    const fs::path temp=fs::temp_directory_path()/("ernie-text-down-"+std::to_string(process_id));
+     try
+     {
+         if (argc==2)
+diff --git a/tokenizer/CMakeLists.txt b/tokenizer/CMakeLists.txt
+index 91ab696..38459ff 100644
+--- a/tokenizer/CMakeLists.txt
++++ b/tokenizer/CMakeLists.txt
+@@ -1,8 +1,19 @@
+ find_program(CARGO_EXECUTABLE cargo REQUIRED)
+ find_package(Threads REQUIRED)
+-set(tokenizer_library "${CMAKE_BINARY_DIR}/cargo/release/libernie_tokenizer_bridge.a")
++set(ERNIE_RUST_TARGET "" CACHE STRING "Cargo target triple; required for cross-compilation")
++if(CMAKE_CROSSCOMPILING AND NOT ERNIE_RUST_TARGET)
++    message(FATAL_ERROR "Cross-compiling the tokenizer requires ERNIE_RUST_TARGET for the C++ target")
++endif()
++set(tokenizer_target_arguments)
++set(tokenizer_output_directory "${CMAKE_BINARY_DIR}/cargo")
++if(ERNIE_RUST_TARGET)
++    list(APPEND tokenizer_target_arguments --target "${ERNIE_RUST_TARGET}")
++    string(APPEND tokenizer_output_directory "/${ERNIE_RUST_TARGET}")
++endif()
++set(tokenizer_library "${tokenizer_output_directory}/release/${CMAKE_STATIC_LIBRARY_PREFIX}ernie_tokenizer_bridge${CMAKE_STATIC_LIBRARY_SUFFIX}")
+ add_custom_command(OUTPUT "${tokenizer_library}"
+     COMMAND "${CMAKE_COMMAND}" -E env CARGO_BUILD_JOBS=2 "${CARGO_EXECUTABLE}" build --release --locked
++            ${tokenizer_target_arguments}
+             --manifest-path "${CMAKE_CURRENT_SOURCE_DIR}/Cargo.toml" --target-dir "${CMAKE_BINARY_DIR}/cargo"
+     DEPENDS Cargo.toml Cargo.lock src/lib.rs src/package.rs src/shared_package.rs schema3_contract.json "${PROJECT_SOURCE_DIR}/sources.lock.json"
+     COMMENT "Building pinned native Tokenizers bridge")
+@@ -15,4 +26,10 @@ target_include_directories(ernie-tokenizer PUBLIC "$<BUILD_INTERFACE:${PROJECT_S
+ target_link_libraries(ernie-tokenizer PRIVATE
+     "$<BUILD_INTERFACE:ernie-tokenizer-native>"
+     "$<INSTALL_INTERFACE:ernie::tokenizer-native>"
+-    Threads::Threads ${CMAKE_DL_LIBS} m)
++    Threads::Threads ${CMAKE_DL_LIBS})
++if(WIN32)
++    # System dependencies of the Rust Windows standard library (staticlib).
++    target_link_libraries(ernie-tokenizer PRIVATE kernel32 ntdll userenv ws2_32 dbghelp)
++else()
++    target_link_libraries(ernie-tokenizer PRIVATE m)
++endif()

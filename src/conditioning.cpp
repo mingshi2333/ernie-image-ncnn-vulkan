@@ -11,10 +11,10 @@ static std::vector<ncnn::Mat> make_constants(const std::string &path, int w, int
                                             int token_limit)
 {
     if (w < 1 || w > 256 || h < 1 || h > 256 || valid < 1 || text < valid || text > 2048 ||
-        w * h + text > token_limit || std::filesystem::file_size(path) != 64 * 4)
+        w * h + text > token_limit || std::filesystem::file_size(std::filesystem::u8path(path)) != 64 * 4)
         throw std::invalid_argument("Invalid DiT position dimensions or frequency file");
     float frequencies[64];
-    std::ifstream file(path, std::ios::binary);
+    std::ifstream file(std::filesystem::u8path(path), std::ios::binary);
     if (!file.read(reinterpret_cast<char *>(frequencies), sizeof(frequencies)))
         throw std::runtime_error("Cannot read DiT frequencies");
     for (float f : frequencies)

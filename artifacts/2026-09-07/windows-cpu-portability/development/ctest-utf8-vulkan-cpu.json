@@ -1,0 +1,15 @@
+{
+  "scope": "CPU-executed tests in the Vulkan build; no GPU model run",
+  "argv": [
+    "ctest",
+    "--test-dir",
+    "build-dev",
+    "-R",
+    "^(utf8_paths_contract|component_files_contract_cpu|model_package_contract)$",
+    "--output-on-failure",
+    "--output-junit",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/windows-cpu-v1/ctest-utf8-vulkan-cpu.xml"
+  ],
+  "return_code": 0,
+  "seconds": 0.049272560980170965
+}

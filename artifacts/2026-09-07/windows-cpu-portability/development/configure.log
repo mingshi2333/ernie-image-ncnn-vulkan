@@ -1,0 +1,12 @@
+-- CMAKE_TOOLCHAIN_FILE = /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/windows-cpu-v1/toolchain.cmake
+-- CMAKE_INSTALL_PREFIX = /usr/local
+-- NCNN_VERSION_STRING = 1.0.20260907
+-- Target arch: x86 64bit
+-- Could NOT find OpenMP_C (missing: OpenMP_C_FLAGS OpenMP_C_LIB_NAMES) 
+-- Could NOT find OpenMP_CXX (missing: OpenMP_CXX_FLAGS OpenMP_CXX_LIB_NAMES) 
+-- Could NOT find OpenMP (missing: OpenMP_C_FOUND OpenMP_CXX_FOUND) 
+-- Found ZLIB: /usr/x86_64-w64-mingw32/sys-root/mingw/lib/libz.dll.a (found version "1.3.2")
+-- Found PNG: /usr/x86_64-w64-mingw32/sys-root/mingw/lib/libpng.dll.a (found version "1.6.58")
+-- Configuring done (0.3s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1

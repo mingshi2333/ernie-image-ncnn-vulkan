@@ -1,0 +1,35 @@
+{
+  "scope": "Cross-compiled Windows CPU executables under Wine, including Linux Python fixtures using explicit Wine wrappers.",
+  "commands": [
+    {
+      "name": "ctest-affected",
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1",
+        "-R",
+        "^(generation_report_writer|text_down_contract_cpu)$",
+        "--output-on-failure",
+        "--output-junit",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/windows-cpu-v1/ctest-affected.xml"
+      ],
+      "return_code": 0,
+      "seconds": 17.449386463005794
+    },
+    {
+      "name": "python-windows",
+      "argv": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "tests.test_generation_report",
+        "tests.test_cli",
+        "tests.test_package",
+        "tests.test_pe_package",
+        "-v"
+      ],
+      "return_code": 1,
+      "seconds": 736.4561789869913
+    }
+  ]
+}

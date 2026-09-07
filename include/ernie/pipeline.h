@@ -26,6 +26,7 @@ struct RgbImage
 
 struct GenerationRequest
 {
+    // All text and filesystem paths in this API use UTF-8 on every platform.
     std::string model, prompt;
     std::string device = "vulkan", precision = "fp16";
     std::string vae_device = "cpu", vae_convolution = "direct";

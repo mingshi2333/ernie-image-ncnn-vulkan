@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "cmake",
+    "--build",
+    "build-dev",
+    "--parallel",
+    "2"
+  ],
+  "return_code": 0,
+  "seconds": 17.53087633001269
+}

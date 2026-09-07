@@ -16,7 +16,7 @@ int ernie_model_package_has_file(const void *,const unsigned char *,size_t);
 }
 namespace ernie {
 ModelPackage::ModelPackage(const std::filesystem::path &directory,int w,int h){
-    auto root=std::filesystem::absolute(directory).string();std::array<unsigned char,4096> error{};
+    auto root=std::filesystem::absolute(directory).u8string();std::array<unsigned char,4096> error{};
     handle_=ernie_model_package_open(reinterpret_cast<const unsigned char*>(root.data()),root.size(),w,h,error.data(),error.size());
     if(!handle_)throw std::runtime_error(std::string("Cannot open model package: ") + reinterpret_cast<const char*>(error.data()));
     try { refresh_config(); }
@@ -51,7 +51,7 @@ bool ModelPackage::has_file(const std::string &name)const{
 ComponentFiles ModelPackage::component(const std::string &name,const std::string &kind)const{
     constexpr const char *suffix=".param";
     if(name.size()<6||name.substr(name.size()-6)!=suffix)throw std::invalid_argument("Expected logical param filename");
-    auto path=file(name);auto size=std::filesystem::file_size(path);
+    auto path=std::filesystem::u8path(file(name));auto size=std::filesystem::file_size(path);
     if(size>1024*1024)throw std::invalid_argument("Graph exceeds text limit");
     std::string text(size,'\0');std::ifstream input(path,std::ios::binary);
     if(!input.read(text.data(),size))throw std::runtime_error("Cannot read graph object");

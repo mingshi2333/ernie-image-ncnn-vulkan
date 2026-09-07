@@ -1,0 +1,21 @@
+{
+  "windows_ctest": {
+    "passed": 28,
+    "failed": 0,
+    "skipped": 0
+  },
+  "linux_ctest": {
+    "passed": 35,
+    "failed": 0,
+    "skipped": 0
+  },
+  "windows_cli_passed": 35,
+  "preserved_posix_link_failures": 3,
+  "sdk_v4_expected_outcomes": 13,
+  "windows_link_rejections": 3,
+  "current_source_bindings": 334,
+  "source_patch_reconstruction": "all 334 final source files exact",
+  "installed_cli_matches_final_build": "5c1706e89d8137d408e2b2fc459e6eb34ba778b5eb27bc578e4f06e6a12e4209",
+  "reviewer_scope": "Root deterministic recheck independent of runner assertions, not a second human or agent review",
+  "linux_vulkan_cpu_passed": 3
+}

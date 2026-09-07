@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="(empty)"
+	tests="1"
+	failures="0"
+	disabled="0"
+	skipped="0"
+	hostname=""
+	time="0"
+	timestamp="2026-09-07T10:49:25"
+	>
+	<testcase name="installed_pipeline_api" classname="installed_pipeline_api" time="0.067061" status="run">
+		<properties/>
+		<system-out>Installed standard C++ API and package bridge passed; Vulkan compiled=0
+</system-out>
+	</testcase>
+</testsuite>

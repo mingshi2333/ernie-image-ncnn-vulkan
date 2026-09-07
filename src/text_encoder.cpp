@@ -49,13 +49,13 @@ ncnn::Mat text_embeddings(const std::string &path, const std::vector<uint32_t> &
 {
     bucket_check(bucket);
     if (ids.empty() || ids.size() > size_t(bucket) ||
-        std::filesystem::file_size(path) != 131072ull * 3072 * 2)
+        std::filesystem::file_size(std::filesystem::u8path(path)) != 131072ull * 3072 * 2)
         throw std::invalid_argument("Invalid token IDs or BF16 embedding table size");
     ncnn::Mat out(3072, bucket);
     if (out.empty())
         throw std::bad_alloc();
     out.fill(0.f);
-    std::ifstream file(path, std::ios::binary);
+    std::ifstream file(std::filesystem::u8path(path), std::ios::binary);
     unsigned char bytes[3072 * 2];
     for (size_t i = 0; i < ids.size(); ++i)
     {
@@ -76,10 +76,10 @@ ncnn::Mat text_embeddings(const std::string &path, const std::vector<uint32_t> &
 std::vector<ncnn::Mat> text_constants(const std::string &path, int bucket)
 {
     bucket_check(bucket);
-    if (std::filesystem::file_size(path) != 64 * 4)
+    if (std::filesystem::file_size(std::filesystem::u8path(path)) != 64 * 4)
         throw std::invalid_argument("Invalid YaRN frequency table size");
     float frequencies[64];
-    std::ifstream file(path, std::ios::binary);
+    std::ifstream file(std::filesystem::u8path(path), std::ios::binary);
     if (!file.read(reinterpret_cast<char *>(frequencies), sizeof(frequencies)))
         throw std::runtime_error("Cannot read YaRN frequencies");
     ncnn::Mat cos(128, bucket), sin(128, bucket), mask(bucket, bucket);

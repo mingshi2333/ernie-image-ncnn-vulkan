@@ -1,0 +1,12 @@
+{
+  "platform": "linux",
+  "argv": [
+    "cmake",
+    "--build",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu",
+    "--parallel",
+    "2"
+  ],
+  "return_code": 0,
+  "seconds": 17.848839079000754
+}

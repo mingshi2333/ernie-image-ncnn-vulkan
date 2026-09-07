@@ -1,0 +1,9 @@
+Test project /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1
+    Start  3: generation_report_writer
+1/2 Test  #3: generation_report_writer .........   Passed    9.24 sec
+    Start 32: text_down_contract_cpu
+2/2 Test #32: text_down_contract_cpu ...........   Passed    8.13 sec
+
+100% tests passed, 0 tests failed out of 2
+
+Total Test time (real) =  17.37 sec

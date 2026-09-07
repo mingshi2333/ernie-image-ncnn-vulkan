@@ -1,0 +1,162 @@
+{
+  "head": "8158dc153d7bb4a20d2f5cf8d3d2ca764a8db524",
+  "source_diff_sha256": "0b1df55ee3baf2bf436ad9c69793dd4b1fae3e26ef40a0e17b9d878c22838317",
+  "binaries": {
+    "build-windows-cpu-v1/ernie-attention-probe.exe": {
+      "bytes": 10823684,
+      "sha256": "aa032de56560e1946254dcf701501b691116f7d4b72baf6bab9782501d4a3de6"
+    },
+    "build-windows-cpu-v1/ernie-block-runner.exe": {
+      "bytes": 10881178,
+      "sha256": "baa8c5fd95b5c66bd76c59c9884e3c72b9eecfae178a952b4929790b06336ce4"
+    },
+    "build-windows-cpu-v1/ernie-attention-accuracy-probe.exe": {
+      "bytes": 134332,
+      "sha256": "2983a85fa8ecd0e874a6d1e191a3682edb35cdf793cb50796bed60ed78c5c4ba"
+    },
+    "build-windows-cpu-v1/ernie-attention-workspace-probe.exe": {
+      "bytes": 134333,
+      "sha256": "549a215d4090bda56a7ad8089b6652b8e799ea436088cf1ca91f1c4ef3949704"
+    },
+    "build-windows-cpu-v1/ernie-gelu-probe.exe": {
+      "bytes": 10841044,
+      "sha256": "d1df96de6dbd8fc861283f55aa0ff75d592f8e97a42ebfe9f9c262f96b6f1226"
+    },
+    "build-windows-cpu-v1/ernie-latent-runner.exe": {
+      "bytes": 10756143,
+      "sha256": "f77f01822dc72a0510a62bd2349ae293e872a72b9273f74d4d170f9792f0a71c"
+    },
+    "build-windows-cpu-v1/ernie-block-sequence-runner.exe": {
+      "bytes": 10942845,
+      "sha256": "938a85e4cb8f261379a450e6470629bcdee34752e48b298004438279117fe788"
+    },
+    "build-windows-cpu-v1/ernie-head-runner.exe": {
+      "bytes": 10877666,
+      "sha256": "e72bf9b974a89dff953c312f2cccef3ea9e856b59bd7ba2438c24e9c0a1e74d4"
+    },
+    "build-windows-cpu-v1/ernie-denoise-runner.exe": {
+      "bytes": 10965227,
+      "sha256": "57d7a4f8ee707d03cb797d0277e9ba6627a8be015da5f9df616983de6056f5d3"
+    },
+    "build-windows-cpu-v1/ernie-text-runner.exe": {
+      "bytes": 10962550,
+      "sha256": "09a4d1e3fc6c29b46a99da8806070d916d0aea2be679b3a32b1dfb95a9560719"
+    },
+    "build-windows-cpu-v1/ernie-pe-block-runner.exe": {
+      "bytes": 10874741,
+      "sha256": "30b6fa461869621d245b45246ef5a03d9daec766cbc10292c0d229da014d9151"
+    },
+    "build-windows-cpu-v1/ernie-rmsnorm-probe.exe": {
+      "bytes": 10816844,
+      "sha256": "cf68922fcc9db459046c71028879a7c4119aae8aa25388fb197f92c6537f98c7"
+    },
+    "build-windows-cpu-v1/ernie-text-gemm-diagnostic.exe": {
+      "bytes": 10825968,
+      "sha256": "bd657a8d5f4d050ead5a16019eba3c8b780c4fd80f7d1ae6f90b0274821db73c"
+    },
+    "build-windows-cpu-v1/ernie-prompt-file-contract.exe": {
+      "bytes": 181878,
+      "sha256": "d3f41f07184404b22f307d77a3ae27d19243470b071310cab8c7114a7ad89cab"
+    },
+    "build-windows-cpu-v1/ernie-image-io-contract.exe": {
+      "bytes": 537328,
+      "sha256": "ebbdfdf96f9de21bcbd9720a788581594bfdf8a5156fa27b54f9defdb2c87865"
+    },
+    "build-windows-cpu-v1/ernie-latent-contract.exe": {
+      "bytes": 10710567,
+      "sha256": "242eaf61337f4450b346422b2e90b5fab5ea62521d7ab7da0b5b86f440dbd3b2"
+    },
+    "build-windows-cpu-v1/ernie-component-files-contract.exe": {
+      "bytes": 10849478,
+      "sha256": "002439f31f92c3617fc1c33016ef1a3283f12536a2547e73cc5cedffaeb1d998"
+    },
+    "build-windows-cpu-v1/ernie-weight-placement-contract.exe": {
+      "bytes": 188210,
+      "sha256": "5cf38acb98185ce8549641dd4b36d0d51090f76b9f1ff4e498fcd1ebf0742537"
+    },
+    "build-windows-cpu-v1/ernie-weight-session-contract.exe": {
+      "bytes": 10835122,
+      "sha256": "9eef9e51ced843e399536f0a2ca491442a71a2d3b4ebc7450c45231cf930c344"
+    },
+    "build-windows-cpu-v1/ernie-host-memory-contract.exe": {
+      "bytes": 250758,
+      "sha256": "553fc28e7b761647e6bed058e836d885ef2afbe0aa06ed6563c3fbf1eac2c8d1"
+    },
+    "build-windows-cpu-v1/ernie-model-loading-contract.exe": {
+      "bytes": 10829698,
+      "sha256": "559aeb8099637f0ec9b1fae53dfc707727f77cc48999d7642887844cdce3fb53"
+    },
+    "build-windows-cpu-v1/ernie-model-reader-contract.exe": {
+      "bytes": 10713970,
+      "sha256": "44c8a00b5bf4df554e572bc4f764c167ebd06f640ab2d616911469cac15b8df1"
+    },
+    "build-windows-cpu-v1/ernie-img2img-contract.exe": {
+      "bytes": 10947200,
+      "sha256": "84b387b73a3c02e92f46d49ef62cf9c1d30b84ec040dfdf88303bab7e751c1e2"
+    },
+    "build-windows-cpu-v1/ernie-image-encoder-contract.exe": {
+      "bytes": 10838010,
+      "sha256": "0042496dbeddbbe3a5a7972dd0b3a8124a3175505d4071d264c89bf92bc38863"
+    },
+    "build-windows-cpu-v1/ernie-residual-contract.exe": {
+      "bytes": 10827662,
+      "sha256": "c81824e7d4a3d09cfd899c9817968794164b52a854fc5f199010b37d13dc3c3e"
+    },
+    "build-windows-cpu-v1/ernie-shape-plan-contract.exe": {
+      "bytes": 150201,
+      "sha256": "0733aa49d00f825420025fc699248e7867e103997a79be02f24ccf1bcda4430e"
+    },
+    "build-windows-cpu-v1/ernie-execution-metrics-contract.exe": {
+      "bytes": 209662,
+      "sha256": "2c5f35b3f4a819618a960b053463fcf89c3a17dfd0e339baa86dabaf0f2172b1"
+    },
+    "build-windows-cpu-v1/ernie-image.exe": {
+      "bytes": 22092595,
+      "sha256": "197183edbd05287f428613e89fa817cf26d604abaae5f672b298c9c1c03dd087"
+    },
+    "build-windows-cpu-v1/ernie-img2img-runner.exe": {
+      "bytes": 10909160,
+      "sha256": "921b2270d870792df0acbb6fb6e4d1a77800e4ec9925ba5f224ffeac1237185d"
+    },
+    "build-windows-cpu-v1/ernie-tokenize.exe": {
+      "bytes": 10848463,
+      "sha256": "da3dc83845a40554a7edc5bf9188589b0a7671a9762573faaa289f4f529ae30f"
+    },
+    "build-windows-cpu-v1/ernie-pe-runner.exe": {
+      "bytes": 21522794,
+      "sha256": "1c029952270e66bd088c61d9b39352245063cf26f70f7400cdebf13e2b7a0650"
+    },
+    "build-windows-cpu-v1/ernie-generation-report-contract.exe": {
+      "bytes": 193700,
+      "sha256": "43c8c704ab6883d2e56c64688fec27e36610a1e80f27e2c8cef2a4476c6928dd"
+    },
+    "build-windows-cpu-v1/ernie-pipeline-api-contract.exe": {
+      "bytes": 21848325,
+      "sha256": "90a16a2e1c2a74102db462d9ecb2992d014639f4dc472aaf06a1687921d8e5e3"
+    },
+    "build-windows-cpu-v1/ernie-request-validation-contract.exe": {
+      "bytes": 21864545,
+      "sha256": "2e9532a3aa9bd96947ec729429b09e270fb030143eeb9a756fde439725266d2d"
+    },
+    "build-windows-cpu-v1/ernie-gpu-context-contract.exe": {
+      "bytes": 183831,
+      "sha256": "0234f7a5bfd4f5693a8ec0203cd49c868a58d83873235853b3551abd1c183d29"
+    },
+    "build-windows-cpu-v1/ernie-pe-sampling-contract.exe": {
+      "bytes": 21505692,
+      "sha256": "b02f4b79ec4f7a269e94e32dabeb24f645f569c9711e07d759de9495de92d454"
+    },
+    "build-windows-cpu-v1/ernie-shape-graph-contract.exe": {
+      "bytes": 10965650,
+      "sha256": "8eefc7f01fb8fd4b00851f28952ff9067ca7d20315d31a403717d5396ebaeee9"
+    },
+    "build-windows-cpu-v1/ernie-text-down-contract.exe": {
+      "bytes": 10875656,
+      "sha256": "2e59b302d11fa0c5c6cfd823f76522394b425113536fb0874cbde61383f7ae85"
+    },
+    "build-windows-cpu-v1/ernie-model-package-contract.exe": {
+      "bytes": 10980809,
+      "sha256": "f551a12d4bbfd3b2a2f12f028dcc74aa7f4fc838735c4ea0a3b7d6217bbf2436"
+    }
+  }
+}

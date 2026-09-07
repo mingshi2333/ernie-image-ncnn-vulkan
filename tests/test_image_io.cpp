@@ -53,7 +53,7 @@ int main()
     namespace fs = std::filesystem;
     try
     {
-        const fs::path root = fs::temp_directory_path() / "ernie-image-io-contract";
+        const fs::path root = fs::temp_directory_path() / fs::u8path(u8"ernie-image-io-\u56fe\u50cf \U0001f5bc");
         fs::remove_all(root); fs::create_directories(root);
         ernie::RgbImage source; source.width = 32; source.height = 24;
         source.pixels.resize(size_t(source.width) * source.height * 3);

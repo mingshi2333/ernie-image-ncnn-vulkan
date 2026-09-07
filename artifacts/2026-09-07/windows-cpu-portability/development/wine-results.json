@@ -1,0 +1,59 @@
+{
+  "scope": "Windows MinGW CPU binaries under Wine on Linux; not native Windows or GPU evidence.",
+  "commands": [
+    {
+      "name": "wineboot",
+      "argv": [
+        "/usr/bin/wineboot",
+        "-u"
+      ],
+      "return_code": 0,
+      "seconds": 42.84410676200059
+    },
+    {
+      "name": "help",
+      "argv": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-image.exe",
+        "--help"
+      ],
+      "return_code": 0,
+      "seconds": 0.11447811897960491
+    },
+    {
+      "name": "diagnose",
+      "argv": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-image.exe",
+        "--diagnose"
+      ],
+      "return_code": 0,
+      "seconds": 0.06385779200354591
+    },
+    {
+      "name": "ctest",
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1",
+        "-R",
+        "^(native_cache_cpu|runtime_cache_cpu|generation_report_writer|pipeline_api_contract|request_validation_contract|gpu_context_contract|prompt_file_contract|image_io_contract|pe_sampling_contract|latent_contract_cpu|component_files_contract_cpu|weight_placement_cpu|weight_session_cpu|host_memory_cpu|model_loading_cpu|model_reader_cpu|img2img_contract_cpu|image_encoder_contract_cpu|residual_contract_cpu|rmsnorm_range_cpu|layernorm_range_cpu|erf_gelu_cpu|shape_plan_contract|shape_graph_contract|text_down_contract_cpu|model_package_contract|execution_metrics_cpu)$",
+        "--parallel",
+        "1",
+        "--output-on-failure",
+        "--output-junit",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/windows-cpu-v1/ctest-windows.xml"
+      ],
+      "return_code": 8,
+      "seconds": 1.4708319579949602
+    }
+  ],
+  "environment_overrides": {
+    "WINEPREFIX": "/var/tmp/ernie-windows-cpu-v1/wine-prefix",
+    "WINEARCH": "win64",
+    "WINEDEBUG": "-all",
+    "WINEDLLOVERRIDES": "winemenubuilder.exe=d",
+    "WINEPATH": "Z:\\var\\tmp\\ernie-windows-cpu-v1\\runtime",
+    "OMP_NUM_THREADS": "2"
+  }
+}

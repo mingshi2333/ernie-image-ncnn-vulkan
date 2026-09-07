@@ -10,7 +10,8 @@ int main()
 {
     namespace fs = std::filesystem;
     const auto path = fs::temp_directory_path() /
-        ("ernie-generation-report-" + std::to_string(std::chrono::steady_clock::now().time_since_epoch().count()));
+        fs::u8path(u8"ernie-generation-report-\u62a5\u544a \U0001f5bc-" +
+                   std::to_string(std::chrono::steady_clock::now().time_since_epoch().count()));
     try
     {
         ernie::GenerationRequest request;
@@ -32,6 +33,7 @@ int main()
         const auto data = ernie::cli::generation_report_json(request, result, progress, .125, false);
         ernie::cli::write_generation_report(path, request, result, progress, .125, false);
         bool rejected = false;
+        result.prompt = "Replacement content must not reach the existing report";
         try { ernie::cli::write_generation_report(path, request, result, progress, .125, false); }
         catch (const std::system_error&) { rejected = true; }
         std::ifstream input(path, std::ios::binary);

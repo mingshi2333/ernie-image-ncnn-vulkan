@@ -65,7 +65,7 @@ ncnn::Mat decode_vae(const ComponentFiles &files, const ncnn::Mat &unpacked, con
 ncnn::Mat decode_vae(const std::string &directory, const ncnn::Mat &unpacked, const ncnn::Option &cpu,
                      const std::string &device, const std::string &convolution, int gpu_index, VaeStats *stats)
 {
-    return decode_vae(component_files(std::filesystem::path(directory), "head"), unpacked, cpu,
+    return decode_vae(component_files(std::filesystem::u8path(directory), "head"), unpacked, cpu,
                       device, convolution, gpu_index, stats);
 }
 } // namespace ernie

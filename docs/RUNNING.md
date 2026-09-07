@@ -65,6 +65,11 @@ checkout/build paths and disable networking. Its output must be outside the
 checkout. These small installation checks do not execute ERNIE model inference
 or establish Windows/macOS support. See `docs/CODE-STRUCTURE.md` for ownership.
 
+Windows development now has a MinGW x64 cross-build and Wine CPU installation
+diagnostic, with explicit UTF-8 path handling and matching Rust targets. See
+[Windows build requirements and actual validation scope](BUILDING-WINDOWS.md).
+Native Windows/MSVC and Windows GPU generation remain unverified.
+
 Convert and assemble the official components using `docs/REPRODUCE-PIPELINE.md`
 in the source repository. To turn an existing local symlink package into a portable model:
 

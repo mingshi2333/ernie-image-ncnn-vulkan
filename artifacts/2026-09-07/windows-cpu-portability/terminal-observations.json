@@ -1,0 +1,33 @@
+{
+  "scope": "Values reported by unified exec tool; this is a transcription, not generated native stdout.",
+  "records": [
+    {
+      "session_id": 38355,
+      "exit_code": 0,
+      "result": "success",
+      "runtime": "14min 38.762s",
+      "cpu_time": "8min 35.411s",
+      "memory_peak_rounded": "1.8G",
+      "swap": "0B"
+    },
+    {
+      "session_id": 86498,
+      "exit_code": 0,
+      "result": "success",
+      "runtime": "44.041s",
+      "cpu_time": "44.887s",
+      "memory_peak_rounded": "3.5G",
+      "swap": "0B",
+      "source": "Earlier SDK v4 completion in this task history"
+    },
+    {
+      "session_id": 31217,
+      "exit_code": 0,
+      "result": "success",
+      "runtime": "17.570s",
+      "cpu_time": "33.754s",
+      "memory_peak_rounded": "938.9M",
+      "swap": "0B"
+    }
+  ]
+}

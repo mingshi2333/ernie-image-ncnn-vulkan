@@ -1,0 +1,333 @@
+{
+  "imports": {
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-execution-metrics-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libwinpthread-1.dll",
+      "libstdc++-6.dll"
+    ],
+    "/usr/x86_64-w64-mingw32/sys-root/mingw/bin/libstdc++-6.dll": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libwinpthread-1.dll"
+    ],
+    "/usr/x86_64-w64-mingw32/sys-root/mingw/bin/libwinpthread-1.dll": [
+      "KERNEL32.dll",
+      "msvcrt.dll"
+    ],
+    "/usr/x86_64-w64-mingw32/sys-root/mingw/bin/libgcc_s_seh-1.dll": [
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libwinpthread-1.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-model-package-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "ntdll.dll",
+      "libstdc++-6.dll",
+      "USERENV.dll",
+      "WS2_32.dll",
+      "api-ms-win-core-synch-l1-2-0.dll",
+      "bcryptprimitives.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-text-down-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-shape-graph-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "ntdll.dll",
+      "libstdc++-6.dll",
+      "USERENV.dll",
+      "WS2_32.dll",
+      "api-ms-win-core-synch-l1-2-0.dll",
+      "bcryptprimitives.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-shape-plan-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-residual-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-image-encoder-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-img2img-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-model-reader-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-model-loading-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-host-memory-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-weight-session-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-weight-placement-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-component-files-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-latent-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-pe-sampling-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "ntdll.dll",
+      "libstdc++-6.dll",
+      "USERENV.dll",
+      "WS2_32.dll",
+      "api-ms-win-core-synch-l1-2-0.dll",
+      "bcryptprimitives.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-image-io-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll",
+      "libpng16-16.dll"
+    ],
+    "/usr/x86_64-w64-mingw32/sys-root/mingw/bin/libpng16-16.dll": [
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "zlib1.dll"
+    ],
+    "/usr/x86_64-w64-mingw32/sys-root/mingw/bin/zlib1.dll": [
+      "KERNEL32.dll",
+      "msvcrt.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-prompt-file-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-gpu-context-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libwinpthread-1.dll",
+      "libstdc++-6.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-request-validation-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "ntdll.dll",
+      "libwinpthread-1.dll",
+      "libstdc++-6.dll",
+      "USERENV.dll",
+      "WS2_32.dll",
+      "api-ms-win-core-synch-l1-2-0.dll",
+      "bcryptprimitives.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-pipeline-api-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "ntdll.dll",
+      "libwinpthread-1.dll",
+      "libstdc++-6.dll",
+      "USERENV.dll",
+      "WS2_32.dll",
+      "api-ms-win-core-synch-l1-2-0.dll",
+      "bcryptprimitives.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-generation-report-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-text-gemm-diagnostic.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-pe-runner.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "ntdll.dll",
+      "libstdc++-6.dll",
+      "USERENV.dll",
+      "WS2_32.dll",
+      "api-ms-win-core-synch-l1-2-0.dll",
+      "bcryptprimitives.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-tokenize.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "ntdll.dll",
+      "libstdc++-6.dll",
+      "USERENV.dll",
+      "WS2_32.dll",
+      "api-ms-win-core-synch-l1-2-0.dll",
+      "bcryptprimitives.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-rmsnorm-probe.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-pe-block-runner.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-text-runner.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-denoise-runner.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-img2img-runner.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-head-runner.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-block-sequence-runner.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-latent-runner.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-gelu-probe.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-attention-workspace-probe.exe": [
+      "KERNEL32.dll",
+      "msvcrt.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-attention-accuracy-probe.exe": [
+      "KERNEL32.dll",
+      "msvcrt.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-block-runner.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-attention-probe.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-image.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "ntdll.dll",
+      "libwinpthread-1.dll",
+      "libstdc++-6.dll",
+      "USERENV.dll",
+      "WS2_32.dll",
+      "libpng16-16.dll",
+      "api-ms-win-core-synch-l1-2-0.dll",
+      "bcryptprimitives.dll"
+    ]
+  },
+  "runtime_copies": {
+    "libgcc_s_seh-1.dll": {
+      "source": "/usr/x86_64-w64-mingw32/sys-root/mingw/bin/libgcc_s_seh-1.dll",
+      "bytes": 992573,
+      "sha256": "7d5458682d7dcc2838c38c4401bcf25a15af0e2b0bc95ad6f5d2eafc0eaccb4f"
+    },
+    "libwinpthread-1.dll": {
+      "source": "/usr/x86_64-w64-mingw32/sys-root/mingw/bin/libwinpthread-1.dll",
+      "bytes": 75506,
+      "sha256": "80eb2559ea2a3e0c165ea8a4813cd9ba80937b4bbe13a2318a7b3cbaf2dfac43"
+    },
+    "libstdc++-6.dll": {
+      "source": "/usr/x86_64-w64-mingw32/sys-root/mingw/bin/libstdc++-6.dll",
+      "bytes": 29703692,
+      "sha256": "cf89e649d038fcf6dc01094090df2b4a41e115a4cc1eab2f1972b74b20a63204"
+    },
+    "libpng16-16.dll": {
+      "source": "/usr/x86_64-w64-mingw32/sys-root/mingw/bin/libpng16-16.dll",
+      "bytes": 281639,
+      "sha256": "9cdf687b41774d91c7092bdfe94a9c8ecda333bc6dcd6712f3c92efe8f2bffb3"
+    },
+    "zlib1.dll": {
+      "source": "/usr/x86_64-w64-mingw32/sys-root/mingw/bin/zlib1.dll",
+      "bytes": 136438,
+      "sha256": "e5d64914a70e26e1731ed98628be370b855454ff70c9774aea4273dc25c9ce2b"
+    }
+  },
+  "other_dlls": "Windows system imports resolved by Wine for this diagnostic; not redistribution approval."
+}

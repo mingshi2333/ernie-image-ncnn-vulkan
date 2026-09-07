@@ -1,0 +1,74 @@
+{
+  "commands": [
+    {
+      "name": "configure-missing-rust-target",
+      "argv": [
+        "cmake",
+        "-S",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference",
+        "-B",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1",
+        "-G",
+        "Ninja",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DCMAKE_TOOLCHAIN_FILE=/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/windows-cpu-v1/toolchain.cmake",
+        "-DERNIE_NCNN_SOURCE_DIR=/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/third_party/ncnn",
+        "-DERNIE_ENABLE_VULKAN=OFF",
+        "-DERNIE_BUILD_TOKENIZER=ON",
+        "-DERNIE_BUILD_GENERATOR=ON",
+        "-DERNIE_INSTALL_SDK=ON",
+        "-DERNIE_EXPERIMENT_COMPACT_MODEL_READER=OFF",
+        "-DNCNN_INT8=OFF",
+        "-DNCNN_WEIGHT_QUANT=OFF",
+        "-DCARGO_EXECUTABLE=/home/mingshi/.rustup/toolchains/1.98.0-x86_64-unknown-linux-gnu/bin/cargo"
+      ],
+      "return_code": 1,
+      "seconds": 6.537443852983415,
+      "expected": 1
+    },
+    {
+      "name": "configure",
+      "argv": [
+        "cmake",
+        "-S",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference",
+        "-B",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1",
+        "-G",
+        "Ninja",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DCMAKE_TOOLCHAIN_FILE=/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/windows-cpu-v1/toolchain.cmake",
+        "-DERNIE_NCNN_SOURCE_DIR=/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/third_party/ncnn",
+        "-DERNIE_ENABLE_VULKAN=OFF",
+        "-DERNIE_BUILD_TOKENIZER=ON",
+        "-DERNIE_BUILD_GENERATOR=ON",
+        "-DERNIE_INSTALL_SDK=ON",
+        "-DERNIE_EXPERIMENT_COMPACT_MODEL_READER=OFF",
+        "-DNCNN_INT8=OFF",
+        "-DNCNN_WEIGHT_QUANT=OFF",
+        "-DCARGO_EXECUTABLE=/home/mingshi/.rustup/toolchains/1.98.0-x86_64-unknown-linux-gnu/bin/cargo",
+        "-DERNIE_RUST_TARGET=x86_64-pc-windows-gnu"
+      ],
+      "return_code": 0,
+      "seconds": 0.30001754401018843,
+      "expected": 0
+    },
+    {
+      "name": "build",
+      "argv": [
+        "cmake",
+        "--build",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1",
+        "--parallel",
+        "2"
+      ],
+      "return_code": 1,
+      "seconds": 247.569892154017,
+      "expected": 0
+    }
+  ],
+  "environment_overrides": {
+    "RUSTC": "/home/mingshi/.rustup/toolchains/1.98.0-x86_64-unknown-linux-gnu/bin/rustc",
+    "CARGO_TARGET_X86_64_PC_WINDOWS_GNU_LINKER": "/usr/bin/x86_64-w64-mingw32-gcc"
+  }
+}

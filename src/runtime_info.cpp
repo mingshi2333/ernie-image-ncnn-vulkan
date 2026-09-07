@@ -33,7 +33,7 @@ DiagnosticInfo diagnose(const std::string &model_directory)
 #endif
     if (!model_directory.empty())
     {
-        const auto config = model_config(std::filesystem::path(model_directory) / "model.cfg");
+        const auto config = model_config(std::filesystem::u8path(model_directory) / "model.cfg");
         result.model_config_loaded = true;
         result.packed_width = config.packed_width;
         result.packed_height = config.packed_height;

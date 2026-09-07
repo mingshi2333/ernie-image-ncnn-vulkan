@@ -135,18 +135,18 @@ Options parse_options(int argc, char **argv)
         if (flag == "--model")
             r.model = value;
         else if (flag == "--output")
-            out.output = value;
+            out.output = fs::u8path(value);
         else if (flag == "--metrics-json")
-            out.metrics_json = value;
+            out.metrics_json = fs::u8path(value);
         else if (flag == "--report-json")
-            out.report_json = value;
+            out.report_json = fs::u8path(value);
         else if (flag == "--input")
-            out.input = value;
+            out.input = fs::u8path(value);
         else if (flag == "--prompt")
             r.prompt = value;
         else if (flag == "--prompt-file")
         {
-            prompt_file = value;
+            prompt_file = fs::u8path(value);
             from_file = true;
         }
         else if (flag == "--device")

@@ -1,0 +1,27 @@
+[0/1] Re-running CMake...
+-- CMAKE_TOOLCHAIN_FILE = /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/windows-cpu-v1/toolchain.cmake
+-- CMAKE_INSTALL_PREFIX = /usr/local
+-- NCNN_VERSION_STRING = 1.0.20260907
+-- Target arch: x86 64bit
+-- Could NOT find OpenMP_C (missing: OpenMP_C_FLAGS OpenMP_C_LIB_NAMES) 
+-- Could NOT find OpenMP_CXX (missing: OpenMP_CXX_FLAGS OpenMP_CXX_LIB_NAMES) 
+-- Could NOT find OpenMP (missing: OpenMP_C_FOUND OpenMP_CXX_FOUND) 
+-- Configuring done (0.3s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1
+[1/17] Building CXX object cli/CMakeFiles/ernie-image.dir/generation_report.cpp.obj
+[2/17] Building CXX object tests/CMakeFiles/ernie-generation-report-contract.dir/test_generation_report.cpp.obj
+[3/17] Building CXX object tests/CMakeFiles/ernie-generation-report-contract.dir/__/cli/generation_report.cpp.obj
+[4/17] Linking CXX executable ernie-image.exe
+[5/17] Linking CXX executable ernie-img2img-runner.exe
+[6/17] Linking CXX executable ernie-tokenize.exe
+[7/17] Linking CXX executable ernie-pe-runner.exe
+[8/17] Linking CXX executable ernie-generation-report-contract.exe
+[9/17] Linking CXX executable ernie-pipeline-api-contract.exe
+[10/17] Building CXX object tests/CMakeFiles/ernie-text-down-contract.dir/test_text_down.cpp.obj
+[11/17] Linking CXX executable ernie-gpu-context-contract.exe
+[12/17] Linking CXX executable ernie-request-validation-contract.exe
+[13/17] Linking CXX executable ernie-shape-graph-contract.exe
+[14/17] Linking CXX executable ernie-pe-sampling-contract.exe
+[15/17] Linking CXX executable ernie-text-down-contract.exe
+[16/17] Linking CXX executable ernie-model-package-contract.exe

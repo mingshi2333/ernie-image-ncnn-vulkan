@@ -1,0 +1,60 @@
+{
+  "scope": "Windows Rust filesystem observation under Wine on Linux-created symbolic links",
+  "commands": [
+    {
+      "name": "link-semantics-build",
+      "argv": [
+        "/home/mingshi/.rustup/toolchains/1.98.0-x86_64-unknown-linux-gnu/bin/rustc",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/windows-cpu-v1/link-semantics.rs",
+        "--edition=2024",
+        "--target=x86_64-pc-windows-gnu",
+        "-C",
+        "linker=/usr/bin/x86_64-w64-mingw32-gcc",
+        "-o",
+        "/var/tmp/ernie-wine-link-semantics-v1/link-semantics.exe"
+      ],
+      "return_code": 0
+    },
+    {
+      "name": "link-semantics-windows",
+      "argv": [
+        "/usr/bin/wine",
+        "/var/tmp/ernie-wine-link-semantics-v1/link-semantics.exe",
+        "/var/tmp/ernie-wine-link-semantics-v1"
+      ],
+      "return_code": 0
+    }
+  ],
+  "linux": [
+    {
+      "name": "link-semantics.exe",
+      "is_symlink": false,
+      "resolved": "/var/tmp/ernie-wine-link-semantics-v1/link-semantics.exe"
+    },
+    {
+      "name": "posix-directory-link",
+      "is_symlink": true,
+      "resolved": "/var/tmp/ernie-wine-link-semantics-v1/target-directory"
+    },
+    {
+      "name": "posix-file-link",
+      "is_symlink": true,
+      "resolved": "/var/tmp/ernie-wine-link-semantics-v1/target"
+    },
+    {
+      "name": "target",
+      "is_symlink": false,
+      "resolved": "/var/tmp/ernie-wine-link-semantics-v1/target"
+    },
+    {
+      "name": "target-directory",
+      "is_symlink": false,
+      "resolved": "/var/tmp/ernie-wine-link-semantics-v1/target-directory"
+    },
+    {
+      "name": "windows-file-link?",
+      "is_symlink": false,
+      "resolved": "/var/tmp/ernie-wine-link-semantics-v1/windows-file-link?"
+    }
+  ]
+}

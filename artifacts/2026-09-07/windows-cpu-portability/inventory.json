@@ -1,0 +1,980 @@
+{
+  "scope": "Small records only; README and this inventory excluded",
+  "files": [
+    {
+      "path": "collection-notes.json",
+      "bytes": 783,
+      "sha256": "7777e3e159e4b46d0422b3310625cc019471ac685723e924cb443d61b498d172"
+    },
+    {
+      "path": "development/affected-results.json",
+      "bytes": 1026,
+      "sha256": "3205aa9de469d70c1e033d86f7e63ab905a889596562e5e9eb49dc54dfadbc40"
+    },
+    {
+      "path": "development/archive.py",
+      "bytes": 7119,
+      "sha256": "72b298c31852cf3cc238f57f0221212d3af63d218672999c2dddf6e9eaa2632d"
+    },
+    {
+      "path": "development/build-commands.json",
+      "bytes": 2782,
+      "sha256": "aff2c609c68b2aa09d939f440c402b31a7e0aeff4723182ad2b10ab86c3b5e85"
+    },
+    {
+      "path": "development/build-utf8.py",
+      "bytes": 834,
+      "sha256": "621682f7b08961fc09efbe4958054a13289f72f99485017de41d36ca8bcf6d5a"
+    },
+    {
+      "path": "development/build-v2.log",
+      "bytes": 5722,
+      "sha256": "ea6b467f4a6aa07fab90e0de14a350f2a89ed7cd0355d0e7892e1bf4b7a5351d"
+    },
+    {
+      "path": "development/build-v3.log",
+      "bytes": 1795,
+      "sha256": "2f451c8d5936de244d1ea25bfe7e6c9519ea9c2c36995377563235dcffb529f2"
+    },
+    {
+      "path": "development/build.log",
+      "bytes": 874891,
+      "sha256": "e2ca530457f721f5370a066163c2eb5b25b1858d280552527c994dbf2834bb22"
+    },
+    {
+      "path": "development/build.py",
+      "bytes": 1776,
+      "sha256": "fb0f5319811bfa547c9624b66da1722c6521036d47222a563b9199077ac3c5ac"
+    },
+    {
+      "path": "development/check-installed-v1.py",
+      "bytes": 6328,
+      "sha256": "48072c3c053c1b1a58cad852f7670df64efb9ff242c13d7c594c782a039e2651"
+    },
+    {
+      "path": "development/check-installed-v2.py",
+      "bytes": 6376,
+      "sha256": "a585e6dc041b7b4cd7633f5fbadb1eb037ad6bea191fd50582b3ecd6096d76cf"
+    },
+    {
+      "path": "development/check-installed-v3.py",
+      "bytes": 7075,
+      "sha256": "621f0b1fd26f461bd4054fb0829ea48dd31d93d25a9cc0fe8b8ba5232aaf0f08"
+    },
+    {
+      "path": "development/check-installed.py",
+      "bytes": 7211,
+      "sha256": "d1150cf5434649661f5d4d16fc2e7d81a3069060d3e1a23724236dcf787d2a2a"
+    },
+    {
+      "path": "development/check-links.py",
+      "bytes": 1573,
+      "sha256": "b7444e1cabf34e3d1d993c88bcd46abb816264e02b4c95a44cd23dccbcf9c114"
+    },
+    {
+      "path": "development/check-native-links.py",
+      "bytes": 2659,
+      "sha256": "aadbf9a33167bae681d0d62895c761de33128e06b6f8c06ac2e01d58fa93064d"
+    },
+    {
+      "path": "development/configure-missing-rust-target.log",
+      "bytes": 3353,
+      "sha256": "0ca2847dd670e27d8121353cabcead84f81596b366dc38498a9dacef80799f76"
+    },
+    {
+      "path": "development/configure.log",
+      "bytes": 842,
+      "sha256": "4e9192d0c46a91b9a9d94285584ce2743498717d37f61bd00597d21f06d666c3"
+    },
+    {
+      "path": "development/ctest-affected.log",
+      "bytes": 409,
+      "sha256": "9ce5365d9d11ac295c1aee101a72bed421009133e8b9b45cebd2e19dc7b01498"
+    },
+    {
+      "path": "development/ctest-affected.xml",
+      "bytes": 1833,
+      "sha256": "d726116704f9f193ea104f40c8029d56a494c5dba6de03a973a391ec1b668f42"
+    },
+    {
+      "path": "development/ctest-inventory.json",
+      "bytes": 24557,
+      "sha256": "b00efd14d779afef65c258dff26d089d2fd72d747519328a290f2d504cc06e41"
+    },
+    {
+      "path": "development/ctest-utf8-inventory.json",
+      "bytes": 24218,
+      "sha256": "2e397d9f2af37a4d40c21101733e1437b48d307e7a4e03dfd4c11a1690f029fb"
+    },
+    {
+      "path": "development/ctest-utf8-linux.log",
+      "bytes": 3990,
+      "sha256": "2ca765655ebb9acb96482a7d18863615960900723bc52c6265a686e192202881"
+    },
+    {
+      "path": "development/ctest-utf8-linux.xml",
+      "bytes": 19070,
+      "sha256": "39464a5558a421867f31fefb3ad9969b017448d909eb18730d9e04694ced7a61"
+    },
+    {
+      "path": "development/ctest-utf8-vulkan-cpu.json",
+      "bytes": 440,
+      "sha256": "9e89c741858fb3ecd909df4853e2584509e7482271e81e6febee5befcc9b3735"
+    },
+    {
+      "path": "development/ctest-utf8-vulkan-cpu.log",
+      "bytes": 506,
+      "sha256": "1088eb5c944a17b9538cfeef830570a1c0711e0be267c7c63fa250448e1ec1fe"
+    },
+    {
+      "path": "development/ctest-utf8-vulkan-cpu.xml",
+      "bytes": 905,
+      "sha256": "34a74a5bca209d5c76c9472712b6cc8c2467a80178906ec69b6902776d9e9d5b"
+    },
+    {
+      "path": "development/ctest-utf8-windows.log",
+      "bytes": 3239,
+      "sha256": "4820120d08f1ff84af6b7c8896213d18d1e19b589dd38faa65b2782e95d9bece"
+    },
+    {
+      "path": "development/ctest-utf8-windows.xml",
+      "bytes": 13075,
+      "sha256": "051a54574d89275df2c2c1890ad47d6218f85b320f83b8149e6cf9cf4dbadeee"
+    },
+    {
+      "path": "development/ctest-windows.xml",
+      "bytes": 11832,
+      "sha256": "324a93bacbe054698ca2281e035cac3c7ea7e698b659f0c81a7898c9af7b6f77"
+    },
+    {
+      "path": "development/ctest.log",
+      "bytes": 3273,
+      "sha256": "93ba5b13422f8685ef81e94b397ff7848352774e83a5d069eb0ea896d1372821"
+    },
+    {
+      "path": "development/diagnose.log",
+      "bytes": 58,
+      "sha256": "2709abeedaf3d293ecc467ed7d840f2f4787492fe2cdea9a4d81e69edbf63123"
+    },
+    {
+      "path": "development/help.log",
+      "bytes": 2028,
+      "sha256": "188ada17578d12625bfad8a684c7d82dbaa6cc4a9c1665a1265213c99151664b"
+    },
+    {
+      "path": "development/image-via-wine",
+      "bytes": 149,
+      "sha256": "a87cf444ae9657ad3cc5e59030e6cfd7f20411972d39cbac65313fd78167b7ea"
+    },
+    {
+      "path": "development/link-semantics-build.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "development/link-semantics-results.json",
+      "bytes": 1776,
+      "sha256": "83eab695b4df48fff5b817c93b9e11dedbfc8ee4620961449494383362027845"
+    },
+    {
+      "path": "development/link-semantics-windows.log",
+      "bytes": 826,
+      "sha256": "2dca449c6c5c429928f6559b0cab2e140432e16a8e7024eea06a3488468b10ea"
+    },
+    {
+      "path": "development/link-semantics.rs",
+      "bytes": 1299,
+      "sha256": "31b3f909de83da39a3f4ff56c2f6d6f389b8eab2fd763520cf5c4da28fa9ecec"
+    },
+    {
+      "path": "development/linux-build.log",
+      "bytes": 1031,
+      "sha256": "c60692263007b65872b2286d02b0df80203c53fb4a1f727ffd7deaebf14c0a6e"
+    },
+    {
+      "path": "development/linux-ctest.log",
+      "bytes": 513,
+      "sha256": "bdd23502754c958e843b49f7947f5012a1c446181a48b9061369a0b44e0a79c1"
+    },
+    {
+      "path": "development/linux-utf8-build.json",
+      "bytes": 253,
+      "sha256": "5a70019595adf4944d1e1b8d478cf85ba0224a72eb9da8e466f996ed18356fd6"
+    },
+    {
+      "path": "development/linux-utf8-build.log",
+      "bytes": 8504,
+      "sha256": "e370101a64f8646cad305f105e64e5f979dc7ef1233368bff7ecaf0bf93d1439"
+    },
+    {
+      "path": "development/linux-utf8-validation.json",
+      "bytes": 608,
+      "sha256": "3efcd4c408efbdf7d9552eedc299ae0a8bf610275158db228f9e814d82d57b3c"
+    },
+    {
+      "path": "development/linux-vulkan-utf8-build.json",
+      "bytes": 143,
+      "sha256": "cda0b51fb5ec208e95013ec0edac9e84ac07797ff02701814548a63de587b71a"
+    },
+    {
+      "path": "development/linux-vulkan-utf8-build.log",
+      "bytes": 9204,
+      "sha256": "b043d11a12c5e5515265c318f3c4db9e206463116e8a8b9ba3b8fba8efb71914"
+    },
+    {
+      "path": "development/native-libs.rs",
+      "bytes": 102,
+      "sha256": "209de13420ade92865fa805bfd3d96c2998b56d839e5f19ec974ec40377b7bc1"
+    },
+    {
+      "path": "development/native-windows-links.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "development/pre-utf8-binary.json",
+      "bytes": 6934,
+      "sha256": "89c94d9aa924273b633d44c1da8ceaca04ad058dfe3a2c9d6829dee0e1c007af"
+    },
+    {
+      "path": "development/pre-utf8-source/cli/generation_report.cpp",
+      "bytes": 6258,
+      "sha256": "1ebbb0c2ef83b25e0af84bf4e244a2ee2b6181f7a63a8c10dd2a2b2ad3a3410c"
+    },
+    {
+      "path": "development/pre-utf8-source/probes/CMakeLists.txt",
+      "bytes": 1786,
+      "sha256": "eb7bee8950efd6c65d48be842dfdabcef28aef6516be8bf0f7e006cbaac24007"
+    },
+    {
+      "path": "development/pre-utf8-source/probes/text_gemm_diagnostic.cpp",
+      "bytes": 3919,
+      "sha256": "4beb07cdf9f2aa379cf5ab581c17ebd97940e7d203acd7570704a31f81ca6265"
+    },
+    {
+      "path": "development/pre-utf8-source/tests/test_generation_report.cpp",
+      "bytes": 2833,
+      "sha256": "7aee8390b88681d7da68ec744a24aa8e05241d1cf8783e0850c8d9193e0fa3f6"
+    },
+    {
+      "path": "development/pre-utf8-source/tests/test_text_down.cpp",
+      "bytes": 6786,
+      "sha256": "3a99ce57694d2137ab503725114306c490b1560501682901c9bdbc3eb0805800"
+    },
+    {
+      "path": "development/pre-utf8-source/tokenizer/CMakeLists.txt",
+      "bytes": 2146,
+      "sha256": "c75e525ae591a9f51fce9a001edae17dd6875a692bc4541e4d1546bd10b1adc0"
+    },
+    {
+      "path": "development/pre-utf8.diff",
+      "bytes": 7153,
+      "sha256": "0b1df55ee3baf2bf436ad9c69793dd4b1fae3e26ef40a0e17b9d878c22838317"
+    },
+    {
+      "path": "development/python-utf8-windows.log",
+      "bytes": 4334,
+      "sha256": "ca0a4d5654688bb1dac8ee1873b24e55f83faa63530cbe52e062aa8e0993fdc6"
+    },
+    {
+      "path": "development/python-windows.log",
+      "bytes": 10279,
+      "sha256": "342e2d027f6a6db2688d050c4c012762a02e60e73386a6e2e711159b28d6289b"
+    },
+    {
+      "path": "development/report-via-wine",
+      "bytes": 170,
+      "sha256": "827d2377ccc988240c02d28b929107d67cd1d9b049e6fa350a47d9a35e7f2ffd"
+    },
+    {
+      "path": "development/run-affected.py",
+      "bytes": 1442,
+      "sha256": "f8406111dc3ceeafd9cd256a64bc4456a6ecb4f89d8338ccbbe6b27421955746"
+    },
+    {
+      "path": "development/run-contracts.py",
+      "bytes": 2916,
+      "sha256": "33c5aa1e0d8f009a475791cadcbbb95e7c15637e5c0cbf984937cc830b2e8016"
+    },
+    {
+      "path": "development/rust-native-libs.log",
+      "bytes": 235,
+      "sha256": "ae228c7b4cdf237f9627f0e6b362f2452190673a2510bdf2f107dfd85e308cd1"
+    },
+    {
+      "path": "development/rust-toolchain-install.log",
+      "bytes": 722,
+      "sha256": "ad3f9db629591573f707d2a2f796b4627912bb011be5e5be12c7eb06c09b9352"
+    },
+    {
+      "path": "development/selected-contracts.json",
+      "bytes": 1013,
+      "sha256": "e79d6b78e9d514162c47166cfb73f15accc19439f18630444d0f3ef21534386e"
+    },
+    {
+      "path": "development/toolchain.cmake",
+      "bytes": 525,
+      "sha256": "4183d2d3f58d530bc870500c9774e24235191e3be73c5a3b54987accc05c2699"
+    },
+    {
+      "path": "development/validate-utf8.py",
+      "bytes": 2263,
+      "sha256": "380728c50d375070a6fe0c2da7dd7159131049644b5e3de2960e1870331aac0f"
+    },
+    {
+      "path": "development/windows-imports.json",
+      "bytes": 12352,
+      "sha256": "9999869e76892774fdf256008a8714a4219d11e7bdc9f9069e160cac2e0bc340"
+    },
+    {
+      "path": "development/windows-utf8-build.json",
+      "bytes": 258,
+      "sha256": "d58f6d5ad6d2bf11ebc83452805f861ce54399429c51217a3ceded2aa2cdbe03"
+    },
+    {
+      "path": "development/windows-utf8-build.log",
+      "bytes": 7301,
+      "sha256": "9ec31d5050eba3a917d27dee70eeaa922904e452230e61a94749d54c910bc78c"
+    },
+    {
+      "path": "development/windows-utf8-validation.json",
+      "bytes": 2021,
+      "sha256": "63dd1f73ffa83e33764d690a86e592d97c830c6191ac978a8de9e7b94184416b"
+    },
+    {
+      "path": "development/wine-persistence-utf8.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "development/wine-persistence.json",
+      "bytes": 351,
+      "sha256": "f4d5ec39c936752335b86e1274293dcd731411f9eed07bd8cf2c80a14ae40ba2"
+    },
+    {
+      "path": "development/wine-results.json",
+      "bytes": 2239,
+      "sha256": "07209b4417eae687491d85a4c7b5753088c8a780f09aae0fb4747d3cd268da76"
+    },
+    {
+      "path": "development/wineboot.log",
+      "bytes": 86,
+      "sha256": "197f407eccee312756e734d091eec324cd2e5c0533a5ac10d74cea603b0b4646"
+    },
+    {
+      "path": "final-builds.json",
+      "bytes": 26828,
+      "sha256": "0a0000db04a09bf89a1351f279e3c612f75581ff36aacd92c3c2e9f3c686dabb"
+    },
+    {
+      "path": "final-executable-imports.json",
+      "bytes": 7933,
+      "sha256": "9d79c552be2deca4b6785bdf81e2e30eeeb673893dc619208957bfb168d1e8d5"
+    },
+    {
+      "path": "final-linux-vulkan-build.json",
+      "bytes": 635,
+      "sha256": "afabf1b4773f5a5240bf7463242c892e60db60756425873aea1355bc5f68cbd2"
+    },
+    {
+      "path": "independent-review.json",
+      "bytes": 650,
+      "sha256": "20c75398e956d585b01681ff64c72194cd39d662d63c7d0e2130a5cdede2cbd8"
+    },
+    {
+      "path": "native-links/build-helper.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "native-links/image-directory-before.log",
+      "bytes": 15,
+      "sha256": "afa9438a6c5b5ac0a395cf417c0b21c3c4460b6f1e7fa8cebf3b863d6ceece95"
+    },
+    {
+      "path": "native-links/image-directory-create.log",
+      "bytes": 223,
+      "sha256": "8e581ce0e7de55b4612fa0e2650f4adb92649529e8c332e7f71b7450a7d1c1a9"
+    },
+    {
+      "path": "native-links/image-directory-reject.log",
+      "bytes": 53,
+      "sha256": "8bbcaed234b0c9637d2baa3b2b1ef2410d549cd21d162feed5a0d9f10e1552db"
+    },
+    {
+      "path": "native-links/image-file-before.log",
+      "bytes": 15,
+      "sha256": "afa9438a6c5b5ac0a395cf417c0b21c3c4460b6f1e7fa8cebf3b863d6ceece95"
+    },
+    {
+      "path": "native-links/image-file-create.log",
+      "bytes": 225,
+      "sha256": "18e1ac0bfdf24a31566f349aa277d5d7d8e2a836657529cac92f26148e62512b"
+    },
+    {
+      "path": "native-links/image-file-reject.log",
+      "bytes": 53,
+      "sha256": "8bbcaed234b0c9637d2baa3b2b1ef2410d549cd21d162feed5a0d9f10e1552db"
+    },
+    {
+      "path": "native-links/pe-file-before.log",
+      "bytes": 15,
+      "sha256": "afa9438a6c5b5ac0a395cf417c0b21c3c4460b6f1e7fa8cebf3b863d6ceece95"
+    },
+    {
+      "path": "native-links/pe-file-create.log",
+      "bytes": 224,
+      "sha256": "2fd8bd41906e5c6a0a2fbcba2be422cbf2e9ef1493d99c7da9865411881215f7"
+    },
+    {
+      "path": "native-links/pe-file-reject.log",
+      "bytes": 61,
+      "sha256": "b686b9c626ddfd592fdc3817f50dddca57d14cc6b87f58d741ab4a7590ec7afa"
+    },
+    {
+      "path": "native-links/result.json",
+      "bytes": 4318,
+      "sha256": "2deaa81890ba2bdf6cbc7f113ecd8f6f129b673f966162495b4f2a64d7f9dbd9"
+    },
+    {
+      "path": "sdk-v1/consumer/CMakeLists.txt",
+      "bytes": 580,
+      "sha256": "b8cd8ac0251fb028e09f6e925521471e0913e5b9c43385d1043dd0c160b75153"
+    },
+    {
+      "path": "sdk-v1/consumer/main.cpp",
+      "bytes": 1862,
+      "sha256": "3e1e797784c4c614b40f1035cc6bb5e6367b1f6467aec667d71b1974edb82a53"
+    },
+    {
+      "path": "sdk-v1/consumer-build/CMakeCache.txt",
+      "bytes": 15513,
+      "sha256": "184f18984eb7f4d908ebe16d350aef541d2770e818bb3229a97d37c372fcb65d"
+    },
+    {
+      "path": "sdk-v1/consumer-build/CMakeFiles/4.3.0/CMakeCXXCompiler.cmake",
+      "bytes": 6768,
+      "sha256": "dadf5afcd41664f7ed1d2586c74be75a2b49858ad384eadc729400e9c8849d66"
+    },
+    {
+      "path": "sdk-v1/consumer-build/compile_commands.json",
+      "bytes": 479,
+      "sha256": "bd9fb3f752aeb8c97f30f57ed6e004ea40af8d5004895309f900a8358ec47570"
+    },
+    {
+      "path": "sdk-v1/consumer-build.log",
+      "bytes": 133,
+      "sha256": "fda52d1db5404e6a89e4746c8b7a10395286707049137d2fec51b60c1b495d38"
+    },
+    {
+      "path": "sdk-v1/consumer-configure.log",
+      "bytes": 781,
+      "sha256": "c148c14929715db5ceeaad54d23719d65d951f355ddb0905be12dd32b2af26d0"
+    },
+    {
+      "path": "sdk-v1/install.log",
+      "bytes": 4686,
+      "sha256": "f98bd58f444f8458ca33f6fdc7489c745da4847fc7783441dfe5bf2f51c23598"
+    },
+    {
+      "path": "sdk-v1/isolation-preflight.log",
+      "bytes": 54,
+      "sha256": "d2a678d59c6a6c306d3d01d3dd05fc439e03388f612a7c30ea02b7cdbf7b0327"
+    },
+    {
+      "path": "sdk-v1/result.json",
+      "bytes": 5348,
+      "sha256": "f34f8fbdf9eaf50a4148fd0021743abc7b334739301a296f0eff22234bfb884d"
+    },
+    {
+      "path": "sdk-v1/toolchain.cmake",
+      "bytes": 611,
+      "sha256": "2fee320d094ad4cd1343e15bff01eaa02933d7a7a2b4d354438e2619c599f6f6"
+    },
+    {
+      "path": "sdk-v1/wineboot.log",
+      "bytes": 161,
+      "sha256": "ea7a010bffb993736dc0c12305eb4739cead1464d7c9746839bef9dccc3bbd02"
+    },
+    {
+      "path": "sdk-v1/移动 installation/lib/cmake/Ernie/ErnieConfig.cmake",
+      "bytes": 2187,
+      "sha256": "4f0a04ce47ac729a001848eacb47a68d1fdda9ac056e21391321140843cf0866"
+    },
+    {
+      "path": "sdk-v1/移动 installation/lib/cmake/Ernie/ErnieConfigVersion.cmake",
+      "bytes": 3249,
+      "sha256": "d9f95ead4f9d6d91365d659e872794aacbaa4262a60cdc268231920763e3cf87"
+    },
+    {
+      "path": "sdk-v1/移动 installation/lib/cmake/Ernie/ErnieTargets-release.cmake",
+      "bytes": 4602,
+      "sha256": "f9a2829c19d76eb999b472bfc70a72b72c219d37e9c24067eaa5019f75c15687"
+    },
+    {
+      "path": "sdk-v1/移动 installation/lib/cmake/Ernie/ErnieTargets.cmake",
+      "bytes": 6878,
+      "sha256": "bfa504dfc8a2056469700e6cbc3446a1ee411b68803092630b2fc8df401f9e2a"
+    },
+    {
+      "path": "sdk-v1/移动 installation/lib/cmake/ncnn/ncnn-release.cmake",
+      "bytes": 789,
+      "sha256": "562cb63272bed70e15d266255dcb901567b7bde229e67f8fbd1f12a95e150db6"
+    },
+    {
+      "path": "sdk-v1/移动 installation/lib/cmake/ncnn/ncnn.cmake",
+      "bytes": 4207,
+      "sha256": "06cdfb84996f43a2c2b365b21c3d05fe9027e2b9477bfcf9a22110279f525a7e"
+    },
+    {
+      "path": "sdk-v1/移动 installation/lib/cmake/ncnn/ncnnConfig.cmake",
+      "bytes": 1604,
+      "sha256": "84eb90d34f068efccd21772d93ae27ed1a5cb9beaf0e6dbd2ce7470e57311c0c"
+    },
+    {
+      "path": "sdk-v1/移动 installation/lib/cmake/ncnn/ncnnConfigVersion.cmake",
+      "bytes": 1864,
+      "sha256": "0f7e618e1e00bab60bf8f0789df90f4f9a3e427d553ae92f314f186c8b4e1daf"
+    },
+    {
+      "path": "sdk-v2/consumer/CMakeLists.txt",
+      "bytes": 580,
+      "sha256": "b8cd8ac0251fb028e09f6e925521471e0913e5b9c43385d1043dd0c160b75153"
+    },
+    {
+      "path": "sdk-v2/consumer/main.cpp",
+      "bytes": 1862,
+      "sha256": "3e1e797784c4c614b40f1035cc6bb5e6367b1f6467aec667d71b1974edb82a53"
+    },
+    {
+      "path": "sdk-v2/consumer-build/CMakeCache.txt",
+      "bytes": 15513,
+      "sha256": "bb246ab99bcb1ee7d54b4cba3847c80f106c3df93717f63e428b4197abe59e9c"
+    },
+    {
+      "path": "sdk-v2/consumer-build/CMakeFiles/4.3.0/CMakeCXXCompiler.cmake",
+      "bytes": 6768,
+      "sha256": "dadf5afcd41664f7ed1d2586c74be75a2b49858ad384eadc729400e9c8849d66"
+    },
+    {
+      "path": "sdk-v2/consumer-build/compile_commands.json",
+      "bytes": 479,
+      "sha256": "2a751b544b366c033710e7e9c45879042bd38faec15d02d0c8466d2e3fa190aa"
+    },
+    {
+      "path": "sdk-v2/consumer-build.log",
+      "bytes": 133,
+      "sha256": "fda52d1db5404e6a89e4746c8b7a10395286707049137d2fec51b60c1b495d38"
+    },
+    {
+      "path": "sdk-v2/consumer-configure.log",
+      "bytes": 781,
+      "sha256": "1b1cfc2210b55e951751328e06b19659e5503c71bdd52b37b3e3d2a3689834b0"
+    },
+    {
+      "path": "sdk-v2/consumer-ctest.xml",
+      "bytes": 425,
+      "sha256": "597b7ca1cc3eb69bc2138e77b75579485c9820f7152ad8acfc31718b5e30af4e"
+    },
+    {
+      "path": "sdk-v2/consumer-test.log",
+      "bytes": 244,
+      "sha256": "8e831391b9291c1a970b11c8d9f934251b85c357dd7e4d1bbe324e6fe5ec832f"
+    },
+    {
+      "path": "sdk-v2/install.log",
+      "bytes": 4686,
+      "sha256": "32a72a5b696c51d7e778f005b78f97884a070be510944b7734220f274766221c"
+    },
+    {
+      "path": "sdk-v2/installed-corrupt-package.log",
+      "bytes": 30,
+      "sha256": "9149034c84d1a7ee5f060e7c5c4bc7efb5533ae97827945d43ed66d5899cc8f2"
+    },
+    {
+      "path": "sdk-v2/installed-diagnose.log",
+      "bytes": 58,
+      "sha256": "2709abeedaf3d293ecc467ed7d840f2f4787492fe2cdea9a4d81e69edbf63123"
+    },
+    {
+      "path": "sdk-v2/installed-help.log",
+      "bytes": 2028,
+      "sha256": "188ada17578d12625bfad8a684c7d82dbaa6cc4a9c1665a1265213c99151664b"
+    },
+    {
+      "path": "sdk-v2/isolation-preflight.log",
+      "bytes": 54,
+      "sha256": "d2a678d59c6a6c306d3d01d3dd05fc439e03388f612a7c30ea02b7cdbf7b0327"
+    },
+    {
+      "path": "sdk-v2/result.json",
+      "bytes": 9195,
+      "sha256": "48014163a286ff265b076f50bad50ccca25d09dd718937540a7bbe13215d2b81"
+    },
+    {
+      "path": "sdk-v2/toolchain.cmake",
+      "bytes": 611,
+      "sha256": "ce4f85913e746df7f20c10ab2b47b73642d3b4d050aee51dbfd0f96b08419c02"
+    },
+    {
+      "path": "sdk-v2/wineboot.log",
+      "bytes": 86,
+      "sha256": "689ee4ddaca986e8b80bf2122f4a1bb37a3491a269c5b0d1628f23e64942ff6d"
+    },
+    {
+      "path": "sdk-v2/移动 installation/lib/cmake/Ernie/ErnieConfig.cmake",
+      "bytes": 2187,
+      "sha256": "4f0a04ce47ac729a001848eacb47a68d1fdda9ac056e21391321140843cf0866"
+    },
+    {
+      "path": "sdk-v2/移动 installation/lib/cmake/Ernie/ErnieConfigVersion.cmake",
+      "bytes": 3249,
+      "sha256": "d9f95ead4f9d6d91365d659e872794aacbaa4262a60cdc268231920763e3cf87"
+    },
+    {
+      "path": "sdk-v2/移动 installation/lib/cmake/Ernie/ErnieTargets-release.cmake",
+      "bytes": 4602,
+      "sha256": "f9a2829c19d76eb999b472bfc70a72b72c219d37e9c24067eaa5019f75c15687"
+    },
+    {
+      "path": "sdk-v2/移动 installation/lib/cmake/Ernie/ErnieTargets.cmake",
+      "bytes": 6878,
+      "sha256": "bfa504dfc8a2056469700e6cbc3446a1ee411b68803092630b2fc8df401f9e2a"
+    },
+    {
+      "path": "sdk-v2/移动 installation/lib/cmake/ncnn/ncnn-release.cmake",
+      "bytes": 789,
+      "sha256": "562cb63272bed70e15d266255dcb901567b7bde229e67f8fbd1f12a95e150db6"
+    },
+    {
+      "path": "sdk-v2/移动 installation/lib/cmake/ncnn/ncnn.cmake",
+      "bytes": 4207,
+      "sha256": "06cdfb84996f43a2c2b365b21c3d05fe9027e2b9477bfcf9a22110279f525a7e"
+    },
+    {
+      "path": "sdk-v2/移动 installation/lib/cmake/ncnn/ncnnConfig.cmake",
+      "bytes": 1604,
+      "sha256": "84eb90d34f068efccd21772d93ae27ed1a5cb9beaf0e6dbd2ce7470e57311c0c"
+    },
+    {
+      "path": "sdk-v2/移动 installation/lib/cmake/ncnn/ncnnConfigVersion.cmake",
+      "bytes": 1864,
+      "sha256": "0f7e618e1e00bab60bf8f0789df90f4f9a3e427d553ae92f314f186c8b4e1daf"
+    },
+    {
+      "path": "sdk-v3/consumer/CMakeLists.txt",
+      "bytes": 580,
+      "sha256": "b8cd8ac0251fb028e09f6e925521471e0913e5b9c43385d1043dd0c160b75153"
+    },
+    {
+      "path": "sdk-v3/consumer/main.cpp",
+      "bytes": 1862,
+      "sha256": "3e1e797784c4c614b40f1035cc6bb5e6367b1f6467aec667d71b1974edb82a53"
+    },
+    {
+      "path": "sdk-v3/consumer-build/CMakeCache.txt",
+      "bytes": 15513,
+      "sha256": "a6e153961523254e2327f73c444d88b7760b2753e7a28a458ddbebb8156667ff"
+    },
+    {
+      "path": "sdk-v3/consumer-build/CMakeFiles/4.3.0/CMakeCXXCompiler.cmake",
+      "bytes": 6768,
+      "sha256": "dadf5afcd41664f7ed1d2586c74be75a2b49858ad384eadc729400e9c8849d66"
+    },
+    {
+      "path": "sdk-v3/consumer-build/compile_commands.json",
+      "bytes": 479,
+      "sha256": "47af9ddd7fe41afe9d3ca9be8450e43febe116f702f25950bd08a5824adc7f48"
+    },
+    {
+      "path": "sdk-v3/consumer-build.log",
+      "bytes": 133,
+      "sha256": "fda52d1db5404e6a89e4746c8b7a10395286707049137d2fec51b60c1b495d38"
+    },
+    {
+      "path": "sdk-v3/consumer-configure.log",
+      "bytes": 781,
+      "sha256": "ac97407334c25edced2f04b4476f591bd7140fcce694e359391b0be4b78226f9"
+    },
+    {
+      "path": "sdk-v3/consumer-ctest.xml",
+      "bytes": 424,
+      "sha256": "cc72bdc32a609b258767beb2ceb0c9d53321afde94d367f1225c3be86d4e2803"
+    },
+    {
+      "path": "sdk-v3/consumer-test.log",
+      "bytes": 244,
+      "sha256": "e59cdface8f9da75c1e6c6876702db83b5f7b2386b096625a76a167619eaeb84"
+    },
+    {
+      "path": "sdk-v3/install.log",
+      "bytes": 4686,
+      "sha256": "2012de9288a3d288d8b2580a0b98ed8aae85b5ed2d3c9cc71f1b40d7d7ec7da2"
+    },
+    {
+      "path": "sdk-v3/installed-corrupt-package.log",
+      "bytes": 28,
+      "sha256": "38d11c9d79b43193c1cd8bc83702c9966a193a01240ea9112d2a12263d322406"
+    },
+    {
+      "path": "sdk-v3/installed-diagnose.log",
+      "bytes": 58,
+      "sha256": "2709abeedaf3d293ecc467ed7d840f2f4787492fe2cdea9a4d81e69edbf63123"
+    },
+    {
+      "path": "sdk-v3/installed-help.log",
+      "bytes": 2028,
+      "sha256": "188ada17578d12625bfad8a684c7d82dbaa6cc4a9c1665a1265213c99151664b"
+    },
+    {
+      "path": "sdk-v3/installed-utf8-argument.log",
+      "bytes": 33,
+      "sha256": "c9bcd806cbadaae7b93b78f2ce44218638440065c78ad6ac9d0a0fc20eabf2af"
+    },
+    {
+      "path": "sdk-v3/installed-utf8-prompt-path.log",
+      "bytes": 32,
+      "sha256": "cb07d6ad0c39c40ec3c7ff29240ee638cf79e161316985c01a89cd25016f978d"
+    },
+    {
+      "path": "sdk-v3/isolation-preflight.log",
+      "bytes": 54,
+      "sha256": "d2a678d59c6a6c306d3d01d3dd05fc439e03388f612a7c30ea02b7cdbf7b0327"
+    },
+    {
+      "path": "sdk-v3/result.json",
+      "bytes": 20365,
+      "sha256": "6734ec4f251893a2d937146c60e067fe6d706b41720d98bc9b588d9844036686"
+    },
+    {
+      "path": "sdk-v3/toolchain.cmake",
+      "bytes": 611,
+      "sha256": "93731080669b6e80a45153ef64579c4613595d222787d98d1034a2e3276bba6f"
+    },
+    {
+      "path": "sdk-v3/wineboot.log",
+      "bytes": 86,
+      "sha256": "87d0835ec49a63f91dcca4b0ca06fa5f3e1edb2621d11f8f8d003a44e18bb5aa"
+    },
+    {
+      "path": "sdk-v3/移动 installation/lib/cmake/Ernie/ErnieConfig.cmake",
+      "bytes": 2187,
+      "sha256": "4f0a04ce47ac729a001848eacb47a68d1fdda9ac056e21391321140843cf0866"
+    },
+    {
+      "path": "sdk-v3/移动 installation/lib/cmake/Ernie/ErnieConfigVersion.cmake",
+      "bytes": 3249,
+      "sha256": "d9f95ead4f9d6d91365d659e872794aacbaa4262a60cdc268231920763e3cf87"
+    },
+    {
+      "path": "sdk-v3/移动 installation/lib/cmake/Ernie/ErnieTargets-release.cmake",
+      "bytes": 4602,
+      "sha256": "f9a2829c19d76eb999b472bfc70a72b72c219d37e9c24067eaa5019f75c15687"
+    },
+    {
+      "path": "sdk-v3/移动 installation/lib/cmake/Ernie/ErnieTargets.cmake",
+      "bytes": 6878,
+      "sha256": "bfa504dfc8a2056469700e6cbc3446a1ee411b68803092630b2fc8df401f9e2a"
+    },
+    {
+      "path": "sdk-v3/移动 installation/lib/cmake/ncnn/ncnn-release.cmake",
+      "bytes": 789,
+      "sha256": "562cb63272bed70e15d266255dcb901567b7bde229e67f8fbd1f12a95e150db6"
+    },
+    {
+      "path": "sdk-v3/移动 installation/lib/cmake/ncnn/ncnn.cmake",
+      "bytes": 4207,
+      "sha256": "06cdfb84996f43a2c2b365b21c3d05fe9027e2b9477bfcf9a22110279f525a7e"
+    },
+    {
+      "path": "sdk-v3/移动 installation/lib/cmake/ncnn/ncnnConfig.cmake",
+      "bytes": 1604,
+      "sha256": "84eb90d34f068efccd21772d93ae27ed1a5cb9beaf0e6dbd2ce7470e57311c0c"
+    },
+    {
+      "path": "sdk-v3/移动 installation/lib/cmake/ncnn/ncnnConfigVersion.cmake",
+      "bytes": 1864,
+      "sha256": "0f7e618e1e00bab60bf8f0789df90f4f9a3e427d553ae92f314f186c8b4e1daf"
+    },
+    {
+      "path": "sdk-v3-cleanup-journal.json",
+      "bytes": 1047,
+      "sha256": "8993c4d459dd2ab51770d0a2127c46332e3fef73bf9788c061449d3ed05d5fa2"
+    },
+    {
+      "path": "sdk-v4/consumer/CMakeLists.txt",
+      "bytes": 580,
+      "sha256": "b8cd8ac0251fb028e09f6e925521471e0913e5b9c43385d1043dd0c160b75153"
+    },
+    {
+      "path": "sdk-v4/consumer/main.cpp",
+      "bytes": 1862,
+      "sha256": "3e1e797784c4c614b40f1035cc6bb5e6367b1f6467aec667d71b1974edb82a53"
+    },
+    {
+      "path": "sdk-v4/consumer-build/CMakeCache.txt",
+      "bytes": 15513,
+      "sha256": "45064ba4cd51dc4c62fc43f989b4f11ca52b1b70e5f8570f20a17bfe9dedd8e6"
+    },
+    {
+      "path": "sdk-v4/consumer-build/CMakeFiles/4.3.0/CMakeCXXCompiler.cmake",
+      "bytes": 6768,
+      "sha256": "dadf5afcd41664f7ed1d2586c74be75a2b49858ad384eadc729400e9c8849d66"
+    },
+    {
+      "path": "sdk-v4/consumer-build/compile_commands.json",
+      "bytes": 479,
+      "sha256": "b6f0441dbd5c5f541dde47aef5b454357af913101b05550a44d0f2e20a9db8a3"
+    },
+    {
+      "path": "sdk-v4/consumer-build.log",
+      "bytes": 133,
+      "sha256": "fda52d1db5404e6a89e4746c8b7a10395286707049137d2fec51b60c1b495d38"
+    },
+    {
+      "path": "sdk-v4/consumer-configure.log",
+      "bytes": 781,
+      "sha256": "eaf0ad7fc03aeb453035cc2231ac365b1579c4fdab7e93683bd8c9b343e24ca0"
+    },
+    {
+      "path": "sdk-v4/consumer-ctest.xml",
+      "bytes": 425,
+      "sha256": "41d875147ab12abc8ef4cc574b1a60ad146b4b12e950db575a406777093c285d"
+    },
+    {
+      "path": "sdk-v4/consumer-test.log",
+      "bytes": 244,
+      "sha256": "8fa3b7f905f19baf614e8a7353ba38f419f64707bc9c865072b823fb61bda710"
+    },
+    {
+      "path": "sdk-v4/install.log",
+      "bytes": 4686,
+      "sha256": "619cf9f4bd5b03f91ba808c082ee4a626d9fb4615949ec035631825a214a106d"
+    },
+    {
+      "path": "sdk-v4/installed-corrupt-package.log",
+      "bytes": 28,
+      "sha256": "38d11c9d79b43193c1cd8bc83702c9966a193a01240ea9112d2a12263d322406"
+    },
+    {
+      "path": "sdk-v4/installed-diagnose.log",
+      "bytes": 58,
+      "sha256": "2709abeedaf3d293ecc467ed7d840f2f4787492fe2cdea9a4d81e69edbf63123"
+    },
+    {
+      "path": "sdk-v4/installed-help.log",
+      "bytes": 2028,
+      "sha256": "188ada17578d12625bfad8a684c7d82dbaa6cc4a9c1665a1265213c99151664b"
+    },
+    {
+      "path": "sdk-v4/installed-utf8-argument.log",
+      "bytes": 33,
+      "sha256": "c9bcd806cbadaae7b93b78f2ce44218638440065c78ad6ac9d0a0fc20eabf2af"
+    },
+    {
+      "path": "sdk-v4/installed-utf8-prompt-path.log",
+      "bytes": 32,
+      "sha256": "cb07d6ad0c39c40ec3c7ff29240ee638cf79e161316985c01a89cd25016f978d"
+    },
+    {
+      "path": "sdk-v4/isolation-preflight.log",
+      "bytes": 54,
+      "sha256": "d2a678d59c6a6c306d3d01d3dd05fc439e03388f612a7c30ea02b7cdbf7b0327"
+    },
+    {
+      "path": "sdk-v4/result.json",
+      "bytes": 21849,
+      "sha256": "ce870825439016d5cee92861b0e18832ceec6cd2b6fec2eb32053414da74e8b7"
+    },
+    {
+      "path": "sdk-v4/toolchain.cmake",
+      "bytes": 611,
+      "sha256": "c7313eff213aab424a7a2cf5ca727c2929876dc9929454fb176b70c55dfa2301"
+    },
+    {
+      "path": "sdk-v4/wine-prefix-stop.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "sdk-v4/wine-prefix-wait.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "sdk-v4/wineboot.log",
+      "bytes": 86,
+      "sha256": "72eae0a9617a8115a2aba51ee398641913e03f32e6249d8cb2c5b0d3fe29c232"
+    },
+    {
+      "path": "sdk-v4/移动 installation/lib/cmake/Ernie/ErnieConfig.cmake",
+      "bytes": 2187,
+      "sha256": "4f0a04ce47ac729a001848eacb47a68d1fdda9ac056e21391321140843cf0866"
+    },
+    {
+      "path": "sdk-v4/移动 installation/lib/cmake/Ernie/ErnieConfigVersion.cmake",
+      "bytes": 3249,
+      "sha256": "d9f95ead4f9d6d91365d659e872794aacbaa4262a60cdc268231920763e3cf87"
+    },
+    {
+      "path": "sdk-v4/移动 installation/lib/cmake/Ernie/ErnieTargets-release.cmake",
+      "bytes": 4602,
+      "sha256": "f9a2829c19d76eb999b472bfc70a72b72c219d37e9c24067eaa5019f75c15687"
+    },
+    {
+      "path": "sdk-v4/移动 installation/lib/cmake/Ernie/ErnieTargets.cmake",
+      "bytes": 6878,
+      "sha256": "bfa504dfc8a2056469700e6cbc3446a1ee411b68803092630b2fc8df401f9e2a"
+    },
+    {
+      "path": "sdk-v4/移动 installation/lib/cmake/ncnn/ncnn-release.cmake",
+      "bytes": 789,
+      "sha256": "562cb63272bed70e15d266255dcb901567b7bde229e67f8fbd1f12a95e150db6"
+    },
+    {
+      "path": "sdk-v4/移动 installation/lib/cmake/ncnn/ncnn.cmake",
+      "bytes": 4207,
+      "sha256": "06cdfb84996f43a2c2b365b21c3d05fe9027e2b9477bfcf9a22110279f525a7e"
+    },
+    {
+      "path": "sdk-v4/移动 installation/lib/cmake/ncnn/ncnnConfig.cmake",
+      "bytes": 1604,
+      "sha256": "84eb90d34f068efccd21772d93ae27ed1a5cb9beaf0e6dbd2ce7470e57311c0c"
+    },
+    {
+      "path": "sdk-v4/移动 installation/lib/cmake/ncnn/ncnnConfigVersion.cmake",
+      "bytes": 1864,
+      "sha256": "0f7e618e1e00bab60bf8f0789df90f4f9a3e427d553ae92f314f186c8b4e1daf"
+    },
+    {
+      "path": "source-inventory.json",
+      "bytes": 54105,
+      "sha256": "24ad8558acfc52cc007423695ec42104e0fb1e759e8b07070ef5f9707abbfce9"
+    },
+    {
+      "path": "source.patch",
+      "bytes": 42727,
+      "sha256": "4f224b6b6604a9cb10bd8b3e56255f15899888b34ede6a9e5baa35d540920e93"
+    },
+    {
+      "path": "successful-unit-journals.json",
+      "bytes": 759,
+      "sha256": "ec7c7daddf683bf803714ff41fb5628f33bce49c89fabef62908b154050092fc"
+    },
+    {
+      "path": "terminal-observations.json",
+      "bytes": 813,
+      "sha256": "135bd3172772ccbfaf0ee5d4f0ac67b2c305e2f986fc3f43c30f85232ff9db9f"
+    },
+    {
+      "path": "toolchain-and-upstream.json",
+      "bytes": 1960,
+      "sha256": "fe90db13d9a91fc9f897c8b7064b943bedaa19befc5fb39ea2cf6e06e6430c88"
+    },
+    {
+      "path": "unit-status.json",
+      "bytes": 3498,
+      "sha256": "d644ef235c679505c730068364e9df4509e6b112beda449486eeb5a22c61e64a"
+    }
+  ]
+}

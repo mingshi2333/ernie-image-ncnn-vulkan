@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "journalctl",
+    "--user-unit=ernie-windows-sdk-v3.service",
+    "--no-pager",
+    "-n",
+    "35"
+  ],
+  "return_code": 0,
+  "output": "Sep 07 10:48:42 mios-pc systemd[4169]: Started ernie-windows-sdk-v3.service - [systemd-run] /usr/bin/python3 outputs/windows-cpu-v1/check-installed.py.\nSep 07 10:50:11 mios-pc systemd[4169]: ernie-windows-sdk-v3.service: State 'stop-sigterm' timed out. Aborting.\nSep 07 10:50:11 mios-pc systemd[4169]: ernie-windows-sdk-v3.service: Killing process 3063261 (winedevice.exe) with signal SIGABRT.\nSep 07 10:50:56 mios-pc systemd[4169]: ernie-windows-sdk-v3.service: State 'stop-watchdog' timed out. Killing.\nSep 07 10:50:56 mios-pc systemd[4169]: ernie-windows-sdk-v3.service: Killing process 3063261 (winedevice.exe) with signal SIGKILL.\nSep 07 10:50:56 mios-pc systemd[4169]: ernie-windows-sdk-v3.service: Failed with result 'timeout'.\nSep 07 10:50:56 mios-pc systemd[4169]: ernie-windows-sdk-v3.service: Consumed 44.619s CPU time over 2min 13.770s wall clock time, 3G memory peak.\n"
+}

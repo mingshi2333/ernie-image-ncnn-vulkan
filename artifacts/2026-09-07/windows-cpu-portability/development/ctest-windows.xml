@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Win32-ninja-build"
+	tests="27"
+	failures="1"
+	disabled="0"
+	skipped="0"
+	hostname="mios-pc"
+	time="1"
+	timestamp="2026-09-07T10:16:20"
+	>
+	<testcase name="native_cache_cpu" classname="native_cache_cpu" time="0.0762724" status="run">
+		<properties/>
+		<system-out>{"ncnn_revision":"6a1bf000f363714839a36793addc8c879d3d899e","q_heads":32,"kv_heads":8,"head_dim":128,"backend":"cpu","runtime_layer":false}
+{"configuration":"cpu_fp32_dedicated","case":"prefill_decode_reuse","tokens":40,"steps":9,"hint":128,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":2.16066837e-07,"nrmse":9.75170428e-08,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"cpu_fp32_dedicated","case":"reset_and_growth","tokens":65,"steps":7,"hint":8,"key_backing_allocations":3,"value_backing_allocations":3,"max_abs_error":1.93715096e-07,"nrmse":1.12160878e-07,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"cpu_fp32_dedicated","case":"fresh_prompt_after_reset","tokens":9,"steps":3,"hint":16,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":1.49011612e-07,"nrmse":8.58064168e-08,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"cpu_fp32_default","case":"prefill_decode_reuse","tokens":40,"steps":9,"hint":128,"key_b...
+[This part of the test output was removed since it exceeds the threshold of 1024 bytes.]
+</system-out>
+	</testcase>
+	<testcase name="runtime_cache_cpu" classname="runtime_cache_cpu" time="0.071668" status="run">
+		<properties/>
+		<system-out>overwrite built-in layer type SDPA
+overwrite built-in layer type SDPA
+{"ncnn_revision":"6a1bf000f363714839a36793addc8c879d3d899e","q_heads":32,"kv_heads":8,"head_dim":128,"backend":"cpu","runtime_layer":true}
+{"configuration":"cpu_fp32_dedicated","case":"prefill_decode_reuse","tokens":40,"steps":9,"hint":128,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":2.16066837e-07,"nrmse":9.75170428e-08,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"cpu_fp32_dedicated","case":"reset_and_growth","tokens":65,"steps":7,"hint":8,"key_backing_allocations":3,"value_backing_allocations":3,"max_abs_error":1.93715096e-07,"nrmse":1.12160878e-07,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"cpu_fp32_dedicated","case":"fresh_prompt_after_reset","tokens":9,"steps":3,"hint":16,"key_backing_allocations":1,"value_backing_allocations":1,"max_abs_error":1.49011612e-07,"nrmse":8.58064168e-08,"atol":2e-05,"nrmse_limit":2e-05,"passed":true}
+{"configuration":"cpu_fp32_default",...
+[This part of the test output was removed since it exceeds the threshold of 1024 bytes.]
+</system-out>
+	</testcase>
+	<testcase name="generation_report_writer" classname="generation_report_writer" time="0.0268418" status="fail">
+		<failure message="Failed"/>
+		<properties/>
+		<system-out>Generation report overwrote an existing file
+</system-out>
+	</testcase>
+	<testcase name="pipeline_api_contract" classname="pipeline_api_contract" time="0.051835" status="run">
+		<properties/>
+		<system-out>Public C++ API builds without private headers and reports runtime capabilities
+</system-out>
+	</testcase>
+	<testcase name="request_validation_contract" classname="request_validation_contract" time="0.0538926" status="run">
+		<properties/>
+		<system-out>Request validation rejects invalid and unavailable configurations before model loading
+</system-out>
+	</testcase>
+	<testcase name="gpu_context_contract" classname="gpu_context_contract" time="0.0267729" status="run">
+		<properties/>
+		<system-out>Shared GPU context survives nested, concurrent and failed diagnostic users
+</system-out>
+	</testcase>
+	<testcase name="prompt_file_contract" classname="prompt_file_contract" time="0.032706" status="run">
+		<properties/>
+		<system-out>Prompt BOM, exact whitespace and UTF-8 boundaries passed
+</system-out>
+	</testcase>
+	<testcase name="image_io_contract" classname="image_io_contract" time="0.0370089" status="run">
+		<properties/>
+		<system-out>PNG/JPEG/BMP/TGA image I/O contracts passed
+</system-out>
+	</testcase>
+	<testcase name="pe_sampling_contract" classname="pe_sampling_contract" time="0.0683328" status="run">
+		<properties/>
+		<system-out>PE greedy, 100000-draw distribution, nucleus, bounds and finite-value contracts passed
+</system-out>
+	</testcase>
+	<testcase name="latent_contract_cpu" classname="latent_contract_cpu" time="0.037333" status="run">
+		<properties/>
+		<system-out>Schedule, shape, invalid delta, BN statistics, and aliased update contracts passed
+</system-out>
+	</testcase>
+	<testcase name="component_files_contract_cpu" classname="component_files_contract_cpu" time="0.0473469" status="run">
+		<properties/>
+		<system-out>Memory/file graph equivalence, lifetime and bounded component inputs passed
+</system-out>
+	</testcase>
+	<testcase name="weight_placement_cpu" classname="weight_placement_cpu" time="0.0281716" status="run">
+		<properties/>
+		<system-out>Adaptive weight budget, overrides, unavailable data and failure contracts passed
+</system-out>
+	</testcase>
+	<testcase name="weight_session_cpu" classname="weight_session_cpu" time="0.0379267" status="run">
+		<properties/>
+		<system-out>Budget, repeated scan, pressure, identity, failure, move and cancellation contracts passed
+</system-out>
+	</testcase>
+	<testcase name="host_memory_cpu" classname="host_memory_cpu" time="0.0735" status="run">
+		<properties/>
+		<system-out>File LRU movement, bounded credit, real pressure, ancestors, changing inputs, corruption, missing counters and overflow contracts pass
+</system-out>
+	</testcase>
+	<testcase name="model_loading_cpu" classname="model_loading_cpu" time="0.0411894" status="run">
+		<properties/>
+		<system-out>fopen C:\users\mingshi\AppData\Local\Temp\ernie-model-loading-1788765381509761000\absent.bin failed
+fopen C:\users\mingshi\AppData\Local\Temp\ernie-model-loading-1788765381509761000\absent.bin failed
+CPU FP32/BF16 files: both loading modes, build defaults, repeated extraction, mapping ownership and missing-file rejection pass
+</system-out>
+	</testcase>
+	<testcase name="model_reader_cpu" classname="model_reader_cpu" time="0.136572" status="run">
+		<properties/>
+		<system-out>ModelBin read float16_weights failed 35
+ModelBin read flag_struct failed 2
+ModelBin read bfloat16_weights failed 35
+ModelBin read flag_struct failed 2
+FP16 count=1 payload=4 vector_bytes=8 bit_exact=true
+FP16 count=2 payload=4 vector_bytes=8 bit_exact=true
+FP16 count=3 payload=8 vector_bytes=16 bit_exact=true
+FP16 count=17 payload=36 vector_bytes=72 bit_exact=true
+FP16 count=2049 payload=4100 vector_bytes=8200 bit_exact=true
+FP16 count=65537 payload=131076 vector_bytes=262152 bit_exact=true
+FP16 count=4194305 payload=8388612 vector_bytes=16777224 bit_exact=true
+BF16 count=1 payload=4 vector_bytes=8 bit_exact=true
+BF16 count=2 payload=4 vector_bytes=8 bit_exact=true
+BF16 count=3 payload=8 vector_bytes=16 bit_exact=true
+BF16 count=17 payload=36 vector_bytes=72 bit_exact=true
+BF16 count=2049 payload=4100 vector_bytes=8200 bit_exact=true
+BF16 count=65537 payload=131076 vector_bytes=262152 bit_exact=true
+BF16 count=4194305 payload=8388612 vector_bytes=16777224 bit_exact=true
+</system-out>
+	</testcase>
+	<testcase name="img2img_contract_cpu" classname="img2img_contract_cpu" time="0.0396198" status="run">
+		<properties/>
+		<system-out>Img2img endpoints, interpolation, positive rounding, rejection and no-denoise reconstruction passed
+</system-out>
+	</testcase>
+	<testcase name="image_encoder_contract_cpu" classname="image_encoder_contract_cpu" time="0.0418056" status="run">
+		<properties/>
+		<system-out>VAE encoder request boundary contracts passed
+</system-out>
+	</testcase>
+	<testcase name="residual_contract_cpu" classname="residual_contract_cpu" time="0.0365137" status="run">
+		<properties/>
+		<system-out>overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+FP32 residual above 65504, normalized projection and finite guards passed
+</system-out>
+	</testcase>
+	<testcase name="rmsnorm_range_cpu" classname="rmsnorm_range_cpu" time="0.0402633" status="run">
+		<properties/>
+		<system-out>overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type RMSNorm
+{"backend":"cpu","precision":"fp32","native":false,"centered":false,"width":128,"scale":1,"max_abs_error":9.42942e-08,"limit":2e-06,"passed":true}
+{"backend":"cpu","precision":"fp32","native":false,"centered":false,"width":128,"scale":512,"max_abs_error":1.24853e-07,"limit":2e-06,"passed":true}
+{"backend":"cpu","precision":"fp32","native":false,"centered":false,"width":3072,"scale":1,"max_abs_error":9.42942e-08,"limit":2e-06,"passed":true}
+{"backend":"cpu","precision":"fp32","native":false,"centered":false,"width":3072,"scale":512,"max_abs_error":1.24853e-07,"limit":2e-06,"passed":true}
+{"backend":"cpu","precision":"fp32","native":false,"centered":false,"width":4096,"scale":1,"max_abs_error":9.42942e-08,"limit":2e-06,"passed":true}
+{"backend":"cpu","precision":"fp32","native":false,"ce...
+[This part of the test output was removed since it exceeds the threshold of 1024 bytes.]
+</system-out>
+	</testcase>
+	<testcase name="layernorm_range_cpu" classname="layernorm_range_cpu" time="0.0338803" status="run">
+		<properties/>
+		<system-out>overwrite built-in layer type LayerNorm
+overwrite built-in layer type LayerNorm
+{"backend":"cpu","precision":"fp32","native":false,"centered":true,"width":4096,"scale":1,"max_abs_error":2.05526e-07,"limit":2e-06,"passed":true}
+{"backend":"cpu","precision":"fp32","native":false,"centered":true,"width":4096,"scale":1024,"max_abs_error":2.74321e-07,"limit":2e-06,"passed":true}
+</system-out>
+	</testcase>
+	<testcase name="erf_gelu_cpu" classname="erf_gelu_cpu" time="0.0679125" status="run">
+		<properties/>
+		<system-out>overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+{"backend":"cpu","precision":"fp32","shape":0,"samples":65536,"max_abs_error":3.72798e-07,"limit":2e-06,"passed":true}
+{"backend":"cpu","precision":"fp32","shape":1,"samples":98688,"max_abs_error":3.83925e-07,"limit":2e-06,"passed":true}
+</system-out>
+	</testcase>
+	<testcase name="shape_plan_contract" classname="shape_plan_contract" time="0.0261805" status="run">
+		<properties/>
+		<system-out>Checked shape, bucket selection and memory policy passed; no inference in this test
+</system-out>
+	</testcase>
+	<testcase name="shape_graph_contract" classname="shape_graph_contract" time="0.036363" status="run">
+		<properties/>
+		<system-out>Reviewed graph contract checks passed; no model inference
+</system-out>
+	</testcase>
+	<testcase name="text_down_contract_cpu" classname="text_down_contract_cpu" time="0.152398" status="run">
+		<properties/>
+		<system-out>layer load_param 1 down failed
+layer load_param 1 down failed
+layer load_param 1 down failed
+layer load_param 1 down failed
+layer load_param 1 down failed
+text_down_contract passed
+</system-out>
+	</testcase>
+	<testcase name="model_package_contract" classname="model_package_contract" time="0.0443323" status="run">
+		<properties/>
+		<system-out>model package error contract passed
+</system-out>
+	</testcase>
+	<testcase name="execution_metrics_cpu" classname="execution_metrics_cpu" time="0.0285777" status="run">
+		<properties/>
+		<system-out>execution metrics CPU contracts passed
+</system-out>
+	</testcase>
+</testsuite>

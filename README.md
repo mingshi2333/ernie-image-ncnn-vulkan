@@ -41,6 +41,7 @@ ERNIE-Image-Turbo 本地文生图的 C++ / ncnn / Vulkan 实现。**可以离线
 | 原生 KV cache 与 PE | 26 层 CPU PE、独立 allocator；315-token 完整 greedy 对照通过，52 个 K/V 缓冲区保持地址稳定；真实单块 reset/独立会话/容量检查通过 |
 | 512×384 PE → PNG | 原生 PE、文本、36 层 DiT × 8 步、VAE 全部连接；FP32 24/25 张量通过，PNG MAE 0.002487、最大差 2，通过像素门槛；整体仍未通过 |
 | 512×384 长提示词 | 对方 1080-token 中文示例完整运行；FP32 19/25、PNG 最大差 17，BF16 11/25、PNG 最大差 255，整体均未通过 |
+| Windows CPU 开发验证 | MinGW/Wine 下 28 项 C++、35 项 CLI/报告检查及中文/emoji 路径迁移安装通过；原生 Windows/MSVC/Vulkan 出图仍待验证，见 [构建说明](docs/BUILDING-WINDOWS.md) |
 
 最新证据、固定门槛、失败记录及适用范围见 [功能与结构交付报告](artifacts/2026-09-06/features-and-structure/README.md)。此前的 [注意力改进报告](artifacts/2026-09-06/attention-parity/README.md)、[数值诊断说明](docs/NUMERICAL-DIAGNOSTICS.md) 和 [Turbo 交付报告](artifacts/2026-09-05/turbo-delivery/README.md) 保留。历史 [pipeline 报告](artifacts/2026-09-05/pipeline/README.md)、[组件报告](artifacts/2026-09-05/components/README.md) 和 [单 block 报告](artifacts/2026-09-05/dit-block/README.md) 保留各自的输入与代码版本，不能混作同一轮结果。
 

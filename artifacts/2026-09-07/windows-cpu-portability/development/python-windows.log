@@ -1,0 +1,106 @@
+test_native_json_roundtrip (tests.test_generation_report.GenerationReportTest.test_native_json_roundtrip) ... ok
+test_bf16_request_obeys_compiled_device_support (tests.test_cli.CliTests.test_bf16_request_obeys_compiled_device_support) ... ok
+test_diagnose_lists_runtime_without_loading_a_model (tests.test_cli.CliTests.test_diagnose_lists_runtime_without_loading_a_model) ... ok
+test_diagnose_reads_only_bounded_model_config_metadata (tests.test_cli.CliTests.test_diagnose_reads_only_bounded_model_config_metadata) ... ok
+test_diagnose_rejects_generation_options (tests.test_cli.CliTests.test_diagnose_rejects_generation_options) ... ok
+test_dimensions_must_be_multiples_of_sixteen (tests.test_cli.CliTests.test_dimensions_must_be_multiples_of_sixteen) ... ok
+test_dimensions_require_both_axes (tests.test_cli.CliTests.test_dimensions_require_both_axes) ... ok
+test_duplicate_prompt_cannot_silently_replace_first (tests.test_cli.CliTests.test_duplicate_prompt_cannot_silently_replace_first) ... ok
+test_generation_report_options (tests.test_cli.CliTests.test_generation_report_options) ... ok
+test_gpu_requires_a_vulkan_stage (tests.test_cli.CliTests.test_gpu_requires_a_vulkan_stage) ... ok
+test_img2img_only_options_require_input (tests.test_cli.CliTests.test_img2img_only_options_require_input) ... ok
+test_img2img_reads_input_before_model_loading (tests.test_cli.CliTests.test_img2img_reads_input_before_model_loading) ... ok
+test_invalid_img2img_metadata_is_rejected (tests.test_cli.CliTests.test_invalid_img2img_metadata_is_rejected) ... ok
+test_invalid_utf8_prompt_file_is_rejected (tests.test_cli.CliTests.test_invalid_utf8_prompt_file_is_rejected) ... ok
+test_metrics_rejects_empty_path_before_model_loading (tests.test_cli.CliTests.test_metrics_rejects_empty_path_before_model_loading) ... ok
+test_missing_driver_diagnosis_keeps_metadata_and_strict_inference (tests.test_cli.CliTests.test_missing_driver_diagnosis_keeps_metadata_and_strict_inference) ... ok
+test_missing_prompt_file_is_reported_before_model_loading (tests.test_cli.CliTests.test_missing_prompt_file_is_reported_before_model_loading) ... ok
+test_model_loading_options (tests.test_cli.CliTests.test_model_loading_options) ... ok
+test_output_format_is_checked_before_model_loading (tests.test_cli.CliTests.test_output_format_is_checked_before_model_loading) ... ok
+test_pe_cannot_change_prompt_of_precomputed_embeddings (tests.test_cli.CliTests.test_pe_cannot_change_prompt_of_precomputed_embeddings) ... ok
+test_pe_options_require_an_explicit_model (tests.test_cli.CliTests.test_pe_options_require_an_explicit_model) ... ok
+test_pe_rejects_infinite_temperature (tests.test_cli.CliTests.test_pe_rejects_infinite_temperature) ... ok
+test_pe_rejects_invalid_top_p (tests.test_cli.CliTests.test_pe_rejects_invalid_top_p) ... ok
+test_prompt_file_is_bounded_before_model_loading (tests.test_cli.CliTests.test_prompt_file_is_bounded_before_model_loading) ... ok
+test_prompt_sources_are_mutually_exclusive (tests.test_cli.CliTests.test_prompt_sources_are_mutually_exclusive) ... ok
+test_rectangular_request_reaches_model_validation (tests.test_cli.CliTests.test_rectangular_request_reaches_model_validation) ... ok
+test_repeated_resolution_cannot_silently_override (tests.test_cli.CliTests.test_repeated_resolution_cannot_silently_override) ... ok
+test_resize_requires_explicit_target (tests.test_cli.CliTests.test_resize_requires_explicit_target) ... ok
+test_strength_zero_does_not_require_prompt (tests.test_cli.CliTests.test_strength_zero_does_not_require_prompt) ... ok
+test_strength_zero_rejects_unused_prompt_or_pe (tests.test_cli.CliTests.test_strength_zero_rejects_unused_prompt_or_pe) ... ok
+test_threads_are_strictly_bounded (tests.test_cli.CliTests.test_threads_are_strictly_bounded) ... ok
+test_unsupported_text_device_is_explicit (tests.test_cli.CliTests.test_unsupported_text_device_is_explicit) ... ok
+test_vector_reduction_flag_reaches_model_validation (tests.test_cli.CliTests.test_vector_reduction_flag_reaches_model_validation) ... ok
+test_vector_reduction_requires_native_text (tests.test_cli.CliTests.test_vector_reduction_requires_native_text) ... ok
+test_weight_placement_options (tests.test_cli.CliTests.test_weight_placement_options) ... ok
+test_complete_inventory_and_native_check_without_model_loading (tests.test_package.PackageTests.test_complete_inventory_and_native_check_without_model_loading) ... ok
+test_configuration_cannot_disagree_with_manifest (tests.test_package.PackageTests.test_configuration_cannot_disagree_with_manifest) ... ok
+test_copy_survives_source_removal_and_relocation (tests.test_package.PackageTests.test_copy_survives_source_removal_and_relocation) ... ok
+test_development_links_are_explicit (tests.test_package.PackageTests.test_development_links_are_explicit) ... ok
+test_external_alias_to_complete_portable_root_is_allowed (tests.test_package.PackageTests.test_external_alias_to_complete_portable_root_is_allowed) ... ok
+test_fixed_shape_module_api_also_checks_source_identity (tests.test_package.PackageTests.test_fixed_shape_module_api_also_checks_source_identity) ... ok
+test_fixed_shape_rejects_unreviewed_source_before_writing (tests.test_package.PackageTests.test_fixed_shape_rejects_unreviewed_source_before_writing) ... ok
+test_manifest_config_cannot_use_boolean_for_integer (tests.test_package.PackageTests.test_manifest_config_cannot_use_boolean_for_integer) ... ok
+test_missing_last_text_layer (tests.test_package.PackageTests.test_missing_last_text_layer) ... ok
+test_omitted_file_cannot_evade_verification (tests.test_package.PackageTests.test_omitted_file_cannot_evade_verification) ... ok
+test_path_escape_cannot_enter_inventory (tests.test_package.PackageTests.test_path_escape_cannot_enter_inventory) ... ok
+test_portable_flag_must_be_boolean (tests.test_package.PackageTests.test_portable_flag_must_be_boolean) ... ok
+test_portable_package_rejects_directory_link (tests.test_package.PackageTests.test_portable_package_rejects_directory_link) ... FAIL
+test_portable_package_rejects_external_file_link (tests.test_package.PackageTests.test_portable_package_rejects_external_file_link) ... FAIL
+test_reject_version_mismatch (tests.test_package.PackageTests.test_reject_version_mismatch) ... ok
+test_same_size_bit_corruption (tests.test_package.PackageTests.test_same_size_bit_corruption) ... ok
+test_truncated_weight (tests.test_package.PackageTests.test_truncated_weight) ... ok
+test_complete_package (tests.test_pe_package.PePackageTests.test_complete_package) ... ok
+test_missing_head (tests.test_pe_package.PePackageTests.test_missing_head) ... ok
+test_move_without_source (tests.test_pe_package.PePackageTests.test_move_without_source) ... ok
+test_omitted_tail_checksum (tests.test_pe_package.PePackageTests.test_omitted_tail_checksum) ... ok
+test_portable_package_rejects_external_link (tests.test_pe_package.PePackageTests.test_portable_package_rejects_external_link) ... FAIL
+test_resealed_changed_chat_template (tests.test_pe_package.PePackageTests.test_resealed_changed_chat_template) ... ok
+test_resealed_configuration_disagreement (tests.test_pe_package.PePackageTests.test_resealed_configuration_disagreement) ... ok
+test_resealed_wrong_capacity (tests.test_pe_package.PePackageTests.test_resealed_wrong_capacity) ... ok
+test_revision_mismatch (tests.test_pe_package.PePackageTests.test_revision_mismatch) ... ok
+test_tail_block_corruption (tests.test_pe_package.PePackageTests.test_tail_block_corruption) ... ok
+
+======================================================================
+FAIL: test_portable_package_rejects_directory_link (tests.test_package.PackageTests.test_portable_package_rejects_directory_link)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tests/test_package.py", line 106, in test_portable_package_rejects_directory_link
+    self.check(False, 'Portable package contains a symlink')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tests/test_package.py", line 52, in check
+    self.assertEqual(run.returncode == 0, valid, run.stdout+run.stderr)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True != False : Model verified
+
+
+======================================================================
+FAIL: test_portable_package_rejects_external_file_link (tests.test_package.PackageTests.test_portable_package_rejects_external_file_link)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tests/test_package.py", line 101, in test_portable_package_rejects_external_file_link
+    self.check(False, 'Portable package contains a symlink')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tests/test_package.py", line 52, in check
+    self.assertEqual(run.returncode == 0, valid, run.stdout+run.stderr)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True != False : Model verified
+
+
+======================================================================
+FAIL: test_portable_package_rejects_external_link (tests.test_pe_package.PePackageTests.test_portable_package_rejects_external_link)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tests/test_pe_package.py", line 76, in test_portable_package_rejects_external_link
+    self.check(False)
+    ~~~~~~~~~~^^^^^^^
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tests/test_pe_package.py", line 42, in check
+    self.assertEqual(run.returncode == 0, valid, run.stdout+run.stderr)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True != False : Model verified
+
+
+----------------------------------------------------------------------
+Ran 62 tests in 736.346s
+
+FAILED (failures=3)

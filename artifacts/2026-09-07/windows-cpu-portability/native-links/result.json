@@ -1,0 +1,129 @@
+{
+  "scope": "Actual Windows Rust symlink creation and package verification under Wine; model-free, not native Windows acceptance",
+  "status": "passed",
+  "commands": [
+    {
+      "name": "build-helper",
+      "argv": [
+        "/home/mingshi/.rustup/toolchains/1.98.0-x86_64-unknown-linux-gnu/bin/rustc",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/windows-cpu-v1/link-semantics.rs",
+        "--edition=2024",
+        "--target=x86_64-pc-windows-gnu",
+        "-C",
+        "linker=/usr/bin/x86_64-w64-mingw32-gcc",
+        "-o",
+        "/var/tmp/ernie-windows-native-links-v1/link-semantics.exe"
+      ],
+      "return_code": 0,
+      "seconds": 0.3486218710022513
+    },
+    {
+      "name": "image-file-before",
+      "argv": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-image.exe",
+        "--model",
+        "/var/tmp/ernie-windows-native-links-v1/image-file/model",
+        "--verify-model"
+      ],
+      "return_code": 0,
+      "seconds": 8.870472946990049
+    },
+    {
+      "name": "image-file-create",
+      "argv": [
+        "/usr/bin/wine",
+        "/var/tmp/ernie-windows-native-links-v1/link-semantics.exe",
+        "create-file",
+        "/var/tmp/ernie-windows-native-links-v1/image-file/external",
+        "/var/tmp/ernie-windows-native-links-v1/image-file/model/vae/bn-mean.f32"
+      ],
+      "return_code": 0,
+      "seconds": 8.489770896005211
+    },
+    {
+      "name": "image-file-reject",
+      "argv": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-image.exe",
+        "--model",
+        "/var/tmp/ernie-windows-native-links-v1/image-file/model",
+        "--verify-model"
+      ],
+      "return_code": 1,
+      "seconds": 8.778705040982459
+    },
+    {
+      "name": "image-directory-before",
+      "argv": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-image.exe",
+        "--model",
+        "/var/tmp/ernie-windows-native-links-v1/image-directory/model",
+        "--verify-model"
+      ],
+      "return_code": 0,
+      "seconds": 8.862738748983247
+    },
+    {
+      "name": "image-directory-create",
+      "argv": [
+        "/usr/bin/wine",
+        "/var/tmp/ernie-windows-native-links-v1/link-semantics.exe",
+        "create-directory",
+        "/var/tmp/ernie-windows-native-links-v1/image-directory/external",
+        "/var/tmp/ernie-windows-native-links-v1/image-directory/model/vae"
+      ],
+      "return_code": 0,
+      "seconds": 8.420581052982016
+    },
+    {
+      "name": "image-directory-reject",
+      "argv": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-image.exe",
+        "--model",
+        "/var/tmp/ernie-windows-native-links-v1/image-directory/model",
+        "--verify-model"
+      ],
+      "return_code": 1,
+      "seconds": 8.771046830981504
+    },
+    {
+      "name": "pe-file-before",
+      "argv": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-image.exe",
+        "--pe-model",
+        "/var/tmp/ernie-windows-native-links-v1/pe-file/model",
+        "--verify-model"
+      ],
+      "return_code": 0,
+      "seconds": 8.801995494985022
+    },
+    {
+      "name": "pe-file-create",
+      "argv": [
+        "/usr/bin/wine",
+        "/var/tmp/ernie-windows-native-links-v1/link-semantics.exe",
+        "create-file",
+        "/var/tmp/ernie-windows-native-links-v1/pe-file/external",
+        "/var/tmp/ernie-windows-native-links-v1/pe-file/model/block-00/pe.ncnn.bin"
+      ],
+      "return_code": 0,
+      "seconds": 8.511562954023248
+    },
+    {
+      "name": "pe-file-reject",
+      "argv": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-image.exe",
+        "--pe-model",
+        "/var/tmp/ernie-windows-native-links-v1/pe-file/model",
+        "--verify-model"
+      ],
+      "return_code": 1,
+      "seconds": 8.538023550994694
+    }
+  ]
+}

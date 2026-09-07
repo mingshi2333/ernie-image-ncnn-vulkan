@@ -9,14 +9,14 @@ std::string read_prompt(const fs::path &path)
 {
     std::ifstream file(path, std::ios::binary);
     if (!file || !fs::is_regular_file(path))
-        throw std::invalid_argument("Cannot open prompt file: " + path.string());
+        throw std::invalid_argument("Cannot open prompt file: " + path.u8string());
     constexpr size_t limit = 1024 * 1024;
     if (fs::file_size(path) > limit)
         throw std::invalid_argument("Prompt file exceeds 1 MiB");
     std::string text(limit + 1, '\0');
     file.read(text.data(), text.size());
     if (file.bad())
-        throw std::runtime_error("Cannot read prompt file: " + path.string());
+        throw std::runtime_error("Cannot read prompt file: " + path.u8string());
     text.resize(size_t(file.gcount()));
     if (text.size() > limit)
         throw std::invalid_argument("Prompt file exceeds 1 MiB");

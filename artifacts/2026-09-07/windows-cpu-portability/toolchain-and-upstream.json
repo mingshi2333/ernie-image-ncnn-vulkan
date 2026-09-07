@@ -1,0 +1,67 @@
+{
+  "observed_utc": "2026-09-07T08:05:48.556412+00:00",
+  "commands": [
+    {
+      "argv": [
+        "/usr/bin/x86_64-w64-mingw32-g++",
+        "--version"
+      ],
+      "return_code": 0,
+      "output": "x86_64-w64-mingw32-g++ (GCC) 16.1.1 20260501 (Fedora MinGW 16.1.1-1.fc44)\nCopyright (C) 2026 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n"
+    },
+    {
+      "argv": [
+        "/home/mingshi/.rustup/toolchains/1.98.0-x86_64-unknown-linux-gnu/bin/rustc",
+        "-Vv"
+      ],
+      "return_code": 0,
+      "output": "rustc 1.98.0 (88d9e12ae 2026-08-18)\nbinary: rustc\ncommit-hash: 88d9e12ae178fab0fb5cc050a94da85685d449ea\ncommit-date: 2026-08-18\nhost: x86_64-unknown-linux-gnu\nrelease: 1.98.0\nLLVM version: 22.1.8\n"
+    },
+    {
+      "argv": [
+        "/home/mingshi/.rustup/toolchains/1.98.0-x86_64-unknown-linux-gnu/bin/cargo",
+        "--version"
+      ],
+      "return_code": 0,
+      "output": "cargo 1.98.0 (797e8a9bc 2026-08-05)\n"
+    },
+    {
+      "argv": [
+        "/usr/bin/wine",
+        "--version"
+      ],
+      "return_code": 0,
+      "output": "wine-11.0 (Staging)\n"
+    },
+    {
+      "argv": [
+        "cmake",
+        "--version"
+      ],
+      "return_code": 0,
+      "output": "cmake version 4.3.0\n\nCMake suite maintained and supported by Kitware (kitware.com/cmake).\n"
+    },
+    {
+      "argv": [
+        "git",
+        "-C",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/third_party/ncnn",
+        "rev-parse",
+        "HEAD"
+      ],
+      "return_code": 0,
+      "output": "6a1bf000f363714839a36793addc8c879d3d899e\n"
+    },
+    {
+      "argv": [
+        "git",
+        "-C",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/third_party/ncnn",
+        "status",
+        "--porcelain"
+      ],
+      "return_code": 0,
+      "output": ""
+    }
+  ]
+}

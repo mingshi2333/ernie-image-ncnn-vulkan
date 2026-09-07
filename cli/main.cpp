@@ -11,7 +11,11 @@
 #include <memory>
 #endif
 
+#ifdef _WIN32
+int ernie_cli_main(int argc, char **argv)
+#else
 int main(int argc, char **argv)
+#endif
 {
 #ifdef ERNIE_CLI_ALLOCATION_METRICS
     std::unique_ptr<ernie::cli::AllocationReport> metrics;
@@ -145,7 +149,7 @@ int main(int argc, char **argv)
                       << "\nEnhanced prompt: " << result.prompt << '\n';
         std::cout << "VAE and image encode: " << result.vae_seconds + write_seconds << " s\n"
                   << "Saved " << result.image.width << 'x' << result.image.height
-                  << " image: " << options.output.string() << '\n'
+                  << " image: " << options.output.u8string() << '\n'
                   << "Total: " << result.elapsed_seconds + write_seconds << " s\n";
         return 0;
     }

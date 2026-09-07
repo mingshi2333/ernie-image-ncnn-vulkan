@@ -161,8 +161,8 @@ ncnn::Mat run_dit(const std::string& input_head, const std::vector<std::string>&
     const std::string& output_head, const std::vector<ncnn::Mat>& inputs,
     const ncnn::Option& option, DitStats& stats, const CpuStageObserver& observer)
 {
-    return run_dit(component_files(std::filesystem::path(input_head), "head"), component_files(blocks, "block"),
-                   component_files(std::filesystem::path(output_head), "head"), inputs, option, stats, observer);
+    return run_dit(component_files(std::filesystem::u8path(input_head), "head"), component_files(blocks, "block"),
+                   component_files(std::filesystem::u8path(output_head), "head"), inputs, option, stats, observer);
 }
 #if NCNN_VULKAN
 ncnn::VkMat run_dit(const std::string& input_head, const std::vector<std::string>& blocks,
@@ -170,8 +170,8 @@ ncnn::VkMat run_dit(const std::string& input_head, const std::vector<std::string
     const ncnn::VulkanDevice* device, const ncnn::Option& option, DitStats& stats,
     const VulkanStageObserver& observer, WeightPlacement* placement, WeightSession* session)
 {
-    return run_dit(component_files(std::filesystem::path(input_head), "head"), component_files(blocks, "block"),
-                   component_files(std::filesystem::path(output_head), "head"), inputs, device, option, stats, observer, placement, session);
+    return run_dit(component_files(std::filesystem::u8path(input_head), "head"), component_files(blocks, "block"),
+                   component_files(std::filesystem::u8path(output_head), "head"), inputs, device, option, stats, observer, placement, session);
 }
 #endif
 } // namespace ernie

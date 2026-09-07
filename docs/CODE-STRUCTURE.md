@@ -91,7 +91,9 @@ PE 的 26 层和缓存全部释放后才开始图像文本编码；文本权重�
 -DBUILD_TESTING=OFF -DERNIE_BUILD_PROBES=OFF
 ```
 
-未来 GUI 或服务可以链接 `ernie::pipeline`。`ERNIE_INSTALL_SDK=ON` 同时提供安装后的 `find_package(Ernie CONFIG REQUIRED)` 入口、公共头文件和必需的静态实现库。Linux CPU/Vulkan 均已在迁移前缀、隐藏源码与原构建、禁网后完成外部消费者链接及 API 检查，新增 ShapePlan 和运行统计依赖后已重新完成两种 SDK 的实际安装，并用安装版完成 512×512 原生离线出图，见[最新安装与实图验证](../artifacts/2026-09-07/runtime-images-and-sdk/README.md)。公共头文件不引入 ncnn/PNG，内部归档通过链接依赖保留；安装配置只使用同前缀固定 ncnn。尚未声明跨工具链稳定二进制 ABI、已公开发行的 SDK 或 Windows/macOS 安装通过。
+Windows 参数适配集中在 `cli/windows_main.cpp`；公共 API 的文本与路径字符串使用 UTF-8，组件在文件 I/O 边界转换为原生路径。Rust target、静态库命名和 Windows 系统库仍由 `tokenizer/CMakeLists.txt` 管理。当前 MinGW/Wine CPU 构建、实际小网络和迁移安装证据见[Windows 开发说明](BUILDING-WINDOWS.md)，原生 Windows/MSVC/GPU 与 macOS 验收仍开放。
+
+未来 GUI 或服务可以链接 `ernie::pipeline`。`ERNIE_INSTALL_SDK=ON` 同时提供安装后的 `find_package(Ernie CONFIG REQUIRED)` 入口、公共头文件和必需的静态实现库。Linux CPU/Vulkan 均已在迁移前缀、隐藏源码与原构建、禁网后完成外部消费者链接及 API 检查，新增 ShapePlan 和运行统计依赖后已重新完成两种 SDK 的实际安装，并用安装版完成 512×512 原生离线出图，见[最新安装与实图验证](../artifacts/2026-09-07/runtime-images-and-sdk/README.md)。公共头文件不引入 ncnn/PNG，内部归档通过链接依赖保留；安装配置只使用同前缀固定 ncnn。尚未声明跨工具链稳定二进制 ABI、已公开发行的 SDK 或原生 Windows/macOS 安装通过。
 
 新增推理功能先进入对应组件，再由流水线连接；CLI 只增加参数映射。转换和诊断脚本的任务入口见 [tools/README.md](../tools/README.md)。证据收集器统一使用 `tools/source_inventory.py`，记录 `include`、`cli`、所有子目录构建文件及实现源码，避免重构后遗漏版本信息。
 

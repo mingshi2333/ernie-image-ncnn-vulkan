@@ -1,0 +1,21 @@
+{
+  "scope": "linux CPU; Windows executables run under Wine",
+  "commands": [
+    {
+      "name": "ctest-utf8-linux",
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu",
+        "--parallel",
+        "2",
+        "--output-on-failure",
+        "--output-junit",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/windows-cpu-v1/ctest-utf8-linux.xml"
+      ],
+      "return_code": 0,
+      "required": true,
+      "seconds": 2.067724003980402
+    }
+  ]
+}

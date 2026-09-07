@@ -1,0 +1,5 @@
+path="/var/tmp/ernie-wine-link-semantics-v1\\target" symlink=false file=true directory=false attributes=0x20 canonical=Ok("\\\\?\\Z:\\var\\tmp\\ernie-wine-link-semantics-v1\\target")
+path="/var/tmp/ernie-wine-link-semantics-v1\\posix-file-link" symlink=false file=true directory=false attributes=0x20 canonical=Ok("\\\\?\\Z:\\var\\tmp\\ernie-wine-link-semantics-v1\\posix-file-link")
+path="/var/tmp/ernie-wine-link-semantics-v1\\posix-directory-link" symlink=false file=false directory=true attributes=0x10 canonical=Ok("\\\\?\\Z:\\var\\tmp\\ernie-wine-link-semantics-v1\\posix-directory-link")
+windows_create_symbolic_link=Ok(())
+path="/var/tmp/ernie-wine-link-semantics-v1\\windows-file-link" symlink=true file=false directory=false attributes=0x420 canonical=Ok("\\\\?\\Z:\\var\\tmp\\ernie-wine-link-semantics-v1\\target")

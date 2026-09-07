@@ -1,0 +1,295 @@
+{
+  "imports": {
+    "build-windows-cpu-v1/ernie-attention-accuracy-probe.exe": [
+      "KERNEL32.dll",
+      "msvcrt.dll"
+    ],
+    "build-windows-cpu-v1/ernie-attention-probe.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "build-windows-cpu-v1/ernie-attention-workspace-probe.exe": [
+      "KERNEL32.dll",
+      "msvcrt.dll"
+    ],
+    "build-windows-cpu-v1/ernie-block-runner.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "build-windows-cpu-v1/ernie-block-sequence-runner.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "build-windows-cpu-v1/ernie-component-files-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "build-windows-cpu-v1/ernie-denoise-runner.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "build-windows-cpu-v1/ernie-execution-metrics-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libwinpthread-1.dll",
+      "libstdc++-6.dll"
+    ],
+    "build-windows-cpu-v1/ernie-gelu-probe.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "build-windows-cpu-v1/ernie-generation-report-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "build-windows-cpu-v1/ernie-gpu-context-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libwinpthread-1.dll",
+      "libstdc++-6.dll"
+    ],
+    "build-windows-cpu-v1/ernie-head-runner.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "build-windows-cpu-v1/ernie-host-memory-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "build-windows-cpu-v1/ernie-image-encoder-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "build-windows-cpu-v1/ernie-image-io-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll",
+      "libpng16-16.dll"
+    ],
+    "build-windows-cpu-v1/ernie-image.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "ntdll.dll",
+      "libwinpthread-1.dll",
+      "libstdc++-6.dll",
+      "USERENV.dll",
+      "WS2_32.dll",
+      "libpng16-16.dll",
+      "api-ms-win-core-synch-l1-2-0.dll",
+      "bcryptprimitives.dll"
+    ],
+    "build-windows-cpu-v1/ernie-img2img-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "build-windows-cpu-v1/ernie-img2img-runner.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "build-windows-cpu-v1/ernie-latent-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "build-windows-cpu-v1/ernie-latent-runner.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "build-windows-cpu-v1/ernie-model-loading-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "build-windows-cpu-v1/ernie-model-package-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "ntdll.dll",
+      "libstdc++-6.dll",
+      "USERENV.dll",
+      "WS2_32.dll",
+      "api-ms-win-core-synch-l1-2-0.dll",
+      "bcryptprimitives.dll"
+    ],
+    "build-windows-cpu-v1/ernie-model-reader-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "build-windows-cpu-v1/ernie-pe-block-runner.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "build-windows-cpu-v1/ernie-pe-runner.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "ntdll.dll",
+      "libstdc++-6.dll",
+      "USERENV.dll",
+      "WS2_32.dll",
+      "api-ms-win-core-synch-l1-2-0.dll",
+      "bcryptprimitives.dll"
+    ],
+    "build-windows-cpu-v1/ernie-pe-sampling-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "ntdll.dll",
+      "libstdc++-6.dll",
+      "USERENV.dll",
+      "WS2_32.dll",
+      "api-ms-win-core-synch-l1-2-0.dll",
+      "bcryptprimitives.dll"
+    ],
+    "build-windows-cpu-v1/ernie-pipeline-api-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "ntdll.dll",
+      "libwinpthread-1.dll",
+      "libstdc++-6.dll",
+      "USERENV.dll",
+      "WS2_32.dll",
+      "api-ms-win-core-synch-l1-2-0.dll",
+      "bcryptprimitives.dll"
+    ],
+    "build-windows-cpu-v1/ernie-prompt-file-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "build-windows-cpu-v1/ernie-request-validation-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "ntdll.dll",
+      "libwinpthread-1.dll",
+      "libstdc++-6.dll",
+      "USERENV.dll",
+      "WS2_32.dll",
+      "api-ms-win-core-synch-l1-2-0.dll",
+      "bcryptprimitives.dll"
+    ],
+    "build-windows-cpu-v1/ernie-residual-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "build-windows-cpu-v1/ernie-rmsnorm-probe.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "build-windows-cpu-v1/ernie-shape-graph-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "ntdll.dll",
+      "libstdc++-6.dll",
+      "USERENV.dll",
+      "WS2_32.dll",
+      "api-ms-win-core-synch-l1-2-0.dll",
+      "bcryptprimitives.dll"
+    ],
+    "build-windows-cpu-v1/ernie-shape-plan-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "build-windows-cpu-v1/ernie-text-down-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "build-windows-cpu-v1/ernie-text-gemm-diagnostic.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "build-windows-cpu-v1/ernie-text-runner.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "build-windows-cpu-v1/ernie-tokenize.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "ntdll.dll",
+      "libstdc++-6.dll",
+      "USERENV.dll",
+      "WS2_32.dll",
+      "api-ms-win-core-synch-l1-2-0.dll",
+      "bcryptprimitives.dll"
+    ],
+    "build-windows-cpu-v1/ernie-utf8-paths-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "ntdll.dll",
+      "libwinpthread-1.dll",
+      "libstdc++-6.dll",
+      "USERENV.dll",
+      "WS2_32.dll",
+      "api-ms-win-core-synch-l1-2-0.dll",
+      "bcryptprimitives.dll"
+    ],
+    "build-windows-cpu-v1/ernie-weight-placement-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ],
+    "build-windows-cpu-v1/ernie-weight-session-contract.exe": [
+      "libgcc_s_seh-1.dll",
+      "KERNEL32.dll",
+      "msvcrt.dll",
+      "libstdc++-6.dll"
+    ]
+  },
+  "runtime_dll_closure": "development/windows-imports.json; actual copied DLL hashes also in sdk-v4/result.json",
+  "scope": "Import inspection and actual Wine execution, not DLL redistribution approval"
+}

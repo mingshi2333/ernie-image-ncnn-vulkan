@@ -1,0 +1,662 @@
+{
+  "build-windows-cpu-v1": {
+    "files": [
+      {
+        "path": "build-windows-cpu-v1/ernie-attention-accuracy-probe.exe",
+        "bytes": 134332,
+        "sha256": "811305263dd6cbc4c0f3e25b3c1a336bf05f2c4efaea3ccb3170d13f034a8025"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-attention-probe.exe",
+        "bytes": 10823684,
+        "sha256": "7536d930698ecb2423277bbe2e639bdc022933471c28f833197c1f8c03a9b7b7"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-attention-workspace-probe.exe",
+        "bytes": 134333,
+        "sha256": "e36010b5c5cc5346f5130899fd1ace14f6e3c0cf7866b8022b5bb10442211b29"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-block-runner.exe",
+        "bytes": 10881178,
+        "sha256": "02166c6e502a45764a51b585f9af6257d7f4df7af0b28b77f4fb8c7bd570f5c5"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-block-sequence-runner.exe",
+        "bytes": 10946797,
+        "sha256": "7e8f8f3dd63dd59052801b0bc00b83e43bd7cf0a3ab5b1caa71c04f52fff6f83"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-component-files-contract.exe",
+        "bytes": 10853350,
+        "sha256": "791bd843176173adbbbf6eb4c45bbf78ac24f84d689f1935b9d6492a7cb7148a"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-denoise-runner.exe",
+        "bytes": 10969179,
+        "sha256": "413fb19403d98caed6544aae012196d35e033c1f6f7e17a313371e043fd933ac"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-execution-metrics-contract.exe",
+        "bytes": 209662,
+        "sha256": "2c5f35b3f4a819618a960b053463fcf89c3a17dfd0e339baa86dabaf0f2172b1"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-gelu-probe.exe",
+        "bytes": 10841044,
+        "sha256": "c076d02ed7e133d76dcc4d62a362edc2c7bd904c2a8dc15b0585437e665568d9"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-generation-report-contract.exe",
+        "bytes": 191553,
+        "sha256": "62a29842ec0f4456a739be038b957749f3931f52c831a5767e9d785057248857"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-gpu-context-contract.exe",
+        "bytes": 184467,
+        "sha256": "754e49f38d09e3d1d5b52938b97c985d514f33035fdb35205b50cfd5cf9b061b"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-head-runner.exe",
+        "bytes": 10877666,
+        "sha256": "443fe85712d1d5bb59fa90688961ebcf86a911ef4f46df7c5299855cb9853d2d"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-host-memory-contract.exe",
+        "bytes": 250758,
+        "sha256": "4be704d11020b5782d5d595c47ba111a93f81208b126606c4ea11d12c4c343b2"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-image-encoder-contract.exe",
+        "bytes": 10850704,
+        "sha256": "d0affe7b46f26593c4757fdecee879bb6306ca04802e7802c08b6ea1cbda4722"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-image-io-contract.exe",
+        "bytes": 537328,
+        "sha256": "b0ab74225ac74858d131f5d52f921c458836e089689a6c69b0a40b3889933b5e"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-image.exe",
+        "bytes": 22115394,
+        "sha256": "5c1706e89d8137d408e2b2fc459e6eb34ba778b5eb27bc578e4f06e6a12e4209"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-img2img-contract.exe",
+        "bytes": 10950288,
+        "sha256": "cf8e58eef6c83229d483733fbc8562d25ec92edea66985d3c8f7d70b6278ae65"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-img2img-runner.exe",
+        "bytes": 10913768,
+        "sha256": "a24ca79b812e9a410cd7065b6e53788c34aabf1ec5daa23155d7a105fbe26986"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-latent-contract.exe",
+        "bytes": 10710567,
+        "sha256": "539f0b216564cf62c5a4d1815e3ab50e7066987c6210ae362218d8a608aeb207"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-latent-runner.exe",
+        "bytes": 10756143,
+        "sha256": "0cb474f3de37f53faba0605d4babe245a5cf8c23d6d4aa86040feb4d812f6c7f"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-model-loading-contract.exe",
+        "bytes": 10829698,
+        "sha256": "ef6509c1b8c1e7a5ef9d6d8bc659828076742157ca8dc231701dde7fa3a3ca69"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-model-package-contract.exe",
+        "bytes": 10981969,
+        "sha256": "a1af96f4292370c79d375353150136eaf112736ae4100b93fafa050d8494ef06"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-model-reader-contract.exe",
+        "bytes": 10713970,
+        "sha256": "44c8a00b5bf4df554e572bc4f764c167ebd06f640ab2d616911469cac15b8df1"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-pe-block-runner.exe",
+        "bytes": 10874005,
+        "sha256": "8a53ec47e56874cd354e3842a23cce13d5bef783dab1af4e9ff8ffa8a0f14e4d"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-pe-runner.exe",
+        "bytes": 21532046,
+        "sha256": "6c8792eabd4e5dd87c49b7a813955a1851702a7c66f2d2b0a1ad9ec5c895fd73"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-pe-sampling-contract.exe",
+        "bytes": 21514164,
+        "sha256": "7728579b599e21957dfbf58dd66db1790d2a2c393ef9663be58eab98c0f40ce8"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-pipeline-api-contract.exe",
+        "bytes": 21863832,
+        "sha256": "f769da10db434acda4ac0551bce0a9360986a503b61c73073921f0afd2dba8fe"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-prompt-file-contract.exe",
+        "bytes": 181359,
+        "sha256": "90286fbfc59af17443c0a169f7bc2f35bfb9281640795a217d41d8c7b9cc5a77"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-request-validation-contract.exe",
+        "bytes": 21879540,
+        "sha256": "e362eb01baf855f304bbdbecdf3e0a59f15b046a28d869145c8a9aef3907927b"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-residual-contract.exe",
+        "bytes": 10827662,
+        "sha256": "6e241d34a917e1a6f6be24e006ab6166e99d15da813e41b7b6c9fa77372b9fc7"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-rmsnorm-probe.exe",
+        "bytes": 10816844,
+        "sha256": "075e0e399e1cd6f6fdb1bcfea46137682207beea04d7d6fc725ab20d608c0927"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-shape-graph-contract.exe",
+        "bytes": 10965650,
+        "sha256": "8eefc7f01fb8fd4b00851f28952ff9067ca7d20315d31a403717d5396ebaeee9"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-shape-plan-contract.exe",
+        "bytes": 150201,
+        "sha256": "0733aa49d00f825420025fc699248e7867e103997a79be02f24ccf1bcda4430e"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-text-down-contract.exe",
+        "bytes": 10877120,
+        "sha256": "e8a7f0a1a948fa3f24ebcb28c4400ac61cd2a9e5a04aefd4662000b9a0612010"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-text-gemm-diagnostic.exe",
+        "bytes": 10825968,
+        "sha256": "22fa34b01902cbe69183933a8f30914a9b43567a71f4407ccf419a1404898783"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-text-runner.exe",
+        "bytes": 10969746,
+        "sha256": "5c82c612f83d21e7805c6a1494849ae761183aced57bfd79e678cfb6fe74b4e3"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-tokenize.exe",
+        "bytes": 10848463,
+        "sha256": "da3dc83845a40554a7edc5bf9188589b0a7671a9762573faaa289f4f529ae30f"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-utf8-paths-contract.exe",
+        "bytes": 21905197,
+        "sha256": "5f100105da9f63d8c7ffe11eb68bef392f66c248b25ab02a80d8c1b334fc08a9"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-weight-placement-contract.exe",
+        "bytes": 188614,
+        "sha256": "510b8ebb6aa464200d43a96e670fd67ad4e2f4497e5ce6a914fae6bac66b7869"
+      },
+      {
+        "path": "build-windows-cpu-v1/ernie-weight-session-contract.exe",
+        "bytes": 10835122,
+        "sha256": "402becf665f131435fa818489007c0058500081522a23e6a619ad5b97ebc1b22"
+      },
+      {
+        "path": "build-windows-cpu-v1/src/libernie-execution-metrics.a",
+        "bytes": 50360,
+        "sha256": "b32824ab5ac209f5e02ce90f288d97da04f184aa3abcabb8d45ec5eea2bc371f"
+      },
+      {
+        "path": "build-windows-cpu-v1/src/libernie-model-package.a",
+        "bytes": 32928,
+        "sha256": "261e2c6ba98f35337236505bdbf350fbe1f2f04012f8f5a350ef4df68cde85e4"
+      },
+      {
+        "path": "build-windows-cpu-v1/src/libernie-pe.a",
+        "bytes": 72996,
+        "sha256": "daf8badee9694747a900d9a9273bc5e5ce53a3630d07d3c58d6736b6b10c7450"
+      },
+      {
+        "path": "build-windows-cpu-v1/src/libernie-pipeline.a",
+        "bytes": 251886,
+        "sha256": "e33b12b6b7fe946d654b83c3b000d1c81faf379162b166bf9604f14a5aee661c"
+      },
+      {
+        "path": "build-windows-cpu-v1/src/libernie-runtime.a",
+        "bytes": 531680,
+        "sha256": "f1b3d64894264e70a9e1acca0fcd57c6e769b7b3a713ddf3dfa86677daa0987d"
+      },
+      {
+        "path": "build-windows-cpu-v1/src/libernie-shape-graph.a",
+        "bytes": 125964,
+        "sha256": "1cbda6b8041c82577fc9fd62dbdb42b151a401a70df02798dd5ea71fb9210f1d"
+      },
+      {
+        "path": "build-windows-cpu-v1/src/libernie-shape-plan.a",
+        "bytes": 6436,
+        "sha256": "3239062ebb3524e468009fb0e5c95a6d5d5a2bea7277d28a22206a2ca0de5636"
+      },
+      {
+        "path": "build-windows-cpu-v1/ncnn/src/libncnn.a",
+        "bytes": 12168026,
+        "sha256": "9a7c5a5f7a662620a9bd19f2e00d6f7af92bb4d77bec32737d64aeeb7e77b4f5"
+      }
+    ],
+    "cmake_selected": {
+      "CARGO_EXECUTABLE:FILEPATH": "/home/mingshi/.rustup/toolchains/1.98.0-x86_64-unknown-linux-gnu/bin/cargo",
+      "CMAKE_BUILD_TYPE:STRING": "Release",
+      "CMAKE_TOOLCHAIN_FILE:FILEPATH": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/windows-cpu-v1/toolchain.cmake",
+      "ERNIE_ALLOW_UNPINNED_NCNN:BOOL": "OFF",
+      "ERNIE_BUILD_ALLOCATION_PROBE:BOOL": "OFF",
+      "ERNIE_BUILD_GENERATOR:BOOL": "ON",
+      "ERNIE_BUILD_PROBES:BOOL": "ON",
+      "ERNIE_BUILD_TOKENIZER:BOOL": "ON",
+      "ERNIE_ENABLE_ALLOCATION_METRICS:BOOL": "OFF",
+      "ERNIE_ENABLE_VULKAN:BOOL": "OFF",
+      "ERNIE_EXPERIMENT_COMPACT_MODEL_READER:BOOL": "OFF",
+      "ERNIE_EXPERIMENT_MAPPED_MODEL_LOADING:BOOL": "OFF",
+      "ERNIE_INSTALL_SDK:BOOL": "ON",
+      "ERNIE_MINIMAL_NCNN:BOOL": "ON",
+      "ERNIE_NCNN_SOURCE_DIR:PATH": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/third_party/ncnn",
+      "ERNIE_RUST_TARGET:STRING": "x86_64-pc-windows-gnu",
+      "NCNN_ASAN:BOOL": "OFF",
+      "NCNN_AVX:BOOL": "ON",
+      "NCNN_AVX2:BOOL": "ON",
+      "NCNN_AVX512:BOOL": "ON",
+      "NCNN_AVX512BF16:BOOL": "ON",
+      "NCNN_AVX512FP16:BOOL": "ON",
+      "NCNN_AVX512VNNI:BOOL": "ON",
+      "NCNN_AVXNECONVERT:BOOL": "ON",
+      "NCNN_AVXVNNI:BOOL": "ON",
+      "NCNN_AVXVNNIINT16:BOOL": "ON",
+      "NCNN_AVXVNNIINT8:BOOL": "ON",
+      "NCNN_BATCH:BOOL": "ON",
+      "NCNN_BENCHMARK:BOOL": "OFF",
+      "NCNN_BF16:BOOL": "ON",
+      "NCNN_BUILD_BENCHMARK:BOOL": "OFF",
+      "NCNN_BUILD_EXAMPLES:BOOL": "OFF",
+      "NCNN_BUILD_TESTS:BOOL": "OFF",
+      "NCNN_BUILD_TOOLS:BOOL": "OFF",
+      "NCNN_CMAKE_VERBOSE:BOOL": "OFF",
+      "NCNN_COVERAGE:BOOL": "OFF",
+      "NCNN_C_API:BOOL": "ON",
+      "NCNN_DISABLE_EXCEPTION:BOOL": "OFF",
+      "NCNN_DISABLE_PIC:BOOL": "OFF",
+      "NCNN_DISABLE_RTTI:BOOL": "OFF",
+      "NCNN_ENABLE_LTO:BOOL": "OFF",
+      "NCNN_F16C:BOOL": "ON",
+      "NCNN_FMA:BOOL": "ON",
+      "NCNN_FMA4:BOOL": "ON",
+      "NCNN_FORCE_INLINE:BOOL": "ON",
+      "NCNN_GNU_INLINE_ASM:BOOL": "ON",
+      "NCNN_INSTALL_SDK:BOOL": "ON",
+      "NCNN_INT8:BOOL": "OFF",
+      "NCNN_OPENMP:BOOL": "ON",
+      "NCNN_PIXEL:BOOL": "ON",
+      "NCNN_PIXEL_AFFINE:BOOL": "ON",
+      "NCNN_PIXEL_DRAWING:BOOL": "ON",
+      "NCNN_PIXEL_ROTATE:BOOL": "ON",
+      "NCNN_PLATFORM_API:BOOL": "ON",
+      "NCNN_PYTHON:BOOL": "OFF",
+      "NCNN_RUNTIME_CPU:BOOL": "ON",
+      "NCNN_SHARED_LIB:BOOL": "OFF",
+      "NCNN_SIMPLEMATH:BOOL": "OFF",
+      "NCNN_SIMPLEOCV:BOOL": "OFF",
+      "NCNN_SIMPLEOMP:BOOL": "OFF",
+      "NCNN_SIMPLESTL:BOOL": "OFF",
+      "NCNN_SIMPLEVK:BOOL": "ON",
+      "NCNN_SSE2:BOOL": "ON",
+      "NCNN_STDIO:BOOL": "ON",
+      "NCNN_STRING:BOOL": "ON",
+      "NCNN_SYSTEM_GLSLANG:BOOL": "OFF",
+      "NCNN_THREADS:BOOL": "ON",
+      "NCNN_VULKAN:BOOL": "OFF",
+      "NCNN_WEIGHT_QUANT:BOOL": "OFF",
+      "NCNN_WINXP:BOOL": "OFF",
+      "NCNN_XOP:BOOL": "ON",
+      "OpenMP_CXX_FLAGS:STRING": "NOTFOUND",
+      "OpenMP_CXX_LIB_NAMES:STRING": "NOTFOUND",
+      "OpenMP_C_FLAGS:STRING": "NOTFOUND",
+      "OpenMP_C_LIB_NAMES:STRING": "NOTFOUND",
+      "NCNN_COMPILER_SUPPORT_GNU_INLINE_ASM:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_AVX:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_AVX2:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_AVX512:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_AVX512_BF16:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_AVX512_FP16:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_AVX512_VNNI:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_AVX_NE_CONVERT:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_AVX_VNNI:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_AVX_VNNI_INT16:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_AVX_VNNI_INT8:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_F16C:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_FMA:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_FMA4:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_RECIP_NONE:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_XOP:INTERNAL": "1",
+      "OpenMP_COMPILE_RESULT_CXX_fopenmp:INTERNAL": "FALSE",
+      "OpenMP_COMPILE_RESULT_C_fopenmp:INTERNAL": "FALSE",
+      "OpenMP_CXX_FLAGS-ADVANCED:INTERNAL": "1",
+      "OpenMP_CXX_LIB_NAMES-ADVANCED:INTERNAL": "1",
+      "OpenMP_C_FLAGS-ADVANCED:INTERNAL": "1",
+      "OpenMP_C_LIB_NAMES-ADVANCED:INTERNAL": "1"
+    },
+    "scope": "Final UTF8 code"
+  },
+  "build-install-cpu": {
+    "files": [
+      {
+        "path": "build-install-cpu/ernie-image",
+        "bytes": 29210544,
+        "sha256": "30cae0f37ab51bd6bf4a2755c2e69a24f92e509d90e52883dfa707a99a1cf136"
+      },
+      {
+        "path": "build-install-cpu/src/libernie-execution-metrics.a",
+        "bytes": 64460,
+        "sha256": "0a6f07f2dbd16f58e84cbc10673d79961c21a991fb7fb309d82062b79a9b107e"
+      },
+      {
+        "path": "build-install-cpu/src/libernie-model-package.a",
+        "bytes": 18020,
+        "sha256": "3c7c266a6a1f9918b01ee550198fb36fc0d7b2d28103900eb546e67e2ce57aed"
+      },
+      {
+        "path": "build-install-cpu/src/libernie-pe.a",
+        "bytes": 68336,
+        "sha256": "0eda6bfd6984d35dbe2c422e56c70c4d3bfc6f1e0987fc06a746f6182590ff59"
+      },
+      {
+        "path": "build-install-cpu/src/libernie-pipeline.a",
+        "bytes": 236120,
+        "sha256": "90f34431381592ccff49808330c48d88e9e2e503d553377bd9257d2fdf762a96"
+      },
+      {
+        "path": "build-install-cpu/src/libernie-runtime.a",
+        "bytes": 438394,
+        "sha256": "08fa1e3997bace75d52faa37bc07cdf150cf34b5255952e6c61c6831b5a43d6f"
+      },
+      {
+        "path": "build-install-cpu/src/libernie-shape-graph.a",
+        "bytes": 166392,
+        "sha256": "e21b8b0077d727cb4d2e003acaa55a85d76e0bb5b201286adc5e928d322dbfc6"
+      },
+      {
+        "path": "build-install-cpu/src/libernie-shape-plan.a",
+        "bytes": 4846,
+        "sha256": "e85917fcdd3670115f489f418ffd0549d2f65ccaa536424bff562e90c06fa8c5"
+      },
+      {
+        "path": "build-install-cpu/ncnn/src/libncnn.a",
+        "bytes": 17273420,
+        "sha256": "b48f09d96b00585376f95ad671aea0bdbd4ea7db84885418627c7360683c77ef"
+      }
+    ],
+    "cmake_selected": {
+      "CARGO_EXECUTABLE:FILEPATH": "/usr/bin/cargo",
+      "CMAKE_BUILD_TYPE:STRING": "Release",
+      "CMAKE_CXX_COMPILER:STRING": "/usr/bin/clang++",
+      "CMAKE_C_COMPILER:STRING": "/usr/bin/clang",
+      "ERNIE_ALLOW_UNPINNED_NCNN:BOOL": "OFF",
+      "ERNIE_BUILD_ALLOCATION_PROBE:BOOL": "OFF",
+      "ERNIE_BUILD_GENERATOR:BOOL": "ON",
+      "ERNIE_BUILD_PROBES:BOOL": "OFF",
+      "ERNIE_BUILD_TOKENIZER:BOOL": "ON",
+      "ERNIE_ENABLE_ALLOCATION_METRICS:BOOL": "OFF",
+      "ERNIE_ENABLE_VULKAN:BOOL": "OFF",
+      "ERNIE_EXPERIMENT_COMPACT_MODEL_READER:BOOL": "OFF",
+      "ERNIE_EXPERIMENT_MAPPED_MODEL_LOADING:BOOL": "OFF",
+      "ERNIE_INSTALL_SDK:BOOL": "ON",
+      "ERNIE_MINIMAL_NCNN:BOOL": "ON",
+      "ERNIE_NCNN_SOURCE_DIR:PATH": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/third_party/ncnn",
+      "ERNIE_RUST_TARGET:STRING": "",
+      "NCNN_ASAN:BOOL": "OFF",
+      "NCNN_AVX:BOOL": "ON",
+      "NCNN_AVX2:BOOL": "ON",
+      "NCNN_AVX512:BOOL": "ON",
+      "NCNN_AVX512BF16:BOOL": "ON",
+      "NCNN_AVX512FP16:BOOL": "ON",
+      "NCNN_AVX512VNNI:BOOL": "ON",
+      "NCNN_AVXNECONVERT:BOOL": "ON",
+      "NCNN_AVXVNNI:BOOL": "ON",
+      "NCNN_AVXVNNIINT16:BOOL": "ON",
+      "NCNN_AVXVNNIINT8:BOOL": "ON",
+      "NCNN_BATCH:BOOL": "ON",
+      "NCNN_BENCHMARK:BOOL": "OFF",
+      "NCNN_BF16:BOOL": "ON",
+      "NCNN_BUILD_BENCHMARK:BOOL": "OFF",
+      "NCNN_BUILD_EXAMPLES:BOOL": "OFF",
+      "NCNN_BUILD_TESTS:BOOL": "OFF",
+      "NCNN_BUILD_TOOLS:BOOL": "OFF",
+      "NCNN_CMAKE_VERBOSE:BOOL": "OFF",
+      "NCNN_COVERAGE:BOOL": "OFF",
+      "NCNN_C_API:BOOL": "ON",
+      "NCNN_DISABLE_EXCEPTION:BOOL": "OFF",
+      "NCNN_DISABLE_PIC:BOOL": "OFF",
+      "NCNN_DISABLE_RTTI:BOOL": "OFF",
+      "NCNN_ENABLE_LTO:BOOL": "OFF",
+      "NCNN_F16C:BOOL": "ON",
+      "NCNN_FMA:BOOL": "ON",
+      "NCNN_FMA4:BOOL": "ON",
+      "NCNN_FORCE_INLINE:BOOL": "ON",
+      "NCNN_GNU_INLINE_ASM:BOOL": "ON",
+      "NCNN_INSTALL_SDK:BOOL": "ON",
+      "NCNN_INT8:BOOL": "OFF",
+      "NCNN_OPENMP:BOOL": "ON",
+      "NCNN_PIXEL:BOOL": "ON",
+      "NCNN_PIXEL_AFFINE:BOOL": "ON",
+      "NCNN_PIXEL_DRAWING:BOOL": "ON",
+      "NCNN_PIXEL_ROTATE:BOOL": "ON",
+      "NCNN_PLATFORM_API:BOOL": "ON",
+      "NCNN_PYTHON:BOOL": "OFF",
+      "NCNN_RUNTIME_CPU:BOOL": "ON",
+      "NCNN_SHARED_LIB:BOOL": "OFF",
+      "NCNN_SIMPLEMATH:BOOL": "OFF",
+      "NCNN_SIMPLEOCV:BOOL": "OFF",
+      "NCNN_SIMPLEOMP:BOOL": "OFF",
+      "NCNN_SIMPLESTL:BOOL": "OFF",
+      "NCNN_SIMPLEVK:BOOL": "ON",
+      "NCNN_SSE2:BOOL": "ON",
+      "NCNN_STDIO:BOOL": "ON",
+      "NCNN_STRING:BOOL": "ON",
+      "NCNN_SYSTEM_GLSLANG:BOOL": "OFF",
+      "NCNN_THREADS:BOOL": "ON",
+      "NCNN_VULKAN:BOOL": "OFF",
+      "NCNN_WEIGHT_QUANT:BOOL": "OFF",
+      "NCNN_WINXP:BOOL": "OFF",
+      "NCNN_XOP:BOOL": "ON",
+      "OpenMP_CXX_FLAGS:STRING": "-fopenmp=libomp",
+      "OpenMP_CXX_LIB_NAMES:STRING": "omp;pthread",
+      "OpenMP_C_FLAGS:STRING": "-fopenmp=libomp",
+      "OpenMP_C_LIB_NAMES:STRING": "omp;pthread",
+      "OpenMP_omp_LIBRARY:FILEPATH": "/usr/lib64/libomp.so",
+      "OpenMP_pthread_LIBRARY:FILEPATH": "/usr/lib64/libpthread.a",
+      "NCNN_COMPILER_SUPPORT_GNU_INLINE_ASM:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_AVX:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_AVX2:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_AVX512:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_AVX512_BF16:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_AVX512_FP16:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_AVX512_VNNI:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_AVX_NE_CONVERT:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_AVX_VNNI:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_AVX_VNNI_INT16:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_AVX_VNNI_INT8:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_F16C:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_FMA:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_FMA4:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_RECIP_NONE:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_XOP:INTERNAL": "1",
+      "OpenMP_COMPILE_RESULT_CXX_fopenmplibomp:INTERNAL": "TRUE",
+      "OpenMP_COMPILE_RESULT_C_fopenmplibomp:INTERNAL": "TRUE",
+      "OpenMP_CXX_FLAGS-ADVANCED:INTERNAL": "1",
+      "OpenMP_CXX_LIB_NAMES-ADVANCED:INTERNAL": "1",
+      "OpenMP_CXX_SPEC_DATE:INTERNAL": "202011",
+      "OpenMP_C_FLAGS-ADVANCED:INTERNAL": "1",
+      "OpenMP_C_LIB_NAMES-ADVANCED:INTERNAL": "1",
+      "OpenMP_C_SPEC_DATE:INTERNAL": "202011",
+      "OpenMP_SPECTEST_CXX_:INTERNAL": "TRUE",
+      "OpenMP_SPECTEST_C_:INTERNAL": "TRUE",
+      "OpenMP_omp_LIBRARY-ADVANCED:INTERNAL": "1",
+      "OpenMP_pthread_LIBRARY-ADVANCED:INTERNAL": "1"
+    },
+    "scope": "Final UTF8 code"
+  },
+  "build-dev": {
+    "files": [
+      {
+        "path": "build-dev/ernie-image",
+        "bytes": 36944136,
+        "sha256": "ff2f934f317a602f3d098bf6d74cd7c2e2a6de725ed8fcf04d8d1e2bcbaa3e1c"
+      },
+      {
+        "path": "build-dev/src/libernie-execution-metrics.a",
+        "bytes": 64460,
+        "sha256": "0a6f07f2dbd16f58e84cbc10673d79961c21a991fb7fb309d82062b79a9b107e"
+      },
+      {
+        "path": "build-dev/src/libernie-model-package.a",
+        "bytes": 18300,
+        "sha256": "6cda5f1414bd70b450ee174c4ab2dcc6ee50b41cb3b10741d7e2751c90761054"
+      },
+      {
+        "path": "build-dev/src/libernie-pe.a",
+        "bytes": 69528,
+        "sha256": "304db89dbcbdca9579d6b3f9b431eb5f5fc57422af674107c0273d89d13ad521"
+      },
+      {
+        "path": "build-dev/src/libernie-pipeline.a",
+        "bytes": 295048,
+        "sha256": "082560fbcc74327b0a7e6a522c0a6d8aa81cad3c1bcf03969146eb54de3dfdae"
+      },
+      {
+        "path": "build-dev/src/libernie-runtime.a",
+        "bytes": 624932,
+        "sha256": "bcf1f26010f34a0dd2dabb14a56baa82bed732226ad7a1381bbd3581efaa47ba"
+      },
+      {
+        "path": "build-dev/src/libernie-shape-graph.a",
+        "bytes": 166392,
+        "sha256": "e21b8b0077d727cb4d2e003acaa55a85d76e0bb5b201286adc5e928d322dbfc6"
+      },
+      {
+        "path": "build-dev/src/libernie-shape-plan.a",
+        "bytes": 4846,
+        "sha256": "e85917fcdd3670115f489f418ffd0549d2f65ccaa536424bff562e90c06fa8c5"
+      },
+      {
+        "path": "build-dev/ncnn/src/libncnn.a",
+        "bytes": 23198344,
+        "sha256": "c8e58dc6abb73915ae61c52400fab307df1d477752ffe3f2db694b9d4570bd17"
+      }
+    ],
+    "cmake_selected": {
+      "CARGO_EXECUTABLE:FILEPATH": "/usr/bin/cargo",
+      "CMAKE_BUILD_TYPE:STRING": "Release",
+      "CMAKE_CXX_COMPILER:STRING": "/usr/bin/clang++",
+      "CMAKE_C_COMPILER:STRING": "/usr/bin/clang",
+      "ERNIE_ALLOW_UNPINNED_NCNN:BOOL": "OFF",
+      "ERNIE_BUILD_ALLOCATION_PROBE:BOOL": "OFF",
+      "ERNIE_BUILD_GENERATOR:BOOL": "ON",
+      "ERNIE_BUILD_PROBES:BOOL": "ON",
+      "ERNIE_BUILD_TESTS:UNINITIALIZED": "ON",
+      "ERNIE_BUILD_TOKENIZER:BOOL": "ON",
+      "ERNIE_ENABLE_ALLOCATION_METRICS:BOOL": "OFF",
+      "ERNIE_ENABLE_VULKAN:BOOL": "ON",
+      "ERNIE_EXPERIMENT_COMPACT_MODEL_READER:BOOL": "OFF",
+      "ERNIE_EXPERIMENT_MAPPED_MODEL_LOADING:BOOL": "OFF",
+      "ERNIE_INSTALL_SDK:BOOL": "ON",
+      "ERNIE_MINIMAL_NCNN:BOOL": "ON",
+      "ERNIE_NCNN_SOURCE_DIR:PATH": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/third_party/ncnn",
+      "NCNN_ASAN:BOOL": "OFF",
+      "NCNN_AVX:BOOL": "ON",
+      "NCNN_AVX2:BOOL": "ON",
+      "NCNN_AVX512:BOOL": "ON",
+      "NCNN_AVX512BF16:BOOL": "ON",
+      "NCNN_AVX512FP16:BOOL": "ON",
+      "NCNN_AVX512VNNI:BOOL": "ON",
+      "NCNN_AVXNECONVERT:BOOL": "ON",
+      "NCNN_AVXVNNI:BOOL": "ON",
+      "NCNN_AVXVNNIINT16:BOOL": "ON",
+      "NCNN_AVXVNNIINT8:BOOL": "ON",
+      "NCNN_BATCH:BOOL": "ON",
+      "NCNN_BENCHMARK:BOOL": "OFF",
+      "NCNN_BF16:BOOL": "ON",
+      "NCNN_BUILD_BENCHMARK:BOOL": "OFF",
+      "NCNN_BUILD_EXAMPLES:BOOL": "OFF",
+      "NCNN_BUILD_TESTS:BOOL": "OFF",
+      "NCNN_BUILD_TOOLS:BOOL": "OFF",
+      "NCNN_CMAKE_VERBOSE:BOOL": "OFF",
+      "NCNN_COVERAGE:BOOL": "OFF",
+      "NCNN_C_API:BOOL": "ON",
+      "NCNN_DISABLE_EXCEPTION:BOOL": "OFF",
+      "NCNN_DISABLE_PIC:BOOL": "OFF",
+      "NCNN_DISABLE_RTTI:BOOL": "OFF",
+      "NCNN_ENABLE_LTO:BOOL": "OFF",
+      "NCNN_F16C:BOOL": "ON",
+      "NCNN_FMA:BOOL": "ON",
+      "NCNN_FMA4:BOOL": "ON",
+      "NCNN_FORCE_INLINE:BOOL": "ON",
+      "NCNN_GNU_INLINE_ASM:BOOL": "ON",
+      "NCNN_INSTALL_SDK:BOOL": "ON",
+      "NCNN_INT8:BOOL": "ON",
+      "NCNN_OPENMP:BOOL": "ON",
+      "NCNN_PIXEL:BOOL": "ON",
+      "NCNN_PIXEL_AFFINE:BOOL": "ON",
+      "NCNN_PIXEL_DRAWING:BOOL": "ON",
+      "NCNN_PIXEL_ROTATE:BOOL": "ON",
+      "NCNN_PLATFORM_API:BOOL": "ON",
+      "NCNN_PYTHON:BOOL": "OFF",
+      "NCNN_RUNTIME_CPU:BOOL": "ON",
+      "NCNN_SHARED_LIB:BOOL": "OFF",
+      "NCNN_SIMPLEMATH:BOOL": "OFF",
+      "NCNN_SIMPLEOCV:BOOL": "OFF",
+      "NCNN_SIMPLEOMP:BOOL": "OFF",
+      "NCNN_SIMPLESTL:BOOL": "OFF",
+      "NCNN_SIMPLEVK:BOOL": "ON",
+      "NCNN_SSE2:BOOL": "ON",
+      "NCNN_STDIO:BOOL": "ON",
+      "NCNN_STRING:BOOL": "ON",
+      "NCNN_SYSTEM_GLSLANG:BOOL": "OFF",
+      "NCNN_THREADS:BOOL": "ON",
+      "NCNN_VULKAN:BOOL": "ON",
+      "NCNN_WEIGHT_QUANT:BOOL": "ON",
+      "NCNN_WINXP:BOOL": "OFF",
+      "NCNN_XOP:BOOL": "ON",
+      "OpenMP_CXX_FLAGS:STRING": "-fopenmp=libomp",
+      "OpenMP_CXX_LIB_NAMES:STRING": "omp;pthread",
+      "OpenMP_C_FLAGS:STRING": "-fopenmp=libomp",
+      "OpenMP_C_LIB_NAMES:STRING": "omp;pthread",
+      "OpenMP_omp_LIBRARY:FILEPATH": "/usr/lib64/libomp.so",
+      "OpenMP_pthread_LIBRARY:FILEPATH": "/usr/lib64/libpthread.a",
+      "NCNN_COMPILER_SUPPORT_GNU_INLINE_ASM:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_AVX:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_AVX2:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_AVX512:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_AVX512_BF16:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_AVX512_FP16:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_AVX512_VNNI:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_AVX_NE_CONVERT:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_AVX_VNNI:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_AVX_VNNI_INT16:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_AVX_VNNI_INT8:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_F16C:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_FMA:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_FMA4:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_RECIP_NONE:INTERNAL": "1",
+      "NCNN_COMPILER_SUPPORT_X86_XOP:INTERNAL": "1",
+      "OpenMP_COMPILE_RESULT_CXX_fopenmplibomp:INTERNAL": "TRUE",
+      "OpenMP_COMPILE_RESULT_C_fopenmplibomp:INTERNAL": "TRUE",
+      "OpenMP_CXX_FLAGS-ADVANCED:INTERNAL": "1",
+      "OpenMP_CXX_LIB_NAMES-ADVANCED:INTERNAL": "1",
+      "OpenMP_CXX_SPEC_DATE:INTERNAL": "202011",
+      "OpenMP_C_FLAGS-ADVANCED:INTERNAL": "1",
+      "OpenMP_C_LIB_NAMES-ADVANCED:INTERNAL": "1",
+      "OpenMP_C_SPEC_DATE:INTERNAL": "202011",
+      "OpenMP_SPECTEST_CXX_:INTERNAL": "TRUE",
+      "OpenMP_SPECTEST_C_:INTERNAL": "TRUE",
+      "OpenMP_omp_LIBRARY-ADVANCED:INTERNAL": "1",
+      "OpenMP_pthread_LIBRARY-ADVANCED:INTERNAL": "1"
+    },
+    "scope": "Unchanged older Linux Vulkan build; not rebuilt with Windows changes"
+  }
+}

@@ -160,7 +160,7 @@ ncnn::Mat run_dit(const ModelPackage &package, const ncnn::Mat &initial, const s
 {
     const auto &backend = request.device, &precision = request.precision;
     const int steps = request.steps;
-    const fs::path trace(request.trace);
+    const auto trace = fs::u8path(request.trace);
     ernie::DenoiseModel dit;
     dit.input_head = package.component("dit/input/head.ncnn.param", "input");
     dit.output_head = package.component("dit/output/head.ncnn.param", "output");
@@ -316,7 +316,7 @@ ncnn::Mat run_dit(const ModelPackage &package, const ncnn::Mat &initial, const s
 
 void verify_model(const std::string &directory)
 {
-    const auto root = fs::path(directory);
+    const auto root = fs::u8path(directory);
     if (fs::is_regular_file(root / "model.cfg"))
         model_config(root / "model.cfg");
     else if (fs::exists(root / "pe.cfg"))
@@ -327,7 +327,7 @@ void verify_model(const std::string &directory)
 }
 void verify_pe_model(const std::string &directory)
 {
-    if (!fs::is_regular_file(fs::path(directory) / "pe.cfg"))
+    if (!fs::is_regular_file(fs::u8path(directory) / "pe.cfg"))
         throw std::invalid_argument("Cannot open pe.cfg");
     verify_package(directory);
 }
@@ -344,8 +344,8 @@ GenerationResult generate_impl(const GenerationRequest &r, const ProgressCallbac
     // Initialize and validate the selected device before parsing model metadata
     // or loading PE/text/image weights.
     GpuContext gpu(((!img2img || denoise_image) && r.device == "vulkan") || r.vae_device == "vulkan", r.gpu_index);
-    const fs::path trace(r.trace);
-    ModelPackage package(r.model, request_width, request_height);
+    const auto trace = fs::u8path(r.trace);
+    ModelPackage package(fs::u8path(r.model), request_width, request_height);
     const int w = package.config().packed_width, h = package.config().packed_height;
     if (notify)
         notify({"verify", 1, 1, elapsed(start)});
@@ -417,8 +417,8 @@ GenerationResult generate_impl(const GenerationRequest &r, const ProgressCallbac
         }
         if (!denoise_image)
         {
-            const auto mean=read_tensor(package.file("vae/bn-mean.f32"),128),
-                       variance=read_tensor(package.file("vae/bn-variance.f32"),128);
+            const auto mean=read_tensor(fs::u8path(package.file("vae/bn-mean.f32")),128),
+                       variance=read_tensor(fs::u8path(package.file("vae/bn-variance.f32")),128);
             const auto unpacked=unpack_for_vae(encoded,mean,variance,r.threads);
             const auto vae_start=Clock::now();
             VaeStats vae_stats;
@@ -488,7 +488,7 @@ GenerationResult generate_impl(const GenerationRequest &r, const ProgressCallbac
     ncnn::Mat text;
     const auto text_start = Clock::now();
     if (!r.embeddings.empty())
-        text = read_tensor(r.embeddings, 3072, int(ids.size())).reshape(3072, int(ids.size()));
+        text = read_tensor(fs::u8path(r.embeddings), 3072, int(ids.size())).reshape(3072, int(ids.size()));
     else
     {
         const auto embedded = text_embeddings(package.file("text/embeddings.bf16"), ids, bucket);
@@ -515,7 +515,7 @@ GenerationResult generate_impl(const GenerationRequest &r, const ProgressCallbac
     const std::vector<ncnn::Mat> constants{padded, rotary[0], rotary[1], rotary[2]};
     ncnn::Mat noise;
     if (!r.latent.empty())
-        noise = read_tensor(r.latent, w, h, 128);
+        noise = read_tensor(fs::u8path(r.latent), w, h, 128);
     else
     {
         noise.create(w, h, 128);
@@ -548,8 +548,8 @@ GenerationResult generate_impl(const GenerationRequest &r, const ProgressCallbac
     auto dit_option = cpu;
     dit_option.use_weights_in_host_memory = host_weights;
     const auto latent = run_dit(package, initial, constants, dit_option, r, notify, start_step,metrics,result);
-    const auto mean = read_tensor(package.file("vae/bn-mean.f32"), 128),
-               variance = read_tensor(package.file("vae/bn-variance.f32"), 128);
+    const auto mean = read_tensor(fs::u8path(package.file("vae/bn-mean.f32")), 128),
+               variance = read_tensor(fs::u8path(package.file("vae/bn-variance.f32")), 128);
     const auto unpacked = unpack_for_vae(latent, mean, variance, r.threads);
     if (!trace.empty())
     {

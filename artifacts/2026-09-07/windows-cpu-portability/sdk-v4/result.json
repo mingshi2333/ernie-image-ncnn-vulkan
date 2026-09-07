@@ -1,0 +1,762 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "commands": [
+    {
+      "name": "install",
+      "argv": [
+        "cmake",
+        "--install",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1",
+        "--prefix",
+        "/var/tmp/ernie-windows-sdk-v4/安装 original"
+      ],
+      "return_code": 0,
+      "expected": 0,
+      "seconds": 0.06480033497791737
+    },
+    {
+      "name": "isolation-preflight",
+      "argv": [
+        "bwrap",
+        "--die-with-parent",
+        "--unshare-net",
+        "--ro-bind",
+        "/",
+        "/",
+        "--bind",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "--bind",
+        "/var/tmp/ernie-windows-sdk-v4/temporary",
+        "/tmp",
+        "--tmpfs",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan",
+        "--dev-bind",
+        "/dev",
+        "/dev",
+        "--proc",
+        "/proc",
+        "--chdir",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "--",
+        "/usr/bin/python3",
+        "-c",
+        "from pathlib import Path; import socket; assert not list(Path('/home/mingshi/Project/AI/ernie-image-ncnn-vulkan').iterdir()); assert socket.if_nameindex() == [(1, 'lo')]; print('Source hidden; private network contains loopback only')"
+      ],
+      "return_code": 0,
+      "expected": 0,
+      "seconds": 0.03182491200277582
+    },
+    {
+      "name": "consumer-configure",
+      "argv": [
+        "bwrap",
+        "--die-with-parent",
+        "--unshare-net",
+        "--ro-bind",
+        "/",
+        "/",
+        "--bind",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "--bind",
+        "/var/tmp/ernie-windows-sdk-v4/temporary",
+        "/tmp",
+        "--tmpfs",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan",
+        "--dev-bind",
+        "/dev",
+        "/dev",
+        "--proc",
+        "/proc",
+        "--chdir",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "--",
+        "cmake",
+        "-S",
+        "/var/tmp/ernie-windows-sdk-v4/consumer",
+        "-B",
+        "/var/tmp/ernie-windows-sdk-v4/consumer-build",
+        "-G",
+        "Ninja",
+        "-DCMAKE_TOOLCHAIN_FILE=/var/tmp/ernie-windows-sdk-v4/toolchain.cmake",
+        "-DCMAKE_PREFIX_PATH=/var/tmp/ernie-windows-sdk-v4/移动 installation",
+        "-Dncnn_DIR=/var/tmp/ernie-windows-sdk-v4/foreign-ncnn",
+        "-DCMAKE_FIND_USE_PACKAGE_REGISTRY=OFF",
+        "-DCMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY=OFF",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+      ],
+      "return_code": 0,
+      "expected": 0,
+      "seconds": 0.3642150009982288
+    },
+    {
+      "name": "consumer-build",
+      "argv": [
+        "bwrap",
+        "--die-with-parent",
+        "--unshare-net",
+        "--ro-bind",
+        "/",
+        "/",
+        "--bind",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "--bind",
+        "/var/tmp/ernie-windows-sdk-v4/temporary",
+        "/tmp",
+        "--tmpfs",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan",
+        "--dev-bind",
+        "/dev",
+        "/dev",
+        "--proc",
+        "/proc",
+        "--chdir",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "--",
+        "cmake",
+        "--build",
+        "/var/tmp/ernie-windows-sdk-v4/consumer-build",
+        "--parallel",
+        "2"
+      ],
+      "return_code": 0,
+      "expected": 0,
+      "seconds": 0.7150429750035983
+    },
+    {
+      "name": "wineboot",
+      "argv": [
+        "bwrap",
+        "--die-with-parent",
+        "--unshare-net",
+        "--ro-bind",
+        "/",
+        "/",
+        "--bind",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "--bind",
+        "/var/tmp/ernie-windows-sdk-v4/temporary",
+        "/tmp",
+        "--tmpfs",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan",
+        "--dev-bind",
+        "/dev",
+        "/dev",
+        "--proc",
+        "/proc",
+        "--chdir",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "--",
+        "/usr/bin/wine",
+        "wineboot",
+        "-u"
+      ],
+      "return_code": 0,
+      "expected": 0,
+      "seconds": 42.07820711398381
+    },
+    {
+      "name": "consumer-test",
+      "argv": [
+        "bwrap",
+        "--die-with-parent",
+        "--unshare-net",
+        "--ro-bind",
+        "/",
+        "/",
+        "--bind",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "--bind",
+        "/var/tmp/ernie-windows-sdk-v4/temporary",
+        "/tmp",
+        "--tmpfs",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan",
+        "--dev-bind",
+        "/dev",
+        "/dev",
+        "--proc",
+        "/proc",
+        "--chdir",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "--",
+        "ctest",
+        "--test-dir",
+        "/var/tmp/ernie-windows-sdk-v4/consumer-build",
+        "--output-on-failure",
+        "--output-junit",
+        "/var/tmp/ernie-windows-sdk-v4/consumer-ctest.xml"
+      ],
+      "return_code": 0,
+      "expected": 0,
+      "seconds": 0.11424744201940484
+    },
+    {
+      "name": "installed-help",
+      "argv": [
+        "bwrap",
+        "--die-with-parent",
+        "--unshare-net",
+        "--ro-bind",
+        "/",
+        "/",
+        "--bind",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "--bind",
+        "/var/tmp/ernie-windows-sdk-v4/temporary",
+        "/tmp",
+        "--tmpfs",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan",
+        "--dev-bind",
+        "/dev",
+        "/dev",
+        "--proc",
+        "/proc",
+        "--chdir",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "--",
+        "/usr/bin/wine",
+        "/var/tmp/ernie-windows-sdk-v4/移动 installation/bin/ernie-image.exe",
+        "--help"
+      ],
+      "return_code": 0,
+      "expected": 0,
+      "seconds": 0.06391578199691139
+    },
+    {
+      "name": "installed-diagnose",
+      "argv": [
+        "bwrap",
+        "--die-with-parent",
+        "--unshare-net",
+        "--ro-bind",
+        "/",
+        "/",
+        "--bind",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "--bind",
+        "/var/tmp/ernie-windows-sdk-v4/temporary",
+        "/tmp",
+        "--tmpfs",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan",
+        "--dev-bind",
+        "/dev",
+        "/dev",
+        "--proc",
+        "/proc",
+        "--chdir",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "--",
+        "/usr/bin/wine",
+        "/var/tmp/ernie-windows-sdk-v4/移动 installation/bin/ernie-image.exe",
+        "--diagnose"
+      ],
+      "return_code": 0,
+      "expected": 0,
+      "seconds": 0.06394427799386904
+    },
+    {
+      "name": "installed-corrupt-package",
+      "argv": [
+        "bwrap",
+        "--die-with-parent",
+        "--unshare-net",
+        "--ro-bind",
+        "/",
+        "/",
+        "--bind",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "--bind",
+        "/var/tmp/ernie-windows-sdk-v4/temporary",
+        "/tmp",
+        "--tmpfs",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan",
+        "--dev-bind",
+        "/dev",
+        "/dev",
+        "--proc",
+        "/proc",
+        "--chdir",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "--",
+        "/usr/bin/wine",
+        "/var/tmp/ernie-windows-sdk-v4/移动 installation/bin/ernie-image.exe",
+        "--model",
+        "/var/tmp/ernie-windows-sdk-v4/损坏 model 🖼",
+        "--verify-model"
+      ],
+      "return_code": 1,
+      "expected": 1,
+      "seconds": 0.0638789749937132
+    },
+    {
+      "name": "installed-utf8-argument",
+      "argv": [
+        "bwrap",
+        "--die-with-parent",
+        "--unshare-net",
+        "--ro-bind",
+        "/",
+        "/",
+        "--bind",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "--bind",
+        "/var/tmp/ernie-windows-sdk-v4/temporary",
+        "/tmp",
+        "--tmpfs",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan",
+        "--dev-bind",
+        "/dev",
+        "/dev",
+        "--proc",
+        "/proc",
+        "--chdir",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "--",
+        "/usr/bin/wine",
+        "/var/tmp/ernie-windows-sdk-v4/移动 installation/bin/ernie-image.exe",
+        "--未知 🖼",
+        "value"
+      ],
+      "return_code": 1,
+      "expected": 1,
+      "seconds": 0.0639407169946935
+    },
+    {
+      "name": "installed-utf8-prompt-path",
+      "argv": [
+        "bwrap",
+        "--die-with-parent",
+        "--unshare-net",
+        "--ro-bind",
+        "/",
+        "/",
+        "--bind",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "--bind",
+        "/var/tmp/ernie-windows-sdk-v4/temporary",
+        "/tmp",
+        "--tmpfs",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan",
+        "--dev-bind",
+        "/dev",
+        "/dev",
+        "--proc",
+        "/proc",
+        "--chdir",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "--",
+        "/usr/bin/wine",
+        "/var/tmp/ernie-windows-sdk-v4/移动 installation/bin/ernie-image.exe",
+        "--model",
+        "/var/tmp/ernie-windows-sdk-v4/损坏 model 🖼",
+        "--prompt-file",
+        "/var/tmp/ernie-windows-sdk-v4/提示词 🍎.txt",
+        "--output",
+        "/var/tmp/ernie-windows-sdk-v4/图像 🖼.png"
+      ],
+      "return_code": 1,
+      "expected": 1,
+      "seconds": 0.06399889499880373
+    },
+    {
+      "name": "wine-prefix-stop",
+      "argv": [
+        "bwrap",
+        "--die-with-parent",
+        "--unshare-net",
+        "--ro-bind",
+        "/",
+        "/",
+        "--bind",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "--bind",
+        "/var/tmp/ernie-windows-sdk-v4/temporary",
+        "/tmp",
+        "--tmpfs",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan",
+        "--dev-bind",
+        "/dev",
+        "/dev",
+        "--proc",
+        "/proc",
+        "--chdir",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "--",
+        "/usr/bin/wineserver",
+        "-k"
+      ],
+      "return_code": 0,
+      "expected": 0,
+      "seconds": 0.1651680129871238
+    },
+    {
+      "name": "wine-prefix-wait",
+      "argv": [
+        "bwrap",
+        "--die-with-parent",
+        "--unshare-net",
+        "--ro-bind",
+        "/",
+        "/",
+        "--bind",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "--bind",
+        "/var/tmp/ernie-windows-sdk-v4/temporary",
+        "/tmp",
+        "--tmpfs",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan",
+        "--dev-bind",
+        "/dev",
+        "/dev",
+        "--proc",
+        "/proc",
+        "--chdir",
+        "/var/tmp/ernie-windows-sdk-v4",
+        "--",
+        "/usr/bin/wineserver",
+        "-w"
+      ],
+      "return_code": 0,
+      "expected": 0,
+      "seconds": 0.007573910988867283
+    }
+  ],
+  "scope": "Cross-compiled Windows CPU SDK and CLI under Wine; model-free, no native Windows or GPU claim",
+  "source_hidden": true,
+  "network_disabled": true,
+  "runtime_dlls": {
+    "libgcc_s_seh-1.dll": {
+      "source": "/usr/x86_64-w64-mingw32/sys-root/mingw/bin/libgcc_s_seh-1.dll",
+      "bytes": 992573,
+      "sha256": "7d5458682d7dcc2838c38c4401bcf25a15af0e2b0bc95ad6f5d2eafc0eaccb4f"
+    },
+    "libwinpthread-1.dll": {
+      "source": "/usr/x86_64-w64-mingw32/sys-root/mingw/bin/libwinpthread-1.dll",
+      "bytes": 75506,
+      "sha256": "80eb2559ea2a3e0c165ea8a4813cd9ba80937b4bbe13a2318a7b3cbaf2dfac43"
+    },
+    "libstdc++-6.dll": {
+      "source": "/usr/x86_64-w64-mingw32/sys-root/mingw/bin/libstdc++-6.dll",
+      "bytes": 29703692,
+      "sha256": "cf89e649d038fcf6dc01094090df2b4a41e115a4cc1eab2f1972b74b20a63204"
+    },
+    "libpng16-16.dll": {
+      "source": "/usr/x86_64-w64-mingw32/sys-root/mingw/bin/libpng16-16.dll",
+      "bytes": 281639,
+      "sha256": "9cdf687b41774d91c7092bdfe94a9c8ecda333bc6dcd6712f3c92efe8f2bffb3"
+    },
+    "zlib1.dll": {
+      "source": "/usr/x86_64-w64-mingw32/sys-root/mingw/bin/zlib1.dll",
+      "bytes": 136438,
+      "sha256": "e5d64914a70e26e1731ed98628be370b855454ff70c9774aea4273dc25c9ce2b"
+    }
+  },
+  "hidden_paths": [
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan"
+  ],
+  "installed_files": [
+    {
+      "path": "bin/ernie-image.exe",
+      "bytes": 22115394,
+      "sha256": "5c1706e89d8137d408e2b2fc459e6eb34ba778b5eb27bc578e4f06e6a12e4209"
+    },
+    {
+      "path": "bin/libgcc_s_seh-1.dll",
+      "bytes": 992573,
+      "sha256": "7d5458682d7dcc2838c38c4401bcf25a15af0e2b0bc95ad6f5d2eafc0eaccb4f"
+    },
+    {
+      "path": "bin/libpng16-16.dll",
+      "bytes": 281639,
+      "sha256": "9cdf687b41774d91c7092bdfe94a9c8ecda333bc6dcd6712f3c92efe8f2bffb3"
+    },
+    {
+      "path": "bin/libstdc++-6.dll",
+      "bytes": 29703692,
+      "sha256": "cf89e649d038fcf6dc01094090df2b4a41e115a4cc1eab2f1972b74b20a63204"
+    },
+    {
+      "path": "bin/libwinpthread-1.dll",
+      "bytes": 75506,
+      "sha256": "80eb2559ea2a3e0c165ea8a4813cd9ba80937b4bbe13a2318a7b3cbaf2dfac43"
+    },
+    {
+      "path": "bin/zlib1.dll",
+      "bytes": 136438,
+      "sha256": "e5d64914a70e26e1731ed98628be370b855454ff70c9774aea4273dc25c9ce2b"
+    },
+    {
+      "path": "include/ernie/pipeline.h",
+      "bytes": 5150,
+      "sha256": "06dae6814ca347bbe2b3c810af19b7719c4c1884602f5d795b94dc8763ec3212"
+    },
+    {
+      "path": "include/ncnn/allocator.h",
+      "bytes": 12601,
+      "sha256": "0c27db8632004db76e6876cfb01a3fa079bdf5f034526fe2e9494af28c5cf5ac"
+    },
+    {
+      "path": "include/ncnn/benchmark.h",
+      "bytes": 636,
+      "sha256": "c560cede63698e4d481cb05f4d286e24913bfc6163219c2d68913622284c3a7b"
+    },
+    {
+      "path": "include/ncnn/blob.h",
+      "bytes": 529,
+      "sha256": "f2085566a70f78712687bc1a7849ae1abf7748bcabf901da559153dfb37d32e3"
+    },
+    {
+      "path": "include/ncnn/c_api.h",
+      "bytes": 24789,
+      "sha256": "b0b9f2eea1e56f61eb54b9bfa0645e30afb2036d1af75c6fb8459614a0168b66"
+    },
+    {
+      "path": "include/ncnn/command.h",
+      "bytes": 3620,
+      "sha256": "04264557d5db7ee0a4cec3e986153bbc4f568096088dbfe889c0acd6b0fa9d99"
+    },
+    {
+      "path": "include/ncnn/cpu.h",
+      "bytes": 5238,
+      "sha256": "3609f351aeecb1739902d4bc1515fba8ffe52a370e8052eb0fa4aa5a8acccb05"
+    },
+    {
+      "path": "include/ncnn/datareader.h",
+      "bytes": 2737,
+      "sha256": "9a8310b5aa9e1e0359dad1c989e61d116a8d7779a5d089c731b3e4c7a9b73277"
+    },
+    {
+      "path": "include/ncnn/expression.h",
+      "bytes": 562,
+      "sha256": "1bd95aeb894dfdad630b6145fdbd1dae63dd35665ef525f96989d6a5ab666f25"
+    },
+    {
+      "path": "include/ncnn/gpu.h",
+      "bytes": 27377,
+      "sha256": "168005d05a43f30de1abe40285379ef6dbcc6bab36690052872fdfdd2fff9ca0"
+    },
+    {
+      "path": "include/ncnn/layer.h",
+      "bytes": 5874,
+      "sha256": "fdfa2afa73e201cdabf454ef36ce7347cb806dc4ee54ba78a5caca83288360c9"
+    },
+    {
+      "path": "include/ncnn/layer_shader_type.h",
+      "bytes": 331,
+      "sha256": "fa1eeea43940a731555cb3b11153f01444ea829e9f395256d2533a4f504cc4b6"
+    },
+    {
+      "path": "include/ncnn/layer_shader_type_enum.h",
+      "bytes": 89,
+      "sha256": "f24b515a2b8bf4d0b0a8fa64265fcf5488e5280e909007df4a887c9a52847152"
+    },
+    {
+      "path": "include/ncnn/layer_type.h",
+      "bytes": 311,
+      "sha256": "650a79c82495b1b80cc09432e413a10d7003e97d1b09ec617ff18b49ecb1bf25"
+    },
+    {
+      "path": "include/ncnn/layer_type_enum.h",
+      "bytes": 1796,
+      "sha256": "655e74958d3bfea99feca55c572790fc14d60a6d97ec67b04ff12fbe92feab71"
+    },
+    {
+      "path": "include/ncnn/mat.h",
+      "bytes": 89024,
+      "sha256": "b184b00e03aca72f78605d5d88b9052f0da81ed24e258e09f9d157ddfa5f2495"
+    },
+    {
+      "path": "include/ncnn/modelbin.h",
+      "bytes": 1707,
+      "sha256": "c5bbea8cab70277adb6ed7773b962c02ff92393b8ffb3f668df85264f64e47e7"
+    },
+    {
+      "path": "include/ncnn/ncnn_export.h",
+      "bytes": 906,
+      "sha256": "6e0fa2a656f9204de681150678eefc9588c9285b8f0d1e212109005cf031718c"
+    },
+    {
+      "path": "include/ncnn/net.h",
+      "bytes": 7330,
+      "sha256": "4e67f97a216789289cb5a8b84a60dbe6399c2e2b500361b87344af43aba7cb61"
+    },
+    {
+      "path": "include/ncnn/option.h",
+      "bytes": 4374,
+      "sha256": "75a6b531a40f6fd9f17deb417f5dcc546c17718858e0b802e1a8d8653299b82c"
+    },
+    {
+      "path": "include/ncnn/paramdict.h",
+      "bytes": 1200,
+      "sha256": "f739e62b32c71c0fb6b3adb6dc613a4c61b51738ed1e3722efe22e8129e82414"
+    },
+    {
+      "path": "include/ncnn/pipeline.h",
+      "bytes": 2887,
+      "sha256": "98aaca953f532b1219da4abfdb9eed948aea23cf6ce0797e1c38770526ea6478"
+    },
+    {
+      "path": "include/ncnn/pipelinecache.h",
+      "bytes": 3131,
+      "sha256": "eef08f57e6c714db59ba822badd3667183299732a7b0da96b0d74a07862ed9f1"
+    },
+    {
+      "path": "include/ncnn/platform.h",
+      "bytes": 12400,
+      "sha256": "8facb82f4ecb49215a4245ab61ccc58acf0edb195b9218391285515ef127bc47"
+    },
+    {
+      "path": "include/ncnn/simplemath.h",
+      "bytes": 2756,
+      "sha256": "11b006a2166a020a9c61cff3348ec7b1988e387423d622d18240fd5c23275a1b"
+    },
+    {
+      "path": "include/ncnn/simpleocv.h",
+      "bytes": 9376,
+      "sha256": "9210bae840a1b39cab3d423668905fed4bcff5acfe975748a084c0bf0d39b37f"
+    },
+    {
+      "path": "include/ncnn/simpleomp.h",
+      "bytes": 796,
+      "sha256": "797d15b810575c12b730619ec25c7e61a6dcfb919fd1d963bdf0d4474321faa8"
+    },
+    {
+      "path": "include/ncnn/simplestl.h",
+      "bytes": 11541,
+      "sha256": "ab40598222cfd7c6d58a8c56606810b5465d0fe617b77e1277cd571580704287"
+    },
+    {
+      "path": "include/ncnn/simplevk.h",
+      "bytes": 88771,
+      "sha256": "1f1cfc1eda79d1f9af557f1b2ca8425619e6e2acc74e9d62fa900475025c805e"
+    },
+    {
+      "path": "include/ncnn/vulkan_header_fix.h",
+      "bytes": 94848,
+      "sha256": "edb67eb20d3be00adf39a1f361bb152555792b2bb0d1f38a27811aad0abcc58b"
+    },
+    {
+      "path": "lib/cmake/Ernie/ErnieConfig.cmake",
+      "bytes": 2187,
+      "sha256": "4f0a04ce47ac729a001848eacb47a68d1fdda9ac056e21391321140843cf0866"
+    },
+    {
+      "path": "lib/cmake/Ernie/ErnieConfigVersion.cmake",
+      "bytes": 3249,
+      "sha256": "d9f95ead4f9d6d91365d659e872794aacbaa4262a60cdc268231920763e3cf87"
+    },
+    {
+      "path": "lib/cmake/Ernie/ErnieTargets-release.cmake",
+      "bytes": 4602,
+      "sha256": "f9a2829c19d76eb999b472bfc70a72b72c219d37e9c24067eaa5019f75c15687"
+    },
+    {
+      "path": "lib/cmake/Ernie/ErnieTargets.cmake",
+      "bytes": 6878,
+      "sha256": "bfa504dfc8a2056469700e6cbc3446a1ee411b68803092630b2fc8df401f9e2a"
+    },
+    {
+      "path": "lib/cmake/ncnn/ncnn-release.cmake",
+      "bytes": 789,
+      "sha256": "562cb63272bed70e15d266255dcb901567b7bde229e67f8fbd1f12a95e150db6"
+    },
+    {
+      "path": "lib/cmake/ncnn/ncnn.cmake",
+      "bytes": 4207,
+      "sha256": "06cdfb84996f43a2c2b365b21c3d05fe9027e2b9477bfcf9a22110279f525a7e"
+    },
+    {
+      "path": "lib/cmake/ncnn/ncnnConfig.cmake",
+      "bytes": 1604,
+      "sha256": "84eb90d34f068efccd21772d93ae27ed1a5cb9beaf0e6dbd2ce7470e57311c0c"
+    },
+    {
+      "path": "lib/cmake/ncnn/ncnnConfigVersion.cmake",
+      "bytes": 1864,
+      "sha256": "0f7e618e1e00bab60bf8f0789df90f4f9a3e427d553ae92f314f186c8b4e1daf"
+    },
+    {
+      "path": "lib/libernie-execution-metrics.a",
+      "bytes": 50360,
+      "sha256": "b32824ab5ac209f5e02ce90f288d97da04f184aa3abcabb8d45ec5eea2bc371f"
+    },
+    {
+      "path": "lib/libernie-model-package.a",
+      "bytes": 32928,
+      "sha256": "261e2c6ba98f35337236505bdbf350fbe1f2f04012f8f5a350ef4df68cde85e4"
+    },
+    {
+      "path": "lib/libernie-pe.a",
+      "bytes": 72996,
+      "sha256": "daf8badee9694747a900d9a9273bc5e5ce53a3630d07d3c58d6736b6b10c7450"
+    },
+    {
+      "path": "lib/libernie-pipeline.a",
+      "bytes": 251886,
+      "sha256": "e33b12b6b7fe946d654b83c3b000d1c81faf379162b166bf9604f14a5aee661c"
+    },
+    {
+      "path": "lib/libernie-runtime.a",
+      "bytes": 531680,
+      "sha256": "f1b3d64894264e70a9e1acca0fcd57c6e769b7b3a713ddf3dfa86677daa0987d"
+    },
+    {
+      "path": "lib/libernie-shape-graph.a",
+      "bytes": 125964,
+      "sha256": "1cbda6b8041c82577fc9fd62dbdb42b151a401a70df02798dd5ea71fb9210f1d"
+    },
+    {
+      "path": "lib/libernie-shape-plan.a",
+      "bytes": 6436,
+      "sha256": "3239062ebb3524e468009fb0e5c95a6d5d5a2bea7277d28a22206a2ca0de5636"
+    },
+    {
+      "path": "lib/libernie-tokenizer.a",
+      "bytes": 11416,
+      "sha256": "37336c0068b3671d83d28f16ac8cfcb552d3dca1950d3f0ababf76029880f901"
+    },
+    {
+      "path": "lib/libernie_tokenizer_bridge.a",
+      "bytes": 23371524,
+      "sha256": "7bc6d0a6c9d9e7960fe74564e61e191f388181452c8951fe00de24bbc636c2c9"
+    },
+    {
+      "path": "lib/libncnn.a",
+      "bytes": 12168026,
+      "sha256": "9a7c5a5f7a662620a9bd19f2e00d6f7af92bb4d77bec32737d64aeeb7e77b4f5"
+    },
+    {
+      "path": "lib/pkgconfig/ncnn.pc",
+      "bytes": 327,
+      "sha256": "ef0cfc4f5a4aa25bcdc5f4b10a222ebe99a8aafd44fe4bf33d4405637167c33a"
+    },
+    {
+      "path": "share/ernie-image/LICENSE",
+      "bytes": 1086,
+      "sha256": "cf5027b75470415a56bcfe3b7d3a84a8bfab2f8c6a1938a5ef9b0feb8703a39c"
+    },
+    {
+      "path": "share/ernie-image/RUNNING.md",
+      "bytes": 40221,
+      "sha256": "4c03d3ba4472ddd131a7473fbe1e5304271defb5848541f1543c8e9ed7d0df79"
+    },
+    {
+      "path": "share/ernie-image/sources.lock.json",
+      "bytes": 5387,
+      "sha256": "70e963395854489dc7d8f0f63ed338f2c0c43f7244df2bad026217a66ff3a306"
+    }
+  ]
+}

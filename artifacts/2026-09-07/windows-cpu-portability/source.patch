@@ -1,0 +1,855 @@
+diff --git a/cli/CMakeLists.txt b/cli/CMakeLists.txt
+index 110035c..f89f0df 100644
+--- a/cli/CMakeLists.txt
++++ b/cli/CMakeLists.txt
+@@ -1,5 +1,11 @@
+ find_package(PNG REQUIRED)
+ add_executable(ernie-image main.cpp options.cpp prompt_file.cpp image_io.cpp generation_report.cpp)
++if(WIN32)
++    target_sources(ernie-image PRIVATE windows_main.cpp)
++    if(MINGW)
++        target_link_options(ernie-image PRIVATE -municode)
++    endif()
++endif()
+ target_include_directories(ernie-image PRIVATE "${PROJECT_SOURCE_DIR}/third_party/stb")
+ target_link_libraries(ernie-image PRIVATE ernie::pipeline PNG::PNG)
+ include(GNUInstallDirs)
+diff --git a/cli/generation_report.cpp b/cli/generation_report.cpp
+index 7b14692..6cad766 100644
+--- a/cli/generation_report.cpp
++++ b/cli/generation_report.cpp
+@@ -8,6 +8,11 @@
+ #include <sstream>
+ #include <stdexcept>
+ #include <system_error>
++#ifdef _WIN32
++#include <fcntl.h>
++#include <io.h>
++#include <sys/stat.h>
++#endif
+ 
+ namespace ernie::cli {
+ namespace {
+@@ -89,7 +94,17 @@ void write_generation_report(const std::filesystem::path& path, const Generation
+     const auto data = generation_report_json(r, s, progress, seconds, instrumented);
+     if (!path.parent_path().empty()) std::filesystem::create_directories(path.parent_path());
+ #ifdef _WIN32
+-    auto* file = _wfopen(path.c_str(), L"wbx");
++    // The Windows CRT may ignore fopen's "x" suffix. Request exclusive
++    // creation on the descriptor before handing ownership to the stream.
++    const int descriptor = _wopen(path.c_str(), _O_BINARY | _O_WRONLY | _O_CREAT | _O_EXCL,
++                                 _S_IREAD | _S_IWRITE);
++    auto* file = descriptor < 0 ? nullptr : _fdopen(descriptor, "wb");
++    if (!file && descriptor >= 0)
++    {
++        const int error = errno;
++        _close(descriptor);
++        errno = error;
++    }
+ #else
+     auto* file = std::fopen(path.c_str(), "wbx");
+ #endif
+diff --git a/cli/main.cpp b/cli/main.cpp
+index 92f5f74..179fcd4 100644
+--- a/cli/main.cpp
++++ b/cli/main.cpp
+@@ -11,7 +11,11 @@
+ #include <memory>
+ #endif
+ 
++#ifdef _WIN32
++int ernie_cli_main(int argc, char **argv)
++#else
+ int main(int argc, char **argv)
++#endif
+ {
+ #ifdef ERNIE_CLI_ALLOCATION_METRICS
+     std::unique_ptr<ernie::cli::AllocationReport> metrics;
+@@ -145,7 +149,7 @@ int main(int argc, char **argv)
+                       << "\nEnhanced prompt: " << result.prompt << '\n';
+         std::cout << "VAE and image encode: " << result.vae_seconds + write_seconds << " s\n"
+                   << "Saved " << result.image.width << 'x' << result.image.height
+-                  << " image: " << options.output.string() << '\n'
++                  << " image: " << options.output.u8string() << '\n'
+                   << "Total: " << result.elapsed_seconds + write_seconds << " s\n";
+         return 0;
+     }
+diff --git a/cli/options.cpp b/cli/options.cpp
+index abc5a1c..ee3d3d7 100644
+--- a/cli/options.cpp
++++ b/cli/options.cpp
+@@ -135,18 +135,18 @@ Options parse_options(int argc, char **argv)
+         if (flag == "--model")
+             r.model = value;
+         else if (flag == "--output")
+-            out.output = value;
++            out.output = fs::u8path(value);
+         else if (flag == "--metrics-json")
+-            out.metrics_json = value;
++            out.metrics_json = fs::u8path(value);
+         else if (flag == "--report-json")
+-            out.report_json = value;
++            out.report_json = fs::u8path(value);
+         else if (flag == "--input")
+-            out.input = value;
++            out.input = fs::u8path(value);
+         else if (flag == "--prompt")
+             r.prompt = value;
+         else if (flag == "--prompt-file")
+         {
+-            prompt_file = value;
++            prompt_file = fs::u8path(value);
+             from_file = true;
+         }
+         else if (flag == "--device")
+diff --git a/cli/prompt_file.cpp b/cli/prompt_file.cpp
+index 91b0ee8..d7eb1fb 100644
+--- a/cli/prompt_file.cpp
++++ b/cli/prompt_file.cpp
+@@ -9,14 +9,14 @@ std::string read_prompt(const fs::path &path)
+ {
+     std::ifstream file(path, std::ios::binary);
+     if (!file || !fs::is_regular_file(path))
+-        throw std::invalid_argument("Cannot open prompt file: " + path.string());
++        throw std::invalid_argument("Cannot open prompt file: " + path.u8string());
+     constexpr size_t limit = 1024 * 1024;
+     if (fs::file_size(path) > limit)
+         throw std::invalid_argument("Prompt file exceeds 1 MiB");
+     std::string text(limit + 1, '\0');
+     file.read(text.data(), text.size());
+     if (file.bad())
+-        throw std::runtime_error("Cannot read prompt file: " + path.string());
++        throw std::runtime_error("Cannot read prompt file: " + path.u8string());
+     text.resize(size_t(file.gcount()));
+     if (text.size() > limit)
+         throw std::invalid_argument("Prompt file exceeds 1 MiB");
+diff --git a/include/ernie/pipeline.h b/include/ernie/pipeline.h
+index ec4b0ac..1e41958 100644
+--- a/include/ernie/pipeline.h
++++ b/include/ernie/pipeline.h
+@@ -26,6 +26,7 @@ struct RgbImage
+ 
+ struct GenerationRequest
+ {
++    // All text and filesystem paths in this API use UTF-8 on every platform.
+     std::string model, prompt;
+     std::string device = "vulkan", precision = "fp16";
+     std::string vae_device = "cpu", vae_convolution = "direct";
+diff --git a/probes/CMakeLists.txt b/probes/CMakeLists.txt
+index a888adb..27941a6 100644
+--- a/probes/CMakeLists.txt
++++ b/probes/CMakeLists.txt
+@@ -34,3 +34,6 @@ endif()
+ 
+ # Explicit CPU-only diagnostic; does not change the text runtime.
+ ernie_probe(ernie-text-gemm-diagnostic text_gemm_diagnostic.cpp)
++if(WIN32)
++    target_link_libraries(ernie-text-gemm-diagnostic PRIVATE psapi)
++endif()
+diff --git a/probes/text_gemm_diagnostic.cpp b/probes/text_gemm_diagnostic.cpp
+index c293c59..ba4260a 100644
+--- a/probes/text_gemm_diagnostic.cpp
++++ b/probes/text_gemm_diagnostic.cpp
+@@ -8,7 +8,12 @@
+ #include <iostream>
+ #include <stdexcept>
+ #include <string>
++#ifdef _WIN32
++#include <windows.h>
++#include <psapi.h>
++#else
+ #include <sys/resource.h>
++#endif
+ 
+ int main(int argc, char** argv)
+ {
+@@ -53,12 +58,22 @@ int main(int argc, char** argv)
+         output.close();
+         if (!output) throw std::runtime_error("Output close failed");
+         const auto finished = std::chrono::steady_clock::now();
++#ifdef _WIN32
++        PROCESS_MEMORY_COUNTERS usage{};
++        if (!GetProcessMemoryInfo(GetCurrentProcess(), &usage, sizeof(usage)))
++            throw std::runtime_error("Peak working-set query failed");
++        const auto peak_kib = usage.PeakWorkingSetSize / 1024;
++        const char* peak_name = "peak_working_set_kib";
++#else
+         rusage usage{};
+         if (getrusage(RUSAGE_SELF, &usage)) throw std::runtime_error("RSS query failed");
++        const auto peak_kib = usage.ru_maxrss;
++        const char* peak_name = "peak_rss_kib";
++#endif
+         std::cout << "{\"rows\":" << rows << ",\"threads\":2,\"load_seconds\":"
+                   << std::chrono::duration<double>(loaded - start).count()
+                   << ",\"compute_and_io_seconds\":" << std::chrono::duration<double>(finished - loaded).count()
+-                  << ",\"peak_rss_kib\":" << usage.ru_maxrss << "}\n";
++                  << ",\"" << peak_name << "\":" << peak_kib << "}\n";
+     }
+     catch (const std::exception& e) { std::cerr << e.what() << '\n'; return 1; }
+     return 0;
+diff --git a/src/component_files.cpp b/src/component_files.cpp
+index 351511d..a63aa11 100644
+--- a/src/component_files.cpp
++++ b/src/component_files.cpp
+@@ -21,7 +21,7 @@ ComponentFiles component_files(const std::filesystem::path &directory, const std
+         throw std::runtime_error("Cannot read the complete graph text");
+     if (graph.find('\0') != std::string::npos)
+         throw std::invalid_argument("Graph text contains NUL");
+-    return {std::move(graph), (directory / (stem + ".ncnn.bin")).string()};
++    return {std::move(graph), (directory / (stem + ".ncnn.bin")).u8string()};
+ }
+ 
+ std::vector<ComponentFiles> component_files(const std::vector<std::string> &directories,
+@@ -30,7 +30,7 @@ std::vector<ComponentFiles> component_files(const std::vector<std::string> &dire
+     std::vector<ComponentFiles> result;
+     result.reserve(directories.size());
+     for (const auto &directory : directories)
+-        result.push_back(component_files(std::filesystem::path(directory), stem));
++        result.push_back(component_files(std::filesystem::u8path(directory), stem));
+     return result;
+ }
+ 
+@@ -55,7 +55,7 @@ void load_component_model(ncnn::Net &net, const ComponentFiles &files)
+ {
+     if (files.weight_path.empty() || files.weight_path.find('\0') != std::string::npos)
+         throw std::invalid_argument("Invalid resolved weight path");
+-    const int weight_status = net.load_model(files.weight_path.c_str());
++    const int weight_status = net.load_model(std::filesystem::u8path(files.weight_path).c_str());
+     if (weight_status)
+         throw std::runtime_error("Load component weights failed: " + std::to_string(weight_status));
+ }
+diff --git a/src/component_files.h b/src/component_files.h
+index fa80579..2782143 100644
+--- a/src/component_files.h
++++ b/src/component_files.h
+@@ -12,7 +12,7 @@ namespace ernie
+ struct ComponentFiles
+ {
+     std::string param_text;
+-    std::string weight_path;
++    std::string weight_path; // UTF-8; convert to a native path at file I/O boundaries.
+     bool empty() const { return param_text.empty() || weight_path.empty(); }
+ };
+ 
+diff --git a/src/conditioning.cpp b/src/conditioning.cpp
+index 46132e2..980bba5 100644
+--- a/src/conditioning.cpp
++++ b/src/conditioning.cpp
+@@ -11,10 +11,10 @@ static std::vector<ncnn::Mat> make_constants(const std::string &path, int w, int
+                                             int token_limit)
+ {
+     if (w < 1 || w > 256 || h < 1 || h > 256 || valid < 1 || text < valid || text > 2048 ||
+-        w * h + text > token_limit || std::filesystem::file_size(path) != 64 * 4)
++        w * h + text > token_limit || std::filesystem::file_size(std::filesystem::u8path(path)) != 64 * 4)
+         throw std::invalid_argument("Invalid DiT position dimensions or frequency file");
+     float frequencies[64];
+-    std::ifstream file(path, std::ios::binary);
++    std::ifstream file(std::filesystem::u8path(path), std::ios::binary);
+     if (!file.read(reinterpret_cast<char *>(frequencies), sizeof(frequencies)))
+         throw std::runtime_error("Cannot read DiT frequencies");
+     for (float f : frequencies)
+diff --git a/src/dit.cpp b/src/dit.cpp
+index f62ee14..027d29b 100644
+--- a/src/dit.cpp
++++ b/src/dit.cpp
+@@ -161,8 +161,8 @@ ncnn::Mat run_dit(const std::string& input_head, const std::vector<std::string>&
+     const std::string& output_head, const std::vector<ncnn::Mat>& inputs,
+     const ncnn::Option& option, DitStats& stats, const CpuStageObserver& observer)
+ {
+-    return run_dit(component_files(std::filesystem::path(input_head), "head"), component_files(blocks, "block"),
+-                   component_files(std::filesystem::path(output_head), "head"), inputs, option, stats, observer);
++    return run_dit(component_files(std::filesystem::u8path(input_head), "head"), component_files(blocks, "block"),
++                   component_files(std::filesystem::u8path(output_head), "head"), inputs, option, stats, observer);
+ }
+ #if NCNN_VULKAN
+ ncnn::VkMat run_dit(const std::string& input_head, const std::vector<std::string>& blocks,
+@@ -170,8 +170,8 @@ ncnn::VkMat run_dit(const std::string& input_head, const std::vector<std::string
+     const ncnn::VulkanDevice* device, const ncnn::Option& option, DitStats& stats,
+     const VulkanStageObserver& observer, WeightPlacement* placement, WeightSession* session)
+ {
+-    return run_dit(component_files(std::filesystem::path(input_head), "head"), component_files(blocks, "block"),
+-                   component_files(std::filesystem::path(output_head), "head"), inputs, device, option, stats, observer, placement, session);
++    return run_dit(component_files(std::filesystem::u8path(input_head), "head"), component_files(blocks, "block"),
++                   component_files(std::filesystem::u8path(output_head), "head"), inputs, device, option, stats, observer, placement, session);
+ }
+ #endif
+ } // namespace ernie
+diff --git a/src/ernie_text_down.cpp b/src/ernie_text_down.cpp
+index 8fdff72..f6ebdcc 100644
+--- a/src/ernie_text_down.cpp
++++ b/src/ernie_text_down.cpp
+@@ -156,9 +156,9 @@ std::string vector_text_down_graph(const std::string& graph,int bucket)
+ }
+ void validate_text_down_weights(const std::string& path)
+ {
+-    std::ifstream file(path,std::ios::binary);
++    std::ifstream file(std::filesystem::u8path(path),std::ios::binary);
+     if (!file) throw std::runtime_error("Cannot open text weights");
+-    const std::uint64_t size=std::filesystem::file_size(path);std::uint64_t offset=0;
++    const std::uint64_t size=std::filesystem::file_size(std::filesystem::u8path(path));std::uint64_t offset=0;
+     auto skip=[&](std::uint64_t bytes) {
+         if (offset>size || bytes>size-offset) throw std::invalid_argument("Truncated text weight stream");
+         offset+=bytes;file.seekg(static_cast<std::streamoff>(offset));
+diff --git a/src/image_encoder.cpp b/src/image_encoder.cpp
+index 213cec8..049badd 100644
+--- a/src/image_encoder.cpp
++++ b/src/image_encoder.cpp
+@@ -59,7 +59,7 @@ VaeEncoding encode_vae(const ComponentFiles &component, const RgbImage &rgb,
+     net.opt.use_winograd_convolution = false;
+     check(register_layers(net), "Register VAE encoder layers");
+     check(net.load_param_mem(component.param_text.c_str()), "Load VAE encoder graph");
+-    check(net.load_model(component.weight_path.c_str()), "Load VAE encoder weights");
++    check(net.load_model(std::filesystem::u8path(component.weight_path).c_str()), "Load VAE encoder weights");
+     auto ex = net.create_extractor();
+     check(ex.input("in0", input), "Input VAE encoder RGB");
+     check(ex.extract("out0", result.mean), "Extract VAE encoder mean");
+diff --git a/src/model_package.cpp b/src/model_package.cpp
+index a3de8ff..567d087 100644
+--- a/src/model_package.cpp
++++ b/src/model_package.cpp
+@@ -16,7 +16,7 @@ int ernie_model_package_has_file(const void *,const unsigned char *,size_t);
+ }
+ namespace ernie {
+ ModelPackage::ModelPackage(const std::filesystem::path &directory,int w,int h){
+-    auto root=std::filesystem::absolute(directory).string();std::array<unsigned char,4096> error{};
++    auto root=std::filesystem::absolute(directory).u8string();std::array<unsigned char,4096> error{};
+     handle_=ernie_model_package_open(reinterpret_cast<const unsigned char*>(root.data()),root.size(),w,h,error.data(),error.size());
+     if(!handle_)throw std::runtime_error(std::string("Cannot open model package: ") + reinterpret_cast<const char*>(error.data()));
+     try { refresh_config(); }
+@@ -51,7 +51,7 @@ bool ModelPackage::has_file(const std::string &name)const{
+ ComponentFiles ModelPackage::component(const std::string &name,const std::string &kind)const{
+     constexpr const char *suffix=".param";
+     if(name.size()<6||name.substr(name.size()-6)!=suffix)throw std::invalid_argument("Expected logical param filename");
+-    auto path=file(name);auto size=std::filesystem::file_size(path);
++    auto path=std::filesystem::u8path(file(name));auto size=std::filesystem::file_size(path);
+     if(size>1024*1024)throw std::invalid_argument("Graph exceeds text limit");
+     std::string text(size,'\0');std::ifstream input(path,std::ios::binary);
+     if(!input.read(text.data(),size))throw std::runtime_error("Cannot read graph object");
+diff --git a/src/pe_session.cpp b/src/pe_session.cpp
+index 377dd9d..7a542ec 100644
+--- a/src/pe_session.cpp
++++ b/src/pe_session.cpp
+@@ -35,10 +35,10 @@ void load_pe_block(ncnn::Net &net, const std::string &directory)
+ {
+     if (!fp32_cpu(net.opt))
+         throw std::invalid_argument("PE currently requires CPU FP32");
+-    const std::filesystem::path root(directory);
++    const auto root = std::filesystem::u8path(directory);
+     check(register_layers(net), "Register PE layers");
+-    check(net.load_param((root / "pe.ncnn.param").string().c_str()), "Load PE graph");
+-    check(net.load_model((root / "pe.ncnn.bin").string().c_str()), "Load PE weights");
++    check(net.load_param((root / "pe.ncnn.param").c_str()), "Load PE graph");
++    check(net.load_model((root / "pe.ncnn.bin").c_str()), "Load PE weights");
+ }
+ 
+ PeSession::PeSession(std::vector<const ncnn::Net *> blocks, int capacity)
+diff --git a/src/pipeline.cpp b/src/pipeline.cpp
+index d9cfdad..c0f54d0 100644
+--- a/src/pipeline.cpp
++++ b/src/pipeline.cpp
+@@ -160,7 +160,7 @@ ncnn::Mat run_dit(const ModelPackage &package, const ncnn::Mat &initial, const s
+ {
+     const auto &backend = request.device, &precision = request.precision;
+     const int steps = request.steps;
+-    const fs::path trace(request.trace);
++    const auto trace = fs::u8path(request.trace);
+     ernie::DenoiseModel dit;
+     dit.input_head = package.component("dit/input/head.ncnn.param", "input");
+     dit.output_head = package.component("dit/output/head.ncnn.param", "output");
+@@ -316,7 +316,7 @@ ncnn::Mat run_dit(const ModelPackage &package, const ncnn::Mat &initial, const s
+ 
+ void verify_model(const std::string &directory)
+ {
+-    const auto root = fs::path(directory);
++    const auto root = fs::u8path(directory);
+     if (fs::is_regular_file(root / "model.cfg"))
+         model_config(root / "model.cfg");
+     else if (fs::exists(root / "pe.cfg"))
+@@ -327,7 +327,7 @@ void verify_model(const std::string &directory)
+ }
+ void verify_pe_model(const std::string &directory)
+ {
+-    if (!fs::is_regular_file(fs::path(directory) / "pe.cfg"))
++    if (!fs::is_regular_file(fs::u8path(directory) / "pe.cfg"))
+         throw std::invalid_argument("Cannot open pe.cfg");
+     verify_package(directory);
+ }
+@@ -344,8 +344,8 @@ GenerationResult generate_impl(const GenerationRequest &r, const ProgressCallbac
+     // Initialize and validate the selected device before parsing model metadata
+     // or loading PE/text/image weights.
+     GpuContext gpu(((!img2img || denoise_image) && r.device == "vulkan") || r.vae_device == "vulkan", r.gpu_index);
+-    const fs::path trace(r.trace);
+-    ModelPackage package(r.model, request_width, request_height);
++    const auto trace = fs::u8path(r.trace);
++    ModelPackage package(fs::u8path(r.model), request_width, request_height);
+     const int w = package.config().packed_width, h = package.config().packed_height;
+     if (notify)
+         notify({"verify", 1, 1, elapsed(start)});
+@@ -417,8 +417,8 @@ GenerationResult generate_impl(const GenerationRequest &r, const ProgressCallbac
+         }
+         if (!denoise_image)
+         {
+-            const auto mean=read_tensor(package.file("vae/bn-mean.f32"),128),
+-                       variance=read_tensor(package.file("vae/bn-variance.f32"),128);
++            const auto mean=read_tensor(fs::u8path(package.file("vae/bn-mean.f32")),128),
++                       variance=read_tensor(fs::u8path(package.file("vae/bn-variance.f32")),128);
+             const auto unpacked=unpack_for_vae(encoded,mean,variance,r.threads);
+             const auto vae_start=Clock::now();
+             VaeStats vae_stats;
+@@ -488,7 +488,7 @@ GenerationResult generate_impl(const GenerationRequest &r, const ProgressCallbac
+     ncnn::Mat text;
+     const auto text_start = Clock::now();
+     if (!r.embeddings.empty())
+-        text = read_tensor(r.embeddings, 3072, int(ids.size())).reshape(3072, int(ids.size()));
++        text = read_tensor(fs::u8path(r.embeddings), 3072, int(ids.size())).reshape(3072, int(ids.size()));
+     else
+     {
+         const auto embedded = text_embeddings(package.file("text/embeddings.bf16"), ids, bucket);
+@@ -515,7 +515,7 @@ GenerationResult generate_impl(const GenerationRequest &r, const ProgressCallbac
+     const std::vector<ncnn::Mat> constants{padded, rotary[0], rotary[1], rotary[2]};
+     ncnn::Mat noise;
+     if (!r.latent.empty())
+-        noise = read_tensor(r.latent, w, h, 128);
++        noise = read_tensor(fs::u8path(r.latent), w, h, 128);
+     else
+     {
+         noise.create(w, h, 128);
+@@ -548,8 +548,8 @@ GenerationResult generate_impl(const GenerationRequest &r, const ProgressCallbac
+     auto dit_option = cpu;
+     dit_option.use_weights_in_host_memory = host_weights;
+     const auto latent = run_dit(package, initial, constants, dit_option, r, notify, start_step,metrics,result);
+-    const auto mean = read_tensor(package.file("vae/bn-mean.f32"), 128),
+-               variance = read_tensor(package.file("vae/bn-variance.f32"), 128);
++    const auto mean = read_tensor(fs::u8path(package.file("vae/bn-mean.f32")), 128),
++               variance = read_tensor(fs::u8path(package.file("vae/bn-variance.f32")), 128);
+     const auto unpacked = unpack_for_vae(latent, mean, variance, r.threads);
+     if (!trace.empty())
+     {
+diff --git a/src/prompt_enhancer.cpp b/src/prompt_enhancer.cpp
+index 2fadf01..4bae68c 100644
+--- a/src/prompt_enhancer.cpp
++++ b/src/prompt_enhancer.cpp
+@@ -72,9 +72,9 @@ PeResult enhance_prompt(const std::string &model, const std::string &prompt, int
+     options_check(options);
+     if (threads < 1 || threads > 256)
+         throw std::invalid_argument("PE threads must be in [1,256]");
+-    const std::filesystem::path root(model);
++    const auto root = std::filesystem::u8path(model);
+     verify_package(model);
+-    Tokenizer tokenizer((root / "tokenizer").string());
++    Tokenizer tokenizer((root / "tokenizer").u8string());
+     PeResult result;
+     result.input_ids = tokenizer.encode_exact(pe_chat_prompt(prompt, width, height));
+     if (result.input_ids.empty() || result.input_ids.size() > 2048)
+@@ -99,7 +99,7 @@ PeResult enhance_prompt(const std::string &model, const std::string &prompt, int
+         auto net = std::make_unique<ncnn::Net>();
+         net->opt = cpu;
+         load_pe_block(*net,
+-                      (root / (std::string("block-") + (i < 10 ? "0" : "") + std::to_string(i))).string());
++                      (root / (std::string("block-") + (i < 10 ? "0" : "") + std::to_string(i))).u8string());
+         pointers.push_back(net.get());
+         blocks.push_back(std::move(net));
+         if (progress)
+@@ -108,12 +108,12 @@ PeResult enhance_prompt(const std::string &model, const std::string &prompt, int
+     ncnn::Net head;
+     head.opt = cpu;
+     check(register_layers(head), "Register PE head");
+-    check(head.load_param((root / "head.ncnn.param").string().c_str()), "Load PE head graph");
+-    check(head.load_model((root / "head.ncnn.bin").string().c_str()), "Load PE head weights");
++    check(head.load_param((root / "head.ncnn.param").c_str()), "Load PE head graph");
++    check(head.load_model((root / "head.ncnn.bin").c_str()), "Load PE head weights");
+     PeSession session(pointers, int(result.input_ids.size()) + options.max_tokens);
+     auto advance = [&](uint32_t token)
+     {
+-        const auto embedded = text_embeddings((root / "embeddings.bf16").string(), {token}, 1);
++        const auto embedded = text_embeddings((root / "embeddings.bf16").u8string(), {token}, 1);
+         ncnn::Mat cos(128, 1), sin(128, 1);
+         if (cos.empty() || sin.empty())
+             throw std::bad_alloc();
+diff --git a/src/runtime_info.cpp b/src/runtime_info.cpp
+index 5a035b4..cdc3e03 100644
+--- a/src/runtime_info.cpp
++++ b/src/runtime_info.cpp
+@@ -33,7 +33,7 @@ DiagnosticInfo diagnose(const std::string &model_directory)
+ #endif
+     if (!model_directory.empty())
+     {
+-        const auto config = model_config(std::filesystem::path(model_directory) / "model.cfg");
++        const auto config = model_config(std::filesystem::u8path(model_directory) / "model.cfg");
+         result.model_config_loaded = true;
+         result.packed_width = config.packed_width;
+         result.packed_height = config.packed_height;
+diff --git a/src/tensor_io.cpp b/src/tensor_io.cpp
+index c1767df..7260913 100644
+--- a/src/tensor_io.cpp
++++ b/src/tensor_io.cpp
+@@ -10,7 +10,7 @@ namespace ernie
+ ncnn::Mat read_tensor(const fs::path &path, int w, int h, int c)
+ {
+     if (fs::file_size(path) != size_t(w) * h * c * 4)
+-        throw std::runtime_error("Wrong tensor size: " + path.string());
++        throw std::runtime_error("Wrong tensor size: " + path.u8string());
+     ncnn::Mat out = c > 1 ? ncnn::Mat(w, h, c) : h > 1 ? ncnn::Mat(w, h) : ncnn::Mat(w);
+     if (out.empty())
+         throw std::bad_alloc();
+@@ -21,7 +21,7 @@ ncnn::Mat read_tensor(const fs::path &path, int w, int h, int c)
+             throw std::runtime_error("Tensor read failed");
+         const float *values = out.channel(k);
+         if (!std::all_of(values, values + size_t(w) * h, [](float x) { return std::isfinite(x); }))
+-            throw std::runtime_error("Tensor contains non-finite values: " + path.string());
++            throw std::runtime_error("Tensor contains non-finite values: " + path.u8string());
+     }
+     return out;
+ }
+diff --git a/src/text_encoder.cpp b/src/text_encoder.cpp
+index 4f1cc2b..08cbe39 100644
+--- a/src/text_encoder.cpp
++++ b/src/text_encoder.cpp
+@@ -49,13 +49,13 @@ ncnn::Mat text_embeddings(const std::string &path, const std::vector<uint32_t> &
+ {
+     bucket_check(bucket);
+     if (ids.empty() || ids.size() > size_t(bucket) ||
+-        std::filesystem::file_size(path) != 131072ull * 3072 * 2)
++        std::filesystem::file_size(std::filesystem::u8path(path)) != 131072ull * 3072 * 2)
+         throw std::invalid_argument("Invalid token IDs or BF16 embedding table size");
+     ncnn::Mat out(3072, bucket);
+     if (out.empty())
+         throw std::bad_alloc();
+     out.fill(0.f);
+-    std::ifstream file(path, std::ios::binary);
++    std::ifstream file(std::filesystem::u8path(path), std::ios::binary);
+     unsigned char bytes[3072 * 2];
+     for (size_t i = 0; i < ids.size(); ++i)
+     {
+@@ -76,10 +76,10 @@ ncnn::Mat text_embeddings(const std::string &path, const std::vector<uint32_t> &
+ std::vector<ncnn::Mat> text_constants(const std::string &path, int bucket)
+ {
+     bucket_check(bucket);
+-    if (std::filesystem::file_size(path) != 64 * 4)
++    if (std::filesystem::file_size(std::filesystem::u8path(path)) != 64 * 4)
+         throw std::invalid_argument("Invalid YaRN frequency table size");
+     float frequencies[64];
+-    std::ifstream file(path, std::ios::binary);
++    std::ifstream file(std::filesystem::u8path(path), std::ios::binary);
+     if (!file.read(reinterpret_cast<char *>(frequencies), sizeof(frequencies)))
+         throw std::runtime_error("Cannot read YaRN frequencies");
+     ncnn::Mat cos(128, bucket), sin(128, bucket), mask(bucket, bucket);
+diff --git a/src/vae.cpp b/src/vae.cpp
+index 961601d..88f6b20 100644
+--- a/src/vae.cpp
++++ b/src/vae.cpp
+@@ -65,7 +65,7 @@ ncnn::Mat decode_vae(const ComponentFiles &files, const ncnn::Mat &unpacked, con
+ ncnn::Mat decode_vae(const std::string &directory, const ncnn::Mat &unpacked, const ncnn::Option &cpu,
+                      const std::string &device, const std::string &convolution, int gpu_index, VaeStats *stats)
+ {
+-    return decode_vae(component_files(std::filesystem::path(directory), "head"), unpacked, cpu,
++    return decode_vae(component_files(std::filesystem::u8path(directory), "head"), unpacked, cpu,
+                       device, convolution, gpu_index, stats);
+ }
+ } // namespace ernie
+diff --git a/src/weight_placement.cpp b/src/weight_placement.cpp
+index 0993245..0351854 100644
+--- a/src/weight_placement.cpp
++++ b/src/weight_placement.cpp
+@@ -54,7 +54,7 @@ bool WeightPlacement::use_host(const ComponentFiles& files, bool shape_prefers_h
+     // Reviewed packages store BF16 or FP32 weights. Twice the on-disk bytes is
+     // a conservative payload estimate at FP32, including for lower storage
+     // precision. It is not an estimate of activation or allocator peak memory.
+-    const auto file_bytes = std::filesystem::file_size(files.weight_path);
++    const auto file_bytes = std::filesystem::file_size(std::filesystem::u8path(files.weight_path));
+     if (file_bytes > std::numeric_limits<std::uint64_t>::max() / 2)
+         throw std::overflow_error("Weight byte estimate overflow");
+     const auto memory = mode_ == WeightMemory::Auto && reader_ ? reader_() : std::nullopt;
+diff --git a/tests/CMakeLists.txt b/tests/CMakeLists.txt
+index 8546abd..2820541 100644
+--- a/tests/CMakeLists.txt
++++ b/tests/CMakeLists.txt
+@@ -10,6 +10,11 @@ if(ERNIE_ENABLE_VULKAN)
+ endif()
+ if(ERNIE_BUILD_GENERATOR)
+     find_package(PNG REQUIRED)
++    add_executable(ernie-utf8-paths-contract test_utf8_paths.cpp
++                   "${PROJECT_SOURCE_DIR}/cli/options.cpp" "${PROJECT_SOURCE_DIR}/cli/prompt_file.cpp")
++    target_include_directories(ernie-utf8-paths-contract PRIVATE "${PROJECT_SOURCE_DIR}/cli")
++    target_link_libraries(ernie-utf8-paths-contract PRIVATE ernie::pipeline ernie-model-package ernie-runtime)
++    add_test(NAME utf8_paths_contract COMMAND ernie-utf8-paths-contract)
+     add_executable(ernie-generation-report-contract test_generation_report.cpp "${PROJECT_SOURCE_DIR}/cli/generation_report.cpp")
+     target_include_directories(ernie-generation-report-contract PRIVATE "${PROJECT_SOURCE_DIR}/include" "${PROJECT_SOURCE_DIR}/cli")
+     add_test(NAME generation_report_writer COMMAND ernie-generation-report-contract)
+diff --git a/tests/test_component_files.cpp b/tests/test_component_files.cpp
+index b612be7..18d5d9d 100644
+--- a/tests/test_component_files.cpp
++++ b/tests/test_component_files.cpp
+@@ -24,7 +24,8 @@ template<class F> void rejects(F action)
+ struct Temporary
+ {
+     fs::path path = fs::temp_directory_path() /
+-        ("ernie-component-" + std::to_string(std::chrono::steady_clock::now().time_since_epoch().count()));
++        fs::u8path(u8"ernie-component-\u6a21\u578b \U0001f5bc-" +
++                   std::to_string(std::chrono::steady_clock::now().time_since_epoch().count()));
+     Temporary() { require(fs::create_directory(path), "Cannot create isolated test directory"); }
+     ~Temporary() { std::error_code ignored; fs::remove_all(path, ignored); }
+ };
+@@ -60,10 +61,10 @@ int main()
+             net->opt.use_packing_layout = false;
+             net->opt.num_threads = 1;
+         }
+-        require(legacy.load_param(param.string().c_str()) == 0 &&
+-                legacy.load_model(weights.string().c_str()) == 0, "Legacy model load failed");
++        require(legacy.load_param(param.c_str()) == 0 &&
++                legacy.load_model(weights.c_str()) == 0, "Legacy model load failed");
+         auto files = ernie::component_files(dir.path, "head");
+-        require(files.param_text == graph && files.weight_path == weights.string(), "Descriptor differs");
++        require(files.param_text == graph && files.weight_path == weights.u8string(), "Descriptor differs");
+         // The descriptor owns graph text; no graph pathname is needed at load time.
+         fs::remove(param);
+         ernie::load_component(resolved, files);
+@@ -74,8 +75,8 @@ int main()
+         rejects([&] { ernie::component_files(dir.path, "head"); });
+         rejects([&] { ernie::component_files(dir.path, "../head"); });
+         rejects([&] { ernie::load_component(resolved, {}); });
+-        rejects([&] { ernie::load_component(resolved, {graph + '\0', weights.string()}); });
+-        rejects([&] { ernie::load_component(resolved, {graph, weights.string() + '\0'}); });
++        rejects([&] { ernie::load_component(resolved, {graph + '\0', weights.u8string()}); });
++        rejects([&] { ernie::load_component(resolved, {graph, weights.u8string() + '\0'}); });
+         { std::ofstream file(param, std::ios::binary); file.put('\0'); }
+         rejects([&] { ernie::component_files(dir.path, "head"); });
+         { std::ofstream file(param, std::ios::binary); file << std::string(1024 * 1024 + 1, 'x'); }
+diff --git a/tests/test_generation_report.cpp b/tests/test_generation_report.cpp
+index fc93acb..37d9ad1 100644
+--- a/tests/test_generation_report.cpp
++++ b/tests/test_generation_report.cpp
+@@ -10,7 +10,8 @@ int main()
+ {
+     namespace fs = std::filesystem;
+     const auto path = fs::temp_directory_path() /
+-        ("ernie-generation-report-" + std::to_string(std::chrono::steady_clock::now().time_since_epoch().count()));
++        fs::u8path(u8"ernie-generation-report-\u62a5\u544a \U0001f5bc-" +
++                   std::to_string(std::chrono::steady_clock::now().time_since_epoch().count()));
+     try
+     {
+         ernie::GenerationRequest request;
+@@ -32,6 +33,7 @@ int main()
+         const auto data = ernie::cli::generation_report_json(request, result, progress, .125, false);
+         ernie::cli::write_generation_report(path, request, result, progress, .125, false);
+         bool rejected = false;
++        result.prompt = "Replacement content must not reach the existing report";
+         try { ernie::cli::write_generation_report(path, request, result, progress, .125, false); }
+         catch (const std::system_error&) { rejected = true; }
+         std::ifstream input(path, std::ios::binary);
+diff --git a/tests/test_image_io.cpp b/tests/test_image_io.cpp
+index 36c1d59..71549fb 100644
+--- a/tests/test_image_io.cpp
++++ b/tests/test_image_io.cpp
+@@ -53,7 +53,7 @@ int main()
+     namespace fs = std::filesystem;
+     try
+     {
+-        const fs::path root = fs::temp_directory_path() / "ernie-image-io-contract";
++        const fs::path root = fs::temp_directory_path() / fs::u8path(u8"ernie-image-io-\u56fe\u50cf \U0001f5bc");
+         fs::remove_all(root); fs::create_directories(root);
+         ernie::RgbImage source; source.width = 32; source.height = 24;
+         source.pixels.resize(size_t(source.width) * source.height * 3);
+diff --git a/tests/test_text_down.cpp b/tests/test_text_down.cpp
+index bdf7575..2fe3669 100644
+--- a/tests/test_text_down.cpp
++++ b/tests/test_text_down.cpp
+@@ -8,7 +8,11 @@
+ #include <limits>
+ #include <stdexcept>
+ #include <string>
++#ifdef _WIN32
++#include <process.h>
++#else
+ #include <unistd.h>
++#endif
+ namespace fs=std::filesystem;
+ void require(bool ok,const char* message) { if (!ok) throw std::runtime_error(message); }
+ template<class F> void rejects(F action)
+@@ -35,7 +39,12 @@ void structural_weights(const fs::path& p,bool bf16)
+ }
+ int main(int argc,char** argv)
+ {
+-    const fs::path temp=fs::temp_directory_path()/("ernie-text-down-"+std::to_string(getpid()));
++#ifdef _WIN32
++    const auto process_id = _getpid();
++#else
++    const auto process_id = getpid();
++#endif
++    const fs::path temp=fs::temp_directory_path()/("ernie-text-down-"+std::to_string(process_id));
+     try
+     {
+         if (argc==2)
+diff --git a/tokenizer/CMakeLists.txt b/tokenizer/CMakeLists.txt
+index 91ab696..38459ff 100644
+--- a/tokenizer/CMakeLists.txt
++++ b/tokenizer/CMakeLists.txt
+@@ -1,8 +1,19 @@
+ find_program(CARGO_EXECUTABLE cargo REQUIRED)
+ find_package(Threads REQUIRED)
+-set(tokenizer_library "${CMAKE_BINARY_DIR}/cargo/release/libernie_tokenizer_bridge.a")
++set(ERNIE_RUST_TARGET "" CACHE STRING "Cargo target triple; required for cross-compilation")
++if(CMAKE_CROSSCOMPILING AND NOT ERNIE_RUST_TARGET)
++    message(FATAL_ERROR "Cross-compiling the tokenizer requires ERNIE_RUST_TARGET for the C++ target")
++endif()
++set(tokenizer_target_arguments)
++set(tokenizer_output_directory "${CMAKE_BINARY_DIR}/cargo")
++if(ERNIE_RUST_TARGET)
++    list(APPEND tokenizer_target_arguments --target "${ERNIE_RUST_TARGET}")
++    string(APPEND tokenizer_output_directory "/${ERNIE_RUST_TARGET}")
++endif()
++set(tokenizer_library "${tokenizer_output_directory}/release/${CMAKE_STATIC_LIBRARY_PREFIX}ernie_tokenizer_bridge${CMAKE_STATIC_LIBRARY_SUFFIX}")
+ add_custom_command(OUTPUT "${tokenizer_library}"
+     COMMAND "${CMAKE_COMMAND}" -E env CARGO_BUILD_JOBS=2 "${CARGO_EXECUTABLE}" build --release --locked
++            ${tokenizer_target_arguments}
+             --manifest-path "${CMAKE_CURRENT_SOURCE_DIR}/Cargo.toml" --target-dir "${CMAKE_BINARY_DIR}/cargo"
+     DEPENDS Cargo.toml Cargo.lock src/lib.rs src/package.rs src/shared_package.rs schema3_contract.json "${PROJECT_SOURCE_DIR}/sources.lock.json"
+     COMMENT "Building pinned native Tokenizers bridge")
+@@ -15,4 +26,10 @@ target_include_directories(ernie-tokenizer PUBLIC "$<BUILD_INTERFACE:${PROJECT_S
+ target_link_libraries(ernie-tokenizer PRIVATE
+     "$<BUILD_INTERFACE:ernie-tokenizer-native>"
+     "$<INSTALL_INTERFACE:ernie::tokenizer-native>"
+-    Threads::Threads ${CMAKE_DL_LIBS} m)
++    Threads::Threads ${CMAKE_DL_LIBS})
++if(WIN32)
++    # System dependencies of the Rust Windows standard library (staticlib).
++    target_link_libraries(ernie-tokenizer PRIVATE kernel32 ntdll userenv ws2_32 dbghelp)
++else()
++    target_link_libraries(ernie-tokenizer PRIVATE m)
++endif()
+diff --git a/cli/windows_main.cpp b/cli/windows_main.cpp
+new file mode 100644
+index 0000000..773a752
+--- /dev/null
++++ b/cli/windows_main.cpp
+@@ -0,0 +1,43 @@
++// SPDX-License-Identifier: MIT
++#include <windows.h>
++#include <iostream>
++#include <stdexcept>
++#include <string>
++#include <system_error>
++#include <utility>
++#include <vector>
++
++int ernie_cli_main(int argc, char** argv);
++
++// Windows supplies UTF-16 arguments. Convert explicitly so prompts and public
++// UTF-8 path strings do not depend on the machine's ANSI code page.
++int wmain(int argc, wchar_t** argv)
++{
++    try
++    {
++        std::vector<std::string> arguments;
++        arguments.reserve(argc);
++        for (int i = 0; i < argc; ++i)
++        {
++            const int size = WideCharToMultiByte(CP_UTF8, WC_ERR_INVALID_CHARS, argv[i], -1,
++                                                 nullptr, 0, nullptr, nullptr);
++            if (!size) throw std::system_error(GetLastError(), std::system_category(), "Invalid command line");
++            std::string value(size, '\0');
++            if (WideCharToMultiByte(CP_UTF8, WC_ERR_INVALID_CHARS, argv[i], -1,
++                                    value.data(), size, nullptr, nullptr) != size)
++                throw std::system_error(GetLastError(), std::system_category(), "Cannot decode command line");
++            value.pop_back();
++            arguments.push_back(std::move(value));
++        }
++        std::vector<char*> pointers;
++        pointers.reserve(arguments.size() + 1);
++        for (auto& value : arguments) pointers.push_back(value.data());
++        pointers.push_back(nullptr);
++        return ernie_cli_main(argc, pointers.data());
++    }
++    catch (const std::exception& error)
++    {
++        std::cerr << error.what() << '\n';
++        return 1;
++    }
++}
+diff --git a/tests/test_utf8_paths.cpp b/tests/test_utf8_paths.cpp
+new file mode 100644
+index 0000000..6812a68
+--- /dev/null
++++ b/tests/test_utf8_paths.cpp
+@@ -0,0 +1,81 @@
++// SPDX-License-Identifier: MIT
++#include <ernie/pipeline.h>
++#include "conditioning.h"
++#include "model_package.h"
++#include "options.h"
++#include "tensor_io.h"
++#include "text_encoder.h"
++#include <chrono>
++#include <filesystem>
++#include <fstream>
++#include <iostream>
++#include <stdexcept>
++#include <string>
++#include <vector>
++
++namespace fs = std::filesystem;
++namespace {
++void require(bool ok, const char* message)
++{
++    if (!ok) throw std::runtime_error(message);
++}
++template<class F> void rejects_with(F action, const char* expected)
++{
++    try { action(); }
++    catch (const std::exception& error)
++    {
++        if (std::string(error.what()).find(expected) != std::string::npos) return;
++        throw std::runtime_error(std::string("Wrong file reached: ") + error.what());
++    }
++    throw std::runtime_error("Malformed fixture was accepted");
++}
++struct Temporary {
++    fs::path path = fs::temp_directory_path() / fs::u8path(u8"ernie-\u6a21\u578b \u041f\u0443\u0442\u044c \U0001f5bc-" +
++        std::to_string(std::chrono::steady_clock::now().time_since_epoch().count()));
++    Temporary() { require(fs::create_directory(path), "Cannot create native Unicode fixture"); }
++    ~Temporary() { std::error_code ignored; fs::remove_all(path, ignored); }
++};
++}
++
++int main()
++{
++    try
++    {
++        Temporary temporary;
++        const auto& root = temporary.path;
++        // Native filesystem paths create these fixtures independently of the
++        // UTF-8 strings passed across the application and Rust boundaries.
++        { std::ofstream(root / "model.cfg") << "text_layers 25\n"; }
++        rejects_with([&] { ernie::verify_model(root.u8string()); }, "Missing model.cfg field");
++        fs::remove(root / "model.cfg");
++        { std::ofstream(root / "manifest.json") << "{\"schema_version\":3}"; }
++        rejects_with([&] { ernie::verify_model(root.u8string()); }, "Unexpected schema-3 fields");
++        rejects_with([&] { ernie::ModelPackage package(root); }, "Unexpected schema-3 fields");
++
++        const std::string prompt = u8"\u7ea2\u8272\u82f9\u679c \u041f\u0440\u0438\u0432\u0435\u0442 \U0001f34e\n";
++        const auto prompt_path = root / fs::u8path(u8"\u63d0\u793a\u8bcd \U0001f34e.txt");
++        { std::ofstream(prompt_path, std::ios::binary) << prompt; }
++        const auto output = root / fs::u8path(u8"\u56fe\u50cf \U0001f5bc.png");
++        const auto report = root / fs::u8path(u8"\u62a5\u544a \U0001f5bc.json");
++        std::vector<std::string> arguments{"ernie-image", "--model", root.u8string(),
++            "--prompt-file", prompt_path.u8string(), "--output", output.u8string(), "--report-json", report.u8string()};
++        std::vector<char*> pointers;
++        for (auto& value : arguments) pointers.push_back(value.data());
++        auto options = ernie::cli::parse_options(int(pointers.size()), pointers.data());
++        require(options.generation.model == root.u8string() && options.generation.prompt == prompt &&
++                options.output == output && options.report_json == report, "UTF-8 CLI path or prompt changed");
++
++        ncnn::Mat frequencies(64); frequencies.fill(1.f);
++        const auto frequency_path = root / fs::u8path(u8"\u9891\u7387 \U0001f5bc.f32");
++        ernie::write_tensor(frequency_path, frequencies);
++        auto read = ernie::read_tensor(frequency_path, 64);
++        require(read[63] == 1.f, "Native tensor path changed");
++        const auto text = ernie::text_constants(frequency_path.u8string(), 2);
++        const auto image = ernie::dit_constants(frequency_path.u8string(), 1, 1, 1, 1);
++        require(text.size() == 3 && text[0].h == 2 && image.size() == 3 && image[0].h == 2,
++                "UTF-8 conditioning file changed");
++        std::cout << "Native Unicode paths, UTF-8 API/Rust/CLI, prompt and tensor I/O passed; no model inference\n";
++    }
++    catch (const std::exception& error) { std::cerr << error.what() << '\n'; return 1; }
++    return 0;
++}

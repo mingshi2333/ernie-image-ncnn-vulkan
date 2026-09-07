@@ -156,9 +156,9 @@ std::string vector_text_down_graph(const std::string& graph,int bucket)
 }
 void validate_text_down_weights(const std::string& path)
 {
-    std::ifstream file(path,std::ios::binary);
+    std::ifstream file(std::filesystem::u8path(path),std::ios::binary);
     if (!file) throw std::runtime_error("Cannot open text weights");
-    const std::uint64_t size=std::filesystem::file_size(path);std::uint64_t offset=0;
+    const std::uint64_t size=std::filesystem::file_size(std::filesystem::u8path(path));std::uint64_t offset=0;
     auto skip=[&](std::uint64_t bytes) {
         if (offset>size || bytes>size-offset) throw std::invalid_argument("Truncated text weight stream");
         offset+=bytes;file.seekg(static_cast<std::streamoff>(offset));

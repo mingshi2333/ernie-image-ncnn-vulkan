@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/var/tmp/ernie-windows-sdk-v4/consumer-build",
+  "command": "/usr/bin/x86_64-w64-mingw32-g++ -isystem \"/var/tmp/ernie-windows-sdk-v4/移动 installation/include\" -O3 -DNDEBUG -o CMakeFiles/ernie-install-consumer.dir/main.cpp.obj -c /var/tmp/ernie-windows-sdk-v4/consumer/main.cpp",
+  "file": "/var/tmp/ernie-windows-sdk-v4/consumer/main.cpp",
+  "output": "/var/tmp/ernie-windows-sdk-v4/consumer-build/CMakeFiles/ernie-install-consumer.dir/main.cpp.obj"
+}
+]

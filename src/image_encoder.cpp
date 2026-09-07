@@ -59,7 +59,7 @@ VaeEncoding encode_vae(const ComponentFiles &component, const RgbImage &rgb,
     net.opt.use_winograd_convolution = false;
     check(register_layers(net), "Register VAE encoder layers");
     check(net.load_param_mem(component.param_text.c_str()), "Load VAE encoder graph");
-    check(net.load_model(component.weight_path.c_str()), "Load VAE encoder weights");
+    check(net.load_model(std::filesystem::u8path(component.weight_path).c_str()), "Load VAE encoder weights");
     auto ex = net.create_extractor();
     check(ex.input("in0", input), "Input VAE encoder RGB");
     check(ex.extract("out0", result.mean), "Extract VAE encoder mean");

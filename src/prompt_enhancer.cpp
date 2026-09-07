@@ -72,9 +72,9 @@ PeResult enhance_prompt(const std::string &model, const std::string &prompt, int
     options_check(options);
     if (threads < 1 || threads > 256)
         throw std::invalid_argument("PE threads must be in [1,256]");
-    const std::filesystem::path root(model);
+    const auto root = std::filesystem::u8path(model);
     verify_package(model);
-    Tokenizer tokenizer((root / "tokenizer").string());
+    Tokenizer tokenizer((root / "tokenizer").u8string());
     PeResult result;
     result.input_ids = tokenizer.encode_exact(pe_chat_prompt(prompt, width, height));
     if (result.input_ids.empty() || result.input_ids.size() > 2048)
@@ -99,7 +99,7 @@ PeResult enhance_prompt(const std::string &model, const std::string &prompt, int
         auto net = std::make_unique<ncnn::Net>();
         net->opt = cpu;
         load_pe_block(*net,
-                      (root / (std::string("block-") + (i < 10 ? "0" : "") + std::to_string(i))).string());
+                      (root / (std::string("block-") + (i < 10 ? "0" : "") + std::to_string(i))).u8string());
         pointers.push_back(net.get());
         blocks.push_back(std::move(net));
         if (progress)
@@ -108,12 +108,12 @@ PeResult enhance_prompt(const std::string &model, const std::string &prompt, int
     ncnn::Net head;
     head.opt = cpu;
     check(register_layers(head), "Register PE head");
-    check(head.load_param((root / "head.ncnn.param").string().c_str()), "Load PE head graph");
-    check(head.load_model((root / "head.ncnn.bin").string().c_str()), "Load PE head weights");
+    check(head.load_param((root / "head.ncnn.param").c_str()), "Load PE head graph");
+    check(head.load_model((root / "head.ncnn.bin").c_str()), "Load PE head weights");
     PeSession session(pointers, int(result.input_ids.size()) + options.max_tokens);
     auto advance = [&](uint32_t token)
     {
-        const auto embedded = text_embeddings((root / "embeddings.bf16").string(), {token}, 1);
+        const auto embedded = text_embeddings((root / "embeddings.bf16").u8string(), {token}, 1);
         ncnn::Mat cos(128, 1), sin(128, 1);
         if (cos.empty() || sin.empty())
             throw std::bad_alloc();

@@ -35,10 +35,10 @@ void load_pe_block(ncnn::Net &net, const std::string &directory)
 {
     if (!fp32_cpu(net.opt))
         throw std::invalid_argument("PE currently requires CPU FP32");
-    const std::filesystem::path root(directory);
+    const auto root = std::filesystem::u8path(directory);
     check(register_layers(net), "Register PE layers");
-    check(net.load_param((root / "pe.ncnn.param").string().c_str()), "Load PE graph");
-    check(net.load_model((root / "pe.ncnn.bin").string().c_str()), "Load PE weights");
+    check(net.load_param((root / "pe.ncnn.param").c_str()), "Load PE graph");
+    check(net.load_model((root / "pe.ncnn.bin").c_str()), "Load PE weights");
 }
 
 PeSession::PeSession(std::vector<const ncnn::Net *> blocks, int capacity)

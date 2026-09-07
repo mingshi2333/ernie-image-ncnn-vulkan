@@ -21,7 +21,7 @@ ComponentFiles component_files(const std::filesystem::path &directory, const std
         throw std::runtime_error("Cannot read the complete graph text");
     if (graph.find('\0') != std::string::npos)
         throw std::invalid_argument("Graph text contains NUL");
-    return {std::move(graph), (directory / (stem + ".ncnn.bin")).string()};
+    return {std::move(graph), (directory / (stem + ".ncnn.bin")).u8string()};
 }
 
 std::vector<ComponentFiles> component_files(const std::vector<std::string> &directories,
@@ -30,7 +30,7 @@ std::vector<ComponentFiles> component_files(const std::vector<std::string> &dire
     std::vector<ComponentFiles> result;
     result.reserve(directories.size());
     for (const auto &directory : directories)
-        result.push_back(component_files(std::filesystem::path(directory), stem));
+        result.push_back(component_files(std::filesystem::u8path(directory), stem));
     return result;
 }
 
@@ -55,7 +55,7 @@ void load_component_model(ncnn::Net &net, const ComponentFiles &files)
 {
     if (files.weight_path.empty() || files.weight_path.find('\0') != std::string::npos)
         throw std::invalid_argument("Invalid resolved weight path");
-    const int weight_status = net.load_model(files.weight_path.c_str());
+    const int weight_status = net.load_model(std::filesystem::u8path(files.weight_path).c_str());
     if (weight_status)
         throw std::runtime_error("Load component weights failed: " + std::to_string(weight_status));
 }

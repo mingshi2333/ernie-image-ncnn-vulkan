@@ -1,0 +1,6 @@
+{
+  "link_probe": "development/link-semantics.rs is the final extended helper used by native-links/result.json. The earlier metadata-only link-semantics-results.json did not freeze its initial helper source. Its raw result remains historical; no reconstructed source hash is claimed.",
+  "source_bindings": "source-inventory and source.patch describe final code. Pre-UTF8 binaries and the six-file patch are separately retained. Earlier build iterations predate this source identity.",
+  "installed_docs": "SDK records bind the actual documentation installed during each run; later explanatory documentation edits do not rebind those old records.",
+  "unit_status": "Some successful transient units may already be unloaded; terminal output is separately recorded where available."
+}

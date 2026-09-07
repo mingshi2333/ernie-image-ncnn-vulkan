@@ -1,0 +1,16 @@
+{
+  "scope": "Later rebuild of build-dev after Windows path changes; replaces the earlier build-dev observation in final-builds.json. Frozen grid/candidate snapshots untouched. Three affected CPU-executed checks pass; no new GPU/model execution.",
+  "files": [
+    {
+      "path": "build-dev/ernie-image",
+      "bytes": 36943896,
+      "sha256": "92559ea493adabfb1a0b2fbf1d69e21ccb79d7c9f2dbd37cb25898d7654da1c0"
+    },
+    {
+      "path": "build-dev/ncnn/src/libncnn.a",
+      "bytes": 23198344,
+      "sha256": "c8e58dc6abb73915ae61c52400fab307df1d477752ffe3f2db694b9d4570bd17"
+    }
+  ],
+  "source_files_verified_unchanged": 334
+}

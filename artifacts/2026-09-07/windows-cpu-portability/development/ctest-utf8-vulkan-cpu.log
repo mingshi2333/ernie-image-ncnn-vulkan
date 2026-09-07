@@ -1,0 +1,11 @@
+Test project /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev
+    Start  7: utf8_paths_contract
+1/3 Test  #7: utf8_paths_contract ..............   Passed    0.01 sec
+    Start 24: component_files_contract_cpu
+2/3 Test #24: component_files_contract_cpu .....   Passed    0.01 sec
+    Start 55: model_package_contract
+3/3 Test #55: model_package_contract ...........   Passed    0.00 sec
+
+100% tests passed, 0 tests failed out of 3
+
+Total Test time (real) =   0.03 sec

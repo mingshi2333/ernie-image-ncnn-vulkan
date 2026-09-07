@@ -24,7 +24,8 @@ template<class F> void rejects(F action)
 struct Temporary
 {
     fs::path path = fs::temp_directory_path() /
-        ("ernie-component-" + std::to_string(std::chrono::steady_clock::now().time_since_epoch().count()));
+        fs::u8path(u8"ernie-component-\u6a21\u578b \U0001f5bc-" +
+                   std::to_string(std::chrono::steady_clock::now().time_since_epoch().count()));
     Temporary() { require(fs::create_directory(path), "Cannot create isolated test directory"); }
     ~Temporary() { std::error_code ignored; fs::remove_all(path, ignored); }
 };
@@ -60,10 +61,10 @@ int main()
             net->opt.use_packing_layout = false;
             net->opt.num_threads = 1;
         }
-        require(legacy.load_param(param.string().c_str()) == 0 &&
-                legacy.load_model(weights.string().c_str()) == 0, "Legacy model load failed");
+        require(legacy.load_param(param.c_str()) == 0 &&
+                legacy.load_model(weights.c_str()) == 0, "Legacy model load failed");
         auto files = ernie::component_files(dir.path, "head");
-        require(files.param_text == graph && files.weight_path == weights.string(), "Descriptor differs");
+        require(files.param_text == graph && files.weight_path == weights.u8string(), "Descriptor differs");
         // The descriptor owns graph text; no graph pathname is needed at load time.
         fs::remove(param);
         ernie::load_component(resolved, files);
@@ -74,8 +75,8 @@ int main()
         rejects([&] { ernie::component_files(dir.path, "head"); });
         rejects([&] { ernie::component_files(dir.path, "../head"); });
         rejects([&] { ernie::load_component(resolved, {}); });
-        rejects([&] { ernie::load_component(resolved, {graph + '\0', weights.string()}); });
-        rejects([&] { ernie::load_component(resolved, {graph, weights.string() + '\0'}); });
+        rejects([&] { ernie::load_component(resolved, {graph + '\0', weights.u8string()}); });
+        rejects([&] { ernie::load_component(resolved, {graph, weights.u8string() + '\0'}); });
         { std::ofstream file(param, std::ios::binary); file.put('\0'); }
         rejects([&] { ernie::component_files(dir.path, "head"); });
         { std::ofstream file(param, std::ios::binary); file << std::string(1024 * 1024 + 1, 'x'); }

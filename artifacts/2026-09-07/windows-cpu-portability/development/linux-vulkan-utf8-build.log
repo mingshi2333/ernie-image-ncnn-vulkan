@@ -1,0 +1,150 @@
+-- CMAKE_INSTALL_PREFIX = /usr/local
+-- NCNN_VERSION_STRING = 1.0.20260907
+-- Target arch: x86 64bit
+-- Configuring done (0.3s)
+-- Generating done (0.2s)
+-- Build files have been written to: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev
+[  0%] Built target GenericCodeGen
+[  1%] Built target SPIRV
+[  1%] Built target MachineIndependent
+[  1%] Built target glslang-default-resource-limits
+[  1%] Built target OSDependent
+[  7%] Built target glslang
+[ 35%] Built target ncnn-generate-spirv
+[ 35%] Built target ernie-tokenizer-rust
+[ 35%] Built target ernie-shape-plan
+[ 35%] Built target ernie-execution-metrics
+[ 36%] Building CXX object tests/CMakeFiles/ernie-prompt-file-contract.dir/__/cli/prompt_file.cpp.o
+[ 36%] Building CXX object tests/CMakeFiles/ernie-generation-report-contract.dir/__/cli/generation_report.cpp.o
+[ 36%] Linking CXX executable ../ernie-prompt-file-contract
+[ 36%] Built target ernie-prompt-file-contract
+[ 36%] Building CXX object tests/CMakeFiles/ernie-image-io-contract.dir/__/cli/image_io.cpp.o
+[ 36%] Building CXX object tests/CMakeFiles/ernie-generation-report-contract.dir/test_generation_report.cpp.o
+[ 36%] Linking CXX executable ../ernie-generation-report-contract
+[ 36%] Built target ernie-generation-report-contract
+[ 37%] Built target ernie-shape-plan-contract
+[ 37%] Built target ernie-execution-metrics-contract
+[ 83%] Built target ncnn
+[ 83%] Built target ernie-tokenizer
+[ 83%] Building CXX object src/CMakeFiles/ernie-runtime.dir/image_encoder.cpp.o
+[ 83%] Building CXX object tests/CMakeFiles/ernie-image-io-contract.dir/test_image_io.cpp.o
+[ 83%] Building CXX object src/CMakeFiles/ernie-runtime.dir/component_files.cpp.o
+[ 83%] Building CXX object src/CMakeFiles/ernie-runtime.dir/weight_placement.cpp.o
+[ 84%] Linking CXX executable ../ernie-image-io-contract
+[ 84%] Built target ernie-image-io-contract
+[ 85%] Built target ernie-shape-graph
+[ 85%] Built target ernie-tokenize
+[ 85%] Built target ernie-model-reader-contract
+[ 85%] Built target ernie-shape-graph-contract
+[ 85%] Building CXX object src/CMakeFiles/ernie-model-package.dir/model_package.cpp.o
+[ 85%] Building CXX object src/CMakeFiles/ernie-runtime.dir/weight_session.cpp.o
+[ 85%] Linking CXX static library libernie-model-package.a
+[ 85%] Built target ernie-model-package
+[ 85%] Building CXX object src/CMakeFiles/ernie-runtime.dir/block_sequence.cpp.o
+[ 86%] Building CXX object src/CMakeFiles/ernie-runtime.dir/dit.cpp.o
+[ 86%] Building CXX object src/CMakeFiles/ernie-runtime.dir/denoiser.cpp.o
+[ 86%] Building CXX object src/CMakeFiles/ernie-runtime.dir/text_encoder.cpp.o
+[ 86%] Building CXX object src/CMakeFiles/ernie-runtime.dir/ernie_text_down.cpp.o
+[ 86%] Building CXX object src/CMakeFiles/ernie-runtime.dir/conditioning.cpp.o
+[ 86%] Building CXX object src/CMakeFiles/ernie-runtime.dir/pe_session.cpp.o
+[ 86%] Building CXX object tests/CMakeFiles/ernie-model-package-contract.dir/test_model_package.cpp.o
+[ 86%] Linking CXX static library libernie-runtime.a
+[ 87%] Built target ernie-runtime
+[ 87%] Building CXX object src/CMakeFiles/ernie-pe.dir/prompt_enhancer.cpp.o
+[ 88%] Linking CXX executable ../ernie-model-package-contract
+[ 88%] Built target ernie-model-package-contract
+[ 88%] Linking CXX executable ../ernie-attention-probe
+[ 88%] Linking CXX static library libernie-pe.a
+[ 88%] Built target ernie-pe
+[ 88%] Linking CXX executable ../ernie-block-runner
+[ 88%] Built target ernie-attention-probe
+[ 88%] Linking CXX executable ../ernie-attention-accuracy-probe
+[ 88%] Built target ernie-block-runner
+[ 89%] Linking CXX executable ../ernie-attention-workspace-probe
+[ 89%] Built target ernie-attention-accuracy-probe
+[ 89%] Linking CXX executable ../ernie-gelu-probe
+[ 89%] Built target ernie-attention-workspace-probe
+[ 89%] Linking CXX executable ../ernie-latent-runner
+[ 90%] Built target ernie-gelu-probe
+[ 90%] Building CXX object probes/CMakeFiles/ernie-block-sequence-runner.dir/block_sequence_runner.cpp.o
+[ 91%] Built target ernie-latent-runner
+[ 91%] Linking CXX executable ../ernie-head-runner
+[ 92%] Built target ernie-head-runner
+[ 92%] Building CXX object probes/CMakeFiles/ernie-denoise-runner.dir/denoise_runner.cpp.o
+[ 92%] Linking CXX executable ../ernie-block-sequence-runner
+[ 92%] Built target ernie-block-sequence-runner
+[ 92%] Building CXX object probes/CMakeFiles/ernie-text-runner.dir/text_runner.cpp.o
+[ 92%] Linking CXX executable ../ernie-denoise-runner
+[ 92%] Built target ernie-denoise-runner
+[ 92%] Linking CXX executable ../ernie-pe-block-runner
+[ 92%] Built target ernie-pe-block-runner
+[ 92%] Building CXX object probes/CMakeFiles/ernie-rmsnorm-probe.dir/rmsnorm_probe.cpp.o
+[ 93%] Linking CXX executable ../ernie-text-runner
+[ 94%] Linking CXX executable ../ernie-rmsnorm-probe
+[ 94%] Built target ernie-text-runner
+[ 95%] Building CXX object probes/CMakeFiles/ernie-pe-runner.dir/pe_runner.cpp.o
+[ 95%] Built target ernie-rmsnorm-probe
+[ 95%] Building CXX object probes/CMakeFiles/ernie-text-gemm-diagnostic.dir/text_gemm_diagnostic.cpp.o
+[ 95%] Linking CXX executable ../ernie-text-gemm-diagnostic
+[ 95%] Linking CXX executable ../ernie-pe-runner
+[ 95%] Built target ernie-text-gemm-diagnostic
+[ 95%] Building CXX object tests/CMakeFiles/ernie-pe-sampling-contract.dir/test_pe_sampling.cpp.o
+[ 95%] Built target ernie-pe-runner
+[ 95%] Linking CXX executable ../ernie-latent-contract
+[ 95%] Linking CXX executable ../ernie-pe-sampling-contract
+[ 95%] Built target ernie-latent-contract
+[ 95%] Building CXX object tests/CMakeFiles/ernie-component-files-contract.dir/test_component_files.cpp.o
+[ 95%] Built target ernie-pe-sampling-contract
+[ 95%] Building CXX object tests/CMakeFiles/ernie-weight-placement-contract.dir/test_weight_placement.cpp.o
+[ 96%] Linking CXX executable ../ernie-component-files-contract
+[ 96%] Built target ernie-component-files-contract
+[ 96%] Building CXX object tests/CMakeFiles/ernie-weight-session-contract.dir/test_weight_session.cpp.o
+[ 96%] Linking CXX executable ../ernie-weight-placement-contract
+[ 96%] Built target ernie-weight-placement-contract
+[ 96%] Linking CXX executable ../ernie-host-memory-contract
+[ 96%] Built target ernie-host-memory-contract
+[ 96%] Linking CXX executable ../ernie-model-loading-contract
+[ 97%] Linking CXX executable ../ernie-weight-session-contract
+[ 97%] Built target ernie-model-loading-contract
+[ 97%] Building CXX object tests/CMakeFiles/ernie-img2img-contract.dir/test_img2img_contract.cpp.o
+[ 97%] Built target ernie-weight-session-contract
+[ 97%] Building CXX object tests/CMakeFiles/ernie-image-encoder-contract.dir/test_image_encoder.cpp.o
+[ 97%] Linking CXX executable ../ernie-image-encoder-contract
+[ 97%] Linking CXX executable ../ernie-img2img-contract
+[ 97%] Built target ernie-image-encoder-contract
+[ 97%] Linking CXX executable ../ernie-residual-contract
+[ 97%] Built target ernie-img2img-contract
+[ 97%] Building CXX object tests/CMakeFiles/ernie-text-down-contract.dir/test_text_down.cpp.o
+[ 97%] Built target ernie-residual-contract
+[ 97%] Building CXX object src/CMakeFiles/ernie-pipeline.dir/pipeline.cpp.o
+[ 97%] Linking CXX executable ../ernie-text-down-contract
+[ 97%] Built target ernie-text-down-contract
+[ 97%] Building CXX object src/CMakeFiles/ernie-pipeline.dir/runtime_info.cpp.o
+[ 97%] Building CXX object src/CMakeFiles/ernie-pipeline.dir/tensor_io.cpp.o
+[ 97%] Building CXX object src/CMakeFiles/ernie-pipeline.dir/vae.cpp.o
+[ 97%] Linking CXX static library libernie-pipeline.a
+[ 98%] Built target ernie-pipeline
+[ 98%] Building CXX object probes/CMakeFiles/ernie-img2img-runner.dir/img2img_runner.cpp.o
+[ 98%] Building CXX object cli/CMakeFiles/ernie-image.dir/generation_report.cpp.o
+[ 99%] Building CXX object cli/CMakeFiles/ernie-image.dir/image_io.cpp.o
+[ 99%] Linking CXX executable ../ernie-img2img-runner
+[ 99%] Built target ernie-img2img-runner
+[ 99%] Building CXX object tests/CMakeFiles/ernie-utf8-paths-contract.dir/test_utf8_paths.cpp.o
+[100%] Building CXX object tests/CMakeFiles/ernie-utf8-paths-contract.dir/__/cli/options.cpp.o
+[100%] Building CXX object cli/CMakeFiles/ernie-image.dir/main.cpp.o
+[100%] Building CXX object tests/CMakeFiles/ernie-utf8-paths-contract.dir/__/cli/prompt_file.cpp.o
+[100%] Building CXX object cli/CMakeFiles/ernie-image.dir/options.cpp.o
+[100%] Linking CXX executable ../ernie-utf8-paths-contract
+[100%] Building CXX object cli/CMakeFiles/ernie-image.dir/prompt_file.cpp.o
+[100%] Built target ernie-utf8-paths-contract
+[100%] Building CXX object tests/CMakeFiles/ernie-pipeline-api-contract.dir/test_pipeline_api.cpp.o
+[100%] Linking CXX executable ../ernie-image
+[100%] Linking CXX executable ../ernie-pipeline-api-contract
+[100%] Built target ernie-image
+[100%] Built target ernie-pipeline-api-contract
+[100%] Building CXX object tests/CMakeFiles/ernie-request-validation-contract.dir/test_request_validation.cpp.o
+[100%] Building CXX object tests/CMakeFiles/ernie-gpu-context-contract.dir/test_gpu_context.cpp.o
+[100%] Linking CXX executable ../ernie-request-validation-contract
+[100%] Linking CXX executable ../ernie-gpu-context-contract
+[100%] Built target ernie-request-validation-contract
+[100%] Built target ernie-gpu-context-contract

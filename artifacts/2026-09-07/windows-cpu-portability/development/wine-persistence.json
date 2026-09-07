@@ -1,0 +1,12 @@
+{
+  "purpose": "Retain this owned diagnostic Wine server for 300 seconds after the last client to avoid repeated Wine startup; no performance claim",
+  "prefix": "/var/tmp/ernie-windows-cpu-v1/wine-prefix",
+  "argv": [
+    "/usr/bin/wineserver",
+    "-p300"
+  ],
+  "return_code": 2,
+  "stdout": "",
+  "stderr": "",
+  "utc_epoch": 1788766300.3881624
+}

@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "status": "failed",
+  "commands": [
+    {
+      "name": "install",
+      "argv": [
+        "cmake",
+        "--install",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1",
+        "--prefix",
+        "/var/tmp/ernie-windows-sdk-v1/安装 original"
+      ],
+      "return_code": 0,
+      "expected": 0,
+      "seconds": 0.06502355600241572
+    },
+    {
+      "name": "isolation-preflight",
+      "argv": [
+        "bwrap",
+        "--die-with-parent",
+        "--unshare-net",
+        "--ro-bind",
+        "/",
+        "/",
+        "--bind",
+        "/var/tmp/ernie-windows-sdk-v1",
+        "/var/tmp/ernie-windows-sdk-v1",
+        "--tmpfs",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan",
+        "--dev-bind",
+        "/dev",
+        "/dev",
+        "--proc",
+        "/proc",
+        "--chdir",
+        "/var/tmp/ernie-windows-sdk-v1",
+        "--",
+        "/usr/bin/python3",
+        "-c",
+        "from pathlib import Path; import socket; assert not list(Path('/home/mingshi/Project/AI/ernie-image-ncnn-vulkan').iterdir()); assert socket.if_nameindex() == [(1, 'lo')]; print('Source hidden; private network contains loopback only')"
+      ],
+      "return_code": 0,
+      "expected": 0,
+      "seconds": 0.0318949659995269
+    },
+    {
+      "name": "consumer-configure",
+      "argv": [
+        "bwrap",
+        "--die-with-parent",
+        "--unshare-net",
+        "--ro-bind",
+        "/",
+        "/",
+        "--bind",
+        "/var/tmp/ernie-windows-sdk-v1",
+        "/var/tmp/ernie-windows-sdk-v1",
+        "--tmpfs",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan",
+        "--dev-bind",
+        "/dev",
+        "/dev",
+        "--proc",
+        "/proc",
+        "--chdir",
+        "/var/tmp/ernie-windows-sdk-v1",
+        "--",
+        "cmake",
+        "-S",
+        "/var/tmp/ernie-windows-sdk-v1/consumer",
+        "-B",
+        "/var/tmp/ernie-windows-sdk-v1/consumer-build",
+        "-G",
+        "Ninja",
+        "-DCMAKE_TOOLCHAIN_FILE=/var/tmp/ernie-windows-sdk-v1/toolchain.cmake",
+        "-DCMAKE_PREFIX_PATH=/var/tmp/ernie-windows-sdk-v1/移动 installation",
+        "-Dncnn_DIR=/var/tmp/ernie-windows-sdk-v1/foreign-ncnn",
+        "-DCMAKE_FIND_USE_PACKAGE_REGISTRY=OFF",
+        "-DCMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY=OFF",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+      ],
+      "return_code": 0,
+      "expected": 0,
+      "seconds": 0.36432307300856337
+    },
+    {
+      "name": "consumer-build",
+      "argv": [
+        "bwrap",
+        "--die-with-parent",
+        "--unshare-net",
+        "--ro-bind",
+        "/",
+        "/",
+        "--bind",
+        "/var/tmp/ernie-windows-sdk-v1",
+        "/var/tmp/ernie-windows-sdk-v1",
+        "--tmpfs",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan",
+        "--dev-bind",
+        "/dev",
+        "/dev",
+        "--proc",
+        "/proc",
+        "--chdir",
+        "/var/tmp/ernie-windows-sdk-v1",
+        "--",
+        "cmake",
+        "--build",
+        "/var/tmp/ernie-windows-sdk-v1/consumer-build",
+        "--parallel",
+        "2"
+      ],
+      "return_code": 0,
+      "expected": 0,
+      "seconds": 0.7151225759880617
+    },
+    {
+      "name": "wineboot",
+      "argv": [
+        "bwrap",
+        "--die-with-parent",
+        "--unshare-net",
+        "--ro-bind",
+        "/",
+        "/",
+        "--bind",
+        "/var/tmp/ernie-windows-sdk-v1",
+        "/var/tmp/ernie-windows-sdk-v1",
+        "--tmpfs",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan",
+        "--dev-bind",
+        "/dev",
+        "/dev",
+        "--proc",
+        "/proc",
+        "--chdir",
+        "/var/tmp/ernie-windows-sdk-v1",
+        "--",
+        "/usr/bin/wine",
+        "wineboot",
+        "-u"
+      ],
+      "return_code": 1,
+      "expected": 0,
+      "seconds": 0.0076890809868928045
+    }
+  ],
+  "scope": "Cross-compiled Windows CPU SDK and CLI under Wine; model-free, no native Windows or GPU claim",
+  "source_hidden": true,
+  "network_disabled": true,
+  "runtime_dlls": {
+    "libgcc_s_seh-1.dll": {
+      "source": "/usr/x86_64-w64-mingw32/sys-root/mingw/bin/libgcc_s_seh-1.dll",
+      "bytes": 992573,
+      "sha256": "7d5458682d7dcc2838c38c4401bcf25a15af0e2b0bc95ad6f5d2eafc0eaccb4f"
+    },
+    "libwinpthread-1.dll": {
+      "source": "/usr/x86_64-w64-mingw32/sys-root/mingw/bin/libwinpthread-1.dll",
+      "bytes": 75506,
+      "sha256": "80eb2559ea2a3e0c165ea8a4813cd9ba80937b4bbe13a2318a7b3cbaf2dfac43"
+    },
+    "libstdc++-6.dll": {
+      "source": "/usr/x86_64-w64-mingw32/sys-root/mingw/bin/libstdc++-6.dll",
+      "bytes": 29703692,
+      "sha256": "cf89e649d038fcf6dc01094090df2b4a41e115a4cc1eab2f1972b74b20a63204"
+    },
+    "libpng16-16.dll": {
+      "source": "/usr/x86_64-w64-mingw32/sys-root/mingw/bin/libpng16-16.dll",
+      "bytes": 281639,
+      "sha256": "9cdf687b41774d91c7092bdfe94a9c8ecda333bc6dcd6712f3c92efe8f2bffb3"
+    },
+    "zlib1.dll": {
+      "source": "/usr/x86_64-w64-mingw32/sys-root/mingw/bin/zlib1.dll",
+      "bytes": 136438,
+      "sha256": "e5d64914a70e26e1731ed98628be370b855454ff70c9774aea4273dc25c9ce2b"
+    }
+  },
+  "hidden_paths": [
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan"
+  ],
+  "error": "wineboot returned 1, expected 0"
+}

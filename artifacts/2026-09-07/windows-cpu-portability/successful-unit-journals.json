@@ -1,0 +1,10 @@
+[
+  {
+    "unit": "ernie-windows-utf8-tests-v1",
+    "output": "Sep 07 10:47:30 mios-pc systemd[4169]: Started ernie-windows-utf8-tests-v1.service - [systemd-run] /usr/bin/python3 outputs/windows-cpu-v1/validate-utf8.py windows.\nSep 07 11:02:08 mios-pc systemd[4169]: ernie-windows-utf8-tests-v1.service: Consumed 8min 35.411s CPU time over 14min 38.762s wall clock time, 1.8G memory peak.\n"
+  },
+  {
+    "unit": "ernie-windows-sdk-v4",
+    "output": "Sep 07 10:53:13 mios-pc systemd[4169]: Started ernie-windows-sdk-v4.service - [systemd-run] /usr/bin/python3 outputs/windows-cpu-v1/check-installed.py.\nSep 07 10:53:57 mios-pc systemd[4169]: ernie-windows-sdk-v4.service: Consumed 44.887s CPU time over 44.041s wall clock time, 3.5G memory peak.\n"
+  }
+]

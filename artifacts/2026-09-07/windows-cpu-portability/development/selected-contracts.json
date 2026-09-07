@@ -1,0 +1,40 @@
+{
+  "native_windows_ctests": [
+    "native_cache_cpu",
+    "runtime_cache_cpu",
+    "generation_report_writer",
+    "pipeline_api_contract",
+    "request_validation_contract",
+    "gpu_context_contract",
+    "prompt_file_contract",
+    "image_io_contract",
+    "pe_sampling_contract",
+    "latent_contract_cpu",
+    "component_files_contract_cpu",
+    "weight_placement_cpu",
+    "weight_session_cpu",
+    "host_memory_cpu",
+    "model_loading_cpu",
+    "model_reader_cpu",
+    "img2img_contract_cpu",
+    "image_encoder_contract_cpu",
+    "residual_contract_cpu",
+    "rmsnorm_range_cpu",
+    "layernorm_range_cpu",
+    "erf_gelu_cpu",
+    "shape_plan_contract",
+    "shape_graph_contract",
+    "text_down_contract_cpu",
+    "model_package_contract",
+    "execution_metrics_cpu"
+  ],
+  "python_harness_tests_not_run": [
+    "generation_report_json",
+    "pe_package_integrity",
+    "package_integrity",
+    "cli_contract",
+    "installed_cpp_consumer",
+    "text_bucket_contract",
+    "variant_dimensions"
+  ]
+}

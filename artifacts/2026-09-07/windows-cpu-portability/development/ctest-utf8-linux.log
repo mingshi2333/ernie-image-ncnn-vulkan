@@ -1,0 +1,75 @@
+Test project /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu
+      Start 15: installed_cpp_consumer
+ 1/35 Test #15: installed_cpp_consumer ...........   Passed    1.30 sec
+      Start 24: model_reader_cpu
+      Start 14: cli_contract
+ 2/35 Test #24: model_reader_cpu .................   Passed    0.10 sec
+      Start 11: generation_report_json
+ 3/35 Test #14: cli_contract .....................   Passed    0.14 sec
+      Start 19: component_files_contract_cpu
+ 4/35 Test #19: component_files_contract_cpu .....   Passed    0.01 sec
+      Start 23: model_loading_cpu
+ 5/35 Test #23: model_loading_cpu ................   Passed    0.00 sec
+      Start 22: host_memory_cpu
+ 6/35 Test #11: generation_report_json ...........   Passed    0.05 sec
+      Start 20: weight_placement_cpu
+ 7/35 Test #22: host_memory_cpu ..................   Passed    0.00 sec
+      Start  4: generation_report_writer
+ 8/35 Test #20: weight_placement_cpu .............   Passed    0.00 sec
+      Start 21: weight_session_cpu
+ 9/35 Test  #4: generation_report_writer .........   Passed    0.00 sec
+      Start  6: request_validation_contract
+10/35 Test #21: weight_session_cpu ...............   Passed    0.00 sec
+      Start  5: pipeline_api_contract
+11/35 Test  #6: request_validation_contract ......   Passed    0.00 sec
+      Start  1: native_cache_cpu
+12/35 Test  #5: pipeline_api_contract ............   Passed    0.00 sec
+      Start  2: runtime_cache_cpu
+13/35 Test  #1: native_cache_cpu .................   Passed    0.06 sec
+      Start  3: utf8_paths_contract
+14/35 Test  #2: runtime_cache_cpu ................   Passed    0.06 sec
+      Start  7: gpu_context_contract
+15/35 Test  #3: utf8_paths_contract ..............   Passed    0.00 sec
+      Start  8: prompt_file_contract
+16/35 Test  #7: gpu_context_contract .............   Passed    0.00 sec
+      Start  9: image_io_contract
+17/35 Test  #8: prompt_file_contract .............   Passed    0.00 sec
+      Start 10: pe_sampling_contract
+18/35 Test  #9: image_io_contract ................   Passed    0.00 sec
+      Start 12: pe_package_integrity
+19/35 Test #10: pe_sampling_contract .............   Passed    0.01 sec
+      Start 13: package_integrity
+20/35 Test #12: pe_package_integrity .............   Passed    0.19 sec
+      Start 16: text_bucket_contract
+21/35 Test #16: text_bucket_contract .............   Passed    0.05 sec
+      Start 17: variant_dimensions
+22/35 Test #17: variant_dimensions ...............   Passed    0.04 sec
+      Start 18: latent_contract_cpu
+23/35 Test #18: latent_contract_cpu ..............   Passed    0.00 sec
+      Start 25: img2img_contract_cpu
+24/35 Test #25: img2img_contract_cpu .............   Passed    0.00 sec
+      Start 26: image_encoder_contract_cpu
+25/35 Test #26: image_encoder_contract_cpu .......   Passed    0.00 sec
+      Start 27: residual_contract_cpu
+26/35 Test #27: residual_contract_cpu ............   Passed    0.00 sec
+      Start 28: rmsnorm_range_cpu
+27/35 Test #28: rmsnorm_range_cpu ................   Passed    0.00 sec
+      Start 29: layernorm_range_cpu
+28/35 Test #29: layernorm_range_cpu ..............   Passed    0.00 sec
+      Start 30: erf_gelu_cpu
+29/35 Test #30: erf_gelu_cpu .....................   Passed    0.01 sec
+      Start 31: shape_plan_contract
+30/35 Test #31: shape_plan_contract ..............   Passed    0.00 sec
+      Start 32: shape_graph_contract
+31/35 Test #32: shape_graph_contract .............   Passed    0.00 sec
+      Start 33: text_down_contract_cpu
+32/35 Test #33: text_down_contract_cpu ...........   Passed    0.14 sec
+      Start 34: model_package_contract
+33/35 Test #34: model_package_contract ...........   Passed    0.02 sec
+      Start 35: execution_metrics_cpu
+34/35 Test #35: execution_metrics_cpu ............   Passed    0.00 sec
+35/35 Test #13: package_integrity ................   Passed    0.51 sec
+
+100% tests passed, 0 tests failed out of 35
+
+Total Test time (real) =   2.04 sec

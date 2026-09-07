@@ -54,7 +54,7 @@ bool WeightPlacement::use_host(const ComponentFiles& files, bool shape_prefers_h
     // Reviewed packages store BF16 or FP32 weights. Twice the on-disk bytes is
     // a conservative payload estimate at FP32, including for lower storage
     // precision. It is not an estimate of activation or allocator peak memory.
-    const auto file_bytes = std::filesystem::file_size(files.weight_path);
+    const auto file_bytes = std::filesystem::file_size(std::filesystem::u8path(files.weight_path));
     if (file_bytes > std::numeric_limits<std::uint64_t>::max() / 2)
         throw std::overflow_error("Weight byte estimate overflow");
     const auto memory = mode_ == WeightMemory::Auto && reader_ ? reader_() : std::nullopt;

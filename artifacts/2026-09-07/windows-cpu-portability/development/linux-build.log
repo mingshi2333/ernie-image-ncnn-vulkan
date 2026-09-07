@@ -1,0 +1,16 @@
+[0/1] Re-running CMake...
+-- CMAKE_INSTALL_PREFIX = /usr/local
+-- NCNN_VERSION_STRING = 1.0.20260907
+-- Target arch: x86 64bit
+-- Configuring done (0.3s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-install-cpu
+[1/10] Building CXX object probes/CMakeFiles/ernie-text-gemm-diagnostic.dir/text_gemm_diagnostic.cpp.o
+[2/10] Building CXX object cli/CMakeFiles/ernie-image.dir/generation_report.cpp.o
+[3/10] Building CXX object tests/CMakeFiles/ernie-generation-report-contract.dir/test_generation_report.cpp.o
+[4/10] Building CXX object tests/CMakeFiles/ernie-generation-report-contract.dir/__/cli/generation_report.cpp.o
+[5/10] Building CXX object tests/CMakeFiles/ernie-text-down-contract.dir/test_text_down.cpp.o
+[6/10] Linking CXX executable ernie-image
+[7/10] Linking CXX executable ernie-generation-report-contract
+[8/10] Linking CXX executable ernie-text-gemm-diagnostic
+[9/10] Linking CXX executable ernie-text-down-contract

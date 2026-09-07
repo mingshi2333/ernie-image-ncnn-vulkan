@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Linux-clang++"
+	tests="3"
+	failures="0"
+	disabled="0"
+	skipped="0"
+	hostname="mios-pc"
+	time="0"
+	timestamp="2026-09-07T11:11:03"
+	>
+	<testcase name="utf8_paths_contract" classname="utf8_paths_contract" time="0.00769027" status="run">
+		<properties/>
+		<system-out>Native Unicode paths, UTF-8 API/Rust/CLI, prompt and tensor I/O passed; no model inference
+</system-out>
+	</testcase>
+	<testcase name="component_files_contract_cpu" classname="component_files_contract_cpu" time="0.0120738" status="run">
+		<properties/>
+		<system-out>Memory/file graph equivalence, lifetime and bounded component inputs passed
+</system-out>
+	</testcase>
+	<testcase name="model_package_contract" classname="model_package_contract" time="0.00388966" status="run">
+		<properties/>
+		<system-out>model package error contract passed
+</system-out>
+	</testcase>
+</testsuite>

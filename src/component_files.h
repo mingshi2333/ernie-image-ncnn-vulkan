@@ -12,7 +12,7 @@ namespace ernie
 struct ComponentFiles
 {
     std::string param_text;
-    std::string weight_path;
+    std::string weight_path; // UTF-8; convert to a native path at file I/O boundaries.
     bool empty() const { return param_text.empty() || weight_path.empty(); }
 };
 

@@ -1,0 +1,77 @@
+{
+  "observed_utc": "2026-09-07T08:05:48.712644+00:00",
+  "units": [
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "show",
+        "ernie-windows-utf8-tests-v1",
+        "-p",
+        "LoadState,ActiveState,SubState,Result,ExecMainCode,ExecMainStatus,MemoryPeak,MemorySwapPeak,CPUUsageNSec,ControlGroup,KillSignal,TimeoutStopUSec"
+      ],
+      "return_code": 0,
+      "output": "LoadState=not-found\nActiveState=inactive\nSubState=dead\nTimeoutStopUSec=45s\nResult=success\nExecMainCode=0\nExecMainStatus=0\nControlGroup=\nMemoryPeak=[not set]\nMemorySwapPeak=[not set]\nCPUUsageNSec=[not set]\nKillSignal=15\n"
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "show",
+        "ernie-windows-utf8-build-v1",
+        "-p",
+        "LoadState,ActiveState,SubState,Result,ExecMainCode,ExecMainStatus,MemoryPeak,MemorySwapPeak,CPUUsageNSec,ControlGroup,KillSignal,TimeoutStopUSec"
+      ],
+      "return_code": 0,
+      "output": "LoadState=not-found\nActiveState=inactive\nSubState=dead\nTimeoutStopUSec=45s\nResult=success\nExecMainCode=0\nExecMainStatus=0\nControlGroup=\nMemoryPeak=[not set]\nMemorySwapPeak=[not set]\nCPUUsageNSec=[not set]\nKillSignal=15\n"
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "show",
+        "ernie-linux-utf8-build-v1",
+        "-p",
+        "LoadState,ActiveState,SubState,Result,ExecMainCode,ExecMainStatus,MemoryPeak,MemorySwapPeak,CPUUsageNSec,ControlGroup,KillSignal,TimeoutStopUSec"
+      ],
+      "return_code": 0,
+      "output": "LoadState=not-found\nActiveState=inactive\nSubState=dead\nTimeoutStopUSec=45s\nResult=success\nExecMainCode=0\nExecMainStatus=0\nControlGroup=\nMemoryPeak=[not set]\nMemorySwapPeak=[not set]\nCPUUsageNSec=[not set]\nKillSignal=15\n"
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "show",
+        "ernie-linux-utf8-tests-v1",
+        "-p",
+        "LoadState,ActiveState,SubState,Result,ExecMainCode,ExecMainStatus,MemoryPeak,MemorySwapPeak,CPUUsageNSec,ControlGroup,KillSignal,TimeoutStopUSec"
+      ],
+      "return_code": 0,
+      "output": "LoadState=not-found\nActiveState=inactive\nSubState=dead\nTimeoutStopUSec=45s\nResult=success\nExecMainCode=0\nExecMainStatus=0\nControlGroup=\nMemoryPeak=[not set]\nMemorySwapPeak=[not set]\nCPUUsageNSec=[not set]\nKillSignal=15\n"
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "show",
+        "ernie-windows-sdk-v3",
+        "-p",
+        "LoadState,ActiveState,SubState,Result,ExecMainCode,ExecMainStatus,MemoryPeak,MemorySwapPeak,CPUUsageNSec,ControlGroup,KillSignal,TimeoutStopUSec"
+      ],
+      "return_code": 0,
+      "output": "LoadState=loaded\nActiveState=failed\nSubState=failed\nTimeoutStopUSec=45s\nResult=timeout\nExecMainCode=1\nExecMainStatus=0\nControlGroup=\nMemoryPeak=3318034432\nMemorySwapPeak=0\nCPUUsageNSec=44619695000\nKillSignal=15\n"
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "show",
+        "ernie-windows-sdk-v4",
+        "-p",
+        "LoadState,ActiveState,SubState,Result,ExecMainCode,ExecMainStatus,MemoryPeak,MemorySwapPeak,CPUUsageNSec,ControlGroup,KillSignal,TimeoutStopUSec"
+      ],
+      "return_code": 0,
+      "output": "LoadState=not-found\nActiveState=inactive\nSubState=dead\nTimeoutStopUSec=45s\nResult=success\nExecMainCode=0\nExecMainStatus=0\nControlGroup=\nMemoryPeak=[not set]\nMemorySwapPeak=[not set]\nCPUUsageNSec=[not set]\nKillSignal=15\n"
+    }
+  ]
+}

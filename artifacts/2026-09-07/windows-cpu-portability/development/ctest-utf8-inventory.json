@@ -1,0 +1,928 @@
+{
+  "backtraceGraph": {
+    "commands": [
+      "add_test"
+    ],
+    "files": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tests/CMakeLists.txt"
+    ],
+    "nodes": [
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 1,
+        "parent": 0
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 2,
+        "parent": 2
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 17,
+        "parent": 4
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 20,
+        "parent": 6
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 23,
+        "parent": 8
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 26,
+        "parent": 10
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 30,
+        "parent": 12
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 39,
+        "parent": 14
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 45,
+        "parent": 16
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 48,
+        "parent": 18
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 51,
+        "parent": 20
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 54,
+        "parent": 22
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 57,
+        "parent": 24
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 60,
+        "parent": 26
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 64,
+        "parent": 28
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 70,
+        "parent": 30
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 72,
+        "parent": 32
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 78,
+        "parent": 34
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 81,
+        "parent": 36
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 84,
+        "parent": 38
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 87,
+        "parent": 40
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 90,
+        "parent": 42
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 93,
+        "parent": 44
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 98,
+        "parent": 46
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 112,
+        "parent": 48
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 115,
+        "parent": 50
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 118,
+        "parent": 52
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 125,
+        "parent": 54
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 126,
+        "parent": 56
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 127,
+        "parent": 58
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 141,
+        "parent": 60
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 146,
+        "parent": 62
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 152,
+        "parent": 64
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 157,
+        "parent": 66
+      },
+      {
+        "file": 0
+      },
+      {
+        "command": 0,
+        "file": 0,
+        "line": 163,
+        "parent": 68
+      }
+    ]
+  },
+  "kind": "ctestInfo",
+  "tests": [
+    {
+      "backtrace": 1,
+      "command": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-attention-probe.exe",
+        "--backend",
+        "cpu"
+      ],
+      "name": "native_cache_cpu",
+      "properties": [
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 3,
+      "command": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-attention-probe.exe",
+        "--backend",
+        "cpu",
+        "--runtime-layer"
+      ],
+      "name": "runtime_cache_cpu",
+      "properties": [
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 5,
+      "command": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-utf8-paths-contract.exe"
+      ],
+      "name": "utf8_paths_contract",
+      "properties": [
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 7,
+      "command": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-generation-report-contract.exe"
+      ],
+      "name": "generation_report_writer",
+      "properties": [
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 9,
+      "command": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-pipeline-api-contract.exe"
+      ],
+      "name": "pipeline_api_contract",
+      "properties": [
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 11,
+      "command": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-request-validation-contract.exe"
+      ],
+      "name": "request_validation_contract",
+      "properties": [
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 13,
+      "command": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-gpu-context-contract.exe"
+      ],
+      "name": "gpu_context_contract",
+      "properties": [
+        {
+          "name": "SKIP_RETURN_CODE",
+          "value": 77
+        },
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 15,
+      "command": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-prompt-file-contract.exe"
+      ],
+      "name": "prompt_file_contract",
+      "properties": [
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 17,
+      "command": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-image-io-contract.exe"
+      ],
+      "name": "image_io_contract",
+      "properties": [
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 19,
+      "command": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-pe-sampling-contract.exe"
+      ],
+      "name": "pe_sampling_contract",
+      "properties": [
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 21,
+      "command": [
+        "/home/mingshi/.local/bin/python3.13",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tests",
+        "-p",
+        "test_generation_report.py",
+        "-v"
+      ],
+      "name": "generation_report_json",
+      "properties": [
+        {
+          "name": "ENVIRONMENT",
+          "value": [
+            "ERNIE_REPORT_RUNNER=/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-generation-report-contract.exe"
+          ]
+        },
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 23,
+      "command": [
+        "/home/mingshi/.local/bin/python3.13",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tests",
+        "-p",
+        "test_pe_package.py",
+        "-v"
+      ],
+      "name": "pe_package_integrity",
+      "properties": [
+        {
+          "name": "ENVIRONMENT",
+          "value": [
+            "ERNIE_TEST_RUNNER=/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-image.exe"
+          ]
+        },
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 25,
+      "command": [
+        "/home/mingshi/.local/bin/python3.13",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tests",
+        "-p",
+        "test_package.py",
+        "-v"
+      ],
+      "name": "package_integrity",
+      "properties": [
+        {
+          "name": "ENVIRONMENT",
+          "value": [
+            "ERNIE_TEST_RUNNER=/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-image.exe"
+          ]
+        },
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 27,
+      "command": [
+        "/home/mingshi/.local/bin/python3.13",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tests",
+        "-p",
+        "test_cli.py",
+        "-v"
+      ],
+      "name": "cli_contract",
+      "properties": [
+        {
+          "name": "ENVIRONMENT",
+          "value": [
+            "ERNIE_TEST_RUNNER=/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-image.exe"
+          ]
+        },
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 29,
+      "command": [
+        "/home/mingshi/.local/bin/python3.13",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tests",
+        "-p",
+        "test_install.py",
+        "-v"
+      ],
+      "name": "installed_cpp_consumer",
+      "properties": [
+        {
+          "name": "ENVIRONMENT",
+          "value": [
+            "ERNIE_INSTALL_BUILD=/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1",
+            "ERNIE_INSTALL_CONFIG=Release"
+          ]
+        },
+        {
+          "name": "RUN_SERIAL",
+          "value": true
+        },
+        {
+          "name": "TIMEOUT",
+          "value": 900.0
+        },
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 31,
+      "command": [
+        "/home/mingshi/.local/bin/python3.13",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tests",
+        "-p",
+        "test_text_bucket.py",
+        "-v"
+      ],
+      "name": "text_bucket_contract",
+      "properties": [
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 33,
+      "command": [
+        "/home/mingshi/.local/bin/python3.13",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tests",
+        "-p",
+        "test_variant.py",
+        "-v"
+      ],
+      "name": "variant_dimensions",
+      "properties": [
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 35,
+      "command": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-latent-contract.exe"
+      ],
+      "name": "latent_contract_cpu",
+      "properties": [
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 37,
+      "command": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-component-files-contract.exe"
+      ],
+      "name": "component_files_contract_cpu",
+      "properties": [
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 39,
+      "command": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-weight-placement-contract.exe"
+      ],
+      "name": "weight_placement_cpu",
+      "properties": [
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 41,
+      "command": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-weight-session-contract.exe"
+      ],
+      "name": "weight_session_cpu",
+      "properties": [
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 43,
+      "command": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-host-memory-contract.exe"
+      ],
+      "name": "host_memory_cpu",
+      "properties": [
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 45,
+      "command": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-model-loading-contract.exe"
+      ],
+      "name": "model_loading_cpu",
+      "properties": [
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 47,
+      "command": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-model-reader-contract.exe"
+      ],
+      "name": "model_reader_cpu",
+      "properties": [
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 49,
+      "command": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-img2img-contract.exe"
+      ],
+      "name": "img2img_contract_cpu",
+      "properties": [
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 51,
+      "command": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-image-encoder-contract.exe"
+      ],
+      "name": "image_encoder_contract_cpu",
+      "properties": [
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 53,
+      "command": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-residual-contract.exe"
+      ],
+      "name": "residual_contract_cpu",
+      "properties": [
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 55,
+      "command": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-rmsnorm-probe.exe",
+        "cpu",
+        "fp32"
+      ],
+      "name": "rmsnorm_range_cpu",
+      "properties": [
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 57,
+      "command": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-rmsnorm-probe.exe",
+        "cpu",
+        "fp32",
+        "--layernorm"
+      ],
+      "name": "layernorm_range_cpu",
+      "properties": [
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 59,
+      "command": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-gelu-probe.exe",
+        "cpu",
+        "fp32"
+      ],
+      "name": "erf_gelu_cpu",
+      "properties": [
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 61,
+      "command": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-shape-plan-contract.exe"
+      ],
+      "name": "shape_plan_contract",
+      "properties": [
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 63,
+      "command": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-shape-graph-contract.exe"
+      ],
+      "name": "shape_graph_contract",
+      "properties": [
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 65,
+      "command": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-text-down-contract.exe"
+      ],
+      "name": "text_down_contract_cpu",
+      "properties": [
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 67,
+      "command": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-model-package-contract.exe"
+      ],
+      "name": "model_package_contract",
+      "properties": [
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    },
+    {
+      "backtrace": 69,
+      "command": [
+        "/usr/bin/wine",
+        "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-execution-metrics-contract.exe"
+      ],
+      "name": "execution_metrics_cpu",
+      "properties": [
+        {
+          "name": "WORKING_DIRECTORY",
+          "value": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/tests"
+        }
+      ]
+    }
+  ],
+  "version": {
+    "major": 1,
+    "minor": 0
+  }
+}

@@ -1,0 +1,2 @@
+#!/bin/sh
+exec /usr/bin/wine /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-windows-cpu-v1/ernie-image.exe "$@"
