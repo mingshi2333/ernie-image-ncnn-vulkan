@@ -1,0 +1,407 @@
+{
+  "scope": "Selected completed logs, source/input bindings and independent comparisons; large weights/tensors/images and raw memory sample streams remain at the original local paths",
+  "files": [
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v2/portrait/request.json",
+      "file": "portrait-official/request.json",
+      "bytes": 672,
+      "sha256": "56a38d8a132a7110f7f7640700af298450a7b33ce96d1f8c2b5ce017d1204daf"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v2/portrait/plan.json",
+      "file": "portrait-official/plan.json",
+      "bytes": 76500,
+      "sha256": "63c78576b2c7dc25fe33515c9359d8a483662deede209e4ed30a3c18f345fd45"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v2/portrait/worker.py",
+      "file": "portrait-official/worker.py",
+      "bytes": 1393,
+      "sha256": "efea379558d188edc3f0dd9d519aa973709cbe6207fa52c88e00fa9a25bf720a"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v2/portrait/run.py",
+      "file": "portrait-official/run.py",
+      "bytes": 1146,
+      "sha256": "3adfb392e1676152a882e85378d8b220ecf67b9d6f3d7d051832512edeeef4bb"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v2/portrait/supervisor.py",
+      "file": "portrait-official/supervisor.py",
+      "bytes": 5329,
+      "sha256": "131ae66c8b7e1ca081480d1d2fe43a77a0b992189fdf1287736cbde3b44fa8f9"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v2/portrait/compare.py",
+      "file": "portrait-official/compare.py",
+      "bytes": 5352,
+      "sha256": "2e389e8ef0f08ebb327e7d704743977fe04203e29e030c76db1a1233e5fea202"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v2/portrait/comparison.json",
+      "file": "portrait-official/comparison.json",
+      "bytes": 11838,
+      "sha256": "63a0cb7250165d3a58416a7a59e13f636bbebd2897d73d361823c275fa259b63"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v2/portrait/official/process.json",
+      "file": "portrait-official/official/process.json",
+      "bytes": 1562,
+      "sha256": "2050f5e769955cc8eb32702a40c5cc0a158cdf2d6ece9a314b1237af35c6ff73"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v2/portrait/official/worker-result.json",
+      "file": "portrait-official/official/worker-result.json",
+      "bytes": 267,
+      "sha256": "2760412a1b90b138b762a30a24fcd885c93281a82f1f5c8b01d6d1496937b051"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v2/portrait/official/command-0.log",
+      "file": "portrait-official/official/command-0.log",
+      "bytes": 58873,
+      "sha256": "c979b801828279f837a8783b0bc8c3d436b99fee5f316b4c9cdfa97fe49e9a1d"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v2/portrait/official/reference/fixture.json",
+      "file": "portrait-official/official/reference/fixture.json",
+      "bytes": 8219,
+      "sha256": "20688b0323061d965cdf43ed4dcfb8f6898926c5221832279f6113b0fd9d7d43"
+    },
+    {
+      "source": "/var/tmp/ernie-runtime-rectangles-v1/portrait/plan.json",
+      "file": "portrait-native/plan.json",
+      "bytes": 22883,
+      "sha256": "1f0306afbf8718ea249518241edf7344b41d6b765aafb1d405bbb86a090d8ed1"
+    },
+    {
+      "source": "/var/tmp/ernie-runtime-rectangles-v1/portrait/run.py",
+      "file": "portrait-native/run.py",
+      "bytes": 1146,
+      "sha256": "3adfb392e1676152a882e85378d8b220ecf67b9d6f3d7d051832512edeeef4bb"
+    },
+    {
+      "source": "/var/tmp/ernie-runtime-rectangles-v1/portrait/supervisor.py",
+      "file": "portrait-native/supervisor.py",
+      "bytes": 4389,
+      "sha256": "f375a9e60d6d1748bba3f560d5b53533fa65bd864d54f80318bff4543a99399c"
+    },
+    {
+      "source": "/var/tmp/ernie-runtime-rectangles-v1/portrait/native/process.json",
+      "file": "portrait-native/native/process.json",
+      "bytes": 1165,
+      "sha256": "3506e57985e03719d4fd8c826aec62dd8a052318598d63b6b3f3d2f44528b0fa"
+    },
+    {
+      "source": "/var/tmp/ernie-runtime-rectangles-v1/portrait/native/worker-result.json",
+      "file": "portrait-native/native/worker-result.json",
+      "bytes": 1692,
+      "sha256": "e3a7931f2b13c37bc40ba04b599b4303d00c8130285cbc95c9df0d60f8baf7e1"
+    },
+    {
+      "source": "/var/tmp/ernie-runtime-rectangles-v1/portrait/native/command-0.log",
+      "file": "portrait-native/native/command-0.log",
+      "bytes": 39877,
+      "sha256": "4f8379c7aafc4df0c7f4f3dc30916077ccafd837d442989cce75002fa76dc2fc"
+    },
+    {
+      "source": "/var/tmp/ernie-runtime-rectangles-v1/portrait/native/trace/ids.txt",
+      "file": "portrait-native/native/trace/ids.txt",
+      "bytes": 77,
+      "sha256": "306c32c4d1a66c6cd3cfdeb1579b686c63be71387bee9f30e90fbbed3c4fdba9"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v2/landscape/request.json",
+      "file": "landscape-official/request.json",
+      "bytes": 673,
+      "sha256": "3403d536edd6e2ac6b7f5ad1a171adc0514f8a2ba1bc5b46c698c34941e9c984"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v2/landscape/plan.json",
+      "file": "landscape-official/plan.json",
+      "bytes": 76507,
+      "sha256": "117d46e273554bdfda35a1d80e7160f4c41153f64942bbecc8b0f70591b566fa"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v2/landscape/worker.py",
+      "file": "landscape-official/worker.py",
+      "bytes": 1393,
+      "sha256": "efea379558d188edc3f0dd9d519aa973709cbe6207fa52c88e00fa9a25bf720a"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v2/landscape/run.py",
+      "file": "landscape-official/run.py",
+      "bytes": 1146,
+      "sha256": "3adfb392e1676152a882e85378d8b220ecf67b9d6f3d7d051832512edeeef4bb"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v2/landscape/supervisor.py",
+      "file": "landscape-official/supervisor.py",
+      "bytes": 5330,
+      "sha256": "d1e5c473a279bfe434b7132ef3347fb000dda4ce0e9642a2be3310a1b4974e4f"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v2/landscape/compare.py",
+      "file": "landscape-official/compare.py",
+      "bytes": 5353,
+      "sha256": "cc588adecbed731a6f9ec6c4b69b83f15e18082e946392d838a1565d5c0c1a6b"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v2/landscape/comparison.json",
+      "file": "landscape-official/comparison.json",
+      "bytes": 11836,
+      "sha256": "6960dae7b021e61a8d74b1b7582f5a15b62ed23ea0e3529dd88f67df48144feb"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v2/landscape/official/process.json",
+      "file": "landscape-official/official/process.json",
+      "bytes": 1565,
+      "sha256": "3f6d05f9a262f5440a32430a93a2ff582801e6cce7e3076d32f0fc910cacab4d"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v2/landscape/official/worker-result.json",
+      "file": "landscape-official/official/worker-result.json",
+      "bytes": 268,
+      "sha256": "91a9e83f4d9d177f2c9e91757dad922f5c0c08982e068c1d0e57bd1a2b75a2f8"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v2/landscape/official/command-0.log",
+      "file": "landscape-official/official/command-0.log",
+      "bytes": 58878,
+      "sha256": "f32c1a0bbdbf338275505f5fa9e0e50f790e0282e73c00645452ee1514814962"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v2/landscape/official/reference/fixture.json",
+      "file": "landscape-official/official/reference/fixture.json",
+      "bytes": 8219,
+      "sha256": "307dbd99c6beb731fafccf86822873bb9f961737ce8f224da34f8c78909e84d0"
+    },
+    {
+      "source": "/var/tmp/ernie-runtime-rectangles-v1/landscape/plan.json",
+      "file": "landscape-native/plan.json",
+      "bytes": 22901,
+      "sha256": "1502f5864352aa942d8496747d3e857cbed37159472e31efe89626f3e5e44f40"
+    },
+    {
+      "source": "/var/tmp/ernie-runtime-rectangles-v1/landscape/run.py",
+      "file": "landscape-native/run.py",
+      "bytes": 1146,
+      "sha256": "3adfb392e1676152a882e85378d8b220ecf67b9d6f3d7d051832512edeeef4bb"
+    },
+    {
+      "source": "/var/tmp/ernie-runtime-rectangles-v1/landscape/supervisor.py",
+      "file": "landscape-native/supervisor.py",
+      "bytes": 4390,
+      "sha256": "031912cc95fc6173a453dd42265ff35766adbbc19181c65ec01869162cb12f5b"
+    },
+    {
+      "source": "/var/tmp/ernie-runtime-rectangles-v1/landscape/native/process.json",
+      "file": "landscape-native/native/process.json",
+      "bytes": 1167,
+      "sha256": "55da8b1c191efb567624f9b5d6592b6050e5fa72ab710168c9cf3e204c30a18e"
+    },
+    {
+      "source": "/var/tmp/ernie-runtime-rectangles-v1/landscape/native/worker-result.json",
+      "file": "landscape-native/native/worker-result.json",
+      "bytes": 1703,
+      "sha256": "89d1a2abb09e4c55be17f6fd65e1a82018a60dffd81ab88e74923a8c280f2f27"
+    },
+    {
+      "source": "/var/tmp/ernie-runtime-rectangles-v1/landscape/native/command-0.log",
+      "file": "landscape-native/native/command-0.log",
+      "bytes": 39878,
+      "sha256": "4d6e92ebc9f60a8cde88654e767666c709794aa4f63d9313e21f3e2977b35c65"
+    },
+    {
+      "source": "/var/tmp/ernie-runtime-rectangles-v1/landscape/native/trace/ids.txt",
+      "file": "landscape-native/native/trace/ids.txt",
+      "bytes": 77,
+      "sha256": "306c32c4d1a66c6cd3cfdeb1579b686c63be71387bee9f30e90fbbed3c4fdba9"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v1/portrait/request.json",
+      "file": "portrait-guard/request.json",
+      "bytes": 672,
+      "sha256": "56a38d8a132a7110f7f7640700af298450a7b33ce96d1f8c2b5ce017d1204daf"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v1/portrait/plan.json",
+      "file": "portrait-guard/plan.json",
+      "bytes": 76180,
+      "sha256": "a762d4af278f50cb5d718c46ba1b56eb2b75fbb7d015e87c9d9de1722c29dcb4"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v1/portrait/worker.py",
+      "file": "portrait-guard/worker.py",
+      "bytes": 692,
+      "sha256": "73d5ead9016919e74b043c03efb07aa314fb99e87af1b24281825a489e1f8dd5"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v1/portrait/run.py",
+      "file": "portrait-guard/run.py",
+      "bytes": 1146,
+      "sha256": "3adfb392e1676152a882e85378d8b220ecf67b9d6f3d7d051832512edeeef4bb"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v1/portrait/supervisor.py",
+      "file": "portrait-guard/supervisor.py",
+      "bytes": 4382,
+      "sha256": "423a919854da0efc9ad0675af51bb29b6e13f924e1155607c056f67ecd0ed0fc"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v1/portrait/official/process.json",
+      "file": "portrait-guard/official/process.json",
+      "bytes": 1266,
+      "sha256": "04b3b4bc3b35215c0cce2335f0abd054d1b256418d21124fafaca6975d041488"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v1/portrait/official/command-0.log",
+      "file": "portrait-guard/official/command-0.log",
+      "bytes": 3037,
+      "sha256": "b06c598c35b5f7fb3276b0681c23e4ba6bb81a3756bec4719e6415abf189b952"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v1/portrait/official/reference/fixture.json",
+      "file": "portrait-guard/official/reference/fixture.json",
+      "bytes": 3108,
+      "sha256": "95ad5fb753cd9467b40afb30e6b68f8a1d1d4b0fb553c240edd326a9d4c5ef73"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v1/commands.json",
+      "file": "initial-batch/commands.json",
+      "bytes": 1385,
+      "sha256": "b0c680c97973bc5e717fb978d0ed74a87c9a4ff8725001bd59158cedf0d20397"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v1/results.json",
+      "file": "initial-batch/results.json",
+      "bytes": 288,
+      "sha256": "c94fb3fd280e20e63bf303c082a7d5ab40d9d80c1b4001fd9387eb91935f948f"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v1/run_batch.py",
+      "file": "initial-batch/run_batch.py",
+      "bytes": 690,
+      "sha256": "45abca22c0974c4f4cdc0dbc0b7480c8081739247cc1a20cd84d2ccf7463209e"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/mapped512-v1/build.py",
+      "file": "mapped-build/build.py",
+      "bytes": 1562,
+      "sha256": "413f59cd71b5d4ec1e85ab6e460ff536e78e9ca6432bf499613d80446a70d1ca"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/mapped512-v1/build-results.json",
+      "file": "mapped-build/build-results.json",
+      "bytes": 1270,
+      "sha256": "b7baad77c02773c17a7284647fa7647b8b4e9234271e99c7c7a12f5a9ca6c4ed"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/mapped512-v1/binary-identity.json",
+      "file": "mapped-build/binary-identity.json",
+      "bytes": 273,
+      "sha256": "b5f0665be016307b64baf0154d7b59b5d6b83f5d1a53a2b96123ce08f5421776"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/mapped512-v1/source-before.json",
+      "file": "mapped-build/source-before.json",
+      "bytes": 31365,
+      "sha256": "4282472578eea94f4f11bb75e02d88452acd7da1d9bcda9e714bf4f4d58e41cd"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/mapped512-v1/configure-on.log",
+      "file": "mapped-build/configure-on.log",
+      "bytes": 279,
+      "sha256": "740734bfee2c885cf9d67e5c33f4f8b229bf263e1c1a69f1ef4e028e2b851a6d"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/mapped512-v1/configure-off.log",
+      "file": "mapped-build/configure-off.log",
+      "bytes": 279,
+      "sha256": "21396e8c364101386229f8376ab96d4c2345c11fb337b545dfd3ed872a0060fd"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/mapped512-v1/build-on.log",
+      "file": "mapped-build/build-on.log",
+      "bytes": 1047,
+      "sha256": "91819b9f73cdf867ce9624bc1044e4f9ca88cb6397d0cd1e7e5a0ac7a0ad33fa"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/mapped512-v1/build-off.log",
+      "file": "mapped-build/build-off.log",
+      "bytes": 1047,
+      "sha256": "59539e9a9c92b23c44669617e93132c695edf5d94b859639ba88bdf01bef8575"
+    },
+    {
+      "source": "/var/tmp/ernie-runtime512-mapped-v1/plan.json",
+      "file": "mapped-native/plan.json",
+      "bytes": 24073,
+      "sha256": "b19842660a72252c7ddd757e0f753b4cda9d919a79e160b8e4a910cd05a5a8cc"
+    },
+    {
+      "source": "/var/tmp/ernie-runtime512-mapped-v1/run.py",
+      "file": "mapped-native/run.py",
+      "bytes": 1146,
+      "sha256": "3adfb392e1676152a882e85378d8b220ecf67b9d6f3d7d051832512edeeef4bb"
+    },
+    {
+      "source": "/var/tmp/ernie-runtime512-mapped-v1/supervisor.py",
+      "file": "mapped-native/supervisor.py",
+      "bytes": 5822,
+      "sha256": "bba38da2de0ddcb3aa1bef81119c58471df4767044a4b4338195faa6422a18c3"
+    },
+    {
+      "source": "/var/tmp/ernie-runtime512-mapped-v1/compare.py",
+      "file": "mapped-native/compare.py",
+      "bytes": 3621,
+      "sha256": "0aabc57cd728c37f8d2be37aaf63a6dffda7c3dfa26a526d567e527ab7f1b98c"
+    },
+    {
+      "source": "/var/tmp/ernie-runtime512-mapped-v1/comparison.json",
+      "file": "mapped-native/comparison.json",
+      "bytes": 11267,
+      "sha256": "17061b0431a7ebe4892ce02785e0f6a99888fe1d15e26ecf60b4a3332a70503a"
+    },
+    {
+      "source": "/var/tmp/ernie-runtime512-mapped-v1/memory-observation.json",
+      "file": "mapped-native/memory-observation.json",
+      "bytes": 2485,
+      "sha256": "986d6c33b96f2006328e49499e7bb458a9d28b0ac2410f505dc4f3cb10126826"
+    },
+    {
+      "source": "/var/tmp/ernie-runtime512-mapped-v1/native/process.json",
+      "file": "mapped-native/native/process.json",
+      "bytes": 13625,
+      "sha256": "0a2bf7ad6463a2e2a672818381d70f6df9f6939852ed57fc79b291176129a035"
+    },
+    {
+      "source": "/var/tmp/ernie-runtime512-mapped-v1/native/worker-result.json",
+      "file": "mapped-native/native/worker-result.json",
+      "bytes": 1582,
+      "sha256": "a60576600f5f3096e93dd4c18adab43a5c0daea5e42e56d10c5f0f7bee9c9430"
+    },
+    {
+      "source": "/var/tmp/ernie-runtime512-mapped-v1/native/command-0.log",
+      "file": "mapped-native/native/command-0.log",
+      "bytes": 39866,
+      "sha256": "c217fa0c99d5ab7ca856e0187cf0ef4f90d147dbfdbf319f1c5de34babb126f6"
+    },
+    {
+      "source": "/var/tmp/ernie-runtime512-mapped-v1/native/trace/ids.txt",
+      "file": "mapped-native/native/trace/ids.txt",
+      "bytes": 77,
+      "sha256": "306c32c4d1a66c6cd3cfdeb1579b686c63be71387bee9f30e90fbbed3c4fdba9"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v2/registered-reference-checks.json",
+      "file": "registered-reference-checks.json",
+      "bytes": 2143,
+      "sha256": "b8e7cf5bd9f4e0f145b8cb5ba38e6c4752d30fd2a64d7cf472c735c586a96de8"
+    },
+    {
+      "source": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v2/reference-tests.log",
+      "file": "reference-tests.log",
+      "bytes": 1462,
+      "sha256": "88243427a20b0b26bee0218c26f01742c6b9b8a03df9ee36762c43fcae3953d7"
+    }
+  ]
+}

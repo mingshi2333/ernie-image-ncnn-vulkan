@@ -1,0 +1,54 @@
+[
+  {
+    "case": "portrait",
+    "phase": "official",
+    "argv": [
+      "python3",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v1/portrait/supervisor.py",
+      "official"
+    ]
+  },
+  {
+    "case": "portrait",
+    "phase": "native",
+    "argv": [
+      "python3",
+      "/var/tmp/ernie-runtime-rectangles-v1/portrait/supervisor.py",
+      "native"
+    ]
+  },
+  {
+    "case": "portrait",
+    "phase": "compare",
+    "argv": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v1/portrait/compare.py"
+    ]
+  },
+  {
+    "case": "landscape",
+    "phase": "official",
+    "argv": [
+      "python3",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v1/landscape/supervisor.py",
+      "official"
+    ]
+  },
+  {
+    "case": "landscape",
+    "phase": "native",
+    "argv": [
+      "python3",
+      "/var/tmp/ernie-runtime-rectangles-v1/landscape/supervisor.py",
+      "native"
+    ]
+  },
+  {
+    "case": "landscape",
+    "phase": "compare",
+    "argv": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/.venv/bin/python",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v1/landscape/compare.py"
+    ]
+  }
+]

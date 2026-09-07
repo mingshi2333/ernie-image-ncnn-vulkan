@@ -1,0 +1,63 @@
+{
+  "phase": "official",
+  "command": [
+    "systemd-run",
+    "--user",
+    "--scope",
+    "--quiet",
+    "--unit=ernie-rect-portrait-v2-official",
+    "--property=MemoryMax=17179869184",
+    "--property=MemorySwapMax=0",
+    "--property=CPUQuota=200%",
+    "taskset",
+    "-c",
+    "4,6",
+    "/usr/bin/python3",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/runtime-rectangles-v2/portrait/run.py",
+    "official",
+    "63c78576b2c7dc25fe33515c9359d8a483662deede209e4ed30a3c18f345fd45"
+  ],
+  "plan_sha256": "63c78576b2c7dc25fe33515c9359d8a483662deede209e4ed30a3c18f345fd45",
+  "limits": {
+    "memory_max_bytes": 17179869184,
+    "host_available_min_bytes": 3221225472,
+    "gpu_whole_device_max_mib": 6144,
+    "timeout_seconds_per_phase": 1800
+  },
+  "peak_memory_current": 11858681856,
+  "minimum_host_available": 15052890112,
+  "peak_gpu_whole_device_mib": 3077,
+  "complete": true,
+  "last_compute_processes": [
+    {
+      "pid": 4349,
+      "mib": 34,
+      "owned": false
+    },
+    {
+      "pid": 11253,
+      "mib": 102,
+      "owned": false
+    },
+    {
+      "pid": 1808405,
+      "mib": 5,
+      "owned": false
+    },
+    {
+      "pid": 2676091,
+      "mib": 130,
+      "owned": true
+    }
+  ],
+  "peak_owned_compute_mib": 1216,
+  "cgroup_seen": true,
+  "observed_limits": {
+    "memory.max": "17179869184",
+    "memory.swap.max": "0",
+    "cpu.max": "200000 100000"
+  },
+  "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+  "return_code": 0,
+  "wall_seconds": 239.7929837559932
+}

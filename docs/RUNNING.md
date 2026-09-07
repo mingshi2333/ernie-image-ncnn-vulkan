@@ -421,6 +421,17 @@ lower process RSS. Vulkan allocation counts and peak were unchanged. Keep the
 option experimental pending representative quality, resource and paired timing
 checks. See the [actual mapped-loading records](../artifacts/2026-09-07/mapped-model-loading/README.md).
 
+A subsequent shared-package 512x512 FP32 run completed with all 25 tensors
+(4,981,760 elements) and the PNG byte-identical to the previously verified
+installed baseline. The supervisor interval was 309.79 seconds versus 466.87
+seconds for that baseline; 61 read-only model mappings were observed. The
+16 GiB cgroup recorded no `max`, OOM or OOM-kill events. Its sampled peak
+`memory.current` was 16,591,130,624 bytes, including file cache; a separate
+in-flight RSS observation is not a whole-run RSS maximum. The two runs did not
+control file-cache state, so the timing is a diagnostic observation. The build
+option remains OFF by default. Exact inputs, binaries, resource records and
+comparisons are in the [512x512 evidence](../artifacts/2026-09-07/runtime-rectangles-and-mapped512/README.md).
+
 ## Local Linux offline delivery checks
 
 `tools/check_release.py` verifies a locally built runtime archive against its

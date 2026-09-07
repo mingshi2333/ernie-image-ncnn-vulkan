@@ -1,0 +1,35 @@
+{
+  "scope": "Six inputs saved before the v1 supervisor termination; no completed v1 denoising-step output",
+  "inputs": [
+    {
+      "name": "initial",
+      "sha256": "adfbc07c4ab2662679ba9d7890ae9616b871752ea9c5383b590604f4d35f1980",
+      "byte_identical": true
+    },
+    {
+      "name": "text",
+      "sha256": "9b45fd22e5d40edbfb70249e7af20e490a75ed703ac2f1f572011ebdd81cb470",
+      "byte_identical": true
+    },
+    {
+      "name": "padded-text",
+      "sha256": "e23fa7eab8f1f5cd34ab7e3e9486b0f099a9d32dbea1db4c0a4b376eb9d20f28",
+      "byte_identical": true
+    },
+    {
+      "name": "constant-0",
+      "sha256": "cec4088b7da5e861d6239660da56a83f8a6b26d35d570767887e9396eef65583",
+      "byte_identical": true
+    },
+    {
+      "name": "constant-1",
+      "sha256": "e816bb2559a22faad8f8595e372326f85e5dd40317102a325ca42493f64fe887",
+      "byte_identical": true
+    },
+    {
+      "name": "constant-2",
+      "sha256": "aa532d6b0f1129459eb2f02c89b317be09b886a09f69c04213f095c36b30566c",
+      "byte_identical": true
+    }
+  ]
+}

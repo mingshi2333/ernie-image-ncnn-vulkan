@@ -1,0 +1,13 @@
+test_complete_reference_has_exact_25_boundaries (test_pipeline_reference.ReferenceContractTest.test_complete_reference_has_exact_25_boundaries) ... ok
+test_empty_or_missing_step_is_rejected (test_pipeline_reference.ReferenceContractTest.test_empty_or_missing_step_is_rejected) ... ok
+test_missing_conditioning_prediction_or_final_is_rejected (test_pipeline_reference.ReferenceContractTest.test_missing_conditioning_prediction_or_final_is_rejected) ... ok
+test_resigned_shared_metadata_cannot_replace_pinned_source_inventory (test_pipeline_reference.ReferenceContractTest.test_resigned_shared_metadata_cannot_replace_pinned_source_inventory) ... ok
+test_runtime_target_cannot_replace_source_config_or_omit_target_binding (test_pipeline_reference.ReferenceContractTest.test_runtime_target_cannot_replace_source_config_or_omit_target_binding) ... ok
+test_step_identity_shape_dtype_and_token_type_are_checked (test_pipeline_reference.ReferenceContractTest.test_step_identity_shape_dtype_and_token_type_are_checked) ... ok
+test_suffix_bool_count_and_changed_config_are_rejected (test_pipeline_reference.ReferenceContractTest.test_suffix_bool_count_and_changed_config_are_rejected) ... ok
+test_whole_fixture_digest_and_source_binding_are_both_required (test_pipeline_reference.ReferenceContractTest.test_whole_fixture_digest_and_source_binding_are_both_required) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.006s
+
+OK

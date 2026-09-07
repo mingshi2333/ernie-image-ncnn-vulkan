@@ -1,0 +1,22 @@
+[  1%] Built target SPIRV
+[  1%] Built target ernie-execution-metrics
+[ 34%] Built target ncnn-generate-spirv
+[ 34%] Built target ernie-tokenizer-rust
+[ 34%] Built target ernie-shape-plan
+[ 41%] Built target glslang
+[ 41%] Built target ernie-tokenizer
+[ 41%] Built target ernie-shape-graph
+[ 41%] Built target ernie-model-package
+[ 95%] Built target ncnn
+[ 97%] Built target ernie-runtime
+[ 97%] Built target ernie-pe
+[ 97%] Building CXX object src/CMakeFiles/ernie-pipeline.dir/pipeline.cpp.o
+[ 97%] Building CXX object src/CMakeFiles/ernie-pipeline.dir/model_config.cpp.o
+[ 97%] Building CXX object src/CMakeFiles/ernie-pipeline.dir/runtime_info.cpp.o
+[ 97%] Building CXX object src/CMakeFiles/ernie-pipeline.dir/gpu_context.cpp.o
+[ 98%] Building CXX object src/CMakeFiles/ernie-pipeline.dir/tensor_io.cpp.o
+[ 98%] Building CXX object src/CMakeFiles/ernie-pipeline.dir/vae.cpp.o
+[ 98%] Linking CXX static library libernie-pipeline.a
+[ 98%] Built target ernie-pipeline
+[ 98%] Linking CXX executable ../ernie-image
+[100%] Built target ernie-image

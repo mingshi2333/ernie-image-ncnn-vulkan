@@ -1,0 +1,52 @@
+[
+  {
+    "name": "configure-on",
+    "command": [
+      "cmake",
+      "-S",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference",
+      "-B",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev",
+      "-DERNIE_EXPERIMENT_MAPPED_MODEL_LOADING=ON"
+    ],
+    "return_code": 0
+  },
+  {
+    "name": "build-on",
+    "command": [
+      "cmake",
+      "--build",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev",
+      "--target",
+      "ernie-image",
+      "--parallel",
+      "2"
+    ],
+    "return_code": 0
+  },
+  {
+    "name": "configure-off",
+    "command": [
+      "cmake",
+      "-S",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference",
+      "-B",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev",
+      "-DERNIE_EXPERIMENT_MAPPED_MODEL_LOADING=OFF"
+    ],
+    "return_code": 0
+  },
+  {
+    "name": "build-off",
+    "command": [
+      "cmake",
+      "--build",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev",
+      "--target",
+      "ernie-image",
+      "--parallel",
+      "2"
+    ],
+    "return_code": 0
+  }
+]
