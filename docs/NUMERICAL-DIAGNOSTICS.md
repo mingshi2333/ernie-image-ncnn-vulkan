@@ -59,6 +59,22 @@ ctest --test-dir build --output-on-failure \
 
 阶段诊断复用官方 latent、文本和 CPU 时间特征。native 使用保存的 CPU cos/sin 表；官方 block 在指定参考设备上计算 cos/sin，CPU/CUDA 的最后几位差异仍在比较范围内。中间输出必须显式匹配轴顺序：例如官方 Q norm 的 `B,S,H,D` 与 native 的 `H,S,D` 不能直接按扁平数组比较。
 
+共享包的单步诊断可直接使用 `ernie-block-sequence-runner --package`，复用原生生成器的包校验、实际文本桶选择和内存中的图实例化，不必导出另一套固定目录。此模式需要 `ERNIE_BUILD_TOKENIZER=ON`，与原始 `--model` / heads 参数互斥。`--valid-text-tokens` 是包含 BOS 的实际长度；`--text-tokens` 是所选来源的 DiT 填充长度。这里的 `--width` / `--height` 是 **packed latent 尺寸**，与生成器 CLI 的像素单位不同。
+
+例如，已认证的 768×768 / 15-token 单步输入对应：
+
+```sh
+build/ernie-block-sequence-runner --package models/turbo-shared-v2 \
+  --fixture saved-step/fixture --output outputs/step-prediction.f32 \
+  --width 48 --height 48 --tokens 2368 \
+  --valid-text-tokens 15 --text-tokens 64 \
+  --backend vulkan --precision fp32 --policy stream --host-weights --threads 2
+```
+
+`fixture` 必须包含按原生布局保存的六份 FP32 输入：`in0` latent、`in1` padded text、`in2` 时间特征、`in3/4` cos/sin、`in5` mask，文件名分别为 `in0.f32` 至 `in5.f32`。调用者仍须核对输入散列及其来源；探针校验模型包和输入大小，不把任意文件认证为官方数据。先用全部原生输入确认该入口复现已保存的预测，再进行官方输入对照；单步结果不替代自由运行验收。
+
+共享 768 开发样例的实际 `prediction-6` 已完成这项复现。换入全部官方输入时最大误差为 0.000172；只替换 latent 为 0.000243，只替换文本则仍为 0.236499。该步主要对已累积的 latent 偏差敏感；前面具体算子的贡献尚未确定。原生和官方各 8 次保存的 Euler 更新均与分开的 FP32 乘加逐字节一致。完整 18/25 负结果保持，详见 [单步执行及条件替换记录](../artifacts/2026-09-07/shared-step768/README.md)。
+
 单独构造 ncnn `MemoryData` 测试模型时，带类型标签的权重流必须指定 `21=0`；默认原始流模式不能读取带标签的测试数据。早期错误夹具和错误轴比较应记录为无效诊断，不作为模型质量证据。
 
 ## 区分文本条件与去噪误差

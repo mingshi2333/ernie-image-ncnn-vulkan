@@ -1,0 +1,33 @@
+[
+  {
+    "command": [
+      "/var/tmp/ernie-step768-v1/runner.snapshot",
+      "--package",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/models/turbo-shared-v2",
+      "--fixture",
+      "/var/tmp/ernie-step768-v1/factors/latent-fixture",
+      "--output",
+      "/var/tmp/ernie-step768-v1/factors/latent/actual.f32",
+      "--width",
+      "48",
+      "--height",
+      "48",
+      "--text-tokens",
+      "64",
+      "--tokens",
+      "2368",
+      "--valid-text-tokens",
+      "15",
+      "--threads",
+      "2",
+      "--backend",
+      "vulkan",
+      "--precision",
+      "fp32",
+      "--policy",
+      "stream",
+      "--host-weights"
+    ],
+    "return_code": 0
+  }
+]

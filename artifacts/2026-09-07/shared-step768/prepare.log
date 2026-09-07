@@ -1,0 +1,7 @@
+Running as unit: ernie-step768-prepare-v1.service
+{"runner": "1d754f49534434cf8e3882b271714060394f5233b6a13eb3a0cf2c7e7bcb665a", "plan": "78910ae49ee1542689bc33e4adc3ebb2eb690f339d631716e8e939c27300e9aa", "bindings": 366, "native_time": "5919ea0805bf18fa0de6fcb1ebf080cd7e62af72ec411a57f5f9dce71cd604c1", "official_time": "ae3da3292b1c5813d341b664984b36038537d1c7f3d2cd88eeaa5666774841b8"}
+          Finished with result: success
+Main processes terminated with: code=exited, status=0/SUCCESS
+               Service runtime: 2.860s
+             CPU time consumed: 2.661s
+                   Memory peak: 841.5M (swap: 0B)

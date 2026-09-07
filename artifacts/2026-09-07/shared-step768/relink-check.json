@@ -1,0 +1,29 @@
+{
+  "scope": "Restore the probe build dependency record after the standalone time-feature helper reused its link flags; relinked probe is byte-identical to all four executed snapshots.",
+  "command": [
+    "/usr/bin/clang++",
+    "-O3",
+    "-DNDEBUG",
+    "-Xlinker",
+    "--dependency-file=CMakeFiles/ernie-block-sequence-runner.dir/link.d",
+    "CMakeFiles/ernie-block-sequence-runner.dir/block_sequence_runner.cpp.o",
+    "-o",
+    "../ernie-block-sequence-runner",
+    "../src/libernie-runtime.a",
+    "../src/libernie-model-package.a",
+    "../ncnn/src/libncnn.a",
+    "/usr/lib64/libomp.so",
+    "/usr/lib64/libpthread.a",
+    "../ncnn/glslang/SPIRV/libSPIRV.a",
+    "../ncnn/glslang/glslang/libglslang.a",
+    "../src/libernie-shape-graph.a",
+    "../src/libernie-shape-plan.a",
+    "../tokenizer/libernie-tokenizer.a",
+    "-ldl",
+    "../cargo/release/libernie_tokenizer_bridge.a",
+    "-lm"
+  ],
+  "before_sha256": "1d754f49534434cf8e3882b271714060394f5233b6a13eb3a0cf2c7e7bcb665a",
+  "after_sha256": "1d754f49534434cf8e3882b271714060394f5233b6a13eb3a0cf2c7e7bcb665a",
+  "exact_bytes": true
+}

@@ -1,0 +1,127 @@
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+{"backend":"vulkan","precision":"fp32","policy":"stream","blocks":36,"threads":2,"package_mode":true,"text_bucket":32,"valid_text_tokens":15,"peak_loaded_nets":1,"host_weights":true,"shared_pipeline_cache":true,"compute_submissions":684,"load_seconds":[1.67060029,1.07786665,1.12174989,1.15030131,1.13267559,1.14901188,1.17360834,1.14968746,1.15106713,1.17766422,1.16867385,1.16607719,1.1812048,1.12280661,1.07835227,1.15525123,1.08677034,1.08852876,1.1560598,1.16597389,1.09762717,1.15138889,1.17131801,1.14063417,1.10480807,1.12098289,1.18821116,1.18972499,1.11270373,1.15422064,1.20346937,1.19786048,1.21156568,1.22220761,1.19750785,1.22089206],"compute_seconds":[0.798508748,0.675917069,0.676631835,0.673408269,0.708469743,0.682330957,0.718893199,0.724777544,0.6800988,0.675596494,0.704995653,0.721272583,0.670931525,0.716447327,0.673769213,0.672964212,0.673054448,0.676389622,0.671205795,0.682262092,0.676343317,0.674904288,0.716244295,0.676694762,0.678579035,0.676489357,0.67351394,0.723136671,0.677945007,0.676766001,0.670779549,0.714769647,0.67212003,0.673728844,0.71843727,0.678658585],"dit_heads":true,"input_head_seconds":1.30138385,"output_head_seconds":0.376383085}

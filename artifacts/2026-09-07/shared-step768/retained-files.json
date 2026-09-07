@@ -1,0 +1,154 @@
+{
+  "/var/tmp/ernie-step768-v1/factors/latent/actual.f32": {
+    "bytes": 1179648,
+    "sha256": "4efe2ef404cdde5c57a607a4f5cb3a5191d07e9e949682dcd220093a7a2f149e"
+  },
+  "/var/tmp/ernie-step768-v1/factors/latent/samples.jsonl": {
+    "bytes": 184809,
+    "sha256": "cbcf6e48f68ab3fd8ee3e252c0f2fe5df8e5f6b43d3e7d5523800ae90cfdc935"
+  },
+  "/var/tmp/ernie-step768-v1/factors/latent-fixture/in0.f32": {
+    "bytes": 1179648,
+    "sha256": "3a2257117219e6d4595408f92291e1bf2fccefce9c7da4b058f8f4577de5b584"
+  },
+  "/var/tmp/ernie-step768-v1/factors/latent-fixture/in1.f32": {
+    "bytes": 786432,
+    "sha256": "5fed4f8e9131c3b0bf5fa7bfab06c5d6f9e9a72524b672cc9cd25a78302f28e5"
+  },
+  "/var/tmp/ernie-step768-v1/factors/latent-fixture/in2.f32": {
+    "bytes": 16384,
+    "sha256": "5919ea0805bf18fa0de6fcb1ebf080cd7e62af72ec411a57f5f9dce71cd604c1"
+  },
+  "/var/tmp/ernie-step768-v1/factors/latent-fixture/in3.f32": {
+    "bytes": 1212416,
+    "sha256": "7abde85db566cc2454d08098cffe2bbb36d9302c1880aa48a19ed7d10813c015"
+  },
+  "/var/tmp/ernie-step768-v1/factors/latent-fixture/in4.f32": {
+    "bytes": 1212416,
+    "sha256": "0985f1e5e25ac9e4f8d6d250ce2ea8d406a0651e7cfb897eb02d4bd6916a1b84"
+  },
+  "/var/tmp/ernie-step768-v1/factors/latent-fixture/in5.f32": {
+    "bytes": 22429696,
+    "sha256": "efdaa3b629cda9a9fb586903985f62d1bf683a94f78d83b4682316e2c66e202d"
+  },
+  "/var/tmp/ernie-step768-v1/factors/text/actual.f32": {
+    "bytes": 1179648,
+    "sha256": "f15998e1424e0bc0e0ba9a14a6fd3684496315103c0bd88cf5225c9ee1cb116d"
+  },
+  "/var/tmp/ernie-step768-v1/factors/text/samples.jsonl": {
+    "bytes": 187085,
+    "sha256": "efb31c6997e12d5260dbdadf480c35d67984f789d200e9c44ef6f745e4b2cd5f"
+  },
+  "/var/tmp/ernie-step768-v1/factors/text-fixture/in0.f32": {
+    "bytes": 1179648,
+    "sha256": "793510e4a5a000f9d89d1cc2681744cf2ef0d1275be4f40edc500f90e48ca554"
+  },
+  "/var/tmp/ernie-step768-v1/factors/text-fixture/in1.f32": {
+    "bytes": 786432,
+    "sha256": "e23fa7eab8f1f5cd34ab7e3e9486b0f099a9d32dbea1db4c0a4b376eb9d20f28"
+  },
+  "/var/tmp/ernie-step768-v1/factors/text-fixture/in2.f32": {
+    "bytes": 16384,
+    "sha256": "5919ea0805bf18fa0de6fcb1ebf080cd7e62af72ec411a57f5f9dce71cd604c1"
+  },
+  "/var/tmp/ernie-step768-v1/factors/text-fixture/in3.f32": {
+    "bytes": 1212416,
+    "sha256": "7abde85db566cc2454d08098cffe2bbb36d9302c1880aa48a19ed7d10813c015"
+  },
+  "/var/tmp/ernie-step768-v1/factors/text-fixture/in4.f32": {
+    "bytes": 1212416,
+    "sha256": "0985f1e5e25ac9e4f8d6d250ce2ea8d406a0651e7cfb897eb02d4bd6916a1b84"
+  },
+  "/var/tmp/ernie-step768-v1/factors/text-fixture/in5.f32": {
+    "bytes": 22429696,
+    "sha256": "efdaa3b629cda9a9fb586903985f62d1bf683a94f78d83b4682316e2c66e202d"
+  },
+  "/var/tmp/ernie-step768-v1/native/actual.f32": {
+    "bytes": 1179648,
+    "sha256": "5439c407521a70138d65c6a455777c2a46e72eb6a84f990af8fa34e72ebc05d8"
+  },
+  "/var/tmp/ernie-step768-v1/native/samples.jsonl": {
+    "bytes": 202923,
+    "sha256": "f182b210d0a355fd64d339d3e36f9c9da978843e355deac8092b2deb7505134e"
+  },
+  "/var/tmp/ernie-step768-v1/native-fixture/expected.f32": {
+    "bytes": 1179648,
+    "sha256": "5439c407521a70138d65c6a455777c2a46e72eb6a84f990af8fa34e72ebc05d8"
+  },
+  "/var/tmp/ernie-step768-v1/native-fixture/in0.f32": {
+    "bytes": 1179648,
+    "sha256": "793510e4a5a000f9d89d1cc2681744cf2ef0d1275be4f40edc500f90e48ca554"
+  },
+  "/var/tmp/ernie-step768-v1/native-fixture/in1.f32": {
+    "bytes": 786432,
+    "sha256": "5fed4f8e9131c3b0bf5fa7bfab06c5d6f9e9a72524b672cc9cd25a78302f28e5"
+  },
+  "/var/tmp/ernie-step768-v1/native-fixture/in2.f32": {
+    "bytes": 16384,
+    "sha256": "5919ea0805bf18fa0de6fcb1ebf080cd7e62af72ec411a57f5f9dce71cd604c1"
+  },
+  "/var/tmp/ernie-step768-v1/native-fixture/in3.f32": {
+    "bytes": 1212416,
+    "sha256": "7abde85db566cc2454d08098cffe2bbb36d9302c1880aa48a19ed7d10813c015"
+  },
+  "/var/tmp/ernie-step768-v1/native-fixture/in4.f32": {
+    "bytes": 1212416,
+    "sha256": "0985f1e5e25ac9e4f8d6d250ce2ea8d406a0651e7cfb897eb02d4bd6916a1b84"
+  },
+  "/var/tmp/ernie-step768-v1/native-fixture/in5.f32": {
+    "bytes": 22429696,
+    "sha256": "efdaa3b629cda9a9fb586903985f62d1bf683a94f78d83b4682316e2c66e202d"
+  },
+  "/var/tmp/ernie-step768-v1/native-time.f32": {
+    "bytes": 16384,
+    "sha256": "5919ea0805bf18fa0de6fcb1ebf080cd7e62af72ec411a57f5f9dce71cd604c1"
+  },
+  "/var/tmp/ernie-step768-v1/official/actual.f32": {
+    "bytes": 1179648,
+    "sha256": "c6612d5950524424c94e54299ffc1b1ec977f4458aa53d12c6211fc4b4dc5e53"
+  },
+  "/var/tmp/ernie-step768-v1/official/samples.jsonl": {
+    "bytes": 195422,
+    "sha256": "e7aedd349ad1daeb3a4b859473c40f26cdd22575fc4bf5428203559dda5f7cb9"
+  },
+  "/var/tmp/ernie-step768-v1/official-fixture/expected.f32": {
+    "bytes": 1179648,
+    "sha256": "768dd7f83810451dc135b0969ca3de9ecfa604e4a2359bf7db4a1622ca4ece75"
+  },
+  "/var/tmp/ernie-step768-v1/official-fixture/in0.f32": {
+    "bytes": 1179648,
+    "sha256": "3a2257117219e6d4595408f92291e1bf2fccefce9c7da4b058f8f4577de5b584"
+  },
+  "/var/tmp/ernie-step768-v1/official-fixture/in1.f32": {
+    "bytes": 786432,
+    "sha256": "e23fa7eab8f1f5cd34ab7e3e9486b0f099a9d32dbea1db4c0a4b376eb9d20f28"
+  },
+  "/var/tmp/ernie-step768-v1/official-fixture/in2.f32": {
+    "bytes": 16384,
+    "sha256": "ae3da3292b1c5813d341b664984b36038537d1c7f3d2cd88eeaa5666774841b8"
+  },
+  "/var/tmp/ernie-step768-v1/official-fixture/in3.f32": {
+    "bytes": 1212416,
+    "sha256": "44c058b90c4875e4262f10bbf59711fecb20aa3783cee6962d32adacd601ffb5"
+  },
+  "/var/tmp/ernie-step768-v1/official-fixture/in4.f32": {
+    "bytes": 1212416,
+    "sha256": "3f4c73a51ec354fca4b6d5ddcdec3157233b10c46505a232570b46fcaab1ab7b"
+  },
+  "/var/tmp/ernie-step768-v1/official-fixture/in5.f32": {
+    "bytes": 22429696,
+    "sha256": "efdaa3b629cda9a9fb586903985f62d1bf683a94f78d83b4682316e2c66e202d"
+  },
+  "/var/tmp/ernie-step768-v1/official-time.f32": {
+    "bytes": 16384,
+    "sha256": "ae3da3292b1c5813d341b664984b36038537d1c7f3d2cd88eeaa5666774841b8"
+  },
+  "/var/tmp/ernie-step768-v1/runner.snapshot": {
+    "bytes": 36437088,
+    "sha256": "1d754f49534434cf8e3882b271714060394f5233b6a13eb3a0cf2c7e7bcb665a"
+  },
+  "/var/tmp/ernie-step768-v1/time-features.snapshot": {
+    "bytes": 30708312,
+    "sha256": "c8ed86edfec98af9523aa99169c223d7aaff0a906fb71bec3c5b959369af59a3"
+  }
+}

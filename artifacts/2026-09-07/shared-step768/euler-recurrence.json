@@ -1,0 +1,135 @@
+{
+  "scope": "Recalculate each saved 768 native and official Euler update from its own actual saved sample/prediction and the bound official FP32 schedule, with separate FP32 multiply and add; no model execution.",
+  "rows": [
+    {
+      "origin": "native",
+      "step": 0,
+      "delta": -0.03448277711868286,
+      "elements": 294912,
+      "exact_bytes": true,
+      "max_abs": 0.0
+    },
+    {
+      "origin": "native",
+      "step": 1,
+      "delta": -0.04244029521942139,
+      "elements": 294912,
+      "exact_bytes": true,
+      "max_abs": 0.0
+    },
+    {
+      "origin": "native",
+      "step": 2,
+      "delta": -0.053511738777160645,
+      "elements": 294912,
+      "exact_bytes": true,
+      "max_abs": 0.0
+    },
+    {
+      "origin": "native",
+      "step": 3,
+      "delta": -0.06956517696380615,
+      "elements": 294912,
+      "exact_bytes": true,
+      "max_abs": 0.0
+    },
+    {
+      "origin": "native",
+      "step": 4,
+      "delta": -0.09411764144897461,
+      "elements": 294912,
+      "exact_bytes": true,
+      "max_abs": 0.0
+    },
+    {
+      "origin": "native",
+      "step": 5,
+      "delta": -0.13445377349853516,
+      "elements": 294912,
+      "exact_bytes": true,
+      "max_abs": 0.0
+    },
+    {
+      "origin": "native",
+      "step": 6,
+      "delta": -0.2077922224998474,
+      "elements": 294912,
+      "exact_bytes": true,
+      "max_abs": 0.0
+    },
+    {
+      "origin": "native",
+      "step": 7,
+      "delta": -0.3636363744735718,
+      "elements": 294912,
+      "exact_bytes": true,
+      "max_abs": 0.0
+    },
+    {
+      "origin": "official",
+      "step": 0,
+      "delta": -0.03448277711868286,
+      "elements": 294912,
+      "exact_bytes": true,
+      "max_abs": 0.0
+    },
+    {
+      "origin": "official",
+      "step": 1,
+      "delta": -0.04244029521942139,
+      "elements": 294912,
+      "exact_bytes": true,
+      "max_abs": 0.0
+    },
+    {
+      "origin": "official",
+      "step": 2,
+      "delta": -0.053511738777160645,
+      "elements": 294912,
+      "exact_bytes": true,
+      "max_abs": 0.0
+    },
+    {
+      "origin": "official",
+      "step": 3,
+      "delta": -0.06956517696380615,
+      "elements": 294912,
+      "exact_bytes": true,
+      "max_abs": 0.0
+    },
+    {
+      "origin": "official",
+      "step": 4,
+      "delta": -0.09411764144897461,
+      "elements": 294912,
+      "exact_bytes": true,
+      "max_abs": 0.0
+    },
+    {
+      "origin": "official",
+      "step": 5,
+      "delta": -0.13445377349853516,
+      "elements": 294912,
+      "exact_bytes": true,
+      "max_abs": 0.0
+    },
+    {
+      "origin": "official",
+      "step": 6,
+      "delta": -0.2077922224998474,
+      "elements": 294912,
+      "exact_bytes": true,
+      "max_abs": 0.0
+    },
+    {
+      "origin": "official",
+      "step": 7,
+      "delta": -0.3636363744735718,
+      "elements": 294912,
+      "exact_bytes": true,
+      "max_abs": 0.0
+    }
+  ],
+  "all_exact": true,
+  "total_elements": 4718592
+}

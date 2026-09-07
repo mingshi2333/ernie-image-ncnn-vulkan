@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/usr/bin/clang++",
+    "-DERNIE_PROBE_MODEL_PACKAGE=1",
+    "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/src",
+    "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/third_party/ncnn/src",
+    "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/ncnn/src",
+    "-O3",
+    "-DNDEBUG",
+    "-std=gnu++17",
+    "-fPIE",
+    "-fopenmp=libomp",
+    "-UERNIE_PROBE_MODEL_PACKAGE",
+    "-fsyntax-only",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/probes/block_sequence_runner.cpp"
+  ],
+  "return_code": 0,
+  "stderr": ""
+}

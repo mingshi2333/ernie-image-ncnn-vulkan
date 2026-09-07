@@ -1,0 +1,65 @@
+{
+  "changed_input": "in1",
+  "inputs": {
+    "in0": {
+      "file": "in0.f32",
+      "shape": [
+        1,
+        128,
+        48,
+        48
+      ],
+      "sha256": "793510e4a5a000f9d89d1cc2681744cf2ef0d1275be4f40edc500f90e48ca554",
+      "source": "/var/tmp/ernie-step768-v1/native-fixture/in0.f32"
+    },
+    "in1": {
+      "file": "in1.f32",
+      "shape": [
+        1,
+        64,
+        3072
+      ],
+      "sha256": "e23fa7eab8f1f5cd34ab7e3e9486b0f099a9d32dbea1db4c0a4b376eb9d20f28",
+      "source": "/var/tmp/ernie-step768-v1/official-fixture/in1.f32"
+    },
+    "in2": {
+      "file": "in2.f32",
+      "shape": [
+        1,
+        4096
+      ],
+      "sha256": "5919ea0805bf18fa0de6fcb1ebf080cd7e62af72ec411a57f5f9dce71cd604c1",
+      "source": "/var/tmp/ernie-step768-v1/native-fixture/in2.f32"
+    },
+    "in3": {
+      "file": "in3.f32",
+      "shape": [
+        1,
+        2368,
+        128
+      ],
+      "sha256": "7abde85db566cc2454d08098cffe2bbb36d9302c1880aa48a19ed7d10813c015",
+      "source": "/var/tmp/ernie-step768-v1/native-fixture/in3.f32"
+    },
+    "in4": {
+      "file": "in4.f32",
+      "shape": [
+        1,
+        2368,
+        128
+      ],
+      "sha256": "0985f1e5e25ac9e4f8d6d250ce2ea8d406a0651e7cfb897eb02d4bd6916a1b84",
+      "source": "/var/tmp/ernie-step768-v1/native-fixture/in4.f32"
+    },
+    "in5": {
+      "file": "in5.f32",
+      "shape": [
+        2368,
+        2368
+      ],
+      "sha256": "efdaa3b629cda9a9fb586903985f62d1bf683a94f78d83b4682316e2c66e202d",
+      "source": "/var/tmp/ernie-step768-v1/native-fixture/in5.f32"
+    }
+  },
+  "scope": "Only this named input changes from the exact native replay; descriptive prediction distance, no official quality gate."
+}

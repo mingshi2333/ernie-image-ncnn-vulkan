@@ -1,0 +1,172 @@
+diff --git a/probes/CMakeLists.txt b/probes/CMakeLists.txt
+index 27941a6..f4b6e4a 100644
+--- a/probes/CMakeLists.txt
++++ b/probes/CMakeLists.txt
+@@ -14,6 +14,10 @@ ernie_probe(ernie-attention-workspace-probe attention_workspace_probe.cpp)
+ ernie_probe(ernie-gelu-probe gelu_probe.cpp)
+ ernie_probe(ernie-latent-runner latent_runner.cpp)
+ ernie_probe(ernie-block-sequence-runner block_sequence_runner.cpp)
++if(ERNIE_BUILD_TOKENIZER)
++    target_link_libraries(ernie-block-sequence-runner PRIVATE ernie-model-package)
++    target_compile_definitions(ernie-block-sequence-runner PRIVATE ERNIE_PROBE_MODEL_PACKAGE=1)
++endif()
+ ernie_probe(ernie-head-runner head_runner.cpp)
+ ernie_probe(ernie-img2img-runner img2img_runner.cpp)
+ if(ERNIE_BUILD_GENERATOR)
+diff --git a/probes/block_sequence_runner.cpp b/probes/block_sequence_runner.cpp
+index 6631c64..395d0ca 100644
+--- a/probes/block_sequence_runner.cpp
++++ b/probes/block_sequence_runner.cpp
+@@ -1,5 +1,8 @@
+ // SPDX-License-Identifier: MIT
+ #include "dit.h"
++#if ERNIE_PROBE_MODEL_PACKAGE
++#include "model_package.h"
++#endif
+ #if NCNN_VULKAN
+ #include "pipelinecache.h"
+ #endif
+@@ -36,10 +39,11 @@ static void write_stage(const fs::path& path, const ncnn::Mat& value)
+ int main(int argc, char** argv)
+ {
+     std::vector<std::string> models;
+-    fs::path fixture, output, input_head, output_head, trace;
++    fs::path fixture, output, input_head, output_head, trace, package_path;
+     std::string backend = "cpu", precision = "fp32", policy = "stream";
+     int tokens = 0, status = 0;
+     int width = 0, height = 0, text_tokens = 0;
++    int valid_text_tokens = 0, text_bucket = 0, threads = 4;
+     bool host_weights = false;
+     bool shared_pipeline_cache = true;
+     bool large_shape_probe = false;
+@@ -54,6 +58,7 @@ int main(int argc, char** argv)
+             if (i + 1 == argc) throw std::invalid_argument("Missing value for " + flag);
+             const std::string value = argv[++i];
+             if (flag == "--model") models.push_back(value);
++            else if (flag == "--package") package_path = fs::u8path(value);
+             else if (flag == "--fixture") fixture = value;
+             else if (flag == "--output") output = value;
+             else if (flag == "--input-head") input_head = value;
+@@ -62,7 +67,8 @@ int main(int argc, char** argv)
+             else if (flag == "--backend") backend = value;
+             else if (flag == "--precision") precision = value;
+             else if (flag == "--policy") policy = value;
+-            else if (flag == "--tokens" || flag == "--width" || flag == "--height" || flag == "--text-tokens")
++            else if (flag == "--tokens" || flag == "--width" || flag == "--height" || flag == "--text-tokens"
++                     || flag == "--valid-text-tokens" || flag == "--threads")
+             {
+                 size_t consumed = 0;
+                 const int number = std::stoi(value, &consumed);
+@@ -70,20 +76,28 @@ int main(int argc, char** argv)
+                 if (flag == "--tokens") tokens = number;
+                 else if (flag == "--width") width = number;
+                 else if (flag == "--height") height = number;
++                else if (flag == "--valid-text-tokens") valid_text_tokens = number;
++                else if (flag == "--threads") threads = number;
+                 else text_tokens = number;
+             }
+             else throw std::invalid_argument("Unknown argument: " + flag);
+         }
+         // The larger range is explicit and probe-only until its resource use is
+         // measured. The generator's existing shape limits remain separate.
+-        const int token_limit = large_shape_probe ? 10240 : 6144;
+-        if (models.empty() || fixture.empty() || output.empty() || tokens < 1 || tokens > token_limit
++        const bool packaged = !package_path.empty();
++        if ((packaged && (!models.empty() || !input_head.empty() || !output_head.empty() || large_shape_probe
++                          || valid_text_tokens < 1 || valid_text_tokens > 2048))
++            || (!packaged && valid_text_tokens != 0))
++            throw std::invalid_argument("Package mode requires --valid-text-tokens and excludes raw models/heads or large-shape probing");
++        const int token_limit = large_shape_probe || packaged ? 10240 : 6144;
++        if ((models.empty() && !packaged) || fixture.empty() || output.empty() || tokens < 1 || tokens > token_limit
++            || threads < 1 || threads > 256
+             || (backend != "cpu" && backend != "vulkan") || (policy != "stream" && policy != "resident")
+             || (precision != "fp32" && precision != "fp16" && precision != "bf16")
+             || (backend == "cpu" && precision != "fp32"))
+             throw std::invalid_argument("Require repeated --model DIR, --fixture DIR, --tokens N, --output FILE "
+                 "[--backend cpu|vulkan] [--precision fp32|fp16|bf16] [--policy stream|resident] [--host-weights] "
+-                "[--large-shape-probe]");
++                "[--threads N] [--large-shape-probe]; or --package DIR --valid-text-tokens N with matching packed grid/text dimensions");
+         if (large_shape_probe && (policy != "stream" || !input_head.empty() || !output_head.empty()))
+             throw std::invalid_argument("Large-shape probing requires streamed blocks without heads");
+         if (fs::exists(output)) throw std::invalid_argument("Output exists; use a new path");
+@@ -92,11 +106,40 @@ int main(int argc, char** argv)
+             if (fs::exists(trace)) throw std::invalid_argument("Trace exists; use a new path");
+             fs::create_directories(trace);
+         }
+-        const bool dit = !input_head.empty() || !output_head.empty();
+-        if (dit && (input_head.empty() || output_head.empty() || policy != "stream"
++        const bool dit = packaged || !input_head.empty() || !output_head.empty();
++        if (dit && ((!packaged && (input_head.empty() || output_head.empty())) || policy != "stream"
+             || width < 1 || width > 256 || height < 1 || height > 256 || text_tokens < 1
+             || text_tokens > 2048 || width * height + text_tokens != tokens))
+             throw std::invalid_argument("DiT mode requires both heads, matching grid/text dimensions and streaming");
++        ernie::ComponentFiles resolved_input, resolved_output;
++        std::vector<ernie::ComponentFiles> resolved_blocks;
++        if (packaged)
++        {
++#if ERNIE_PROBE_MODEL_PACKAGE
++            // Match native generation's authenticated source selection and
++            // in-memory graph instantiation; do not export temporary graphs.
++            ernie::ModelPackage package(package_path, width * 16, height * 16);
++            package.select_text_tokens(size_t(valid_text_tokens));
++            const auto& cfg = package.config();
++            if (cfg.packed_width != width || cfg.packed_height != height || cfg.dit_text_tokens != text_tokens
++                || valid_text_tokens > cfg.text_bucket)
++                throw std::invalid_argument("Package selection differs from fixture dimensions or text capacity");
++            text_bucket = cfg.text_bucket;
++            resolved_input = package.component("dit/input/head.ncnn.param", "input");
++            resolved_output = package.component("dit/output/head.ncnn.param", "output");
++            for (int i = 0; i < 36; ++i)
++                resolved_blocks.push_back(package.component(
++                    "dit/block-" + std::string(i < 10 ? "0" : "") + std::to_string(i) + "/block.ncnn.param", "dit"));
++#else
++            throw std::invalid_argument("Package mode requires a build with ERNIE_BUILD_TOKENIZER=ON");
++#endif
++        }
++        else if (dit)
++        {
++            resolved_input = ernie::component_files(input_head, "head");
++            resolved_output = ernie::component_files(output_head, "head");
++            resolved_blocks = ernie::component_files(models, "block");
++        }
+         const auto input = dit ? read(fixture / "in0.f32", width * height, 128).reshape(width, height, 128)
+                                : read(fixture / "in0.f32", 4096, tokens);
+         std::vector<ncnn::Mat> constants;
+@@ -111,7 +154,7 @@ int main(int argc, char** argv)
+         constants.push_back(read(fixture / (dit ? "in4.f32" : "in8.f32"), 128, tokens));
+         constants.push_back(read(fixture / (dit ? "in5.f32" : "in9.f32"), tokens, tokens));
+         ncnn::Option option;
+-        option.num_threads = 4;
++        option.num_threads = threads;
+         option.use_vulkan_compute = backend == "vulkan";
+         option.use_fp16_storage = precision == "fp16";
+         option.use_bf16_storage = precision == "bf16";
+@@ -131,7 +174,7 @@ int main(int argc, char** argv)
+             {
+                 std::vector<ncnn::Mat> inputs{input};
+                 inputs.insert(inputs.end(), constants.begin(), constants.end());
+-                result = ernie::run_dit(input_head.string(), models, output_head.string(), inputs, option, dit_stats, observer);
++                result = ernie::run_dit(resolved_input, resolved_blocks, resolved_output, inputs, option, dit_stats, observer);
+                 stats = dit_stats.blocks;
+             }
+             else result = ernie::run_block_sequence(models, input, constants, option, weight_policy, stats, observer);
+@@ -178,7 +221,7 @@ int main(int argc, char** argv)
+             {
+                 std::vector<ncnn::VkMat> inputs{gpu_input};
+                 inputs.insert(inputs.end(), gpu_constants.begin(), gpu_constants.end());
+-                gpu_result = ernie::run_dit(input_head.string(), models, output_head.string(), inputs, device, option, dit_stats, observer);
++                gpu_result = ernie::run_dit(resolved_input, resolved_blocks, resolved_output, inputs, device, option, dit_stats, observer);
+                 stats = dit_stats.blocks;
+             }
+             else gpu_result = ernie::run_block_sequence(models, gpu_input, gpu_constants, device, option, weight_policy, stats, observer);
+@@ -202,7 +245,9 @@ int main(int argc, char** argv)
+                        size_t(result.w) * result.h * sizeof(float));
+         if (!file) throw std::runtime_error("Cannot write output");
+         std::cout << std::setprecision(9) << "{\"backend\":\"" << backend << "\",\"precision\":\"" << precision
+-                  << "\",\"policy\":\"" << policy << "\",\"blocks\":" << models.size()
++                  << "\",\"policy\":\"" << policy << "\",\"blocks\":" << (dit ? resolved_blocks.size() : models.size())
++                  << ",\"threads\":" << threads << ",\"package_mode\":" << (packaged ? "true" : "false")
++                  << ",\"text_bucket\":" << text_bucket << ",\"valid_text_tokens\":" << valid_text_tokens
+                   << ",\"peak_loaded_nets\":" << stats.peak_loaded_nets
+                   << ",\"host_weights\":" << (host_weights ? "true" : "false")
+                   << ",\"shared_pipeline_cache\":" << (backend == "vulkan" && shared_pipeline_cache ? "true" : "false")

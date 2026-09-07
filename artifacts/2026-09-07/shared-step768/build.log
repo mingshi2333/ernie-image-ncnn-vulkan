@@ -1,0 +1,32 @@
+Running as unit: ernie-step768-probe-build-v1.service
+-- CMAKE_INSTALL_PREFIX = /usr/local
+-- NCNN_VERSION_STRING = 1.0.20260907
+-- Target arch: x86 64bit
+-- Configuring done (0.3s)
+-- Generating done (0.2s)
+-- Build files have been written to: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev
+[  0%] Built target ernie-tokenizer-rust
+[  0%] Built target ernie-shape-plan
+[  1%] Built target SPIRV
+[ 34%] Built target ncnn-generate-spirv
+[ 34%] Built target ernie-tokenizer
+[ 35%] Built target ernie-shape-graph
+[ 42%] Built target glslang
+[ 42%] Built target ernie-model-package
+[ 97%] Built target ncnn
+[ 97%] Building CXX object src/CMakeFiles/ernie-runtime.dir/host_memory.cpp.o
+[ 97%] Building CXX object src/CMakeFiles/ernie-runtime.dir/weight_session.cpp.o
+[ 97%] Building CXX object src/CMakeFiles/ernie-runtime.dir/block_sequence.cpp.o
+[ 98%] Building CXX object src/CMakeFiles/ernie-runtime.dir/dit.cpp.o
+[ 98%] Building CXX object src/CMakeFiles/ernie-runtime.dir/denoiser.cpp.o
+[ 98%] Building CXX object src/CMakeFiles/ernie-runtime.dir/text_encoder.cpp.o
+[ 98%] Linking CXX static library libernie-runtime.a
+[100%] Built target ernie-runtime
+[100%] Building CXX object probes/CMakeFiles/ernie-block-sequence-runner.dir/block_sequence_runner.cpp.o
+[100%] Linking CXX executable ../ernie-block-sequence-runner
+[100%] Built target ernie-block-sequence-runner
+          Finished with result: success
+Main processes terminated with: code=exited, status=0/SUCCESS
+               Service runtime: 4.078s
+             CPU time consumed: 5.294s
+                   Memory peak: 404M (swap: 0B)

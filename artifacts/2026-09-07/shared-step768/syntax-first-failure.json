@@ -1,0 +1,20 @@
+{
+  "command": [
+    "/usr/bin/c++",
+    "-DERNIE_PROBE_MODEL_PACKAGE=1",
+    "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/src",
+    "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/third_party/ncnn/src",
+    "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/ncnn/src",
+    "-O3",
+    "-DNDEBUG",
+    "-std=gnu++17",
+    "-fPIE",
+    "-fopenmp=libomp",
+    "-UERNIE_PROBE_MODEL_PACKAGE",
+    "-fsyntax-only",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/probes/block_sequence_runner.cpp"
+  ],
+  "return_code": 1,
+  "stderr": "c++: error: unrecognized command-line option \u2018-fopenmp=libomp\u2019; did you mean \u2018-fopenmp-simd\u2019?\n",
+  "scope": "Manual syntax-check invocation selected system GCC for a Clang-configured build; the actual CMake build passed."
+}
