@@ -20,12 +20,14 @@ void write(const fs::path& path, const std::string& text)
     require(bool(file), "Cannot write host-memory fixture");
 }
 std::string stats(Bytes file = 800, Bytes inactive = 630, Bytes dirty = 20,
-                  Bytes writeback = 10, Bytes shmem = 40, Bytes unevictable = 30)
+                  Bytes writeback = 10, Bytes shmem = 40, Bytes unevictable = 30,
+                  Bytes active = 0)
 {
     return "file " + std::to_string(file) + "\ninactive_file " + std::to_string(inactive) +
         "\nfile_dirty " + std::to_string(dirty) + "\nfile_writeback " + std::to_string(writeback) +
         "\nshmem " + std::to_string(shmem) + "\nunevictable " + std::to_string(unevictable) +
-        "\nactive_file 9999\nslab_reclaimable 9999\nanon 9999\nswapcached 9999\nfuture_counter 123\n";
+        "\nactive_file " + std::to_string(active) +
+        "\nslab_reclaimable 9999\nanon 9999\nswapcached 9999\nfuture_counter 123\n";
 }
 struct Fixture
 {
@@ -59,17 +61,30 @@ int main()
     {
         Fixture f;
         auto reader = ernie::linux_host_memory_available_reader(f.files);
-        // File-backed inactive pages give 600 bytes of conservative credit.
-        // Anonymous, active, slab and swap counters must not inflate it.
-        check(reader, 700, "Clean file-cache headroom was lost");
+        // Retain half of 600 clean file bytes: 100 hard headroom + 300 credit.
+        // Moving the same pages between LRUs must not change admission.
+        check(reader, 400, "Clean file-cache headroom was lost");
+        for (const Bytes active : {Bytes(0), Bytes(315), Bytes(630)})
+        {
+            write(f.leaf / "memory.stat", stats(800, 630 - active, 20, 10, 40, 30, active));
+            check(reader, 400, "File LRU movement changed available headroom");
+        }
         write(f.leaf / "memory.stat", stats(800, 630, 20, 10, 40, UINT64_MAX));
-        check(reader, 700, "Unrelated pinned pages were deducted from the file list again");
+        check(reader, 400, "Unrelated pinned pages were deducted from the file list again");
         write(f.leaf / "memory.stat", stats(800, 700, 0, 0, 750, 0));
-        check(reader, 150, "Shared memory was credited as clean file pages");
+        check(reader, 125, "Shared memory was credited as clean file pages");
         write(f.leaf / "memory.stat", stats(900, 150, 0, 0, 0, 0));
-        check(reader, 250, "Credit exceeded the inactive-file list");
+        check(reader, 175, "Credit exceeded half the file LRU lists");
         write(f.leaf / "memory.stat", stats(100, 700, 0, 0, 0, 0));
-        check(reader, 200, "Credit exceeded file bytes");
+        check(reader, 150, "Credit exceeded half the file bytes");
+        write(f.leaf / "memory.stat", stats(800, 0, 0, 0, 0, 0, 0));
+        check(reader, 100, "File bytes outside reclaim lists were credited");
+        write(f.leaf / "memory.stat", stats(101, 50, 0, 0, 0, 0, 51));
+        check(reader, 150, "Odd file totals did not retain at least half");
+        write(f.leaf / "memory.stat", stats(800, UINT64_MAX, 0, 0, 0, 0, UINT64_MAX));
+        check(reader, 500, "File list sum overflowed");
+        write(f.leaf / "memory.stat", stats(800, 0, 799, 1, 0, 0, 800));
+        check(reader, 100, "Dirty active-file pages were credited");
         write(f.leaf / "memory.stat", stats(800, 700, UINT64_MAX, UINT64_MAX, UINT64_MAX, UINT64_MAX));
         check(reader, 100, "Excluded categories underflowed or became reclaim credit");
         write(f.leaf / "memory.stat", stats(0, 0, 0, 0, 0, 0));
@@ -84,13 +99,15 @@ int main()
         write(f.parent / "memory.stat", stats(0, 0, 0, 0, 0, 0));
         check(reader, 100, "An ancestor's limit was bypassed");
         write(f.parent / "memory.max", "max\n");
-        check(reader, 700, "An updated parent limit was not read");
+        check(reader, 400, "An updated parent limit was not read");
         write(f.files.meminfo, "MemAvailable: 0 kB\n");
         check(reader, 0, "Host physical availability was bypassed");
         write(f.files.meminfo, "MemAvailable: 1000 kB\n");
         fs::remove(f.leaf / "memory.stat");
         check(reader, 100, "Missing optional statistics invented credit");
         for (const auto& invalid : {stats() + "file 999\n", stats() + "file 0\n",
+                                   stats() + "active_file 0\n",
+                                   std::string("file 800\ninactive_file 630\nfile_dirty 20\nfile_writeback 10\nshmem 40\n"),
                                    std::string("inactive_file 800\n"), std::string("file -1\n")})
         {
             write(f.leaf / "memory.stat", invalid);
@@ -141,7 +158,7 @@ int main()
         require(live && *live, "Live Linux memory query unavailable");
         std::cout << "Live Linux available estimate=" << *live << " bytes\n";
 #endif
-        std::cout << "File-cache credit, real pressure, ancestors, changing inputs, corruption, "
+        std::cout << "File LRU movement, bounded credit, real pressure, ancestors, changing inputs, corruption, "
                      "missing counters and overflow contracts pass\n";
         return 0;
     }

@@ -1,0 +1,9 @@
+{
+  "url": "https://github.com/torvalds/linux/blob/df2908090cda368b01ff43709f51890076c56157/mm/show_mem.c",
+  "revision": "df2908090cda368b01ff43709f51890076c56157",
+  "file_git_blob_sha": "b938cbcd774a1e2ec732f8c3703cae0dbe57d488",
+  "file_sha256": "c50205bc19974566d7bfe1c161f253cf71321c06ecc1327abb2a775be8a0de71",
+  "basis": "si_mem_available includes active and inactive file LRUs, retaining min(half of page cache, low watermark).",
+  "project_policy": "Credit floor(half of clean file LRU bytes), limited by usage, non-shmem file, host MemAvailable and each finite cgroup ancestor. No slab, anonymous, unevictable or swap credit.",
+  "not_equivalent_to_kernel": "cgroup estimate is deliberately more conservative for file credit and does not claim globally identical MemAvailable arithmetic."
+}

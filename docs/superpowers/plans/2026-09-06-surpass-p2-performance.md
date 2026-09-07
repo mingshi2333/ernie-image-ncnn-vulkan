@@ -36,6 +36,8 @@
 
 **RAM 估计修复：** 独立 `host_memory.*` 对干净非活跃文件页估计回收余量，仍受主机与所有上级限额约束；缓存命中不再重复预留载荷。相同输入、参数和限额的完整512现在命中13次、加载275次，25张量/PNG仍逐字节相同，原最低命中要求通过。仍有54次压力回收、cgroup max133919，无OOM；最终策略10项相关检查通过。[本轮证据](../../../artifacts/2026-09-07/cache-headroom/README.md)仅证明部分复用，反复准入/回收、重复配对速度和本任务其余条目保持开放。
 
+**文件列表估计增量：** 改为计入两类文件 LRU 的至多一半干净页，依据固定 Linux 源码并保留原限额。相同映射512回归为42命中/246加载/6准入/0压力回收，25张量/PNG逐字节不变；10项相关检查通过。但384.364秒未低于前次378.970秒，max事件升至354168，无OOM，不能宣称净收益。[记录](../../../artifacts/2026-09-07/cache-file-lru/README.md)。下一步先补齐 benchmark_pipeline.py 的共享包/尺寸/内存参数，再做同一程序关闭trace的重复比较；O2及S/M继续开放。
+
 **Files:** Create `src/weight_session.h`, `src/weight_session.cpp`, `tests/test_weight_session.cpp`；Extend `src/block_sequence.h`, `src/block_sequence.cpp`, `src/dit.cpp`, `src/denoiser.cpp`, `src/pipeline.cpp`, `src/CMakeLists.txt`, `tests/CMakeLists.txt`。
 
 **Interfaces:** `WeightBudget { host_bytes, device_bytes, prefetch_depth }`；`WeightSession::acquire(block_id)` 返回受会话管理的 lease；`release_after(lease, completion)` 只有已完成的 command 才可回收相关权重。`cancel()` 必须 join worker、等待必要设备完成并释放资源。开始只允许 `prefetch_depth=0/1`，租约不可复制成独立所有者。

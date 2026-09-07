@@ -1,0 +1,49 @@
+{
+  "frozen_bindings_verified": 396,
+  "plan_sha256": "005f3d8a3bfd8e56112349cde1714059b268fb587e5a8184bbbafdfc2c4a828c",
+  "comparison_sha256": "e59690d80a09c1207d7fd34dc13e480192eefdadb6de3b5847b9717072d78ee4",
+  "native_pids_finished": [
+    2864196
+  ],
+  "ncnn_revision": "6a1bf000f363714839a36793addc8c879d3d899e",
+  "ncnn_clean": true,
+  "test_runs": [
+    {
+      "log": "build-dev-ctest.log",
+      "passed": 7,
+      "command": [
+        "ctest",
+        "--test-dir",
+        "build-dev",
+        "--output-on-failure",
+        "-V",
+        "-R",
+        "^(host_memory_cpu|weight_session_.*|installed_cpp_consumer)$"
+      ]
+    },
+    {
+      "log": "build-install-cpu-ctest.log",
+      "passed": 3,
+      "command": [
+        "ctest",
+        "--test-dir",
+        "build-install-cpu",
+        "--output-on-failure",
+        "-V",
+        "-R",
+        "^(host_memory_cpu|weight_session_.*|installed_cpp_consumer)$"
+      ]
+    }
+  ],
+  "final_policy_checks": 10,
+  "memory_events": {
+    "low": 0,
+    "high": 0,
+    "max": 354168,
+    "oom": 0,
+    "oom_kill": 0,
+    "oom_group_kill": 0,
+    "sock_throttled": 0
+  },
+  "scope": "One traced development regression; no paired performance, activation spilling or general OOM recovery claim."
+}

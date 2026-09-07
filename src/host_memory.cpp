@@ -47,15 +47,15 @@ std::optional<Bytes> physical_available(const std::filesystem::path& path)
     return result;
 }
 
-Bytes inactive_file_credit(const std::filesystem::path& path, Bytes usage)
+Bytes file_reclaim_credit(const std::filesystem::path& path, Bytes usage)
 {
-    // Linux memory.stat documents list-based inactive_file separately from
-    // type-based file/shmem/dirty/writeback counters. Bound by both the list
-    // and non-shmem file total, then exclude dirty/writeback pages. Anonymous
-    // and unevictable pages live on other lists; subtracting their totals again
-    // would wrongly charge pinned weights against unrelated clean file pages.
+    // Both file LRUs contribute to Linux si_mem_available(). Considering only
+    // inactive_file makes admission fluctuate when the same clean file pages
+    // become active. Bound their sum by non-shmem file bytes and current usage.
+    // Anonymous and unevictable pages live on other lists; their totals must
+    // neither add credit nor be deducted again from unrelated file pages.
     std::map<std::string, std::optional<Bytes>> fields{{"file", {}}, {"inactive_file", {}},
-        {"file_dirty", {}}, {"file_writeback", {}}, {"shmem", {}}};
+        {"active_file", {}}, {"file_dirty", {}}, {"file_writeback", {}}, {"shmem", {}}};
     std::ifstream file(path);
     std::string line;
     while (std::getline(file, line))
@@ -70,10 +70,15 @@ Bytes inactive_file_credit(const std::filesystem::path& path, Bytes usage)
         if (!field->second) return 0;
     }
     for (const auto& field : fields) if (!field.second) return 0;
-    Bytes credit = std::min({usage, subtract(*fields["file"], *fields["shmem"]), *fields["inactive_file"]});
+    const Bytes inactive = *fields["inactive_file"], active = *fields["active_file"];
+    const Bytes file_lrus = active > UINT64_MAX - inactive ? UINT64_MAX : inactive + active;
+    Bytes credit = std::min({usage, subtract(*fields["file"], *fields["shmem"]), file_lrus});
     for (const auto* key : {"file_dirty", "file_writeback"})
         credit = subtract(credit, *fields[key]);
-    return credit;
+    // Reserve at least half of these clean file pages. This is more cautious
+    // than the kernel's file-LRU term, which retains min(half, low watermark).
+    // It is a cgroup estimate, not a replacement for the host MemAvailable cap.
+    return credit / 2;
 }
 
 std::optional<std::filesystem::path> membership_path(const HostMemoryFiles& files)
@@ -117,7 +122,7 @@ HostAvailableReader linux_host_memory_available_reader(HostMemoryFiles files)
                     if (!maximum || !before_text) return std::nullopt;
                     const auto before = unsigned_value(*before_text);
                     if (!before) return std::nullopt;
-                    const auto credit = inactive_file_credit(path / "memory.stat", *before);
+                    const auto credit = file_reclaim_credit(path / "memory.stat", *before);
                     const auto after_text = single_value(path / "memory.current");
                     if (!after_text) return std::nullopt;
                     const auto after = unsigned_value(*after_text);

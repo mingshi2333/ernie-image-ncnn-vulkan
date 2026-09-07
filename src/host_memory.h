@@ -19,7 +19,7 @@ struct HostMemoryFiles
 HostAvailableReader linux_host_memory_available_reader(HostMemoryFiles);
 
 // Estimated allocatable headroom, limited by MemAvailable and every finite
-// cgroup-v2 ancestor. Clean inactive file pages may be reclaimed by the kernel;
+// cgroup-v2 ancestor. Credit at most half the clean active + inactive file pages;
 // they are not equivalent to anonymous or pinned weights. No swap is credited.
 // Missing optional file statistics give no reclaim credit. Unreadable required
 // inputs and unsupported platforms return unavailable, disabling admission.

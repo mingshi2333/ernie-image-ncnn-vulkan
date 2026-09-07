@@ -1,0 +1,90 @@
+[
+  {
+    "command": [
+      "cmake",
+      "-S",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference",
+      "-B",
+      "build-dev"
+    ],
+    "returncode": 0,
+    "seconds": 0.5403381559881382,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-file-lru-v1/build-dev-configure.log"
+  },
+  {
+    "command": [
+      "cmake",
+      "--build",
+      "build-dev",
+      "--parallel",
+      "2",
+      "--target",
+      "ernie-image",
+      "ernie-host-memory-contract",
+      "ernie-weight-session-contract",
+      "ernie-pipeline-api-contract",
+      "ernie-request-validation-contract"
+    ],
+    "returncode": 0,
+    "seconds": 7.351125290006166,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-file-lru-v1/build-dev-build.log"
+  },
+  {
+    "command": [
+      "ctest",
+      "--test-dir",
+      "build-dev",
+      "--output-on-failure",
+      "-V",
+      "-R",
+      "^(host_memory_cpu|weight_session_.*|installed_cpp_consumer)$"
+    ],
+    "returncode": 0,
+    "seconds": 4.253365972981555,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-file-lru-v1/build-dev-ctest.log"
+  },
+  {
+    "command": [
+      "cmake",
+      "-S",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference",
+      "-B",
+      "build-install-cpu"
+    ],
+    "returncode": 0,
+    "seconds": 0.2583956500166096,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-file-lru-v1/build-install-cpu-configure.log"
+  },
+  {
+    "command": [
+      "cmake",
+      "--build",
+      "build-install-cpu",
+      "--parallel",
+      "2",
+      "--target",
+      "ernie-image",
+      "ernie-host-memory-contract",
+      "ernie-weight-session-contract",
+      "ernie-pipeline-api-contract",
+      "ernie-request-validation-contract"
+    ],
+    "returncode": 0,
+    "seconds": 3.19595512401429,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-file-lru-v1/build-install-cpu-build.log"
+  },
+  {
+    "command": [
+      "ctest",
+      "--test-dir",
+      "build-install-cpu",
+      "--output-on-failure",
+      "-V",
+      "-R",
+      "^(host_memory_cpu|weight_session_.*|installed_cpp_consumer)$"
+    ],
+    "returncode": 0,
+    "seconds": 1.108043952001026,
+    "log": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/cache-file-lru-v1/build-install-cpu-ctest.log"
+  }
+]

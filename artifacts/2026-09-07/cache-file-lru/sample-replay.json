@@ -1,0 +1,16 @@
+{
+  "source": "/var/tmp/ernie-cache-headroom512-v1/native/samples.jsonl",
+  "sha256": "b8d5c8bf62c738a49362976a2c3969351dcde4588989652850747d1a361c3f60",
+  "samples": 722,
+  "old": {
+    "minimum_bytes": 1448738816,
+    "samples_below_reserve": 270,
+    "samples_below_reserve_plus_payload": 366
+  },
+  "candidate": {
+    "minimum_bytes": 5279662080,
+    "samples_below_reserve": 0,
+    "samples_below_reserve_plus_payload": 0
+  },
+  "scope": "Retrospective leaf-cgroup sample replay, not actual admission instants, memory availability in ancestors, or new generation."
+}

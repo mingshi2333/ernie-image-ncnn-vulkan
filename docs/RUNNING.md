@@ -559,15 +559,20 @@ with this cache enabled. Heads continue to stream.
 
 These are example budgets, not model hardware requirements. Cache admission
 checks Linux host availability and the current cgroup-v2 memory limits. The
-estimate includes conservative credit for clean inactive file pages, limited
-by both `inactive_file` and non-shmem `file` bytes, with dirty/writeback pages
-deducted. It does not credit swap, active pages, anonymous/pinned weights or
-reclaimable slab. Every finite ancestor and the host's `MemAvailable` still
+estimate credits at most half of clean active plus inactive file pages, limited
+by the two file LRU lists, non-shmem `file` bytes and current usage, with
+dirty/writeback pages deducted. The other half is left out of the reclaim
+estimate; moving the same pages between the two lists does not change the estimate.
+It does not credit swap, anonymous/pinned weights or reclaimable slab.
+Every finite ancestor and the host's `MemAvailable` still
 limit the result. Missing or malformed optional `memory.stat` data gives zero
 credit; required input failures disable admission. Membership and limits are
 read again, including after process migration. This follows the counter
-distinctions in the [Linux cgroup-v2 documentation](https://docs.kernel.org/admin-guide/cgroup-v2.html#memory-interface-files);
-reclaim credit is an estimate, not a guarantee of immediate allocation success.
+distinctions in the [Linux cgroup-v2 documentation](https://docs.kernel.org/admin-guide/cgroup-v2.html#memory-interface-files).
+Linux's [own available-memory calculation](https://github.com/torvalds/linux/blob/df2908090cda368b01ff43709f51890076c56157/mm/show_mem.c)
+uses both file LRUs and retains the smaller of half the cache and a low watermark;
+this project's cgroup estimate always retains at least half of its clean-file
+total. This is an estimate, not a guarantee of immediate allocation success.
 
 Before each block, low headroom evicts idle cached blocks; it never evicts a block
 whose lease is still active. If availability cannot be read, blocks stream
@@ -613,3 +618,10 @@ reuse, not stable retention or a formal speed improvement. The sampled native
 process high-water mark is about 9.13 GiB, separately from file-cache-inclusive
 cgroup usage. See the [headroom regression](../artifacts/2026-09-07/cache-headroom/README.md)
 for exact measurements, tests and remaining limitations.
+
+The subsequent two-file-LRU estimate described above keeps all six admitted
+blocks in the same mapped512 run: 42 hits, 246 loads and no pressure evictions,
+with every tensor and the PNG unchanged. This run takes 384.364 seconds versus
+the previous 378.970 seconds, and cgroup max events increase; these uncontrolled
+single trace runs provide no speedup evidence. Cache remains opt-in. See the
+[file-LRU regression](../artifacts/2026-09-07/cache-file-lru/README.md).
