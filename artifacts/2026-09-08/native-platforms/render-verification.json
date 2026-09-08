@@ -1,0 +1,69 @@
+{
+  "method": "MarkdownIt HTML preview inspected through the actual in-app browser; tables, diagrams and build commands visually checked. No PDF or Word output.",
+  "viewport_width": 1280,
+  "documents": [
+    {
+      "path": "README.md",
+      "sha256": "4b96f4545bd70b382d7ec7303708d5eb5cc9865db9c59286c03a47d659bedabf",
+      "tables": 7,
+      "mermaid_svg": 1,
+      "document_scroll_width": 1265,
+      "horizontal_page_overflow": false,
+      "visual_inspection": "passed"
+    },
+    {
+      "path": "docs/NCNN-DISCUSSION-DRAFT.md",
+      "sha256": "3012a27f1c070b4c0b923077afa2e0b7d6ed4ac9632530f39ff3869a758bfba2",
+      "tables": 4,
+      "mermaid_svg": 1,
+      "document_scroll_width": 1265,
+      "horizontal_page_overflow": false,
+      "visual_inspection": "passed"
+    },
+    {
+      "path": "docs/PLATFORM-VALIDATION.md",
+      "sha256": "bfd7278d2d4813f80af9934bd109116e6e6f459822dad104d7dcd0781e2e7c81",
+      "tables": 1,
+      "mermaid_svg": 0,
+      "document_scroll_width": 1265,
+      "horizontal_page_overflow": false,
+      "visual_inspection": "passed"
+    },
+    {
+      "path": "docs/BUILDING-WINDOWS.md",
+      "sha256": "923e072e5789d260edc73d6074705992f78e622d97463a4e6cade6cddfb5a875",
+      "tables": 0,
+      "mermaid_svg": 0,
+      "document_scroll_width": 1265,
+      "horizontal_page_overflow": false,
+      "visual_inspection": "passed"
+    },
+    {
+      "path": "docs/VALIDATION-STATUS.md",
+      "sha256": "c071af63ff99a344f132812cb2ab6d2b09646fc49d69211dc89b16c54b11574b",
+      "tables": 1,
+      "mermaid_svg": 0,
+      "document_scroll_width": 1265,
+      "horizontal_page_overflow": false,
+      "visual_inspection": "passed"
+    },
+    {
+      "path": "artifacts/2026-09-08/native-platforms/README.md",
+      "sha256": "cb9cae45a43e000ead2020bff592a5394bdb441ef7de9948f18b2505bf1d5ebf",
+      "tables": 1,
+      "mermaid_svg": 0,
+      "document_scroll_width": 1265,
+      "horizontal_page_overflow": false,
+      "visual_inspection": "passed"
+    },
+    {
+      "path": "artifacts/2026-09-08/native-platforms/style-review.md",
+      "sha256": "d8b5dce9c1f442067bffc5d633b8116372061e1d2ec42f5ec6839dfebcb51e3a",
+      "tables": 1,
+      "mermaid_svg": 0,
+      "document_scroll_width": 1265,
+      "horizontal_page_overflow": false,
+      "visual_inspection": "passed"
+    }
+  ]
+}

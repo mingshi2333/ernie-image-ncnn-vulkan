@@ -1,0 +1,27 @@
+[
+  {
+    "block": 7,
+    "script": "tools/validate_text.py",
+    "option_check": "passed",
+    "repeated_models": {
+      "--model": 25
+    }
+  },
+  {
+    "block": 9,
+    "script": "tools/rebucket_dit.py",
+    "option_check": "passed",
+    "repeated_models": {
+      "--model": 36
+    }
+  },
+  {
+    "block": 14,
+    "script": "tools/prepare_pipeline.py",
+    "option_check": "passed",
+    "repeated_models": {
+      "--dit": 36,
+      "--text": 25
+    }
+  }
+]

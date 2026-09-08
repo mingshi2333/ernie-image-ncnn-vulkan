@@ -1,0 +1,16 @@
+[
+  {
+    "path": "tests/fixtures/pe-chat-template.jinja",
+    "core_autocrlf": true,
+    "sha256": "0c859484eecf01db103acd02c332610163ee425cd46866d6cb126ee1bee974ea",
+    "exact_checkout": true,
+    "contains_crlf": false
+  },
+  {
+    "path": "tests/fixtures/pe-canonical.param",
+    "core_autocrlf": true,
+    "sha256": "aa068ca4377987878f758359289907a86a3a592132fa6f6b3dadce79f5f1f265",
+    "exact_checkout": true,
+    "contains_crlf": false
+  }
+]

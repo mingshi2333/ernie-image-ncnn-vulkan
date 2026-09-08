@@ -1,0 +1,117 @@
+[
+  {
+    "log": "initial/ci-initial-windows.log.gz",
+    "original_line_1based": 381,
+    "excerpt": [
+      "2026-09-07T22:40:08.6803876Z -- Found Threads: TRUE",
+      "2026-09-07T22:40:08.7205813Z CMake Error at cmake/ErnieAttentionShader.cmake:8 (message):",
+      "2026-09-07T22:40:08.7206741Z   Review the changed ncnn SDPA shader before deriving the ERNIE accumulation",
+      "2026-09-07T22:40:08.7207301Z   shader",
+      "2026-09-07T22:40:08.7207808Z Call Stack (most recent call first):",
+      "2026-09-07T22:40:08.7208243Z   src/CMakeLists.txt:7 (include)",
+      "2026-09-07T22:40:08.7208493Z ",
+      "2026-09-07T22:40:08.7208614Z ",
+      "2026-09-07T22:40:08.7212344Z -- Configuring incomplete, errors occurred!",
+      "2026-09-07T22:40:08.7593795Z ##[error]Process completed with exit code 1.",
+      "2026-09-07T22:40:08.7775696Z ##[group]Run actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a",
+      "2026-09-07T22:40:08.7776172Z with:",
+      "2026-09-07T22:40:08.7776399Z   name: windows-msvc-vulkan"
+    ]
+  },
+  {
+    "log": "initial/ci-diagnostic-macos.log.gz",
+    "original_line_1based": 2088,
+    "excerpt": [
+      "2026-09-07T22:57:38.5850820Z Process 12294 stopped",
+      "2026-09-07T22:57:38.5851310Z * thread #1, queue = 'com.apple.main-thread', stop reason = EXC_BAD_ACCESS (code=1, address=0xc)",
+      "2026-09-07T22:57:38.5851980Z     frame #0: 0x0000000100896c7c AppleParavirtGPUMetalIOGPUFamily`___lldb_unnamed_symbol367 + 76",
+      "2026-09-07T22:57:38.5852560Z AppleParavirtGPUMetalIOGPUFamily`___lldb_unnamed_symbol367:",
+      "2026-09-07T22:57:38.5852930Z ->  0x100896c7c <+76>: ldur   x22, [x8, #0xc]",
+      "2026-09-07T22:57:38.5853290Z     0x100896c80 <+80>: bl     0x1008b63c0",
+      "2026-09-07T22:57:38.5853580Z     0x100896c84 <+84>: add    x8, x0, x27",
+      "2026-09-07T22:57:38.5853870Z     0x100896c88 <+88>: mul    x26, x8, x22",
+      "2026-09-07T22:57:38.5854160Z Target 0: (ernie-gelu-probe) stopped.",
+      "2026-09-07T22:57:38.5854550Z (lldb) thread backtrace all",
+      "2026-09-07T22:57:38.5854940Z * thread #1, queue = 'com.apple.main-thread', stop reason = EXC_BAD_ACCESS (code=1, address=0xc)",
+      "2026-09-07T22:57:38.5855580Z   * frame #0: 0x0000000100896c7c AppleParavirtGPUMetalIOGPUFamily`___lldb_unnamed_symbol367 + 76",
+      "2026-09-07T22:57:38.5857170Z     frame #1: 0x0000000100c7a8a4 libMoltenVK.dylib`MVKImagePlane::updateMTLTextureContent(MVKImageSubresource&, unsigned long long, unsigned long long) + 396"
+    ]
+  },
+  {
+    "log": "newline-fix/ci-newline-windows.log.gz",
+    "original_line_1based": 1244,
+    "excerpt": [
+      "2026-09-07T23:10:12.9913120Z \"C:\\Program Files\\Microsoft Visual Studio\\18\\Enterprise\\VC\\Tools\\MSVC\\14.51.36231\\bin\\Hostx64\\x64\\cl.exe\"  /nologo /TP  -ID:\\a\\ernie-image-ncnn-vulkan\\ernie-image-ncnn-vulkan\\src /DWIN32 /D_WINDOWS /GR /EHsc /O2 /Ob2 /DNDEBUG -std:c++17 -MD /utf-8 /showIncludes /Fosrc\\CMakeFiles\\ernie-shape-graph.dir\\model_config.cpp.obj /Fdsrc\\CMakeFiles\\ernie-shape-graph.dir\\ernie-shape-graph.pdb /FS -c D:\\a\\ernie-image-ncnn-vulkan\\ernie-image-ncnn-vulkan\\src\\model_config.cpp",
+      "2026-09-07T23:10:12.9916943Z D:\\a\\ernie-image-ncnn-vulkan\\ernie-image-ncnn-vulkan\\src\\model_config.cpp(45): error C2039: 'stoi': is not a member of 'std'",
+      "2026-09-07T23:10:12.9918565Z C:\\Program Files\\Microsoft Visual Studio\\18\\Enterprise\\VC\\Tools\\MSVC\\14.51.36231\\include\\map(24): note: see declaration of 'std'",
+      "2026-09-07T23:10:12.9920163Z D:\\a\\ernie-image-ncnn-vulkan\\ernie-image-ncnn-vulkan\\src\\model_config.cpp(45): error C3861: 'stoi': identifier not found",
+      "2026-09-07T23:10:12.9921520Z [582/699] Building CXX object src\\CMakeFiles\\ernie-shape-graph.dir\\shape_graph.cpp.obj",
+      "2026-09-07T23:10:12.9922386Z ninja: build stopped: subcommand failed.",
+      "2026-09-07T23:10:13.0031587Z ##[error]Process completed with exit code 1.",
+      "2026-09-07T23:10:13.0285296Z ##[group]Run actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a",
+      "2026-09-07T23:10:13.0285855Z with:",
+      "2026-09-07T23:10:13.0286318Z   name: windows-msvc-vulkan",
+      "2026-09-07T23:10:13.0286992Z   path: build/CMakeCache.txt",
+      "build/ctest-results.xml",
+      "build/Testing/Temporary/*.log"
+    ]
+  },
+  {
+    "log": "macos-loader-fix/ci-loader-macos.log.gz",
+    "original_line_1based": 2098,
+    "excerpt": [
+      "2026-09-07T23:07:11.2624530Z ",
+      "2026-09-07T23:07:11.2624630Z FAILED (failures=7, errors=8)",
+      "2026-09-07T23:07:11.2698370Z ##[error]Process completed with exit code 1.",
+      "2026-09-07T23:07:11.2798980Z ##[group]Run if test -x build/ernie-gelu-probe; then",
+      "2026-09-07T23:07:11.2799300Z if test -x build/ernie-gelu-probe; then",
+      "2026-09-07T23:07:11.2799790Z   lldb --batch -o run -k 'thread backtrace all' -- build/ernie-gelu-probe vulkan fp32 > build/vulkan-backtrace.log 2>&1 || true",
+      "2026-09-07T23:07:11.2800280Z   cat build/vulkan-backtrace.log",
+      "2026-09-07T23:07:11.2800580Z   otool -L build/ernie-gelu-probe > build/vulkan-libraries.log",
+      "2026-09-07T23:07:11.2800900Z fi",
+      "2026-09-07T23:07:11.2859280Z shell: /bin/bash -e {0}",
+      "2026-09-07T23:07:11.2859460Z env:",
+      "2026-09-07T23:07:11.2859620Z   PYTHONUTF8: 1",
+      "2026-09-07T23:07:11.2859770Z   CARGO_BUILD_JOBS: 2"
+    ]
+  },
+  {
+    "log": "windows-include-fix/ci-include-windows.log.gz",
+    "original_line_1based": 1458,
+    "excerpt": [
+      "2026-09-07T23:31:43.5184815Z               ~~~~~~~~~~~~~~~~~^^^^^^^^^^^",
+      "2026-09-07T23:31:43.5185470Z   File \"D:\\a\\ernie-image-ncnn-vulkan\\ernie-image-ncnn-vulkan\\tools\\pe_package.py\", line 52, in verify_pe_package",
+      "2026-09-07T23:31:43.5186549Z     raise ValueError('PE chat template differs from native formatter')",
+      "2026-09-07T23:31:43.5187717Z ValueError: PE chat template differs from native formatter",
+      "2026-09-07T23:31:43.5188135Z ",
+      "2026-09-07T23:31:43.5188345Z ======================================================================",
+      "2026-09-07T23:31:43.5188976Z ERROR: test_move_without_source (test_pe_package.PePackageTests.test_move_without_source)"
+    ]
+  },
+  {
+    "log": "windows-include-fix/ci-include-windows.log.gz",
+    "original_line_1based": 1508,
+    "excerpt": [
+      "2026-09-07T23:31:56.4087613Z FP16 count=3 payload=8 vector_bytes=16 bit_exact=true",
+      "2026-09-07T23:31:56.4088142Z FP16 count=17 payload=36 vector_bytes=72 bit_exact=true",
+      "2026-09-07T23:31:56.4088553Z Unexpected temporary vector allocation",
+      "2026-09-07T23:31:56.4088827Z ",
+      "2026-09-07T23:31:56.4089382Z       Start 30: weight_session_vulkan",
+      "2026-09-07T23:31:56.4294025Z 30/57 Test #30: weight_session_vulkan ....................***Skipped   0.02 sec",
+      "2026-09-07T23:31:56.4296854Z       Start 31: weight_session_mapped_vulkan"
+    ]
+  },
+  {
+    "log": "windows-include-fix/ci-include-windows.log.gz",
+    "original_line_1based": 1566,
+    "excerpt": [
+      "2026-09-07T23:31:58.9259188Z       Start 57: pe_prefill_cpu",
+      "2026-09-07T23:31:58.9335949Z 57/57 Test #57: pe_prefill_cpu ...........................***Failed    0.01 sec",
+      "2026-09-07T23:31:58.9336753Z Unknown or mutated PE graph",
+      "2026-09-07T23:31:58.9337191Z ",
+      "2026-09-07T23:31:58.9345809Z ",
+      "2026-09-07T23:31:58.9346362Z 95% tests passed, 3 tests failed out of 57",
+      "2026-09-07T23:31:58.9346847Z "
+    ]
+  }
+]

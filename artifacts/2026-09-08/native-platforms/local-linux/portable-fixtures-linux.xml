@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Linux-clang++"
+	tests="3"
+	failures="0"
+	disabled="0"
+	skipped="0"
+	hostname="mios-pc"
+	time="0"
+	timestamp="2026-09-08T02:36:57"
+	>
+	<testcase name="pe_package_integrity" classname="pe_package_integrity" time="0.109405" status="run">
+		<properties/>
+		<system-out>test_complete_package (test_pe_package.PePackageTests.test_complete_package) ... ok
+test_missing_head (test_pe_package.PePackageTests.test_missing_head) ... ok
+test_move_without_source (test_pe_package.PePackageTests.test_move_without_source) ... ok
+test_omitted_tail_checksum (test_pe_package.PePackageTests.test_omitted_tail_checksum) ... ok
+test_portable_package_rejects_external_link (test_pe_package.PePackageTests.test_portable_package_rejects_external_link) ... ok
+test_resealed_changed_chat_template (test_pe_package.PePackageTests.test_resealed_changed_chat_template) ... ok
+test_resealed_configuration_disagreement (test_pe_package.PePackageTests.test_resealed_configuration_disagreement) ... ok
+test_resealed_wrong_capacity (test_pe_package.PePackageTests.test_resealed_wrong_capacity) ... ok
+test_revision_mismatch (test_pe_package.PePackageTests.test_revision_mismatch) ... ok
+test_tail_block_corruption (test_pe_package.PePackageTests.test_tail_block_corruption) ... ok
+
+---------------------------------------...
+[This part of the test output was removed since it exceeds the threshold of 1024 bytes.]
+</system-out>
+	</testcase>
+	<testcase name="model_reader_cpu" classname="model_reader_cpu" time="0.0871799" status="run">
+		<properties/>
+		<system-out>ModelBin read float16_weights failed 35
+ModelBin read flag_struct failed 2
+ModelBin read bfloat16_weights failed 35
+ModelBin read flag_struct failed 2
+FP16 count=1 payload=4 vector_bytes=8 vector_payload_bytes=8 bit_exact=true
+FP16 count=2 payload=4 vector_bytes=8 vector_payload_bytes=8 bit_exact=true
+FP16 count=3 payload=8 vector_bytes=16 vector_payload_bytes=16 bit_exact=true
+FP16 count=17 payload=36 vector_bytes=72 vector_payload_bytes=72 bit_exact=true
+FP16 count=2049 payload=4100 vector_bytes=8200 vector_payload_bytes=8200 bit_exact=true
+FP16 count=65537 payload=131076 vector_bytes=262152 vector_payload_bytes=262152 bit_exact=true
+FP16 count=4194305 payload=8388612 vector_bytes=16777224 vector_payload_bytes=16777224 bit_exact=true
+BF16 count=1 payload=4 vector_bytes=8 vector_payload_bytes=8 bit_exact=true
+BF16 count=2 payload=4 vector_bytes=8 vector_payload_bytes=8 bit_exact=true
+BF16 count=3 payload=8 vector_bytes=16 vector_payload_bytes=16 bit_exact=true
+BF16 count=17 payload=36 vector_bytes=72 vector_...
+[This part of the test output was removed since it exceeds the threshold of 1024 bytes.]
+</system-out>
+	</testcase>
+	<testcase name="pe_prefill_cpu" classname="pe_prefill_cpu" time="0.0640023" status="run">
+		<properties/>
+		<system-out>overwrite existing custom layer type Prepare
+overwrite existing custom layer type Expand
+overwrite existing custom layer type State
+overwrite existing custom layer type Prepare
+overwrite existing custom layer type Expand
+overwrite existing custom layer type State
+overwrite existing custom layer type Prepare
+overwrite existing custom layer type Expand
+overwrite existing custom layer type State
+overwrite existing custom layer type Prepare
+overwrite existing custom layer type Expand
+overwrite existing custom layer type State
+overwrite existing custom layer type Prepare
+overwrite existing custom layer type Expand
+overwrite existing custom layer type State
+overwrite existing custom layer type Prepare
+overwrite existing custom layer type Expand
+overwrite existing custom layer type State
+overwrite existing custom layer type Prepare
+overwrite existing custom layer type Expand
+overwrite existing custom layer type State
+find_blob_index_by_name out0 failed
+Try
+    ex.extract("missing", out0);
+    ex.extract("out_k", out...
+[This part of the test output was removed since it exceeds the threshold of 1024 bytes.]
+</system-out>
+	</testcase>
+</testsuite>

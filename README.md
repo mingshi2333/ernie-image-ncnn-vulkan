@@ -6,6 +6,16 @@ ERNIE-Image-Turbo 的 C++ / ncnn / Vulkan 本地文生图实现。提供命令�
 
 当前为 **Linux 技术预览版**，主要实测环境是 RTX 4060 Laptop 8GB、32GB RAM，使用 Turbo、8 步、CFG=1、batch=1。已完成 1024×1024 离线生成和多种更大尺寸实图对照。这是已测试的环境，不是最低硬件要求。
 
+## 当前是否可以使用
+
+在已测试的 Linux / Turbo / FP32 配置下，原生文生图主流程可以使用，已有完整实图与官方分阶段参考对照。日常使用先采用下面显式指定 FP32 的命令。这里的“可用”对应已保存的运行结果，不承诺任意提示词、尺寸和设备都通过全部数值检查。
+
+- 部分尺寸、长提示词和中文样例仍有中间张量未通过项，BF16 长提示词误差明显，保持实验状态；具体数字见[误差表](#与官方的实测误差)。
+- GPU/RAM 权重放置和逐块加载已经实现。激活与注意力工作区仍需要设备资源，激活卸载及分配失败后的自动恢复尚未实现。
+- 第一次使用仍需准备本项目格式的模型包。三平台编译、无大模型测试与完整出图分别记录，不能用构建通过代替实际图像验证，见[平台验证](docs/PLATFORM-VALIDATION.md)。
+
+移植过程、转换命令和遇到的问题整理为 [ncnn Discussions 教程草稿](docs/NCNN-DISCUSSION-DRAFT.md)。草稿尚未发布。
+
 ## 构建与运行
 
 ### 1. 编译程序
@@ -259,13 +269,15 @@ int main()
 
 ## CI
 
-仓库已有 [GitHub Actions 构建工作流](.github/workflows/build.yml)，在 `main` 推送、Pull Request 和手动触发时运行。当前配置覆盖 Linux CPU、Linux Vulkan，以及读取器实验开关开启的 CPU 构建，检查：
+仓库已有 [GitHub Actions 构建工作流](.github/workflows/build.yml)，在 `main`、`codex/surpass-reference` 推送、Pull Request 和手动触发时运行。覆盖 Linux CPU/Vulkan、可选读取器 CPU、Windows 原生 MSVC 和 macOS 原生 Apple Clang，检查：
 
 - 原生程序与 SDK 编译、小型网络和算子测试。
 - CLI、UTF-8 路径、模型包完整性及安装后的独立 C++ 调用。
 - 下载器与发布清单的本地 HTTP 测试。
 
-Vulkan 作业安装 Mesa 软件驱动；设备能力不足的测试会显式跳过。CI 不下载 ERNIE 大模型，也不代表真实显卡性能、完整图像质量或 Windows/macOS 已验证。真实模型结果独立记录在 [验证状态](docs/VALIDATION-STATUS.md) 中。
+源码 `3a04811` 的[三平台 CI](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34170659886)五个作业全部成功。Linux 两个 CPU 配置各 36 项通过；Linux Mesa Vulkan 与 macOS MoltenVK 各 53 项通过、4 项 BF16 能力跳过；Windows MSVC 为 36 项通过、21 项因无 Vulkan 驱动跳过。每个作业另有 23 项下载与清单检查通过。
+
+实际通过、失败和设备能力跳过项见[平台验证](docs/PLATFORM-VALIDATION.md)，原始失败和修复后的日志均保留。macOS 使用 Vulkan loader 与托管虚拟 GPU 的 MoltenVK 配置。CI 不下载 ERNIE 大模型；完整模型出图与官方误差仍采用上方独立实测记录。
 
 ## 当前限制
 
@@ -273,7 +285,7 @@ Vulkan 作业安装 Mesa 软件驱动；设备能力不足的测试会显式跳�
 - 共享包的实验尺寸范围为每轴 16..2048、16 的倍数、面积不超过 2097152；已验证若干完整尺寸，尚未覆盖每种尺寸和提示词组合。
 - 图像文本编码和 VAE 默认使用 CPU。GPU VAE、BF16 等路径仍为实验选项；新 PE 分块预填充目前是内部候选，正常入口仍逐 token 预填充。
 - RAM 权重放置已实现；中间激活卸载与显存分配失败后自动恢复尚未实现。
-- Windows 已有 MinGW/Wine CPU 开发验证；原生 Windows/MSVC/GPU 和 macOS 尚未验证。当前没有足够数据宣称全面超过参考项目。
+- Windows、macOS 的完整模型出图和真实设备性能仍待验证；原生构建与小型测试单独记录。当前没有足够数据宣称全面超过参考项目。
 
 ## 文档与来源
 
@@ -282,6 +294,8 @@ Vulkan 作业安装 Mesa 软件驱动；设备能力不足的测试会显式跳�
 - [架构与代码导航](docs/CODE-STRUCTURE.md)
 - [转换与验证工具](tools/README.md)
 - [实测结果和已知数值差异](docs/VALIDATION-STATUS.md)
+- [三平台构建与执行记录](docs/PLATFORM-VALIDATION.md)
+- [ncnn Discussions 移植教程草稿](docs/NCNN-DISCUSSION-DRAFT.md)
 - [版本与来源锁定](sources.lock.json)
 
 本项目新增代码使用 [MIT 许可](LICENSE)；ncnn 和模型权重遵循各自许可。官方模型来源为 [Baidu ERNIE-Image](https://github.com/baidu/ERNIE-Image)，运行时依赖 [Tencent ncnn](https://github.com/Tencent/ncnn)。[futz12/ernie-image-ncnn-vulkan](https://github.com/futz12/ernie-image-ncnn-vulkan/tree/8dcd6e4411137d8abe92c9d78581c4c96d5182c6) 等项目用于架构与行为参考，未复制其运行时代码或模型权重到本仓库。

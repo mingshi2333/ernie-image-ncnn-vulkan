@@ -1,0 +1,569 @@
+{
+  "total_count": 5,
+  "jobs": [
+    {
+      "id": 101883418204,
+      "run_id": 34168231514,
+      "workflow_name": "Native platform build",
+      "head_branch": "codex/surpass-reference",
+      "run_url": "https://api.github.com/repos/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34168231514",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOUO3fsM8AAAAXuLmWXA",
+      "head_sha": "9c209016fb941fe3dec1639afcb0dc5654c0469b",
+      "url": "https://api.github.com/repos/mingshi2333/ernie-image-ncnn-vulkan/actions/jobs/101883418204",
+      "html_url": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34168231514/job/101883418204",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-09-07T22:54:15Z",
+      "started_at": "2026-09-07T22:54:17Z",
+      "completed_at": "2026-09-07T23:02:39Z",
+      "name": "linux (OFF, ON)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-09-07T22:54:18Z",
+          "completed_at": "2026-09-07T22:54:19Z"
+        },
+        {
+          "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-09-07T22:54:19Z",
+          "completed_at": "2026-09-07T22:54:30Z"
+        },
+        {
+          "name": "Install native build dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-09-07T22:54:30Z",
+          "completed_at": "2026-09-07T22:54:53Z"
+        },
+        {
+          "name": "Configure pinned ncnn and native tokenizer",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-09-07T22:54:53Z",
+          "completed_at": "2026-09-07T22:55:11Z"
+        },
+        {
+          "name": "Build",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-09-07T22:55:11Z",
+          "completed_at": "2026-09-07T23:02:31Z"
+        },
+        {
+          "name": "Model-free runtime and package contracts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-09-07T23:02:31Z",
+          "completed_at": "2026-09-07T23:02:35Z"
+        },
+        {
+          "name": "Install and check executable",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-09-07T23:02:35Z",
+          "completed_at": "2026-09-07T23:02:35Z"
+        },
+        {
+          "name": "Model download contracts with local HTTP fixtures",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-09-07T23:02:35Z",
+          "completed_at": "2026-09-07T23:02:36Z"
+        },
+        {
+          "name": "Save configure and test records",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-09-07T23:02:36Z",
+          "completed_at": "2026-09-07T23:02:37Z"
+        },
+        {
+          "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18,
+          "started_at": "2026-09-07T23:02:37Z",
+          "completed_at": "2026-09-07T23:02:37Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-09-07T23:02:37Z",
+          "completed_at": "2026-09-07T23:02:37Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/mingshi2333/ernie-image-ncnn-vulkan/check-runs/101883418204",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": 1000000752,
+      "runner_name": "GitHub Actions 1000000752",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 101883418439,
+      "run_id": 34168231514,
+      "workflow_name": "Native platform build",
+      "head_branch": "codex/surpass-reference",
+      "run_url": "https://api.github.com/repos/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34168231514",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOUO3fsM8AAAAXuLmXRw",
+      "head_sha": "9c209016fb941fe3dec1639afcb0dc5654c0469b",
+      "url": "https://api.github.com/repos/mingshi2333/ernie-image-ncnn-vulkan/actions/jobs/101883418439",
+      "html_url": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34168231514/job/101883418439",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-09-07T22:54:15Z",
+      "started_at": "2026-09-07T22:54:21Z",
+      "completed_at": "2026-09-07T22:57:43Z",
+      "name": "macos",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-09-07T22:54:21Z",
+          "completed_at": "2026-09-07T22:54:22Z"
+        },
+        {
+          "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-09-07T22:54:22Z",
+          "completed_at": "2026-09-07T22:54:37Z"
+        },
+        {
+          "name": "Install native dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-09-07T22:54:37Z",
+          "completed_at": "2026-09-07T22:54:47Z"
+        },
+        {
+          "name": "Configure Apple Clang and native tokenizer",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-09-07T22:54:47Z",
+          "completed_at": "2026-09-07T22:54:55Z"
+        },
+        {
+          "name": "Build native macOS executable and SDK",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-09-07T22:54:55Z",
+          "completed_at": "2026-09-07T22:57:23Z"
+        },
+        {
+          "name": "Native CPU, CLI, package and installed-consumer tests",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 6,
+          "started_at": "2026-09-07T22:57:23Z",
+          "completed_at": "2026-09-07T22:57:34Z"
+        },
+        {
+          "name": "Model download contracts with local HTTP fixtures",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 7,
+          "started_at": "2026-09-07T22:57:34Z",
+          "completed_at": "2026-09-07T22:57:34Z"
+        },
+        {
+          "name": "Record macOS Vulkan crash details",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-09-07T22:57:34Z",
+          "completed_at": "2026-09-07T22:57:39Z"
+        },
+        {
+          "name": "Save configure and test records",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-09-07T22:57:39Z",
+          "completed_at": "2026-09-07T22:57:40Z"
+        },
+        {
+          "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18,
+          "started_at": "2026-09-07T22:57:40Z",
+          "completed_at": "2026-09-07T22:57:40Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-09-07T22:57:40Z",
+          "completed_at": "2026-09-07T22:57:42Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/mingshi2333/ernie-image-ncnn-vulkan/check-runs/101883418439",
+      "labels": [
+        "macos-15"
+      ],
+      "runner_id": 1000000753,
+      "runner_name": "GitHub Actions 1000000753",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 101883418455,
+      "run_id": 34168231514,
+      "workflow_name": "Native platform build",
+      "head_branch": "codex/surpass-reference",
+      "run_url": "https://api.github.com/repos/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34168231514",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOUO3fsM8AAAAXuLmXVw",
+      "head_sha": "9c209016fb941fe3dec1639afcb0dc5654c0469b",
+      "url": "https://api.github.com/repos/mingshi2333/ernie-image-ncnn-vulkan/actions/jobs/101883418455",
+      "html_url": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34168231514/job/101883418455",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-09-07T22:54:15Z",
+      "started_at": "2026-09-07T22:54:17Z",
+      "completed_at": "2026-09-07T23:02:26Z",
+      "name": "linux (OFF, OFF)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-09-07T22:54:18Z",
+          "completed_at": "2026-09-07T22:54:19Z"
+        },
+        {
+          "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-09-07T22:54:19Z",
+          "completed_at": "2026-09-07T22:54:28Z"
+        },
+        {
+          "name": "Install native build dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-09-07T22:54:28Z",
+          "completed_at": "2026-09-07T22:54:49Z"
+        },
+        {
+          "name": "Configure pinned ncnn and native tokenizer",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-09-07T22:54:49Z",
+          "completed_at": "2026-09-07T22:54:59Z"
+        },
+        {
+          "name": "Build",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-09-07T22:54:59Z",
+          "completed_at": "2026-09-07T23:02:18Z"
+        },
+        {
+          "name": "Model-free runtime and package contracts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-09-07T23:02:18Z",
+          "completed_at": "2026-09-07T23:02:23Z"
+        },
+        {
+          "name": "Install and check executable",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-09-07T23:02:23Z",
+          "completed_at": "2026-09-07T23:02:23Z"
+        },
+        {
+          "name": "Model download contracts with local HTTP fixtures",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-09-07T23:02:23Z",
+          "completed_at": "2026-09-07T23:02:24Z"
+        },
+        {
+          "name": "Save configure and test records",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-09-07T23:02:24Z",
+          "completed_at": "2026-09-07T23:02:25Z"
+        },
+        {
+          "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18,
+          "started_at": "2026-09-07T23:02:25Z",
+          "completed_at": "2026-09-07T23:02:25Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-09-07T23:02:25Z",
+          "completed_at": "2026-09-07T23:02:25Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/mingshi2333/ernie-image-ncnn-vulkan/check-runs/101883418455",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": 1000000754,
+      "runner_name": "GitHub Actions 1000000754",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 101883418469,
+      "run_id": 34168231514,
+      "workflow_name": "Native platform build",
+      "head_branch": "codex/surpass-reference",
+      "run_url": "https://api.github.com/repos/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34168231514",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOUO3fsM8AAAAXuLmXZQ",
+      "head_sha": "9c209016fb941fe3dec1639afcb0dc5654c0469b",
+      "url": "https://api.github.com/repos/mingshi2333/ernie-image-ncnn-vulkan/actions/jobs/101883418469",
+      "html_url": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34168231514/job/101883418469",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-09-07T22:54:15Z",
+      "started_at": "2026-09-07T22:54:18Z",
+      "completed_at": "2026-09-07T23:10:18Z",
+      "name": "windows",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-09-07T22:54:19Z",
+          "completed_at": "2026-09-07T22:54:21Z"
+        },
+        {
+          "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-09-07T22:54:21Z",
+          "completed_at": "2026-09-07T22:54:46Z"
+        },
+        {
+          "name": "Configure MSVC and native dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-09-07T22:54:46Z",
+          "completed_at": "2026-09-07T22:56:10Z"
+        },
+        {
+          "name": "Build native Windows executable and SDK",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 4,
+          "started_at": "2026-09-07T22:56:10Z",
+          "completed_at": "2026-09-07T23:10:13Z"
+        },
+        {
+          "name": "Native CPU, CLI, package and installed-consumer tests",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 5,
+          "started_at": "2026-09-07T23:10:13Z",
+          "completed_at": "2026-09-07T23:10:13Z"
+        },
+        {
+          "name": "Model download contracts with local HTTP fixtures",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 6,
+          "started_at": "2026-09-07T23:10:13Z",
+          "completed_at": "2026-09-07T23:10:13Z"
+        },
+        {
+          "name": "Save configure and test records",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-09-07T23:10:13Z",
+          "completed_at": "2026-09-07T23:10:14Z"
+        },
+        {
+          "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-09-07T23:10:14Z",
+          "completed_at": "2026-09-07T23:10:17Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-09-07T23:10:17Z",
+          "completed_at": "2026-09-07T23:10:17Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/mingshi2333/ernie-image-ncnn-vulkan/check-runs/101883418469",
+      "labels": [
+        "windows-2025"
+      ],
+      "runner_id": 1000000756,
+      "runner_name": "GitHub Actions 1000000756",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 101883418486,
+      "run_id": 34168231514,
+      "workflow_name": "Native platform build",
+      "head_branch": "codex/surpass-reference",
+      "run_url": "https://api.github.com/repos/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34168231514",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOUO3fsM8AAAAXuLmXdg",
+      "head_sha": "9c209016fb941fe3dec1639afcb0dc5654c0469b",
+      "url": "https://api.github.com/repos/mingshi2333/ernie-image-ncnn-vulkan/actions/jobs/101883418486",
+      "html_url": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34168231514/job/101883418486",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-09-07T22:54:15Z",
+      "started_at": "2026-09-07T22:54:18Z",
+      "completed_at": "2026-09-07T23:02:50Z",
+      "name": "linux (ON, OFF)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-09-07T22:54:19Z",
+          "completed_at": "2026-09-07T22:54:19Z"
+        },
+        {
+          "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-09-07T22:54:19Z",
+          "completed_at": "2026-09-07T22:54:31Z"
+        },
+        {
+          "name": "Install native build dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-09-07T22:54:31Z",
+          "completed_at": "2026-09-07T22:54:53Z"
+        },
+        {
+          "name": "Configure pinned ncnn and native tokenizer",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-09-07T22:54:53Z",
+          "completed_at": "2026-09-07T22:55:04Z"
+        },
+        {
+          "name": "Build",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-09-07T22:55:04Z",
+          "completed_at": "2026-09-07T23:02:31Z"
+        },
+        {
+          "name": "Model-free runtime and package contracts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-09-07T23:02:31Z",
+          "completed_at": "2026-09-07T23:02:46Z"
+        },
+        {
+          "name": "Install and check executable",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-09-07T23:02:46Z",
+          "completed_at": "2026-09-07T23:02:46Z"
+        },
+        {
+          "name": "Model download contracts with local HTTP fixtures",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-09-07T23:02:46Z",
+          "completed_at": "2026-09-07T23:02:47Z"
+        },
+        {
+          "name": "Save configure and test records",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-09-07T23:02:47Z",
+          "completed_at": "2026-09-07T23:02:48Z"
+        },
+        {
+          "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18,
+          "started_at": "2026-09-07T23:02:48Z",
+          "completed_at": "2026-09-07T23:02:48Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-09-07T23:02:48Z",
+          "completed_at": "2026-09-07T23:02:48Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/mingshi2333/ernie-image-ncnn-vulkan/check-runs/101883418486",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": 1000000755,
+      "runner_name": "GitHub Actions 1000000755",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ]
+}

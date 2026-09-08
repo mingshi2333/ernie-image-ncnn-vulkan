@@ -1,0 +1,301 @@
+[
+  {
+    "path": "final/linux-vulkan-OFF-reader-OFF/ctest-results.xml",
+    "registered": 36,
+    "passed": 36,
+    "skipped": 0,
+    "failed": 0,
+    "skipped_tests": [],
+    "failed_tests": []
+  },
+  {
+    "path": "final/linux-vulkan-OFF-reader-ON/ctest-results.xml",
+    "registered": 36,
+    "passed": 36,
+    "skipped": 0,
+    "failed": 0,
+    "skipped_tests": [],
+    "failed_tests": []
+  },
+  {
+    "path": "final/linux-vulkan-ON-reader-OFF/ctest-results.xml",
+    "registered": 57,
+    "passed": 53,
+    "skipped": 4,
+    "failed": 0,
+    "skipped_tests": [
+      "residual_contract_vulkan_bf16",
+      "erf_gelu_vulkan_bf16",
+      "rmsnorm_range_vulkan_bf16",
+      "layernorm_range_vulkan_bf16"
+    ],
+    "failed_tests": []
+  },
+  {
+    "path": "final/macos-apple-clang-vulkan/ctest-results.xml",
+    "registered": 57,
+    "passed": 53,
+    "skipped": 4,
+    "failed": 0,
+    "skipped_tests": [
+      "residual_contract_vulkan_bf16",
+      "erf_gelu_vulkan_bf16",
+      "rmsnorm_range_vulkan_bf16",
+      "layernorm_range_vulkan_bf16"
+    ],
+    "failed_tests": []
+  },
+  {
+    "path": "final/windows-msvc-vulkan/ctest-results.xml",
+    "registered": 57,
+    "passed": 36,
+    "skipped": 21,
+    "failed": 0,
+    "skipped_tests": [
+      "native_cache_vulkan",
+      "runtime_cache_vulkan",
+      "attention_long_fp32_accuracy",
+      "attention_bounded_workspace",
+      "gpu_context_contract",
+      "weight_session_vulkan",
+      "weight_session_mapped_vulkan",
+      "weight_session_bf16_file_vulkan",
+      "weight_session_mapped_bf16_file_vulkan",
+      "weight_placement_vulkan",
+      "residual_contract_vulkan",
+      "residual_contract_vulkan_bf16",
+      "erf_gelu_vulkan_fp32",
+      "rmsnorm_range_vulkan_fp32",
+      "layernorm_range_vulkan_fp32",
+      "erf_gelu_vulkan_fp16",
+      "rmsnorm_range_vulkan_fp16",
+      "layernorm_range_vulkan_fp16",
+      "erf_gelu_vulkan_bf16",
+      "rmsnorm_range_vulkan_bf16",
+      "layernorm_range_vulkan_bf16"
+    ],
+    "failed_tests": []
+  },
+  {
+    "path": "initial/linux-vulkan-OFF-reader-OFF/ctest-results.xml",
+    "registered": 36,
+    "passed": 36,
+    "skipped": 0,
+    "failed": 0,
+    "skipped_tests": [],
+    "failed_tests": []
+  },
+  {
+    "path": "initial/linux-vulkan-OFF-reader-ON/ctest-results.xml",
+    "registered": 36,
+    "passed": 36,
+    "skipped": 0,
+    "failed": 0,
+    "skipped_tests": [],
+    "failed_tests": []
+  },
+  {
+    "path": "initial/linux-vulkan-ON-reader-OFF/ctest-results.xml",
+    "registered": 57,
+    "passed": 53,
+    "skipped": 4,
+    "failed": 0,
+    "skipped_tests": [
+      "residual_contract_vulkan_bf16",
+      "erf_gelu_vulkan_bf16",
+      "rmsnorm_range_vulkan_bf16",
+      "layernorm_range_vulkan_bf16"
+    ],
+    "failed_tests": []
+  },
+  {
+    "path": "initial/macos-apple-clang-vulkan/ctest-results.xml",
+    "registered": 57,
+    "passed": 34,
+    "skipped": 3,
+    "failed": 20,
+    "skipped_tests": [
+      "erf_gelu_vulkan_bf16",
+      "rmsnorm_range_vulkan_bf16",
+      "layernorm_range_vulkan_bf16"
+    ],
+    "failed_tests": [
+      "native_cache_vulkan",
+      "runtime_cache_vulkan",
+      "attention_long_fp32_accuracy",
+      "attention_bounded_workspace",
+      "gpu_context_missing_driver",
+      "cli_contract",
+      "installed_cpp_consumer",
+      "weight_session_vulkan",
+      "weight_session_mapped_vulkan",
+      "weight_session_bf16_file_vulkan",
+      "weight_session_mapped_bf16_file_vulkan",
+      "weight_placement_vulkan",
+      "residual_contract_vulkan",
+      "residual_contract_vulkan_bf16",
+      "erf_gelu_vulkan_fp32",
+      "rmsnorm_range_vulkan_fp32",
+      "layernorm_range_vulkan_fp32",
+      "erf_gelu_vulkan_fp16",
+      "rmsnorm_range_vulkan_fp16",
+      "layernorm_range_vulkan_fp16"
+    ]
+  },
+  {
+    "path": "local-linux/linux-cpu.xml",
+    "registered": 36,
+    "passed": 36,
+    "skipped": 0,
+    "failed": 0,
+    "skipped_tests": [],
+    "failed_tests": []
+  },
+  {
+    "path": "local-linux/linux-vulkan.xml",
+    "registered": 57,
+    "passed": 57,
+    "skipped": 0,
+    "failed": 0,
+    "skipped_tests": [],
+    "failed_tests": []
+  },
+  {
+    "path": "local-linux/portable-fixtures-linux.xml",
+    "registered": 3,
+    "passed": 3,
+    "skipped": 0,
+    "failed": 0,
+    "skipped_tests": [],
+    "failed_tests": []
+  },
+  {
+    "path": "macos-final/ctest-results.xml",
+    "registered": 57,
+    "passed": 53,
+    "skipped": 4,
+    "failed": 0,
+    "skipped_tests": [
+      "residual_contract_vulkan_bf16",
+      "erf_gelu_vulkan_bf16",
+      "rmsnorm_range_vulkan_bf16",
+      "layernorm_range_vulkan_bf16"
+    ],
+    "failed_tests": []
+  },
+  {
+    "path": "macos-loader-fix/ctest-results.xml",
+    "registered": 57,
+    "passed": 53,
+    "skipped": 4,
+    "failed": 0,
+    "skipped_tests": [
+      "residual_contract_vulkan_bf16",
+      "erf_gelu_vulkan_bf16",
+      "rmsnorm_range_vulkan_bf16",
+      "layernorm_range_vulkan_bf16"
+    ],
+    "failed_tests": []
+  },
+  {
+    "path": "newline-fix/linux-vulkan-OFF-reader-OFF/ctest-results.xml",
+    "registered": 36,
+    "passed": 36,
+    "skipped": 0,
+    "failed": 0,
+    "skipped_tests": [],
+    "failed_tests": []
+  },
+  {
+    "path": "newline-fix/linux-vulkan-OFF-reader-ON/ctest-results.xml",
+    "registered": 36,
+    "passed": 36,
+    "skipped": 0,
+    "failed": 0,
+    "skipped_tests": [],
+    "failed_tests": []
+  },
+  {
+    "path": "newline-fix/linux-vulkan-ON-reader-OFF/ctest-results.xml",
+    "registered": 57,
+    "passed": 53,
+    "skipped": 4,
+    "failed": 0,
+    "skipped_tests": [
+      "residual_contract_vulkan_bf16",
+      "erf_gelu_vulkan_bf16",
+      "rmsnorm_range_vulkan_bf16",
+      "layernorm_range_vulkan_bf16"
+    ],
+    "failed_tests": []
+  },
+  {
+    "path": "newline-fix/macos-apple-clang-vulkan/ctest-results.xml",
+    "registered": 57,
+    "passed": 34,
+    "skipped": 3,
+    "failed": 20,
+    "skipped_tests": [
+      "erf_gelu_vulkan_bf16",
+      "rmsnorm_range_vulkan_bf16",
+      "layernorm_range_vulkan_bf16"
+    ],
+    "failed_tests": [
+      "native_cache_vulkan",
+      "runtime_cache_vulkan",
+      "attention_long_fp32_accuracy",
+      "attention_bounded_workspace",
+      "gpu_context_missing_driver",
+      "cli_contract",
+      "installed_cpp_consumer",
+      "weight_session_vulkan",
+      "weight_session_mapped_vulkan",
+      "weight_session_bf16_file_vulkan",
+      "weight_session_mapped_bf16_file_vulkan",
+      "weight_placement_vulkan",
+      "residual_contract_vulkan",
+      "residual_contract_vulkan_bf16",
+      "erf_gelu_vulkan_fp32",
+      "rmsnorm_range_vulkan_fp32",
+      "layernorm_range_vulkan_fp32",
+      "erf_gelu_vulkan_fp16",
+      "rmsnorm_range_vulkan_fp16",
+      "layernorm_range_vulkan_fp16"
+    ]
+  },
+  {
+    "path": "windows-include-fix/ctest-results.xml",
+    "registered": 57,
+    "passed": 33,
+    "skipped": 21,
+    "failed": 3,
+    "skipped_tests": [
+      "native_cache_vulkan",
+      "runtime_cache_vulkan",
+      "attention_long_fp32_accuracy",
+      "attention_bounded_workspace",
+      "gpu_context_contract",
+      "weight_session_vulkan",
+      "weight_session_mapped_vulkan",
+      "weight_session_bf16_file_vulkan",
+      "weight_session_mapped_bf16_file_vulkan",
+      "weight_placement_vulkan",
+      "residual_contract_vulkan",
+      "residual_contract_vulkan_bf16",
+      "erf_gelu_vulkan_fp32",
+      "rmsnorm_range_vulkan_fp32",
+      "layernorm_range_vulkan_fp32",
+      "erf_gelu_vulkan_fp16",
+      "rmsnorm_range_vulkan_fp16",
+      "layernorm_range_vulkan_fp16",
+      "erf_gelu_vulkan_bf16",
+      "rmsnorm_range_vulkan_bf16",
+      "layernorm_range_vulkan_bf16"
+    ],
+    "failed_tests": [
+      "pe_package_integrity",
+      "model_reader_cpu",
+      "pe_prefill_cpu"
+    ]
+  }
+]

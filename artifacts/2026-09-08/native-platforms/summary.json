@@ -1,0 +1,191 @@
+{
+  "source_sha": "3a04811b41aa19a8d9a874981c1569816105ee26",
+  "ncnn_revision": "6a1bf000f363714839a36793addc8c879d3d899e",
+  "run_id": 34170659886,
+  "url": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34170659886",
+  "status": "completed",
+  "conclusion": "success",
+  "created_at": "2026-09-07T23:37:33Z",
+  "updated_at": "2026-09-07T23:56:07Z",
+  "scope": "Native builds, model-free CTest and local HTTP/manifest tests. No full ERNIE model or native Windows GPU execution. Hosted macOS virtual GPU uses loader with MVK_CONFIG_USE_MTLHEAP=0.",
+  "jobs": [
+    {
+      "job_id": 101890188311,
+      "name": "windows",
+      "conclusion": "success",
+      "url": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34170659886/job/101890188311",
+      "runner_name": "GitHub Actions 1000000760",
+      "compiler": "MSVC 19.51.36256.0",
+      "ctest": {
+        "path": "final/windows-msvc-vulkan/ctest-results.xml",
+        "registered": 57,
+        "passed": 36,
+        "skipped": 21,
+        "failed": 0,
+        "skipped_tests": [
+          "native_cache_vulkan",
+          "runtime_cache_vulkan",
+          "attention_long_fp32_accuracy",
+          "attention_bounded_workspace",
+          "gpu_context_contract",
+          "weight_session_vulkan",
+          "weight_session_mapped_vulkan",
+          "weight_session_bf16_file_vulkan",
+          "weight_session_mapped_bf16_file_vulkan",
+          "weight_placement_vulkan",
+          "residual_contract_vulkan",
+          "residual_contract_vulkan_bf16",
+          "erf_gelu_vulkan_fp32",
+          "rmsnorm_range_vulkan_fp32",
+          "layernorm_range_vulkan_fp32",
+          "erf_gelu_vulkan_fp16",
+          "rmsnorm_range_vulkan_fp16",
+          "layernorm_range_vulkan_fp16",
+          "erf_gelu_vulkan_bf16",
+          "rmsnorm_range_vulkan_bf16",
+          "layernorm_range_vulkan_bf16"
+        ],
+        "failed_tests": []
+      },
+      "http_manifest_tests": {
+        "passed": 23,
+        "failed": 0,
+        "seconds": 2.931
+      },
+      "log": "final/ci-same-source-windows.log.gz"
+    },
+    {
+      "job_id": 101890188465,
+      "name": "linux (OFF, OFF)",
+      "conclusion": "success",
+      "url": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34170659886/job/101890188465",
+      "runner_name": "GitHub Actions 1000000761",
+      "compiler": "GNU 13.3.0",
+      "ctest": {
+        "path": "final/linux-vulkan-OFF-reader-OFF/ctest-results.xml",
+        "registered": 36,
+        "passed": 36,
+        "skipped": 0,
+        "failed": 0,
+        "skipped_tests": [],
+        "failed_tests": []
+      },
+      "http_manifest_tests": {
+        "passed": 23,
+        "failed": 0,
+        "seconds": 0.822
+      },
+      "log": "final/ci-same-source-linux-cpu.log.gz"
+    },
+    {
+      "job_id": 101890188542,
+      "name": "linux (ON, OFF)",
+      "conclusion": "success",
+      "url": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34170659886/job/101890188542",
+      "runner_name": "GitHub Actions 1000000764",
+      "compiler": "GNU 13.3.0",
+      "ctest": {
+        "path": "final/linux-vulkan-ON-reader-OFF/ctest-results.xml",
+        "registered": 57,
+        "passed": 53,
+        "skipped": 4,
+        "failed": 0,
+        "skipped_tests": [
+          "residual_contract_vulkan_bf16",
+          "erf_gelu_vulkan_bf16",
+          "rmsnorm_range_vulkan_bf16",
+          "layernorm_range_vulkan_bf16"
+        ],
+        "failed_tests": []
+      },
+      "http_manifest_tests": {
+        "passed": 23,
+        "failed": 0,
+        "seconds": 0.848
+      },
+      "log": "final/ci-same-source-linux-vulkan.log.gz"
+    },
+    {
+      "job_id": 101890188565,
+      "name": "macos",
+      "conclusion": "success",
+      "url": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34170659886/job/101890188565",
+      "runner_name": "GitHub Actions 1000000762",
+      "compiler": "AppleClang 17.0.0.17000013",
+      "ctest": {
+        "path": "final/macos-apple-clang-vulkan/ctest-results.xml",
+        "registered": 57,
+        "passed": 53,
+        "skipped": 4,
+        "failed": 0,
+        "skipped_tests": [
+          "residual_contract_vulkan_bf16",
+          "erf_gelu_vulkan_bf16",
+          "rmsnorm_range_vulkan_bf16",
+          "layernorm_range_vulkan_bf16"
+        ],
+        "failed_tests": []
+      },
+      "http_manifest_tests": {
+        "passed": 23,
+        "failed": 0,
+        "seconds": 35.712
+      },
+      "log": "final/ci-same-source-macos.log.gz"
+    },
+    {
+      "job_id": 101890188600,
+      "name": "linux (OFF, ON)",
+      "conclusion": "success",
+      "url": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34170659886/job/101890188600",
+      "runner_name": "GitHub Actions 1000000763",
+      "compiler": "GNU 13.3.0",
+      "ctest": {
+        "path": "final/linux-vulkan-OFF-reader-ON/ctest-results.xml",
+        "registered": 36,
+        "passed": 36,
+        "skipped": 0,
+        "failed": 0,
+        "skipped_tests": [],
+        "failed_tests": []
+      },
+      "http_manifest_tests": {
+        "passed": 23,
+        "failed": 0,
+        "seconds": 0.869
+      },
+      "log": "final/ci-same-source-linux-reader.log.gz"
+    }
+  ],
+  "local_ctest": [
+    {
+      "path": "local-linux/linux-cpu.xml",
+      "registered": 36,
+      "passed": 36,
+      "skipped": 0,
+      "failed": 0,
+      "skipped_tests": [],
+      "failed_tests": []
+    },
+    {
+      "path": "local-linux/linux-vulkan.xml",
+      "registered": 57,
+      "passed": 57,
+      "skipped": 0,
+      "failed": 0,
+      "skipped_tests": [],
+      "failed_tests": []
+    },
+    {
+      "path": "local-linux/portable-fixtures-linux.xml",
+      "registered": 3,
+      "passed": 3,
+      "skipped": 0,
+      "failed": 0,
+      "skipped_tests": [],
+      "failed_tests": []
+    }
+  ],
+  "historical_failures_preserved": true,
+  "discussion_published": false
+}

@@ -1,0 +1,32 @@
+{
+  "scope": "CMake derivation from pinned source with LF/CRLF and three substantive mutations",
+  "cases": [
+    {
+      "case": "lf",
+      "result": "derived files identical",
+      "shader_sha256": "1fb515243c588c5b77df3ece7d47dcf5e81e604cef442cffe12fe5e3d9e49e65",
+      "reader_sha256": "90adcd77b0a3c2cf49142d65f6a8dc74dadc26ef7460c162c2b21721234f7a69"
+    },
+    {
+      "case": "crlf",
+      "result": "derived files identical",
+      "shader_sha256": "1fb515243c588c5b77df3ece7d47dcf5e81e604cef442cffe12fe5e3d9e49e65",
+      "reader_sha256": "90adcd77b0a3c2cf49142d65f6a8dc74dadc26ef7460c162c2b21721234f7a69"
+    },
+    {
+      "case": "changed-sdpa",
+      "result": "source change rejected",
+      "exit_code": 1
+    },
+    {
+      "case": "changed-softmax",
+      "result": "source change rejected",
+      "exit_code": 1
+    },
+    {
+      "case": "changed-reader",
+      "result": "source change rejected",
+      "exit_code": 1
+    }
+  ]
+}

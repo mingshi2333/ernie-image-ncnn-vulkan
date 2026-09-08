@@ -16,7 +16,7 @@ ERNIE-Image-Turbo 本地文生图的 C++ / ncnn / Vulkan 实现。**可以离线
 
 **Linux 安装版已完成 512×512、384×512 和 512×384 离线出图。** 隐藏源码、禁网后，同一个共享包完成原生文本编码、8 步 Vulkan FP32 与 CPU VAE，三例 PNG 最大通道差均为 1/255。512×512 与 384×512 通过 25/25 张量检查；512×384 为 24/25，最后一步预测超过旧最大误差限，见[横竖图实际记录](../artifacts/2026-09-07/runtime-rectangles-and-mapped512/README.md)。CPU/Vulkan 两个 SDK 的迁移安装和外部 C++ 调用也通过。64×64 的官方/原生图均为灰色纹理，25/25 数值检查通过，具体限制与 SDK 修复见[前一轮记录](../artifacts/2026-09-07/runtime-images-and-sdk/README.md)。
 
-同一 1376×768 苹果示例与官方 FP32 对照通过 23/25 项张量数值检查，最后一步预测和解码结果超过原最大误差限；PNG 平均像素差 0.00504/255、最大差 3，原上限为 2。**这些阈值由本项目助手选定，尚未完成感知质量和跨后端波动标定。** 数值未全过不等于出图失败、可见画质损坏或内存不足，详见[阈值来源与适用范围](../docs/NUMERICAL-DIAGNOSTICS.md#门槛的来源与适用范围)。中文和长提示词画质、与参考项目的正式比较及其他平台验证仍未完成，当前不能宣称全面超过参考项目。
+同一 1376×768 苹果示例与官方 FP32 对照通过 23/25 项张量数值检查，最后一步预测和解码结果超过原最大误差限；PNG 平均像素差 0.00504/255、最大差 3，原上限为 2。**这些阈值由本项目助手选定，尚未完成感知质量和跨后端波动标定。** 数值未全过不等于出图失败、可见画质损坏或内存不足，详见[阈值来源与适用范围](../docs/NUMERICAL-DIAGNOSTICS.md#门槛的来源与适用范围)。中文和长提示词画质、与参考项目的正式比较及其他平台完整模型验证仍未完成，当前不能宣称全面超过参考项目。
 
 **四种读取/缓存设置的 16 次开发对照已完成，所有 PNG 逐字节相同，无 OOM。** 相同程序、512×512、RAM 权重，各一次预热和三次测量：stdio/无缓存的耗时中位数 500.252 秒，mapped/无缓存 395.931 秒；mapped 再加 6 GiB 权重缓存为 393.330 秒，原生峰值 RSS 中位数却从 1.947 GiB 升到 9.102 GiB。缓存保持默认关闭；mapped 有继续验证的收益，但文件页触及进程组限额，也仍需显式选择。见[完整重复对照](../artifacts/2026-09-07/memory-grid512/README.md)。这不是与参考项目的正式比较，页缓存和背景负载未完全控制。早期[文件页估计](../artifacts/2026-09-07/cache-file-lru/README.md)、[内存判断](../artifacts/2026-09-07/cache-headroom/README.md)和[零命中失败](../artifacts/2026-09-07/runtime-model-loading/README.md)均保留。
 
@@ -49,11 +49,11 @@ ERNIE-Image-Turbo 本地文生图的 C++ / ncnn / Vulkan 实现。**可以离线
 | 原生 KV cache 与 PE | 26 层 CPU PE、独立 allocator；315-token 完整 greedy 对照通过，52 个 K/V 缓冲区保持地址稳定；真实单块 reset/独立会话/容量检查通过 |
 | 512×384 PE → PNG | 原生 PE、文本、36 层 DiT × 8 步、VAE 全部连接；FP32 24/25 张量通过，PNG MAE 0.002487、最大差 2，通过像素门槛；整体仍未通过 |
 | 512×384 长提示词 | 对方 1080-token 中文示例完整运行；FP32 19/25、PNG 最大差 17，BF16 11/25、PNG 最大差 255，整体均未通过 |
-| Windows CPU 开发验证 | MinGW/Wine 下 28 项 C++、35 项 CLI/报告检查及中文/emoji 路径迁移安装通过；原生 Windows/MSVC/Vulkan 出图仍待验证，见 [构建说明](../docs/BUILDING-WINDOWS.md) |
+| Windows CPU 开发验证 | MinGW/Wine 下 28 项 C++、35 项 CLI/报告检查及中文/emoji 路径迁移安装通过；原生 MSVC 的后续构建/测试见[平台验证](PLATFORM-VALIDATION.md)，Windows 完整出图仍待验证 |
 
 最新证据、固定门槛、失败记录及适用范围见 [功能与结构交付报告](../artifacts/2026-09-06/features-and-structure/README.md)。此前的 [注意力改进报告](../artifacts/2026-09-06/attention-parity/README.md)、[数值诊断说明](../docs/NUMERICAL-DIAGNOSTICS.md) 和 [Turbo 交付报告](../artifacts/2026-09-05/turbo-delivery/README.md) 保留。历史 [pipeline 报告](../artifacts/2026-09-05/pipeline/README.md)、[组件报告](../artifacts/2026-09-05/components/README.md) 和 [单 block 报告](../artifacts/2026-09-05/dit-block/README.md) 保留各自的输入与代码版本，不能混作同一轮结果。
 
 
 ## 构建检查的历史快照
 
-本机最新 NVIDIA Vulkan 30/30、CPU 15/15 CTest 和 Python 66/66 回归通过；这些算子与契约检查不需要权重，真实模型对照另行执行。此前的 GCC + 固定 glslang 构建成功，软件 Vulkan 20 项通过、3 项 BF16 因驱动不支持跳过。Linux CPU/Vulkan 工作流已写入，尚未推送触发 GitHub Actions。这些计数保留原执行范围，不表示当前所有平台或完整模型已通过。
+本机最新 NVIDIA Vulkan 30/30、CPU 15/15 CTest 和 Python 66/66 回归通过；这些算子与契约检查不需要权重，真实模型对照另行执行。此前的 GCC + 固定 glslang 构建成功，软件 Vulkan 20 项通过、3 项 BF16 因驱动不支持跳过。这些计数保留原执行范围。2026-09-08 已推送并运行原生 Linux、Windows 和 macOS 工作流，最新通过、失败和设备跳过数见[平台验证](PLATFORM-VALIDATION.md)，不与这批历史计数合并。

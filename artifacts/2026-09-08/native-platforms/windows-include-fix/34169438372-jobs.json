@@ -1,0 +1,159 @@
+{
+  "total_count": 3,
+  "jobs": [
+    {
+      "id": 101886779333,
+      "run_id": 34169438372,
+      "workflow_name": "Native platform build",
+      "head_branch": "codex/surpass-reference",
+      "run_url": "https://api.github.com/repos/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34169438372",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOUO3fsM8AAAAXuOzfxQ",
+      "head_sha": "237b10a05b0860a985a17eb827f944d73da81aab",
+      "url": "https://api.github.com/repos/mingshi2333/ernie-image-ncnn-vulkan/actions/jobs/101886779333",
+      "html_url": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34169438372/job/101886779333",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-09-07T23:15:46Z",
+      "started_at": "2026-09-07T23:15:49Z",
+      "completed_at": "2026-09-07T23:32:06Z",
+      "name": "windows",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-09-07T23:15:50Z",
+          "completed_at": "2026-09-07T23:15:51Z"
+        },
+        {
+          "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-09-07T23:15:51Z",
+          "completed_at": "2026-09-07T23:16:20Z"
+        },
+        {
+          "name": "Model download contracts with local HTTP fixtures",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-09-07T23:16:20Z",
+          "completed_at": "2026-09-07T23:16:26Z"
+        },
+        {
+          "name": "Configure MSVC and native dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-09-07T23:16:26Z",
+          "completed_at": "2026-09-07T23:17:58Z"
+        },
+        {
+          "name": "Build native Windows executable and SDK",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-09-07T23:17:58Z",
+          "completed_at": "2026-09-07T23:31:39Z"
+        },
+        {
+          "name": "Native CPU, CLI, package and installed-consumer tests",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 6,
+          "started_at": "2026-09-07T23:31:39Z",
+          "completed_at": "2026-09-07T23:31:59Z"
+        },
+        {
+          "name": "Save configure and test records",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-09-07T23:31:59Z",
+          "completed_at": "2026-09-07T23:32:00Z"
+        },
+        {
+          "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-09-07T23:32:00Z",
+          "completed_at": "2026-09-07T23:32:03Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-09-07T23:32:03Z",
+          "completed_at": "2026-09-07T23:32:03Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/mingshi2333/ernie-image-ncnn-vulkan/check-runs/101886779333",
+      "labels": [
+        "windows-2025"
+      ],
+      "runner_id": 1000000759,
+      "runner_name": "GitHub Actions 1000000759",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 101886780037,
+      "run_id": 34169438372,
+      "workflow_name": "Native platform build",
+      "head_branch": "codex/surpass-reference",
+      "run_url": "https://api.github.com/repos/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34169438372",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOUO3fsM8AAAAXuOzihQ",
+      "head_sha": "237b10a05b0860a985a17eb827f944d73da81aab",
+      "url": "https://api.github.com/repos/mingshi2333/ernie-image-ncnn-vulkan/actions/jobs/101886780037",
+      "html_url": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34169438372/job/101886780037",
+      "status": "completed",
+      "conclusion": "skipped",
+      "created_at": "2026-09-07T23:15:47Z",
+      "started_at": "2026-09-07T23:15:47Z",
+      "completed_at": "2026-09-07T23:15:46Z",
+      "name": "macos",
+      "steps": [],
+      "check_run_url": "https://api.github.com/repos/mingshi2333/ernie-image-ncnn-vulkan/check-runs/101886780037",
+      "labels": [
+        "macos-15"
+      ],
+      "runner_id": null,
+      "runner_name": null,
+      "runner_group_id": null,
+      "runner_group_name": null
+    },
+    {
+      "id": 101886780093,
+      "run_id": 34169438372,
+      "workflow_name": "Native platform build",
+      "head_branch": "codex/surpass-reference",
+      "run_url": "https://api.github.com/repos/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34169438372",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOUO3fsM8AAAAXuOzivQ",
+      "head_sha": "237b10a05b0860a985a17eb827f944d73da81aab",
+      "url": "https://api.github.com/repos/mingshi2333/ernie-image-ncnn-vulkan/actions/jobs/101886780093",
+      "html_url": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34169438372/job/101886780093",
+      "status": "completed",
+      "conclusion": "skipped",
+      "created_at": "2026-09-07T23:15:47Z",
+      "started_at": "2026-09-07T23:15:47Z",
+      "completed_at": "2026-09-07T23:15:46Z",
+      "name": "linux",
+      "steps": [],
+      "check_run_url": "https://api.github.com/repos/mingshi2333/ernie-image-ncnn-vulkan/check-runs/101886780093",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": null,
+      "runner_name": null,
+      "runner_group_id": null,
+      "runner_group_name": null
+    }
+  ]
+}

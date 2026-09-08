@@ -1,0 +1,905 @@
+{
+  "documents": 7,
+  "document_sha256": {
+    "README.md": "4b96f4545bd70b382d7ec7303708d5eb5cc9865db9c59286c03a47d659bedabf",
+    "docs/NCNN-DISCUSSION-DRAFT.md": "3012a27f1c070b4c0b923077afa2e0b7d6ed4ac9632530f39ff3869a758bfba2",
+    "docs/PLATFORM-VALIDATION.md": "bfd7278d2d4813f80af9934bd109116e6e6f459822dad104d7dcd0781e2e7c81",
+    "docs/BUILDING-WINDOWS.md": "923e072e5789d260edc73d6074705992f78e622d97463a4e6cade6cddfb5a875",
+    "docs/VALIDATION-STATUS.md": "c071af63ff99a344f132812cb2ab6d2b09646fc49d69211dc89b16c54b11574b",
+    "artifacts/2026-09-08/native-platforms/README.md": "cb9cae45a43e000ead2020bff592a5394bdb441ef7de9948f18b2505bf1d5ebf",
+    "artifacts/2026-09-08/native-platforms/style-review.md": "d8b5dce9c1f442067bffc5d633b8116372061e1d2ec42f5ec6839dfebcb51e3a"
+  },
+  "links": 126,
+  "failures": [],
+  "checks": [
+    {
+      "document": "README.md",
+      "href": "#%E6%9E%84%E5%BB%BA%E4%B8%8E%E8%BF%90%E8%A1%8C",
+      "target": "README.md",
+      "exists": true,
+      "anchor_exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "#%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C",
+      "target": "README.md",
+      "exists": true,
+      "anchor_exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "#%E4%B8%8E%E5%AE%98%E6%96%B9%E7%9A%84%E5%AE%9E%E6%B5%8B%E8%AF%AF%E5%B7%AE",
+      "target": "README.md",
+      "exists": true,
+      "anchor_exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "#%E6%8A%80%E6%9C%AF%E5%AE%9E%E7%8E%B0",
+      "target": "README.md",
+      "exists": true,
+      "anchor_exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "#%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84",
+      "target": "README.md",
+      "exists": true,
+      "anchor_exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "#c-%E6%8E%A5%E5%8F%A3",
+      "target": "README.md",
+      "exists": true,
+      "anchor_exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "#ci",
+      "target": "README.md",
+      "exists": true,
+      "anchor_exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "#%E4%B8%8E%E5%AE%98%E6%96%B9%E7%9A%84%E5%AE%9E%E6%B5%8B%E8%AF%AF%E5%B7%AE",
+      "target": "README.md",
+      "exists": true,
+      "anchor_exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "docs/PLATFORM-VALIDATION.md",
+      "target": "docs/PLATFORM-VALIDATION.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "docs/NCNN-DISCUSSION-DRAFT.md",
+      "target": "docs/NCNN-DISCUSSION-DRAFT.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "docs/RUNNING.md",
+      "target": "docs/RUNNING.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "docs/REPRODUCE-PIPELINE.md",
+      "target": "docs/REPRODUCE-PIPELINE.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "docs/RUNNING.md#shared-weights-and-runtime-dimensions",
+      "target": "docs/RUNNING.md",
+      "exists": true,
+      "anchor_exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "docs/RUNNING.md#reviewed-image-to-image-package-and-cli",
+      "target": "docs/RUNNING.md",
+      "exists": true,
+      "anchor_exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "docs/RUNNING.md",
+      "target": "docs/RUNNING.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "artifacts/2026-09-07/runtime-images-and-sdk/README.md",
+      "target": "artifacts/2026-09-07/runtime-images-and-sdk/README.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "artifacts/2026-09-07/runtime-squares/README.md",
+      "target": "artifacts/2026-09-07/runtime-squares/README.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "artifacts/2026-09-07/runtime-squares/README.md",
+      "target": "artifacts/2026-09-07/runtime-squares/README.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "artifacts/2026-09-07/runtime-large/README.md",
+      "target": "artifacts/2026-09-07/runtime-large/README.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "artifacts/2026-09-07/runtime-large/README.md",
+      "target": "artifacts/2026-09-07/runtime-large/README.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "artifacts/2026-09-07/runtime-large/README.md",
+      "target": "artifacts/2026-09-07/runtime-large/README.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "artifacts/2026-09-07/runtime-large/README.md",
+      "target": "artifacts/2026-09-07/runtime-large/README.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "artifacts/2026-09-07/fixed1376-native-pipeline/README.md",
+      "target": "artifacts/2026-09-07/fixed1376-native-pipeline/README.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "artifacts/2026-09-06/attention-parity/README.md",
+      "target": "artifacts/2026-09-06/attention-parity/README.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "artifacts/2026-09-06/features-and-structure/README.md",
+      "target": "artifacts/2026-09-06/features-and-structure/README.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "docs/VALIDATION-STATUS.md",
+      "target": "docs/VALIDATION-STATUS.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "docs/CODE-STRUCTURE.md#%E6%8E%A8%E7%90%86%E6%95%B0%E6%8D%AE%E4%B8%8E%E8%AE%A1%E7%AE%97",
+      "target": "docs/CODE-STRUCTURE.md",
+      "exists": true,
+      "anchor_exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "docs/CODE-STRUCTURE.md#%E4%BB%8E%E5%AE%98%E6%96%B9%E7%BB%84%E4%BB%B6%E5%88%B0-ncnn-%E6%89%A7%E8%A1%8C",
+      "target": "docs/CODE-STRUCTURE.md",
+      "exists": true,
+      "anchor_exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "docs/CODE-STRUCTURE.md#%E5%86%85%E5%AD%98%E4%B8%8E%E7%BC%93%E5%AD%98",
+      "target": "docs/CODE-STRUCTURE.md",
+      "exists": true,
+      "anchor_exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "cli/main.cpp",
+      "target": "cli/main.cpp",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "cli/options.cpp",
+      "target": "cli/options.cpp",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "include/ernie/pipeline.h",
+      "target": "include/ernie/pipeline.h",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "src/pipeline.cpp",
+      "target": "src/pipeline.cpp",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "src/prompt_enhancer.cpp",
+      "target": "src/prompt_enhancer.cpp",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "src/pe_session.cpp",
+      "target": "src/pe_session.cpp",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "src/text_encoder.cpp",
+      "target": "src/text_encoder.cpp",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "src/conditioning.cpp",
+      "target": "src/conditioning.cpp",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "src/denoiser.cpp",
+      "target": "src/denoiser.cpp",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "src/dit.cpp",
+      "target": "src/dit.cpp",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "src/block_sequence.cpp",
+      "target": "src/block_sequence.cpp",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "src/vae.cpp",
+      "target": "src/vae.cpp",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "src/latent_ops.cpp",
+      "target": "src/latent_ops.cpp",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "src/model_package.cpp",
+      "target": "src/model_package.cpp",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "src/shape_plan.cpp",
+      "target": "src/shape_plan.cpp",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "src/weight_placement.cpp",
+      "target": "src/weight_placement.cpp",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "src/weight_session.cpp",
+      "target": "src/weight_session.cpp",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "docs/CODE-STRUCTURE.md",
+      "target": "docs/CODE-STRUCTURE.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": ".github/workflows/build.yml",
+      "target": ".github/workflows/build.yml",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "docs/PLATFORM-VALIDATION.md",
+      "target": "docs/PLATFORM-VALIDATION.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "docs/RUNNING.md",
+      "target": "docs/RUNNING.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "docs/REPRODUCE-PIPELINE.md",
+      "target": "docs/REPRODUCE-PIPELINE.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "docs/CODE-STRUCTURE.md",
+      "target": "docs/CODE-STRUCTURE.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "tools/README.md",
+      "target": "tools/README.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "docs/VALIDATION-STATUS.md",
+      "target": "docs/VALIDATION-STATUS.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "docs/PLATFORM-VALIDATION.md",
+      "target": "docs/PLATFORM-VALIDATION.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "docs/NCNN-DISCUSSION-DRAFT.md",
+      "target": "docs/NCNN-DISCUSSION-DRAFT.md",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "sources.lock.json",
+      "target": "sources.lock.json",
+      "exists": true
+    },
+    {
+      "document": "README.md",
+      "href": "LICENSE",
+      "target": "LICENSE",
+      "exists": true
+    },
+    {
+      "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+      "href": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/sources.lock.json",
+      "target": "sources.lock.json",
+      "exists": true
+    },
+    {
+      "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+      "href": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/tools/export_dit_block.py",
+      "target": "tools/export_dit_block.py",
+      "exists": true
+    },
+    {
+      "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+      "href": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/tools/prepare_block.py",
+      "target": "tools/prepare_block.py",
+      "exists": true
+    },
+    {
+      "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+      "href": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/src/latent_ops.cpp",
+      "target": "src/latent_ops.cpp",
+      "exists": true
+    },
+    {
+      "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+      "href": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/src/denoiser.cpp",
+      "target": "src/denoiser.cpp",
+      "exists": true
+    },
+    {
+      "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+      "href": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/docs/REPRODUCE-PIPELINE.md",
+      "target": "docs/REPRODUCE-PIPELINE.md",
+      "exists": true
+    },
+    {
+      "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+      "href": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/src/ernie_attention.cpp",
+      "target": "src/ernie_attention.cpp",
+      "exists": true
+    },
+    {
+      "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+      "href": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/src/pe_session.cpp",
+      "target": "src/pe_session.cpp",
+      "exists": true
+    },
+    {
+      "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+      "href": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/docs/NUMERICAL-DIAGNOSTICS.md",
+      "target": "docs/NUMERICAL-DIAGNOSTICS.md",
+      "exists": true
+    },
+    {
+      "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+      "href": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/artifacts/2026-09-07/runtime-images-and-sdk/README.md",
+      "target": "artifacts/2026-09-07/runtime-images-and-sdk/README.md",
+      "exists": true
+    },
+    {
+      "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+      "href": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/artifacts/2026-09-07/runtime-squares/README.md",
+      "target": "artifacts/2026-09-07/runtime-squares/README.md",
+      "exists": true
+    },
+    {
+      "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+      "href": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/artifacts/2026-09-07/runtime-large/README.md",
+      "target": "artifacts/2026-09-07/runtime-large/README.md",
+      "exists": true
+    },
+    {
+      "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+      "href": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/artifacts/2026-09-06/attention-parity/README.md",
+      "target": "artifacts/2026-09-06/attention-parity/README.md",
+      "exists": true
+    },
+    {
+      "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+      "href": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/artifacts/2026-09-06/features-and-structure/README.md",
+      "target": "artifacts/2026-09-06/features-and-structure/README.md",
+      "exists": true
+    },
+    {
+      "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+      "href": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/.github/workflows/build.yml",
+      "target": ".github/workflows/build.yml",
+      "exists": true
+    },
+    {
+      "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+      "href": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/docs/PLATFORM-VALIDATION.md",
+      "target": "docs/PLATFORM-VALIDATION.md",
+      "exists": true
+    },
+    {
+      "document": "docs/PLATFORM-VALIDATION.md",
+      "href": "../.github/workflows/build.yml",
+      "target": ".github/workflows/build.yml",
+      "exists": true
+    },
+    {
+      "document": "docs/PLATFORM-VALIDATION.md",
+      "href": "../artifacts/2026-09-08/native-platforms/README.md",
+      "target": "artifacts/2026-09-08/native-platforms/README.md",
+      "exists": true
+    },
+    {
+      "document": "docs/PLATFORM-VALIDATION.md",
+      "href": "../artifacts/2026-09-08/native-platforms/summary.json",
+      "target": "artifacts/2026-09-08/native-platforms/summary.json",
+      "exists": true
+    },
+    {
+      "document": "docs/PLATFORM-VALIDATION.md",
+      "href": "../README.md#%E4%B8%8E%E5%AE%98%E6%96%B9%E7%9A%84%E5%AE%9E%E6%B5%8B%E8%AF%AF%E5%B7%AE",
+      "target": "README.md",
+      "exists": true,
+      "anchor_exists": true
+    },
+    {
+      "document": "docs/PLATFORM-VALIDATION.md",
+      "href": "../artifacts/2026-09-07/windows-cpu-portability/README.md",
+      "target": "artifacts/2026-09-07/windows-cpu-portability/README.md",
+      "exists": true
+    },
+    {
+      "document": "docs/PLATFORM-VALIDATION.md",
+      "href": "../artifacts/2026-09-08/native-platforms/source-newline-check.json",
+      "target": "artifacts/2026-09-08/native-platforms/source-newline-check.json",
+      "exists": true
+    },
+    {
+      "document": "docs/PLATFORM-VALIDATION.md",
+      "href": "../artifacts/2026-09-08/native-platforms/fixture-checkout.json",
+      "target": "artifacts/2026-09-08/native-platforms/fixture-checkout.json",
+      "exists": true
+    },
+    {
+      "document": "docs/PLATFORM-VALIDATION.md",
+      "href": "BUILDING-WINDOWS.md#%E5%8E%9F%E7%94%9F-msvc-%E6%9E%84%E5%BB%BA",
+      "target": "docs/BUILDING-WINDOWS.md",
+      "exists": true,
+      "anchor_exists": true
+    },
+    {
+      "document": "docs/PLATFORM-VALIDATION.md",
+      "href": "RUNNING.md",
+      "target": "docs/RUNNING.md",
+      "exists": true
+    },
+    {
+      "document": "docs/BUILDING-WINDOWS.md",
+      "href": "PLATFORM-VALIDATION.md",
+      "target": "docs/PLATFORM-VALIDATION.md",
+      "exists": true
+    },
+    {
+      "document": "docs/BUILDING-WINDOWS.md",
+      "href": "../artifacts/2026-09-07/windows-cpu-portability/README.md",
+      "target": "artifacts/2026-09-07/windows-cpu-portability/README.md",
+      "exists": true
+    },
+    {
+      "document": "docs/VALIDATION-STATUS.md",
+      "href": "../artifacts/2026-09-07/runtime-large/README.md",
+      "target": "artifacts/2026-09-07/runtime-large/README.md",
+      "exists": true
+    },
+    {
+      "document": "docs/VALIDATION-STATUS.md",
+      "href": "../artifacts/2026-09-07/runtime-large-protocol/README.md",
+      "target": "artifacts/2026-09-07/runtime-large-protocol/README.md",
+      "exists": true
+    },
+    {
+      "document": "docs/VALIDATION-STATUS.md",
+      "href": "../README.md",
+      "target": "README.md",
+      "exists": true
+    },
+    {
+      "document": "docs/VALIDATION-STATUS.md",
+      "href": "RUNNING.md",
+      "target": "docs/RUNNING.md",
+      "exists": true
+    },
+    {
+      "document": "docs/VALIDATION-STATUS.md",
+      "href": "../artifacts/2026-09-07/adaptive-weight-placement/README.md",
+      "target": "artifacts/2026-09-07/adaptive-weight-placement/README.md",
+      "exists": true
+    },
+    {
+      "document": "docs/VALIDATION-STATUS.md",
+      "href": "../artifacts/2026-09-07/bounded-weight-session/README.md",
+      "target": "artifacts/2026-09-07/bounded-weight-session/README.md",
+      "exists": true
+    },
+    {
+      "document": "docs/VALIDATION-STATUS.md",
+      "href": "../docs/RUNNING.md#optional-prepared-weight-cache",
+      "target": "docs/RUNNING.md",
+      "exists": true,
+      "anchor_exists": true
+    },
+    {
+      "document": "docs/VALIDATION-STATUS.md",
+      "href": "../artifacts/2026-09-07/runtime-range-and-buckets/README.md",
+      "target": "artifacts/2026-09-07/runtime-range-and-buckets/README.md",
+      "exists": true
+    },
+    {
+      "document": "docs/VALIDATION-STATUS.md",
+      "href": "../artifacts/2026-09-07/runtime-shape1376/README.md",
+      "target": "artifacts/2026-09-07/runtime-shape1376/README.md",
+      "exists": true
+    },
+    {
+      "document": "docs/VALIDATION-STATUS.md",
+      "href": "../artifacts/2026-09-07/runtime-rectangles-and-mapped512/README.md",
+      "target": "artifacts/2026-09-07/runtime-rectangles-and-mapped512/README.md",
+      "exists": true
+    },
+    {
+      "document": "docs/VALIDATION-STATUS.md",
+      "href": "../artifacts/2026-09-07/runtime-images-and-sdk/README.md",
+      "target": "artifacts/2026-09-07/runtime-images-and-sdk/README.md",
+      "exists": true
+    },
+    {
+      "document": "docs/VALIDATION-STATUS.md",
+      "href": "../docs/NUMERICAL-DIAGNOSTICS.md#%E9%97%A8%E6%A7%9B%E7%9A%84%E6%9D%A5%E6%BA%90%E4%B8%8E%E9%80%82%E7%94%A8%E8%8C%83%E5%9B%B4",
+      "target": "docs/NUMERICAL-DIAGNOSTICS.md",
+      "exists": true,
+      "anchor_exists": true
+    },
+    {
+      "document": "docs/VALIDATION-STATUS.md",
+      "href": "../artifacts/2026-09-07/memory-grid512/README.md",
+      "target": "artifacts/2026-09-07/memory-grid512/README.md",
+      "exists": true
+    },
+    {
+      "document": "docs/VALIDATION-STATUS.md",
+      "href": "../artifacts/2026-09-07/cache-file-lru/README.md",
+      "target": "artifacts/2026-09-07/cache-file-lru/README.md",
+      "exists": true
+    },
+    {
+      "document": "docs/VALIDATION-STATUS.md",
+      "href": "../artifacts/2026-09-07/cache-headroom/README.md",
+      "target": "artifacts/2026-09-07/cache-headroom/README.md",
+      "exists": true
+    },
+    {
+      "document": "docs/VALIDATION-STATUS.md",
+      "href": "../artifacts/2026-09-07/runtime-model-loading/README.md",
+      "target": "artifacts/2026-09-07/runtime-model-loading/README.md",
+      "exists": true
+    },
+    {
+      "document": "docs/VALIDATION-STATUS.md",
+      "href": "../artifacts/2026-09-06/features-and-structure/README.md",
+      "target": "artifacts/2026-09-06/features-and-structure/README.md",
+      "exists": true
+    },
+    {
+      "document": "docs/VALIDATION-STATUS.md",
+      "href": "../docs/CODE-STRUCTURE.md",
+      "target": "docs/CODE-STRUCTURE.md",
+      "exists": true
+    },
+    {
+      "document": "docs/VALIDATION-STATUS.md",
+      "href": "../docs/superpowers/plans/2026-09-06-surpass-reference.md",
+      "target": "docs/superpowers/plans/2026-09-06-surpass-reference.md",
+      "exists": true
+    },
+    {
+      "document": "docs/VALIDATION-STATUS.md",
+      "href": "../artifacts/2026-09-07/runtime-squares/README.md#768768-%E5%B7%B2%E5%AE%8C%E6%88%90",
+      "target": "artifacts/2026-09-07/runtime-squares/README.md",
+      "exists": true,
+      "anchor_exists": true
+    },
+    {
+      "document": "docs/VALIDATION-STATUS.md",
+      "href": "../artifacts/2026-09-07/runtime-squares/README.md#10241024-%E5%B7%B2%E5%AE%8C%E6%88%90",
+      "target": "artifacts/2026-09-07/runtime-squares/README.md",
+      "exists": true,
+      "anchor_exists": true
+    },
+    {
+      "document": "docs/VALIDATION-STATUS.md",
+      "href": "PLATFORM-VALIDATION.md",
+      "target": "docs/PLATFORM-VALIDATION.md",
+      "exists": true
+    },
+    {
+      "document": "docs/VALIDATION-STATUS.md",
+      "href": "../artifacts/2026-09-06/features-and-structure/README.md",
+      "target": "artifacts/2026-09-06/features-and-structure/README.md",
+      "exists": true
+    },
+    {
+      "document": "docs/VALIDATION-STATUS.md",
+      "href": "../artifacts/2026-09-06/attention-parity/README.md",
+      "target": "artifacts/2026-09-06/attention-parity/README.md",
+      "exists": true
+    },
+    {
+      "document": "docs/VALIDATION-STATUS.md",
+      "href": "../docs/NUMERICAL-DIAGNOSTICS.md",
+      "target": "docs/NUMERICAL-DIAGNOSTICS.md",
+      "exists": true
+    },
+    {
+      "document": "docs/VALIDATION-STATUS.md",
+      "href": "../artifacts/2026-09-05/turbo-delivery/README.md",
+      "target": "artifacts/2026-09-05/turbo-delivery/README.md",
+      "exists": true
+    },
+    {
+      "document": "docs/VALIDATION-STATUS.md",
+      "href": "../artifacts/2026-09-05/pipeline/README.md",
+      "target": "artifacts/2026-09-05/pipeline/README.md",
+      "exists": true
+    },
+    {
+      "document": "docs/VALIDATION-STATUS.md",
+      "href": "../artifacts/2026-09-05/components/README.md",
+      "target": "artifacts/2026-09-05/components/README.md",
+      "exists": true
+    },
+    {
+      "document": "docs/VALIDATION-STATUS.md",
+      "href": "../artifacts/2026-09-05/dit-block/README.md",
+      "target": "artifacts/2026-09-05/dit-block/README.md",
+      "exists": true
+    },
+    {
+      "document": "docs/VALIDATION-STATUS.md",
+      "href": "PLATFORM-VALIDATION.md",
+      "target": "docs/PLATFORM-VALIDATION.md",
+      "exists": true
+    },
+    {
+      "document": "artifacts/2026-09-08/native-platforms/README.md",
+      "href": "summary.json",
+      "target": "artifacts/2026-09-08/native-platforms/summary.json",
+      "exists": true
+    },
+    {
+      "document": "artifacts/2026-09-08/native-platforms/README.md",
+      "href": "ctest-summary.json",
+      "target": "artifacts/2026-09-08/native-platforms/ctest-summary.json",
+      "exists": true
+    },
+    {
+      "document": "artifacts/2026-09-08/native-platforms/README.md",
+      "href": "source-newline-check.json",
+      "target": "artifacts/2026-09-08/native-platforms/source-newline-check.json",
+      "exists": true
+    },
+    {
+      "document": "artifacts/2026-09-08/native-platforms/README.md",
+      "href": "fixture-checkout.json",
+      "target": "artifacts/2026-09-08/native-platforms/fixture-checkout.json",
+      "exists": true
+    },
+    {
+      "document": "artifacts/2026-09-08/native-platforms/README.md",
+      "href": "source-inventory.json",
+      "target": "artifacts/2026-09-08/native-platforms/source-inventory.json",
+      "exists": true
+    },
+    {
+      "document": "artifacts/2026-09-08/native-platforms/README.md",
+      "href": "tutorial-snippets.json",
+      "target": "artifacts/2026-09-08/native-platforms/tutorial-snippets.json",
+      "exists": true
+    },
+    {
+      "document": "artifacts/2026-09-08/native-platforms/README.md",
+      "href": "tutorial-python-arguments.json",
+      "target": "artifacts/2026-09-08/native-platforms/tutorial-python-arguments.json",
+      "exists": true
+    },
+    {
+      "document": "artifacts/2026-09-08/native-platforms/README.md",
+      "href": "style-review.md",
+      "target": "artifacts/2026-09-08/native-platforms/style-review.md",
+      "exists": true
+    },
+    {
+      "document": "artifacts/2026-09-08/native-platforms/README.md",
+      "href": "file-inventory.json",
+      "target": "artifacts/2026-09-08/native-platforms/file-inventory.json",
+      "exists": true
+    },
+    {
+      "document": "artifacts/2026-09-08/native-platforms/style-review.md",
+      "href": "style-counts.json",
+      "target": "artifacts/2026-09-08/native-platforms/style-counts.json",
+      "exists": true
+    },
+    {
+      "document": "artifacts/2026-09-08/native-platforms/style-review.md",
+      "href": "document-links-final.json",
+      "target": "artifacts/2026-09-08/native-platforms/document-links-final.json",
+      "exists": true
+    }
+  ],
+  "external_urls_not_network_probed": [
+    {
+      "document": "README.md",
+      "href": "https://docs.pytorch.org/docs/2.14/notes/numerical_accuracy.html"
+    },
+    {
+      "document": "README.md",
+      "href": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34170659886"
+    },
+    {
+      "document": "README.md",
+      "href": "https://github.com/baidu/ERNIE-Image"
+    },
+    {
+      "document": "README.md",
+      "href": "https://github.com/Tencent/ncnn"
+    },
+    {
+      "document": "README.md",
+      "href": "https://github.com/futz12/ernie-image-ncnn-vulkan/tree/8dcd6e4411137d8abe92c9d78581c4c96d5182c6"
+    },
+    {
+      "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+      "href": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/tree/codex/surpass-reference"
+    },
+    {
+      "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+      "href": "https://github.com/baidu/ERNIE-Image/tree/1f30f5bb499726c606da0a24cc2a4a6c4d6ad775"
+    },
+    {
+      "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+      "href": "https://huggingface.co/baidu/ERNIE-Image-Turbo/tree/bc68c81e2a1730a394d5fc9fae70713dee940140"
+    },
+    {
+      "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+      "href": "https://github.com/nihui/zimage-ncnn-vulkan/tree/c1938eef9cd7e03cb216da4f4c89a0c041543e7a"
+    },
+    {
+      "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+      "href": "https://github.com/futz12/ernie-image-ncnn-vulkan/tree/8dcd6e4411137d8abe92c9d78581c4c96d5182c6"
+    },
+    {
+      "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+      "href": "https://github.com/microsoft/STL/blob/main/stl/inc/xmemory"
+    },
+    {
+      "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+      "href": "https://github.com/KhronosGroup/MoltenVK/blob/v1.4.2/Docs/MoltenVK_Configuration_Parameters.md#mvk_config_use_mtlheap"
+    },
+    {
+      "document": "docs/PLATFORM-VALIDATION.md",
+      "href": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34170659886"
+    },
+    {
+      "document": "docs/PLATFORM-VALIDATION.md",
+      "href": "https://github.com/microsoft/STL/blob/main/stl/inc/xmemory"
+    },
+    {
+      "document": "docs/PLATFORM-VALIDATION.md",
+      "href": "https://github.com/KhronosGroup/MoltenVK/blob/v1.4.2/Docs/MoltenVK_Configuration_Parameters.md#mvk_config_use_mtlheap"
+    },
+    {
+      "document": "docs/PLATFORM-VALIDATION.md",
+      "href": "https://docs.github.com/en/actions/reference/runners/github-hosted-runners"
+    },
+    {
+      "document": "docs/PLATFORM-VALIDATION.md",
+      "href": "https://github.com/actions/runner-images/blob/main/images/windows/Windows2025-Readme.md"
+    },
+    {
+      "document": "docs/PLATFORM-VALIDATION.md",
+      "href": "https://github.com/actions/runner-images/blob/main/images/macos/macos-15-arm64-Readme.md"
+    },
+    {
+      "document": "docs/BUILDING-WINDOWS.md",
+      "href": "https://doc.rust-lang.org/cargo/reference/config.html#buildtarget"
+    },
+    {
+      "document": "docs/BUILDING-WINDOWS.md",
+      "href": "https://doc.rust-lang.org/reference/linkage.html"
+    },
+    {
+      "document": "docs/BUILDING-WINDOWS.md",
+      "href": "https://learn.microsoft.com/en-us/windows/apps/design/globalizing/use-utf8-code-page"
+    },
+    {
+      "document": "artifacts/2026-09-08/native-platforms/README.md",
+      "href": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34167327685"
+    },
+    {
+      "document": "artifacts/2026-09-08/native-platforms/README.md",
+      "href": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34168231514"
+    },
+    {
+      "document": "artifacts/2026-09-08/native-platforms/README.md",
+      "href": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34168637493"
+    },
+    {
+      "document": "artifacts/2026-09-08/native-platforms/README.md",
+      "href": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34169350983"
+    },
+    {
+      "document": "artifacts/2026-09-08/native-platforms/README.md",
+      "href": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34169438372"
+    },
+    {
+      "document": "artifacts/2026-09-08/native-platforms/README.md",
+      "href": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34170659886"
+    },
+    {
+      "document": "artifacts/2026-09-08/native-platforms/README.md",
+      "href": "https://github.com/microsoft/STL/blob/main/stl/inc/xmemory"
+    }
+  ]
+}

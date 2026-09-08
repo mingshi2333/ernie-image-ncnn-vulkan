@@ -1,0 +1,282 @@
+[
+  {
+    "document": "README.md",
+    "target": "docs/PLATFORM-VALIDATION.md"
+  },
+  {
+    "document": "README.md",
+    "target": "docs/NCNN-DISCUSSION-DRAFT.md"
+  },
+  {
+    "document": "README.md",
+    "target": "docs/RUNNING.md"
+  },
+  {
+    "document": "README.md",
+    "target": "docs/REPRODUCE-PIPELINE.md"
+  },
+  {
+    "document": "README.md",
+    "target": "docs/RUNNING.md"
+  },
+  {
+    "document": "README.md",
+    "target": "docs/RUNNING.md"
+  },
+  {
+    "document": "README.md",
+    "target": "docs/RUNNING.md"
+  },
+  {
+    "document": "README.md",
+    "target": "artifacts/2026-09-07/runtime-images-and-sdk/README.md"
+  },
+  {
+    "document": "README.md",
+    "target": "artifacts/2026-09-07/runtime-squares/README.md"
+  },
+  {
+    "document": "README.md",
+    "target": "artifacts/2026-09-07/runtime-squares/README.md"
+  },
+  {
+    "document": "README.md",
+    "target": "artifacts/2026-09-07/runtime-large/README.md"
+  },
+  {
+    "document": "README.md",
+    "target": "artifacts/2026-09-07/runtime-large/README.md"
+  },
+  {
+    "document": "README.md",
+    "target": "artifacts/2026-09-07/runtime-large/README.md"
+  },
+  {
+    "document": "README.md",
+    "target": "artifacts/2026-09-07/runtime-large/README.md"
+  },
+  {
+    "document": "README.md",
+    "target": "artifacts/2026-09-07/fixed1376-native-pipeline/README.md"
+  },
+  {
+    "document": "README.md",
+    "target": "artifacts/2026-09-06/attention-parity/README.md"
+  },
+  {
+    "document": "README.md",
+    "target": "artifacts/2026-09-06/features-and-structure/README.md"
+  },
+  {
+    "document": "README.md",
+    "target": "docs/VALIDATION-STATUS.md"
+  },
+  {
+    "document": "README.md",
+    "target": "docs/CODE-STRUCTURE.md"
+  },
+  {
+    "document": "README.md",
+    "target": "docs/CODE-STRUCTURE.md"
+  },
+  {
+    "document": "README.md",
+    "target": "docs/CODE-STRUCTURE.md"
+  },
+  {
+    "document": "README.md",
+    "target": "cli/main.cpp"
+  },
+  {
+    "document": "README.md",
+    "target": "cli/options.cpp"
+  },
+  {
+    "document": "README.md",
+    "target": "include/ernie/pipeline.h"
+  },
+  {
+    "document": "README.md",
+    "target": "src/pipeline.cpp"
+  },
+  {
+    "document": "README.md",
+    "target": "src/prompt_enhancer.cpp"
+  },
+  {
+    "document": "README.md",
+    "target": "src/pe_session.cpp"
+  },
+  {
+    "document": "README.md",
+    "target": "src/text_encoder.cpp"
+  },
+  {
+    "document": "README.md",
+    "target": "src/conditioning.cpp"
+  },
+  {
+    "document": "README.md",
+    "target": "src/denoiser.cpp"
+  },
+  {
+    "document": "README.md",
+    "target": "src/dit.cpp"
+  },
+  {
+    "document": "README.md",
+    "target": "src/block_sequence.cpp"
+  },
+  {
+    "document": "README.md",
+    "target": "src/vae.cpp"
+  },
+  {
+    "document": "README.md",
+    "target": "src/latent_ops.cpp"
+  },
+  {
+    "document": "README.md",
+    "target": "src/model_package.cpp"
+  },
+  {
+    "document": "README.md",
+    "target": "src/shape_plan.cpp"
+  },
+  {
+    "document": "README.md",
+    "target": "src/weight_placement.cpp"
+  },
+  {
+    "document": "README.md",
+    "target": "src/weight_session.cpp"
+  },
+  {
+    "document": "README.md",
+    "target": "docs/CODE-STRUCTURE.md"
+  },
+  {
+    "document": "README.md",
+    "target": ".github/workflows/build.yml"
+  },
+  {
+    "document": "README.md",
+    "target": "docs/VALIDATION-STATUS.md"
+  },
+  {
+    "document": "README.md",
+    "target": "docs/RUNNING.md"
+  },
+  {
+    "document": "README.md",
+    "target": "docs/REPRODUCE-PIPELINE.md"
+  },
+  {
+    "document": "README.md",
+    "target": "docs/CODE-STRUCTURE.md"
+  },
+  {
+    "document": "README.md",
+    "target": "tools/README.md"
+  },
+  {
+    "document": "README.md",
+    "target": "docs/VALIDATION-STATUS.md"
+  },
+  {
+    "document": "README.md",
+    "target": "sources.lock.json"
+  },
+  {
+    "document": "README.md",
+    "target": "LICENSE"
+  },
+  {
+    "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+    "target": "sources.lock.json"
+  },
+  {
+    "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+    "target": "tools/export_dit_block.py"
+  },
+  {
+    "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+    "target": "tools/prepare_block.py"
+  },
+  {
+    "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+    "target": "src/latent_ops.cpp"
+  },
+  {
+    "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+    "target": "src/denoiser.cpp"
+  },
+  {
+    "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+    "target": "docs/REPRODUCE-PIPELINE.md"
+  },
+  {
+    "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+    "target": "src/ernie_attention.cpp"
+  },
+  {
+    "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+    "target": "src/pe_session.cpp"
+  },
+  {
+    "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+    "target": "docs/NUMERICAL-DIAGNOSTICS.md"
+  },
+  {
+    "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+    "target": "artifacts/2026-09-07/runtime-images-and-sdk/README.md"
+  },
+  {
+    "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+    "target": "artifacts/2026-09-07/runtime-squares/README.md"
+  },
+  {
+    "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+    "target": "artifacts/2026-09-07/runtime-large/README.md"
+  },
+  {
+    "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+    "target": "artifacts/2026-09-06/attention-parity/README.md"
+  },
+  {
+    "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+    "target": "artifacts/2026-09-06/features-and-structure/README.md"
+  },
+  {
+    "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+    "target": ".github/workflows/build.yml"
+  },
+  {
+    "document": "docs/NCNN-DISCUSSION-DRAFT.md",
+    "target": "docs/PLATFORM-VALIDATION.md"
+  },
+  {
+    "document": "docs/PLATFORM-VALIDATION.md",
+    "target": "docs/../artifacts/2026-09-07/runtime-large/README.md"
+  },
+  {
+    "document": "docs/PLATFORM-VALIDATION.md",
+    "target": "docs/../artifacts/2026-09-07/windows-cpu-portability/README.md"
+  },
+  {
+    "document": "docs/PLATFORM-VALIDATION.md",
+    "target": "docs/../README.md"
+  },
+  {
+    "document": "docs/PLATFORM-VALIDATION.md",
+    "target": "docs/../.github/workflows/build.yml"
+  },
+  {
+    "document": "docs/PLATFORM-VALIDATION.md",
+    "target": "docs/RUNNING.md"
+  },
+  {
+    "document": "docs/PLATFORM-VALIDATION.md",
+    "target": "docs/BUILDING-WINDOWS.md"
+  }
+]
