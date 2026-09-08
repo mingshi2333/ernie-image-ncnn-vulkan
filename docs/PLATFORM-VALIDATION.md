@@ -11,11 +11,13 @@
 | 本机 Linux CPU | 36 | 0 | 0 | CLI、组件、包校验、搬移 SDK |
 | 本机 Linux / NVIDIA Vulkan | 57 | 0 | 0 | 含实际 Vulkan 算子、缓存及 BF16 小型测试 |
 | Ubuntu 24.04 CPU，读取器 OFF / ON | 各 36 | 0 | 0 | 两个独立构建均通过 |
-| Ubuntu 24.04 / Mesa 软件 Vulkan | 53 | 4 | 0 | 四项 BF16 能力不可用，其余 Vulkan 测试实际执行 |
+| Ubuntu 24.04 / Mesa 软件 Vulkan | 53 | 4 | 0 | CI 软件驱动缺少原生 BF16 storage，4 项跳过；其余 Vulkan 测试实际执行 |
 | Windows Server 2025 / MSVC x64 | 36 | 21 | 0 | 原生编译、CPU、CLI、SDK 通过；运行器无 Vulkan 驱动，21 项设备测试跳过 |
-| macOS 15 ARM / Apple Clang / MoltenVK | 53 | 4 | 0 | GitHub 托管 Apple Paravirtual GPU 上的小型 Vulkan 执行；四项 BF16 能力不可用 |
+| macOS 15 ARM / Apple Clang / MoltenVK | 53 | 4 | 0 | GitHub 托管 Apple Paravirtual GPU 上的小型 Vulkan 执行；CI 驱动缺少原生 BF16 storage，4 项跳过 |
 
 源码 `3a04811b41aa19a8d9a874981c1569816105ee26` 的[三平台原生构建与小型测试](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34170659886)五个作业全部成功；每个作业另有 23/23 项本地 HTTP 与清单测试通过。工具链为 GCC 13.3.0、MSVC 19.51.36256.0 和 Apple Clang 17.0.0。数量从下载后的 CTest XML 独立统计，跳过项排除在通过数之外，详见[机器可读结果](../artifacts/2026-09-08/native-platforms/summary.json)。Windows 的三项测试失败及其修复前记录仍保留，未用最终结果覆盖。
+
+**这 4 项 BF16 跳过由 CI 环境的驱动能力限制导致。** Linux 的 Mesa 软件设备和 macOS 的托管虚拟设备均报告 `bf16-p/s=1/0`：ncnn 的 BF16 打包路径可用，原生 BF16 storage 不可用。残差加法、ERF GELU、RMSNorm、LayerNorm 的对应测试在运行前检查能力，返回 `77` 后由 CTest 标记为跳过。本机 RTX 4060 Laptop 报告 `bf16-p/s=1/1`，同样四项已实际执行并通过。
 
 **完整模型出图目前有 Linux 实测记录，Windows 和 macOS 尚未运行完整 ERNIE 模型。** [七种尺寸与提示词误差](../README.md#与官方的实测误差)采用各自已保存的真实权重实验，保持原始数值门槛和未通过项。本轮 CI 没有重新运行这些大模型实验，也不提供三平台速度排名。较早的 [MinGW/Wine 验证](../artifacts/2026-09-07/windows-cpu-portability/README.md)属于单独的交叉构建与兼容层证据。
 

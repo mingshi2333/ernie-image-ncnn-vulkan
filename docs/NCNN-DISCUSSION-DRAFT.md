@@ -385,6 +385,8 @@ Linux、Windows 和 macOS 各自编译并运行测试。Windows 使用 MSVC 原�
 
 `MVK_CONFIG_USE_MTLHEAP=0` 选择普通 Metal 分配，参数定义见 [MoltenVK 配置说明](https://github.com/KhronosGroup/MoltenVK/blob/v1.4.2/Docs/MoltenVK_Configuration_Parameters.md#mvk_config_use_mtlheap)。本次一起调整了 loader 和托管 GPU 的分配设置；结果证明该配置能运行，没有完成对两个设置各自作用的独立对照。物理 Mac 的默认行为和完整模型出图仍需要实机记录。
 
-最终源码 `3a04811` 的五个原生 CI 作业全部成功：Linux 两个 CPU 配置各 36 项通过；Linux Mesa Vulkan 与 macOS MoltenVK 各 53 项通过、4 项 BF16 能力跳过；Windows MSVC 为 36 项通过、21 项因无 Vulkan 驱动跳过。每个作业另有 23 项本地 HTTP/清单检查通过。完整源码 SHA、原始失败和跳过名称见 [平台验证记录](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/docs/PLATFORM-VALIDATION.md)。三平台编译/测试与三平台真实模型出图是不同的结果。
+最终源码 `3a04811` 的五个原生 CI 作业全部成功：Linux 两个 CPU 配置各 36 项通过；Linux Mesa Vulkan 与 macOS MoltenVK 各 53 项通过、4 项因 CI 驱动缺少原生 BF16 storage 能力而跳过；Windows MSVC 为 36 项通过、21 项因无 Vulkan 驱动跳过。每个作业另有 23 项本地 HTTP/清单检查通过。完整源码 SHA、原始失败和跳过名称见 [平台验证记录](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/docs/PLATFORM-VALIDATION.md)。三平台编译/测试与三平台真实模型出图是不同的结果。
+
+这 4 项 BF16 跳过属于 CI 环境的驱动能力限制：驱动报告 `bf16-p/s=1/0`，测试在运行前的能力检查阶段返回 `77`。本机 RTX 4060 Laptop 报告 `bf16-p/s=1/1`，同样四项已实际执行并通过。
 
 目前后续工作主要是扩大独立提示词验证、继续定位残余数值偏差，以及补充其他设备上的完整出图记录。激活卸载、分配失败恢复和近似 DiT 缓存均未作为已有能力发布。
