@@ -9,6 +9,8 @@ PIN='6a1bf000f363714839a36793addc8c879d3d899e'
 FULL_SHA='e5e8d449ddb09e2183faca8be4ab535899ff8bc463665fea209c9b05604ef4d5'
 ALLOCATOR_SHA='601d69dab40823366fa6aa2be00c8e37bb0f1e960fe96323c36daed887c4fda2'
 PINS={PIN:(FULL_SHA,ALLOCATOR_SHA),'f6f734f44d66f469fefee9ee401fd1cb5e3d573e':('a3340d10902b5102ee19fe1af2d1c317947b111595e7a92884ccf5236a0013af','fe8f6bc2fcee095ed172763445ddcd6c8e39070a561eaf5048fdb433246dd6b0')}
+# New full source inventory; allocator.cpp is byte-identical to the old pin.
+PINS['3b7bdba7fc8aea8fd46779533eee027df77c639d']=('e0685c54b1cd6c6dc18a3b7e87476e66f5bd36900586569802d9128856f1f8b2',ALLOCATOR_SHA)
 def sha(data):return hashlib.sha256(data).hexdigest()
 def git(root,*args):return subprocess.check_output(['git','-C',str(root),*args])
 def inventory(root,prefix=''):

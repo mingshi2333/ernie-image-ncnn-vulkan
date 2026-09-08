@@ -3,8 +3,13 @@
   "verified_on": "2026-09-06",
   "ncnn": {
     "url": "https://github.com/Tencent/ncnn.git",
-    "revision": "6a1bf000f363714839a36793addc8c879d3d899e",
-    "commit_date": "2026-09-04T11:56:47Z",
+    "revision": "3b7bdba7fc8aea8fd46779533eee027df77c639d",
+    "commit_date": "2026-09-07T11:42:31Z",
+    "verified_on": "2026-09-08",
+    "compatible_model_revisions": [
+      "6a1bf000f363714839a36793addc8c879d3d899e"
+    ],
+    "compatibility_evidence": "artifacts/2026-09-08/ncnn-latest-git/README.md",
     "role": "runtime_dependency"
   },
   "historical_port": {

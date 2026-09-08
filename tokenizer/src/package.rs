@@ -62,6 +62,15 @@ pub(super) fn required_files() -> BTreeSet<String> {
     names
 }
 
+// A package keeps its original provenance across a reviewed runtime upgrade.
+// This list does not relax CMake's exact runtime-source revision check.
+fn compatible_model_revision(revision: &Value, lock: &Value) -> bool {
+    let Some(revision) = revision.as_str() else { return false; };
+    lock["ncnn"]["revision"].as_str() == Some(revision)
+        || lock["ncnn"]["compatible_model_revisions"].as_array()
+            .is_some_and(|revisions| revisions.iter().any(|v| v.as_str() == Some(revision)))
+}
+
 pub fn verify(root: &Path) -> Result<(), String> {
     let manifest = read_json(&root.join("manifest.json"))?;
     if manifest["schema_version"].as_u64() == Some(3) { return crate::shared_package::verify(root).map(|_| ()); }
@@ -94,7 +103,7 @@ pub fn verify(root: &Path) -> Result<(), String> {
             expected.insert(key, checksum);
         }
     } else if schema == 2 {
-        if manifest["ncnn_revision"] != lock["ncnn"]["revision"] { return Err("ncnn revision differs".into()); }
+        if !compatible_model_revision(&manifest["ncnn_revision"], &lock) { return Err("ncnn revision differs".into()); }
         let sizes = manifest["file_sizes"].as_object().ok_or("Missing file sizes")?;
         if expected.keys().cloned().collect::<BTreeSet<_>>() != required
             || sizes.keys().cloned().collect::<BTreeSet<_>>() != required {
@@ -135,7 +144,7 @@ pub fn verify(root: &Path) -> Result<(), String> {
 fn verify_pe(root: &Path, manifest: &Value, lock: &Value) -> Result<(), String> {
     if manifest["schema_version"].as_u64() != Some(1)
         || manifest["official_model_revision"] != lock["official_model"]["revision"]
-        || manifest["ncnn_revision"] != lock["ncnn"]["revision"] {
+        || !compatible_model_revision(&manifest["ncnn_revision"], lock) {
         return Err("PE package version differs".into());
     }
     if !manifest["portable"].is_boolean() { return Err("Missing PE portable flag".into()); }

@@ -1,0 +1,14 @@
+{
+  "command": [
+    "cmake",
+    "-S",
+    ".",
+    "-B",
+    "outputs/ncnn-promotion-v1/reject-old-source",
+    "-DERNIE_NCNN_SOURCE_DIR=/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/third_party/ncnn",
+    "-DERNIE_ALLOW_UNPINNED_NCNN=OFF"
+  ],
+  "return_code": 1,
+  "rejected_old_runtime": true,
+  "parser_note": "Initial one-line match missed CMake line wrapping; this result rereads the same configure output without rerunning."
+}

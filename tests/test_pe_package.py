@@ -43,6 +43,17 @@ class PePackageTests(unittest.TestCase):
 
     def test_complete_package(self): self.check(True)
 
+    def test_reviewed_old_revision_remains_compatible(self):
+        self.manifest['ncnn_revision'] = '6a1bf000f363714839a36793addc8c879d3d899e'
+        self.check(True)
+
+    def test_unreviewed_or_malformed_revisions_still_reject(self):
+        for revision in ('f6f734f44d66f469fefee9ee401fd1cb5e3d573e',
+                         'f'*40, None, True, [], {}):
+            with self.subTest(revision=revision):
+                self.manifest['ncnn_revision'] = revision
+                self.check(False)
+
     def test_tail_block_corruption(self):
         p = self.root/'block-25/pe.ncnn.bin'
         data = bytearray(p.read_bytes()); data[-1] ^= 1; p.write_bytes(data)

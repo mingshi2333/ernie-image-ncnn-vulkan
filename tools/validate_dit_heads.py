@@ -9,13 +9,14 @@ import shutil
 import subprocess
 import numpy as np
 from prepare_block import ROOT, sha256
+from ncnn_compat import compatible_model_revision
 
 
 def verify(model):
     manifest = json.loads((model / 'model.json').read_text())
     lock = json.loads((ROOT / 'sources.lock.json').read_text())
     fixture = json.loads((model / 'fixture.json').read_text())
-    if (manifest['ncnn_revision'] != lock['ncnn']['revision']
+    if (not compatible_model_revision(manifest.get('ncnn_revision'), lock)
             or fixture['official_revision'] != lock['official_model']['revision']
             or manifest['weights'] != fixture['weights']):
         raise ValueError('Source version or weights differ')

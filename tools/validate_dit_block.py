@@ -9,6 +9,7 @@ import signal
 import subprocess
 import numpy as np
 from prepare_block import ROOT, sha256
+from ncnn_compat import compatible_model_revision
 
 
 def verify(model_dir, fixture_dir):
@@ -17,7 +18,7 @@ def verify(model_dir, fixture_dir):
     if fixture['tokens'] != manifest['tokens'] or fixture['weights_sha256'] != manifest['weights_sha256']:
         raise ValueError('Fixture shape or block weights differ from the static model')
     lock = json.loads((ROOT / 'sources.lock.json').read_text())
-    if manifest['ncnn_revision'] != lock['ncnn']['revision']:
+    if not compatible_model_revision(manifest.get('ncnn_revision'), lock):
         raise ValueError('Runtime revision differs from the model manifest')
     for name, checksum in manifest['files'].items():
         if Path(name).name != name or sha256(model_dir / name) != checksum:

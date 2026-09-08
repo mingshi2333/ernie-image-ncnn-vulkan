@@ -16,7 +16,7 @@
 
 **2. 锁定来源，让转换与验证可以追溯**
 
-[sources.lock.json](../sources.lock.json)记录官方代码、模型权重、diffusers、transformers、ncnn、pnnx 和 tokenizer 的版本或摘要。运行时 ncnn 与转换器 pnnx 分别记录，避免把“本地某个修改版支持”当成上游已经支持。当前运行时 ncnn 锁定在 `6a1bf000f363714839a36793addc8c879d3d899e`。
+[sources.lock.json](../sources.lock.json)记录官方代码、模型权重、diffusers、transformers、ncnn、pnnx 和 tokenizer 的版本或摘要。运行时 ncnn 与转换器 pnnx 分别记录，避免把“本地某个修改版支持”当成上游已经支持。当前运行时 ncnn 锁定在 `3b7bdba7fc8aea8fd46779533eee027df77c639d`（2026-09-08 核验时的最新 Git）；以后优先跟进最新 Git，并固定通过验证的提交。模型兼容版本与构建版本分开检查：旧 `6a1bf000` 包保留真实来源，仍须通过完整文件校验。升级证据见 [独立数值对照](../artifacts/2026-09-08/ncnn-latest-git/README.md) 和 [正式升级记录](../artifacts/2026-09-08/ncnn-promotion/README.md)。
 
 转换产物保存图、权重、配置、来源和完整校验信息；长实验另行固定输入、可执行文件、源码清单和命令。权重、构建目录、大张量与生成图片留在本地，小型报告、摘要、日志和失败记录进入 `artifacts/`。执行过程中不会用一个新编译的同名二进制替换已冻结的实验对象。
 

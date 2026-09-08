@@ -41,7 +41,19 @@ cmake --install build --prefix "$PWD/outputs/install"
 ```
 
 Set `-DERNIE_ENABLE_VULKAN=OFF` for a CPU build. The ncnn revision is checked
-against `sources.lock.json`, and Cargo uses its checked-in lockfile. Inference
+against `sources.lock.json`, and Cargo uses its checked-in lockfile. The current
+ncnn pin is `3b7bdba7fc8aea8fd46779533eee027df77c639d` (verified 2026-09-08).
+After updating this repository, run `git submodule update --init --recursive`
+before rebuilding. If an existing CMake cache points `ERNIE_NCNN_SOURCE_DIR` at
+another checkout, reset it to this repository's `third_party/ncnn` directory.
+Future upgrades select the latest upstream Git commit and pin the tested SHA;
+normal builds do not resolve a moving branch. Existing models recorded against
+`6a1bf000` remain accepted through the explicit `compatible_model_revisions`
+list. Their manifests and file checksums stay intact; unknown revisions still
+fail verification. This is model compatibility, not bitwise parity for every
+prompt, precision or platform.
+
+Inference
 uses C++ and the statically linked Rust tokenizer; Python and a network
 connection are not required at runtime. A source-built executable still needs
 compatible system libraries (libpng, the compiler's OpenMP/C++ runtime, and

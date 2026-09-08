@@ -1,0 +1,31 @@
+{
+  "base_project_revision": "90571b42fdc00bea7cf30b8b1d9e0b427edd2753",
+  "ncnn_revision": "3b7bdba7fc8aea8fd46779533eee027df77c639d",
+  "glslang_revision": "780b6a209132dc74e99458f62ebe5fa7e57c41cf",
+  "normal_build": {
+    "directory": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev",
+    "unpinned_override": false,
+    "cli_sha256": "288a83e8f1246dec5485554be989b97a1e36ffd8651a1bdeae4b479f21a33d7b",
+    "sdk_reports_new_revision": true
+  },
+  "ctest": {
+    "total": 57,
+    "passed": 57,
+    "skipped": [],
+    "failed": []
+  },
+  "python_checks": {
+    "model_and_allocation_contracts": 19,
+    "encoder_contracts": 12,
+    "http_manifest_contracts": 23
+  },
+  "allocation_source_guard": {
+    "reviewed_files": 7829,
+    "full_source_sha256": "e0685c54b1cd6c6dc18a3b7e87476e66f5bd36900586569802d9128856f1f8b2",
+    "derive_and_reuse_passed": true,
+    "allocator_same_as_baseline": true
+  },
+  "source_inventory_files": 342,
+  "full_model_rerun": false,
+  "prior_full_model_evidence": "../ncnn-latest-git/README.md"
+}

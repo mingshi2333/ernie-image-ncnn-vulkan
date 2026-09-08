@@ -72,7 +72,7 @@
 
 ## ncnn、内存和性能路线
 
-对方固定的 ncnn 是 `f6f734f44d66f469fefee9ee401fd1cb5e3d573e`（2026-06-17），本项目固定为 `6a1bf000f363714839a36793addc8c879d3d899e`（2026-09-04）。更换依赖版本本身不是已测性能收益。
+本轮比较中，对方固定的 ncnn 是 `f6f734f44d66f469fefee9ee401fd1cb5e3d573e`（2026-06-17），本项目基线为 `6a1bf000f363714839a36793addc8c879d3d899e`（2026-09-04）。2026-09-08 正式依赖另行[升级到 `3b7bdba7`](../artifacts/2026-09-08/ncnn-promotion/README.md)，上述比较记录仍属于原版本。更换依赖版本本身不是已测性能收益。
 
 - **PE 已有缓存。** 对方的 PE 图含 26 个 SDPA cache 节点，C++ 用 26 组 `ncnn::Mat` K/V 输入输出接续历史状态。它不缺基本自回归缓存。我们已将较新 ncnn 的专用 allocator、容量增长和会话约定接入真实 PE，并通过 315-token 对照；尚未完成双方同模型提速对比。[PE 缓存管理](https://github.com/futz12/ernie-image-ncnn-vulkan/blob/8dcd6e4411137d8abe92c9d78581c4c96d5182c6/src/ernie_image_pipeline.cpp#L630)、[PE 图](https://huggingface.co/wuyex/ernie-image-ncnn/blob/140a052f7919f279de7f697fa54f33bd1c0cac2b/pe/decoder.ncnn.param)
 - **权重生命周期不同。** 对方一次加载包含 36 层的 `chunks` Net，并默认使用 host-memory weights；文本和 DiT 对象在后面的 VAE 阶段仍位于生成函数作用域内。本项目分阶段释放文本/DiT/VAE，DiT 每次加载一层。后者已经在本机低显存目标上运行，但会反复读取、准备和上传权重，不能直接宣称更快。[对方加载与作用域](https://github.com/futz12/ernie-image-ncnn-vulkan/blob/8dcd6e4411137d8abe92c9d78581c4c96d5182c6/src/ernie_image_pipeline.cpp#L1688)、[本项目层调度](../src/block_sequence.cpp)

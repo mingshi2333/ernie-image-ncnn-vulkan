@@ -133,7 +133,9 @@ build/linux-vulkan/ernie-image --model models/turbo-shared-v2 \
 
 ### ncnn 最新 Git 升级对照（2026-09-08）
 
-当前锁定版 `6a1bf000` 已包含 FP16/BF16 转换舍入修复。本机另行构建上游 Git `3b7bdba7`：57 项 CTest 全部通过，9 组真实权重配对输出逐位相同；完整 512×512、8 步、15-token 英文提示词对照如下。两版使用相同模型、噪声和配置，FP32 复用认证过的历史基线，FP16/BF16 各新跑一对。
+正式依赖现已升级到 `3b7bdba7fc8aea8fd46779533eee027df77c639d`，这是 2026-09-08 核验时的上游最新 Git。以后跟进最新 Git，并将通过验证的明确 SHA 同步锁定在子模块和 `sources.lock.json`。更新项目后执行 `git submodule update --init --recursive`，再重新构建即可；旧 `6a1bf000` 模型包仍兼容，无需重新转换，原始来源和文件校验保持不变。
+
+升级前的独立对照中，旧版 `6a1bf000` 已包含 FP16/BF16 转换舍入修复。新版 `3b7bdba7` 的 57 项本机 CTest 全部通过，9 组真实权重配对输出逐位相同；完整 512×512、8 步、15-token 英文提示词对照如下。两版使用相同模型、噪声和配置，FP32 复用认证过的历史基线，FP16/BF16 各新跑一对。
 
 | 精度 | 新旧张量 / PNG | 官方张量检查 | 官方 PNG 平均差（0–255） | 最大差（0–255） |
 |---|---|---:|---:|---:|
@@ -141,7 +143,7 @@ build/linux-vulkan/ernie-image --model models/turbo-shared-v2 \
 | FP16 | 全部逐位相同 | 23/25 | 0.235983531 | 109 |
 | BF16 | 全部逐位相同 | 18/25 | 1.165049235 | 98 |
 
-新版确实修复了独立 BF16 Reduction 抵消测试的错误，但本样例的完整图像误差没有因此减小。FP16/BF16 沿用各自原门槛，仍有上述未通过项；正式依赖锁定和原三平台 CI 结论保持不变。完整数据、复现代码与候选构建说明见 [ncnn 最新 Git 回归报告](artifacts/2026-09-08/ncnn-latest-git/README.md)。
+新版确实修复了独立 BF16 Reduction 抵消测试的错误，但本样例的完整图像误差没有因此减小。FP16/BF16 沿用各自原门槛，仍有上述未通过项。完整数据、复现代码与候选构建说明见 [ncnn 最新 Git 回归报告](artifacts/2026-09-08/ncnn-latest-git/README.md)；正式升级后的常规构建、模型兼容与三平台检查另见 [升级记录](artifacts/2026-09-08/ncnn-promotion/README.md)。
 
 ## 技术实现
 

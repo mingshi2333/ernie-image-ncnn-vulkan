@@ -3,6 +3,11 @@ import hashlib
 import json
 from pathlib import Path
 
+if __package__:
+    from .ncnn_compat import compatible_model_revision
+else:
+    from ncnn_compat import compatible_model_revision
+
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = dict(layers=26, hidden_size=3072, vocabulary=131072, capacity=4096, tokens_per_call=1)
 TEMPLATE_SHA256 = '0c859484eecf01db103acd02c332610163ee425cd46866d6cb126ee1bee974ea'
@@ -26,7 +31,7 @@ def verify_pe_package(root):
     if (type(manifest.get('schema_version')) is not int or manifest['schema_version'] != 1
             or manifest.get('kind') != 'prompt_enhancer'
             or manifest.get('official_model_revision') != lock['official_model']['revision']
-            or manifest.get('ncnn_revision') != lock['ncnn']['revision']):
+            or not compatible_model_revision(manifest.get('ncnn_revision'), lock)):
         raise ValueError('PE package version differs')
     if type(manifest.get('portable')) is not bool:
         raise ValueError('Missing PE portable flag')

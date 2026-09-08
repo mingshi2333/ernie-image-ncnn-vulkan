@@ -78,6 +78,11 @@ class ContractTests(unittest.TestCase):
     def test_valid_artifacts(self):
         self.assertEqual(verify(self.directory, self.directory)[1]['tokens'], 1)
 
+    def test_reviewed_old_revision_does_not_require_reexport(self):
+        self.manifest['ncnn_revision'] = '6a1bf000f363714839a36793addc8c879d3d899e'
+        self.write_manifest()
+        self.assertEqual(verify(self.directory, self.directory)[1]['tokens'], 1)
+
     def test_corrupted_bytes_fail(self):
         (self.directory / 'in0.f32').write_bytes(struct.pack('<f', 0.25))
         with self.assertRaisesRegex(ValueError, 'checksum mismatch'):

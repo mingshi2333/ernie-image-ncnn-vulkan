@@ -14,8 +14,10 @@ import uuid
 import numpy as np
 try:
     from package_model import ROOT,sha256
+    from ncnn_compat import compatible_model_revision
 except ImportError:
     from tools.package_model import ROOT,sha256
+    from tools.ncnn_compat import compatible_model_revision
 
 LIMIT=2*1024**3
 MIN_AVAILABLE=3*1024**3
@@ -47,7 +49,7 @@ def _verify(model):
     manifest=json.loads((model/'model.json').read_text());fixture=json.loads((model/'fixture.json').read_text())
     lock=json.loads((ROOT/'sources.lock.json').read_text())
     exporter=sha256(ROOT/'tools/export_vae_encoder.py')
-    if type(manifest.get('schema_version')) is not int or manifest['schema_version']!=1 or manifest.get('component')!='vae-encoder' or manifest.get('source_sha256')!=exporter or manifest.get('ncnn_revision')!=lock['ncnn']['revision']:
+    if type(manifest.get('schema_version')) is not int or manifest['schema_version']!=1 or manifest.get('component')!='vae-encoder' or manifest.get('source_sha256')!=exporter or not compatible_model_revision(manifest.get('ncnn_revision'),lock):
         raise ValueError('Encoder exporter/schema identity mismatch')
     dimensions(fixture['width'],fixture['height']);w,h=fixture['width'],fixture['height']
     fixed={'component':'vae-encoder','text_tokens':0,'official_revision':OFFICIAL_REVISION,

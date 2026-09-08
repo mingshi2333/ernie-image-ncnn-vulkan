@@ -6,6 +6,7 @@ from pathlib import Path
 from build_dit_weights import GRAPH_SHA256,graph_hash
 from prepare_block import ROOT,sha256
 from validate_dit_block import verify
+from ncnn_compat import compatible_model_revision
 
 def residual_graph(graph, restore=False):
     lines=graph.splitlines();changed=0
@@ -28,7 +29,7 @@ def verify_runtime(model):
     graph=(model/'block.ncnn.param').read_text()
     if manifest.get('fp32_residual'):graph=residual_graph(graph,restore=True)
     if (manifest['official_model_revision']!=lock['official_model']['revision']
-        or manifest['ncnn_revision']!=lock['ncnn']['revision'] or not 0<=manifest['block']<36
+        or not compatible_model_revision(manifest.get('ncnn_revision'),lock) or not 0<=manifest['block']<36
         or graph_hash(graph,manifest['tokens'])!=GRAPH_SHA256
         or any(Path(name).name!=name or sha256(model/name)!=digest for name,digest in manifest['files'].items())):
         raise ValueError('Invalid inference graph, source revision or file checksum')

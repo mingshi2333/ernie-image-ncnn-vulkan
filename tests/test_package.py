@@ -78,6 +78,25 @@ class PackageTests(unittest.TestCase):
         self.manifest['ncnn_revision'] = 'unreviewed'
         self.write_manifest(); self.check(False, 'ncnn revision differs')
 
+    def test_reviewed_old_package_keeps_provenance_when_repacked(self):
+        revision = '6a1bf000f363714839a36793addc8c879d3d899e'
+        self.manifest['ncnn_revision'] = revision
+        self.write_manifest(); self.check(True)
+        original = (self.root/'manifest.json').read_bytes()
+        destination = Path(self.temporary.name)/'repacked'
+        packed = package_model(self.root, destination)
+        self.assertEqual(packed['ncnn_revision'], revision)
+        self.assertEqual((self.root/'manifest.json').read_bytes(), original)
+        self.root = destination
+        self.check(True)
+
+    def test_unreviewed_or_malformed_revisions_still_reject(self):
+        for revision in ('f6f734f44d66f469fefee9ee401fd1cb5e3d573e',
+                         'f'*40, None, True, [], {}):
+            with self.subTest(revision=revision):
+                self.manifest['ncnn_revision'] = revision
+                self.write_manifest(); self.check(False, 'ncnn revision differs')
+
     def test_portable_flag_must_be_boolean(self):
         self.manifest['portable'] = 'true'
         self.write_manifest(); self.check(False, 'Missing portable package flag')

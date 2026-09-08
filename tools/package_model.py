@@ -6,6 +6,11 @@ import json
 from pathlib import Path
 import shutil
 
+if __package__:
+    from .ncnn_compat import compatible_model_revision
+else:
+    from ncnn_compat import compatible_model_revision
+
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -63,7 +68,7 @@ def verify_package(root):
                 raise ValueError('Tokenizer manifests disagree')
             expected[key] = digest
     elif manifest['schema_version'] == 2:
-        if manifest.get('ncnn_revision') != lock['ncnn']['revision']:
+        if not compatible_model_revision(manifest.get('ncnn_revision'), lock):
             raise ValueError('ncnn revision differs')
         if set(expected) != set(runtime_files()) or set(manifest['file_sizes']) != set(expected):
             raise ValueError('Runtime file inventory differs')
@@ -142,7 +147,8 @@ def package_model(source, output, link=False, fixed1376=False):
     packed = {'schema_version': 2, 'portable': not link,
               'scope': 'Self-contained runtime model files' if not link else 'Local development links; source files must remain present',
               'config': target_config or manifest['config'], 'official_model_revision': manifest['official_model_revision'],
-              'ncnn_revision': lock['ncnn']['revision'], 'files': packed_files,
+              # Copying an existing package does not change its recorded revision.
+              'ncnn_revision': manifest.get('ncnn_revision', lock['ncnn']['revision']), 'files': packed_files,
               'file_sizes': {name: (output/name).stat().st_size for name in files},
               'provenance': {'source_manifest_sha256': sha256(source/'manifest.json'),
                              'packager_sha256': sha256(__file__)}}
