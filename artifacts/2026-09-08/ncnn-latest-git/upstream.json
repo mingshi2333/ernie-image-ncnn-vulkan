@@ -1,0 +1,1037 @@
+{
+  "base": "6a1bf000f363714839a36793addc8c879d3d899e",
+  "head": "3b7bdba7fc8aea8fd46779533eee027df77c639d",
+  "status": "ahead",
+  "ahead_by": 8,
+  "total_commits": 8,
+  "commits": [
+    {
+      "sha": "88a29d8ef42be81b0d67f5fc53ba7695d380cc64",
+      "title": "add ci vs2026 (#6957)",
+      "committed": "2026-09-06T23:03:58Z",
+      "url": "https://github.com/Tencent/ncnn/commit/88a29d8ef42be81b0d67f5fc53ba7695d380cc64"
+    },
+    {
+      "sha": "b440d37b88ea20fca97dc24ee7d01580561e1b04",
+      "title": "fix vulkan bf16 packed without shaderInt16 (#6962)",
+      "committed": "2026-09-07T02:46:50Z",
+      "url": "https://github.com/Tencent/ncnn/commit/b440d37b88ea20fca97dc24ee7d01580561e1b04"
+    },
+    {
+      "sha": "9da5f69c0af8e1ec274400b1ff45e70093f7d458",
+      "title": "fix vs2017 dropping the mask when folding bf16 load (#6963)",
+      "committed": "2026-09-07T03:12:32Z",
+      "url": "https://github.com/Tencent/ncnn/commit/9da5f69c0af8e1ec274400b1ff45e70093f7d458"
+    },
+    {
+      "sha": "df3e53b1827e887a6ba4ca7965aa87c1998c01ff",
+      "title": "fix vulkan reduction shared accumulator type precision issue (#6964)",
+      "committed": "2026-09-07T03:12:49Z",
+      "url": "https://github.com/Tencent/ncnn/commit/df3e53b1827e887a6ba4ca7965aa87c1998c01ff"
+    },
+    {
+      "sha": "782f9ece1519bda2159db61ad36e8ae7cd3dd6ca",
+      "title": "fix random dns error in windows xp clang ci (#6965)",
+      "committed": "2026-09-07T03:14:59Z",
+      "url": "https://github.com/Tencent/ncnn/commit/782f9ece1519bda2159db61ad36e8ae7cd3dd6ca"
+    },
+    {
+      "sha": "2a358d1606a5d2b4c271052843391060a2028964",
+      "title": "x86 avx-ne-convert optimization for bf16 gemm and conversion (#6947)",
+      "committed": "2026-09-07T04:41:15Z",
+      "url": "https://github.com/Tencent/ncnn/commit/2a358d1606a5d2b4c271052843391060a2028964"
+    },
+    {
+      "sha": "dcf9478ea415c356f0427be576d51200e1062439",
+      "title": "fix mingw64 ci failure for unaligned stack access caused by inlining atan2 function (#6966)",
+      "committed": "2026-09-07T07:21:54Z",
+      "url": "https://github.com/Tencent/ncnn/commit/dcf9478ea415c356f0427be576d51200e1062439"
+    },
+    {
+      "sha": "3b7bdba7fc8aea8fd46779533eee027df77c639d",
+      "title": "Fix SIGFPE with missing or incomplete CPU topology (#6967)",
+      "committed": "2026-09-07T11:42:31Z",
+      "url": "https://github.com/Tencent/ncnn/commit/3b7bdba7fc8aea8fd46779533eee027df77c639d"
+    }
+  ],
+  "changed_files": [
+    {
+      "path": ".github/workflows/test-coverage.yml",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 0
+    },
+    {
+      "path": ".github/workflows/windows-arm.yml",
+      "status": "modified",
+      "additions": 12,
+      "deletions": 3
+    },
+    {
+      "path": ".github/workflows/windows-xp.yml",
+      "status": "modified",
+      "additions": 9,
+      "deletions": 2
+    },
+    {
+      "path": ".github/workflows/windows.yml",
+      "status": "modified",
+      "additions": 16,
+      "deletions": 7
+    },
+    {
+      "path": "src/cpu.cpp",
+      "status": "modified",
+      "additions": 6,
+      "deletions": 6
+    },
+    {
+      "path": "src/gpu.cpp",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "path": "src/layer/vulkan/shader/reduction.comp",
+      "status": "modified",
+      "additions": 21,
+      "deletions": 21
+    },
+    {
+      "path": "src/layer/x86/avx512_mathfun.h",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1
+    },
+    {
+      "path": "src/layer/x86/batchnorm_bf16s.h",
+      "status": "modified",
+      "additions": 23,
+      "deletions": 2
+    },
+    {
+      "path": "src/layer/x86/batchnorm_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/batchnorm_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/batchnorm_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 26,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/binaryop_bf16s.h",
+      "status": "modified",
+      "additions": 14,
+      "deletions": 14
+    },
+    {
+      "path": "src/layer/x86/binaryop_x86.cpp",
+      "status": "modified",
+      "additions": 11,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/binaryop_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/binaryop_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/binaryop_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 54,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/bnll_bf16s.h",
+      "status": "modified",
+      "additions": 14,
+      "deletions": 2
+    },
+    {
+      "path": "src/layer/x86/bnll_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/bnll_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/bnll_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 24,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/cast_bf16.h",
+      "status": "modified",
+      "additions": 12,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/cast_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 17,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/clip_bf16s.h",
+      "status": "modified",
+      "additions": 14,
+      "deletions": 2
+    },
+    {
+      "path": "src/layer/x86/clip_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/clip_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/clip_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 21,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/convolution1d_packed_bf16s.h",
+      "status": "modified",
+      "additions": 271,
+      "deletions": 267
+    },
+    {
+      "path": "src/layer/x86/convolution1d_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/convolution1d_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/convolution1d_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 29,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/convolution_3x3_winograd_bf16s.h",
+      "status": "modified",
+      "additions": 285,
+      "deletions": 108
+    },
+    {
+      "path": "src/layer/x86/convolution_im2col_gemm_bf16s.h",
+      "status": "modified",
+      "additions": 1365,
+      "deletions": 488
+    },
+    {
+      "path": "src/layer/x86/convolution_im2col_gemm_int8.h",
+      "status": "modified",
+      "additions": 9,
+      "deletions": 3
+    },
+    {
+      "path": "src/layer/x86/convolution_packed_bf16s.h",
+      "status": "modified",
+      "additions": 268,
+      "deletions": 264
+    },
+    {
+      "path": "src/layer/x86/convolution_packed_int8.h",
+      "status": "modified",
+      "additions": 15,
+      "deletions": 30
+    },
+    {
+      "path": "src/layer/x86/convolution_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/convolution_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/convolution_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 88,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/deconvolution_packed_bf16s.h",
+      "status": "modified",
+      "additions": 268,
+      "deletions": 258
+    },
+    {
+      "path": "src/layer/x86/deconvolution_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/deconvolution_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/deconvolution_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 29,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/dequantize_bf16s.h",
+      "status": "modified",
+      "additions": 14,
+      "deletions": 2
+    },
+    {
+      "path": "src/layer/x86/dequantize_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 19,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/dropout_bf16s.h",
+      "status": "modified",
+      "additions": 14,
+      "deletions": 2
+    },
+    {
+      "path": "src/layer/x86/dropout_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/dropout_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/dropout_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 21,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/eltwise_bf16s.h",
+      "status": "modified",
+      "additions": 20,
+      "deletions": 8
+    },
+    {
+      "path": "src/layer/x86/eltwise_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/eltwise_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/eltwise_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 21,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/elu_bf16s.h",
+      "status": "modified",
+      "additions": 14,
+      "deletions": 2
+    },
+    {
+      "path": "src/layer/x86/elu_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/elu_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/elu_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 24,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/erf_bf16s.h",
+      "status": "modified",
+      "additions": 14,
+      "deletions": 2
+    },
+    {
+      "path": "src/layer/x86/erf_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/erf_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/erf_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 24,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/gelu_bf16s.h",
+      "status": "modified",
+      "additions": 16,
+      "deletions": 4
+    },
+    {
+      "path": "src/layer/x86/gelu_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/gelu_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/gelu_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 24,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/gemm_bf16s.h",
+      "status": "modified",
+      "additions": 1504,
+      "deletions": 120
+    },
+    {
+      "path": "src/layer/x86/gemm_int8.h",
+      "status": "modified",
+      "additions": 38,
+      "deletions": 16
+    },
+    {
+      "path": "src/layer/x86/gemm_wq_int8.h",
+      "status": "modified",
+      "additions": 20,
+      "deletions": 14
+    },
+    {
+      "path": "src/layer/x86/gemm_wq_int8_bf16s.h",
+      "status": "modified",
+      "additions": 44,
+      "deletions": 36
+    },
+    {
+      "path": "src/layer/x86/gemm_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/gemm_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/gemm_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 47,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/groupnorm_bf16s.h",
+      "status": "modified",
+      "additions": 14,
+      "deletions": 2
+    },
+    {
+      "path": "src/layer/x86/groupnorm_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/groupnorm_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/groupnorm_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 21,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/hardsigmoid_bf16s.h",
+      "status": "modified",
+      "additions": 14,
+      "deletions": 2
+    },
+    {
+      "path": "src/layer/x86/hardsigmoid_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/hardsigmoid_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/hardsigmoid_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 21,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/hardswish_bf16s.h",
+      "status": "modified",
+      "additions": 14,
+      "deletions": 2
+    },
+    {
+      "path": "src/layer/x86/hardswish_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/hardswish_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/hardswish_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 21,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/innerproduct_bf16s.h",
+      "status": "modified",
+      "additions": 178,
+      "deletions": 60
+    },
+    {
+      "path": "src/layer/x86/innerproduct_gemm_bf16s.h",
+      "status": "modified",
+      "additions": 141,
+      "deletions": 33
+    },
+    {
+      "path": "src/layer/x86/innerproduct_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 5,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/innerproduct_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/innerproduct_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 40,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/instancenorm_bf16s.h",
+      "status": "modified",
+      "additions": 13,
+      "deletions": 1
+    },
+    {
+      "path": "src/layer/x86/instancenorm_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/instancenorm_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/instancenorm_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 21,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/interp_bf16s.h",
+      "status": "modified",
+      "additions": 16,
+      "deletions": 4
+    },
+    {
+      "path": "src/layer/x86/interp_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 22,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/layernorm_bf16s.h",
+      "status": "modified",
+      "additions": 15,
+      "deletions": 3
+    },
+    {
+      "path": "src/layer/x86/layernorm_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/layernorm_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/layernorm_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 21,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/mish_bf16s.h",
+      "status": "modified",
+      "additions": 13,
+      "deletions": 1
+    },
+    {
+      "path": "src/layer/x86/mish_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/mish_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/mish_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 24,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/pooling_bf16s.h",
+      "status": "modified",
+      "additions": 44,
+      "deletions": 5
+    },
+    {
+      "path": "src/layer/x86/pooling_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/pooling_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/pooling_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 36,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/prelu_bf16s.h",
+      "status": "modified",
+      "additions": 33,
+      "deletions": 3
+    },
+    {
+      "path": "src/layer/x86/prelu_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/prelu_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/prelu_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 31,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/quantize_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/quantize_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/relu_bf16s.h",
+      "status": "modified",
+      "additions": 16,
+      "deletions": 4
+    },
+    {
+      "path": "src/layer/x86/relu_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/relu_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/relu_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 21,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/rmsnorm_bf16s.h",
+      "status": "modified",
+      "additions": 15,
+      "deletions": 3
+    },
+    {
+      "path": "src/layer/x86/rmsnorm_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/rmsnorm_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/rmsnorm_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 21,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/rotaryembed_bf16s.h",
+      "status": "modified",
+      "additions": 16,
+      "deletions": 3
+    },
+    {
+      "path": "src/layer/x86/rotaryembed_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/rotaryembed_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/rotaryembed_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 21,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/scale_bf16s.h",
+      "status": "modified",
+      "additions": 43,
+      "deletions": 4
+    },
+    {
+      "path": "src/layer/x86/scale_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/scale_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/scale_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 36,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/sdpa_decode_bf16s.h",
+      "status": "modified",
+      "additions": 130,
+      "deletions": 8
+    },
+    {
+      "path": "src/layer/x86/sdpa_kvcache.h",
+      "status": "modified",
+      "additions": 5,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/sdpa_prefill_bf16s.h",
+      "status": "modified",
+      "additions": 372,
+      "deletions": 89
+    },
+    {
+      "path": "src/layer/x86/sdpa_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/sdpa_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/sdpa_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 46,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/selu_bf16s.h",
+      "status": "modified",
+      "additions": 13,
+      "deletions": 1
+    },
+    {
+      "path": "src/layer/x86/selu_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/selu_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/selu_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 24,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/sigmoid_bf16s.h",
+      "status": "modified",
+      "additions": 14,
+      "deletions": 2
+    },
+    {
+      "path": "src/layer/x86/sigmoid_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/sigmoid_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/sigmoid_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 24,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/softmax_bf16s.h",
+      "status": "modified",
+      "additions": 45,
+      "deletions": 6
+    },
+    {
+      "path": "src/layer/x86/softmax_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/softmax_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/softmax_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 41,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/swish_bf16s.h",
+      "status": "modified",
+      "additions": 13,
+      "deletions": 1
+    },
+    {
+      "path": "src/layer/x86/swish_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/swish_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/swish_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 24,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/tanh_bf16s.h",
+      "status": "modified",
+      "additions": 14,
+      "deletions": 2
+    },
+    {
+      "path": "src/layer/x86/tanh_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/tanh_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/tanh_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 24,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/unaryop_bf16s.h",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 2
+    },
+    {
+      "path": "src/layer/x86/unaryop_x86.cpp",
+      "status": "modified",
+      "additions": 11,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/unaryop_x86_avx2.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/unaryop_x86_avx512bf16.cpp",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/unaryop_x86_avxneconvert.cpp",
+      "status": "added",
+      "additions": 128,
+      "deletions": 0
+    },
+    {
+      "path": "src/layer/x86/x86_usability.h",
+      "status": "modified",
+      "additions": 28,
+      "deletions": 0
+    },
+    {
+      "path": "src/ncnn_glsl_ext.comp",
+      "status": "modified",
+      "additions": 8,
+      "deletions": 3
+    },
+    {
+      "path": "tests/test_packing.cpp",
+      "status": "modified",
+      "additions": 24,
+      "deletions": 7
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "task": "Test latest upstream ncnn with current ERNIE project",
+  "project_head": "2490136ee8e11a2cf4702180d3938d3bb1f6086d",
+  "baseline_ncnn": "6a1bf000f363714839a36793addc8c879d3d899e",
+  "candidate_ncnn": "3b7bdba7fc8aea8fd46779533eee027df77c639d",
+  "requested_scope": [
+    "native build",
+    "project CTest",
+    "affected conversion and reduction probes",
+    "matched real-model regression"
+  ],
+  "started_utc": "2026-09-08T12:50:11.245781+00:00",
+  "baseline_source_unchanged": true
+}

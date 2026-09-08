@@ -1,0 +1,26 @@
+[
+  {
+    "path": "src/layer/vulkan/shader/sdpa_cross.comp",
+    "baseline": "a6e6d5caaa411e4253a01a57b5fef461eeb1d9e634e3043920b9c6ad7dca4b14",
+    "candidate": "a6e6d5caaa411e4253a01a57b5fef461eeb1d9e634e3043920b9c6ad7dca4b14",
+    "same": true
+  },
+  {
+    "path": "src/layer/vulkan/shader/softmax_reduce_sum.comp",
+    "baseline": "8be03bc935b53d7f8fb7e4900196bcc7c660eccc64c8f2b3ec78c7986b7873dd",
+    "candidate": "8be03bc935b53d7f8fb7e4900196bcc7c660eccc64c8f2b3ec78c7986b7873dd",
+    "same": true
+  },
+  {
+    "path": "src/modelbin.cpp",
+    "baseline": "eefc538407f88ca9cb3c1c3bde30eb4aa764b1d1c5f4bba9ab9cdd9119c3cb78",
+    "candidate": "eefc538407f88ca9cb3c1c3bde30eb4aa764b1d1c5f4bba9ab9cdd9119c3cb78",
+    "same": true
+  },
+  {
+    "path": "src/layer/vulkan/shader/reduction.comp",
+    "baseline": "baebd2156b54482898ae9498fc4dcc15fc9101ed091b363ce15997723ea7b7d2",
+    "candidate": "c1b00e5ed805d3fdb6dc88f3e472a5627ee227924052a639191406544a75ee9b",
+    "same": false
+  }
+]

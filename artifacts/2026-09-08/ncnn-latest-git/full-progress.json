@@ -1,0 +1,13 @@
+{
+  "status": "complete",
+  "pid": 696678,
+  "completed": [
+    "candidate-fp32",
+    "baseline-fp16",
+    "candidate-fp16",
+    "baseline-bf16",
+    "candidate-bf16"
+  ],
+  "plan_sha256": "3030312df4078f44227c96514be76d87bda5a5b617a843f78e44ebd3480ac9ef",
+  "supervisor_sha256": "f7fb8d4facaf5345c18dc38f6cd8162245fdfefb69fef13b2e7140003f1b51e5"
+}

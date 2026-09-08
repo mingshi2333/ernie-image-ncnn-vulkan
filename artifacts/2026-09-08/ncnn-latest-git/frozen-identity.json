@@ -1,0 +1,30 @@
+{
+  "project_head": "2490136ee8e11a2cf4702180d3938d3bb1f6086d",
+  "source_archive_sha256": "21e68f205ac00a0d715423307869e66e7edcdd3c18e7cbd237f36e14ea9046a0",
+  "binaries": {
+    "baseline-bin/ernie-image": {
+      "sha256": "3fc8009f3083f59b5b6365f3692fde2e92afa9e06ad7f65a5b08634d28a30010",
+      "bytes": 36961080
+    },
+    "baseline-bin/ernie-block-runner": {
+      "sha256": "fb8b5636af0c8be945623da9a59a6435707ecd29cf7e9ccf9646d4f8989e992b",
+      "bytes": 19191920
+    },
+    "baseline-bin/ernie-block-sequence-runner": {
+      "sha256": "aa863b938af76b0646ba9ba95e8cca6d9fd5d19172a8ec173a4272d2a8269747",
+      "bytes": 36441304
+    },
+    "candidate-bin/ernie-image": {
+      "sha256": "0c174679489ea59dd80f91a530589438048e1403b6b99563ef1a903a565dcac2",
+      "bytes": 37587888
+    },
+    "candidate-bin/ernie-block-runner": {
+      "sha256": "03076295ee855e7586af406980c7deb7d14ea05501b676226fb93bd2f8ae118a",
+      "bytes": 19863040
+    },
+    "candidate-bin/ernie-block-sequence-runner": {
+      "sha256": "ba4058164837c4e03db3d1d8e4bdb87932ed8dc62d0c1c13f0a9a1e0a8f0ba06",
+      "bytes": 37068096
+    }
+  }
+}

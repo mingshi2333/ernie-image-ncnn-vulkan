@@ -1,0 +1,22 @@
+{
+  "scope": "Discarded standalone diagnostic setup attempts; these are not project or ncnn test failures",
+  "attempts": [
+    {
+      "name": "v0",
+      "outcome": "Scalar conversion checks passed; direct Vulkan Reduction received auto-packed upload without Net packing adaptation; invalid download representation rejected."
+    },
+    {
+      "name": "v1",
+      "outcome": "Logical-shape check did not repair missing pack1 conversion; both versions rejected."
+    },
+    {
+      "name": "v2",
+      "outcome": "Explicit device-side conversion to pack1 follows Reduction contract; 19 rows passed on both revisions, but three generic patterns did not expose shared BF16 rounding."
+    },
+    {
+      "name": "v3",
+      "outcome": "Added exactly representable cancellation input that specifically tests rounding of shared partial sums. Both FP16/FP32 controls pass; baseline BF16 returns zero and latest returns exact FP64 oracle."
+    }
+  ],
+  "gates_changed": false
+}

@@ -1,0 +1,227 @@
+{
+  "project_revision": "2490136ee8e11a2cf4702180d3938d3bb1f6086d",
+  "baseline_ncnn": "6a1bf000f363714839a36793addc8c879d3d899e",
+  "candidate_ncnn": "3b7bdba7fc8aea8fd46779533eee027df77c639d",
+  "complete": true,
+  "platform": "Linux / NVIDIA RTX 4060 Laptop 8GB",
+  "ctest": {
+    "tests": 57,
+    "failures": 0,
+    "skipped": 0,
+    "disabled": 0
+  },
+  "matched_real_weight_cases": 9,
+  "real_weight_executions": 18,
+  "bitwise_equal_real_weight_cases": 9,
+  "real_weight_elements_per_version": 58195968,
+  "post_run_rechecked_file_bindings": 124,
+  "full_runs": [
+    {
+      "case": "candidate-fp32",
+      "official_passed_tensors": 25,
+      "official_total_tensors": 25,
+      "official_numerical_gate_passed": true,
+      "failed_tensors": [],
+      "official_png": {
+        "mae": 0.0003611246744791667,
+        "max_abs": 1,
+        "different_channels": 284,
+        "passed": true,
+        "sha256": "bf87214d21461bfda96529830b28a5b7630ef0dcf307c0172f1666fc64044e28",
+        "quantization_exact": true
+      },
+      "compared_elements": 4981760,
+      "scope_wall_seconds": 541.5081191080099,
+      "cgroup_memory_peak_bytes": 5429428224,
+      "whole_gpu_sampled_peak_mib": 2502,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0,
+        "sock_throttled": 0
+      },
+      "old_new": {
+        "baseline": "/var/tmp/ernie-compact-reader512-v1/baseline",
+        "bitwise_equal_tensors": 25,
+        "png_bitwise_equal": true,
+        "png_pixels_equal": true,
+        "png_max_abs_difference": 0
+      }
+    },
+    {
+      "case": "baseline-fp16",
+      "official_passed_tensors": 23,
+      "official_total_tensors": 25,
+      "official_numerical_gate_passed": false,
+      "failed_tensors": [
+        "prediction-7",
+        "decoded"
+      ],
+      "official_png": {
+        "mae": 0.23598353068033853,
+        "max_abs": 109,
+        "different_channels": 150735,
+        "passed": false,
+        "sha256": "b1056edd50422fe6d2ee6e29c2a6123f52f93ac36f3d5c9422a3d08781a7d2e1",
+        "quantization_exact": true
+      },
+      "compared_elements": 4981760,
+      "scope_wall_seconds": 620.1455934039841,
+      "cgroup_memory_peak_bytes": 4842311680,
+      "whole_gpu_sampled_peak_mib": 2369,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0,
+        "sock_throttled": 0
+      }
+    },
+    {
+      "case": "candidate-fp16",
+      "official_passed_tensors": 23,
+      "official_total_tensors": 25,
+      "official_numerical_gate_passed": false,
+      "failed_tensors": [
+        "prediction-7",
+        "decoded"
+      ],
+      "official_png": {
+        "mae": 0.23598353068033853,
+        "max_abs": 109,
+        "different_channels": 150735,
+        "passed": false,
+        "sha256": "b1056edd50422fe6d2ee6e29c2a6123f52f93ac36f3d5c9422a3d08781a7d2e1",
+        "quantization_exact": true
+      },
+      "compared_elements": 4981760,
+      "scope_wall_seconds": 634.4013667769905,
+      "cgroup_memory_peak_bytes": 5275844608,
+      "whole_gpu_sampled_peak_mib": 2371,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0,
+        "sock_throttled": 0
+      },
+      "old_new": {
+        "baseline": "/var/tmp/ernie-ncnn-latest-20260908-v1/full/baseline-fp16",
+        "bitwise_equal_tensors": 25,
+        "png_bitwise_equal": true,
+        "png_pixels_equal": true,
+        "png_max_abs_difference": 0
+      }
+    },
+    {
+      "case": "baseline-bf16",
+      "official_passed_tensors": 18,
+      "official_total_tensors": 25,
+      "official_numerical_gate_passed": false,
+      "failed_tensors": [
+        "prediction-5",
+        "prediction-6",
+        "prediction-7",
+        "step-7",
+        "final",
+        "unpacked",
+        "decoded"
+      ],
+      "official_png": {
+        "mae": 1.1650492350260417,
+        "max_abs": 98,
+        "different_channels": 495560,
+        "passed": false,
+        "sha256": "1b9b107b323460d9309b0fb36f17e28d55fc72d608493200366f1f6413b52ec5",
+        "quantization_exact": true
+      },
+      "compared_elements": 4981760,
+      "scope_wall_seconds": 598.2684864230105,
+      "cgroup_memory_peak_bytes": 3653107712,
+      "whole_gpu_sampled_peak_mib": 2342,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0,
+        "sock_throttled": 0
+      }
+    },
+    {
+      "case": "candidate-bf16",
+      "official_passed_tensors": 18,
+      "official_total_tensors": 25,
+      "official_numerical_gate_passed": false,
+      "failed_tensors": [
+        "prediction-5",
+        "prediction-6",
+        "prediction-7",
+        "step-7",
+        "final",
+        "unpacked",
+        "decoded"
+      ],
+      "official_png": {
+        "mae": 1.1650492350260417,
+        "max_abs": 98,
+        "different_channels": 495560,
+        "passed": false,
+        "sha256": "1b9b107b323460d9309b0fb36f17e28d55fc72d608493200366f1f6413b52ec5",
+        "quantization_exact": true
+      },
+      "compared_elements": 4981760,
+      "scope_wall_seconds": 598.4768489400158,
+      "cgroup_memory_peak_bytes": 3395047424,
+      "whole_gpu_sampled_peak_mib": 2238,
+      "memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0,
+        "sock_throttled": 0
+      },
+      "old_new": {
+        "baseline": "/var/tmp/ernie-ncnn-latest-20260908-v1/full/baseline-bf16",
+        "bitwise_equal_tensors": 25,
+        "png_bitwise_equal": true,
+        "png_pixels_equal": true,
+        "png_max_abs_difference": 0
+      }
+    }
+  ],
+  "formal_performance_claim": false,
+  "production_pin_changed": false,
+  "new_remote_ci_run": false,
+  "baseline_precision_probe": {
+    "conversion": {
+      "passed": 10,
+      "total": 10
+    },
+    "reduction": {
+      "passed": 11,
+      "total": 12
+    }
+  },
+  "candidate_precision_probe": {
+    "conversion": {
+      "passed": 10,
+      "total": 10
+    },
+    "reduction": {
+      "passed": 12,
+      "total": 12
+    }
+  },
+  "candidate_compatibility_regression_passed": true
+}

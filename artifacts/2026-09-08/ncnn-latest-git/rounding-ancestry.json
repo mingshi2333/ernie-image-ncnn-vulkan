@@ -1,0 +1,22 @@
+{
+  "baseline_ncnn": "6a1bf000f363714839a36793addc8c879d3d899e",
+  "confirmed_by_github_compare": [
+    {
+      "fix": "float32 to BF16 rounding",
+      "pr": "https://github.com/Tencent/ncnn/pull/6925",
+      "commit": "0a2c46bc75987a39d3b044c77385c564e83c0a84",
+      "status": "ahead",
+      "ahead_by": 9,
+      "behind_by": 0
+    },
+    {
+      "fix": "FP8 and FP16 conversion rounding",
+      "pr": "https://github.com/Tencent/ncnn/pull/6958",
+      "commit": "34a748349c580f1864edea1db3acd1a48ad38484",
+      "status": "ahead",
+      "ahead_by": 1,
+      "behind_by": 0
+    }
+  ],
+  "interpretation": "Both rounding fixes already belong to the locked baseline; the candidate is 8 commits newer and additionally changes Vulkan Reduction shared accumulation."
+}

@@ -1,0 +1,11 @@
+{
+  "command": [
+    "cmake",
+    "--build",
+    "/var/tmp/ernie-ncnn-latest-20260908-v1/build",
+    "--parallel",
+    "2"
+  ],
+  "return_code": 0,
+  "elapsed_seconds": 166.0043237489881
+}

@@ -1,0 +1,62 @@
+{
+  "scope": "All text-format graph objects in the frozen shared package",
+  "graphs": [
+    {
+      "sha256": "1ff97ac22b5c1e3ff31856a9476e68eae41c4f671d724b846361992c8511b19a",
+      "layer_count": 134,
+      "reduction_layers": 0
+    },
+    {
+      "sha256": "4b639f650ecf495ebf9e7ab5c2090f885b088d516c1a871d6f36c22063491d8a",
+      "layer_count": 134,
+      "reduction_layers": 0
+    },
+    {
+      "sha256": "7848bef3d3e38a3478066f9532def039e4b4d23f3ce3d721dbc361e6d11a8d7f",
+      "layer_count": 16,
+      "reduction_layers": 0
+    },
+    {
+      "sha256": "7fd4d84ac86be722af1fd7cd3fdee70545404914fcda71a663272f0299010f92",
+      "layer_count": 74,
+      "reduction_layers": 0
+    },
+    {
+      "sha256": "907a82486990ea8608de2fb70c96ad75496853f68ecfa65a2313a0ad04456ac1",
+      "layer_count": 14,
+      "reduction_layers": 0
+    },
+    {
+      "sha256": "912dc8a3f8839cca841004f8c5afb4df5c9d5015d4fedbb4deb77d67a62e2523",
+      "layer_count": 58,
+      "reduction_layers": 0
+    },
+    {
+      "sha256": "a9776b2928a87a48395a21de3801678c2e7600096028546d53a7a255deecfce7",
+      "layer_count": 58,
+      "reduction_layers": 0
+    },
+    {
+      "sha256": "ba3ca63efa8c105cd556641e1ced6c6d38ffaae974f903e085d138ed9ff96175",
+      "layer_count": 58,
+      "reduction_layers": 0
+    },
+    {
+      "sha256": "d33ef98c4cdfbcf9c568fef3b360b6a11259fe9fc80cf0e46fd2a63a2b647754",
+      "layer_count": 16,
+      "reduction_layers": 0
+    },
+    {
+      "sha256": "e8ed770153823bc60b2f27cfac14b9a58f534eb6bd9f19dc692d650f7faddd13",
+      "layer_count": 74,
+      "reduction_layers": 0
+    },
+    {
+      "sha256": "faaa6ccd29cc4d55a6b62f6b523d20427512761d291bd0bb05bdf531abc88e5e",
+      "layer_count": 14,
+      "reduction_layers": 0
+    }
+  ],
+  "total_graphs": 11,
+  "reduction_layers": 0
+}
