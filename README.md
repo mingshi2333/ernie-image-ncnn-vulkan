@@ -298,6 +298,7 @@ int main()
 - [实测结果和已知数值差异](docs/VALIDATION-STATUS.md)
 - [三平台构建与执行记录](docs/PLATFORM-VALIDATION.md)
 - [ncnn Discussions 移植教程草稿](docs/NCNN-DISCUSSION-DRAFT.md)
+- [全部工作与其他项目复用说明](docs/PORTING-REUSE-GUIDE.md)
 - [版本与来源锁定](sources.lock.json)
 
 本项目新增代码使用 [MIT 许可](LICENSE)；ncnn 和模型权重遵循各自许可。官方模型来源为 [Baidu ERNIE-Image](https://github.com/baidu/ERNIE-Image)，运行时依赖 [Tencent ncnn](https://github.com/Tencent/ncnn)。[futz12/ernie-image-ncnn-vulkan](https://github.com/futz12/ernie-image-ncnn-vulkan/tree/8dcd6e4411137d8abe92c9d78581c4c96d5182c6) 等项目用于架构与行为参考，未复制其运行时代码或模型权重到本仓库。
