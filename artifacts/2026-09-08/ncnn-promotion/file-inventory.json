@@ -1,0 +1,186 @@
+{
+  "README.md": {
+    "bytes": 5184,
+    "sha256": "0afd82bd9ef32cb1b724dbe9d1439179d8e847d674673a1e2488047cbcea7ae6"
+  },
+  "ci/linux-vulkan-OFF-reader-OFF/CMakeCache.txt.gz": {
+    "bytes": 7258,
+    "sha256": "3b04d850e73ad75a6e36d9b295ad0b46d4a5b35e5e70266e1838ecb3844c3b2f"
+  },
+  "ci/linux-vulkan-OFF-reader-OFF/Testing/Temporary/LastTest.log.gz": {
+    "bytes": 6352,
+    "sha256": "ae6eee249547514007ffb67f14f96ac98240ff13d971fcb9d3127f2f919ae25f"
+  },
+  "ci/linux-vulkan-OFF-reader-OFF/ctest-results.xml": {
+    "bytes": 20464,
+    "sha256": "c9c6fa8a20eb9ddd09651364c66cafd587086de6669fcb13d29c0f3dfed740b8"
+  },
+  "ci/linux-vulkan-OFF-reader-OFF/job.log.gz": {
+    "bytes": 23272,
+    "sha256": "c7090db09e58fe7a23b9ab06a24e0ae0086295a6e36a240bed7697afe95a176f"
+  },
+  "ci/linux-vulkan-OFF-reader-ON/CMakeCache.txt.gz": {
+    "bytes": 7258,
+    "sha256": "bcb0a850e73aeac4c156d59ad3ad53808d31f91109b83739eefd53ce3c191275"
+  },
+  "ci/linux-vulkan-OFF-reader-ON/Testing/Temporary/LastTest.log.gz": {
+    "bytes": 6341,
+    "sha256": "6d68a17ded116cf03146aa99a8ea701128bec9a0e3aa364542286e9970b385e5"
+  },
+  "ci/linux-vulkan-OFF-reader-ON/ctest-results.xml": {
+    "bytes": 20461,
+    "sha256": "f36bf10983f9fa590d8c9f630bda45dc8eb317fb228b6ba5079dbd4bdcd86c4b"
+  },
+  "ci/linux-vulkan-OFF-reader-ON/job.log.gz": {
+    "bytes": 23213,
+    "sha256": "5185ced65dc33e628155aa45cc375e67f15bdd0e2cf152c59a5e57e292c80e58"
+  },
+  "ci/linux-vulkan-ON-reader-OFF/CMakeCache.txt.gz": {
+    "bytes": 7666,
+    "sha256": "ad4eec336a71c764c2df4294c0a5f7dedfa79d9884a618ecdbbb1ecd307e0458"
+  },
+  "ci/linux-vulkan-ON-reader-OFF/Testing/Temporary/LastTest.log.gz": {
+    "bytes": 8573,
+    "sha256": "f20458914b8e6a101682da7c8de00c3dadfd775c29d764fbe8ddcdc4343942e6"
+  },
+  "ci/linux-vulkan-ON-reader-OFF/Testing/Temporary/LastTestsDisabled.log.gz": {
+    "bytes": 92,
+    "sha256": "372704be9ef5e925e7af6e5837f0653fc274b5f77ffb090281068535ed1586ed"
+  },
+  "ci/linux-vulkan-ON-reader-OFF/ctest-results.xml": {
+    "bytes": 43212,
+    "sha256": "03d97c3070b8b7db9ab390e55fa7334f1752eb031a06135400a90b4896fe7e90"
+  },
+  "ci/linux-vulkan-ON-reader-OFF/job.log.gz": {
+    "bytes": 29843,
+    "sha256": "cf92d7adee38529c4f2f723ec539cd463beadc5c3baf7289cb28aad0cafa43e7"
+  },
+  "ci/macos-apple-clang-vulkan/CMakeCache.txt.gz": {
+    "bytes": 7996,
+    "sha256": "86d6c7dca426902121b0304bfabfec964c1620e7971f27c2d38bc06a7d2d2911"
+  },
+  "ci/macos-apple-clang-vulkan/Testing/Temporary/LastTest.log.gz": {
+    "bytes": 8563,
+    "sha256": "ca17f26ceb6cf0be67fc3692a3462f286bce5c23e92f0aa4e57482d892d1ba3f"
+  },
+  "ci/macos-apple-clang-vulkan/Testing/Temporary/LastTestsDisabled.log.gz": {
+    "bytes": 92,
+    "sha256": "372704be9ef5e925e7af6e5837f0653fc274b5f77ffb090281068535ed1586ed"
+  },
+  "ci/macos-apple-clang-vulkan/ctest-results.xml": {
+    "bytes": 42889,
+    "sha256": "52a1449dd3a061b69897c60ecfa32229b0c8962bada3e16c54f5485d5969ffe8"
+  },
+  "ci/macos-apple-clang-vulkan/job.log.gz": {
+    "bytes": 30056,
+    "sha256": "fe3b01b5e58627dfbeb2e5a8365c8245309ceea1d3f2e25c678683d6061cd2c1"
+  },
+  "ci/windows-msvc-vulkan/CMakeCache.txt.gz": {
+    "bytes": 8808,
+    "sha256": "cd119c2bcb31986853f6245f1aa837a6c2d528b9db9f1368f3a3276483c9e935"
+  },
+  "ci/windows-msvc-vulkan/Testing/Temporary/LastTest.log.gz": {
+    "bytes": 7408,
+    "sha256": "a22ee646241fe7738914ff5797325fea98d57237082eab12b23f542f4ceb6ca3"
+  },
+  "ci/windows-msvc-vulkan/Testing/Temporary/LastTestsDisabled.log.gz": {
+    "bytes": 246,
+    "sha256": "944c65887b382184dc4046d302b825971f71b0b7f5f9f1337773e0db4de35929"
+  },
+  "ci/windows-msvc-vulkan/ctest-results.xml.gz": {
+    "bytes": 4803,
+    "sha256": "9dd33ea17a4617a49c5927e1927a043b2e96ae923f3dfe5b87261439308e101e"
+  },
+  "ci/windows-msvc-vulkan/job.log.gz": {
+    "bytes": 31492,
+    "sha256": "614f9b7397b0ac84a5e0f9d067e992d9c5232e9a6d44b6f5d4f247478795baa0"
+  },
+  "ci-run.json": {
+    "bytes": 16193,
+    "sha256": "adbe2ee1b0bb272e86b22749433bdcc4e1448b5afad9576f483739dcf4c2ca41"
+  },
+  "ci-summary.json": {
+    "bytes": 5020,
+    "sha256": "b6121c1b35b52759ecfe4a1e04b2a51bff762c173a31d5eb03159f975dc6aa2a"
+  },
+  "documentation-check.json": {
+    "bytes": 301,
+    "sha256": "429b50c5ca41ac02da51cf582334faa61d8e0ddbc5679bcc02519983e1ee0c5e"
+  },
+  "existing-package-checks.json": {
+    "bytes": 1394,
+    "sha256": "7b0b0a76141f8f0d3a1aeac6ab15b55cc01ab83650398dd9aab94a63f52a4c56"
+  },
+  "final-readback.json": {
+    "bytes": 350,
+    "sha256": "5e24ac0a11c9d535c6ab2654cee907255e7545b59ce0406c5c9931496d9b5ab5"
+  },
+  "local/CMakeCache.txt.gz": {
+    "bytes": 7963,
+    "sha256": "b3a3241e33c98a5ade1284b2026d8021b6625f97d959ab56900695d0fc2460a6"
+  },
+  "local/build.log.gz": {
+    "bytes": 4901,
+    "sha256": "a8c63043cf56ee0a83709cb06d8fbf134f98634b70ee40e307cf0114cc79490a"
+  },
+  "local/configure.log.gz": {
+    "bytes": 242,
+    "sha256": "99647475ec635bb14b3be389c7eee162348f5ac9eebceedc8b8bdac8461f3e69"
+  },
+  "local/ctest-results.xml": {
+    "bytes": 49645,
+    "sha256": "9751a741bac1a69876bf932a1e6ea46f0c340e17892353a428e258018c99aab2"
+  },
+  "local/ctest.log.gz": {
+    "bytes": 1322,
+    "sha256": "fd2cb4fac03f52ad1777e2f80dfb6be5cfb25ab13847b2322390409c30ca5cc2"
+  },
+  "local/encoder-contracts.log.gz": {
+    "bytes": 469,
+    "sha256": "4468ed901fc21a74ede423db9dbbf33a65f64c0be875b53609b81b84b0aa95cb"
+  },
+  "local/http-contracts.log.gz": {
+    "bytes": 563,
+    "sha256": "f83de87c29e2b553d134568a88e7fb315fe97cb82fd291454481884ac1e66693"
+  },
+  "local/pe-cpu-v1-verify.log.gz": {
+    "bytes": 35,
+    "sha256": "49c3adfe090fa8d5356a3aeddb72b11fc80256be26b745a282574b9a210e23c0"
+  },
+  "local/python-contracts.log.gz": {
+    "bytes": 621,
+    "sha256": "fc490ae9cecd503c5af82730c55d90057d10bbf5051d4d1b9f51e4a6871a4857"
+  },
+  "local/reject-old-source.log.gz": {
+    "bytes": 382,
+    "sha256": "7c5c3ee82d73f46093a6d8538816e5666ab666e287141d993186e5001746585c"
+  },
+  "local/runtime-pin-guard-reviewed.json": {
+    "bytes": 439,
+    "sha256": "4774fff6244ae73aaa5f0f2315a9f269367eeec2d50324276d90db933454c2c9"
+  },
+  "local/runtime-pin-guard.json": {
+    "bytes": 304,
+    "sha256": "41b7cda53a65089c015fc9c9415d59b490c9ade98e3eaad7dc3c0be1517d60e9"
+  },
+  "local/turbo-shared-v2-verify.log.gz": {
+    "bytes": 35,
+    "sha256": "49c3adfe090fa8d5356a3aeddb72b11fc80256be26b745a282574b9a210e23c0"
+  },
+  "local/turbo1024-s64-portable-verify.log.gz": {
+    "bytes": 35,
+    "sha256": "49c3adfe090fa8d5356a3aeddb72b11fc80256be26b745a282574b9a210e23c0"
+  },
+  "local-summary.json": {
+    "bytes": 1070,
+    "sha256": "e344107d2b93a45484f34ea513f94ca9c5e2354680a736f754fe9c44f567b3f6"
+  },
+  "promoted-identity.json": {
+    "bytes": 350,
+    "sha256": "bcaec6e9d74a3f7aecac56d34e00dda999e319567e928eab1b80ce92c61936b9"
+  },
+  "source-inventory.json": {
+    "bytes": 34327,
+    "sha256": "3e8d2c5148c7864716cfafd46d3c72445d0bac8201f42387937849fe4b837cb4"
+  }
+}

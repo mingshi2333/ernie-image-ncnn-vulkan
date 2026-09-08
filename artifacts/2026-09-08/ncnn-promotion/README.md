@@ -15,7 +15,25 @@
 
 故意传入旧运行库源码时，CMake 正确拒绝配置；兼容旧模型没有放宽构建版本锁定。第一次日志检查未识别 CMake 换行而误报，保留原始检查记录，并从同一日志重新读取确认拒绝，无需重跑。
 
-常规程序 SHA-256 为 `288a83e8f1246dec5485554be989b97a1e36ffd8651a1bdeae4b479f21a33d7b`；安装 SDK 的 `Ernie_NCNN_REVISION` 正确报告新版。342 个源文件绑定见 [源码清单](source-inventory.json)。现存真实包的只读完整校验及新版三平台 CI 正在执行，完成后补入结果。
+常规程序 SHA-256 为 `288a83e8f1246dec5485554be989b97a1e36ffd8651a1bdeae4b479f21a33d7b`；安装 SDK 的 `Ernie_NCNN_REVISION` 正确报告新版。342 个源文件绑定见 [源码清单](source-inventory.json)，全部与升级提交 `a495443fa9fc031f9611e4b1f93a301656c8b423` 一致，见 [提交身份](promoted-identity.json)。后续文档归档不改变这些已验证源文件。
+
+现存 `turbo1024-s64-portable`、`turbo-shared-v2`、`pe-cpu-v1` 三个真实模型包均由新版程序执行完整 `--verify-model`，返回 0、清单摘要保持不变。此项只读取和校验文件，未重新生成图像，见 [旧包校验记录](existing-package-checks.json)。
+
+## 新版三平台 CI
+
+同一源码 `a495443` 的 [Actions 运行 34242182771](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34242182771)五个作业全部成功，无需 CI 修复或重跑。运行身份见 [ci-run.json](ci-run.json)，下表由五份 CTest XML 独立统计，详见 [ci-summary.json](ci-summary.json)。
+
+| CI 作业 | 实际通过 | 跳过 | 失败 |
+|---|---:|---:|---:|
+| Linux CPU，reader OFF | 36 | 0 | 0 |
+| Linux CPU，reader ON | 36 | 0 | 0 |
+| Linux Mesa Vulkan | 53 | 4 | 0 |
+| Windows MSVC | 36 | 21 | 0 |
+| macOS ARM / MoltenVK | 53 | 4 | 0 |
+
+每个作业还通过 23 项 HTTP/清单检查；旧模型兼容和重打包来源保留均实际通过。完整作业日志明确记录检出 `3b7bdba7`。`ci/` 保存每个作业的配置、XML、CTest 原始记录和完整作业日志，文本日志以 gzip 保留原始字节。
+
+Linux Mesa 和托管 macOS 仍报告 `bf16-p/s=1/0`，四项 BF16 测试因原生 storage 能力缺失而跳过。Windows 的 21 项跳过来自托管机器缺少 Vulkan 驱动。跳过不计作通过，也不属于显存或 RAM 不够；本机 NVIDIA 的对应 57 项均实际通过。CI 不下载完整 ERNIE 模型，不代表 Windows/macOS 完整出图或性能已验证。
 
 ## 已有完整出图依据
 

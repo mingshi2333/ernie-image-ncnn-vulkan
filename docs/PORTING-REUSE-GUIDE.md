@@ -2,7 +2,7 @@
 
 这份文档记录本项目做过的实现、验证、优化和交付工作，并说明如何把这些经验用到其他原生 AI 项目。适用范围是将官方 Python/PyTorch 模型移植到 C++、ncnn、Vulkan 等运行环境；不同模型需要重新核实数学定义、硬件预算和验收要求。
 
-状态日期：2026-09-08。实现与文档基线为 `1c4ed74`；三平台最终 CI 对应源码 `3a04811`。完整模型和性能数据属于各自报告中的冻结版本，不表示每个后续提交都重新跑过大模型。逐条转换命令见 [ncnn 移植教程草稿](NCNN-DISCUSSION-DRAFT.md)，日常入口见 [README](../README.md)。
+状态日期：2026-09-08。总览初始实现与文档基线为 `1c4ed74`；当前 ncnn 升级和最新三平台 CI 对应源码 `a495443`。完整模型和性能数据属于各自报告中的冻结版本，不表示每个后续提交都重新跑过大模型。逐条转换命令见 [ncnn 移植教程草稿](NCNN-DISCUSSION-DRAFT.md)，日常入口见 [README](../README.md)。
 
 **1. 从技术评估到完整原生应用**
 
@@ -170,7 +170,7 @@ compact reader 已通过一个独立完整生成的 25 张量和 PNG 逐位回�
 
 [build.yml](../.github/workflows/build.yml)覆盖 Linux CPU、Linux 软件 Vulkan、Windows 原生 MSVC、macOS 原生 Apple Clang/MoltenVK；compact reader 的 OFF/ON 各对应一个 Linux CPU 作业。使用固定 Actions 引用、递归依赖检出、Rust 锁文件、有限构建并行度、超时和手动平台选择，失败时保存日志、CMake 配置与 CTest XML。每次提交的 CI 不下载完整大模型。
 
-同一源码 `3a04811` 的[最终 CI](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34170659886)五个作业全部成功，CTest 统计如下，跳过不计入通过数：
+升级后的同一源码 `a495443`、ncnn `3b7bdba7` 的[最终 CI](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34242182771)五个作业全部成功，CTest 统计如下，跳过不计入通过数：
 
 | 执行环境 | 通过 | 跳过 | 跳过原因 |
 |---|---:|---:|---|
@@ -180,7 +180,7 @@ compact reader 已通过一个独立完整生成的 25 张量和 PNG 逐位回�
 | Windows MSVC | 36 | 21 | 托管运行器没有 Vulkan 驱动 |
 | 托管 macOS ARM / MoltenVK | 53 | 4 | 托管虚拟设备缺少原生 BF16 storage |
 
-五个 CI 作业的失败数均为 0，每个作业另通过 23 项 HTTP/模型清单测试。本机复查另计：Linux CPU 36 项通过，Linux/NVIDIA Vulkan 57 项通过，两者都没有跳过或失败。
+五个 CI 作业的失败数均为 0，每个作业另通过 23 项 HTTP/模型清单测试，以及旧模型兼容和重打包来源保留检查。本机新版 Linux/NVIDIA Vulkan 57 项通过；此前旧版的独立 Linux CPU 36 项记录另行保留，两者都没有跳过或失败。
 
 Linux Mesa 和 macOS 托管设备报告 `bf16-p/s=1/0`，对应测试检查能力后以返回码 `77` 跳过；本机 RTX 4060 Laptop 为 `1/1`，同样四项实际执行通过。**这四项跳过属于 CI 设备能力限制，与上文 BF16 完整图像的数值失败是两件事。**
 
@@ -196,7 +196,7 @@ Linux Mesa 和 macOS 托管设备报告 `bf16-p/s=1/0`，对应测试检查能�
 | 托管 Mac 虚拟 GPU 初始化崩溃 | CI 配合 loader 使用 `MVK_CONFIG_USE_MTLHEAP=0` | 配置只在该 CI 环境使用；未做单因素因果对照，不直接推广到物理 Mac |
 | Mac 临时目录包含系统软链接 | 测试根目录先 resolve，另测恶意软链接祖先拒绝 | 修正测试夹具，同时保留生产路径限制 |
 
-修复前的五次 CI、实际崩溃和失败没有删除。最终原始材料与统计在[平台归档](../artifacts/2026-09-08/native-platforms/README.md)。**三平台编译与小型测试已有记录；Windows GPU、Windows/macOS 完整模型、物理 Mac 表现和三平台性能没有因此得到验证。**
+修复前的五次 CI、实际崩溃和失败没有删除，原始材料与当时统计在[平台归档](../artifacts/2026-09-08/native-platforms/README.md)。新版五个作业的 XML、配置与日志另见[升级归档](../artifacts/2026-09-08/ncnn-promotion/README.md)。**三平台编译与小型测试已有记录；Windows GPU、Windows/macOS 完整模型、物理 Mac 表现和三平台性能没有因此得到验证。**
 
 **13. 文档与交付已经做到哪里**
 

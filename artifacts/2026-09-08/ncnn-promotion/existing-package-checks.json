@@ -1,0 +1,41 @@
+[
+  {
+    "package": "turbo1024-s64-portable",
+    "command": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/ncnn-promotion-v1/ernie-image",
+      "--model",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo1024-s64-portable",
+      "--verify-model"
+    ],
+    "return_code": 0,
+    "seconds": 19.04960820102133,
+    "manifest_sha256": "72bb195a2d0b3ef2a25f873666f51f4bbec4b391744518597be87206a551efc1",
+    "manifest_unchanged": true
+  },
+  {
+    "package": "turbo-shared-v2",
+    "command": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/ncnn-promotion-v1/ernie-image",
+      "--model",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2",
+      "--verify-model"
+    ],
+    "return_code": 0,
+    "seconds": 18.29838423797628,
+    "manifest_sha256": "21b6bc8deae17418c22257b52e928ee048a372342a2517bcb954276257c21d1a",
+    "manifest_unchanged": true
+  },
+  {
+    "package": "pe-cpu-v1",
+    "command": [
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/outputs/ncnn-promotion-v1/ernie-image",
+      "--pe-model",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/pe-cpu-v1",
+      "--verify-model"
+    ],
+    "return_code": 0,
+    "seconds": 6.175160878978204,
+    "manifest_sha256": "bf6b5a8314ba5abe3654c95eabfb8f4e4a8a8541fff6ebea3c95a9f7683a8aff",
+    "manifest_unchanged": true
+  }
+]

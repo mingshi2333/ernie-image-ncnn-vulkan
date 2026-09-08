@@ -4,18 +4,18 @@
 
 ## 2026-09-08 验证结果
 
-[三平台工作流](../.github/workflows/build.yml)构建 CLI、原生 tokenizer 和可安装的 C++ SDK。它在 `main`、`codex/surpass-reference` 推送、Pull Request 或手动运行时触发；手动运行可选择单个平台。下表的五个 CI 作业均来自同一源码 `3a04811`，原始失败保留在[日志归档](../artifacts/2026-09-08/native-platforms/README.md)。
+[三平台工作流](../.github/workflows/build.yml)构建 CLI、原生 tokenizer 和可安装的 C++ SDK。它在 `main`、`codex/surpass-reference` 推送、Pull Request 或手动运行时触发；手动运行可选择单个平台。下表的五个最新 CI 作业均来自升级源码 `a495443`、ncnn `3b7bdba7`，原始平台失败与旧版成功记录保留在[先前日志归档](../artifacts/2026-09-08/native-platforms/README.md)，新版证据保存在[升级记录](../artifacts/2026-09-08/ncnn-promotion/README.md)。
 
 | 环境 | CTest 实际通过 | 跳过 | 失败 | 范围 |
 |---|---:|---:|---:|---|
-| 本机 Linux CPU | 36 | 0 | 0 | CLI、组件、包校验、搬移 SDK |
+| 本机 Linux CPU（先前 `6a1bf000`） | 36 | 0 | 0 | 保留旧版独立 CPU 记录；新版 CPU 构建见下方两个 CI 作业 |
 | 本机 Linux / NVIDIA Vulkan | 57 | 0 | 0 | 含实际 Vulkan 算子、缓存及 BF16 小型测试 |
 | Ubuntu 24.04 CPU，读取器 OFF / ON | 各 36 | 0 | 0 | 两个独立构建均通过 |
 | Ubuntu 24.04 / Mesa 软件 Vulkan | 53 | 4 | 0 | CI 软件驱动缺少原生 BF16 storage，4 项跳过；其余 Vulkan 测试实际执行 |
 | Windows Server 2025 / MSVC x64 | 36 | 21 | 0 | 原生编译、CPU、CLI、SDK 通过；运行器无 Vulkan 驱动，21 项设备测试跳过 |
 | macOS 15 ARM / Apple Clang / MoltenVK | 53 | 4 | 0 | GitHub 托管 Apple Paravirtual GPU 上的小型 Vulkan 执行；CI 驱动缺少原生 BF16 storage，4 项跳过 |
 
-源码 `3a04811b41aa19a8d9a874981c1569816105ee26` 的[三平台原生构建与小型测试](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34170659886)五个作业全部成功；每个作业另有 23/23 项本地 HTTP 与清单测试通过。工具链为 GCC 13.3.0、MSVC 19.51.36256.0 和 Apple Clang 17.0.0。数量从下载后的 CTest XML 独立统计，跳过项排除在通过数之外，详见[机器可读结果](../artifacts/2026-09-08/native-platforms/summary.json)。Windows 的三项测试失败及其修复前记录仍保留，未用最终结果覆盖。
+源码 `a495443fa9fc031f9611e4b1f93a301656c8b423` 的[三平台原生构建与小型测试](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34242182771)五个作业全部成功；每个作业另有 23/23 项本地 HTTP 与清单测试通过，并执行了旧模型包兼容与重打包来源保留检查。数量从下载后的 CTest XML 独立统计，跳过项排除在通过数之外，详见[机器可读结果](../artifacts/2026-09-08/ncnn-promotion/ci-summary.json)。每个作业的日志均确认实际检出新版 ncnn，具体工具链保留在配置与完整日志中。此前 Windows 的三项测试失败及其修复记录仍保留，未用新版结果覆盖。
 
 **这 4 项 BF16 跳过由 CI 环境的驱动能力限制导致。** Linux 的 Mesa 软件设备和 macOS 的托管虚拟设备均报告 `bf16-p/s=1/0`：ncnn 的 BF16 打包路径可用，原生 BF16 storage 不可用。残差加法、ERF GELU、RMSNorm、LayerNorm 的对应测试在运行前检查能力，返回 `77` 后由 CTest 标记为跳过。本机 RTX 4060 Laptop 报告 `bf16-p/s=1/1`，同样四项已实际执行并通过。
 

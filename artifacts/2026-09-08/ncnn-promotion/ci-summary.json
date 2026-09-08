@@ -1,0 +1,126 @@
+{
+  "run_id": 34242182771,
+  "url": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34242182771",
+  "project_revision": "a495443fa9fc031f9611e4b1f93a301656c8b423",
+  "ncnn_revision": "3b7bdba7fc8aea8fd46779533eee027df77c639d",
+  "all_five_jobs_success": true,
+  "jobs": [
+    {
+      "job": "macos",
+      "job_id": 102114884235,
+      "artifact": "macos-apple-clang-vulkan",
+      "conclusion": "success",
+      "passed": 53,
+      "skipped": [
+        "residual_contract_vulkan_bf16",
+        "erf_gelu_vulkan_bf16",
+        "rmsnorm_range_vulkan_bf16",
+        "layernorm_range_vulkan_bf16"
+      ],
+      "failed": [],
+      "http_manifest_checks_passed": 23,
+      "old_package_checks": [
+        "test_reviewed_old_revision_remains_compatible (test_pe_package.PePackageTests.test_reviewed_old_revision_remains_compatible) ... ok",
+        "test_reviewed_old_package_keeps_provenance_when_repacked (test_package.PackageTests.test_reviewed_old_package_keeps_provenance_when_repacked) ... ok"
+      ],
+      "ncnn_checkout_logged": true,
+      "bf16_capability_lines": [
+        "[0 Apple Paravirtual device]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0"
+      ]
+    },
+    {
+      "job": "linux (ON, OFF)",
+      "job_id": 102114884403,
+      "artifact": "linux-vulkan-ON-reader-OFF",
+      "conclusion": "success",
+      "passed": 53,
+      "skipped": [
+        "residual_contract_vulkan_bf16",
+        "erf_gelu_vulkan_bf16",
+        "rmsnorm_range_vulkan_bf16",
+        "layernorm_range_vulkan_bf16"
+      ],
+      "failed": [],
+      "http_manifest_checks_passed": 23,
+      "old_package_checks": [
+        "test_reviewed_old_revision_remains_compatible (test_pe_package.PePackageTests.test_reviewed_old_revision_remains_compatible) ... ok",
+        "test_reviewed_old_package_keeps_provenance_when_repacked (test_package.PackageTests.test_reviewed_old_package_keeps_provenance_when_repacked) ... ok"
+      ],
+      "ncnn_checkout_logged": true,
+      "bf16_capability_lines": [
+        "[0 llvmpipe (LLVM 20.1.2, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0"
+      ]
+    },
+    {
+      "job": "linux (OFF, OFF)",
+      "job_id": 102114884465,
+      "artifact": "linux-vulkan-OFF-reader-OFF",
+      "conclusion": "success",
+      "passed": 36,
+      "skipped": [],
+      "failed": [],
+      "http_manifest_checks_passed": 23,
+      "old_package_checks": [
+        "test_reviewed_old_revision_remains_compatible (test_pe_package.PePackageTests.test_reviewed_old_revision_remains_compatible) ... ok",
+        "test_reviewed_old_package_keeps_provenance_when_repacked (test_package.PackageTests.test_reviewed_old_package_keeps_provenance_when_repacked) ... ok"
+      ],
+      "ncnn_checkout_logged": true,
+      "bf16_capability_lines": []
+    },
+    {
+      "job": "linux (OFF, ON)",
+      "job_id": 102114884549,
+      "artifact": "linux-vulkan-OFF-reader-ON",
+      "conclusion": "success",
+      "passed": 36,
+      "skipped": [],
+      "failed": [],
+      "http_manifest_checks_passed": 23,
+      "old_package_checks": [
+        "test_reviewed_old_revision_remains_compatible (test_pe_package.PePackageTests.test_reviewed_old_revision_remains_compatible) ... ok",
+        "test_reviewed_old_package_keeps_provenance_when_repacked (test_package.PackageTests.test_reviewed_old_package_keeps_provenance_when_repacked) ... ok"
+      ],
+      "ncnn_checkout_logged": true,
+      "bf16_capability_lines": []
+    },
+    {
+      "job": "windows",
+      "job_id": 102114884570,
+      "artifact": "windows-msvc-vulkan",
+      "conclusion": "success",
+      "passed": 36,
+      "skipped": [
+        "native_cache_vulkan",
+        "runtime_cache_vulkan",
+        "attention_long_fp32_accuracy",
+        "attention_bounded_workspace",
+        "gpu_context_contract",
+        "weight_session_vulkan",
+        "weight_session_mapped_vulkan",
+        "weight_session_bf16_file_vulkan",
+        "weight_session_mapped_bf16_file_vulkan",
+        "weight_placement_vulkan",
+        "residual_contract_vulkan",
+        "residual_contract_vulkan_bf16",
+        "erf_gelu_vulkan_fp32",
+        "rmsnorm_range_vulkan_fp32",
+        "layernorm_range_vulkan_fp32",
+        "erf_gelu_vulkan_fp16",
+        "rmsnorm_range_vulkan_fp16",
+        "layernorm_range_vulkan_fp16",
+        "erf_gelu_vulkan_bf16",
+        "rmsnorm_range_vulkan_bf16",
+        "layernorm_range_vulkan_bf16"
+      ],
+      "failed": [],
+      "http_manifest_checks_passed": 23,
+      "old_package_checks": [
+        "test_reviewed_old_revision_remains_compatible (test_pe_package.PePackageTests.test_reviewed_old_revision_remains_compatible) ... ok",
+        "test_reviewed_old_package_keeps_provenance_when_repacked (test_package.PackageTests.test_reviewed_old_package_keeps_provenance_when_repacked) ... ok"
+      ],
+      "ncnn_checkout_logged": true,
+      "bf16_capability_lines": []
+    }
+  ],
+  "scope": "Native model-free CI; skips excluded from passed counts; no Windows/macOS full generation"
+}
