@@ -61,11 +61,13 @@ public:
     WeightSession(const WeightSession&) = delete;
     WeightSession& operator=(const WeightSession&) = delete;
     // Identity binds graphs/weights and the immutable request's Option object.
-    // One lease at a time; no background Vulkan work or prefetch in this stage.
+    // One lease at a time. The loader may consume an independently prepared
+    // Net; only this owning thread can mutate cache admission or eviction.
     Lease acquire(std::size_t block, const ComponentFiles&, const void* request_identity,
                   std::uint64_t estimated_bytes, const Loader&);
     void cancel(); // Drop idle entries; an active lease retains its Net until released.
     WeightSessionStats stats() const;
+    bool contains(std::size_t block) const;
 private:
     std::shared_ptr<State> state_;
 };

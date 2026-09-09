@@ -18,6 +18,17 @@ class GenerationReportTest(unittest.TestCase):
         self.assertEqual(report['model']['dit_text_tokens'], 64)
         self.assertEqual(report['weight_cache']['peak_charged_bytes'], 5687678976)
         self.assertEqual(report['placement_requests']['ram'], 262)
+        self.assertEqual(report['request']['dit_prefetch_mib'], 1024)
+        self.assertEqual(report['request']['gpu_memory'], 'auto')
+        self.assertEqual(report['request']['gpu_spill_mib'], 2048)
+        self.assertEqual(report['request']['oom_retries'], 3)
+        self.assertEqual(report['weight_prefetch'], {
+            'started': 3, 'used': 2, 'skipped': 1, 'peak_charged_bytes': 536870912, 'overlap_seconds': .25})
+        self.assertEqual(report['gpu_memory'], {
+            'device_allocations': 32, 'host_allocations': 16, 'host_peak_bytes': 536870912,
+            'fallbacks': 8, 'allocation_failures': 2,
+            'host_device_local_allocations': 4, 'host_non_device_local_allocations': 12})
+        self.assertEqual(report['memory_recovery'], {'retries': 2, 'attention_query_rows': 32})
         self.assertEqual(report['model_loading_requested'], 'mapped')
         self.assertFalse(report['allocation_instrumentation'])
         self.assertFalse(report['trace_enabled'])

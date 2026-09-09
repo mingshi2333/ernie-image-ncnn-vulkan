@@ -11,7 +11,7 @@ ERNIE-Image-Turbo 的 C++ / ncnn / Vulkan 本地文生图实现。提供命令�
 在已测试的 Linux / Turbo / FP32 配置下，原生文生图主流程可以使用，已有完整实图与官方分阶段参考对照。日常使用先采用下面显式指定 FP32 的命令。这里的“可用”对应已保存的运行结果，不承诺任意提示词、尺寸和设备都通过全部数值检查。
 
 - 部分尺寸、长提示词和中文样例仍有中间张量未通过项，BF16 长提示词误差明显，保持实验状态；具体数字见[误差表](#与官方的实测误差)。
-- GPU/RAM 权重放置和逐块加载已经实现。激活与注意力工作区仍需要设备资源，激活卸载及分配失败后的自动恢复尚未实现。
+- DiT 支持 GPU/RAM 权重放置、有界后台权重预取、激活/工作区的 RAM 缓冲区，以及从最近完成去噪步恢复的分配重试。预取默认关闭；RAM 分配须满足预算和平台余量检查。详见[内存执行机制](docs/MEMORY-EXECUTION.md)。
 - 第一次使用仍需准备本项目格式的模型包。三平台编译、无大模型测试与完整出图分别记录，不能用构建通过代替实际图像验证，见[平台验证](docs/PLATFORM-VALIDATION.md)。
 
 移植过程、转换命令和遇到的问题整理为 [ncnn Discussions 教程草稿](docs/NCNN-DISCUSSION-DRAFT.md)。草稿尚未发布。
@@ -20,7 +20,7 @@ ERNIE-Image-Turbo 的 C++ / ncnn / Vulkan 本地文生图实现。提供命令�
 
 ### 1. 编译程序
 
-在仓库根目录执行。下面使用已有的 CMake presets，需要 C++17 编译器、CMake 3.21+、Ninja、Rust/Cargo 和 libpng 开发库；GPU 构建还需要 Vulkan 开发库和可用驱动。
+在仓库根目录执行。下面使用已有的 CMake presets，需要 C++17 编译器、CMake 3.21+、Ninja、Rust/Cargo 和 libpng 开发库；GPU 构建还需要 Vulkan 开发库、可用驱动，以及在构建时核验和派生固定 ncnn 源码的 Python 3；生成图片时仍不依赖 Python。
 
 ```sh
 git submodule update --init --recursive
@@ -89,7 +89,7 @@ build/linux-vulkan/ernie-image --model models/turbo-shared-v2 \
 | 运行时尺寸 | 共享包复用权重，按尺寸实例化图，按实际 token 数选择 32/64/2048 文本桶 |
 | 提示词增强 | 可选 CPU PE，使用 ncnn 原生 KV cache；完成后释放权重和缓存 |
 | 图生图 | 使用带 encoder 的模型包，支持输入图像、强度与显式缩放方式 |
-| 内存管理 | 按显存预算选择 GPU/RAM 权重，逐块加载释放；可选有界 RAM 权重缓存 |
+| 内存管理 | GPU/RAM 权重、可选缓存/后台预取；有上限的 RAM 激活和工作区；最多三次检查点恢复 |
 | 应用接入 | 命令行、UTF-8 提示词文件、PNG/JPEG/BMP/TGA 输出、C++ RGB 接口与进度回调 |
 
 ## 与官方的实测误差
@@ -175,11 +175,19 @@ z_{i+1} = z_i + (sigma_{i+1} - sigma_i) * v_i
 | 实现 | 原理与代价 |
 |---|---|
 | 分阶段、逐块加载 | PE、文本、DiT、VAE 依次使用资源；DiT 默认只保留当前块的权重，执行完成后释放。降低同时驻留量，但增加重复读取和权重准备 |
-| GPU/RAM 权重放置 | 加载块前查询显存预算，结合权重估计和预留空间选择放置位置。RAM 权重仍用于 Vulkan 计算，访问成本取决于设备；这是权重放置，不包含激活卸载或失败后自动重试 |
+| GPU/RAM 权重放置 | 加载块前查询显存预算，结合权重估计和预留空间选择放置位置。RAM 权重仍用于 Vulkan 计算，访问成本取决于设备；权重放置与新增的激活缓冲区、检查点恢复分别管理 |
 | FP32 注意力按查询分块 | 每次最多计算 128 个 query，但保留完整 K/V 和可见上下文。4160-token、32 头的单个分数矩阵由约 2.06 GiB 降到 65 MiB，代价是增加提交和同步；该数字不是整个进程的显存峰值 |
 | CPU VAE 直接卷积 | 默认关闭 Winograd 和 SGEMM 路径，减少本项目已观测到的大尺寸工作区压力；运行速度仍取决于硬件和输入 |
 
 RAM 权重缓存另有独立容量限制，默认关闭；内存允许时可以复用部分已准备的块，避免每一步都重新加载。它与权重文件映射、GPU 放置是不同选项，详见 [内存与缓存](docs/CODE-STRUCTURE.md#内存与缓存)。
+
+本次内存执行实现已通过 Linux 的 61 项 Vulkan 测试和 37 项 CPU 测试，均无跳过，Khronos validation 无错误。完整出图对照和三平台 CI 正在补齐，见[当前验证记录](artifacts/2026-09-08/memory-execution/README.md)。校验同时发现旧 BF16 注意力使用了设备不支持的 accumulator 类型；当前仅将 BF16 SDPA 切回原生 Flash 路径，暂时放弃该分支的协作矩阵加速。上方升级表是修正前的历史结果，新的 BF16 路径需要独立回归。
+
+后台预取通过 `--dit-prefetch-mib 1024` 开启，最多提前准备一个 FP32 DiT 块，受独立预算和 RAM 余量检查约束。它增加 RAM 驻留；加载时间与计算时间可能重叠，不能将二者相加当成生成耗时，也不承诺提速。
+
+激活和工作区默认使用 `--gpu-memory auto --gpu-spill-mib 2048`：显存预算不足或明确的设备分配失败时，可为新缓冲区选择 GPU 能访问的 RAM。每完成一个去噪步，保存 FP32 CPU 潜变量；`--oom-retries 3` 允许从最近检查点重建执行，关闭额外缓存和预取，并将 FP32 非 Flash 注意力的查询分块从 128 逐级缩到 64、32、16 行。每行仍使用全部 K/V，分辨率、步数、精度和调度器保持用户设置。设备丢失和普通模型/文件错误直接报错。
+
+这些设置仅覆盖 DiT。它不是操作系统式的任意显存分页，也不提供进程退出后的断点续跑；具体平台限制、缓冲区生命周期及报告字段见[实现教程](docs/MEMORY-EXECUTION.md)。
 
 ### KV cache 与精度处理
 
@@ -208,7 +216,7 @@ flowchart TD
 
 - **应用边界**：`include/ernie/pipeline.h` 定义请求、结果和回调，只依赖 C++ 标准库。CLI 负责参数和图像文件，流水线返回 RGB 像素。
 - **推理边界**：`src/pipeline.cpp` 连接 PE、文本编码、DiT 和 VAE。各组件通过统一的图/权重加载接口使用模型，不处理命令行或下载。
-- **资源边界**：PE、文本、DiT、VAE 依次执行，前一阶段权重释放后再进入下一阶段。DiT 逐块管理权重，默认将中间激活保留在 GPU；权重放置策略与 RAM 缓存分别管理。
+- **资源边界**：PE、文本、DiT、VAE 依次执行，前一阶段权重释放后再进入下一阶段。DiT 逐块管理权重；激活缓冲区按设备和 RAM 预算放置，成功去噪步的 CPU 潜变量用于恢复。权重放置、可选缓存和单块预取分别管理。
 - **工具边界**：Python 用于下载、转换、打包和官方参考对照；这些工具不进入原生推理链路。
 
 ### 推理阶段与源码对应
@@ -222,7 +230,8 @@ flowchart TD
 | 图像文本编码 | [`text_encoder.cpp`](src/text_encoder.cpp)、[`conditioning.cpp`](src/conditioning.cpp) | Mistral 前 25 层取 `hidden_states[-2]`，准备文本条件、位置和 mask |
 | 反复去噪 | [`denoiser.cpp`](src/denoiser.cpp)、[`dit.cpp`](src/dit.cpp)、[`block_sequence.cpp`](src/block_sequence.cpp) | Euler 管时间步与 latent 更新，DiT 管单步预测，块执行器管理 36 层的逐块加载；Turbo 默认循环 8 步 |
 | 图像解码 | [`vae.cpp`](src/vae.cpp)、[`latent_ops.cpp`](src/latent_ops.cpp) | latent 格式转换与 VAE 解码，最终由流水线返回 RGB 像素 |
-| 模型与内存 | [`model_package.cpp`](src/model_package.cpp)、[`shape_plan.cpp`](src/shape_plan.cpp)、[`weight_placement.cpp`](src/weight_placement.cpp)、[`weight_session.cpp`](src/weight_session.cpp) | 包校验、尺寸和文本桶选择、GPU/RAM 放置及可选缓存集中复用 |
+| 模型与权重 | [`model_package.cpp`](src/model_package.cpp)、[`shape_plan.cpp`](src/shape_plan.cpp)、[`weight_placement.cpp`](src/weight_placement.cpp)、[`weight_session.cpp`](src/weight_session.cpp) | 包校验、尺寸和文本桶选择、权重位置及可选缓存 |
+| 内存与恢复 | [`vulkan_memory.cpp`](src/vulkan_memory.cpp)、[`vulkan_denoise.cpp`](src/vulkan_denoise.cpp)、[`block_sequence.cpp`](src/block_sequence.cpp) | 激活/工作区预算、每步检查点与重试、单块异步预取 |
 
 这样组织后，修改采样只涉及 PE，修改 Euler 步进进入 denoiser，增加图片格式进入 CLI；模型算子保持在对应组件，公共 API 不暴露 ncnn 私有类型。`src/` 保持浅层目录，避免为了单个模型增加多模型注册或插件框架。
 
@@ -300,7 +309,7 @@ int main()
 - 部分中文、长提示词及逐步数值对照仍未通过；出图成功与完整数值一致性分别记录。
 - 共享包的实验尺寸范围为每轴 16..2048、16 的倍数、面积不超过 2097152；已验证若干完整尺寸，尚未覆盖每种尺寸和提示词组合。
 - 图像文本编码和 VAE 默认使用 CPU。GPU VAE、BF16 等路径仍为实验选项；新 PE 分块预填充目前是内部候选，正常入口仍逐 token 预填充。
-- RAM 权重放置已实现；中间激活卸载与显存分配失败后自动恢复尚未实现。
+- RAM 激活/工作区和分配重试只覆盖 DiT；平台必须能提供可信 RAM 余量。CPU 文本、PE、VAE 及进程重启后的恢复不在该机制内。
 - Windows、macOS 的完整模型出图和真实设备性能仍待验证；原生构建与小型测试单独记录。当前没有足够数据宣称全面超过参考项目。
 
 ## 文档与来源

@@ -1,0 +1,708 @@
+{
+  "scope": "Memory execution regression; existing numerical thresholds; no performance claim",
+  "base_ncnn": "6a1bf000f363714839a36793addc8c879d3d899e",
+  "candidate_ncnn": "3b7bdba7fc8aea8fd46779533eee027df77c639d",
+  "resource_limits": {
+    "memory_max_bytes": 17179869184,
+    "host_available_min_bytes": 3221225472,
+    "gpu_whole_device_max_mib": 6144,
+    "timeout_seconds_per_phase": 1800
+  },
+  "prompt": "A red apple on a wooden table, soft daylight, realistic photo.",
+  "token_ids": [
+    1,
+    1065,
+    4804,
+    46227,
+    1408,
+    1261,
+    32656,
+    4234,
+    1044,
+    6444,
+    85352,
+    1044,
+    43905,
+    16649,
+    1046
+  ],
+  "model": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2",
+  "initial": "/var/tmp/ernie-compact-reader512-v1/initial.f32",
+  "reference": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime512-official-v2/official/reference",
+  "saved_fp32_baseline": "/var/tmp/ernie-compact-reader512-v1/baseline",
+  "gates": {
+    "fp32": {
+      "nrmse": 0.003,
+      "global_rtol": 0.01,
+      "atol": 0.0002,
+      "pixel_mae": 0.1,
+      "pixel_max": 2
+    },
+    "fp16": {
+      "nrmse": 0.15,
+      "global_rtol": 0.25,
+      "atol": 0.03,
+      "pixel_mae": 12,
+      "pixel_max": 80
+    },
+    "bf16": {
+      "nrmse": 0.15,
+      "global_rtol": 0.25,
+      "atol": 0.03,
+      "pixel_mae": 12,
+      "pixel_max": 80
+    },
+    "conditioning": {
+      "nrmse": 0.0002,
+      "global_rtol": 0.0002,
+      "atol": 0.0002
+    }
+  },
+  "cases": [
+    [
+      "normal",
+      "fp32"
+    ],
+    [
+      "spill-prefetch",
+      "fp32"
+    ],
+    [
+      "bf16-flash",
+      "bf16"
+    ]
+  ],
+  "bindings": {
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/manifest.json": {
+      "sha256": "21b6bc8deae17418c22257b52e928ee048a372342a2517bcb954276257c21d1a",
+      "bytes": 52446
+    },
+    "/var/tmp/ernie-compact-reader512-v1/initial.f32": {
+      "sha256": "1c89a002f18b3162b5a43100dc6f50bdd247dd0af8d1944ec87705153819d453",
+      "bytes": 524288
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime512-official-v2/official/reference/fixture.json": {
+      "sha256": "e68f3d8c112ef7a988161b539845eff6c356fe00fdc0d3e7444d625e99bc50d3",
+      "bytes": 8223
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/ef98859ac741f6923680fb02de39e663fa3fa01943eff9d2d85c6ddaf40c9e59": {
+      "sha256": "ef98859ac741f6923680fb02de39e663fa3fa01943eff9d2d85c6ddaf40c9e59",
+      "bytes": 25212
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/e8dd207d95dd18b9c7854e5cde577e6b00272b3ad82721bae54bdd7eacaa03bd": {
+      "sha256": "e8dd207d95dd18b9c7854e5cde577e6b00272b3ad82721bae54bdd7eacaa03bd",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/7fd4d84ac86be722af1fd7cd3fdee70545404914fcda71a663272f0299010f92": {
+      "sha256": "7fd4d84ac86be722af1fd7cd3fdee70545404914fcda71a663272f0299010f92",
+      "bytes": 5184
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/7d71103492badc66e9648c6b47386e7a74b0f4c2d5049928b58adfa4112e756a": {
+      "sha256": "7d71103492badc66e9648c6b47386e7a74b0f4c2d5049928b58adfa4112e756a",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/2d955fee1d1c252b89c4e4fce725bbdc4cc0b265b7b7645068aa46ce29d5d7ec": {
+      "sha256": "2d955fee1d1c252b89c4e4fce725bbdc4cc0b265b7b7645068aa46ce29d5d7ec",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/d7d09618455a56e332d0599d5c6d4dbb2d78449190ce815fb63c0941b907cea2": {
+      "sha256": "d7d09618455a56e332d0599d5c6d4dbb2d78449190ce815fb63c0941b907cea2",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/4b814157d769982e812ea6003a3cb9b49a39e78cb370bfd5354ad54b11b52c04": {
+      "sha256": "4b814157d769982e812ea6003a3cb9b49a39e78cb370bfd5354ad54b11b52c04",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/1358b4012f49efae33e96552f329833f6ad4daa29bff810095276241346b9b9d": {
+      "sha256": "1358b4012f49efae33e96552f329833f6ad4daa29bff810095276241346b9b9d",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/44cb70e0d647d3a0efa1a7f8b05d598d5f5883b27c900d57721b2400897fa58d": {
+      "sha256": "44cb70e0d647d3a0efa1a7f8b05d598d5f5883b27c900d57721b2400897fa58d",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/c9effd9ee1157695a5826d5bbe73cdbfa0dc9cb6236c0bc7d35504d2dbce379b": {
+      "sha256": "c9effd9ee1157695a5826d5bbe73cdbfa0dc9cb6236c0bc7d35504d2dbce379b",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/ce9be146b96e7114f38d9e5d302cd8ffd76256938f0637d781c35834fc40b4a9": {
+      "sha256": "ce9be146b96e7114f38d9e5d302cd8ffd76256938f0637d781c35834fc40b4a9",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/3447289c18f403af1f40083606165400bcef4532bb80b77b687aa955dcabadda": {
+      "sha256": "3447289c18f403af1f40083606165400bcef4532bb80b77b687aa955dcabadda",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/db8f96b926994dd6ed3d4397f4834b40fc1eadcb4dd7dc894e9901e1e153f07d": {
+      "sha256": "db8f96b926994dd6ed3d4397f4834b40fc1eadcb4dd7dc894e9901e1e153f07d",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/b2978e670679a13455712dd0ae3539c564c538ac647a5b9523b9aaec44f9ecaf": {
+      "sha256": "b2978e670679a13455712dd0ae3539c564c538ac647a5b9523b9aaec44f9ecaf",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/4e406ff6bdfe324b8501ea42b7be0533983d43a46e7dbc0a1d339653d1ebb8c4": {
+      "sha256": "4e406ff6bdfe324b8501ea42b7be0533983d43a46e7dbc0a1d339653d1ebb8c4",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/97ead49cb373501419179e2a833e5d038476a49f7f9f3b9072ef0d8343bd9cd1": {
+      "sha256": "97ead49cb373501419179e2a833e5d038476a49f7f9f3b9072ef0d8343bd9cd1",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/029f377846cc1e856222ecbf0a503a57e3b1087f19436ef1e434594c953d74b6": {
+      "sha256": "029f377846cc1e856222ecbf0a503a57e3b1087f19436ef1e434594c953d74b6",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/0321f883d79cab6606ac3d2736344043625f3a0fed9bb1f5fcfdd33d1acd07da": {
+      "sha256": "0321f883d79cab6606ac3d2736344043625f3a0fed9bb1f5fcfdd33d1acd07da",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/a7e7fcebef4f2071906a1136e21c8f900a7831007958ad6f2806e88bd8827667": {
+      "sha256": "a7e7fcebef4f2071906a1136e21c8f900a7831007958ad6f2806e88bd8827667",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/29b8e2ea335b5292727cc1b71ea61eb72110c9c8214fe8bfc74b44ee787bd3c2": {
+      "sha256": "29b8e2ea335b5292727cc1b71ea61eb72110c9c8214fe8bfc74b44ee787bd3c2",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/647de30014ffacce8777c7f7998fcfb4c10c6476a99fa4460970c194f2b5fda4": {
+      "sha256": "647de30014ffacce8777c7f7998fcfb4c10c6476a99fa4460970c194f2b5fda4",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/080e5e4679be71706ad531028124776537ad867956b7ac74470b4087943e3c84": {
+      "sha256": "080e5e4679be71706ad531028124776537ad867956b7ac74470b4087943e3c84",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/e85a84dd84b9e9ba371e749e3aace5b66f7c530fc27a3f88b40242cfde6e2eab": {
+      "sha256": "e85a84dd84b9e9ba371e749e3aace5b66f7c530fc27a3f88b40242cfde6e2eab",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/67bd50f2b67c0520f11b59b4480b20cbfae23d8fa38b4d768ee23df77bbf929c": {
+      "sha256": "67bd50f2b67c0520f11b59b4480b20cbfae23d8fa38b4d768ee23df77bbf929c",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/b61ca47e0c78d15a358c29e8781dab22cfd3545f2c56bb1ad8e21c6d0d1e86da": {
+      "sha256": "b61ca47e0c78d15a358c29e8781dab22cfd3545f2c56bb1ad8e21c6d0d1e86da",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/0dc22ff1bb47327920ccf1e365e35ad9bed74b1fbdfff92a06b212339c2de68e": {
+      "sha256": "0dc22ff1bb47327920ccf1e365e35ad9bed74b1fbdfff92a06b212339c2de68e",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/a41d27f2df77e559a77cdfe9e647a83b3b73ed47333f6970bf388fb75e0249c0": {
+      "sha256": "a41d27f2df77e559a77cdfe9e647a83b3b73ed47333f6970bf388fb75e0249c0",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/dfe958123ae5320ddd2650ac9da1568a8e2481c9e0270669cdd25eed4ed44131": {
+      "sha256": "dfe958123ae5320ddd2650ac9da1568a8e2481c9e0270669cdd25eed4ed44131",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/0ea52c543d1a9ce23cd38fa8d4ca427fc4ae8e7497a925dee2e5d950a4d05b9a": {
+      "sha256": "0ea52c543d1a9ce23cd38fa8d4ca427fc4ae8e7497a925dee2e5d950a4d05b9a",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/40829e1746f2968c3bdaeccf0c044114e5a9b9c18661a7b97dd15d2178c8a660": {
+      "sha256": "40829e1746f2968c3bdaeccf0c044114e5a9b9c18661a7b97dd15d2178c8a660",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/04beb23cde4cf71afb94b9587fe183300c5989487e24a825784ca3bfbb64dfd0": {
+      "sha256": "04beb23cde4cf71afb94b9587fe183300c5989487e24a825784ca3bfbb64dfd0",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/5890ebff0a4c5b9a094997243c1ae6032d9a505a7a4181f529168105d77fa0e0": {
+      "sha256": "5890ebff0a4c5b9a094997243c1ae6032d9a505a7a4181f529168105d77fa0e0",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/8bf344c0a809a7a84ca1623850439e2cb87abbe557f595cd9fa0ba3b3abef1ea": {
+      "sha256": "8bf344c0a809a7a84ca1623850439e2cb87abbe557f595cd9fa0ba3b3abef1ea",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/a222603adb356f3ef89b3241155806873f54aeaf4b1c3b45e66c1ad5df379d0f": {
+      "sha256": "a222603adb356f3ef89b3241155806873f54aeaf4b1c3b45e66c1ad5df379d0f",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/fef41291e07b134c1d2fb256aeaa2e69d85e3541f518c95d342cd81f2a7d1368": {
+      "sha256": "fef41291e07b134c1d2fb256aeaa2e69d85e3541f518c95d342cd81f2a7d1368",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/8203efb4bc3c5fad2fd7500bda1d7e2fd2fb9193687bdd99da18a63c0c74a6c7": {
+      "sha256": "8203efb4bc3c5fad2fd7500bda1d7e2fd2fb9193687bdd99da18a63c0c74a6c7",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/f2ee83864b592c33c545da832da6f619be20d79a9c12a65fab2cebfba61285b5": {
+      "sha256": "f2ee83864b592c33c545da832da6f619be20d79a9c12a65fab2cebfba61285b5",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/cd7fc11a5e4ff7b2753e66914e0445720f58e582feb4327bc24825a99b8365e1": {
+      "sha256": "cd7fc11a5e4ff7b2753e66914e0445720f58e582feb4327bc24825a99b8365e1",
+      "bytes": 436241436
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/e78aec5262fe279e23c4ccbf77a79f5f6ec96d3cce9232c9f8c24ea86c311142": {
+      "sha256": "e78aec5262fe279e23c4ccbf77a79f5f6ec96d3cce9232c9f8c24ea86c311142",
+      "bytes": 589447188
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/d33ef98c4cdfbcf9c568fef3b360b6a11259fe9fc80cf0e46fd2a63a2b647754": {
+      "sha256": "d33ef98c4cdfbcf9c568fef3b360b6a11259fe9fc80cf0e46fd2a63a2b647754",
+      "bytes": 1231
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/dd92f84a863ca32c5ed68fc7f20755c53e9021b206bb4894899725d3fce1cef4": {
+      "sha256": "dd92f84a863ca32c5ed68fc7f20755c53e9021b206bb4894899725d3fce1cef4",
+      "bytes": 136348172
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/907a82486990ea8608de2fb70c96ad75496853f68ecfa65a2313a0ad04456ac1": {
+      "sha256": "907a82486990ea8608de2fb70c96ad75496853f68ecfa65a2313a0ad04456ac1",
+      "bytes": 1061
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/2bbbffde488666f81812f7f70641469730bc97d855eeb50006ce88f7266e054e": {
+      "sha256": "2bbbffde488666f81812f7f70641469730bc97d855eeb50006ce88f7266e054e",
+      "bytes": 256
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/90c554fea76a4e21b6f6df2edf473644ba809c89d8b56e7a34b6e9b64e21303a": {
+      "sha256": "90c554fea76a4e21b6f6df2edf473644ba809c89d8b56e7a34b6e9b64e21303a",
+      "bytes": 100
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/6d0876f542983ebe20b22f14c8d29043a7168a121bca92c5eb20031b435200cc": {
+      "sha256": "6d0876f542983ebe20b22f14c8d29043a7168a121bca92c5eb20031b435200cc",
+      "bytes": 232808476
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/ba3ca63efa8c105cd556641e1ced6c6d38ffaae974f903e085d138ed9ff96175": {
+      "sha256": "ba3ca63efa8c105cd556641e1ced6c6d38ffaae974f903e085d138ed9ff96175",
+      "bytes": 4184
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/ab986f5419d56dacafc7e7ec752894c8d8ef75af336e40adbf867b60a2d697a2": {
+      "sha256": "ab986f5419d56dacafc7e7ec752894c8d8ef75af336e40adbf867b60a2d697a2",
+      "bytes": 232808476
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/04769adc1fe5d5535ee6d7aafa07c41443e1a20f0ac60fe19b32ad7f3540a2fb": {
+      "sha256": "04769adc1fe5d5535ee6d7aafa07c41443e1a20f0ac60fe19b32ad7f3540a2fb",
+      "bytes": 232808476
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/e07b40cc157b4182f1b16f6630b13ce9111c0f6291eb95f616081bc0263ba8ed": {
+      "sha256": "e07b40cc157b4182f1b16f6630b13ce9111c0f6291eb95f616081bc0263ba8ed",
+      "bytes": 232808476
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/aeef7837fede83d69f688623bded6393313b4422db30c78ace901335c03fed75": {
+      "sha256": "aeef7837fede83d69f688623bded6393313b4422db30c78ace901335c03fed75",
+      "bytes": 232808476
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/9b38c18ea1314894c68bfbf32a2f8faef6edb7cb0fa75857feba236406af071e": {
+      "sha256": "9b38c18ea1314894c68bfbf32a2f8faef6edb7cb0fa75857feba236406af071e",
+      "bytes": 232808476
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/caf5d68e464878ede6f35ebed1244235819b0eefdf062b6ed64bffc3b041e6c9": {
+      "sha256": "caf5d68e464878ede6f35ebed1244235819b0eefdf062b6ed64bffc3b041e6c9",
+      "bytes": 232808476
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/ad7549e2834ef5674c2af4df4ce7f944fb8cf4513939be0d0fa42d1b98a9e37c": {
+      "sha256": "ad7549e2834ef5674c2af4df4ce7f944fb8cf4513939be0d0fa42d1b98a9e37c",
+      "bytes": 232808476
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/2eb839d2322884566445ae331dba4d49bd6290141724615a8cd2b64907a8dd56": {
+      "sha256": "2eb839d2322884566445ae331dba4d49bd6290141724615a8cd2b64907a8dd56",
+      "bytes": 232808476
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/206452059b660cec2ed31d11568b63c33cf249a83ba9dbe1db55b010757f6ab9": {
+      "sha256": "206452059b660cec2ed31d11568b63c33cf249a83ba9dbe1db55b010757f6ab9",
+      "bytes": 232808476
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/3d9a72983d75edb40d81c863c12f233579c43b270d9b59759bd9cc15df535bf3": {
+      "sha256": "3d9a72983d75edb40d81c863c12f233579c43b270d9b59759bd9cc15df535bf3",
+      "bytes": 232808476
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/fda643dc97be8a4a0f4062a797504bf31c85d57e8503cc4ef79b7b46d5444539": {
+      "sha256": "fda643dc97be8a4a0f4062a797504bf31c85d57e8503cc4ef79b7b46d5444539",
+      "bytes": 232808476
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/7ed7b10d6a06f8ac96c33dbbacad49e5b9e4e2ed7907b22148d6b0990cdc98c9": {
+      "sha256": "7ed7b10d6a06f8ac96c33dbbacad49e5b9e4e2ed7907b22148d6b0990cdc98c9",
+      "bytes": 232808476
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/ed2afd1a702849899ae863d1aeebfd5158f5271e400d6858ad75e279ec0e1527": {
+      "sha256": "ed2afd1a702849899ae863d1aeebfd5158f5271e400d6858ad75e279ec0e1527",
+      "bytes": 232808476
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/d341897dfa4838e6043876a21ee96df446225e82f5e0acdd73e551af4b366d80": {
+      "sha256": "d341897dfa4838e6043876a21ee96df446225e82f5e0acdd73e551af4b366d80",
+      "bytes": 232808476
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/c95c1bf205ccc36b3e2929833401d516516429364128af4dc93e5627dec14978": {
+      "sha256": "c95c1bf205ccc36b3e2929833401d516516429364128af4dc93e5627dec14978",
+      "bytes": 232808476
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/df13c864bf2b8654c613a692d02f18f2653b86ac8009542906210796a9b255e2": {
+      "sha256": "df13c864bf2b8654c613a692d02f18f2653b86ac8009542906210796a9b255e2",
+      "bytes": 232808476
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/16148e08cf9def2d5932060dcd83ac7feb2266e0dc508b514cd241e15dbf18ea": {
+      "sha256": "16148e08cf9def2d5932060dcd83ac7feb2266e0dc508b514cd241e15dbf18ea",
+      "bytes": 232808476
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/c37cc370efa7aa0e15547930ff068473880b73a25911ade7ffb79da78c942d80": {
+      "sha256": "c37cc370efa7aa0e15547930ff068473880b73a25911ade7ffb79da78c942d80",
+      "bytes": 232808476
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/e77d348649874c64e061a11d7ce8dc5a80386663694c391e4f10a1f971613641": {
+      "sha256": "e77d348649874c64e061a11d7ce8dc5a80386663694c391e4f10a1f971613641",
+      "bytes": 232808476
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/71ae8ad707abdc445491541d61720c6c681629dc3657413e1d73b758b82ff518": {
+      "sha256": "71ae8ad707abdc445491541d61720c6c681629dc3657413e1d73b758b82ff518",
+      "bytes": 232808476
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/b7a4c4a5a0178fe8c3c3714c8adddde7e9c8b19a6e452a36f383607467e50117": {
+      "sha256": "b7a4c4a5a0178fe8c3c3714c8adddde7e9c8b19a6e452a36f383607467e50117",
+      "bytes": 232808476
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/38686ae05113ef17af7c0ef95e757752e58cb5af0183cb28d876c9c9394f7b81": {
+      "sha256": "38686ae05113ef17af7c0ef95e757752e58cb5af0183cb28d876c9c9394f7b81",
+      "bytes": 232808476
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/5eeaa815af96a89f1e7deede0aa38972c56d0106dc4f7326a822d00b0953fb60": {
+      "sha256": "5eeaa815af96a89f1e7deede0aa38972c56d0106dc4f7326a822d00b0953fb60",
+      "bytes": 232808476
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/ffe744797efe17ec271d1c227521da4669c0a29a229f58a73b7e2b43fe98573a": {
+      "sha256": "ffe744797efe17ec271d1c227521da4669c0a29a229f58a73b7e2b43fe98573a",
+      "bytes": 232808476
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/77504404513f2d54ed2626f47857ad5d951932f61886fe30ca8b9eefbe868c3f": {
+      "sha256": "77504404513f2d54ed2626f47857ad5d951932f61886fe30ca8b9eefbe868c3f",
+      "bytes": 805306368
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/a736a0fd458aada260a1106b3d23f9e7593f258b09ab54ece95eda02b8f455d2": {
+      "sha256": "a736a0fd458aada260a1106b3d23f9e7593f258b09ab54ece95eda02b8f455d2",
+      "bytes": 256
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/577575622324b2e099e2648be26bdeb5e5815ffe66d7004e9e3ddbf421db6bf1": {
+      "sha256": "577575622324b2e099e2648be26bdeb5e5815ffe66d7004e9e3ddbf421db6bf1",
+      "bytes": 17078110
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/dfd5e67b652177f3e697dd67b0792bef7779c66522f47f502af2ce1715c5ec59": {
+      "sha256": "dfd5e67b652177f3e697dd67b0792bef7779c66522f47f502af2ce1715c5ec59",
+      "bytes": 379
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/9027fac5727854f779ebbeae3032cfce0d47a11bc85f4329eb0a317c9ad90217": {
+      "sha256": "9027fac5727854f779ebbeae3032cfce0d47a11bc85f4329eb0a317c9ad90217",
+      "bytes": 512
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/8b4656821cfe8827490068f768f0dba57e09423e900b8b018da097f0c4537009": {
+      "sha256": "8b4656821cfe8827490068f768f0dba57e09423e900b8b018da097f0c4537009",
+      "bytes": 512
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/ee7db4b3725079f9baeb8587bcad56fd3f04d92254b90d86acc894c1ec63cd24": {
+      "sha256": "ee7db4b3725079f9baeb8587bcad56fd3f04d92254b90d86acc894c1ec63cd24",
+      "bytes": 198481196
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/1ff97ac22b5c1e3ff31856a9476e68eae41c4f671d724b846361992c8511b19a": {
+      "sha256": "1ff97ac22b5c1e3ff31856a9476e68eae41c4f671d724b846361992c8511b19a",
+      "bytes": 11213
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/72bb195a2d0b3ef2a25f873666f51f4bbec4b391744518597be87206a551efc1": {
+      "sha256": "72bb195a2d0b3ef2a25f873666f51f4bbec4b391744518597be87206a551efc1",
+      "bytes": 25207
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/e8ed770153823bc60b2f27cfac14b9a58f534eb6bd9f19dc692d650f7faddd13": {
+      "sha256": "e8ed770153823bc60b2f27cfac14b9a58f534eb6bd9f19dc692d650f7faddd13",
+      "bytes": 5184
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/7848bef3d3e38a3478066f9532def039e4b4d23f3ce3d721dbc361e6d11a8d7f": {
+      "sha256": "7848bef3d3e38a3478066f9532def039e4b4d23f3ce3d721dbc361e6d11a8d7f",
+      "bytes": 1230
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/faaa6ccd29cc4d55a6b62f6b523d20427512761d291bd0bb05bdf531abc88e5e": {
+      "sha256": "faaa6ccd29cc4d55a6b62f6b523d20427512761d291bd0bb05bdf531abc88e5e",
+      "bytes": 1062
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/5e6c41c761719f70087a31817fd1e3865c36f6be7920c1f50a185157dc77c448": {
+      "sha256": "5e6c41c761719f70087a31817fd1e3865c36f6be7920c1f50a185157dc77c448",
+      "bytes": 96
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/a9776b2928a87a48395a21de3801678c2e7600096028546d53a7a255deecfce7": {
+      "sha256": "a9776b2928a87a48395a21de3801678c2e7600096028546d53a7a255deecfce7",
+      "bytes": 4158
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/4b639f650ecf495ebf9e7ab5c2090f885b088d516c1a871d6f36c22063491d8a": {
+      "sha256": "4b639f650ecf495ebf9e7ab5c2090f885b088d516c1a871d6f36c22063491d8a",
+      "bytes": 11216
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/9cc1dc0e605256e405a049b6a8d58f98a9f138b2a16c6d40be6bb35595743154": {
+      "sha256": "9cc1dc0e605256e405a049b6a8d58f98a9f138b2a16c6d40be6bb35595743154",
+      "bytes": 20628
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/6c2a05da4d610e20979fcd023aaf3d138868b6faa328d43b49bc623b04b4088b": {
+      "sha256": "6c2a05da4d610e20979fcd023aaf3d138868b6faa328d43b49bc623b04b4088b",
+      "bytes": 96
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/turbo-shared-v2/objects/912dc8a3f8839cca841004f8c5afb4df5c9d5015d4fedbb4deb77d67a62e2523": {
+      "sha256": "912dc8a3f8839cca841004f8c5afb4df5c9d5015d4fedbb4deb77d67a62e2523",
+      "bytes": 4158
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime512-official-v2/official/reference/initial.f32": {
+      "sha256": "1c89a002f18b3162b5a43100dc6f50bdd247dd0af8d1944ec87705153819d453",
+      "bytes": 524288
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime512-official-v2/official/reference/initial-input.f32": {
+      "sha256": "1c89a002f18b3162b5a43100dc6f50bdd247dd0af8d1944ec87705153819d453",
+      "bytes": 524288
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime512-official-v2/official/reference/text.f32": {
+      "sha256": "9b45fd22e5d40edbfb70249e7af20e490a75ed703ac2f1f572011ebdd81cb470",
+      "bytes": 184320
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime512-official-v2/official/reference/padded-text.f32": {
+      "sha256": "e23fa7eab8f1f5cd34ab7e3e9486b0f099a9d32dbea1db4c0a4b376eb9d20f28",
+      "bytes": 786432
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime512-official-v2/official/reference/constant-0.f32": {
+      "sha256": "0dd7248fdfcde51be98cd5910e0a1440a23e167e22499e82f4d70d8c7e77d5c2",
+      "bytes": 557056
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime512-official-v2/official/reference/constant-1.f32": {
+      "sha256": "44b17b95e7620bc36db83f69a4ea6a399c2568b52bd969a421fcc84f6ed78815",
+      "bytes": 557056
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime512-official-v2/official/reference/constant-2.f32": {
+      "sha256": "66a6c9f6ee7e8d7ace003ec68a6ba2730cbab8636834161bdb20930e92e432aa",
+      "bytes": 4734976
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime512-official-v2/official/reference/prediction-0.f32": {
+      "sha256": "7930e49ff6e2894a81e980ea304047cffd5d3c77a3a6a5a619557e11322f1f88",
+      "bytes": 524288
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime512-official-v2/official/reference/step-0.f32": {
+      "sha256": "2861504220570970ac7bb783e9aa928f134ec682be523ce7385babd3302eb68b",
+      "bytes": 524288
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime512-official-v2/official/reference/prediction-1.f32": {
+      "sha256": "0404ac8af5fecf17473dff1d559c5b7b98526a27417dc8a284d61b33f0903a52",
+      "bytes": 524288
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime512-official-v2/official/reference/step-1.f32": {
+      "sha256": "94dbf715ec3317884b0b01bc67513999396c6d4ae70471ef4000612ea3c8e25b",
+      "bytes": 524288
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime512-official-v2/official/reference/prediction-2.f32": {
+      "sha256": "31172c06ded9d0def8aec9482d181ace386f34d4090de50bd06faf3fc42b97cb",
+      "bytes": 524288
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime512-official-v2/official/reference/step-2.f32": {
+      "sha256": "1ba746447c80173b57d6b5156b7911addfe4b76befecf45e8a645b625e99dbce",
+      "bytes": 524288
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime512-official-v2/official/reference/prediction-3.f32": {
+      "sha256": "8c14b0adcf1111d7f345c11862d97aa10c9844fc8a467bf6d351170776ab2276",
+      "bytes": 524288
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime512-official-v2/official/reference/step-3.f32": {
+      "sha256": "ae0ac03b0de217e7e42f8b27d285d85434ff7f1f07661ad643148416fbc7687a",
+      "bytes": 524288
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime512-official-v2/official/reference/prediction-4.f32": {
+      "sha256": "338133c2a390944e0ffcf396c1dca3eaf02c1361a3dea563b55f414a52c0107d",
+      "bytes": 524288
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime512-official-v2/official/reference/step-4.f32": {
+      "sha256": "e33df084f7b915c0d916e9f8653f21abd458243789fb5d170c52e6f597f26d27",
+      "bytes": 524288
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime512-official-v2/official/reference/prediction-5.f32": {
+      "sha256": "36a2c365afbf0c491ac5a00c8a4deac3987be21635748eb8b74ddd0bedca50a8",
+      "bytes": 524288
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime512-official-v2/official/reference/step-5.f32": {
+      "sha256": "eda32fdc5924189c2ca40a4b84dc497bd8d82f5909e527d5eb26d16c4f75c007",
+      "bytes": 524288
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime512-official-v2/official/reference/prediction-6.f32": {
+      "sha256": "b8149432d5b38ac7ec2ad545623a40814aab87a5a21e20a4b8774dc577e956f0",
+      "bytes": 524288
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime512-official-v2/official/reference/step-6.f32": {
+      "sha256": "8f72b878900d686ef8d38bcd95dcbf4b43bdbde0f067fe8b8a1f175a00a9b428",
+      "bytes": 524288
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime512-official-v2/official/reference/prediction-7.f32": {
+      "sha256": "4e6bcc57df777e1c329856c9060a699a9a7443debda045921e0e07f63069f056",
+      "bytes": 524288
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime512-official-v2/official/reference/step-7.f32": {
+      "sha256": "16e23d608b6ae4a6c4f63f1f96559a91ec069933a74312e281b9465ffcc8ba41",
+      "bytes": 524288
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime512-official-v2/official/reference/final.f32": {
+      "sha256": "16e23d608b6ae4a6c4f63f1f96559a91ec069933a74312e281b9465ffcc8ba41",
+      "bytes": 524288
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime512-official-v2/official/reference/unpacked.f32": {
+      "sha256": "0468744cbdb923dfdc150c8164591e760f001aeacec4a72f7ff93af5bfc12c7c",
+      "bytes": 524288
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime512-official-v2/official/reference/decoded.f32": {
+      "sha256": "562133a6a18b0ad75a4a7dafd1d8facf7d412838408bcc4f2092b4fa0406d7c6",
+      "bytes": 3145728
+    },
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/outputs/runtime512-official-v2/official/reference/reference.png": {
+      "sha256": "673bc7a9a4585e0a7dad1f9bc4c7f872c45e14939d811cbaaa9600959a85d2ec",
+      "bytes": 348562
+    },
+    "/var/tmp/ernie-memory-execution-20260908-v1/frozen-bin/ernie-image": {
+      "sha256": "00f0e2112988f28d25480cb6bdaebd7594a0edf81c3b1d5d5a5fe9b07664b3b7",
+      "bytes": 37728664
+    },
+    "/var/tmp/ernie-ncnn-latest-20260908-v1/full/candidate-bf16/native.png": {
+      "sha256": "1b9b107b323460d9309b0fb36f17e28d55fc72d608493200366f1f6413b52ec5",
+      "bytes": 348779
+    },
+    "/var/tmp/ernie-ncnn-latest-20260908-v1/full/candidate-bf16/generation.json": {
+      "sha256": "1b343efabe3025d90aec3222aafc083b01a808e752e56034b2d38bc95861c4ba",
+      "bytes": 2238
+    },
+    "/var/tmp/ernie-ncnn-latest-20260908-v1/full/candidate-bf16/trace/text.f32": {
+      "sha256": "71fbeee3376e92644c967374601c8549988cb6b1b8e4640f5ddd1b1d840d8ec2",
+      "bytes": 184320
+    },
+    "/var/tmp/ernie-ncnn-latest-20260908-v1/full/candidate-bf16/trace/initial.f32": {
+      "sha256": "1c89a002f18b3162b5a43100dc6f50bdd247dd0af8d1944ec87705153819d453",
+      "bytes": 524288
+    },
+    "/var/tmp/ernie-ncnn-latest-20260908-v1/full/candidate-bf16/trace/padded-text.f32": {
+      "sha256": "5fed4f8e9131c3b0bf5fa7bfab06c5d6f9e9a72524b672cc9cd25a78302f28e5",
+      "bytes": 786432
+    },
+    "/var/tmp/ernie-ncnn-latest-20260908-v1/full/candidate-bf16/trace/constant-0.f32": {
+      "sha256": "931dfacc98acd8bc730c3931f81db34a79e3dade18bdfac565115e7b2c488c83",
+      "bytes": 557056
+    },
+    "/var/tmp/ernie-ncnn-latest-20260908-v1/full/candidate-bf16/trace/constant-1.f32": {
+      "sha256": "d1dcfb4736111e8c013bf865dbb061d463f7944765f697dd0167c1dd9f2b19cb",
+      "bytes": 557056
+    },
+    "/var/tmp/ernie-ncnn-latest-20260908-v1/full/candidate-bf16/trace/constant-2.f32": {
+      "sha256": "66a6c9f6ee7e8d7ace003ec68a6ba2730cbab8636834161bdb20930e92e432aa",
+      "bytes": 4734976
+    },
+    "/var/tmp/ernie-ncnn-latest-20260908-v1/full/candidate-bf16/trace/prediction-0.f32": {
+      "sha256": "d2267fb388c683ec2273fc4f8189c4bd8d895f050595ac7ce7121d7f1e2392f2",
+      "bytes": 524288
+    },
+    "/var/tmp/ernie-ncnn-latest-20260908-v1/full/candidate-bf16/trace/step-0.f32": {
+      "sha256": "1916035da785b499da5ebbf898b23e867db968dc268a60c8d0ec3fff15b642f4",
+      "bytes": 524288
+    },
+    "/var/tmp/ernie-ncnn-latest-20260908-v1/full/candidate-bf16/trace/prediction-1.f32": {
+      "sha256": "3c91c3bc1e8d2515131be3bd512bae464a9a354b611a83653e49b5a1c7d06db7",
+      "bytes": 524288
+    },
+    "/var/tmp/ernie-ncnn-latest-20260908-v1/full/candidate-bf16/trace/step-1.f32": {
+      "sha256": "7cdc48b2bc8df6bd25c695eb5e6c2460757121249ebfcbbea511e2ae2db12e57",
+      "bytes": 524288
+    },
+    "/var/tmp/ernie-ncnn-latest-20260908-v1/full/candidate-bf16/trace/prediction-2.f32": {
+      "sha256": "0708761feab27df3b0bcb6ba20214f260b20d606b6b997916bc20b4f584638a2",
+      "bytes": 524288
+    },
+    "/var/tmp/ernie-ncnn-latest-20260908-v1/full/candidate-bf16/trace/step-2.f32": {
+      "sha256": "12e46ae932a8cf70ec0074dd0d62ff1606a833eee97a59b7234ddaf339837d87",
+      "bytes": 524288
+    },
+    "/var/tmp/ernie-ncnn-latest-20260908-v1/full/candidate-bf16/trace/prediction-3.f32": {
+      "sha256": "1bb693e4b68b07dec4dca8f0df54e4eb639b6381f52e1113a9256c015ef8bccc",
+      "bytes": 524288
+    },
+    "/var/tmp/ernie-ncnn-latest-20260908-v1/full/candidate-bf16/trace/step-3.f32": {
+      "sha256": "bc9cee4afd76790cb728512b0bf4f487b9e3db58f3212f57cc5f1987a89bbda3",
+      "bytes": 524288
+    },
+    "/var/tmp/ernie-ncnn-latest-20260908-v1/full/candidate-bf16/trace/prediction-4.f32": {
+      "sha256": "0277f62d6ed244e75c24ac62f77248df8fe2fccf52ea02f4b0695ac889456ce1",
+      "bytes": 524288
+    },
+    "/var/tmp/ernie-ncnn-latest-20260908-v1/full/candidate-bf16/trace/step-4.f32": {
+      "sha256": "d8bd23dc2892497f93ecb7b61f863c4dc69acea092d5c908c5148a57f3bf2606",
+      "bytes": 524288
+    },
+    "/var/tmp/ernie-ncnn-latest-20260908-v1/full/candidate-bf16/trace/prediction-5.f32": {
+      "sha256": "ae87c9b0efaad9269c49a2280cdb34a94aefcd479a446fadf5f950ff85b4de73",
+      "bytes": 524288
+    },
+    "/var/tmp/ernie-ncnn-latest-20260908-v1/full/candidate-bf16/trace/step-5.f32": {
+      "sha256": "3662213c06fd24ba4f0845955a259b119c2b5803c776ff1967d40e981448caca",
+      "bytes": 524288
+    },
+    "/var/tmp/ernie-ncnn-latest-20260908-v1/full/candidate-bf16/trace/prediction-6.f32": {
+      "sha256": "6603c494fad3ca89c5948a5fb3dcbe3289f4c5fc368238419759b0b2135bd4f3",
+      "bytes": 524288
+    },
+    "/var/tmp/ernie-ncnn-latest-20260908-v1/full/candidate-bf16/trace/step-6.f32": {
+      "sha256": "211eb063f12c4f420f2fdacb4be4d273e84ef682e958dac3e94d0657126693c5",
+      "bytes": 524288
+    },
+    "/var/tmp/ernie-ncnn-latest-20260908-v1/full/candidate-bf16/trace/prediction-7.f32": {
+      "sha256": "ff641d6e205b62a5feb2999fb93b7e639189d39d29912ed3dfac3f53b5b0921a",
+      "bytes": 524288
+    },
+    "/var/tmp/ernie-ncnn-latest-20260908-v1/full/candidate-bf16/trace/step-7.f32": {
+      "sha256": "0849d639535bb7e02e46f57718bfebd7ce0fa60eb14a3745c97f27f48077649a",
+      "bytes": 524288
+    },
+    "/var/tmp/ernie-ncnn-latest-20260908-v1/full/candidate-bf16/trace/final.f32": {
+      "sha256": "0849d639535bb7e02e46f57718bfebd7ce0fa60eb14a3745c97f27f48077649a",
+      "bytes": 524288
+    },
+    "/var/tmp/ernie-ncnn-latest-20260908-v1/full/candidate-bf16/trace/unpacked.f32": {
+      "sha256": "92016fdb362cee1f1f4e6666f1ade9d16905337101fcddf3782d1e3ef6116d9e",
+      "bytes": 524288
+    },
+    "/var/tmp/ernie-ncnn-latest-20260908-v1/full/candidate-bf16/trace/decoded.f32": {
+      "sha256": "7cf7b7f1a23676b455d7659f826f5157fee9647f141d719b9cbb6cf72d31cfed",
+      "bytes": 3145728
+    },
+    "/var/tmp/ernie-memory-execution-20260908-v1/source-bindings.json": {
+      "sha256": "2dab45a971c512647d6b771c81d038168f92a7ff53e9ad172d029c2f7f0ddd88",
+      "bytes": 52705
+    },
+    "/var/tmp/ernie-memory-execution-20260908-v1/source-snapshot.tar.gz": {
+      "sha256": "ea92fffc3af894829cd1eb81ab51ca8c9394d329896ce421c902f393a22bc461",
+      "bytes": 570323
+    },
+    "/var/tmp/ernie-memory-execution-20260908-v1/derived-sources.json": {
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+      "bytes": 3
+    },
+    "/var/tmp/ernie-memory-execution-20260908-v1/run_full.py": {
+      "sha256": "40c7534701919f9ce16eb89229c88eb51e17d57cf8af8df1a76b882f9d05ef9f",
+      "bytes": 6509
+    },
+    "/var/tmp/ernie-memory-execution-20260908-v1/compare_full.py": {
+      "sha256": "6311b5b5fdd3fda8113bc49bc40722c759bc0dd6cfa35b5b23e74c36f2c980a6",
+      "bytes": 6139
+    },
+    "/var/tmp/ernie-memory-execution-20260908-v1/historical-fp32-anchor.json": {
+      "sha256": "c4da6337f481c8f1a868a98def15a466acbb182e8a60a9729e47ac34ff5216b0",
+      "bytes": 2555
+    }
+  },
+  "saved_bf16_baseline": "/var/tmp/ernie-ncnn-latest-20260908-v1/full/candidate-bf16",
+  "case_options": {
+    "normal": [],
+    "spill-prefetch": [
+      "--gpu-reserve-mib",
+      "8192",
+      "--dit-cache-mib",
+      "1024",
+      "--dit-prefetch-mib",
+      "1024"
+    ],
+    "bf16-flash": []
+  },
+  "notes": [
+    "normal and spill-prefetch use same frozen executable and old FP32 baseline",
+    "spill-prefetch deliberately reserves more than whole GPU to exercise automatic host placement without physically filling GPU",
+    "old same-input BF16 output is a separate numerical baseline for unsupported cooperative path fallback",
+    "CPU2 and tracing; desktop workload/page cache uncontrolled; no timing comparison claim"
+  ],
+  "execution_source_head": "00b6e642636cf95af1fe65d396e4d91eca301206",
+  "execution_source_state": "owned uncommitted implementation frozen in source-snapshot and source-bindings",
+  "current_ncnn": "3b7bdba7fc8aea8fd46779533eee027df77c639d",
+  "bf16_path": "native BF16 Flash; cooperative SDPA disabled because BF16 accumulator type is unsupported"
+}

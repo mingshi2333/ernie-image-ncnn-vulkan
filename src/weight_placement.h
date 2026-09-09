@@ -38,7 +38,8 @@ public:
     using Observer = std::function<void(const ComponentFiles&, const WeightPlacementDecision&)>;
     WeightPlacement(WeightMemory mode, std::uint64_t reserve_bytes,
                     BudgetReader reader = {}, Observer observer = {});
-    bool use_host(const ComponentFiles& files, bool shape_prefers_host, bool cache_prefers_host = false);
+    bool use_host(const ComponentFiles& files, bool shape_prefers_host, bool cache_prefers_host = false,
+                  const char* host_reason = "cache");
     std::uint64_t host_requests() const { return host_requests_; }
     std::uint64_t device_requests() const { return device_requests_; }
     std::uint64_t unavailable_queries() const { return unavailable_queries_; }

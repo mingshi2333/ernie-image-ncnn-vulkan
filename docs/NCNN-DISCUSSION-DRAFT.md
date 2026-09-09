@@ -290,7 +290,13 @@ build/ernie-image --model models/tutorial/turbo-portable \
 
 FP32 注意力还对 softmax 分母和概率乘 V 的长求和使用 Kahan 补偿。派生 shader 先将 Windows CRLF 换行统一为 LF，再核对完整源码的 SHA-256，并从同一份文本派生，ncnn 升级时必须重新审查。低精度 Flash 路径与原生缓存路径保留原行为。[注意力实现](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/src/ernie_attention.cpp)
 
-当前没有中间激活卸载和分配失败后的自动恢复。权重文件映射、RAM 权重放置、已准备权重缓存各有用途，不能把其中一个开关解释成显存和 RAM 自动互换。
+在这之后，执行层补上三个机制，详细的参数和代码见[内存执行教程](MEMORY-EXECUTION.md)：
+
+1. 在当前块执行前用一个 `std::future` 启动下一块的独立 Net 准备。启动前检查估计和 RAM 余量，完成后核查实际权重驻留与预算；主线程统一处理缓存和日志。提交与等待串行化以兼容只有一个队列的设备，CPU 准备仍可重叠。
+2. 为新的激活和工作区缓冲区选择设备内存或主机可见 RAM。RAM 上限按 Vulkan 实际分配大小计费，待 GPU 命令完成后才真正释放临时缓冲区。GPU 继续运行原着色器。
+3. 完成每次 Euler 更新后下载 FP32 潜变量。只在明确的分配错误后重建 session，从最近成功步骤继续；最多三次，关闭额外缓存和预取，并逐级减小 FP32 非 Flash 查询分块。所有查询仍使用完整 K/V，不改变输出尺寸、步数或精度。
+
+低层失败需要可靠地传播到这里。原 ncnn 的部分上传路径会丢失错误或继续使用空分配，因此项目在经过源码散列核验的构建副本中补齐错误分类、清理和队列等待。设备丢失、模型错误和观察器回调错误不进入恢复。权重文件映射、缓存、预取和 RAM 缓冲区仍分别记录成本；成功恢复不是提速证明。
 
 ## 10. 可选 PE 使用 ncnn 原生 KV cache
 
@@ -353,6 +359,7 @@ DiT 的隐藏状态会随去噪步变化，联合注意力里的文本状态也�
 | `src/denoiser.cpp`、`dit.cpp`、`block_sequence.cpp` | Euler、单次 DiT、逐块执行 |
 | `src/pe_session.cpp` | PE 的原生 KV 会话 |
 | `src/weight_placement.cpp`、`weight_session.cpp` | 权重位置与有界 RAM 缓存 |
+| `src/vulkan_memory.cpp`、`vulkan_denoise.cpp` | 激活缓冲区放置、CPU 检查点与有限恢复 |
 | `tokenizer/` | Rust tokenizer 与模型包验证 |
 | `tools/`、`probes/`、`tests/` | 模型准备、数值诊断与回归检查 |
 
@@ -389,4 +396,4 @@ Linux、Windows 和 macOS 各自编译并运行测试。Windows 使用 MSVC 原�
 
 这 4 项 BF16 跳过属于 CI 环境的驱动能力限制：驱动报告 `bf16-p/s=1/0`，测试在运行前的能力检查阶段返回 `77`。本机 RTX 4060 Laptop 报告 `bf16-p/s=1/1`，同样四项已实际执行并通过。
 
-目前后续工作主要是扩大独立提示词验证、继续定位残余数值偏差，以及补充其他设备上的完整出图记录。激活卸载、分配失败恢复和近似 DiT 缓存均未作为已有能力发布。
+目前后续工作主要是扩大独立提示词验证、继续定位残余数值偏差，以及补充其他设备上的完整出图记录。新增的 DiT RAM 缓冲区与分配恢复有明确的预算和平台边界；近似 DiT 缓存仍未作为已有能力提供。

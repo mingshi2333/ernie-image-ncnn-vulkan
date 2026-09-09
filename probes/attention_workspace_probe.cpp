@@ -23,7 +23,7 @@ public:
 #endif
 
 #if NCNN_VULKAN
-bool run_case(const char* name, int keys, int groups, int output_width, int mask_channels)
+bool run_case(const char* name, int keys, int groups, int output_width, int mask_channels, int query_rows)
 {
     constexpr int width=128, queries=257, heads=2;
     ncnn::Mat q(width,queries,heads), k(width,keys,groups), v(output_width,keys,groups), mask;
@@ -88,6 +88,7 @@ bool run_case(const char* name, int keys, int groups, int output_width, int mask
             "7767517\n4 4\nInput q 0 1 q\nInput k 0 1 k\nInput v 0 1 v\nSDPA attention 3 1 q k v out 5=0\n";
         alignas(4) const unsigned char weights[4]={};
         if (net.load_param_mem(graph)||net.load_model(weights)) throw std::runtime_error("Load attention");
+        ernie::set_attention_query_rows(net, query_rows);
         auto ex=net.create_extractor();
         if (bounded) ex.set_workspace_vkallocator(&workspace);
         if (ex.input("q",q)||ex.input("k",k)||ex.input("v",v)||(mask_channels&&ex.input("mask",mask))) throw std::runtime_error("Input attention");
@@ -116,9 +117,9 @@ bool run_case(const char* name, int keys, int groups, int output_width, int mask
                 maximum=std::max(maximum,std::abs(a-b));error+=(a-b)*(a-b);energy+=b*b;
             }
     const double nrmse=std::sqrt(error/energy);
-    const bool passed=maximum<=3e-6&&nrmse<=5e-7&&workspace.largest<=300*1024&&submissions==2;
+    const bool passed=maximum<=3e-6&&nrmse<=5e-7&&workspace.largest<=300*1024&&submissions==uint64_t((queries-1)/query_rows);
     std::cout << std::setprecision(12) << "{\"case\":\"" << name << "\",\"queries\":" << queries << ",\"keys\":" << keys
-              << ",\"kv_groups\":" << groups << ",\"output_width\":" << output_width << ",\"mask_channels\":" << mask_channels
+              << ",\"query_rows\":" << query_rows << ",\"kv_groups\":" << groups << ",\"output_width\":" << output_width << ",\"mask_channels\":" << mask_channels
               << ",\"largest_workspace_request\":" << workspace.largest << ",\"internal_submissions\":" << submissions
               << ",\"matches_unsliced_exactly\":true,\"max_abs\":" << maximum
               << ",\"nrmse\":" << nrmse << ",\"passed\":" << (passed?"true":"false") << "}\n";
@@ -136,10 +137,14 @@ int main()
     {
         ncnn::create_gpu_instance();
         if (ncnn::get_gpu_count()<1) { ncnn::destroy_gpu_instance(); return 77; }
-        bool passed=run_case("shared-mask",257,2,128,1);
-        passed=run_case("per-head-mask",193,2,64,2)&&passed;
-        passed=run_case("grouped-query-mask",193,1,64,2)&&passed;
-        passed=run_case("grouped-query-no-mask",193,1,64,0)&&passed;
+        bool passed=true;
+        for (int rows : {128, 64, 32, 16})
+        {
+            passed=run_case("shared-mask",257,2,128,1,rows)&&passed;
+            passed=run_case("per-head-mask",193,2,64,2,rows)&&passed;
+            passed=run_case("grouped-query-mask",193,1,64,2,rows)&&passed;
+            passed=run_case("grouped-query-no-mask",193,1,64,0,rows)&&passed;
+        }
         status=passed?0:1;
     }
     catch (const std::exception& e) { std::cerr << e.what() << '\n'; }

@@ -56,6 +56,7 @@ WeightSession::WeightSession(WeightBudget budget, AvailableReader available, Ins
 }
 WeightSession::~WeightSession() { cancel(); }
 WeightSessionStats WeightSession::stats() const { return state_->stats; }
+bool WeightSession::contains(std::size_t block) const { return state_->idle.count(block) != 0; }
 void WeightSession::cancel()
 {
     state_->cancelled = true;

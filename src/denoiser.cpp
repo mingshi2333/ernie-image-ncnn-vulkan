@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 #include "denoiser.h"
+#include "vulkan_memory.h"
 #include <chrono>
 #include <cmath>
 #include <stdexcept>
@@ -88,7 +89,8 @@ ncnn::Mat denoise(const DenoiseModel &model, const ncnn::Mat &initial,
 ncnn::VkMat denoise(const DenoiseModel &model, const ncnn::VkMat &initial,
                     const std::vector<ncnn::VkMat> &constants, int steps, const ncnn::VulkanDevice *device,
                     const ncnn::Option &option, std::vector<DenoiseStepStats> &stats,
-                    const VulkanStepObserver &observer, int start_step, bool collect_details, WeightPlacement* placement, WeightSession* session)
+                    const VulkanStepObserver &observer, int start_step, bool collect_details, WeightPlacement* placement, WeightSession* session,
+    const MemoryExecution* memory)
 {
     check_request(model, initial, constants.size());
     if (start_step < 0 || start_step > steps)
@@ -108,6 +110,9 @@ ncnn::VkMat denoise(const DenoiseModel &model, const ncnn::VkMat &initial,
         step.dit.collect_details = collect_details;
         step.timestep = schedule.timesteps[i];
         step.delta = schedule.delta(i);
+        ncnn::VkMat prediction;
+        try {
+        if (memory && memory->before_step) memory->before_step(i);
         const auto features = timestep_features(step.timestep);
         ncnn::VkMat model_input, time_input;
         {
@@ -115,19 +120,18 @@ ncnn::VkMat denoise(const DenoiseModel &model, const ncnn::VkMat &initial,
             const int storage = option.use_bf16_storage ? 5 : option.use_fp16_storage ? 2 : 1;
             device->convert_packing(sample, model_input, 4, storage, command, option);
             command.record_upload(features, time_input, option);
-            if (command.submit_and_wait())
-                throw std::runtime_error("Prepare DiT step failed");
+            if (model_input.empty() || time_input.empty()) throw GpuAllocationError("Prepare DiT inputs");
+            check_ncnn_memory(command.submit_and_wait(), "Prepare DiT step");
         }
         const std::vector<ncnn::VkMat> inputs{model_input,  constants[0], time_input,
                                               constants[1], constants[2], constants[3]};
-        ncnn::VkMat prediction;
-        try {
-            const auto output=run_dit(model.input_head, model.blocks, model.output_head, inputs, device, option, step.dit, {}, placement, session);
+            const auto output=run_dit(model.input_head, model.blocks, model.output_head, inputs, device, option, step.dit, {}, placement, session, memory);
             ncnn::VkMat next;
             ncnn::VkCompute command(device);
             device->convert_packing(output, prediction, 1, 1, command, option);
+            if (prediction.empty()) throw GpuAllocationError("Allocate prediction");
             latent_ops.record_euler(sample, prediction, step.delta, next, command, option);
-            if (command.submit_and_wait()) throw std::runtime_error("Euler step failed");
+            check_ncnn_memory(command.submit_and_wait(), "Euler step");
             sample = next;
             if (!latent_ops.finite_latent(sample, device, option))
                 throw std::runtime_error("Non-finite latent after denoise step " + std::to_string(i + 1));

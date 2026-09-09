@@ -3,6 +3,7 @@
 #include "component_files.h"
 #include "weight_placement.h"
 #include "weight_session.h"
+#include "memory_execution.h"
 #include "net.h"
 #include <functional>
 #include <string>
@@ -25,6 +26,9 @@ struct BlockSequenceStats
     int compute_submissions = 0;
     bool collect_details = false;
     std::vector<Detail> details;
+    std::uint64_t prefetch_started = 0, prefetch_used = 0, prefetch_skipped = 0;
+    std::uint64_t prefetch_peak_charged_bytes = 0;
+    double prefetch_overlap_seconds = 0;
 };
 
 // Every model must be a verified static graph for the same token bucket. The
@@ -46,11 +50,13 @@ ncnn::Mat run_block_sequence(const std::vector<std::string>& models, const ncnn:
 ncnn::VkMat run_block_sequence(const std::vector<ComponentFiles>& models, const ncnn::VkMat& input,
     const std::vector<ncnn::VkMat>& constants, const ncnn::VulkanDevice* device,
     const ncnn::Option& option, WeightPolicy policy, BlockSequenceStats& stats,
-    const VulkanStageObserver& observer = {}, WeightPlacement* placement = nullptr, WeightSession* session = nullptr);
+    const VulkanStageObserver& observer = {}, WeightPlacement* placement = nullptr, WeightSession* session = nullptr,
+    const MemoryExecution* memory = nullptr);
 
 ncnn::VkMat run_block_sequence(const std::vector<std::string>& models, const ncnn::VkMat& input,
     const std::vector<ncnn::VkMat>& constants, const ncnn::VulkanDevice* device,
     const ncnn::Option& option, WeightPolicy policy, BlockSequenceStats& stats,
-    const VulkanStageObserver& observer = {}, WeightPlacement* placement = nullptr, WeightSession* session = nullptr);
+    const VulkanStageObserver& observer = {}, WeightPlacement* placement = nullptr, WeightSession* session = nullptr,
+    const MemoryExecution* memory = nullptr);
 #endif
 } // namespace ernie

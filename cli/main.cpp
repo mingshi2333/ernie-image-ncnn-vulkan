@@ -123,6 +123,22 @@ int main(int argc, char **argv)
                       << " peak nets=" << result.weight_cache_peak_nets
                       << " evictions=" << result.weight_cache_evictions
                       << " host budget unavailable=" << result.unavailable_host_memory_queries << '\n';
+        if (request.dit_prefetch_mib)
+            std::cerr << "DiT weight prefetch: started=" << result.prefetch_started
+                      << " used=" << result.prefetch_used << " skipped=" << result.prefetch_skipped
+                      << " peak charged bytes=" << result.prefetch_peak_charged_bytes
+                      << " overlap seconds=" << result.prefetch_overlap_seconds << '\n';
+        if (result.gpu_device_allocations || result.gpu_host_allocations || result.gpu_allocation_failures)
+            std::cerr << "DiT activation/workspace buffers: device=" << result.gpu_device_allocations
+                      << " host=" << result.gpu_host_allocations
+                      << " host non-device-local=" << result.gpu_host_non_device_local_allocations
+                      << " host device-local=" << result.gpu_host_device_local_allocations
+                      << " host peak bytes=" << result.gpu_host_peak_bytes
+                      << " fallbacks=" << result.gpu_memory_fallbacks
+                      << " allocation failures=" << result.gpu_allocation_failures << '\n';
+        if (result.memory_retries)
+            std::cerr << "DiT memory recovery: retries=" << result.memory_retries
+                      << " attention query rows=" << result.attention_query_rows << '\n';
         const auto write_start = std::chrono::steady_clock::now();
 #ifdef ERNIE_CLI_ALLOCATION_METRICS
         failure_phase="image_write_failed";

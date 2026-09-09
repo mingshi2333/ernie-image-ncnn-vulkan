@@ -4,6 +4,8 @@
 #include <algorithm>
 #include <atomic>
 #include <memory>
+#include <stdexcept>
+#include "vulkan_memory.h"
 #if NCNN_VULKAN
 #include "vulkan/sdpa_vulkan.h"
 #include "vulkan/softmax_vulkan.h"
@@ -99,7 +101,7 @@ public:
         const auto& q=in[0];
         // Preserve native autoregressive/cache and low-storage flash paths.
         // Static ERNIE DiT is batch one, pack1, with a full 2D attention mask.
-        bool slice=copy_rows && !kv_cache && !use_flash_attention && q.h>128
+        bool slice=copy_rows && !kv_cache && !use_flash_attention && q.h>query_rows
                    && q.dims==3 && q.elempack==1 && q.elembits()==32;
 #if NCNN_BATCH
         slice=slice && q.n==1;
@@ -111,9 +113,9 @@ public:
         if (!slice) return ncnn::SDPA_vulkan::forward(in,out,cmd,opt);
         out[0].create(in[2].w,q.h,q.c,4u,opt.blob_vkallocator);
         if (out[0].empty()) return -100;
-        for (int first=0; first<q.h; first+=128)
+        for (int first=0; first<q.h; first+=query_rows)
         {
-            const int count=std::min(128,q.h-first);
+            const int count=std::min(query_rows,q.h-first);
             auto part=in;
             part[0].create(q.w,count,q.c,4u,opt.workspace_vkallocator);
             if (part[0].empty()) return -100;
@@ -138,11 +140,15 @@ public:
                 internal_submissions.fetch_add(1,std::memory_order_relaxed);
                 const int reset=cmd.reset();
                 if (reset) return reset;
+                result.clear();
+                part.clear();
+                reclaim_completed(opt.workspace_vkallocator);
             }
         }
         return 0;
     }
     const bool bounded_workspace;
+    int query_rows = 128;
     std::unique_ptr<ncnn::Pipeline> copy_rows;
     mutable std::atomic<uint64_t> internal_submissions{0};
 };
@@ -215,6 +221,17 @@ int register_attention(ncnn::Net& net, bool bounded_workspace)
     static int bounded_marker;
     return net.register_custom_layer("SDPA", ErnieSDPA_layer_creator, nullptr,
                                      bounded_workspace ? &bounded_marker : nullptr);
+}
+void set_attention_query_rows(ncnn::Net& net, int rows)
+{
+    if (rows != 128 && rows != 64 && rows != 32 && rows != 16)
+        throw std::invalid_argument("Attention query rows must be 128, 64, 32 or 16");
+#if NCNN_VULKAN
+    for (auto* layer : net.layers())
+        if (auto* sdpa = dynamic_cast<ErnieSDPA*>(layer)) sdpa->gpu->query_rows = rows;
+#else
+    (void)net;
+#endif
 }
 uint64_t attention_internal_submissions(const ncnn::Net& net)
 {

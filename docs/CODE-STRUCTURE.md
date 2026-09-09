@@ -32,7 +32,8 @@
 | 图生图与 VAE | `src/img2img.*`、`image_encoder.*`、`vae.*` | 强度与时间步后缀、编码、解码 |
 | 模型加载 | `src/model_package.*`、`model_config.*`、`component_files.*`、`model_loading.h` | 包配置、共享路径、图文本和权重加载、stdio/mapped 选择 |
 | 形状实例化 | `src/shape_plan.*`、`shape_graph.*` | 目标尺寸、有效 token、padding 与允许修改的图字段 |
-| 内存 | `src/weight_placement.*`、`weight_session.*`、`host_memory.*` | 权重放置、可选 RAM 缓存和可用内存查询 |
+| 内存 | `src/weight_placement.*`、`weight_session.*`、`host_memory.*`、`vulkan_memory.*` | 权重放置、可选缓存、平台余量与设备/RAM 激活缓冲区 |
+| 恢复 | `src/vulkan_denoise.*`、`memory_execution.h` | 每步 CPU 检查点、有限重试、注意力查询分块和预取参数 |
 | 算子与诊断 | `src/ernie_*`、`tensor_io.*`、`execution_metrics.*` | 模型算子、精度处理、诊断张量和计时 |
 
 每个目录自己的 `CMakeLists.txt` 管理本目录目标，根目录管理选项、依赖和安装。原生可执行文件统一输出到所选构建目录的根部。
@@ -134,7 +135,9 @@ Vulkan 路径使用 `VkMat` 保存设备上的中间状态，通过 `VkCompute` 
 ## 内存与缓存
 
 - `WeightPlacement` 在加载 DiT 组件前读取 Vulkan 显存预算，结合权重估计与余量选择 GPU 或 RAM；它不持有模型、设备命令或后台线程。
-- `block_sequence` 和 DiT heads 管理 Net 的执行及释放。默认逐块加载；中间激活保留在 GPU，激活卸载和分配失败后的自动恢复尚未实现。
+- `block_sequence` 和 DiT heads 管理 Net 的执行及释放。可选预取在后台加载下一块，主线程管理权重策略和缓存；异常退出会先等待后台任务。
+- `AdaptiveVkAllocator` 管理 GPU 和主机可见 RAM 缓冲区。命令完成前仅将不用的 RAM 缓冲区标记为待回收，完成后再释放。
+- `vulkan_denoise` 管理每次尝试的 allocator/pipeline cache/权重 session 和每步 CPU 潜变量。明确的内存错误触发有限重建，不重复已提交的成功步骤。
 - `WeightSession` 管理可选的跨步 RAM 权重缓存，默认容量为零。`host_memory` 提供平台内存余量，Linux 同时考虑 cgroup；不能确认余量时不接纳额外缓存。
 - `PeSession` 只管理 PE 的 KV cache、位置和生命周期。它使用 ncnn 的独立 cache allocator、容量 hint 与原生不透明句柄，模板、分词和采样由 `prompt_enhancer` 负责。
 
@@ -152,15 +155,15 @@ PE 的正常入口仍逐 token 预填充。内部候选 `append_chunk` 支持 1.
 
 图像 DiT 的联合注意力每一步都会更新图像和文本隐藏状态，其 K/V 不能作为上一去噪步的精确结果直接复用。PE 的历史之所以可缓存，是因果 mask 保证后续 token 不会改变前面 token 的隐藏状态。`PeSession` 使用独立 cache allocator、容量 hint 和 `extract(..., type=1)` 保留 ncnn 原生不透明句柄；缓存交给下一次计算后再接回新句柄，避免把浅拷贝当作独立会话。详见 [pe_session.cpp](../src/pe_session.cpp)。
 
-RAM 权重模式也不表示“显存满了就自动把所有东西转到 RAM”。当前策略在组件加载前选择权重放置位置；激活和 attention 工作区仍需要设备资源，实际分配失败后的恢复尚未实现。
+权重的 RAM 放置、激活/工作区的新缓冲区分配、跨步权重缓存和后台预取是不同的生命周期。新增 `--gpu-memory` 与 `--gpu-spill-mib` 管理激活缓冲区；`--oom-retries` 管理从成功去噪步开始的重建。它们不迁移正在运行内核引用的任意缓冲区。预算、异常分类和平台限制见 [内存执行教程](MEMORY-EXECUTION.md)。
 
 ## 模型实现约定
 
 固定 Transformers 版本将官方 Mistral3 配置中的文本子模型分派给 `MistralModel`，不是 `Ministral3Model`。需要的 `hidden_states[-2]` 为 block 24 输出：执行前 25 层，不执行第 26 层或 final norm，也不加载视觉支路和 LM head。该选择同时有完整小模型 hidden-state 钩子检查和真实权重文本路径对照。
 
-DiT 保留三轴 RoPE、erf GELU、shared AdaLN 和最终非 affine LayerNorm。真实文本条件下，残差激活可超过 FP16 的 65504 上限。两个残差相加点使用 `ErnieResidualAdd` 保持 FP32，RMSNorm / LayerNorm 临时计算也使用 FP32，归一化后的投影输入返回模型存储精度。每步 Euler 检查有限值，Vulkan 仅下载 128 个状态浮点数。CPU VAE 的 GroupNorm 使用 FP64 均值与中心方差归约，其余激活和 affine 运算为 FP32。
+DiT 保留三轴 RoPE、erf GELU、shared AdaLN 和最终非 affine LayerNorm。真实文本条件下，残差激活可超过 FP16 的 65504 上限。两个残差相加点使用 `ErnieResidualAdd` 保持 FP32，RMSNorm / LayerNorm 临时计算也使用 FP32，归一化后的投影输入返回模型存储精度。每步 Euler 在 Vulkan 上检查有限值（128 个状态浮点数）；恢复执行层另外下载完整 FP32 潜变量作为 CPU 检查点。CPU VAE 的 GroupNorm 使用 FP64 均值与中心方差归约，其余激活和 affine 运算为 FP32。
 
-36 层 DiT 默认每次只加载一块，GPU 中间激活保留在设备上，调用方共享 Vulkan pipeline cache。FP32 注意力对 softmax 分母和概率乘 V 使用 Kahan 累加；查询按最多 128 行处理，每行保留全部 K/V。4160-token、32 头的单个分数矩阵由约 2.06 GiB 降至 65 MiB，代价是增加同步提交；FP16 Flash 和原生 KV cache 路径保留。模型文件的 BF16 表示无损保存官方 BF16 权重，每块约 416MiB，36 块共约 14.63GiB；加载仍会展开和准备权重，文件缩小不代表内存同比缩小。
+36 层 DiT 默认每次只加载一块，开启预取时最多再准备下一块；调用方共享 Vulkan pipeline cache，中间激活使用同一个有预算的设备/RAM allocator。FP32 注意力对 softmax 分母和概率乘 V 使用 Kahan 累加；查询按最多 128 行处理，每行保留全部 K/V。4160-token、32 头的单个分数矩阵由约 2.06 GiB 降至 65 MiB，代价是增加同步提交；FP16 Flash 和原生 KV cache 路径保留。模型文件的 BF16 表示无损保存官方 BF16 权重，每块约 416MiB，36 块共约 14.63GiB；加载仍会展开和准备权重，文件缩小不代表内存同比缩小。
 
 高分辨率 VAE 使用完整图指纹约束下的两处空间 reshape 特化，并通过独立执行的目标分辨率官方参考。原先整图 pnnx 转换因主机内存持续增长而停止，失败记录保留；不把特化后的成功写成整图导出成功。
 

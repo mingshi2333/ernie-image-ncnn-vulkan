@@ -40,6 +40,7 @@ ncnn::VkMat denoise(const DenoiseModel &model, const ncnn::VkMat &initial,
                     const std::vector<ncnn::VkMat> &constants, int steps, const ncnn::VulkanDevice *device,
                     const ncnn::Option &option, std::vector<DenoiseStepStats> &stats,
                     const VulkanStepObserver &observer = {}, int start_step = 0,
-                    bool collect_details = false, WeightPlacement* placement = nullptr, WeightSession* session = nullptr);
+                    bool collect_details = false, WeightPlacement* placement = nullptr, WeightSession* session = nullptr,
+    const MemoryExecution* memory = nullptr);
 #endif
 } // namespace ernie

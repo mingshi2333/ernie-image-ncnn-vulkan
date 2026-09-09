@@ -92,7 +92,11 @@ const char *usage(bool all)
            "            [--width N --height N] [--seed N] [--steps N] [--threads N]\n"
            "            [--gpu N] [--text-device cpu]\n"
            "            [--dit-weights auto|device|host] [--gpu-reserve-mib N] (host uses RAM)\n"
-           "            [--dit-cache-mib N] [--ram-reserve-mib N] (optional FP32 Vulkan RAM cache)\n"
+           "            [--dit-cache-mib N] (optional FP32 Vulkan RAM weight cache; default 0)\n"
+           "            [--dit-prefetch-mib N] (one upcoming FP32 Vulkan block; default 0/off)\n"
+           "            [--gpu-memory auto|device|host] [--gpu-spill-mib N] (DiT buffers; defaults auto/2048 MiB)\n"
+           "            [--ram-reserve-mib N] (cache, prefetch and buffer RAM reserve; default 3072 MiB)\n"
+           "            [--oom-retries 0..3] (default 3; bounded memory recovery, same image size)\n"
            "            [--model-loading default|stdio|mapped] (image pipeline weights; excludes PE)\n"
            "            [--text-down-vector] (optional FP32 text reduction candidate)\n"
            "            [--vae-device cpu|vulkan] [--vae-convolution direct|sgemm]\n"
@@ -114,6 +118,9 @@ const char *usage(bool all)
            "Reviewed model instances; FP32 text encoder, residuals, Euler master latent and\n"
            "FP32 VAE (CPU default). CFG=1. BF16 quality is experimental.\n"
            "Default precision: Vulkan fp16; --device cpu selects fp32 unless explicitly overridden.\n"
+           "Prefetch requires FP32 Vulkan with auto/host DiT weights; overlap does not guarantee a speedup.\n"
+           "Buffer RAM spill keeps DiT computation on Vulkan; it does not move CPU VAE/text work.\n"
+           "Recovery can reduce FP32 non-Flash attention query chunks: 128, 64, 32, 16 rows.\n"
            "Use -h or --help for common options; --help-all shows this full reference.\n";
 }
 Options parse_options(int argc, char **argv)
@@ -205,6 +212,14 @@ Options parse_options(int argc, char **argv)
             r.gpu_reserve_mib = integer(value);
         else if (flag == "--dit-cache-mib")
             r.dit_cache_mib = integer(value);
+        else if (flag == "--dit-prefetch-mib")
+            r.dit_prefetch_mib = integer(value);
+        else if (flag == "--gpu-memory")
+            r.gpu_memory = value;
+        else if (flag == "--gpu-spill-mib")
+            r.gpu_spill_mib = integer(value);
+        else if (flag == "--oom-retries")
+            r.oom_retries = integer(value);
         else if (flag == "--ram-reserve-mib")
             r.ram_reserve_mib = integer(value);
         else if (flag == "--background")

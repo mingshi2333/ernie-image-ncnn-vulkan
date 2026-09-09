@@ -48,14 +48,24 @@ jobs:
       - name: Install native build dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y cmake ninja-build g++ libpng-dev libvulkan-dev mesa-vulkan-drivers
+          sudo apt-get install -y cmake ninja-build g++ libpng-dev libvulkan-dev mesa-vulkan-drivers vulkan-validationlayers vulkan-tools
           rustup toolchain install 1.98.0 --profile minimal --no-self-update
           rustup default 1.98.0
           rustc --version
+      - name: Verify software Vulkan and the validation layer
+        if: matrix.vulkan == 'ON'
+        env:
+          VK_INSTANCE_LAYERS: VK_LAYER_KHRONOS_validation
+        run: |
+          test -r /usr/share/vulkan/explicit_layer.d/VkLayer_khronos_validation.json
+          mkdir -p build
+          vulkaninfo --summary > build/vulkan-validation-info.log 2>&1
+          cat build/vulkan-validation-info.log
       - name: Configure pinned ncnn and native tokenizer
         run: >-
           cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
           -DERNIE_ENABLE_VULKAN=${{ matrix.vulkan }}
+          -DERNIE_TEST_VULKAN_VALIDATION=${{ matrix.vulkan }}
           -DERNIE_EXPERIMENT_COMPACT_MODEL_READER=${{ matrix.compact_reader }}
           -DERNIE_BUILD_TOKENIZER=ON -DERNIE_BUILD_GENERATOR=ON -DERNIE_INSTALL_SDK=ON
           -DNCNN_SYSTEM_GLSLANG=OFF -DNCNN_INT8=OFF -DNCNN_WEIGHT_QUANT=OFF
@@ -65,6 +75,9 @@ jobs:
         # Software Vulkan exercises the kernels; this is not a hardware or
         # real-weight image quality benchmark. CTest reports unavailable GPUs.
         run: ctest --test-dir build --output-on-failure --output-junit "$PWD/build/ctest-results.xml"
+      - name: Check validation output including skipped tests
+        if: matrix.vulkan == 'ON'
+        run: python3 cmake/check_vulkan_validation.py build/Testing/Temporary/LastTest.log
       - name: Install and check executable
         run: |
           cmake --install build --prefix "$RUNNER_TEMP/ernie-install"
@@ -79,6 +92,7 @@ jobs:
             build/CMakeCache.txt
             build/ctest-results.xml
             build/Testing/Temporary/*.log
+            build/vulkan-validation-info.log
           retention-days: 14
 
   windows:

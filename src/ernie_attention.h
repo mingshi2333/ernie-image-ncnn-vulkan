@@ -8,4 +8,5 @@ int register_attention(ncnn::Net& net, bool bounded_workspace = true);
 // Only call for Nets registered above. Includes internal chunk completions;
 // the caller's final submission is counted separately.
 uint64_t attention_internal_submissions(const ncnn::Net& net);
+void set_attention_query_rows(ncnn::Net& net, int rows);
 }

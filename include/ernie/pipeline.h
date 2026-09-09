@@ -61,6 +61,19 @@ struct GenerationRequest
     // Image text/DiT/VAE loading only; the separate prompt enhancer is unchanged.
     // default preserves the build setting. mapped may fall back to file reads.
     std::string model_loading = "default"; // default, stdio, mapped.
+    // Optional preparation of one upcoming DiT block while the current block
+    // computes. FP32 Vulkan with auto/host weights only; 0 disables admission.
+    // Charged preparation budget, not a speed guarantee or process RAM limit.
+    uint32_t dit_prefetch_mib = 0;
+    // Vulkan DiT activation/workspace buffers only. Host-visible storage keeps
+    // computation on the GPU. The existing RAM reserve also covers admission
+    // of these buffers and prefetched weights, independently of cache use.
+    std::string gpu_memory = "auto"; // auto, device, host.
+    uint32_t gpu_spill_mib = 2048; // Cap on actual host-backed Vulkan allocation bytes.
+    // At most three retries after a recognized allocation failure. The FP32
+    // non-Flash attention path reduces query chunks 128 -> 64 -> 32 -> 16;
+    // resolution and model mathematics stay fixed.
+    uint32_t oom_retries = 3;
 };
 
 struct GenerationResult
@@ -81,6 +94,15 @@ struct GenerationResult
     int model_schema = 0, text_bucket = 0, dit_text_tokens = 0;
     int source_width = 0, source_height = 0;
     int vulkan_gpu_index = -1; // -1 when no stage uses Vulkan.
+    uint64_t prefetch_started = 0, prefetch_used = 0, prefetch_skipped = 0;
+    uint64_t prefetch_peak_charged_bytes = 0;
+    double prefetch_overlap_seconds = 0;
+    uint64_t gpu_device_allocations = 0, gpu_host_allocations = 0, gpu_host_peak_bytes = 0;
+    uint64_t gpu_memory_fallbacks = 0, gpu_allocation_failures = 0;
+    // Some unified-memory devices expose only host-visible device-local RAM.
+    uint64_t gpu_host_device_local_allocations = 0, gpu_host_non_device_local_allocations = 0;
+    uint32_t memory_retries = 0;
+    uint32_t attention_query_rows = 128; // Applied by the FP32 non-Flash attention path.
 };
 
 struct Progress

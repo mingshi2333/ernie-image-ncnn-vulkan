@@ -1,0 +1,47 @@
+[
+  {
+    "name": "pristine",
+    "returncode": 0,
+    "expected_success": true,
+    "original_unchanged": true,
+    "patched_sha256": "757342e625127b546ba715105dced695f15cd9f4f392d5875ef34178d0e2b86b"
+  },
+  {
+    "name": "crlf",
+    "returncode": 0,
+    "expected_success": true,
+    "original_unchanged": true,
+    "patched_sha256": "757342e625127b546ba715105dced695f15cd9f4f392d5875ef34178d0e2b86b"
+  },
+  {
+    "name": "instrumented",
+    "returncode": 0,
+    "expected_success": true,
+    "original_unchanged": true,
+    "patched_sha256": "af69e449e08fb6616ce629954edab900f68110b868a94c99a35fcef2ef791817"
+  },
+  {
+    "name": "dirty",
+    "returncode": 1,
+    "expected_success": false,
+    "original_unchanged": true
+  },
+  {
+    "name": "duplicate-unit",
+    "returncode": 1,
+    "expected_success": false,
+    "original_unchanged": true
+  },
+  {
+    "name": "cpu-no-patch",
+    "returncode": 0,
+    "expected_success": true,
+    "original_unchanged": true
+  },
+  {
+    "name": "metrics-uninstrumented",
+    "returncode": 1,
+    "expected_success": false,
+    "original_unchanged": true
+  }
+]

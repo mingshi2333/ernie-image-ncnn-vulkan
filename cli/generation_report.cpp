@@ -38,6 +38,7 @@ std::string generation_report_json(const GenerationRequest& r, const GenerationR
     const std::vector<Progress>& progress, double write_seconds, bool instrumented)
 {
     finite_time(write_seconds); finite_time(s.elapsed_seconds); finite_time(s.vae_seconds);
+    finite_time(s.prefetch_overlap_seconds);
     finite_time(s.elapsed_seconds + write_seconds); finite_time(s.vae_seconds + write_seconds);
     std::ostringstream out;
     out.imbue(std::locale::classic());
@@ -55,6 +56,9 @@ std::string generation_report_json(const GenerationRequest& r, const GenerationR
         << ",\"threads\":" << r.threads << ",\"steps\":" << r.steps << ",\"seed\":" << r.seed
         << ",\"dit_weights\":" << quote(r.dit_weights) << ",\"gpu_reserve_mib\":" << r.gpu_reserve_mib
         << ",\"dit_cache_mib\":" << r.dit_cache_mib << ",\"ram_reserve_mib\":" << r.ram_reserve_mib
+        << ",\"dit_prefetch_mib\":" << r.dit_prefetch_mib
+        << ",\"gpu_memory\":" << quote(r.gpu_memory) << ",\"gpu_spill_mib\":" << r.gpu_spill_mib
+        << ",\"oom_retries\":" << r.oom_retries
         << ",\"model_loading\":" << quote(r.model_loading)
         << ",\"img2img\":" << r.input_image.has_value() << ",\"resize\":" << quote(r.input_resize)
         << ",\"strength\":";
@@ -66,6 +70,16 @@ std::string generation_report_json(const GenerationRequest& r, const GenerationR
         << ",\"weight_cache\":{\"hits\":" << s.weight_cache_hits << ",\"loads\":" << s.weight_cache_loads
         << ",\"peak_charged_bytes\":" << s.weight_cache_peak_bytes << ",\"peak_nets\":" << s.weight_cache_peak_nets
         << ",\"evictions\":" << s.weight_cache_evictions << ",\"budget_unavailable\":" << s.unavailable_host_memory_queries << '}'
+        << ",\"weight_prefetch\":{\"started\":" << s.prefetch_started << ",\"used\":" << s.prefetch_used
+        << ",\"skipped\":" << s.prefetch_skipped << ",\"peak_charged_bytes\":" << s.prefetch_peak_charged_bytes
+        << ",\"overlap_seconds\":" << s.prefetch_overlap_seconds << '}'
+        << ",\"gpu_memory\":{\"device_allocations\":" << s.gpu_device_allocations
+        << ",\"host_allocations\":" << s.gpu_host_allocations << ",\"host_peak_bytes\":" << s.gpu_host_peak_bytes
+        << ",\"fallbacks\":" << s.gpu_memory_fallbacks << ",\"allocation_failures\":" << s.gpu_allocation_failures
+        << ",\"host_device_local_allocations\":" << s.gpu_host_device_local_allocations
+        << ",\"host_non_device_local_allocations\":" << s.gpu_host_non_device_local_allocations << '}'
+        << ",\"memory_recovery\":{\"retries\":" << s.memory_retries
+        << ",\"attention_query_rows\":" << s.attention_query_rows << '}'
         << ",\"prompt\":" << quote(s.prompt) << ",\"token_ids\":[";
     for (size_t i = 0; i < s.token_ids.size(); ++i) { if (i) out << ','; out << s.token_ids[i]; }
     out << "],\"pe\":{\"enabled\":" << !r.pe_model.empty() << ",\"greedy\":" << r.pe.greedy
@@ -84,7 +98,7 @@ std::string generation_report_json(const GenerationRequest& r, const GenerationR
     }
     out << "],\"time_scope\":\"host generation and image write; excludes report serialization and process startup\","
         << "\"progress_scope\":\"verify is cumulative from generation start; text is the text stage; denoise is per step\","
-        << "\"memory_scope\":\"placement requests and charged cache weights; not complete residency or process peak\"}\n";
+        << "\"memory_scope\":\"weight placement requests, charged cache/prefetch weights and actual DiT host-buffer allocations; not complete residency or process peak\"}\n";
     return out.str();
 }
 

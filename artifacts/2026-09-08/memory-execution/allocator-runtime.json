@@ -1,0 +1,19 @@
+{
+  "method": "Frozen existing contract objects relinked with temporary ncnn archive replacing allocator.cpp.o; no build-dev writes",
+  "validation_layer": "VK_LAYER_KHRONOS_validation",
+  "ncnn_archive_sha256": "0fd0fb8952ce514985bc6d6f3c656a25d8c8868ff2b9f557b546c25e34480b10",
+  "results": [
+    {
+      "name": "ernie-weight-placement-contract",
+      "returncode": 0,
+      "vuid_or_validation_errors": [],
+      "binary_sha256": "7991a1ec888ad7ad501aafb9cb1ea6a2b2852ee9659bf810716d6c21704fe6cc"
+    },
+    {
+      "name": "ernie-weight-session-contract",
+      "returncode": 0,
+      "vuid_or_validation_errors": [],
+      "binary_sha256": "b1c5a0c687c8290ddf0fbc1120f60dfa66a3b1dc1a31184cd390db3cf69d3e8c"
+    }
+  ]
+}

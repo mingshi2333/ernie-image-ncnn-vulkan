@@ -13,12 +13,16 @@ int main()
             request.input_image || request.strength != .5f || request.input_resize != "none" ||
             request.input_source_width || request.input_source_height || request.dit_cache_mib ||
             request.ram_reserve_mib != 3072 || request.model_loading != "default" ||
+            request.dit_prefetch_mib || request.gpu_memory != "auto" ||
+            request.gpu_spill_mib != 2048 || request.oom_retries != 3 ||
             request.input_alpha_background != std::array<uint8_t,3>{255,255,255} ||
             request.input_resize_background != std::array<uint8_t,3>{0,0,0})
             throw std::runtime_error("Public request defaults changed unexpectedly");
         ernie::GenerationRequest legacy{"model", "prompt", "cpu", "fp32", "cpu", "direct", 0, 0,
                                         8,       42,       "",    {},     "",    "",       ""};
-        if (legacy.model != "model" || legacy.threads != 4 || legacy.input_image)
+        if (legacy.model != "model" || legacy.threads != 4 || legacy.input_image ||
+            legacy.dit_prefetch_mib || legacy.gpu_memory != "auto" || legacy.gpu_spill_mib != 2048 ||
+            legacy.oom_retries != 3)
             throw std::runtime_error("Older positional request initialization is no longer compatible");
         const auto diagnostics = ernie::diagnose();
         if (!diagnostics.vulkan_compiled && !diagnostics.vulkan_devices.empty())

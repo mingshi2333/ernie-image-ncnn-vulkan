@@ -1,0 +1,56 @@
+Test project /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev
+      Start  6: attention_bounded_workspace
+ 1/15 Test  #6: attention_bounded_workspace ..............   Passed    3.49 sec
+      Start  8: generation_report_writer
+ 2/15 Test  #8: generation_report_writer .................   Passed    0.00 sec
+      Start  9: pipeline_api_contract
+ 3/15 Test  #9: pipeline_api_contract ....................   Passed    0.18 sec
+      Start 10: request_validation_contract
+ 4/15 Test #10: request_validation_contract ..............   Passed    0.36 sec
+      Start 16: generation_report_json
+ 5/15 Test #16: generation_report_json ...................   Passed    0.05 sec
+      Start 19: cli_contract
+ 6/15 Test #19: cli_contract .............................   Passed    0.99 sec
+      Start 30: weight_session_vulkan
+ 7/15 Test #30: weight_session_vulkan ....................   Passed    0.85 sec
+      Start 31: weight_session_mapped_vulkan
+ 8/15 Test #31: weight_session_mapped_vulkan .............   Passed    0.78 sec
+      Start 32: weight_session_bf16_file_vulkan
+ 9/15 Test #32: weight_session_bf16_file_vulkan ..........   Passed    0.77 sec
+      Start 33: weight_session_mapped_bf16_file_vulkan
+10/15 Test #33: weight_session_mapped_bf16_file_vulkan ...   Passed    0.74 sec
+      Start 34: weight_placement_vulkan
+11/15 Test #34: weight_placement_vulkan ..................   Passed    0.72 sec
+      Start 58: vulkan_memory_errors_cpu
+12/15 Test #58: vulkan_memory_errors_cpu .................   Passed    0.00 sec
+      Start 59: vulkan_memory_buffers
+13/15 Test #59: vulkan_memory_buffers ....................***Exception: SegFault  1.19 sec
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  queueC=2[8]  queueT=1[2]  rebar=1  r-score=76
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  subgroup=32(32~32)  ops=1/1/1/1/1/1/1/1/1/1
+[0 NVIDIA GeForce RTX 4060 Laptop GPU]  fp16-cm=16x16x16/16x8x16/16x8x8  int8-cm=16x16x32/16x8x32  bf16-cm=16x16x16  fp8-cm=16x16x32  fp6-cm=0  fp4-cm=0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=14
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+[1 llvmpipe (LLVM 22.1.8, 256 bits)]  fp16-cm=8x8x8  int8-cm=8x8x8  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  queueC=0[1]  queueT=0[1]  rebar=1  r-score=4
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/0/1/0/0
+[2 llvmpipe (LLVM 17.0.6, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0  fp6-cm=0  fp4-cm=0
+vkAllocateMemory failed -2
+vkAllocateMemory failed -2
+vkAllocateMemory failed -4
+vkAllocateMemory failed -10
+
+      Start 60: ncnn_failure_vulkan
+14/15 Test #60: ncnn_failure_vulkan ......................   Passed    0.58 sec
+      Start 61: memory_execution_vulkan
+15/15 Test #61: memory_execution_vulkan ..................   Passed    1.68 sec
+
+93% tests passed, 1 tests failed out of 15
+
+Total Test time (real) =  12.41 sec
+
+The following tests FAILED:
+	 59 - vulkan_memory_buffers (SEGFAULT)
+Errors while running CTest

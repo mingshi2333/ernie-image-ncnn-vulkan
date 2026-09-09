@@ -1,0 +1,39 @@
+{
+  "command": [
+    "ctest",
+    "--test-dir",
+    "build-dev",
+    "-V",
+    "-R",
+    "^(weight_placement_vulkan|weight_session_vulkan)$",
+    "--output-junit",
+    "/var/tmp/ernie-memory-validation-20260908-e4kf7pl5/ctest.xml"
+  ],
+  "validation_layer": "VK_LAYER_KHRONOS_validation",
+  "ctest_returncode": 0,
+  "vuid_ids": [
+    "VUID-vkBindBufferMemory-memory-02985",
+    "VUID-vkCmdCopyBuffer-srcBuffer-00118"
+  ],
+  "validation_error_lines": 10,
+  "log_directory": "/var/tmp/ernie-memory-validation-20260908-e4kf7pl5",
+  "project_revision": "00b6e642636cf95af1fe65d396e4d91eca301206",
+  "ncnn_revision": "3b7bdba7fc8aea8fd46779533eee027df77c639d",
+  "git_status": "",
+  "tested_executables": [
+    {
+      "path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/ernie-weight-session-contract",
+      "sha256": "48307947eb11b7cb8404b4d1da65cc6a44850d39c65a7cebbe08cf0fc659bd2e",
+      "arguments": [
+        "vulkan"
+      ]
+    },
+    {
+      "path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/ernie-weight-placement-contract",
+      "sha256": "63bc2c8a8d6e2c8b22faf789f020813a612f5c48d7ad6316d5d078af57949903",
+      "arguments": [
+        "vulkan"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "vulkan": {
+    "tests": 61,
+    "failures": 0,
+    "skipped": 0,
+    "seconds": 28.0
+  },
+  "cpu": {
+    "tests": 37,
+    "failures": 0,
+    "skipped": 0,
+    "seconds": 2.0
+  },
+  "vulkan_validation_errors": 0,
+  "ncnn": "3b7bdba7fc8aea8fd46779533eee027df77c639d",
+  "full_model": "running; not yet accepted",
+  "remote_ci": "pending"
+}

@@ -23,6 +23,8 @@ class CliTests(unittest.TestCase):
                 if args == ['--help-all']:
                     self.assertIn('--trace-dir', result.stdout)
                     self.assertIn('--report-json', result.stdout)
+                    for flag in ('--dit-prefetch-mib', '--gpu-memory', '--gpu-spill-mib', '--oom-retries'):
+                        self.assertIn(flag, result.stdout)
                 else:
                     self.assertIn('--help-all', result.stdout)
                     self.assertNotIn('--trace-dir', result.stdout)
@@ -101,6 +103,35 @@ class CliTests(unittest.TestCase):
             self.assertIn('Invalid integer', self.request('--prompt', 'cat', '--dit-cache-mib', value))
             self.assertIn('Invalid integer', self.request('--prompt', 'cat', '--ram-reserve-mib', value))
         self.assertIn('requires Vulkan FP32', self.request('--prompt', 'cat', '--dit-cache-mib', '1024'))
+
+    def test_adaptive_memory_defaults_allow_cpu_without_a_cache(self):
+        self.assertIn('Cannot open model package', self.request('--prompt', 'cat', '--device', 'cpu',
+            '--dit-prefetch-mib', '0', '--gpu-memory', 'auto', '--gpu-spill-mib', '2048',
+            '--oom-retries', '3', '--ram-reserve-mib', '3072'))
+
+    def test_adaptive_memory_options_reject_invalid_values(self):
+        for flag in ('--dit-prefetch-mib', '--gpu-spill-mib', '--oom-retries'):
+            for value in ('-1', '4294967296', '12x'):
+                with self.subTest(flag=flag, value=value):
+                    self.assertIn('Invalid integer', self.request('--prompt', 'cat', flag, value))
+            self.assertIn('Duplicate option', self.request('--prompt', 'cat', flag, '0', flag, '1'))
+        self.assertIn('GPU memory', self.request('--prompt', 'cat', '--gpu-memory', 'cpu'))
+        self.assertIn('GPU spill', self.request('--prompt', 'cat', '--gpu-memory', 'host', '--gpu-spill-mib', '0'))
+        self.assertIn('OOM retries', self.request('--prompt', 'cat', '--oom-retries', '4'))
+        self.assertIn('Duplicate option', self.request('--prompt', 'cat',
+            '--gpu-memory', 'auto', '--gpu-memory', 'host'))
+
+    def test_prefetch_requires_fp32_vulkan_and_compatible_weight_placement(self):
+        for extra in ([], ['--device', 'cpu'], ['--precision', 'fp32', '--dit-weights', 'device']):
+            with self.subTest(extra=extra):
+                self.assertIn('requires Vulkan FP32',
+                    self.request('--prompt', 'cat', '--dit-prefetch-mib', '1024', *extra))
+
+    def test_cpu_rejects_custom_gpu_memory_controls(self):
+        for flag, value in (('--gpu-memory', 'host'), ('--gpu-memory', 'device'),
+                            ('--gpu-spill-mib', '0'), ('--oom-retries', '0'), ('--ram-reserve-mib', '0')):
+            with self.subTest(flag=flag, value=value):
+                self.assertIn('requires Vulkan', self.request('--prompt', 'cat', '--device', 'cpu', flag, value))
 
     def request(self, *args):
         with tempfile.TemporaryDirectory() as folder:

@@ -640,15 +640,15 @@ so it is not used as a free-memory counter. When the extension is unavailable,
 auto keeps the existing shape preference and records the missing budget;
 explicit host/device placement remains available.
 
-Placement changes happen before a new component loads, after preceding work
-has completed. GPU activations and workspace still need device memory. This
-does not implement activation spilling, recovery after a failed Vulkan
-command, or a retained RAM cache of all 36 blocks. ncnn can itself fall back
+Placement decisions run on the main thread before a component loads. Optional
+prefetch can prepare the next Net while the current block computes. Activation
+buffers, checkpoint recovery and the optional prepared-Net cache have separate
+policies; see the [memory execution guide](MEMORY-EXECUTION.md). ncnn can itself fall back
 from host allocation to device allocation, so the CLI/API report placement
 **requests**, not an allocator-level guarantee. Detailed tracing adds
 `weight-placement.txt`, with each request's reason, remaining-byte estimate,
 weight-byte estimate and reserve. Normal generation reports GPU/RAM request
-counts without tensor downloads.
+counts without diagnostic prediction downloads; the DiT recovery layer separately saves CPU latent checkpoints.
 
 The standard-library-only C++ API exposes `GenerationRequest::dit_weights`
 and `gpu_reserve_mib`, plus request counts in `GenerationResult`. Explicit
@@ -714,7 +714,7 @@ Admitted blocks stay cached while other blocks stream. This avoids the repeated
 misses an LRU cache would cause when scanning 36 blocks with a smaller cache.
 Each block still computes on Vulkan from the current step's inputs. No DiT K/V,
 hidden states, or predictions are reused. All cached weights are released before
-VAE decoding. No background prefetch or asynchronous failure recovery is added.
+VAE decoding. The cache itself is synchronous. Optional background prefetch and checkpoint recovery are managed by the execution layer described below.
 An existing cached block needs the configured RAM reserve but does not reserve
 a second copy of its weight payload. An uncached block still requires the
 estimated load payload as additional headroom.
@@ -762,3 +762,32 @@ remain opt-in. This uses one 512x512 input, explicitly requests RAM weights,
 and has uncontrolled page-cache/background conditions; it does not test actual
 GPU exhaustion or establish formal peer performance. See the complete
 [repeated grid and limits](../artifacts/2026-09-07/memory-grid512/README.md).
+
+
+## DiT prefetch, RAM buffers and recovery
+
+Defaults are `--dit-prefetch-mib 0 --gpu-memory auto --gpu-spill-mib 2048 --oom-retries 3`.
+Prefetch is opt-in and currently requires Vulkan FP32 with auto/host weights. To enable
+one prepared block, add `--dit-prefetch-mib 1024`. It has an independent admission
+budget and consumes RAM alongside an optional `--dit-cache-mib` cache. Actual
+weight residency is inspected after loading; no speed improvement is promised.
+
+`--gpu-memory auto` chooses new activation/workspace buffers using the compute heap
+budget. `host` requests host-visible buffers; `device` prohibits RAM fallback.
+`--gpu-spill-mib` limits actual host buffer allocation bytes, including buffers
+retired until their recorded GPU commands complete. `--ram-reserve-mib` applies to
+cache, prefetch and RAM buffer admission. Unknown host headroom refuses additional
+RAM use. This is not a process-wide memory cap or arbitrary VRAM paging.
+
+Successful Euler steps save an FP32 CPU latent. Known allocation failures can
+restart at the last completed step, without changing resolution, step count,
+precision, full K/V or the schedule. Recovery disables extra prefetch/cache and
+reduces FP32 non-Flash query chunks through 128/64/32/16 rows. `--oom-retries 0`
+disables retries; the maximum is 3. Device loss, model/I/O errors and callback
+errors are fatal. The mechanism covers DiT, not PE, text or VAE, and checkpoints
+are not persisted for process restart.
+
+The JSON report records `weight_prefetch`, `gpu_memory` and `memory_recovery`.
+See [the implementation and platform limits](MEMORY-EXECUTION.md) before interpreting
+host-visible unified memory as dedicated system RAM. Vulkan builds require Python 3
+for authenticated ncnn source derivation; image generation does not require Python.

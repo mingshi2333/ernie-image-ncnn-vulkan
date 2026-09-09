@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 #include "conditioning.h"
 #include "denoiser.h"
+#include "vulkan_denoise.h"
 #include "gpu_context.h"
 #include "image_encoder.h"
 #include "img2img.h"
@@ -92,11 +93,17 @@ void validate_request(const GenerationRequest &r)
     request_mapped_model_loading(r.model_loading, false);
     if (r.device != "vulkan" && (r.dit_weights != "auto" || r.gpu_reserve_mib != 512))
         throw std::invalid_argument("DiT weight placement requires Vulkan generation");
-    if ((r.dit_cache_mib || r.ram_reserve_mib != 3072) &&
+    if ((r.dit_cache_mib || r.dit_prefetch_mib) &&
         (r.device != "vulkan" || r.precision != "fp32" || r.dit_weights == "device"))
-        throw std::invalid_argument("DiT RAM cache requires Vulkan FP32 and auto/host weights");
-    if (!r.dit_cache_mib && r.ram_reserve_mib != 3072)
-        throw std::invalid_argument("RAM reserve requires a nonzero DiT cache budget");
+        throw std::invalid_argument("DiT RAM cache/prefetch requires Vulkan FP32 and auto/host weights");
+    parse_activation_memory(r.gpu_memory);
+    if (r.gpu_memory == "host" && !r.gpu_spill_mib)
+        throw std::invalid_argument("GPU spill budget must be nonzero for host memory");
+    if (r.oom_retries > 3)
+        throw std::invalid_argument("OOM retries must be in [0,3]");
+    if (r.device != "vulkan" && (r.gpu_memory != "auto" || r.gpu_spill_mib != 2048 ||
+        r.oom_retries != 3 || r.ram_reserve_mib != 3072))
+        throw std::invalid_argument("GPU memory, spill, retry and RAM reserve settings requires Vulkan generation");
     if (!std::isfinite(r.strength) || r.strength < 0.f || r.strength > 1.f)
         throw std::invalid_argument("Strength must be finite and in [0,1]");
     if (bool(r.width) != bool(r.height))
@@ -204,108 +211,102 @@ ncnn::Mat run_dit(const ModelPackage &package, const ncnn::Mat &initial, const s
             throw std::runtime_error("Device lacks FP16 storage");
         if (precision == "bf16" && !device->info.support_bf16_storage())
             throw std::runtime_error("Device lacks BF16 storage");
-        ncnn::PipelineCache cache(device);
-        ncnn::VkBlobAllocator blobs(device);
-        ncnn::VkStagingAllocator staging(device);
         ncnn::Option option = cpu;
         option.use_vulkan_compute = true;
         option.use_fp16_storage = precision == "fp16";
         option.use_bf16_storage = precision == "bf16";
-        option.blob_vkallocator = option.workspace_vkallocator = &blobs;
-        option.staging_vkallocator = &staging;
-        option.pipeline_cache = &cache;
-        ncnn::Option high = option;
-        high.use_fp16_storage = high.use_bf16_storage = false;
-        high.use_packing_layout = false;
-        ncnn::VkMat gpu_initial;
-        std::vector<ncnn::VkMat> gpu_constants(constants.size());
-        {
-            Clock::time_point transfer_start;if(metrics.metrics)transfer_start=Clock::now();
-            ncnn::VkCompute upload(device);
-            ncnn::VkMat packed;
-            upload.record_upload(initial, packed, high);
-            device->convert_packing(packed, gpu_initial, 1, 1, upload, high);
-            for (size_t i = 0; i < constants.size(); ++i)
-                upload.record_upload(constants[i], gpu_constants[i], option);
-            check(upload.submit_and_wait(), "Upload conditioning");
-            metrics.since(ExecutionPhase::Upload,transfer_start);metrics.submissions(1);
-        }
-        std::ofstream placement_trace;
+        VulkanDenoiseSettings settings;
+        settings.memory = parse_activation_memory(request.gpu_memory);
+        settings.weights = parse_weight_memory(request.dit_weights);
+        settings.gpu_reserve_bytes = std::uint64_t(request.gpu_reserve_mib) * 1024 * 1024;
+        settings.spill_bytes = std::uint64_t(request.gpu_spill_mib) * 1024 * 1024;
+        settings.cache_bytes = std::uint64_t(request.dit_cache_mib) * 1024 * 1024;
+        settings.prefetch_bytes = std::uint64_t(request.dit_prefetch_mib) * 1024 * 1024;
+        settings.ram_reserve_bytes = std::uint64_t(request.ram_reserve_mib) * 1024 * 1024;
+        settings.retries = request.oom_retries;
+        settings.collect_details = metrics.metrics != nullptr;
+        settings.download_predictions = !trace.empty();
+        std::ofstream placement_trace, recovery_trace;
         if (!trace.empty())
         {
             placement_trace.open(trace / "weight-placement.txt", std::ios::binary);
+            recovery_trace.open(trace / "memory-recovery.txt", std::ios::binary);
+            if (!placement_trace || !recovery_trace) throw std::runtime_error("Cannot write memory placement trace");
+        }
+        VulkanDenoiseObservers observers;
+        observers.placement = [&](const ComponentFiles& files, const WeightPlacementDecision& decision) {
+            if (trace.empty()) return;
+            placement_trace << std::quoted(files.weight_path) << " requested=" << (decision.host ? "host" : "device")
+                << " reason=" << decision.reason << " available_bytes=";
+            if (decision.available_bytes) placement_trace << *decision.available_bytes;
+            else placement_trace << "unavailable";
+            placement_trace << " estimated_weight_bytes=" << decision.weight_bytes
+                << " reserve_bytes=" << decision.reserve_bytes << '\n';
             if (!placement_trace) throw std::runtime_error("Cannot write weight placement trace");
-        }
-        WeightPlacement placement(parse_weight_memory(request.dit_weights),
-            std::uint64_t(request.gpu_reserve_mib) * 1024 * 1024,
-            vulkan_memory_budget_reader(device, gpu_initial.data->memory_type_index),
-            [&](const ComponentFiles& files, const WeightPlacementDecision& decision) {
-                if (trace.empty()) return;
-                placement_trace << std::quoted(files.weight_path) << " requested=" << (decision.host ? "host" : "device")
-                    << " reason=" << decision.reason << " available_bytes=";
-                if (decision.available_bytes) placement_trace << *decision.available_bytes;
-                else placement_trace << "unavailable";
-                placement_trace << " estimated_weight_bytes=" << decision.weight_bytes
-                    << " reserve_bytes=" << decision.reserve_bytes << '\n';
-                if (!placement_trace) throw std::runtime_error("Cannot write weight placement trace");
-            });
-        std::unique_ptr<WeightSession> weight_session;
-        if (request.dit_cache_mib)
-            weight_session = std::make_unique<WeightSession>(WeightBudget{
-                std::uint64_t(request.dit_cache_mib) * 1024 * 1024,
-                std::uint64_t(request.ram_reserve_mib) * 1024 * 1024},
-                host_memory_available_reader(), dit_host_weight_inspector(device));
-        ncnn::VkMat gpu_latent;
-        try { gpu_latent = ernie::denoise(dit, gpu_initial, gpu_constants, steps, device, option, stats,
-                           [&](size_t i, const ncnn::VkMat &prediction, const ncnn::VkMat &sample)
-                           {
-                               metrics.denoise_step(stats.at(i-size_t(start_step)),int(i));
-                               ++reported_steps;
-                               if (!trace.empty())
-                               {
-                                   ncnn::Mat p, x;
-                                   ncnn::VkCompute download(device);
-                                   download.record_download(prediction, p, high);
-                                   download.record_download(sample, x, high);
-                                   check(download.submit_and_wait(), "Download trace");
-                                   write_tensor(trace / ("prediction-" + std::to_string(i) + ".f32"), p);
-                                   write_tensor(trace / ("step-" + std::to_string(i) + ".f32"), x);
-                               }
-                               progress(i);
-                           }, start_step, metrics.metrics != nullptr, &placement, weight_session.get()); }
-        catch (...) { for(size_t k=reported_steps;k<stats.size();++k)metrics.denoise_step(stats[k],start_step+int(k));throw; }
-        result.host_weight_requests = placement.host_requests();
-        result.device_weight_requests = placement.device_requests();
-        result.unavailable_memory_queries = placement.unavailable_queries();
-        if (weight_session)
-        {
-            const auto cache_stats = weight_session->stats();
-            result.weight_cache_hits = cache_stats.hits;
-            result.weight_cache_loads = cache_stats.loads;
-            result.weight_cache_peak_bytes = cache_stats.peak_bytes;
-            result.weight_cache_peak_nets = cache_stats.peak_nets;
-            result.weight_cache_evictions = cache_stats.evictions;
-            result.unavailable_host_memory_queries = cache_stats.unavailable_queries;
+        };
+        observers.step = [&](size_t i, const ncnn::Mat& prediction, const ncnn::Mat& sample,
+                             const DenoiseStepStats& step) {
+            metrics.denoise_step(step, int(i));
             if (!trace.empty())
-                trace_text(trace / "weight-cache.txt", "hits=" + std::to_string(cache_stats.hits) +
-                    "\nloads=" + std::to_string(cache_stats.loads) +
-                    "\nadmissions=" + std::to_string(cache_stats.admissions) +
-                    "\nevictions=" + std::to_string(cache_stats.evictions) +
-                    "\npeak_charged_bytes=" + std::to_string(cache_stats.peak_bytes) +
-                    "\npeak_nets=" + std::to_string(cache_stats.peak_nets) +
-                    "\nunavailable_queries=" + std::to_string(cache_stats.unavailable_queries) + "\n");
-            weight_session.reset(); // Release all DiT weights before VAE.
-        }
+            {
+                write_tensor(trace / ("prediction-" + std::to_string(i) + ".f32"), prediction);
+                write_tensor(trace / ("step-" + std::to_string(i) + ".f32"), sample);
+            }
+            if (notify) notify({"denoise", int(i) - start_step + 1, executed_steps, step.elapsed_seconds});
+        };
+        observers.failed_step = [&](size_t i, const DenoiseStepStats& step) { metrics.denoise_step(step, int(i)); };
+        observers.transfer = [&](bool upload, double seconds) {
+            metrics.seconds(upload ? ExecutionPhase::Upload : ExecutionPhase::Download, seconds);
+            metrics.submissions(1);
+        };
+        observers.retry = [&](unsigned retry, int resume, int rows, const std::string& reason) {
+            if (notify) notify({"memory-recovery", int(retry), int(request.oom_retries), 0});
+            if (!trace.empty())
+            {
+                recovery_trace << "retry=" << retry << " resume_step=" << resume << " query_rows=" << rows
+                    << " reason=" << std::quoted(reason) << '\n';
+                if (!recovery_trace) throw std::runtime_error("Cannot write memory recovery trace");
+            }
+        };
+        VulkanDenoiseStats execution;
+        latent = denoise_with_recovery(dit, initial, constants, steps, start_step, device, option, settings, execution, observers);
+        result.host_weight_requests = execution.host_weight_requests;
+        result.device_weight_requests = execution.device_weight_requests;
+        result.unavailable_memory_queries = execution.unavailable_queries;
+        const auto& cache_stats = execution.cache;
+        result.weight_cache_hits = cache_stats.hits;
+        result.weight_cache_loads = cache_stats.loads;
+        result.weight_cache_peak_bytes = cache_stats.peak_bytes;
+        result.weight_cache_peak_nets = cache_stats.peak_nets;
+        result.weight_cache_evictions = cache_stats.evictions;
+        result.unavailable_host_memory_queries = cache_stats.unavailable_queries;
+        result.prefetch_started = execution.prefetch_started;
+        result.prefetch_used = execution.prefetch_used;
+        result.prefetch_skipped = execution.prefetch_skipped;
+        result.prefetch_peak_charged_bytes = execution.prefetch_peak_charged_bytes;
+        result.prefetch_overlap_seconds = execution.prefetch_overlap_seconds;
+        result.gpu_device_allocations = execution.memory.device_allocations;
+        result.gpu_host_allocations = execution.memory.host_allocations;
+        result.gpu_host_peak_bytes = execution.memory.host_peak_bytes;
+        result.gpu_memory_fallbacks = execution.memory.fallbacks;
+        result.gpu_allocation_failures = execution.memory.allocation_failures;
+        result.gpu_host_device_local_allocations = execution.memory.host_device_local_allocations;
+        result.gpu_host_non_device_local_allocations = execution.memory.host_non_device_local_allocations;
+        result.memory_retries = execution.retries;
+        result.attention_query_rows = execution.query_rows;
+        if (!trace.empty() && request.dit_cache_mib)
+            trace_text(trace / "weight-cache.txt", "hits=" + std::to_string(cache_stats.hits) +
+                "\nloads=" + std::to_string(cache_stats.loads) +
+                "\nadmissions=" + std::to_string(cache_stats.admissions) +
+                "\nevictions=" + std::to_string(cache_stats.evictions) +
+                "\npeak_charged_bytes=" + std::to_string(cache_stats.peak_bytes) +
+                "\npeak_nets=" + std::to_string(cache_stats.peak_nets) +
+                "\nunavailable_queries=" + std::to_string(cache_stats.unavailable_queries) + "\n");
         if (placement_trace.is_open())
         {
-            placement_trace.close();
-            if (!placement_trace) throw std::runtime_error("Cannot finish weight placement trace");
+            placement_trace.close(); recovery_trace.close();
+            if (!placement_trace || !recovery_trace) throw std::runtime_error("Cannot finish memory traces");
         }
-        ncnn::VkCompute download(device);
-        Clock::time_point transfer_start;if(metrics.metrics)transfer_start=Clock::now();
-        download.record_download(gpu_latent, latent, high);
-        check(download.submit_and_wait(), "Download final latent");
-        metrics.since(ExecutionPhase::Download,transfer_start);metrics.submissions(1);
 #else
         throw std::runtime_error("Built without Vulkan");
 #endif

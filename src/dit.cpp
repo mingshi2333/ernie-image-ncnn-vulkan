@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 #include "dit.h"
 #include "ernie_gelu.h"
+#include "vulkan_memory.h"
 #include <chrono>
 #include <filesystem>
 #include <memory>
@@ -11,7 +12,7 @@ namespace {
 using Clock = std::chrono::steady_clock;
 void check(int result, const char* action)
 {
-    if (result) throw std::runtime_error(std::string(action) + " failed: " + std::to_string(result));
+    check_ncnn_memory(result, action);
 }
 void load(ncnn::Net& net, const ComponentFiles& files)
 {
@@ -75,6 +76,9 @@ std::vector<ncnn::VkMat> head(const ComponentFiles& files, const std::vector<ncn
     } catch (...) { if(stats.collect_details) stats.details.push_back({component,"extract_compute_composite","failed",std::chrono::duration<double>(Clock::now()-start).count()});throw; }
     if(stats.collect_details) stats.details.push_back({component,"extract_compute_composite","complete",std::chrono::duration<double>(Clock::now()-start).count()});
     }
+    reclaim_completed(option.blob_vkallocator);
+    if (option.workspace_vkallocator != option.blob_vkallocator)
+        reclaim_completed(option.workspace_vkallocator);
     start=Clock::now();net.reset();if(stats.collect_details) stats.details.push_back({component,"net_destroy","complete",std::chrono::duration<double>(Clock::now()-start).count()});
     return result;
 }
@@ -86,7 +90,8 @@ ncnn::VkMat modulation(const ncnn::VkMat& source, const ncnn::VulkanDevice* devi
     device->convert_packing(source, result, 1, command, option);
     // The exported input head has one 4096-wide row in a singleton channel.
     // Removing only that singleton is a dense view; no channel padding moves.
-    if (result.empty() || result.elempack != 1 || result.w != 4096
+    if (result.empty()) throw GpuAllocationError("Allocate modulation view");
+    if (result.elempack != 1 || result.w != 4096
         || result.h != 1 || result.d != 1 || result.c != 1)
         throw std::runtime_error("Unexpected modulation layout");
     result.dims = 2;
@@ -129,7 +134,8 @@ ncnn::Mat run_dit(const ComponentFiles& input_head, const std::vector<ComponentF
 ncnn::VkMat run_dit(const ComponentFiles& input_head, const std::vector<ComponentFiles>& blocks,
     const ComponentFiles& output_head, const std::vector<ncnn::VkMat>& inputs,
     const ncnn::VulkanDevice* device, const ncnn::Option& option, DitStats& stats,
-    const VulkanStageObserver& observer, WeightPlacement* placement, WeightSession* session)
+    const VulkanStageObserver& observer, WeightPlacement* placement, WeightSession* session,
+    const MemoryExecution* memory)
 {
     if (inputs.size() != 6 || !device || !option.use_vulkan_compute
         || !option.blob_vkallocator || !option.staging_vkallocator)
@@ -150,7 +156,7 @@ ncnn::VkMat run_dit(const ComponentFiles& input_head, const std::vector<Componen
         check(command.submit_and_wait(), "prepare shared modulation");
     }
     constants.insert(constants.end(), inputs.begin() + 3, inputs.end());
-    const auto current = run_block_sequence(blocks, projected[0], constants, device, option, WeightPolicy::Stream, stats.blocks, observer, placement, session);
+    const auto current = run_block_sequence(blocks, projected[0], constants, device, option, WeightPolicy::Stream, stats.blocks, observer, placement, session, memory);
     start = Clock::now();
     auto result = head(output_head, {current, projected[1]}, 1, device, option,stats,"output-head", placement)[0];
     stats.output_head_seconds = std::chrono::duration<double>(Clock::now() - start).count();
@@ -168,10 +174,11 @@ ncnn::Mat run_dit(const std::string& input_head, const std::vector<std::string>&
 ncnn::VkMat run_dit(const std::string& input_head, const std::vector<std::string>& blocks,
     const std::string& output_head, const std::vector<ncnn::VkMat>& inputs,
     const ncnn::VulkanDevice* device, const ncnn::Option& option, DitStats& stats,
-    const VulkanStageObserver& observer, WeightPlacement* placement, WeightSession* session)
+    const VulkanStageObserver& observer, WeightPlacement* placement, WeightSession* session,
+    const MemoryExecution* memory)
 {
     return run_dit(component_files(std::filesystem::u8path(input_head), "head"), component_files(blocks, "block"),
-                   component_files(std::filesystem::u8path(output_head), "head"), inputs, device, option, stats, observer, placement, session);
+                   component_files(std::filesystem::u8path(output_head), "head"), inputs, device, option, stats, observer, placement, session, memory);
 }
 #endif
 } // namespace ernie

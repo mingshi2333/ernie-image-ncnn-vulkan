@@ -1,0 +1,76 @@
+{
+  "path": "/var/tmp/ernie-bf16-sdpa-contract-bud9p98z",
+  "derived_sha256": "d7900bf93011ccbb8ebb3ef843b312922d169f5c64770de8a05fecf84f8d7e0a",
+  "results": [
+    {
+      "case": "pristine",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "case": "crlf",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "case": "dirty_cpp",
+      "passed": true,
+      "exit_code": 1
+    },
+    {
+      "case": "dirty_shader",
+      "passed": true,
+      "exit_code": 1
+    },
+    {
+      "case": "missing_unit",
+      "passed": true,
+      "exit_code": 1
+    },
+    {
+      "case": "duplicate_unit",
+      "passed": true,
+      "exit_code": 1
+    },
+    {
+      "case": "cpu_bypass",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "case": "compile",
+      "passed": true,
+      "exit_code": 0
+    }
+  ],
+  "compile_command": [
+    "/usr/bin/clang++",
+    "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/third_party/ncnn/src/layer/x86",
+    "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/third_party/ncnn/src",
+    "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/ncnn/src",
+    "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/third_party/ncnn/src/layer",
+    "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/third_party/ncnn/src/..",
+    "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/third_party/ncnn/glslang/glslang/..",
+    "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/include",
+    "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/third_party/ncnn/glslang/SPIRV/..",
+    "-O3",
+    "-DNDEBUG",
+    "-std=gnu++11",
+    "-fPIC",
+    "-DNCNN_STATIC_DEFINE",
+    "-Wall",
+    "-Wextra",
+    "-Wno-unused-function",
+    "-ffast-math",
+    "-fvisibility=hidden",
+    "-fvisibility-inlines-hidden",
+    "-msse2",
+    "-msse",
+    "-mrecip=none",
+    "-fopenmp=libomp",
+    "-c",
+    "/var/tmp/ernie-bf16-sdpa-contract-bud9p98z/pristine/build/ncnn-bf16-sdpa/sdpa_vulkan.cpp",
+    "-o",
+    "/var/tmp/ernie-bf16-sdpa-contract-bud9p98z/sdpa_vulkan.o"
+  ]
+}

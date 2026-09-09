@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 #include "latent_ops.h"
+#include "vulkan_memory.h"
 #include <cmath>
 #include <limits>
 #include <memory>
@@ -231,7 +232,8 @@ bool VulkanLatentOps::finite_latent(const ncnn::VkMat& value, const ncnn::Vulkan
     high.use_bf16_storage = high.use_bf16_packed = high.use_packing_layout = false;
     ncnn::Mat result;
     command.record_download(flags, result, high);
-    if (command.submit_and_wait()) throw std::runtime_error("Latent finite check failed");
+    check_ncnn_memory(command.submit_and_wait(), "Latent finite check");
+    if (result.empty()) throw GpuAllocationError("Download finite flags");
     for (int i = 0; i < 128; ++i) if (result[i] != 1.f) return false;
     return true;
 }
