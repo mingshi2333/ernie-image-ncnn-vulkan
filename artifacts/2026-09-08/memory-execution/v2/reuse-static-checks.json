@@ -1,0 +1,50 @@
+[
+  {
+    "build": "build-dev",
+    "file": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/src/vulkan_memory.cpp",
+    "returncode": 0,
+    "log": "/tmp/ernie-device-reuse-static-3clobysf/build-dev-vulkan_memory.cpp.log",
+    "command": [
+      "/usr/bin/clang++",
+      "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/src",
+      "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/third_party/ncnn/src/layer",
+      "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/src/generated",
+      "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/third_party/ncnn/src",
+      "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/ncnn/src",
+      "-O3",
+      "-DNDEBUG",
+      "-std=gnu++17",
+      "-fPIC",
+      "-fopenmp=libomp",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/src/vulkan_memory.cpp",
+      "-fsyntax-only",
+      "-Wall",
+      "-Wextra"
+    ]
+  },
+  {
+    "build": "build-dev",
+    "file": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tests/test_vulkan_memory.cpp",
+    "returncode": 0,
+    "log": "/tmp/ernie-device-reuse-static-3clobysf/build-dev-test_vulkan_memory.cpp.log",
+    "command": [
+      "/usr/bin/clang++",
+      "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/src",
+      "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/third_party/ncnn/src",
+      "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/ncnn/src",
+      "-O3",
+      "-DNDEBUG",
+      "-std=gnu++17",
+      "-fPIE",
+      "-fopenmp=libomp",
+      "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tests/test_vulkan_memory.cpp",
+      "-fsyntax-only",
+      "-Wall",
+      "-Wextra"
+    ]
+  },
+  {
+    "build": "build/linux-cpu",
+    "status": "missing_compile_commands"
+  }
+]

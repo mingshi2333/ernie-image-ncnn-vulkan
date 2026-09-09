@@ -48,19 +48,68 @@ jobs:
       - name: Install native build dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y cmake ninja-build g++ libpng-dev libvulkan-dev mesa-vulkan-drivers vulkan-validationlayers vulkan-tools
+          sudo apt-get install -y cmake ninja-build g++ libpng-dev libvulkan-dev mesa-vulkan-drivers libxcb1 libx11-6 libwayland-client0
           rustup toolchain install 1.98.0 --profile minimal --no-self-update
           rustup default 1.98.0
           rustc --version
+      - name: Install pinned official Vulkan validation tools
+        if: matrix.vulkan == 'ON'
+        env:
+          # LunarG Linux SDK and published SHA256, verified 2026-09-09:
+          # https://vulkan.lunarg.com/sdk/files.json
+          ERNIE_SDK_VERSION: '1.4.357.1'
+          ERNIE_SDK_SHA256: '4b41e3b30e8aedaa5dac7c136561ab463eb316a25a54e2c6245f2c299ea1fb85'
+        run: |
+          sdk_archive="$RUNNER_TEMP/ernie-vulkansdk.tar.xz"
+          sdk_root="$RUNNER_TEMP/ernie-vulkan-sdk"
+          sdk_url="https://sdk.lunarg.com/sdk/download/$ERNIE_SDK_VERSION/linux/vulkansdk-linux-x86_64-$ERNIE_SDK_VERSION.tar.xz"
+          mkdir -p "$sdk_root" build
+          curl --fail --location --show-error --retry 3 "$sdk_url" -o "$sdk_archive"
+          printf '%s  %s\n' "$ERNIE_SDK_SHA256" "$sdk_archive" | sha256sum --check | tee build/vulkan-sdk-sha256.log
+          # Only the layer and diagnostic executable are needed. Keep the
+          # distribution's Vulkan loader, Mesa driver and build tools intact.
+          tar -xJf "$sdk_archive" -C "$sdk_root" \
+            "$ERNIE_SDK_VERSION/x86_64/lib/libVkLayer_khronos_validation.so" \
+            "$ERNIE_SDK_VERSION/x86_64/share/vulkan/explicit_layer.d/VkLayer_khronos_validation.json" \
+            "$ERNIE_SDK_VERSION/x86_64/bin/vulkaninfo"
+          sdk_runtime="$sdk_root/$ERNIE_SDK_VERSION/x86_64"
+          printf 'ERNIE_VALIDATION_SDK=%s\n' "$sdk_runtime" >> "$GITHUB_ENV"
+          printf 'VK_LAYER_PATH=%s/share/vulkan/explicit_layer.d\n' "$sdk_runtime" >> "$GITHUB_ENV"
+          printf 'LD_LIBRARY_PATH=%s/lib%s\n' "$sdk_runtime" "${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}" >> "$GITHUB_ENV"
+          printf '%s/bin\n' "$sdk_runtime" >> "$GITHUB_PATH"
+          python3 - "$sdk_runtime" "$sdk_url" <<'PY'
+          import hashlib, json, os, pathlib, sys
+          root = pathlib.Path(sys.argv[1])
+          manifest = root / 'share/vulkan/explicit_layer.d/VkLayer_khronos_validation.json'
+          layer = json.loads(manifest.read_text())['layer']
+          assert layer['name'] == 'VK_LAYER_KHRONOS_validation', layer
+          assert layer['api_version'] == '1.4.357', layer
+          library = (manifest.parent / layer['library_path']).resolve(strict=True)
+          assert library == root / 'lib/libVkLayer_khronos_validation.so', library
+          files = [manifest, library, root / 'bin/vulkaninfo']
+          record = {'sdk_version': os.environ['ERNIE_SDK_VERSION'], 'url': sys.argv[2],
+                    'archive_sha256': os.environ['ERNIE_SDK_SHA256'], 'layer_api_version': layer['api_version'],
+                    'files': {str(p.relative_to(root)): hashlib.sha256(p.read_bytes()).hexdigest() for p in files}}
+          pathlib.Path('build/vulkan-sdk-provenance.json').write_text(json.dumps(record, indent=2) + '\n')
+          print(json.dumps(record, indent=2))
+          PY
       - name: Verify software Vulkan and the validation layer
         if: matrix.vulkan == 'ON'
         env:
           VK_INSTANCE_LAYERS: VK_LAYER_KHRONOS_validation
         run: |
-          test -r /usr/share/vulkan/explicit_layer.d/VkLayer_khronos_validation.json
-          mkdir -p build
+          test "$(command -v vulkaninfo)" = "$ERNIE_VALIDATION_SDK/bin/vulkaninfo"
           vulkaninfo --summary > build/vulkan-validation-info.log 2>&1
           cat build/vulkan-validation-info.log
+          python3 - <<'PY'
+          import pathlib, re
+          report = pathlib.Path('build/vulkan-validation-info.log').read_text()
+          layers = [line for line in report.splitlines() if line.startswith('VK_LAYER_KHRONOS_validation ')]
+          assert len(layers) == 1 and re.search(r'\s1\.4\.357\s+version\s+1\s*$', layers[0]), layers
+          assert 'PHYSICAL_DEVICE_TYPE_CPU' in report and 'llvmpipe' in report, report
+          print('Confirmed official validation layer 1.4.357 and Mesa llvmpipe')
+          PY
+          python3 cmake/check_vulkan_validation.py build/vulkan-validation-info.log
       - name: Configure pinned ncnn and native tokenizer
         run: >-
           cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
@@ -93,6 +142,8 @@ jobs:
             build/ctest-results.xml
             build/Testing/Temporary/*.log
             build/vulkan-validation-info.log
+            build/vulkan-sdk-sha256.log
+            build/vulkan-sdk-provenance.json
           retention-days: 14
 
   windows:

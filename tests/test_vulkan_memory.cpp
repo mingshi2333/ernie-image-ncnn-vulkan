@@ -221,6 +221,91 @@ std::uint64_t budget_contract(const ncnn::VulkanDevice* device)
     return charged;
 }
 
+void reuse_contract(const ncnn::VulkanDevice* device)
+{
+    using namespace ernie;
+    bool pressured = false;
+    unsigned reads = 0;
+    AdaptiveVkAllocator allocator(device, ActivationMemory::Auto, 0, 4 * mib, 0, plenty(),
+        [&]() -> std::optional<DeviceMemoryBudget> {
+            ++reads;
+            return DeviceMemoryBudget{UINT64_MAX, pressured ? UINT64_MAX : 0};
+        });
+    constexpr size_t unit = 64 * 1024;
+    auto* whole = allocator.fastMalloc(4 * unit);
+    const auto memory = whole->memory;
+    const auto buffer = whole->buffer;
+    require(whole->offset == 0 && whole->capacity == 4 * unit && reads == 1,
+            "Initial device pool backing differs");
+    allocator.fastFree(whole);
+    pressured = true;
+
+    // Existing VkBuffer + VkDeviceMemory handles and offsets identify actual
+    // suballocations of the original backing, not newly allocated storage.
+    // The reviewed ncnn pool returns these regions before vkAllocateMemory;
+    // this test does not replace any Vulkan function or rely on noisy global
+    // heap telemetry to infer whether reuse happened.
+    ncnn::VkBufferMemory* pieces[4];
+    for (size_t index = 0; index < 4; ++index)
+    {
+        pieces[index] = allocator.fastMalloc(unit);
+        require(pieces[index]->buffer == buffer && pieces[index]->memory == memory &&
+                pieces[index]->offset == index * unit && pieces[index]->capacity == unit,
+                "Pressure ignored an existing contiguous device region");
+    }
+    require(reads == 1 && allocator.stats().host_allocations == 0,
+            "Existing device regions were charged as new backing memory");
+    auto* full = allocator.fastMalloc(unit);
+    require(reads == 2 && allocator.stats().host_allocations == 1 &&
+            allocator.stats().fallbacks == 1 && full->memory != memory,
+            "An entirely active device backing was reused or grew past the budget");
+
+    allocator.fastFree(pieces[0]);
+    allocator.fastFree(pieces[2]);
+    auto* fragmented = allocator.fastMalloc(2 * unit);
+    require(reads == 3 && allocator.stats().host_allocations == 2 && fragmented->memory != memory,
+            "Separated free regions were incorrectly treated as contiguous storage");
+    allocator.fastFree(pieces[1]);
+    auto* merged = allocator.fastMalloc(3 * unit);
+    require(reads == 3 && merged->buffer == buffer && merged->memory == memory && merged->offset == 0 &&
+            merged->capacity == 3 * unit && pieces[3]->offset == 3 * unit,
+            "Adjacent released regions were not reused or overlapped a live range");
+
+    allocator.clear(); // Active pieces keep the pool and its range knowledge.
+    allocator.fastFree(merged);
+    auto* after_active_clear = allocator.fastMalloc(3 * unit);
+    require(reads == 3 && after_active_clear->memory == memory && after_active_clear->buffer == buffer &&
+            after_active_clear->offset == 0,
+            "Clear discarded reusable range knowledge while a device tensor was active");
+    allocator.fastFree(after_active_clear);
+    allocator.fastFree(pieces[3]);
+    allocator.fastFree(full);
+    allocator.fastFree(fragmented);
+    allocator.clear(); // No live device tensors: backing and knowledge both go.
+    require(allocator.stats().host_live_bytes == 0, "Reuse fixture leaked host spill storage");
+    auto* cleared = allocator.fastMalloc(unit);
+    require(reads == 4 && allocator.stats().host_allocations == 3,
+            "A cleared backing was still treated as available device storage");
+    allocator.fastFree(cleared);
+    allocator.clear();
+
+    // Free bytes from separate buffers cannot satisfy one larger request.
+    pressured = false;
+    auto* first = allocator.fastMalloc(unit);
+    auto* second = allocator.fastMalloc(unit);
+    require(first->memory != second->memory, "Two active device backings alias");
+    allocator.fastFree(first);
+    allocator.fastFree(second);
+    pressured = true;
+    auto* separate = allocator.fastMalloc(2 * unit);
+    require(reads == 7 && allocator.stats().host_allocations == 4 &&
+            allocator.stats().allocation_failures == 0,
+            "Free space from separate device buffers bypassed the backing budget");
+    allocator.fastFree(separate);
+    allocator.clear();
+    std::cout << "Device reuse under pressure preserves backing handles, contiguous ranges, active tensors and clear boundaries\n";
+}
+
 void compute_contract(const ncnn::VulkanDevice* device, ernie::ActivationMemory mode,
                       ernie::AdaptiveVkAllocator::BudgetReader budget, bool expect_host)
 {
@@ -301,6 +386,7 @@ int vulkan_contract()
     const auto* device = ncnn::get_gpu_device();
     failure_contract(device);
     budget_contract(device);
+    reuse_contract(device);
     compute_contract(device, ernie::ActivationMemory::Host, {}, true);
     compute_contract(device, ernie::ActivationMemory::Auto, pressure(), true);
     compute_contract(device, ernie::ActivationMemory::Device, pressure(), false);

@@ -1,0 +1,535 @@
+{
+  "conclusion": "failure",
+  "headSha": "f9dbcf2fd50c346a0ba688dda823b8f0fdfdea4e",
+  "jobs": [
+    {
+      "completedAt": "2026-09-09T14:48:33Z",
+      "conclusion": "success",
+      "databaseId": 102512686524,
+      "name": "macos",
+      "startedAt": "2026-09-09T14:42:43Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-09-09T14:42:45Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-09-09T14:42:44Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:42:59Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "number": 2,
+          "startedAt": "2026-09-09T14:42:45Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:43:36Z",
+          "conclusion": "success",
+          "name": "Model download contracts with local HTTP fixtures",
+          "number": 3,
+          "startedAt": "2026-09-09T14:42:59Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:43:50Z",
+          "conclusion": "success",
+          "name": "Install native dependencies",
+          "number": 4,
+          "startedAt": "2026-09-09T14:43:36Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:44:03Z",
+          "conclusion": "success",
+          "name": "Configure Apple Clang and native tokenizer",
+          "number": 5,
+          "startedAt": "2026-09-09T14:43:50Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:47:57Z",
+          "conclusion": "success",
+          "name": "Build native macOS executable and SDK",
+          "number": 6,
+          "startedAt": "2026-09-09T14:44:03Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:48:27Z",
+          "conclusion": "success",
+          "name": "Native CPU, CLI, package and installed-consumer tests",
+          "number": 7,
+          "startedAt": "2026-09-09T14:47:57Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:48:27Z",
+          "conclusion": "skipped",
+          "name": "Record macOS Vulkan crash details",
+          "number": 8,
+          "startedAt": "2026-09-09T14:48:27Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:48:29Z",
+          "conclusion": "success",
+          "name": "Save configure and test records",
+          "number": 9,
+          "startedAt": "2026-09-09T14:48:27Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:48:30Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "number": 18,
+          "startedAt": "2026-09-09T14:48:29Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:48:31Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 19,
+          "startedAt": "2026-09-09T14:48:30Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34365400172/job/102512686524"
+    },
+    {
+      "completedAt": "2026-09-09T15:01:55Z",
+      "conclusion": "success",
+      "databaseId": 102512686649,
+      "name": "windows",
+      "startedAt": "2026-09-09T14:42:39Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-09-09T14:42:41Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-09-09T14:42:40Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:43:06Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "number": 2,
+          "startedAt": "2026-09-09T14:42:41Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:43:12Z",
+          "conclusion": "success",
+          "name": "Model download contracts with local HTTP fixtures",
+          "number": 3,
+          "startedAt": "2026-09-09T14:43:06Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:44:29Z",
+          "conclusion": "success",
+          "name": "Configure MSVC and native dependencies",
+          "number": 4,
+          "startedAt": "2026-09-09T14:43:12Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T15:01:27Z",
+          "conclusion": "success",
+          "name": "Build native Windows executable and SDK",
+          "number": 5,
+          "startedAt": "2026-09-09T14:44:29Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T15:01:48Z",
+          "conclusion": "success",
+          "name": "Native CPU, CLI, package and installed-consumer tests",
+          "number": 6,
+          "startedAt": "2026-09-09T15:01:27Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T15:01:49Z",
+          "conclusion": "success",
+          "name": "Save configure and test records",
+          "number": 7,
+          "startedAt": "2026-09-09T15:01:48Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T15:01:53Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "number": 14,
+          "startedAt": "2026-09-09T15:01:49Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T15:01:53Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 15,
+          "startedAt": "2026-09-09T15:01:53Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34365400172/job/102512686649"
+    },
+    {
+      "completedAt": "2026-09-09T14:53:10Z",
+      "conclusion": "success",
+      "databaseId": 102512686843,
+      "name": "linux (OFF, OFF)",
+      "startedAt": "2026-09-09T14:42:39Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-09-09T14:42:41Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-09-09T14:42:40Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:42:51Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "number": 2,
+          "startedAt": "2026-09-09T14:42:41Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:42:52Z",
+          "conclusion": "success",
+          "name": "Model download contracts with local HTTP fixtures",
+          "number": 3,
+          "startedAt": "2026-09-09T14:42:51Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:43:36Z",
+          "conclusion": "success",
+          "name": "Install native build dependencies",
+          "number": 4,
+          "startedAt": "2026-09-09T14:42:52Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:43:36Z",
+          "conclusion": "skipped",
+          "name": "Verify software Vulkan and the validation layer",
+          "number": 5,
+          "startedAt": "2026-09-09T14:43:36Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:44:30Z",
+          "conclusion": "success",
+          "name": "Configure pinned ncnn and native tokenizer",
+          "number": 6,
+          "startedAt": "2026-09-09T14:43:36Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:53:02Z",
+          "conclusion": "success",
+          "name": "Build",
+          "number": 7,
+          "startedAt": "2026-09-09T14:44:30Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:53:08Z",
+          "conclusion": "success",
+          "name": "Model-free runtime and package contracts",
+          "number": 8,
+          "startedAt": "2026-09-09T14:53:02Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:53:08Z",
+          "conclusion": "skipped",
+          "name": "Check validation output including skipped tests",
+          "number": 9,
+          "startedAt": "2026-09-09T14:53:08Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:53:08Z",
+          "conclusion": "success",
+          "name": "Install and check executable",
+          "number": 10,
+          "startedAt": "2026-09-09T14:53:08Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:53:09Z",
+          "conclusion": "success",
+          "name": "Save configure and test records",
+          "number": 11,
+          "startedAt": "2026-09-09T14:53:08Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:53:09Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "number": 22,
+          "startedAt": "2026-09-09T14:53:09Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:53:09Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 23,
+          "startedAt": "2026-09-09T14:53:09Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34365400172/job/102512686843"
+    },
+    {
+      "completedAt": "2026-09-09T14:55:37Z",
+      "conclusion": "failure",
+      "databaseId": 102512686884,
+      "name": "linux (ON, OFF)",
+      "startedAt": "2026-09-09T14:42:39Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-09-09T14:42:41Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-09-09T14:42:40Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:42:54Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "number": 2,
+          "startedAt": "2026-09-09T14:42:41Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:42:55Z",
+          "conclusion": "success",
+          "name": "Model download contracts with local HTTP fixtures",
+          "number": 3,
+          "startedAt": "2026-09-09T14:42:54Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:43:20Z",
+          "conclusion": "success",
+          "name": "Install native build dependencies",
+          "number": 4,
+          "startedAt": "2026-09-09T14:42:55Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:43:21Z",
+          "conclusion": "success",
+          "name": "Verify software Vulkan and the validation layer",
+          "number": 5,
+          "startedAt": "2026-09-09T14:43:20Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:43:40Z",
+          "conclusion": "success",
+          "name": "Configure pinned ncnn and native tokenizer",
+          "number": 6,
+          "startedAt": "2026-09-09T14:43:21Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:55:03Z",
+          "conclusion": "success",
+          "name": "Build",
+          "number": 7,
+          "startedAt": "2026-09-09T14:43:40Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:55:34Z",
+          "conclusion": "failure",
+          "name": "Model-free runtime and package contracts",
+          "number": 8,
+          "startedAt": "2026-09-09T14:55:03Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:55:34Z",
+          "conclusion": "skipped",
+          "name": "Check validation output including skipped tests",
+          "number": 9,
+          "startedAt": "2026-09-09T14:55:34Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:55:34Z",
+          "conclusion": "skipped",
+          "name": "Install and check executable",
+          "number": 10,
+          "startedAt": "2026-09-09T14:55:34Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:55:35Z",
+          "conclusion": "success",
+          "name": "Save configure and test records",
+          "number": 11,
+          "startedAt": "2026-09-09T14:55:34Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:55:35Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "number": 22,
+          "startedAt": "2026-09-09T14:55:35Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:55:35Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 23,
+          "startedAt": "2026-09-09T14:55:35Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34365400172/job/102512686884"
+    },
+    {
+      "completedAt": "2026-09-09T14:52:49Z",
+      "conclusion": "success",
+      "databaseId": 102512687105,
+      "name": "linux (OFF, ON)",
+      "startedAt": "2026-09-09T14:42:39Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-09-09T14:42:42Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-09-09T14:42:40Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:42:52Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "number": 2,
+          "startedAt": "2026-09-09T14:42:42Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:42:53Z",
+          "conclusion": "success",
+          "name": "Model download contracts with local HTTP fixtures",
+          "number": 3,
+          "startedAt": "2026-09-09T14:42:52Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:43:25Z",
+          "conclusion": "success",
+          "name": "Install native build dependencies",
+          "number": 4,
+          "startedAt": "2026-09-09T14:42:53Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:43:25Z",
+          "conclusion": "skipped",
+          "name": "Verify software Vulkan and the validation layer",
+          "number": 5,
+          "startedAt": "2026-09-09T14:43:25Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:43:46Z",
+          "conclusion": "success",
+          "name": "Configure pinned ncnn and native tokenizer",
+          "number": 6,
+          "startedAt": "2026-09-09T14:43:25Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:52:42Z",
+          "conclusion": "success",
+          "name": "Build",
+          "number": 7,
+          "startedAt": "2026-09-09T14:43:46Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:52:46Z",
+          "conclusion": "success",
+          "name": "Model-free runtime and package contracts",
+          "number": 8,
+          "startedAt": "2026-09-09T14:52:42Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:52:46Z",
+          "conclusion": "skipped",
+          "name": "Check validation output including skipped tests",
+          "number": 9,
+          "startedAt": "2026-09-09T14:52:46Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:52:47Z",
+          "conclusion": "success",
+          "name": "Install and check executable",
+          "number": 10,
+          "startedAt": "2026-09-09T14:52:46Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:52:47Z",
+          "conclusion": "success",
+          "name": "Save configure and test records",
+          "number": 11,
+          "startedAt": "2026-09-09T14:52:47Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:52:48Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "number": 22,
+          "startedAt": "2026-09-09T14:52:47Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-09-09T14:52:48Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 23,
+          "startedAt": "2026-09-09T14:52:48Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34365400172/job/102512687105"
+    }
+  ],
+  "status": "completed",
+  "url": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34365400172"
+}

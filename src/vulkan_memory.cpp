@@ -1,7 +1,9 @@
 // SPDX-License-Identifier: MIT
 #include "vulkan_memory.h"
 #include <algorithm>
+#include <iterator>
 #include <limits>
+#include <map>
 #include <new>
 #include <unordered_map>
 #include <unordered_set>
@@ -124,6 +126,15 @@ struct AdaptiveVkAllocator::Impl
         std::uint64_t bytes;
         bool retired = false;
     };
+    struct DeviceBlock
+    {
+        VkBuffer buffer;
+        size_t capacity = 0;
+        // Only live suballocations, ordered by offset. ncnn still owns all
+        // allocation/free-list operations; these ranges prove when calling
+        // its pool cannot require another backing VkDeviceMemory allocation.
+        std::map<size_t, size_t> active;
+    };
     const ncnn::VulkanDevice* device;
     ActivationMemory mode;
     std::uint64_t gpu_reserve, host_limit, ram_reserve;
@@ -135,6 +146,7 @@ struct AdaptiveVkAllocator::Impl
     VulkanMemoryStats counters;
     std::unordered_map<ncnn::VkBufferMemory*, HostBlock> host_blocks;
     std::unordered_set<ncnn::VkBufferMemory*> device_buffers;
+    std::map<VkDeviceMemory, DeviceBlock> device_blocks;
     std::unordered_set<ncnn::VkImageMemory*> device_images;
 
     Impl(const ncnn::VulkanDevice* value, ActivationMemory memory,
@@ -161,6 +173,41 @@ struct AdaptiveVkAllocator::Impl
         const auto available = budget->usage_bytes >= budget->budget_bytes ? 0 :
             budget->budget_bytes - budget->usage_bytes;
         return available >= gpu_reserve && size <= available - gpu_reserve;
+    }
+
+    bool device_can_reuse(size_t size) const
+    {
+        for (const auto& entry : device_blocks)
+        {
+            size_t end = 0;
+            for (const auto& range : entry.second.active)
+            {
+                if (range.first - end >= size) return true;
+                end = range.first + range.second;
+            }
+            if (entry.second.capacity - end >= size) return true;
+        }
+        return false;
+    }
+
+    void track_device(ncnn::VkBufferMemory* ptr)
+    {
+        auto& block = device_blocks.try_emplace(ptr->memory, DeviceBlock{ptr->buffer, 0, {}}).first->second;
+        if (block.buffer != ptr->buffer || ptr->offset > std::numeric_limits<size_t>::max() - ptr->capacity)
+            throw std::runtime_error("Invalid ncnn device buffer range");
+        const auto end = ptr->offset + ptr->capacity;
+        const auto next = block.active.lower_bound(ptr->offset);
+        if ((next != block.active.end() && end > next->first) ||
+            (next != block.active.begin() && std::prev(next)->first + std::prev(next)->second > ptr->offset))
+            throw std::runtime_error("Overlapping ncnn device buffer ranges");
+        const auto range = block.active.emplace_hint(next, ptr->offset, ptr->capacity);
+        try { device_buffers.insert(ptr); }
+        catch (...) { block.active.erase(range); throw; }
+        // With preferred_block_size=0 the first request covers the backing
+        // buffer exactly. Never count VkMemoryRequirements padding as reusable
+        // buffer space. Observed ends are also a conservative bound if tracking
+        // an earlier request failed and the caller kept this allocator alive.
+        block.capacity = std::max(block.capacity, end);
     }
 
     void require_host_budget(std::uint64_t size) const
@@ -267,7 +314,10 @@ ncnn::VkBufferMemory* AdaptiveVkAllocator::fastMalloc(size_t size)
 {
     const auto aligned_size = aligned_buffer_size(vkdev, size);
     bool host = impl_->mode == ActivationMemory::Host;
-    if (!host && impl_->device_fits(aligned_size))
+    // Reuse does not increase heapUsage, even if another process has consumed
+    // the remaining budget. Check contiguous free space, not total free bytes:
+    // pinned ncnn scans these existing regions before allocating a new block.
+    if (!host && (impl_->device_can_reuse(aligned_size) || impl_->device_fits(aligned_size)))
     {
         ncnn::VkBufferMemory* ptr = nullptr;
         try { ptr = impl_->device_pool.fastMalloc(aligned_size); }
@@ -275,7 +325,7 @@ ncnn::VkBufferMemory* AdaptiveVkAllocator::fastMalloc(size_t size)
         catch (const GpuAllocationError&) { /* Same typed contract for caller extensions. */ }
         if (ptr)
         {
-            try { impl_->device_buffers.insert(ptr); }
+            try { impl_->track_device(ptr); }
             catch (...) { impl_->device_pool.fastFree(ptr); throw; }
             ++impl_->counters.device_allocations;
             buffer_memory_type_index = ptr->memory_type_index;
@@ -305,7 +355,15 @@ void AdaptiveVkAllocator::fastFree(ncnn::VkBufferMemory* ptr)
         host->second.retired = true;
         return;
     }
-    if (impl_->device_buffers.erase(ptr)) impl_->device_pool.fastFree(ptr);
+    const auto owned = impl_->device_buffers.find(ptr);
+    if (owned != impl_->device_buffers.end())
+    {
+        const auto block = impl_->device_blocks.find(ptr->memory);
+        const auto offset = ptr->offset;
+        impl_->device_pool.fastFree(ptr);
+        block->second.active.erase(offset);
+        impl_->device_buffers.erase(owned);
+    }
 }
 
 int AdaptiveVkAllocator::flush(ncnn::VkBufferMemory* ptr)
@@ -358,7 +416,11 @@ void AdaptiveVkAllocator::reclaim_completed()
 void AdaptiveVkAllocator::clear()
 {
     reclaim_completed();
-    if (impl_->device_buffers.empty() && impl_->device_images.empty()) impl_->device_pool.clear();
+    if (impl_->device_buffers.empty() && impl_->device_images.empty())
+    {
+        impl_->device_pool.clear();
+        impl_->device_blocks.clear();
+    }
 }
 
 void reclaim_completed(ncnn::VkAllocator* allocator)

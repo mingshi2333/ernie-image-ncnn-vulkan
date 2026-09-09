@@ -13,6 +13,7 @@
   },
   "vulkan_validation_errors": 0,
   "ncnn": "3b7bdba7fc8aea8fd46779533eee027df77c639d",
-  "full_model": "running; not yet accepted",
-  "remote_ci": "pending"
+  "full_model": "v1 normal512 passed; all-RAM stopped by owner after two exact steps; v2 preparing",
+  "remote_ci": "34365400172: macOS and both Linux CPU passed; Linux Vulkan fails on obsolete validation1.3.275 unknown subgroup-rotate feature; Windows running",
+  "ci_status": "First run34365400172 complete: Windows/macOS/LinuxCPU passed; LinuxVulkan validation layer1.3.275 obsolete; preserved first-ci. Pinned SDK layer fix pending new remote run."
 }

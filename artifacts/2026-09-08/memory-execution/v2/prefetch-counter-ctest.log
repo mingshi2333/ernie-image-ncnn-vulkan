@@ -1,0 +1,17 @@
+Test project /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev
+    Start 26: weight_session_cpu
+1/6 Test #26: weight_session_cpu .......................   Passed    0.00 sec
+    Start 30: weight_session_vulkan
+2/6 Test #30: weight_session_vulkan ....................   Passed    0.77 sec
+    Start 31: weight_session_mapped_vulkan
+3/6 Test #31: weight_session_mapped_vulkan .............   Passed    0.70 sec
+    Start 32: weight_session_bf16_file_vulkan
+4/6 Test #32: weight_session_bf16_file_vulkan ..........   Passed    0.68 sec
+    Start 33: weight_session_mapped_bf16_file_vulkan
+5/6 Test #33: weight_session_mapped_bf16_file_vulkan ...   Passed    0.65 sec
+    Start 61: memory_execution_vulkan
+6/6 Test #61: memory_execution_vulkan ..................   Passed    1.45 sec
+
+100% tests passed, 0 tests failed out of 6
+
+Total Test time (real) =   4.25 sec

@@ -1,0 +1,32 @@
+[
+  {
+    "case": "stdout_error",
+    "exit_code": 1,
+    "passed": true
+  },
+  {
+    "case": "stderr_vuid",
+    "exit_code": 1,
+    "passed": true
+  },
+  {
+    "case": "driver_skip",
+    "exit_code": 0,
+    "passed": true
+  },
+  {
+    "case": "bf16_skip",
+    "exit_code": 0,
+    "passed": true
+  },
+  {
+    "case": "clean",
+    "exit_code": 0,
+    "passed": true
+  },
+  {
+    "case": "actual_ctest_vuid_skipped77",
+    "exit_code": 1,
+    "passed": true
+  }
+]

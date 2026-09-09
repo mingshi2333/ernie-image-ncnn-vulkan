@@ -1,0 +1,98 @@
+[  0%] Built target MachineIndependent
+[  1%] Built target GenericCodeGen
+[  1%] Built target SPIRV
+[  7%] Built target glslang
+[  7%] Built target OSDependent
+[  8%] Built target glslang-default-resource-limits
+[ 35%] Built target ncnn-generate-spirv
+[ 35%] Built target ernie-tokenizer-rust
+[ 35%] Built target ernie-shape-plan
+[ 35%] Built target ernie-execution-metrics
+[ 35%] Built target ernie-generation-report-contract
+[ 35%] Built target ernie-prompt-file-contract
+[ 35%] Built target ernie-shape-plan-contract
+[ 35%] Built target ernie-image-io-contract
+[ 35%] Built target ernie-execution-metrics-contract
+[ 35%] Built target ernie-tokenizer
+[ 36%] Built target ernie-shape-graph
+[ 37%] Built target ernie-tokenize
+[ 37%] Built target ernie-shape-graph-contract
+[ 37%] Built target ernie-model-package
+[ 38%] Built target ernie-model-package-contract
+[ 84%] Built target ncnn
+[ 84%] Built target ernie-model-reader-contract
+[ 84%] Built target ernie-ncnn-failure-contract
+[ 84%] Building CXX object src/CMakeFiles/ernie-runtime.dir/vulkan_memory.cpp.o
+[ 84%] Linking CXX static library libernie-runtime.a
+[ 87%] Built target ernie-runtime
+[ 87%] Linking CXX executable ../ernie-attention-probe
+[ 87%] Linking CXX executable ../ernie-block-runner
+[ 87%] Linking CXX executable ../ernie-attention-accuracy-probe
+[ 87%] Built target ernie-pe
+[ 87%] Linking CXX executable ../ernie-attention-workspace-probe
+[ 88%] Built target ernie-attention-workspace-probe
+[ 88%] Built target ernie-attention-probe
+[ 88%] Built target ernie-attention-accuracy-probe
+[ 88%] Built target ernie-block-runner
+[ 89%] Linking CXX executable ../ernie-head-runner
+[ 89%] Linking CXX executable ../ernie-block-sequence-runner
+[ 89%] Linking CXX executable ../ernie-gelu-probe
+[ 89%] Linking CXX executable ../ernie-latent-runner
+[ 89%] Built target ernie-latent-runner
+[ 89%] Built target ernie-head-runner
+[ 89%] Built target ernie-gelu-probe
+[ 89%] Linking CXX executable ../ernie-text-runner
+[ 90%] Linking CXX executable ../ernie-pe-block-runner
+[ 90%] Linking CXX executable ../ernie-denoise-runner
+[ 91%] Built target ernie-text-runner
+[ 91%] Built target ernie-denoise-runner
+[ 91%] Built target ernie-pe-block-runner
+[ 91%] Linking CXX executable ../ernie-text-gemm-diagnostic
+[ 91%] Linking CXX executable ../ernie-pe-runner
+[ 91%] Linking CXX executable ../ernie-rmsnorm-probe
+[ 91%] Built target ernie-block-sequence-runner
+[ 91%] Linking CXX executable ../ernie-pe-sampling-contract
+[ 91%] Built target ernie-text-gemm-diagnostic
+[ 91%] Built target ernie-rmsnorm-probe
+[ 91%] Linking CXX executable ../ernie-latent-contract
+[ 91%] Linking CXX executable ../ernie-component-files-contract
+[ 91%] Built target ernie-component-files-contract
+[ 91%] Built target ernie-latent-contract
+[ 91%] Linking CXX executable ../ernie-weight-placement-contract
+[ 91%] Linking CXX executable ../ernie-weight-session-contract
+[ 91%] Built target ernie-pe-runner
+[ 91%] Linking CXX executable ../ernie-host-memory-contract
+[ 92%] Built target ernie-host-memory-contract
+[ 92%] Linking CXX executable ../ernie-model-loading-contract
+[ 92%] Built target ernie-pe-sampling-contract
+[ 93%] Linking CXX executable ../ernie-img2img-contract
+[ 93%] Built target ernie-weight-session-contract
+[ 93%] Built target ernie-weight-placement-contract
+[ 93%] Linking CXX executable ../ernie-residual-contract
+[ 93%] Linking CXX executable ../ernie-image-encoder-contract
+[ 93%] Built target ernie-model-loading-contract
+[ 93%] Linking CXX executable ../ernie-text-down-contract
+[ 93%] Built target ernie-img2img-contract
+[ 93%] Linking CXX executable ../ernie-pe-prefill-contract
+[ 94%] Built target ernie-residual-contract
+[ 94%] Built target ernie-image-encoder-contract
+[ 95%] Building CXX object tests/CMakeFiles/ernie-vulkan-memory-contract.dir/test_vulkan_memory.cpp.o
+[ 95%] Linking CXX executable ../ernie-memory-execution-contract
+[ 96%] Built target ernie-text-down-contract
+[ 97%] Built target ernie-pipeline
+[ 97%] Built target ernie-pe-prefill-contract
+[ 98%] Linking CXX executable ../ernie-image
+[ 98%] Linking CXX executable ../ernie-img2img-runner
+[ 99%] Built target ernie-memory-execution-contract
+[ 99%] Linking CXX executable ../ernie-utf8-paths-contract
+[ 99%] Built target ernie-img2img-runner
+[ 99%] Linking CXX executable ../ernie-pipeline-api-contract
+[ 99%] Linking CXX executable ../ernie-vulkan-memory-contract
+[ 99%] Built target ernie-image
+[ 99%] Linking CXX executable ../ernie-request-validation-contract
+[ 99%] Built target ernie-utf8-paths-contract
+[ 99%] Linking CXX executable ../ernie-gpu-context-contract
+[ 99%] Built target ernie-vulkan-memory-contract
+[100%] Built target ernie-pipeline-api-contract
+[100%] Built target ernie-gpu-context-contract
+[100%] Built target ernie-request-validation-contract

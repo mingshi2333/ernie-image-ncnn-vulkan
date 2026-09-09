@@ -1,0 +1,7 @@
+/var/tmp/ernie-failure-guards-y7j1m40a/metrics/allocator.cpp:56:114: error: too few arguments to function call, expected 3, have 2
+   56 |                 ernie::allocation_memory_destroyed(ernie_metric_device(owner_), ernie_metric_id(pointer_->memory));
+      |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                                                               ^
+/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/src/allocation_metrics_hook.h:62:6: note: 'allocation_memory_destroyed' declared here
+   62 | void allocation_memory_destroyed(std::uint64_t device,std::uint64_t allocator,std::uint64_t handle) noexcept;
+      |      ^                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.

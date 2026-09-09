@@ -1,0 +1,12 @@
+{
+  "install-workflow.sh:bash_syntax": true,
+  "install-workflow.sh:python_syntax": true,
+  "install-workflow.sh:linux_vulkan_only": true,
+  "verify-workflow.sh:bash_syntax": true,
+  "verify-workflow.sh:python_syntax": true,
+  "verify-workflow.sh:linux_vulkan_only": true,
+  "reject_old_actual_ci_layer": true,
+  "download_sha_matches_workflow": true,
+  "download_sha_matches_official_catalogue": true,
+  "download_size_matches_official_catalogue": true
+}

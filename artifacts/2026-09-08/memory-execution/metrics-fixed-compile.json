@@ -1,0 +1,52 @@
+{
+  "case": "metrics_compile_after_fix",
+  "passed": true,
+  "exit_code": 0,
+  "command": [
+    "/usr/bin/clang++",
+    "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/third_party/ncnn/src/layer/x86",
+    "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/third_party/ncnn/src",
+    "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/ncnn/src",
+    "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/third_party/ncnn/src/layer",
+    "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/third_party/ncnn/src/..",
+    "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/third_party/ncnn/glslang/glslang/..",
+    "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/include",
+    "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/third_party/ncnn/glslang/SPIRV/..",
+    "-O3",
+    "-DNDEBUG",
+    "-std=gnu++11",
+    "-fPIC",
+    "-DNCNN_STATIC_DEFINE",
+    "-Wall",
+    "-Wextra",
+    "-Wno-unused-function",
+    "-ffast-math",
+    "-fvisibility=hidden",
+    "-fvisibility-inlines-hidden",
+    "-msse2",
+    "-msse",
+    "-mrecip=none",
+    "-fopenmp=libomp",
+    "-c",
+    "/var/tmp/ernie-failure-guards-y7j1m40a/metrics-fixed/allocator.cpp",
+    "-o",
+    "/var/tmp/ernie-failure-guards-y7j1m40a/metrics-fixed/allocator.o",
+    "-std=c++17",
+    "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/src"
+  ],
+  "provenance": {
+    "source_sha256": {
+      "allocator": "af69e449e08fb6616ce629954edab900f68110b868a94c99a35fcef2ef791817",
+      "command": "79283ad040e25983472ebabdaba85ab47cbc39e02adc568e62d6a22cb1443314",
+      "net": "258de463be0a3ad82072eea2fce714f4ebd3ed914f147732f05b9865e74ff57e"
+    },
+    "derived_sha256": {
+      "allocator": "472a4053fe55f81ea183530d43c14dfc667f731bb43cbcd5e00aa552b86393d6",
+      "command": "bf78b4a8d8d187f2b5c21c82e2ab16854ae9d6c267906bf45b3a5493987ec2c3",
+      "net": "a7c8bb520d1dbec48d7b000b98640a50d57d34b485ccdeec7e964f7b50255385"
+    },
+    "patcher_sha256": "d4394c0f9bbeecfc38e7597c9f311468cb03537598a459d543c08e38f56f5cda",
+    "header_sha256": "2a667e68e911eed74883ae54adf5a9c1aa8845269b29ba65746224218f9118c6",
+    "scope": "VkMat buffer allocation, transfer/compute failure propagation, exception-safe Net upload ownership; image allocators unchanged"
+  }
+}

@@ -6,6 +6,24 @@
 
 本文依据当前开发代码及本机 Linux 实际测试撰写。完整模型对照与三平台 CI 的最新状态见[验证记录](../artifacts/2026-09-08/memory-execution/README.md)；实现存在不等于所有平台、模型和内存压力条件都已验证。
 
+```mermaid
+flowchart TD
+    checkpoint[初始 CPU latent] --> attempt[创建本次执行的分配器和缓存]
+    attempt --> block[计算当前 DiT 块]
+    attempt --> prefetch[按预算后台准备下一块权重]
+    prefetch --> consume[下一块消费前重新检查 RAM]
+    block --> consume
+    consume --> block
+    block --> step[整步 Euler 更新及下载成功]
+    step --> saved[更新 CPU 检查点 / 原执行继续下一步或完成]
+    block --> failure{错误是否为分配失败}
+    failure -->|是 且仍可重试| reset[同步并释放失败尝试 / 从 CPU 检查点重建 / 使用 RAM / 减少查询行数]
+    reset --> attempt
+    failure -->|否 或达到上限| stop[保留原因并返回失败]
+```
+
+图中的下一块预取只与当前块并行准备；块之间、完整去噪步骤之间仍按原顺序计算。
+
 ## 1. 先确认参数的作用范围
 
 这些控制项用于 `--device vulkan` 的 DiT；文本编码、CPU 提示增强 PE 和 VAE 保持各自的执行路径。
@@ -67,6 +85,7 @@ build/ernie-image --model /path/to/model-package \
 文件页缓存、线程栈、ncnn 临时数据和系统其他进程仍会占用内存。
 
 后台读取或图加载失败会在取得 future 时传播。当前计算或用户回调提前退出时，future 在作用域退出前等待后台结束，避免设备和分配器先被销毁。
+失败的预取计入 skipped；线程自身抛出异常时，不会返回其局部阶段计时，因此失败路径的加载统计不能当作完整成本记录。
 进入分配失败恢复后，当前尝试的预取和缓存均被释放，后续尝试关闭二者。
 
 ## 3. 重叠的是准备工作，提交仍受同步保护
@@ -94,6 +113,8 @@ ncnn 的权重准备包含文件读取、解包、图与流水线准备，以及
 
 `auto` 在新分配时检查实际 compute heap 的 budget 减 usage，再扣除 GPU 预留。
 能够满足时使用 ncnn 的 device 池；不足或实际 device 分配发生内存错误时尝试 host 缓冲区。
+池中已有的连续空闲范围可以直接复用，不会增加 backing memory；这类请求无需再次扣除显存预算。
+分配器记录仍在使用的范围，仅在能证明连续空间足够时走复用路径；分散的空洞和不同 buffer 的空闲字节不能相加。
 显存预算查询不可用时允许正常 device 分配尝试；RAM 余量不可用时拒绝 host 准入。
 `device` 禁止 host 回退，`host` 直接请求 host-visible 缓冲区。
 
@@ -152,11 +173,15 @@ ncnn 的通用 `-1` 可能表示图、参数、文件或执行失败，不能直
 应用层分别检查两个错误域：ncnn 的 `-100` 视作分配失败；原始 Vulkan 的 host/device OOM 才进入内存恢复。
 `VK_ERROR_DEVICE_LOST`、非内存错误、非有限结果和用户观察器异常直接结束请求。
 观察器即使抛出 `std::bad_alloc`，也不会被当成应重跑模型的信号。
+失败后的清理同步有更严格的规则：`vkDeviceWaitIdle` 或队列 drain 的任何非成功结果都直接结束请求，包括它们返回 OOM 时。
+同步失败意味着无法确认旧命令已经结束，不能据此开始下一次尝试；只有同步成功才继续处理原始分配错误。
 
 上游若先把原始 Vulkan 错误压成 `-1`，应用层已无法可靠区分。
 [ErnieNcnnFailures.cmake](../cmake/ErnieNcnnFailures.cmake) 因此在构建目录生成经过源码散列认证的 allocator、command、net 编译单元，保留精确分配失败语义，并检查空上传目标、staging 映射及提交失败。
 实际 Vulkan OOM 通过 `std::bad_alloc` 传播，设备丢失保持致命错误；不会广泛把所有错误改为可重试。
 替换发生在 ncnn target 内，安装的 SDK 使用相同实现；原 submodule 文件不被改写。
+覆盖范围是已保留类型的 buffer、命令、上传和提交错误；上游其他创建操作仍可能将 OOM 折成通用错误。
+例如 `vkCreateComputePipelines` 的失败仍沿用 ncnn 的 `-1`，当前会直接结束，不能宣称所有 Vulkan OOM 都可恢复。
 
 此前两个权重测试退出码均为 0，却共出现 10 条 Vulkan validation 错误。
 其中 `VUID-vkBindBufferMemory-memory-02985` 来自 host 导入内存与 buffer 外部句柄声明不匹配，`VUID-vkCmdCopyBuffer-srcBuffer-00118` 来自权重 buffer 缺少 transfer-source 用途。
@@ -171,6 +196,10 @@ ncnn 的通用 `-1` 可能表示图、参数、文件或执行失败，不能直
 [ErnieVulkanValidation.cmake](../cmake/ErnieVulkanValidation.cmake) 同时检查 stdout/stderr 中的 Validation Error 和 VUID，防止再次出现“退出码成功但 Vulkan 契约已失败”。
 开启 `ERNIE_TEST_VULKAN_VALIDATION` 会请求 Khronos validation layer；没有可用驱动或不支持的精度仍按测试原有规则跳过。
 由于 CTest 的跳过码会优先于输出失败正则，Linux Vulkan CI 还独立扫描完整 LastTest.log，防止带 validation 错误的跳过被漏记。
+
+本次 Linux CI 还遇到独立的环境问题：Ubuntu 的 1.3.275 校验层无法识别新版 ncnn 使用的 `VK_KHR_shader_subgroup_rotate` 特性结构，而 Mesa 已支持该特性。
+工作流改为下载并核对官方 SHA256 的 LunarG Linux SDK 1.4.357.1，只隔离使用其校验层和 `vulkaninfo`；系统 Vulkan loader、Mesa 与构建工具保持原样。
+预检必须实际枚举到 1.4.357 校验层和 llvmpipe，VUID 检查仍全部保留。旧版校验层产生的失败日志也保留，不能简单屏蔽错误来获得 CI 成功。
 
 ## 8. 平台差异、统计与验证范围
 
@@ -195,5 +224,6 @@ host buffer 此时不代表获得了额外的独立 RAM 池；报告分别记录
 本次 Linux Vulkan 完整 CTest 61/61 通过、0 跳过，Khronos validation 无错误；纯 CPU 的 37/37 测试同样通过。
 其中预取、RAM buffer 与检查点恢复使用实际 Vulkan 运算，FP32 注意力的四种分块大小经过独立 FP64 参考检查。
 初次测试图缺少 Split 的崩溃、旧 host buffer 的 10 条校验错误和旧 BF16 accumulator 的 20 条校验错误均保留在验证记录里，没有覆盖成成功结果。
-同输入完整模型回归正在运行，三平台 CI 待本次推送；此处不把已有旧版本结果记为本次完成。
+首轮完整 FP32 模型与旧基线的 25 个张量及 PNG 逐位相同；强制全 RAM 配置完成两步后主动停止，10 个已完成张量逐位相同，没有完整图像。
+池复用修正另通过本机 61/61 测试，新官方校验层下也为 61/61、零校验错误。修正后的混合内存完整模型和最终代码三平台 CI 尚待完成，以验证记录为准。
 性能结论还需要预先定义的重复对照，不能从新增机制或单次成功推导。

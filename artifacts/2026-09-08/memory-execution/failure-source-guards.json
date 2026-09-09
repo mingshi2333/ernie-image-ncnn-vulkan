@@ -1,0 +1,59 @@
+[
+  {
+    "case": "pristine",
+    "passed": true
+  },
+  {
+    "case": "metrics_composition",
+    "passed": true
+  },
+  {
+    "case": "crlf",
+    "passed": true
+  },
+  {
+    "case": "dirty_allocator",
+    "passed": true,
+    "rejection": "Unreviewed ncnn allocator source: 7f4faaeb12c1788ebedd398f46b3649e59c64cebc6284ce553609e46891a7413"
+  },
+  {
+    "case": "dirty_command",
+    "passed": true,
+    "rejection": "Unreviewed ncnn command source: f131db2baf2a1da9664c534d928afcae74a12a760e8ecbb7b9275aacaecb05eb"
+  },
+  {
+    "case": "dirty_net",
+    "passed": true,
+    "rejection": "Unreviewed ncnn net source: 10201812569642527634dec1d92bf765bcdff8a93edc9687115f591ce717ca82"
+  },
+  {
+    "case": "inside_source",
+    "passed": true,
+    "rejection": "Output must be outside the original ncnn source"
+  },
+  {
+    "case": "metrics_compile",
+    "passed": false,
+    "exit_code": 1
+  },
+  {
+    "case": "plain_target",
+    "passed": true,
+    "exit_code": 0
+  },
+  {
+    "case": "duplicate_command",
+    "passed": true,
+    "exit_code": 1
+  },
+  {
+    "case": "missing_net",
+    "passed": true,
+    "exit_code": 1
+  },
+  {
+    "case": "cpu_bypass",
+    "passed": true,
+    "exit_code": 0
+  }
+]

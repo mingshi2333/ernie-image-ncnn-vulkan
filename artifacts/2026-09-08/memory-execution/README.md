@@ -2,7 +2,7 @@
 
 2026-09-08 开始实现，09-09 继续验证。代码基线 `00b6e64`，ncnn 仍固定为 `3b7bdba7`；使用构建目录中的已认证兼容修正，不改写 submodule。
 
-当前已完成实现和 Linux 小型测试。完整模型对照正在运行，三平台 CI 尚待本次推送；不能把这份准备记录当作最终出图或平台验收结果。
+实现提交 `f9dbcf2` 已推送至获授权的私有验证分支。Linux 小型测试完成，正常 FP32 完整模型对照已通过；极端全 RAM 配置在完成两步后由主任务中止并保留部分结果，混合配置将在池复用修正后重新冻结。[首轮 CI 34365400172](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34365400172) 已结束：Windows、macOS、Linux CPU 两种配置通过；Linux Vulkan 因旧版校验层不认识新特性而失败。尚未完成的部分不算验收通过。
 
 ## 实现与默认值
 
@@ -31,7 +31,8 @@
 1. 原始权重测试退出 0，但出现 10 条外部内存声明、transfer-source 用途错误。修正 buffer 契约，保留 `baseline-validation.json`；这与用户 RAM 大小无关。
 2. 初次新 buffer 测试的图重复消费同一输入而缺少 Split，发生 SIGSEGV。修正测试图之后通过；原失败及调用栈保留，不把它解释成 OOM。
 3. 全量 Vulkan validation 暴露两个旧缓存测试共 20 条 BF16 cooperative accumulator 能力错误。只关闭 BF16 SDPA 的该加速分支，保留原生 BF16 Flash；FP32、FP16 和其他层的 cooperative 选择不变。代价是这条 BF16 注意力路径暂时不使用协作矩阵加速。原数值通过并不允许忽略非法 Vulkan 用法，原日志 `initial-vulkan-errors.log` 保留；修正后 61 项全过。完整 BF16 数值待本次模型对照，旧结果不能直接代替。
-4. CTest 的 skip 77 会优先于输出失败正则，所以 CI 额外扫描整个 LastTest.log；有 VUID 的跳过不能算干净通过。
+4. 故障补丁与原有 allocation-metrics 派生 allocator 组合时，第一次编译失败；兼容两套源码结构后实际编译通过。分别保留 `metrics-initial-compile.log` 与 `metrics-fixed-compile.json`，不覆盖原失败。
+5. CTest 的 skip 77 会优先于输出失败正则，所以 CI 额外扫描整个 LastTest.log；有 VUID 的跳过不能算干净通过。
 
 ## 已冻结的完整模型对照
 
@@ -45,4 +46,10 @@
 
 保持既有 16 GiB cgroup、swap 0、主机可用 RAM 至少 3 GiB、整卡采样上限 6144 MiB、每次 1800 秒限制。FP32 比较先前认证的完整基线，BF16 比较先前 `candidate-bf16`，并独立重算官方 25 个张量和 PNG 的原门槛。
 
-当前本节只有协议与启动前证据，结果后续归档。单次 trace 对照、未控制的文件页缓存和背景负载不能用来承诺提速。旧缓存命中改善但耗时未改善、cgroup 文件缓存压力的 [负面记录](../../2026-09-07/cache-file-lru/README.md) 继续保留。
+正常 FP32 已完成：25/25 张量和 PNG 均与历史基线逐位相同；官方比较仍为 25/25、PNG MAE 0.000361124674479、max1。全 RAM 配置完成前两步，已落盘的 10 个张量与历史基线全部逐位相同；没有完整 PNG，不能算完整通过。前两步分别为 231.491/228.332 秒，明显体现访问 RAM 的代价。主任务为修正已发现的池复用准入问题而主动停止本次执行；这不是 OOM 或数值失败，现场 cgroup max/OOM/OOM-kill 均为0。原 supervisor 按执行未完成记录失败。过程和停止原因见 `all-ram-interrupted/`。BF16 尚未执行。单次 trace 对照、未控制的文件页缓存和背景负载不能用来承诺提速。旧缓存命中改善但耗时未改善、cgroup 文件缓存压力的 [负面记录](../../2026-09-07/cache-file-lru/README.md) 继续保留。
+
+源码快照的初版派生文件收集器只检查文件名，漏掉了编译目录中的四个副本。保留原空记录，`derived-compiled-units.json` 根据启动前冻结的 compile_commands 补齐其实际编译路径和完整摘要；没有重新构建或修改实验程序。
+
+后续源码检查确认：实时显存预算不足时，原新分配检查会忽略 ncnn 池中可直接复用的空闲范围，从而转 RAM。已修正为只对需要新增 backing memory 的请求应用预算；实际测试验证同一 VkBuffer/VkDeviceMemory、连续空闲范围、活动区间、碎片合并与清空边界。本机 61/61 测试和严格校验通过；此问题与全 RAM 强制配置的访问延迟是两件事，该配置从未允许 device 分配。新的混合配置将验证实际 device/host 同时出现，原极端配置不会被覆盖或改成通过。
+
+首轮 Linux Vulkan CI 的 40 条 VUID 只有一个类型：Ubuntu 校验层 1.3.275 不认识 `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_ROTATE_FEATURES`，但 Mesa 25.2.8 已暴露该特性。61 项中 19 项因此失败、4 项按 BF16 能力跳过。工作流现在固定官方 LunarG Linux SDK 1.4.357.1，并核对下载 SHA256、实际校验层版本及 llvmpipe；不关闭校验，也不替换系统 loader/Mesa。本机隔离加载同一新版校验层后 61/61、0 跳过、0 校验错误，后续修正需要新的远程 CI。SDK 下载与静态检查、池复用及本机测试证据见 `v2/`。

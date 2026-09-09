@@ -165,7 +165,9 @@ ncnn::VkMat run_block_sequence(const std::vector<ComponentFiles>& models, const 
     {
         auto acquire_block = [&](bool prefer_host) -> std::unique_ptr<ncnn::Net> {
             if (!pending.valid()) return load_block(i, prefer_host);
-            auto prepared = finish_prefetch();
+            PreparedBlock prepared;
+            try { prepared = finish_prefetch(); }
+            catch (...) { ++stats.prefetch_skipped; throw; }
             if (prepared.net && prefetch_headroom(*memory, 0))
             {
                 ++stats.prefetch_used;

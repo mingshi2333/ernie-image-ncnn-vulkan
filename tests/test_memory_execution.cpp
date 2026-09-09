@@ -99,6 +99,34 @@ ncnn::Option fp32()
     option.num_threads = 1;
     return option;
 }
+// Single-stream fixture: actually finish the device's work, then report the
+// chosen cleanup status. This checks error handling without leaving commands
+// in flight or really losing the device, and restores the entry point on exit.
+class WaitIdleResult
+{
+public:
+    explicit WaitIdleResult(VkResult result) : original_(ncnn::vkDeviceWaitIdle), result_(result)
+    {
+        require(!active_, "Nested device wait injection");
+        active_ = this;
+        ncnn::vkDeviceWaitIdle = intercept;
+    }
+    ~WaitIdleResult() { ncnn::vkDeviceWaitIdle = original_; active_ = nullptr; }
+    WaitIdleResult(const WaitIdleResult&) = delete;
+    WaitIdleResult& operator=(const WaitIdleResult&) = delete;
+    unsigned calls = 0;
+private:
+    static VKAPI_ATTR VkResult VKAPI_CALL intercept(VkDevice device)
+    {
+        auto& self = *active_;
+        ++self.calls;
+        const auto actual = self.original_(device);
+        return actual == VK_SUCCESS ? self.result_ : actual;
+    }
+    inline static WaitIdleResult* active_ = nullptr;
+    PFN_vkDeviceWaitIdle original_;
+    VkResult result_;
+};
 struct Stream
 {
     const ncnn::VulkanDevice* device;
@@ -227,7 +255,8 @@ void prefetch_contract(const ncnn::VulkanDevice* device, const Fixtures& fixture
         stream.run(broken, failure, memory, nullptr, nullptr,
             [&](const std::string&, const ncnn::VkMat&) { ++completed; });
     });
-    require(failure.prefetch_started == 1 && completed == 1 && message.find("graph failed") != std::string::npos,
+    require(failure.prefetch_started == 1 && failure.prefetch_used == 0 && failure.prefetch_skipped == 1 &&
+            completed == 1 && message.find("graph failed") != std::string::npos,
             "Background graph error was lost or failed before real first-block computation");
     // Abandon a sequence while its next Net is being prepared. Unwinding must
     // join preparation before caller state is destroyed; a fresh request on
@@ -366,6 +395,37 @@ void recovery_contract(const ncnn::VulkanDevice* device, const Fixtures& fixture
         catch (const ernie::GpuAllocationError&) { throw std::runtime_error("Generic/device-lost error was classified as OOM"); }
         catch (const std::runtime_error&) { ordinary = true; }
         require(ordinary && calls == 1 && stats.retries == 0, "Fatal computation error was retried");
+    }
+
+    for (const auto status : {VK_ERROR_OUT_OF_HOST_MEMORY, VK_ERROR_OUT_OF_DEVICE_MEMORY, VK_ERROR_DEVICE_LOST})
+    {
+        auto failed_cleanup = base;
+        int attempted_steps = 0, retry_calls = 0;
+        failed_cleanup.before_step = [&](unsigned, int) {
+            ++attempted_steps;
+            throw ernie::GpuAllocationError("original allocation failure before cleanup");
+        };
+        ernie::VulkanDenoiseObservers callbacks;
+        callbacks.retry = [&](unsigned, int, int, const std::string&) { ++retry_calls; };
+        ernie::VulkanDenoiseStats stats;
+        WaitIdleResult wait(status);
+        std::string message;
+        try { run(failed_cleanup, stats, callbacks); }
+        catch (const ernie::GpuAllocationError&) { throw std::logic_error("A failed cleanup wait remained recoverable"); }
+        catch (const std::runtime_error& error) { message = error.what(); }
+        require(message.find("cannot safely retry") != std::string::npos &&
+                message.find(std::to_string(status)) != std::string::npos && wait.calls == 1 &&
+                attempted_steps == 1 && retry_calls == 0 && stats.retries == 0,
+                "Cleanup wait failure lost its status or retried an unsynchronized attempt");
+    }
+    {
+        auto original_failure = base;
+        original_failure.before_step = [](unsigned, int) { throw std::logic_error("original fatal step failure"); };
+        ernie::VulkanDenoiseStats stats;
+        WaitIdleResult wait(VK_SUCCESS);
+        const auto message = expect_failure<std::logic_error>([&] { run(original_failure, stats); });
+        require(message == "original fatal step failure" && wait.calls == 1 && stats.retries == 0,
+                "Successful cleanup replaced the original exception");
     }
 
     // Callback exceptions describe user code or reporting, even when their

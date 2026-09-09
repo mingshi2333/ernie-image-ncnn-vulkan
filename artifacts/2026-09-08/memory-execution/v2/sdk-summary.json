@@ -1,0 +1,30 @@
+{
+  "scope": "download/hash/archive/manifest/ELF/CI syntax only; no GPU execution",
+  "official_catalogue": "https://vulkan.lunarg.com/sdk/files.json",
+  "latest_api": "https://vulkan.lunarg.com/sdk_latest/versions.json",
+  "url": "https://sdk.lunarg.com/sdk/download/1.4.357.1/linux/vulkansdk-linux-x86_64-1.4.357.1.tar.xz",
+  "sdk_version": "1.4.357.1",
+  "api_version": "1.4.357",
+  "archive_bytes": 329551856,
+  "archive_sha256": "4b41e3b30e8aedaa5dac7c136561ab463eb316a25a54e2c6245f2c299ea1fb85",
+  "workflow_sha256": "9ef2c42b41dfdde73f230d353f2e9d41a224f559d80acf0705eeba50af48f0ab",
+  "isolated_runtime": "/var/tmp/ernie-validation-sdk-1.4.357.1/1.4.357.1/x86_64",
+  "runtime_files": {
+    "share/vulkan/explicit_layer.d/VkLayer_khronos_validation.json": "176318d1b980e43a808c61cc6bd18ec8e2bb66ed0fd725241abf6ebd3f90fc04",
+    "lib/libVkLayer_khronos_validation.so": "dbe92c78270f20b78f241e3d8d86ec2e7eff35612e9c76ff1dffb52cb3ed35ec",
+    "bin/vulkaninfo": "c751becd62a670455129967e1a02e1185b5b187a90bc9e4bbf39a7de87055a77"
+  },
+  "preserved_driver_loader": "Only layer SO, layer JSON and vulkaninfo extracted; no SDK loader/build tools",
+  "checks": {
+    "install-workflow.sh:bash_syntax": true,
+    "install-workflow.sh:python_syntax": true,
+    "install-workflow.sh:linux_vulkan_only": true,
+    "verify-workflow.sh:bash_syntax": true,
+    "verify-workflow.sh:python_syntax": true,
+    "verify-workflow.sh:linux_vulkan_only": true,
+    "reject_old_actual_ci_layer": true,
+    "download_sha_matches_workflow": true,
+    "download_sha_matches_official_catalogue": true,
+    "download_size_matches_official_catalogue": true
+  }
+}

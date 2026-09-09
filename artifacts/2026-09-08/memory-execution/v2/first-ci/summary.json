@@ -1,0 +1,37 @@
+[
+  {
+    "artifact": "windows-msvc-vulkan/ctest-results.xml",
+    "tests": 61,
+    "failed": 0,
+    "skipped": 24,
+    "passed": 37
+  },
+  {
+    "artifact": "linux-vulkan-ON-reader-OFF/ctest-results.xml",
+    "tests": 61,
+    "failed": 19,
+    "skipped": 4,
+    "passed": 38
+  },
+  {
+    "artifact": "linux-vulkan-OFF-reader-OFF/ctest-results.xml",
+    "tests": 37,
+    "failed": 0,
+    "skipped": 0,
+    "passed": 37
+  },
+  {
+    "artifact": "linux-vulkan-OFF-reader-ON/ctest-results.xml",
+    "tests": 37,
+    "failed": 0,
+    "skipped": 0,
+    "passed": 37
+  },
+  {
+    "artifact": "macos-apple-clang-vulkan/ctest-results.xml",
+    "tests": 61,
+    "failed": 0,
+    "skipped": 4,
+    "passed": 57
+  }
+]

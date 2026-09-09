@@ -54,6 +54,7 @@ ncnn::Mat denoise_with_recovery(const DenoiseModel& model, const ncnn::Mat& init
     {
         const int attempt_start = resume_step;
         bool observer_failed = false;
+        bool synchronization_failed = false;
         std::string failure;
         auto notify = [&](const auto& callback, auto&&... args) {
             if (!callback) return;
@@ -166,20 +167,28 @@ ncnn::Mat denoise_with_recovery(const DenoiseModel& model, const ncnn::Mat& init
             {
                 const auto original = std::current_exception();
                 // No retry reuses a command, cache or buffer from this attempt.
-                // Explicitly surface device loss rather than retrying it as OOM.
-                check_vulkan_memory(ncnn::vkDeviceWaitIdle(device->vkdevice()), "Synchronize failed denoise attempt");
+                // A failed wait cannot establish safe buffer retirement, even
+                // when its result is an OOM code. Never retry such a failure.
+                const auto synchronized = ncnn::vkDeviceWaitIdle(device->vkdevice());
+                if (synchronized != VK_SUCCESS)
+                {
+                    // Also keep a failed diagnostic allocation out of retry.
+                    synchronization_failed = true;
+                    throw std::runtime_error("Synchronize failed denoise attempt failed (Vulkan " +
+                        std::to_string(synchronized) + "); cannot safely retry");
+                }
                 account();
                 std::rethrow_exception(original);
             }
         }
         catch (const GpuAllocationError& error)
         {
-            if (observer_failed) throw;
+            if (observer_failed || synchronization_failed) throw;
             failure = error.what();
         }
         catch (const std::bad_alloc&)
         {
-            if (observer_failed) throw;
+            if (observer_failed || synchronization_failed) throw;
             failure = "Memory allocation failed";
         }
         if (failure.empty()) break;

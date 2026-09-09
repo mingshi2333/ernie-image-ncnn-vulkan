@@ -1,0 +1,13 @@
+-- Configuring done (0.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: /var/tmp/ernie-ctest-skip-order-6qhasfbu/build
+Test project /var/tmp/ernie-ctest-skip-order-6qhasfbu/build
+    Start 1: mixed
+1/1 Test #1: mixed ............................***Skipped   0.01 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   0.02 sec
+
+The following tests did not run:
+	  1 - mixed (Skipped)
