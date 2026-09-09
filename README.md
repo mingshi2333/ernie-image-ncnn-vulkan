@@ -309,9 +309,9 @@ int main()
 - CLI、UTF-8 路径、模型包完整性及安装后的独立 C++ 调用。
 - 下载器与发布清单的本地 HTTP 测试。
 
-升级到 ncnn `3b7bdba7` 后，源码 `a495443` 的[三平台 CI](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34242182771)五个作业全部成功。Linux 两个 CPU 配置各 36 项通过；Linux Mesa Vulkan 与 macOS MoltenVK 各 53 项通过、4 项因 CI 驱动缺少原生 BF16 storage 能力而跳过；Windows MSVC 为 36 项通过、21 项因无 Vulkan 驱动跳过。每个作业另有 23 项下载与清单检查通过，旧模型包兼容与重打包来源保留也均通过。
+内存执行最终源码 `7296bfe`、ncnn `3b7bdba7` 的[三平台 CI](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34373124004)五个作业全部成功。Linux 两个 CPU 配置各 37 项通过；Linux Mesa Vulkan 与 macOS MoltenVK 各 57 项通过、5 项因 CI 驱动缺少原生 BF16 storage 能力而跳过；Windows MSVC 为 37 项通过、25 项因无 Vulkan 驱动跳过。每个作业另有 23 项下载与清单检查通过，旧模型包兼容与重打包来源保留也均通过。先前 ncnn 升级的 `a495443` 结果保留在[历史记录](artifacts/2026-09-08/ncnn-promotion/README.md)。
 
-**这 4 项 BF16 跳过属于 CI 环境的驱动能力限制。** 测试在运行前检查到该能力不可用后跳过；本机 RTX 4060 Laptop 支持该能力，同样四项测试已实际执行并通过。
+**这 5 项 BF16 跳过属于 CI 环境的驱动能力限制。** 测试在运行前检查到该能力不可用后跳过；本机 RTX 4060 Laptop 支持该能力，包括新增 Gemm 的全部 62 项 Vulkan 测试已实际执行并通过。Linux Vulkan CI 使用摘要固定的 SDK 1.4.357.1 校验层，独立 VUID 扫描没有错误。
 
 实际通过、失败和设备能力跳过项见[平台验证](docs/PLATFORM-VALIDATION.md)，原始失败和修复后的日志均保留。macOS 使用 Vulkan loader 与托管虚拟 GPU 的 MoltenVK 配置。CI 不下载 ERNIE 大模型；完整模型出图与官方误差仍采用上方独立实测记录。
 
