@@ -1,0 +1,11 @@
+{
+  "status": "validation_failed",
+  "pid": 1302751,
+  "completed": [
+    "normal-fp32",
+    "mixed-prefetch-fp32"
+  ],
+  "plan_sha256": "b794844d3877532e9d9d8eecd813503f089e883be7bf35425b544c9d38e323f3",
+  "supervisor_sha256": "59c74b54905b20a7ef7311229a0a41cc10d20f92d4ff6b6a45226a9fe8d5fda6",
+  "current": "bf16-flash-bf16"
+}

@@ -188,9 +188,9 @@ ncnn 的通用 `-1` 可能表示图、参数、文件或执行失败，不能直
 [ErnieNcnnAllocator.cmake](../cmake/ErnieNcnnAllocator.cmake) 对固定来源修正这两个契约，并处理 Windows 的不同 host 导入路径。
 这些属于 Vulkan 使用错误，不能解释为用户 RAM 太小。
 
-全量校验还发现旧 BF16 SDPA shader 使用了设备未声明支持的 BF16 accumulator 协作矩阵类型，即使数值测试通过也属于无效 Vulkan 使用。
-[ErnieNcnnBf16Sdpa.cmake](../cmake/ErnieNcnnBf16Sdpa.cmake) 认证 C++ 和 shader 来源，只禁用 BF16 SDPA 的 cooperative 选择，继续使用原生 BF16 Flash。
-它没有修改注意力数学或 FP32/FP16 的选择，但暂时失去该 BF16 分支的协作矩阵加速；修正前的 BF16 完整模型数据不能直接作为当前路径的证据。
+全量校验先发现旧 BF16 SDPA shader 使用了设备未声明支持的 BF16 accumulator 协作矩阵类型，即使数值测试通过也属于无效 Vulkan 使用。完整 BF16 模型随后又暴露了 Gemm 输出存储中的同类问题，小型注意力测试不能覆盖它。
+[ErnieNcnnBf16.cmake](../cmake/ErnieNcnnBf16.cmake) 分别认证两组 C++ 和 shader 来源，仅禁用 BF16 SDPA/Gemm 的 cooperative 选择，继续使用原生 BF16 Flash 和普通 BF16 Gemm。
+它没有修改模型数学或 FP32/FP16 的选择，但暂时失去这两个 BF16 分支的协作矩阵加速；修正前的 BF16 完整模型数据不能直接作为当前路径的证据。
 
 源码认证先规范化 CRLF，再检查完整散列；ncnn 升级后不匹配会停止配置，要求重新审查。
 [ErnieVulkanValidation.cmake](../cmake/ErnieVulkanValidation.cmake) 同时检查 stdout/stderr 中的 Validation Error 和 VUID，防止再次出现“退出码成功但 Vulkan 契约已失败”。
@@ -221,9 +221,12 @@ host buffer 此时不代表获得了额外的独立 RAM 池；报告分别记录
 [test_vulkan_memory.cpp](../tests/test_vulkan_memory.cpp) 负责 host buffer 计算、预算拒绝和延迟释放等分配器契约。
 受控预算拒绝和故障注入用于检验行为，不等于真实整卡耗尽或系统 OOM-kill 实验。
 
-本次 Linux Vulkan 完整 CTest 61/61 通过、0 跳过，Khronos validation 无错误；纯 CPU 的 37/37 测试同样通过。
+本次 Linux Vulkan 最终完整 CTest 62/62 通过、0 跳过，Khronos validation 无错误；纯 CPU 的 37/37 测试同样通过。
 其中预取、RAM buffer 与检查点恢复使用实际 Vulkan 运算，FP32 注意力的四种分块大小经过独立 FP64 参考检查。
 初次测试图缺少 Split 的崩溃、旧 host buffer 的 10 条校验错误和旧 BF16 accumulator 的 20 条校验错误均保留在验证记录里，没有覆盖成成功结果。
 首轮完整 FP32 模型与旧基线的 25 个张量及 PNG 逐位相同；强制全 RAM 配置完成两步后主动停止，10 个已完成张量逐位相同，没有完整图像。
-池复用修正另通过本机 61/61 测试，新官方校验层下也为 61/61、零校验错误。修正后的混合内存完整模型和最终代码三平台 CI 尚待完成，以验证记录为准。
+池复用修正后的正常与混合内存 FP32 均已完成 512×512、8 步出图，各 25 个张量及 PNG 与原 FP32 基线逐位相同；官方 25/25，PNG MAE 0.000361124674479、max 1。
+混合配置实际有 43,655 次 device 与 288 次非 device-local host 分配，host 峰值 192 MiB，预取 280/280 被消费，缓存命中 7，未触发重试。正常/混合两例观测耗时为 258.230/420.948 秒；这次混合配置更慢，多项开关同时变化且页缓存未控制，不能归因于单一策略或宣称加速。
+[BF16 Gemm 最小测试](../tests/test_bf16_gemm.cpp)还比较了 4 种矩阵与 cooperative ON/OFF：旧路径数值精确却有 VUID，修正后数值仍精确且校验干净。最初夹具把浮点系数写成整数字面量造成的失败也保留，不能误归为生产数值错误。
+最终源码 `7296bfe` 的 BF16 完整运行零 VUID，但官方仍仅 17/25，PNG MAE 1.294207255、max 143；默认 FP16 的 25 份张量及 PNG 与旧 FP16 逐位一致，对官方仍为 23/25、max 109。五个原生 CI 作业全部成功，合计 225 通过、35 能力跳过、0 失败，另有 115 项 HTTP/清单测试通过。仅 Linux Vulkan CI 启用 Khronos validation；跳过不代表相应硬件执行通过。各完整模型绑定独立冻结来源，四例又经独立数值与身份回读，详见[验证记录](../artifacts/2026-09-08/memory-execution/README.md)和[平台明细](PLATFORM-VALIDATION.md)。
 性能结论还需要预先定义的重复对照，不能从新增机制或单次成功推导。

@@ -1,0 +1,6 @@
+{
+  "status": "preparation_failed_before_plan_freeze_or_execution",
+  "reason": "The collection script used scaled_dot_product_attention_vulkan.cpp but the actual fourth derived unit is ncnn-bf16-sdpa/sdpa_vulkan.cpp; strict count3 versus4 correctly aborted",
+  "model_runs_started": 0,
+  "source_and_binary_changed": false
+}

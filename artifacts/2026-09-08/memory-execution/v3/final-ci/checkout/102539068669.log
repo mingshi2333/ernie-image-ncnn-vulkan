@@ -1,0 +1,6 @@
+2026-09-09T15:53:06.9514417Z [command]"C:\Program Files\Git\bin\git.exe" log -1 --format=%H
+2026-09-09T15:53:06.9815349Z 7296bfeba2c809d54a7d6214b0f08dee861ad1f8
+2026-09-09T15:53:16.6196089Z Ran 23 tests in 3.045s
+2026-09-09T15:53:16.6199236Z 
+2026-09-09T15:53:16.6199571Z OK
+2026-09-09T15:53:16.8155897Z ##[group]Run $ErrorActionPreference = 'Stop'

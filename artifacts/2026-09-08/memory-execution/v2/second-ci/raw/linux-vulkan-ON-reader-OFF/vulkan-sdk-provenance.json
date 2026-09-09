@@ -1,0 +1,11 @@
+{
+  "sdk_version": "1.4.357.1",
+  "url": "https://sdk.lunarg.com/sdk/download/1.4.357.1/linux/vulkansdk-linux-x86_64-1.4.357.1.tar.xz",
+  "archive_sha256": "4b41e3b30e8aedaa5dac7c136561ab463eb316a25a54e2c6245f2c299ea1fb85",
+  "layer_api_version": "1.4.357",
+  "files": {
+    "share/vulkan/explicit_layer.d/VkLayer_khronos_validation.json": "176318d1b980e43a808c61cc6bd18ec8e2bb66ed0fd725241abf6ebd3f90fc04",
+    "lib/libVkLayer_khronos_validation.so": "dbe92c78270f20b78f241e3d8d86ec2e7eff35612e9c76ff1dffb52cb3ed35ec",
+    "bin/vulkaninfo": "c751becd62a670455129967e1a02e1185b5b187a90bc9e4bbf39a7de87055a77"
+  }
+}

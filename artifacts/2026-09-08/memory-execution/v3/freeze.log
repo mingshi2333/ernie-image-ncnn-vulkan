@@ -1,0 +1,19 @@
+Verified 25 bindings
+Verified 50 bindings
+Verified 75 bindings
+Verified 100 bindings
+Verified 125 bindings
+Verified 150 bindings
+{
+  "all_passed": true,
+  "source_files": 358,
+  "source_head": "7296bfeba2c809d54a7d6214b0f08dee861ad1f8",
+  "bindings_verified": 158,
+  "plan_sha256": "82c096eacb80658a3bd2637218708b1a5ae0381e067823311160cd3d860401c3",
+  "binary": {
+    "sha256": "3202547804114b542a2785a1466bfc117e5d75830bf0633daf7b58cb741910da",
+    "bytes": 37734480
+  },
+  "derived_compiled_units": 5
+}
+

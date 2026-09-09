@@ -144,6 +144,14 @@ fails the fixed quality gates in BF16 and FP32. Its PNG MAE/max error is
 10.3763/255 in BF16 and 0.08213/17 in FP32, on a 0..255 scale. Do not infer
 quality acceptance from finite activations or BF16's exponent range.
 
+The current build uses authenticated native BF16 SDPA/Gemm fallbacks because
+the pinned cooperative shaders construct unsupported BF16 accumulator types.
+Only those BF16 cooperative selections are disabled. The revised 512x512,
+eight-step apple fixture completes with no Vulkan validation errors, but
+still passes only 17/25 original tensor gates; PNG MAE/max is 1.294207255/143.
+BF16 remains experimental. See the [current path's complete record](../artifacts/2026-09-08/memory-execution/v3/README.md)
+for its source identity, inputs and preserved failures.
+
 ## Prompt files and static variants
 
 Use exactly one of `--prompt TEXT` or `--prompt-file UTF8.txt`. Files may have a

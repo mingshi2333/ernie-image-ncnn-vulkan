@@ -2,9 +2,30 @@
 
 本页分别记录原生构建、小型执行测试和完整模型出图。CTest 的“通过”数排除设备能力导致的跳过项；未下载 ERNIE 权重的 CI 只覆盖构建、接口和小型网络。
 
+## 2026-09-09 内存执行最终验证
+
+后台预取、DiT RAM buffer 与检查点恢复的最终代码为 `7296bfeba2c809d54a7d6214b0f08dee861ad1f8`，ncnn 仍为 `3b7bdba7`。[CI 34373124004](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34373124004)五个作业全部成功；下载后的原始 XML、日志与产物摘要独立核对了实际检出源码和下面的数量，见[完整归档与机器可读统计](../artifacts/2026-09-08/memory-execution/v3/final-ci/summary.json)。
+
+| 环境 | CTest 实际通过 | 跳过 | 失败 | 验证范围 |
+|---|---:|---:|---:|---|
+| 本机 Linux / RTX 4060 Laptop | 62 | 0 | 0 | 真实 Vulkan 小型网络、预取、RAM buffer、故障恢复及 BF16；Khronos validation 无错误 |
+| 本机 Linux 纯 CPU | 37 | 0 | 0 | 内存执行实现的独立 CPU 构建；最终源码 CPU 另由下方两个 CI 作业覆盖 |
+| Ubuntu 24.04 CPU，读取器 OFF / ON | 各 37 | 0 | 0 | 两个最终源码的独立 CPU 构建 |
+| Ubuntu 24.04 / Mesa 软件 Vulkan | 57 | 5 | 0 | 小型 Vulkan 实际执行；5 项缺少 BF16 storage，运行前跳过 |
+| Windows Server 2025 / MSVC x64 | 37 | 25 | 0 | 原生构建、CPU、CLI、安装 SDK；25 项因没有 Vulkan 驱动跳过 |
+| macOS 15 ARM / Apple Clang / MoltenVK | 57 | 5 | 0 | 托管虚拟 GPU 的小型 Vulkan 执行；5 项缺少 BF16 storage |
+
+远程合计 260 项 CTest：225 项通过、35 项跳过、0 项失败；五个作业另有各 23 项 HTTP/清单测试通过。新增 `bf16_gemm_vulkan` 在具备原生 BF16 storage 的本机实际执行，在 Mesa/MoltenVK CI 上按能力返回 77。这些跳过是 **CI 驱动能力限制，与机器 RAM 大小无关**，不能计为对应算子已执行通过。
+
+此次最初的 Linux Vulkan CI 失败另有原因：Ubuntu 校验层 1.3.275 不识别新版 ncnn 的 `VK_KHR_shader_subgroup_rotate` 特性结构，而 Mesa 设备已支持它。保留[首轮失败](../artifacts/2026-09-08/memory-execution/v2/first-ci/summary.json)，改用按官方 SHA256 固定的 Linux SDK 1.4.357.1，仅提取隔离的校验层与 `vulkaninfo`，不替换系统 loader/Mesa。最终日志确认实际加载 layer 1.4.357，设备仍为 Mesa 25.2.8 / llvmpipe LLVM 20.1.2 / Vulkan 1.4.318，系统 loader API 仍为 1.3.275。预检与独立 VUID 扫描全部保留；前一修正版本 `5b57e9d` 的[五项成功记录](../artifacts/2026-09-08/memory-execution/v2/second-ci/summary.json)也保留。
+
+最终 CI 中只有 Linux Vulkan 作业启用 Khronos validation。所有保留日志均无 VUID，但不能据此声称其他平台做过同等校验层验证。macOS 内存小型测试可注入已知主机余量，生产环境尚无 macOS RAM 余量读取器；Windows Job/Wine 同样拒绝无法确认余量的 host 准入。
+
+完整模型另在 Linux 上串行执行：正常与混合内存 FP32 各 25/25 张量及 PNG 与旧基线逐位一致；默认 FP16 同样与旧 FP16 逐位一致，官方仍为 23/25、PNG max 109；修正后的 BF16 零 VUID，官方仍为 17/25、PNG max 143。详见[完整实验及独立回读](../artifacts/2026-09-08/memory-execution/README.md)。**Windows/macOS 完整 ERNIE 出图、物理 Mac、真实显存耗尽和跨平台性能仍未在本次验证。**
+
 ## 2026-09-08 验证结果
 
-[三平台工作流](../.github/workflows/build.yml)构建 CLI、原生 tokenizer 和可安装的 C++ SDK。它在 `main`、`codex/surpass-reference` 推送、Pull Request 或手动运行时触发；手动运行可选择单个平台。下表的五个最新 CI 作业均来自升级源码 `a495443`、ncnn `3b7bdba7`，原始平台失败与旧版成功记录保留在[先前日志归档](../artifacts/2026-09-08/native-platforms/README.md)，新版证据保存在[升级记录](../artifacts/2026-09-08/ncnn-promotion/README.md)。
+[三平台工作流](../.github/workflows/build.yml)构建 CLI、原生 tokenizer 和可安装的 C++ SDK。它在 `main`、`codex/surpass-reference` 推送、Pull Request 或手动运行时触发；手动运行可选择单个平台。下表的该次五个 CI 作业均来自升级源码 `a495443`、ncnn `3b7bdba7`，原始平台失败与旧版成功记录保留在[先前日志归档](../artifacts/2026-09-08/native-platforms/README.md)，新版证据保存在[升级记录](../artifacts/2026-09-08/ncnn-promotion/README.md)。
 
 | 环境 | CTest 实际通过 | 跳过 | 失败 | 范围 |
 |---|---:|---:|---:|---|

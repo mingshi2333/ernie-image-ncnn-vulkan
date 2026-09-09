@@ -1,0 +1,6 @@
+2026-09-09T15:16:52.6042770Z [command]/opt/homebrew/bin/git log -1 --format=%H
+2026-09-09T15:16:52.6100360Z 5b57e9dee4283c5c24fcfdb4bb03349017424253
+2026-09-09T15:17:29.6654950Z Ran 23 tests in 35.927s
+2026-09-09T15:17:29.6655540Z 
+2026-09-09T15:17:29.6655950Z OK
+2026-09-09T15:17:29.7567520Z ##[group]Run brew install ninja libpng vulkan-loader molten-vk

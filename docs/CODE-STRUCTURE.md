@@ -182,7 +182,7 @@ DiT 保留三轴 RoPE、erf GELU、shared AdaLN 和最终非 affine LayerNorm。
 
 构建命令见 [README](../README.md#构建与运行)。安装时启用 `ERNIE_INSTALL_SDK=ON`，独立应用通过 `find_package(Ernie 0.1.0 EXACT CONFIG REQUIRED)` 和 `ernie::pipeline` 接入。安装包带上同版本静态实现库和 ncnn，仍要求兼容的工具链与系统依赖；公共 API 不承诺跨工具链稳定二进制 ABI。
 
-[现有 CI](../.github/workflows/build.yml) 覆盖 Linux CPU/Vulkan 和读取器实验 CPU 构建、无大模型测试、安装与外部消费者。软件 Vulkan 适合小型算子回归，不能代表真实显卡出图。完整模型验证留在本地或有明确硬件的运行环境，不进入每次提交的基础 CI。Windows 的 MinGW/Wine 开发结果见 [Windows 构建说明](BUILDING-WINDOWS.md)，原生 Windows/MSVC/GPU 与 macOS 尚未验证。
+[现有 CI](../.github/workflows/build.yml) 覆盖 Linux CPU/Vulkan、读取器实验 CPU 构建、Windows MSVC 和 macOS Apple Clang，以及无大模型测试、安装与外部消费者。软件 Vulkan 适合小型算子回归，不能代表真实显卡出图。完整模型验证留在本地或有明确硬件的运行环境，不进入每次提交的基础 CI。原生构建和小型测试已有[三平台记录](PLATFORM-VALIDATION.md)，Windows GPU、Windows/macOS 完整模型仍待验证。macOS 生产 RAM 余量查询尚未实现，因此不能由其微型测试推导自动 RAM 回退可用。Windows 的 MinGW/Wine 早期开发结果另见 [Windows 构建说明](BUILDING-WINDOWS.md)。
 
 新增推理行为先进入对应组件，再由流水线连接，CLI 只增加参数映射。新 UI 使用公共 C++ 接口。转换与诊断分别放在 `tools/` 和 `probes/`，对应测试放在 `tests/`；本地 Linux 交付检查由 `tools/build_release.py`、`check_release.py` 和 `release_dependencies.py` 负责。每次修改检查受影响的行为，完整模型和性能测试按具体问题安排。
 

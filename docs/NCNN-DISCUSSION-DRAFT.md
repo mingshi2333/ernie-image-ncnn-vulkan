@@ -292,11 +292,17 @@ FP32 注意力还对 softmax 分母和概率乘 V 的长求和使用 Kahan 补�
 
 在这之后，执行层补上三个机制，详细的参数和代码见[内存执行教程](MEMORY-EXECUTION.md)：
 
-1. 在当前块执行前用一个 `std::future` 启动下一块的独立 Net 准备。启动前检查估计和 RAM 余量，完成后核查实际权重驻留与预算；主线程统一处理缓存和日志。提交与等待串行化以兼容只有一个队列的设备，CPU 准备仍可重叠。
+1. 在当前块执行前用一个 `std::future` 启动下一块的独立 Net 准备。默认关闭；启用要求 Vulkan FP32 和 auto/host 权重，例如 `--precision fp32 --dit-weights auto --dit-prefetch-mib 1024`。启动前检查估计和 RAM 余量，完成后核查实际权重驻留与预算；主线程统一处理缓存和日志。提交与等待串行化以兼容只有一个队列的设备，CPU 准备仍可重叠。
 2. 为新的激活和工作区缓冲区选择设备内存或主机可见 RAM。RAM 上限按 Vulkan 实际分配大小计费，待 GPU 命令完成后才真正释放临时缓冲区。GPU 继续运行原着色器。
 3. 完成每次 Euler 更新后下载 FP32 潜变量。只在明确的分配错误后重建 session，从最近成功步骤继续；最多三次，关闭额外缓存和预取，并逐级减小 FP32 非 Flash 查询分块。所有查询仍使用完整 K/V，不改变输出尺寸、步数或精度。
 
 低层失败需要可靠地传播到这里。原 ncnn 的部分上传路径会丢失错误或继续使用空分配，因此项目在经过源码散列核验的构建副本中补齐错误分类、清理和队列等待。设备丢失、模型错误和观察器回调错误不进入恢复。权重文件映射、缓存、预取和 RAM 缓冲区仍分别记录成本；成功恢复不是提速证明。
+
+这些机制覆盖 DiT 的 buffer，不能任意迁移正在运行的激活，也不覆盖文本、PE、VAE 或进程重启。当前 macOS 缺少生产 RAM 余量读取器，Windows Job/Wine 也返回余量未知，所以这些场景拒绝 host 缓冲区准入，包括显式 host 模式；微型测试注入余量不等于生产支持。恢复只处理已保留类型的 buffer/command 等路径，compute pipeline 等创建操作若仍被 ncnn 压成通用 `-1`，就直接结束；失败清理同步本身报错时也不重试。
+
+同输入 512×512、8 步 FP32 的正常和混合内存两例，各 25 个张量及 PNG 都与原基线逐位相同。混合配置实际使用了 43,655 次 device 和 288 次非 device-local host 分配，host 峰值 192 MiB，预取 280/280 被消费。正常/混合的本次耗时为 258.230/420.948 秒，后者更慢；显存预留、缓存和预取同时变化，页缓存未控制，不能把重叠或命中率当成加速证据。完整模型没有触发重试；检查点恢复的证据来自实际微型 Vulkan 图的故障注入。[完整记录](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/artifacts/2026-09-08/memory-execution/README.md)
+
+校验也发现了 BF16 SDPA/Gemm 的 cooperative shader 使用设备未声明支持的 BF16 accumulator 类型。当前分别核对来源，在 ncnn target 内编译兼容副本，选择原生 BF16 Flash/普通 Gemm；submodule 不变，FP32/FP16 分支不变。新增四种 Gemm 形状的独立 FP64/BF16 RNE 测试证明，旧路径可以数值精确且退出 0，却仍有 VUID，修正后才同时通过。新 BF16 完整模型没有校验错误，但旧门槛仍只有 17/25、PNG MAE 1.294207255/max 143，必须保留实验状态。这说明运行有效、数值一致和性能收益需要分别验证。
 
 ## 10. 可选 PE 使用 ncnn 原生 KV cache
 
@@ -395,5 +401,9 @@ Linux、Windows 和 macOS 各自编译并运行测试。Windows 使用 MSVC 原�
 升级到 ncnn `3b7bdba7` 后，源码 `a495443` 的五个原生 CI 作业全部成功：Linux 两个 CPU 配置各 36 项通过；Linux Mesa Vulkan 与 macOS MoltenVK 各 53 项通过、4 项因 CI 驱动缺少原生 BF16 storage 能力而跳过；Windows MSVC 为 36 项通过、21 项因无 Vulkan 驱动跳过。每个作业另有 23 项本地 HTTP/清单检查通过，并实际通过旧模型包兼容与重打包来源保留检查。完整源码 SHA、原始失败和跳过名称见 [平台验证记录](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/docs/PLATFORM-VALIDATION.md)。三平台编译/测试与三平台真实模型出图是不同的结果。
 
 这 4 项 BF16 跳过属于 CI 环境的驱动能力限制：驱动报告 `bf16-p/s=1/0`，测试在运行前的能力检查阶段返回 `77`。本机 RTX 4060 Laptop 报告 `bf16-p/s=1/1`，同样四项已实际执行并通过。
+
+2026-09-09 内存执行最终源码 `7296bfe` 的[五个 CI 作业](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34373124004)也全部成功：两个 Linux CPU 配置各 37 项通过，Linux Vulkan/macOS 各 57 项通过和 5 项 BF16 能力跳过，Windows 37 项通过和 25 项无驱动跳过，均无失败。新增 Gemm 测试使 BF16 跳过从 4 变为 5；本机 RTX 4060 的 62 项实际测试全部通过，没有跳过。Linux Vulkan CI 还遇到旧 1.3.275 校验层不认识新的特性结构，现按官方摘要固定隔离的 SDK 1.4.357.1 校验层，未替换系统 loader/Mesa 或屏蔽 VUID。原失败日志与最终 XML 均保留。
+
+默认 FP16 也完成独立冻结的 512×512、8 步回归：命令不指定精度，报告确认为 FP16，25 份张量及 PNG 与旧 FP16 逐位一致。官方参考仍为 23/25、PNG MAE 0.235983531/max 109，保持原未通过项。它验证公共内存改动没有改变这一固定样例的默认输出，没有把默认精度改成 FP32 或放宽门槛。
 
 目前后续工作主要是扩大独立提示词验证、继续定位残余数值偏差，以及补充其他设备上的完整出图记录。新增的 DiT RAM 缓冲区与分配恢复有明确的预算和平台边界；近似 DiT 缓存仍未作为已有能力提供。

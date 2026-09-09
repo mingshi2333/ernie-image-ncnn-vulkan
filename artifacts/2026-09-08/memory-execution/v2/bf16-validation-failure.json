@@ -1,0 +1,13 @@
+{
+  "source": "5b57e9dee4283c5c24fcfdb4bb03349017424253",
+  "status": "validation_failed",
+  "count": 5,
+  "vuids": [
+    "VUID-RuntimeSpirv-cooperativeMatrixFlexibleDimensions-10165"
+  ],
+  "complete_model_process": true,
+  "numerical_tensors_passed": 19,
+  "png_max_error": 117,
+  "source_cause": "BF16 Gemm cooperative output storage constructs a BF16 accumulator; SDPA-only fallback did not cover Gemm",
+  "scope": "Full result remains invalid Vulkan usage even though generation completed. Normal/mixed FP32 records remain valid."
+}

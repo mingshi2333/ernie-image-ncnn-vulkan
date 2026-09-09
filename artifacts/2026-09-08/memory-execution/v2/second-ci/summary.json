@@ -1,0 +1,492 @@
+{
+  "run_id": 34369154353,
+  "url": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34369154353",
+  "head_sha": "5b57e9dee4283c5c24fcfdb4bb03349017424253",
+  "head_branch": "codex/surpass-reference",
+  "conclusion": "success",
+  "event": "push",
+  "ncnn_gitlink": "3b7bdba7fc8aea8fd46779533eee027df77c639d",
+  "jobs": [
+    {
+      "job": "linux (OFF, OFF)",
+      "job_id": 102525569870,
+      "job_url": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34369154353/job/102525569870",
+      "conclusion": "success",
+      "head_sha": "5b57e9dee4283c5c24fcfdb4bb03349017424253",
+      "checkout_sha_confirmed_in_log": true,
+      "artifact": "linux-vulkan-OFF-reader-OFF",
+      "artifact_id": 10111537070,
+      "archive_sha256": "7103d199992d2710a4eeb81a613bb78883809a52bda885cb12dc9f7ac39ea6d3",
+      "tests": 37,
+      "passed": 37,
+      "skipped": 0,
+      "failed": 0,
+      "errors": 0,
+      "skipped_tests": [],
+      "skip_scope": null,
+      "validation_pattern_matches": [],
+      "validation_scan_files": [
+        "Testing/Temporary/LastTest.log",
+        "ctest-results.xml"
+      ],
+      "configuration": {
+        "ERNIE_ENABLE_VULKAN": "OFF",
+        "ERNIE_TEST_VULKAN_VALIDATION": "OFF",
+        "ERNIE_EXPERIMENT_COMPACT_MODEL_READER": "OFF",
+        "ERNIE_INSTALL_SDK": "ON",
+        "NCNN_SIMPLEVK": "ON"
+      },
+      "http_manifest_tests_passed": 23,
+      "job_log_sha256": "528282b5ce19b45cb5ce8c4050004a3c44a825d1f4e8d6dd834943af1ce09216",
+      "job_log_bytes": 122458,
+      "checkout_log_lines": [
+        150,
+        151
+      ],
+      "http_log_lines": [
+        228,
+        231
+      ]
+    },
+    {
+      "job": "linux (OFF, ON)",
+      "job_id": 102525569714,
+      "job_url": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34369154353/job/102525569714",
+      "conclusion": "success",
+      "head_sha": "5b57e9dee4283c5c24fcfdb4bb03349017424253",
+      "checkout_sha_confirmed_in_log": true,
+      "artifact": "linux-vulkan-OFF-reader-ON",
+      "artifact_id": 10111579442,
+      "archive_sha256": "a29a214a566ef105ab2cbb9e9aef77a4ec8678e51e70a2202b83618c7ce09854",
+      "tests": 37,
+      "passed": 37,
+      "skipped": 0,
+      "failed": 0,
+      "errors": 0,
+      "skipped_tests": [],
+      "skip_scope": null,
+      "validation_pattern_matches": [],
+      "validation_scan_files": [
+        "Testing/Temporary/LastTest.log",
+        "ctest-results.xml"
+      ],
+      "configuration": {
+        "ERNIE_ENABLE_VULKAN": "OFF",
+        "ERNIE_TEST_VULKAN_VALIDATION": "OFF",
+        "ERNIE_EXPERIMENT_COMPACT_MODEL_READER": "ON",
+        "ERNIE_INSTALL_SDK": "ON",
+        "NCNN_SIMPLEVK": "ON"
+      },
+      "http_manifest_tests_passed": 23,
+      "job_log_sha256": "16bb547f26d051f91c80f2c949034798ded7245640c8b243e60deb7356a25373",
+      "job_log_bytes": 122471,
+      "checkout_log_lines": [
+        150,
+        151
+      ],
+      "http_log_lines": [
+        228,
+        231
+      ]
+    },
+    {
+      "job": "linux (ON, OFF)",
+      "job_id": 102525569728,
+      "job_url": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34369154353/job/102525569728",
+      "conclusion": "success",
+      "head_sha": "5b57e9dee4283c5c24fcfdb4bb03349017424253",
+      "checkout_sha_confirmed_in_log": true,
+      "artifact": "linux-vulkan-ON-reader-OFF",
+      "artifact_id": 10111563168,
+      "archive_sha256": "5287e2b899eaa713d90fca38a9f8bd49a9abfcdab4ed88d7ba1440e4b1bb056f",
+      "tests": 61,
+      "passed": 57,
+      "skipped": 4,
+      "failed": 0,
+      "errors": 0,
+      "skipped_tests": [
+        "residual_contract_vulkan_bf16",
+        "erf_gelu_vulkan_bf16",
+        "rmsnorm_range_vulkan_bf16",
+        "layernorm_range_vulkan_bf16"
+      ],
+      "skip_scope": "Driver reports BF16 packed/storage=1/0",
+      "validation_pattern_matches": [],
+      "validation_scan_files": [
+        "Testing/Temporary/LastTest.log",
+        "Testing/Temporary/LastTestsDisabled.log",
+        "ctest-results.xml",
+        "vulkan-sdk-sha256.log",
+        "vulkan-validation-info.log"
+      ],
+      "configuration": {
+        "ERNIE_ENABLE_VULKAN": "ON",
+        "ERNIE_TEST_VULKAN_VALIDATION": "ON",
+        "ERNIE_EXPERIMENT_COMPACT_MODEL_READER": "OFF",
+        "ERNIE_INSTALL_SDK": "ON",
+        "NCNN_SIMPLEVK": "ON"
+      },
+      "http_manifest_tests_passed": 23,
+      "job_log_sha256": "9449c363d07d751c7db68d4f0e2f05ef7a54308bfe9194d040f97981b6519ea4",
+      "job_log_bytes": 183920,
+      "checkout_log_lines": [
+        150,
+        151
+      ],
+      "http_log_lines": [
+        228,
+        231
+      ]
+    },
+    {
+      "job": "macos",
+      "job_id": 102525569438,
+      "job_url": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34369154353/job/102525569438",
+      "conclusion": "success",
+      "head_sha": "5b57e9dee4283c5c24fcfdb4bb03349017424253",
+      "checkout_sha_confirmed_in_log": true,
+      "artifact": "macos-apple-clang-vulkan",
+      "artifact_id": 10111396408,
+      "archive_sha256": "731bf255ba206cbd3ccdb6b9ce7ad02737cd6c3759ffb32062b2d69501a4d14e",
+      "tests": 61,
+      "passed": 57,
+      "skipped": 4,
+      "failed": 0,
+      "errors": 0,
+      "skipped_tests": [
+        "residual_contract_vulkan_bf16",
+        "erf_gelu_vulkan_bf16",
+        "rmsnorm_range_vulkan_bf16",
+        "layernorm_range_vulkan_bf16"
+      ],
+      "skip_scope": "Driver reports BF16 packed/storage=1/0",
+      "validation_pattern_matches": [],
+      "validation_scan_files": [
+        "Testing/Temporary/LastTest.log",
+        "Testing/Temporary/LastTestsDisabled.log",
+        "ctest-results.xml"
+      ],
+      "configuration": {
+        "ERNIE_ENABLE_VULKAN": "ON",
+        "ERNIE_TEST_VULKAN_VALIDATION": "OFF",
+        "ERNIE_EXPERIMENT_COMPACT_MODEL_READER": "OFF",
+        "ERNIE_INSTALL_SDK": "ON",
+        "NCNN_SIMPLEVK": "OFF"
+      },
+      "http_manifest_tests_passed": 23,
+      "job_log_sha256": "d889768cd51ed064915b96faee5d6f1a8ba392e57de15ef3a8d06bc9aa0c4f7e",
+      "job_log_bytes": 249552,
+      "checkout_log_lines": [
+        151,
+        152
+      ],
+      "http_log_lines": [
+        229,
+        232
+      ]
+    },
+    {
+      "job": "windows",
+      "job_id": 102525569776,
+      "job_url": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34369154353/job/102525569776",
+      "conclusion": "success",
+      "head_sha": "5b57e9dee4283c5c24fcfdb4bb03349017424253",
+      "checkout_sha_confirmed_in_log": true,
+      "artifact": "windows-msvc-vulkan",
+      "artifact_id": 10112011957,
+      "archive_sha256": "3fcd14af7e075302c45a1a3cb0121f56dcac3f2d76f9f7389eee783a139bba5d",
+      "tests": 61,
+      "passed": 37,
+      "skipped": 24,
+      "failed": 0,
+      "errors": 0,
+      "skipped_tests": [
+        "native_cache_vulkan",
+        "runtime_cache_vulkan",
+        "attention_long_fp32_accuracy",
+        "attention_bounded_workspace",
+        "gpu_context_contract",
+        "weight_session_vulkan",
+        "weight_session_mapped_vulkan",
+        "weight_session_bf16_file_vulkan",
+        "weight_session_mapped_bf16_file_vulkan",
+        "weight_placement_vulkan",
+        "residual_contract_vulkan",
+        "residual_contract_vulkan_bf16",
+        "erf_gelu_vulkan_fp32",
+        "rmsnorm_range_vulkan_fp32",
+        "layernorm_range_vulkan_fp32",
+        "erf_gelu_vulkan_fp16",
+        "rmsnorm_range_vulkan_fp16",
+        "layernorm_range_vulkan_fp16",
+        "erf_gelu_vulkan_bf16",
+        "rmsnorm_range_vulkan_bf16",
+        "layernorm_range_vulkan_bf16",
+        "vulkan_memory_buffers",
+        "ncnn_failure_vulkan",
+        "memory_execution_vulkan"
+      ],
+      "skip_scope": "No Vulkan device; vkCreateInstance failed -9",
+      "validation_pattern_matches": [],
+      "validation_scan_files": [
+        "Testing/Temporary/LastTest.log",
+        "Testing/Temporary/LastTestsDisabled.log",
+        "ctest-results.xml"
+      ],
+      "configuration": {
+        "ERNIE_ENABLE_VULKAN": "ON",
+        "ERNIE_TEST_VULKAN_VALIDATION": "OFF",
+        "ERNIE_EXPERIMENT_COMPACT_MODEL_READER": "OFF",
+        "ERNIE_INSTALL_SDK": "ON",
+        "NCNN_SIMPLEVK": "ON"
+      },
+      "http_manifest_tests_passed": 23,
+      "job_log_sha256": "17bf4769449456019307a56d3bcbf4d419004dcc4fb5e823870d7b7691d16f04",
+      "job_log_bytes": 180270,
+      "checkout_log_lines": [
+        176,
+        177
+      ],
+      "http_log_lines": [
+        254,
+        257
+      ]
+    }
+  ],
+  "totals": {
+    "tests": 257,
+    "passed": 225,
+    "skipped": 32,
+    "failed": 0,
+    "errors": 0,
+    "http_manifest_tests_passed": 115
+  },
+  "linux_validation_sdk": {
+    "sdk_version": "1.4.357.1",
+    "url": "https://sdk.lunarg.com/sdk/download/1.4.357.1/linux/vulkansdk-linux-x86_64-1.4.357.1.tar.xz",
+    "archive_sha256": "4b41e3b30e8aedaa5dac7c136561ab463eb316a25a54e2c6245f2c299ea1fb85",
+    "layer_api_version": "1.4.357",
+    "files": {
+      "share/vulkan/explicit_layer.d/VkLayer_khronos_validation.json": "176318d1b980e43a808c61cc6bd18ec8e2bb66ed0fd725241abf6ebd3f90fc04",
+      "lib/libVkLayer_khronos_validation.so": "dbe92c78270f20b78f241e3d8d86ec2e7eff35612e9c76ff1dffb52cb3ed35ec",
+      "bin/vulkaninfo": "c751becd62a670455129967e1a02e1185b5b187a90bc9e4bbf39a7de87055a77"
+    }
+  },
+  "linux_loader_instance_api": "1.3.275",
+  "linux_driver": "Mesa 25.2.8 / llvmpipe LLVM 20.1.2 / device Vulkan 1.4.318",
+  "scope": [
+    "Five actual native build jobs at 5b57e9d, before the subsequent BF16 Gemm compatibility fix.",
+    "Khronos validation was enabled and independently scanned on Linux Vulkan only.",
+    "Zero validation/VUID matches in retained XML and logs on every job; other platforms did not enable this layer.",
+    "Model-free tests and installed SDK consumers only, not full-model or performance verification.",
+    "macOS memory tests can inject known headroom; this does not establish a production macOS RAM reader.",
+    "Windows compiled Vulkan but all 24 device-dependent tests skipped without a usable driver."
+  ],
+  "retrieval_note": "Initial job-log API requests were refused by gh because logs contain ANSI escape sequences; retry allowed raw sequences only into files, never executed them.",
+  "raw_files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 85,
+      "sha256": "93c4b084ecc9a8726cb01261d0ce80c3b4835b55cf195c77ca76cab8fe689af3",
+      "crlf_count": 0
+    },
+    {
+      "path": "archives/linux-vulkan-OFF-reader-OFF.zip",
+      "bytes": 18523,
+      "sha256": "7103d199992d2710a4eeb81a613bb78883809a52bda885cb12dc9f7ac39ea6d3",
+      "crlf_count": 1
+    },
+    {
+      "path": "archives/linux-vulkan-OFF-reader-ON.zip",
+      "bytes": 18537,
+      "sha256": "a29a214a566ef105ab2cbb9e9aef77a4ec8678e51e70a2202b83618c7ce09854",
+      "crlf_count": 0
+    },
+    {
+      "path": "archives/linux-vulkan-ON-reader-OFF.zip",
+      "bytes": 25960,
+      "sha256": "5287e2b899eaa713d90fca38a9f8bd49a9abfcdab4ed88d7ba1440e4b1bb056f",
+      "crlf_count": 0
+    },
+    {
+      "path": "archives/macos-apple-clang-vulkan.zip",
+      "bytes": 24616,
+      "sha256": "731bf255ba206cbd3ccdb6b9ce7ad02737cd6c3759ffb32062b2d69501a4d14e",
+      "crlf_count": 0
+    },
+    {
+      "path": "archives/windows-msvc-vulkan.zip",
+      "bytes": 22350,
+      "sha256": "3fcd14af7e075302c45a1a3cb0121f56dcac3f2d76f9f7389eee783a139bba5d",
+      "crlf_count": 0
+    },
+    {
+      "path": "artifacts.json",
+      "bytes": 3738,
+      "sha256": "7932ac93c9f9cc415a1351e7f9e39b1449abc737b70d3aa36d32033faac3812e",
+      "crlf_count": 0
+    },
+    {
+      "path": "checkout/102525569438.log",
+      "bytes": 356,
+      "sha256": "853307aa5e473df989892d347c640f46d63eb4d38c2e78c85d47a49612cce856",
+      "crlf_count": 0
+    },
+    {
+      "path": "checkout/102525569714.log",
+      "bytes": 316,
+      "sha256": "a9f43b1da081609a6aa14113fc2339b315ec65bd8c4068cfc0b118d1c2e72397",
+      "crlf_count": 0
+    },
+    {
+      "path": "checkout/102525569728.log",
+      "bytes": 316,
+      "sha256": "7595c726382ab1dad50dfa3da5c196e63c32ecd69e3fe24acde42519521b8a6b",
+      "crlf_count": 0
+    },
+    {
+      "path": "checkout/102525569776.log",
+      "bytes": 356,
+      "sha256": "354bcc8a2f73b8bbeece050a32d21d68f444859bfaccb5c3780673c0fb22cd76",
+      "crlf_count": 6
+    },
+    {
+      "path": "checkout/102525569870.log",
+      "bytes": 316,
+      "sha256": "1731ba3f6b434fdf72c1877bd80dde54509961e675aa6a273f34b07ac9e1c247",
+      "crlf_count": 0
+    },
+    {
+      "path": "raw/linux-vulkan-OFF-reader-OFF/CMakeCache.txt",
+      "bytes": 37264,
+      "sha256": "7468b819b98155c525d5e8ac369c77ff6436a12a07fd7d81e5509d1d88550f9f",
+      "crlf_count": 0
+    },
+    {
+      "path": "raw/linux-vulkan-OFF-reader-OFF/Testing/Temporary/LastTest.log",
+      "bytes": 48044,
+      "sha256": "9553e72cd023f242266b9a9da0610653f0f8063ac16fc2fb84bef93e97c6c502",
+      "crlf_count": 0
+    },
+    {
+      "path": "raw/linux-vulkan-OFF-reader-OFF/ctest-results.xml",
+      "bytes": 20704,
+      "sha256": "76d3a88e4e4354c738320d4cb7237f1f6afa4729a3783a14937c141a477cbfd4",
+      "crlf_count": 0
+    },
+    {
+      "path": "raw/linux-vulkan-OFF-reader-ON/CMakeCache.txt",
+      "bytes": 37263,
+      "sha256": "0282894b0a6e7bdce88351f5ebf2fbd3f626b061e8812d30dd154450079e1ca7",
+      "crlf_count": 0
+    },
+    {
+      "path": "raw/linux-vulkan-OFF-reader-ON/Testing/Temporary/LastTest.log",
+      "bytes": 48024,
+      "sha256": "bd173483fc29675973b5044ba264d2349a2d6530b3ef39290c8b1f003a6d5808",
+      "crlf_count": 0
+    },
+    {
+      "path": "raw/linux-vulkan-OFF-reader-ON/ctest-results.xml",
+      "bytes": 20702,
+      "sha256": "ec793a87bee732d73f190c7d8eaa6f2089843ca2ecd82da72559d0ccc2d8bcb7",
+      "crlf_count": 0
+    },
+    {
+      "path": "raw/linux-vulkan-ON-reader-OFF/CMakeCache.txt",
+      "bytes": 38886,
+      "sha256": "19ced9d490ea61d96c70555648bcf5b887c9df1ef1cb610b12401d9bfea2a6f6",
+      "crlf_count": 0
+    },
+    {
+      "path": "raw/linux-vulkan-ON-reader-OFF/Testing/Temporary/LastTest.log",
+      "bytes": 110160,
+      "sha256": "c0a36e4ef993f909bf51522a72019c6700a45127001e57762c178e158be74b93",
+      "crlf_count": 0
+    },
+    {
+      "path": "raw/linux-vulkan-ON-reader-OFF/Testing/Temporary/LastTestsDisabled.log",
+      "bytes": 117,
+      "sha256": "d5d02ad3639bb1eca78fdcdb5691af68c96a78697456cb962ccd59bf6fc40e70",
+      "crlf_count": 0
+    },
+    {
+      "path": "raw/linux-vulkan-ON-reader-OFF/ctest-results.xml",
+      "bytes": 47280,
+      "sha256": "d89ebc87725e0486c97bef4aaa5e296a7803124eff8e0a07e4f0d661d549ed2d",
+      "crlf_count": 0
+    },
+    {
+      "path": "raw/linux-vulkan-ON-reader-OFF/vulkan-sdk-provenance.json",
+      "bytes": 615,
+      "sha256": "e3d66783082d4dc2f3ce699bec6cde4ab6d00a8e3c9d21591b7d1fa57eac3d27",
+      "crlf_count": 0
+    },
+    {
+      "path": "raw/linux-vulkan-ON-reader-OFF/vulkan-sdk-sha256.log",
+      "bytes": 51,
+      "sha256": "d1a7e9bbab4f9e0c017585c1262824e589405da3e5a05c77096c3b2bec67da0e",
+      "crlf_count": 0
+    },
+    {
+      "path": "raw/linux-vulkan-ON-reader-OFF/vulkan-validation-info.log",
+      "bytes": 3050,
+      "sha256": "c173b0744424bab23df735aaba7c355535ed5916c00a97980319a7915945e6bd",
+      "crlf_count": 0
+    },
+    {
+      "path": "raw/macos-apple-clang-vulkan/CMakeCache.txt",
+      "bytes": 38861,
+      "sha256": "023dc8bf92a7e2030846c469509aade5467fe3f975c58db2ac3392a82c31eb08",
+      "crlf_count": 0
+    },
+    {
+      "path": "raw/macos-apple-clang-vulkan/Testing/Temporary/LastTest.log",
+      "bytes": 109818,
+      "sha256": "e9a151fcbf22b1e26d20eea3fb2b1910490dd5a01d2ac8ae96d942766e3c23a3",
+      "crlf_count": 0
+    },
+    {
+      "path": "raw/macos-apple-clang-vulkan/Testing/Temporary/LastTestsDisabled.log",
+      "bytes": 117,
+      "sha256": "d5d02ad3639bb1eca78fdcdb5691af68c96a78697456cb962ccd59bf6fc40e70",
+      "crlf_count": 0
+    },
+    {
+      "path": "raw/macos-apple-clang-vulkan/ctest-results.xml",
+      "bytes": 46947,
+      "sha256": "13d8c1baa0e7d02e257af99feb67b0b316698d9964dafb05a21ca2c0e62c034e",
+      "crlf_count": 0
+    },
+    {
+      "path": "raw/windows-msvc-vulkan/CMakeCache.txt",
+      "bytes": 43377,
+      "sha256": "c761093657835ded7660bf920acda744652c2312a3545822ce257cdb31a625b0",
+      "crlf_count": 1328
+    },
+    {
+      "path": "raw/windows-msvc-vulkan/Testing/Temporary/LastTest.log",
+      "bytes": 68834,
+      "sha256": "935f68fd615c11ffb18d03fb95565001bdda1f8ec4d418275fc70b1e4d20dbce",
+      "crlf_count": 1211
+    },
+    {
+      "path": "raw/windows-msvc-vulkan/Testing/Temporary/LastTestsDisabled.log",
+      "bytes": 703,
+      "sha256": "4b49940ee6a05fec06ffc02486b895a6b22a79742487d73cb5b31168f81c2621",
+      "crlf_count": 24
+    },
+    {
+      "path": "raw/windows-msvc-vulkan/ctest-results.xml",
+      "bytes": 27580,
+      "sha256": "9c03504dbf7fcf7ecc6be0892571643040c368f2c52e0869bc8f47687040a3af",
+      "crlf_count": 491
+    },
+    {
+      "path": "run.json",
+      "bytes": 12758,
+      "sha256": "90d31b59e4eda9dbb307ab76f71f237ee52f3d27b412e462c707a527314713a1",
+      "crlf_count": 0
+    }
+  ]
+}
