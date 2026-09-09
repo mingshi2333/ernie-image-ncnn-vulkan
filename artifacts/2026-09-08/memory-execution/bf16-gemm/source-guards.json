@@ -1,0 +1,104 @@
+{
+  "path": "/var/tmp/ernie-bf16-gemm-contract-76zpe_h9",
+  "scope": "isolated CMake source guards and CPU compilation only; no GPU execution or build-dev mutation",
+  "source_sha256": "97fdae6aff1d8f750b22226d295679b0fe200bb06a56e01bf98f69dd2e213900",
+  "shader_sha256": "88ebb40cff231ec676365629ab24ba45edb72ddc70fba5f519758ffbcf46a19d",
+  "derived_sha256": "dff4dc2ef0b7ec9df1769d51c144c50ed3d0d5e34593eb40ead01c3fce75a95e",
+  "results": [
+    {
+      "case": "pristine",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "case": "relative_unit",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "case": "crlf",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "case": "dirty_cpp",
+      "passed": true,
+      "exit_code": 1
+    },
+    {
+      "case": "dirty_shader",
+      "passed": true,
+      "exit_code": 1
+    },
+    {
+      "case": "missing_unit",
+      "passed": true,
+      "exit_code": 1
+    },
+    {
+      "case": "duplicate_unit",
+      "passed": true,
+      "exit_code": 1
+    },
+    {
+      "case": "cpu_bypass",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "case": "paired_sdpa",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "case": "crlf_identical_derived_bytes",
+      "passed": true
+    },
+    {
+      "case": "paired_sdpa_unchanged_derived_identity",
+      "passed": true
+    },
+    {
+      "case": "independent_object_compile",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "case": "renamed_helper_both_units",
+      "passed": true,
+      "exit_code": 0
+    }
+  ],
+  "compile_command": [
+    "/usr/bin/clang++",
+    "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/third_party/ncnn/src/layer/x86",
+    "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/third_party/ncnn/src",
+    "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/ncnn/src",
+    "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/third_party/ncnn/src/layer",
+    "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/third_party/ncnn/src/..",
+    "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/third_party/ncnn/glslang/glslang/..",
+    "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/include",
+    "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/third_party/ncnn/glslang/SPIRV/..",
+    "-O3",
+    "-DNDEBUG",
+    "-std=gnu++11",
+    "-fPIC",
+    "-DNCNN_STATIC_DEFINE",
+    "-Wall",
+    "-Wextra",
+    "-Wno-unused-function",
+    "-ffast-math",
+    "-fvisibility=hidden",
+    "-fvisibility-inlines-hidden",
+    "-msse2",
+    "-msse",
+    "-mrecip=none",
+    "-fopenmp=libomp",
+    "-o",
+    "/var/tmp/ernie-bf16-gemm-contract-76zpe_h9/gemm_vulkan.o",
+    "-c",
+    "/var/tmp/ernie-bf16-gemm-contract-76zpe_h9/pristine/build/ncnn-bf16-gemm/gemm_vulkan.cpp"
+  ],
+  "helper_path": "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/cmake/ErnieNcnnBf16.cmake",
+  "helper_sha256": "372e66354f8ce26db9ec8c58613b62c8df75049133643282550b97ecaa1a0ea0"
+}

@@ -1,0 +1,64 @@
+[  0%] Built target GenericCodeGen
+[  1%] Built target MachineIndependent
+[  1%] Built target SPIRV
+[  6%] Built target glslang
+[  6%] Built target OSDependent
+[  7%] Built target glslang-default-resource-limits
+[ 34%] Built target ncnn-generate-spirv
+[ 34%] Built target ernie-tokenizer-rust
+[ 34%] Built target ernie-shape-plan
+[ 34%] Built target ernie-execution-metrics
+[ 34%] Built target ernie-generation-report-contract
+[ 34%] Built target ernie-prompt-file-contract
+[ 37%] Built target ernie-execution-metrics-contract
+[ 37%] Built target ernie-shape-plan-contract
+[ 37%] Built target ernie-image-io-contract
+[ 37%] Built target ernie-tokenizer
+[ 38%] Built target ernie-shape-graph
+[ 39%] Built target ernie-tokenize
+[ 39%] Built target ernie-shape-graph-contract
+[ 39%] Built target ernie-model-package
+[ 40%] Built target ernie-model-package-contract
+[ 86%] Built target ncnn
+[ 87%] Built target ernie-ncnn-failure-contract
+[ 87%] Built target ernie-model-reader-contract
+[ 87%] Building CXX object tests/CMakeFiles/ernie-bf16-gemm-contract.dir/test_bf16_gemm.cpp.o
+[ 90%] Built target ernie-runtime
+[ 90%] Built target ernie-attention-probe
+[ 91%] Built target ernie-pe
+[ 91%] Built target ernie-block-runner
+[ 91%] Built target ernie-attention-accuracy-probe
+[ 91%] Built target ernie-gelu-probe
+[ 91%] Built target ernie-attention-workspace-probe
+[ 92%] Built target ernie-block-sequence-runner
+[ 92%] Built target ernie-head-runner
+[ 93%] Built target ernie-latent-runner
+[ 93%] Built target ernie-denoise-runner
+[ 93%] Built target ernie-text-runner
+[ 93%] Built target ernie-pe-block-runner
+[ 93%] Built target ernie-rmsnorm-probe
+[ 93%] Built target ernie-text-gemm-diagnostic
+[ 93%] Built target ernie-pe-runner
+[ 94%] Built target ernie-latent-contract
+[ 95%] Built target ernie-pe-sampling-contract
+[ 95%] Built target ernie-component-files-contract
+[ 95%] Built target ernie-host-memory-contract
+[ 95%] Built target ernie-weight-placement-contract
+[ 96%] Built target ernie-weight-session-contract
+[ 96%] Built target ernie-image-encoder-contract
+[ 96%] Built target ernie-model-loading-contract
+[ 96%] Built target ernie-img2img-contract
+[ 96%] Built target ernie-residual-contract
+[ 96%] Built target ernie-pe-prefill-contract
+[ 96%] Built target ernie-text-down-contract
+[ 96%] Built target ernie-vulkan-memory-contract
+[ 96%] Built target ernie-memory-execution-contract
+[ 97%] Built target ernie-pipeline
+[ 97%] Built target ernie-img2img-runner
+[ 98%] Built target ernie-utf8-paths-contract
+[ 99%] Built target ernie-image
+[100%] Built target ernie-pipeline-api-contract
+[100%] Built target ernie-request-validation-contract
+[100%] Built target ernie-gpu-context-contract
+[100%] Linking CXX executable ../ernie-bf16-gemm-contract
+[100%] Built target ernie-bf16-gemm-contract

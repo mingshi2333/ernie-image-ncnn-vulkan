@@ -1,0 +1,408 @@
+-- CMAKE_INSTALL_PREFIX = /usr/local
+-- NCNN_VERSION_STRING = 1.0.20260909
+-- Target arch: x86 64bit
+-- Configuring done (0.4s)
+-- Generating done (0.2s)
+-- Build files have been written to: /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev
+[  0%] Built target MachineIndependent
+[  0%] Built target GenericCodeGen
+[  1%] Built target SPIRV
+[  1%] Built target OSDependent
+[ 12%] Built target glslang-default-resource-limits
+[ 29%] Built target ncnn-generate-spirv
+[ 29%] Built target ernie-tokenizer-rust
+[ 29%] Built target ernie-shape-plan
+[ 29%] Built target ernie-execution-metrics
+[ 29%] Built target ernie-generation-report-contract
+[ 29%] Built target ernie-prompt-file-contract
+[ 34%] Built target glslang
+[ 35%] Built target ernie-image-io-contract
+[ 36%] Built target ernie-shape-plan-contract
+[ 36%] Built target ernie-tokenizer
+[ 37%] Built target ernie-execution-metrics-contract
+[ 39%] Built target ernie-tokenize
+[ 39%] Built target ernie-shape-graph
+[ 39%] Built target ernie-model-package
+[ 39%] Built target ernie-shape-graph-contract
+[ 40%] Built target ernie-model-package-contract
+[ 40%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/c_api.cpp.o
+[ 41%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/blob.cpp.o
+[ 41%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/__/__/ncnn-vulkan-failures/allocator.cpp.o
+[ 41%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/benchmark.cpp.o
+[ 41%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/__/__/ncnn-vulkan-failures/command.cpp.o
+[ 41%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/cpu.cpp.o
+[ 41%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/datareader.cpp.o
+[ 42%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/expression.cpp.o
+[ 42%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer.cpp.o
+[ 42%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/gpu.cpp.o
+[ 42%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/mat.cpp.o
+[ 42%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/mat_pixel.cpp.o
+[ 42%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/mat_pixel_affine.cpp.o
+[ 42%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/mat_pixel_drawing.cpp.o
+[ 43%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/mat_pixel_resize.cpp.o
+[ 43%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/mat_pixel_rotate.cpp.o
+[ 43%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/modelbin.cpp.o
+[ 43%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/__/__/ncnn-vulkan-failures/net.cpp.o
+[ 43%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/option.cpp.o
+[ 43%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/paramdict.cpp.o
+[ 43%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/pipeline.cpp.o
+[ 44%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/pipelinecache.cpp.o
+[ 44%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/simpleocv.cpp.o
+[ 44%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/simpleomp.cpp.o
+[ 44%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/simplestl.cpp.o
+[ 44%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/simplemath.cpp.o
+[ 44%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/simplevk.cpp.o
+[ 44%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/batchnorm.cpp.o
+[ 44%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/batchnorm_x86.cpp.o
+[ 45%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/batchnorm_vulkan.cpp.o
+[ 45%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/batchnorm_x86_avx512.cpp.o
+[ 45%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/batchnorm_x86_fma.cpp.o
+[ 45%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/batchnorm_x86_fma4.cpp.o
+[ 45%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/batchnorm_x86_avx.cpp.o
+[ 45%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/batchnorm_x86_avx512bf16.cpp.o
+[ 45%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/batchnorm_x86_avxneconvert.cpp.o
+[ 46%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/batchnorm_x86_avx2.cpp.o
+[ 46%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/concat.cpp.o
+[ 46%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/concat_x86.cpp.o
+[ 46%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/concat_vulkan.cpp.o
+[ 46%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/concat_x86_avx512.cpp.o
+[ 46%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/concat_x86_avx.cpp.o
+[ 46%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/convolution.cpp.o
+[ 47%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/convolution_x86.cpp.o
+[ 47%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/convolution_vulkan.cpp.o
+[ 47%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/convolution_x86_avx512.cpp.o
+[ 47%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/convolution_x86_fma.cpp.o
+[ 47%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/convolution_x86_fma4.cpp.o
+[ 47%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/convolution_x86_avx.cpp.o
+[ 47%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/convolution_x86_avx512vnni.cpp.o
+[ 48%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/convolution_x86_avx512bf16.cpp.o
+[ 48%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/convolution_x86_avxvnni.cpp.o
+[ 48%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/convolution_x86_avxvnniint8.cpp.o
+[ 48%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/convolution_x86_avxneconvert.cpp.o
+[ 48%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/convolution_x86_avx2.cpp.o
+[ 48%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/convolution_x86_xop.cpp.o
+[ 48%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/crop.cpp.o
+[ 48%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/crop_x86.cpp.o
+[ 49%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/crop_vulkan.cpp.o
+[ 49%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/crop_x86_avx512.cpp.o
+[ 49%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/crop_x86_avx.cpp.o
+[ 49%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/flatten.cpp.o
+[ 49%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/flatten_x86.cpp.o
+[ 49%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/flatten_vulkan.cpp.o
+[ 49%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/flatten_x86_avx512.cpp.o
+[ 50%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/flatten_x86_avx.cpp.o
+[ 50%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/innerproduct.cpp.o
+[ 50%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/innerproduct_x86.cpp.o
+[ 50%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/innerproduct_vulkan.cpp.o
+[ 50%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/innerproduct_x86_avx512.cpp.o
+[ 50%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/innerproduct_x86_fma.cpp.o
+[ 50%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/innerproduct_x86_fma4.cpp.o
+[ 51%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/innerproduct_x86_avx.cpp.o
+[ 51%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/innerproduct_x86_avx512bf16.cpp.o
+[ 51%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/innerproduct_x86_avxneconvert.cpp.o
+[ 51%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/innerproduct_x86_avx2.cpp.o
+[ 51%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/innerproduct_x86_f16c.cpp.o
+[ 51%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/input.cpp.o
+[ 51%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/memorydata.cpp.o
+[ 52%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/memorydata_vulkan.cpp.o
+[ 52%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/reduction.cpp.o
+[ 52%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/reduction_vulkan.cpp.o
+[ 52%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/reshape.cpp.o
+[ 52%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/reshape_x86.cpp.o
+[ 52%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/reshape_vulkan.cpp.o
+[ 52%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/reshape_x86_avx512.cpp.o
+[ 53%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/reshape_x86_avx.cpp.o
+[ 53%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/slice.cpp.o
+[ 53%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/slice_x86.cpp.o
+[ 53%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/slice_vulkan.cpp.o
+[ 53%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/slice_x86_avx512.cpp.o
+[ 53%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/slice_x86_avx.cpp.o
+[ 53%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/softmax.cpp.o
+[ 53%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/softmax_x86.cpp.o
+[ 54%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/softmax_vulkan.cpp.o
+[ 54%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/softmax_x86_avx512.cpp.o
+[ 54%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/softmax_x86_fma.cpp.o
+[ 54%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/softmax_x86_fma4.cpp.o
+[ 54%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/softmax_x86_avx.cpp.o
+[ 54%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/softmax_x86_avx512bf16.cpp.o
+[ 54%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/softmax_x86_avxneconvert.cpp.o
+[ 55%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/softmax_x86_avx2.cpp.o
+[ 55%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/split.cpp.o
+[ 55%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/split_vulkan.cpp.o
+[ 55%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/binaryop.cpp.o
+[ 55%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/binaryop_x86.cpp.o
+[ 55%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/binaryop_vulkan.cpp.o
+[ 55%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/binaryop_x86_avx512.cpp.o
+[ 56%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/binaryop_x86_fma.cpp.o
+[ 56%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/binaryop_x86_fma4.cpp.o
+[ 56%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/binaryop_x86_avx.cpp.o
+[ 56%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/binaryop_x86_avx512bf16.cpp.o
+[ 56%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/binaryop_x86_avxneconvert.cpp.o
+[ 56%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/binaryop_x86_avx2.cpp.o
+[ 56%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/unaryop.cpp.o
+[ 57%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/unaryop_x86.cpp.o
+[ 57%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/unaryop_vulkan.cpp.o
+[ 57%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/unaryop_x86_avx512.cpp.o
+[ 57%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/unaryop_x86_fma.cpp.o
+[ 57%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/unaryop_x86_fma4.cpp.o
+[ 57%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/unaryop_x86_avx.cpp.o
+[ 57%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/unaryop_x86_avx512bf16.cpp.o
+[ 57%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/unaryop_x86_avxneconvert.cpp.o
+[ 58%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/unaryop_x86_avx2.cpp.o
+[ 58%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/padding.cpp.o
+[ 58%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/padding_x86.cpp.o
+[ 58%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/padding_vulkan.cpp.o
+[ 58%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/padding_x86_avx512.cpp.o
+[ 58%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/padding_x86_avx.cpp.o
+[ 58%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/squeeze.cpp.o
+[ 59%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/expanddims.cpp.o
+[ 59%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/permute.cpp.o
+[ 59%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/permute_vulkan.cpp.o
+[ 59%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/interp.cpp.o
+[ 59%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/interp_x86.cpp.o
+[ 59%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/interp_vulkan.cpp.o
+[ 59%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/interp_x86_avx512.cpp.o
+[ 60%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/interp_x86_fma.cpp.o
+[ 60%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/interp_x86_fma4.cpp.o
+[ 60%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/interp_x86_avx.cpp.o
+[ 60%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/interp_x86_avx512bf16.cpp.o
+[ 60%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/interp_x86_avxneconvert.cpp.o
+[ 60%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/interp_x86_avx2.cpp.o
+[ 60%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/reorg.cpp.o
+[ 61%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/reorg_vulkan.cpp.o
+[ 61%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/packing.cpp.o
+[ 61%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/packing_x86.cpp.o
+[ 61%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/packing_vulkan.cpp.o
+[ 61%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/packing_x86_avx512.cpp.o
+[ 61%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/packing_x86_avx.cpp.o
+[ 61%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/cast.cpp.o
+[ 61%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/cast_x86.cpp.o
+[ 62%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/cast_vulkan.cpp.o
+[ 62%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/cast_x86_avx512.cpp.o
+[ 62%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/cast_x86_avx.cpp.o
+[ 62%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/cast_x86_avx512bf16.cpp.o
+[ 62%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/cast_x86_avxneconvert.cpp.o
+[ 62%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/cast_x86_avx2.cpp.o
+[ 62%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/cast_x86_f16c.cpp.o
+[ 63%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/swish.cpp.o
+[ 63%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/swish_x86.cpp.o
+[ 63%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/swish_vulkan.cpp.o
+[ 63%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/swish_x86_avx512.cpp.o
+[ 63%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/swish_x86_fma.cpp.o
+[ 63%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/swish_x86_fma4.cpp.o
+[ 63%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/swish_x86_avx.cpp.o
+[ 64%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/swish_x86_avx512bf16.cpp.o
+[ 64%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/swish_x86_avxneconvert.cpp.o
+[ 64%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/swish_x86_avx2.cpp.o
+[ 64%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/gemm.cpp.o
+[ 64%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gemm_x86.cpp.o
+[ 64%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/__/__/ncnn-bf16-gemm/gemm_vulkan.cpp.o
+[ 64%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gemm_x86_avx512.cpp.o
+[ 65%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gemm_x86_fma.cpp.o
+[ 65%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gemm_x86_fma4.cpp.o
+[ 65%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gemm_x86_avx.cpp.o
+[ 65%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gemm_x86_avx512vnni.cpp.o
+[ 65%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gemm_x86_avx512bf16.cpp.o
+[ 65%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gemm_x86_avx512vnni_avx512bf16.cpp.o
+[ 65%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gemm_x86_avxvnni.cpp.o
+[ 66%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gemm_x86_avxvnniint8.cpp.o
+[ 66%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gemm_x86_avxneconvert.cpp.o
+[ 66%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gemm_x86_avx2.cpp.o
+[ 66%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gemm_x86_xop.cpp.o
+[ 66%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/groupnorm.cpp.o
+[ 66%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/groupnorm_x86.cpp.o
+[ 66%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/groupnorm_vulkan.cpp.o
+[ 66%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/groupnorm_x86_avx512.cpp.o
+[ 67%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/groupnorm_x86_fma.cpp.o
+[ 67%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/groupnorm_x86_fma4.cpp.o
+[ 67%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/groupnorm_x86_avx.cpp.o
+[ 67%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/groupnorm_x86_avx512bf16.cpp.o
+[ 67%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/groupnorm_x86_avxneconvert.cpp.o
+[ 67%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/groupnorm_x86_avx2.cpp.o
+[ 67%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/layernorm.cpp.o
+[ 68%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/layernorm_x86.cpp.o
+[ 68%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/layernorm_vulkan.cpp.o
+[ 68%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/layernorm_x86_avx512.cpp.o
+[ 68%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/layernorm_x86_fma.cpp.o
+[ 68%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/layernorm_x86_fma4.cpp.o
+[ 68%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/layernorm_x86_avx.cpp.o
+[ 68%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/layernorm_x86_avx512bf16.cpp.o
+[ 69%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/layernorm_x86_avxneconvert.cpp.o
+[ 69%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/layernorm_x86_avx2.cpp.o
+[ 69%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/multiheadattention.cpp.o
+[ 69%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/multiheadattention_x86.cpp.o
+[ 69%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/multiheadattention_vulkan.cpp.o
+[ 69%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/multiheadattention_x86_avx512.cpp.o
+[ 69%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/multiheadattention_x86_avx.cpp.o
+[ 70%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/gelu.cpp.o
+[ 70%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gelu_x86.cpp.o
+[ 70%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/gelu_vulkan.cpp.o
+[ 70%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gelu_x86_avx512.cpp.o
+[ 70%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gelu_x86_fma.cpp.o
+[ 70%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gelu_x86_fma4.cpp.o
+[ 70%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gelu_x86_avx.cpp.o
+[ 70%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gelu_x86_avx512bf16.cpp.o
+[ 71%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gelu_x86_avxneconvert.cpp.o
+[ 71%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/gelu_x86_avx2.cpp.o
+[ 71%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/rmsnorm.cpp.o
+[ 71%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/rmsnorm_x86.cpp.o
+[ 71%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/vulkan/rmsnorm_vulkan.cpp.o
+[ 71%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/rmsnorm_x86_avx512.cpp.o
+[ 71%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/rmsnorm_x86_fma.cpp.o
+[ 72%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/rmsnorm_x86_fma4.cpp.o
+[ 72%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/rmsnorm_x86_avx.cpp.o
+[ 72%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/rmsnorm_x86_avx512bf16.cpp.o
+[ 72%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/rmsnorm_x86_avxneconvert.cpp.o
+[ 72%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/rmsnorm_x86_avx2.cpp.o
+[ 72%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/sdpa.cpp.o
+[ 72%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/sdpa_x86.cpp.o
+[ 73%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/__/__/ncnn-bf16-sdpa/sdpa_vulkan.cpp.o
+[ 73%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/sdpa_x86_avx512.cpp.o
+[ 73%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/sdpa_x86_fma.cpp.o
+[ 73%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/sdpa_x86_fma4.cpp.o
+[ 73%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/sdpa_x86_avx.cpp.o
+[ 73%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/sdpa_x86_avx512bf16.cpp.o
+[ 73%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/sdpa_x86_avxneconvert.cpp.o
+[ 74%] Building CXX object ncnn/src/CMakeFiles/ncnn.dir/layer/x86/sdpa_x86_avx2.cpp.o
+[ 74%] Linking CXX static library libncnn.a
+[ 86%] Built target ncnn
+[ 87%] Building CXX object tests/CMakeFiles/ernie-bf16-gemm-contract.dir/test_bf16_gemm.cpp.o
+[ 87%] Building CXX object tests/CMakeFiles/ernie-ncnn-failure-contract.dir/__/cmake/test_ncnn_failures.cpp.o
+[ 87%] Building CXX object tests/CMakeFiles/ernie-model-reader-contract.dir/test_model_reader.cpp.o
+[ 87%] Building CXX object src/CMakeFiles/ernie-runtime.dir/ernie_gelu.cpp.o
+[ 87%] Building CXX object src/CMakeFiles/ernie-runtime.dir/ernie_rmsnorm.cpp.o
+[ 87%] Linking CXX executable ../ernie-model-reader-contract
+[ 87%] Linking CXX executable ../ernie-ncnn-failure-contract
+[ 87%] Linking CXX executable ../ernie-bf16-gemm-contract
+[ 87%] Built target ernie-model-reader-contract
+[ 88%] Building CXX object src/CMakeFiles/ernie-runtime.dir/ernie_residual.cpp.o
+[ 88%] Built target ernie-ncnn-failure-contract
+[ 88%] Building CXX object src/CMakeFiles/ernie-runtime.dir/ernie_groupnorm.cpp.o
+[ 88%] Built target ernie-bf16-gemm-contract
+[ 88%] Building CXX object src/CMakeFiles/ernie-runtime.dir/ernie_attention.cpp.o
+[ 88%] Building CXX object src/CMakeFiles/ernie-runtime.dir/latent_ops.cpp.o
+[ 88%] Building CXX object src/CMakeFiles/ernie-runtime.dir/img2img.cpp.o
+[ 88%] Building CXX object src/CMakeFiles/ernie-runtime.dir/image_encoder.cpp.o
+[ 88%] Building CXX object src/CMakeFiles/ernie-runtime.dir/component_files.cpp.o
+[ 89%] Building CXX object src/CMakeFiles/ernie-runtime.dir/weight_placement.cpp.o
+[ 89%] Building CXX object src/CMakeFiles/ernie-runtime.dir/weight_session.cpp.o
+[ 89%] Building CXX object src/CMakeFiles/ernie-runtime.dir/vulkan_memory.cpp.o
+[ 89%] Building CXX object src/CMakeFiles/ernie-runtime.dir/vulkan_denoise.cpp.o
+[ 89%] Building CXX object src/CMakeFiles/ernie-runtime.dir/block_sequence.cpp.o
+[ 89%] Building CXX object src/CMakeFiles/ernie-runtime.dir/dit.cpp.o
+[ 90%] Building CXX object src/CMakeFiles/ernie-runtime.dir/denoiser.cpp.o
+[ 90%] Building CXX object src/CMakeFiles/ernie-runtime.dir/text_encoder.cpp.o
+[ 90%] Building CXX object src/CMakeFiles/ernie-runtime.dir/ernie_text_down.cpp.o
+[ 90%] Building CXX object src/CMakeFiles/ernie-runtime.dir/conditioning.cpp.o
+[ 90%] Building CXX object src/CMakeFiles/ernie-runtime.dir/pe_session.cpp.o
+[ 90%] Linking CXX static library libernie-runtime.a
+[ 90%] Built target ernie-runtime
+[ 90%] Building CXX object probes/CMakeFiles/ernie-attention-accuracy-probe.dir/attention_accuracy_probe.cpp.o
+[ 90%] Building CXX object src/CMakeFiles/ernie-pe.dir/prompt_enhancer.cpp.o
+[ 90%] Building CXX object probes/CMakeFiles/ernie-attention-probe.dir/attention_probe.cpp.o
+[ 90%] Building CXX object probes/CMakeFiles/ernie-block-runner.dir/attention_diagnostic.cpp.o
+[ 90%] Building CXX object probes/CMakeFiles/ernie-block-runner.dir/block_runner.cpp.o
+[ 90%] Linking CXX executable ../ernie-attention-accuracy-probe
+[ 90%] Linking CXX executable ../ernie-attention-probe
+[ 90%] Built target ernie-attention-accuracy-probe
+[ 90%] Building CXX object probes/CMakeFiles/ernie-attention-workspace-probe.dir/attention_workspace_probe.cpp.o
+[ 90%] Built target ernie-attention-probe
+[ 90%] Building CXX object probes/CMakeFiles/ernie-gelu-probe.dir/gelu_probe.cpp.o
+[ 91%] Linking CXX static library libernie-pe.a
+[ 91%] Built target ernie-pe
+[ 92%] Building CXX object probes/CMakeFiles/ernie-latent-runner.dir/latent_runner.cpp.o
+[ 92%] Linking CXX executable ../ernie-block-runner
+[ 92%] Linking CXX executable ../ernie-attention-workspace-probe
+[ 92%] Linking CXX executable ../ernie-gelu-probe
+[ 92%] Built target ernie-block-runner
+[ 92%] Building CXX object probes/CMakeFiles/ernie-block-sequence-runner.dir/block_sequence_runner.cpp.o
+[ 92%] Built target ernie-attention-workspace-probe
+[ 93%] Building CXX object probes/CMakeFiles/ernie-head-runner.dir/head_runner.cpp.o
+[ 93%] Built target ernie-gelu-probe
+[ 93%] Building CXX object probes/CMakeFiles/ernie-denoise-runner.dir/denoise_runner.cpp.o
+[ 93%] Linking CXX executable ../ernie-latent-runner
+[ 93%] Built target ernie-latent-runner
+[ 93%] Building CXX object probes/CMakeFiles/ernie-text-runner.dir/text_runner.cpp.o
+[ 93%] Linking CXX executable ../ernie-head-runner
+[ 93%] Linking CXX executable ../ernie-denoise-runner
+[ 93%] Built target ernie-head-runner
+[ 93%] Linking CXX executable ../ernie-block-sequence-runner
+[ 93%] Building CXX object probes/CMakeFiles/ernie-pe-block-runner.dir/pe_block_runner.cpp.o
+[ 93%] Built target ernie-denoise-runner
+[ 93%] Building CXX object probes/CMakeFiles/ernie-rmsnorm-probe.dir/rmsnorm_probe.cpp.o
+[ 93%] Linking CXX executable ../ernie-text-runner
+[ 93%] Linking CXX executable ../ernie-pe-block-runner
+[ 93%] Built target ernie-block-sequence-runner
+[ 93%] Building CXX object probes/CMakeFiles/ernie-pe-runner.dir/pe_runner.cpp.o
+[ 93%] Linking CXX executable ../ernie-rmsnorm-probe
+[ 93%] Built target ernie-text-runner
+[ 93%] Building CXX object probes/CMakeFiles/ernie-text-gemm-diagnostic.dir/text_gemm_diagnostic.cpp.o
+[ 93%] Built target ernie-pe-block-runner
+[ 94%] Building CXX object tests/CMakeFiles/ernie-pe-sampling-contract.dir/test_pe_sampling.cpp.o
+[ 94%] Built target ernie-rmsnorm-probe
+[ 94%] Building CXX object tests/CMakeFiles/ernie-latent-contract.dir/test_latent_contract.cpp.o
+[ 94%] Linking CXX executable ../ernie-text-gemm-diagnostic
+[ 94%] Linking CXX executable ../ernie-latent-contract
+[ 94%] Linking CXX executable ../ernie-pe-runner
+[ 94%] Linking CXX executable ../ernie-pe-sampling-contract
+[ 94%] Built target ernie-text-gemm-diagnostic
+[ 95%] Building CXX object tests/CMakeFiles/ernie-component-files-contract.dir/test_component_files.cpp.o
+[ 95%] Built target ernie-latent-contract
+[ 95%] Building CXX object tests/CMakeFiles/ernie-weight-placement-contract.dir/test_weight_placement.cpp.o
+[ 95%] Built target ernie-pe-runner
+[ 95%] Building CXX object tests/CMakeFiles/ernie-weight-session-contract.dir/test_weight_session.cpp.o
+[ 95%] Built target ernie-pe-sampling-contract
+[ 95%] Linking CXX executable ../ernie-host-memory-contract
+[ 95%] Built target ernie-host-memory-contract
+[ 95%] Building CXX object tests/CMakeFiles/ernie-model-loading-contract.dir/test_model_loading.cpp.o
+[ 95%] Linking CXX executable ../ernie-component-files-contract
+[ 95%] Built target ernie-component-files-contract
+[ 95%] Building CXX object tests/CMakeFiles/ernie-img2img-contract.dir/test_img2img_contract.cpp.o
+[ 95%] Linking CXX executable ../ernie-weight-placement-contract
+[ 95%] Built target ernie-weight-placement-contract
+[ 95%] Linking CXX executable ../ernie-model-loading-contract
+[ 95%] Building CXX object tests/CMakeFiles/ernie-image-encoder-contract.dir/test_image_encoder.cpp.o
+[ 96%] Linking CXX executable ../ernie-weight-session-contract
+[ 96%] Built target ernie-model-loading-contract
+[ 96%] Building CXX object tests/CMakeFiles/ernie-residual-contract.dir/test_residual_contract.cpp.o
+[ 96%] Linking CXX executable ../ernie-img2img-contract
+[ 96%] Built target ernie-weight-session-contract
+[ 96%] Building CXX object tests/CMakeFiles/ernie-text-down-contract.dir/test_text_down.cpp.o
+[ 96%] Linking CXX executable ../ernie-image-encoder-contract
+[ 96%] Built target ernie-img2img-contract
+[ 96%] Linking CXX executable ../ernie-residual-contract
+[ 96%] Building CXX object tests/CMakeFiles/ernie-pe-prefill-contract.dir/test_pe_prefill.cpp.o
+[ 96%] Built target ernie-image-encoder-contract
+[ 96%] Building CXX object tests/CMakeFiles/ernie-vulkan-memory-contract.dir/test_vulkan_memory.cpp.o
+[ 96%] Built target ernie-residual-contract
+[ 96%] Building CXX object tests/CMakeFiles/ernie-memory-execution-contract.dir/test_memory_execution.cpp.o
+[ 96%] Linking CXX executable ../ernie-text-down-contract
+[ 96%] Built target ernie-text-down-contract
+[ 96%] Building CXX object src/CMakeFiles/ernie-pipeline.dir/pipeline.cpp.o
+[ 96%] Linking CXX executable ../ernie-vulkan-memory-contract
+[ 96%] Linking CXX executable ../ernie-pe-prefill-contract
+[ 96%] Built target ernie-vulkan-memory-contract
+[ 96%] Building CXX object src/CMakeFiles/ernie-pipeline.dir/runtime_info.cpp.o
+[ 96%] Built target ernie-pe-prefill-contract
+[ 96%] Building CXX object src/CMakeFiles/ernie-pipeline.dir/gpu_context.cpp.o
+[ 96%] Building CXX object src/CMakeFiles/ernie-pipeline.dir/tensor_io.cpp.o
+[ 96%] Linking CXX executable ../ernie-memory-execution-contract
+[ 97%] Building CXX object src/CMakeFiles/ernie-pipeline.dir/vae.cpp.o
+[ 97%] Built target ernie-memory-execution-contract
+[ 97%] Linking CXX static library libernie-pipeline.a
+[ 97%] Built target ernie-pipeline
+[ 97%] Linking CXX executable ../ernie-pipeline-api-contract
+[ 97%] Building CXX object probes/CMakeFiles/ernie-img2img-runner.dir/img2img_runner.cpp.o
+[ 97%] Building CXX object tests/CMakeFiles/ernie-utf8-paths-contract.dir/test_utf8_paths.cpp.o
+[ 97%] Linking CXX executable ../ernie-image
+[ 97%] Built target ernie-pipeline-api-contract
+[ 97%] Linking CXX executable ../ernie-img2img-runner
+[ 98%] Built target ernie-image
+[ 98%] Linking CXX executable ../ernie-request-validation-contract
+[ 98%] Building CXX object tests/CMakeFiles/ernie-gpu-context-contract.dir/test_gpu_context.cpp.o
+[ 98%] Linking CXX executable ../ernie-utf8-paths-contract
+[ 98%] Built target ernie-img2img-runner
+[ 99%] Built target ernie-request-validation-contract
+[100%] Built target ernie-utf8-paths-contract
+[100%] Linking CXX executable ../ernie-gpu-context-contract
+[100%] Built target ernie-gpu-context-contract

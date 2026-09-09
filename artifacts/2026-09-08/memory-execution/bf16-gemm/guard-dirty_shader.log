@@ -1,0 +1,14 @@
+-- The CXX compiler identification is Clang 22.1.8
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/clang++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring incomplete, errors occurred!
+CMake Error at /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/cmake/ErnieNcnnBf16Sdpa.cmake:82 (message):
+  Review BF16 Gemm and its cooperative shader before applying the
+  compatibility fallback
+Call Stack (most recent call first):
+  CMakeLists.txt:6 (ernie_prepare_ncnn_bf16_gemm)
+
+

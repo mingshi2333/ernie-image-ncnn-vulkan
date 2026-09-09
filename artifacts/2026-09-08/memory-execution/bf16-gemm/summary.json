@@ -1,0 +1,20 @@
+{
+  "ctest_total": 62,
+  "passed": 62,
+  "skipped": 0,
+  "failed": 0,
+  "validation_vuid_lines": 0,
+  "ncnn_pin": "3b7bdba7fc8aea8fd46779533eee027df77c639d",
+  "gemm_derived_sha256": "dff4dc2ef0b7ec9df1769d51c144c50ed3d0d5e34593eb40ead01c3fce75a95e",
+  "fixture_initial_error": "Float alpha/beta were written as integer literals. Numeric zero is a fixture error, not a production Gemm diagnosis. Original VUIDs remain independently valid.",
+  "original_corrected_fixture": {
+    "exit": 0,
+    "vuid_lines": 8,
+    "numerical_oracle": "4 shapes and cooperative ON/OFF exact; invalid Vulkan capability nevertheless"
+  },
+  "fixed_fixture": {
+    "numerical_oracle": "4 shapes and cooperative ON/OFF exact",
+    "native_bf16_storage": true
+  },
+  "scope": "Linux RTX 4060 Laptop, official isolated validation 1.4.357.1; no full model from this fixture"
+}

@@ -1,0 +1,31 @@
+{
+  "source_head": "5b57e9dee4283c5c24fcfdb4bb03349017424253",
+  "compile_command": [
+    "/usr/bin/clang++",
+    "-O3",
+    "-DNDEBUG",
+    "-std=c++17",
+    "-fopenmp=libomp",
+    "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/third_party/ncnn/src",
+    "-I/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/ncnn/src",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/tests/test_bf16_gemm.cpp",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/ncnn/src/libncnn.a",
+    "/usr/lib64/libomp.so",
+    "/usr/lib64/libpthread.a",
+    "-ldl",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/ncnn/glslang/SPIRV/libSPIRV.a",
+    "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev/ncnn/glslang/glslang/libglslang.a",
+    "-o",
+    "/var/tmp/ernie-bf16-gemm-regression-20260909/baseline-test"
+  ],
+  "test_sha256": "dd70e576ae05f7ff70d9d0bd08d848fb1ba5bb2a26ad8d5c3072991b4597cda6",
+  "ncnn_library_sha256": "1dbc10ef370388ca129343842198b6469bb40df1b7306a2e86b429a4ab089adb",
+  "compile_exit": 0,
+  "validation_sdk": "/var/tmp/ernie-validation-sdk-1.4.357.1/1.4.357.1/x86_64",
+  "run_exit": 1,
+  "validation_errors": [
+    "Validation Error: [ VUID-RuntimeSpirv-cooperativeMatrixFlexibleDimensions-10165 ] | MessageID = 0xaf8bd211",
+    "The Vulkan spec states: For OpTypeCooperativeMatrixKHR, if the cooperativeMatrixFlexibleDimensions feature is enabled, the component type, scope, number of rows, and number of columns must match either one of the matrices in one of the supported VkCooperativeMatrixPropertiesKHR or VkCooperativeMatrixFlexibleDimensionsPropertiesNV (https://vulkan.lunarg.com/doc/view/1.4.357.1/linux/antora/spec/latest/appendices/spirvenv.html#VUID-RuntimeSpirv-cooperativeMatrixFlexibleDimensions-10165)"
+  ],
+  "vuid_lines": 2
+}

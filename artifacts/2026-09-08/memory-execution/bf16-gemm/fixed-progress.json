@@ -1,0 +1,31 @@
+{
+  "build": {
+    "command": [
+      "cmake",
+      "--build",
+      "build-dev",
+      "--parallel",
+      "4"
+    ],
+    "exit": 0
+  },
+  "ctest": {
+    "command": [
+      "ctest",
+      "--test-dir",
+      "build-dev",
+      "--output-on-failure",
+      "--output-junit",
+      "/var/tmp/ernie-bf16-gemm-regression-20260909/fixed-ctest.xml"
+    ],
+    "exit": 8
+  },
+  "validation": {
+    "command": [
+      "python3",
+      "cmake/check_vulkan_validation.py",
+      "build-dev/Testing/Temporary/LastTest.log"
+    ],
+    "exit": 0
+  }
+}
