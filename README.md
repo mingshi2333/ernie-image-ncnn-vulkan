@@ -237,8 +237,8 @@ int main()
 - [运行参数与 SDK](docs/RUNNING.md) · [模型准备](docs/REPRODUCE-PIPELINE.md) · [转换工具](tools/README.md)
 - [架构细节](docs/CODE-STRUCTURE.md) · [内存执行教程](docs/MEMORY-EXECUTION.md) · [数值结果明细](docs/NUMERICAL-RESULTS.md)
 - [验证状态](docs/VALIDATION-STATUS.md) · [平台记录](docs/PLATFORM-VALIDATION.md)
-- [ncnn Discussions 移植教程草稿](docs/NCNN-DISCUSSION-DRAFT.md) · [给其他项目的复用说明](docs/PORTING-REUSE-GUIDE.md)
+- [ncnn 社区技术分享](https://github.com/Tencent/ncnn/discussions/6985) · [文章源码](docs/NCNN-DISCUSSION-DRAFT.md) · [给其他项目的复用说明](docs/PORTING-REUSE-GUIDE.md)
 
 ncnn 目前锁定在 `3b7bdba7`，以后优先跟进上游 Git，并固定通过验证的提交。更新仓库后同步子模块即可；旧 `6a1bf000` 模型包仍兼容，包内来源和文件校验保持不变。完整版本在 [sources.lock.json](sources.lock.json) 中。
 
-本项目新增代码使用 [MIT 许可](LICENSE)，ncnn 与模型权重遵循各自许可。模型来自 [Baidu ERNIE-Image](https://github.com/baidu/ERNIE-Image)，运行时使用 [Tencent ncnn](https://github.com/Tencent/ncnn)。[futz12/ernie-image-ncnn-vulkan](https://github.com/futz12/ernie-image-ncnn-vulkan/tree/8dcd6e4411137d8abe92c9d78581c4c96d5182c6) 等项目提供了架构与行为参考，其运行时代码和模型权重未复制进本仓库。Discussions 教程目前仍是草稿。
+本项目新增代码使用 [MIT 许可](LICENSE)，ncnn 与模型权重遵循各自许可。模型来自 [Baidu ERNIE-Image](https://github.com/baidu/ERNIE-Image)，运行时使用 [Tencent ncnn](https://github.com/Tencent/ncnn)。[futz12/ernie-image-ncnn-vulkan](https://github.com/futz12/ernie-image-ncnn-vulkan/tree/8dcd6e4411137d8abe92c9d78581c4c96d5182c6) 等项目提供了架构与行为参考，其运行时代码和模型权重未复制进本仓库。

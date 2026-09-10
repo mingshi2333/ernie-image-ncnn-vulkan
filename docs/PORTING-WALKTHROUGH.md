@@ -1,6 +1,6 @@
 # ERNIE-Image-Turbo 分步移植：命令与完整说明
 
-这里保留从组件转换到完整生成、误差定位和三平台验证的详细命令。较短的叙述版在 [ncnn Discussions 草稿](NCNN-DISCUSSION-DRAFT.md)，日常编译与使用看 [README](../README.md)。
+这里保留从组件转换到完整生成、误差定位和三平台验证的详细命令。较短的叙述版已发布在 [ncnn Discussions](https://github.com/Tencent/ncnn/discussions/6985)，日常编译与使用看 [README](../README.md)。
 
 示例以仓库根目录和 Linux 转换环境为准。Python 用于模型准备与官方参考，转换完成后的原生程序不依赖 Python。文中的历史实验使用各自记录的程序、模型和保存噪声，数值失败与平台限制沿用原报告。
 

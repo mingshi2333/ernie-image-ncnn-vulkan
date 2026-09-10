@@ -1,0 +1,54 @@
+{
+  "id": "D_kwDOBbcBAs4ApJJW",
+  "number": 6985,
+  "title": "【腾讯犀牛鸟2026】ERNIE-Image-Turbo 的 ncnn/Vulkan 实现",
+  "url": "https://github.com/Tencent/ncnn/discussions/6985",
+  "createdAt": "2026-09-10T02:12:15Z",
+  "author": {
+    "login": "mingshi2333"
+  },
+  "category": {
+    "name": "Show and tell"
+  },
+  "body_sha256": "311c4893952b9bf14e48795f453537c90c9d1411d31eb9c3560b31c825f95af2",
+  "repository": {
+    "url": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan",
+    "visibility": "PUBLIC",
+    "default_branch": "codex/surpass-reference",
+    "image_revision": "3c8bf118a49d1f05e856a48e2d6314ec98ca84aa"
+  },
+  "images": [
+    {
+      "url": "https://raw.githubusercontent.com/mingshi2333/ernie-image-ncnn-vulkan/3c8bf118a49d1f05e856a48e2d6314ec98ca84aa/docs/images/apple-1376x768.png",
+      "sha256": "6750cf94a398e2ce1f12a7285b28e9fcc943ad3bd5d4fd3524935b40d842fbca",
+      "bytes": 1586834
+    },
+    {
+      "url": "https://raw.githubusercontent.com/mingshi2333/ernie-image-ncnn-vulkan/3c8bf118a49d1f05e856a48e2d6314ec98ca84aa/docs/images/cat-1024.png",
+      "sha256": "ca9f78f750feedb4194c21385a6065a46028a350cf88804d44563dbaecc3c3bf",
+      "bytes": 1566211
+    },
+    {
+      "url": "https://raw.githubusercontent.com/mingshi2333/ernie-image-ncnn-vulkan/3c8bf118a49d1f05e856a48e2d6314ec98ca84aa/docs/images/lake-1024.png",
+      "sha256": "51db3cf6651899e1031023bbc64d5acae9a8f3c30b8685aedc4512590eed1950",
+      "bytes": 2030572
+    }
+  ],
+  "verification": {
+    "anonymous_http_checks": 13,
+    "source_document_links": 9,
+    "original_images_byte_exact": 3,
+    "logged_out_browser_images_loaded": 3,
+    "graphql_body_readback_exact": true
+  },
+  "official_program_timeline": {
+    "end_date": "2026-09-14",
+    "cutoff_hour": null,
+    "separate_ncnn_submission_deadline_verified": false,
+    "sources": [
+      "https://opensource.tencent.com/summer-of-code/",
+      "https://opensource.tencent.com/summer-of-code-2026/assets/flow-content-DEtzA98Q.png",
+      "https://ur.tencent.com/article/1529"
+    ]
+  }
+}

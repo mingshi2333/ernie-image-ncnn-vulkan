@@ -1,16 +1,20 @@
 <!--
-Review draft for Tencent/ncnn Discussions, Show and tell, 2026-09-10.
+Published in Tencent/ncnn Discussions, Show and tell, 2026-09-10.
+https://github.com/Tencent/ncnn/discussions/6985
 Style reference: https://github.com/Tencent/ncnn/discussions/6798 (mingshi2333).
-Not posted. Repository visibility verified PRIVATE on 2026-09-10.
-Images use repository-relative paths for local review. Posting requires public
-source links and uploading these original PNGs as Discussion attachments.
+Publication authorized by the user on 2026-09-10, with a Rhino-bird stage-three
+annotation. The posted body uses immutable public URLs for the original PNGs.
+Repository is PUBLIC; its default branch is codex/surpass-reference.
+Posted at 2026-09-10T02:12:15Z. Public links and all three images verified.
 Full conversion commands and historical detail: PORTING-WALKTHROUGH.md.
 Project creation verified through the GitHub API: 2026-09-05T02:41:27Z.
 Earliest local implementation commit: 7bf22ea22ae4622441afc100e28ca72589d6436e,
 2026-09-05T05:30:17+03:00. Both records fall on 2026-09-05 locally.
 -->
 
-# ERNIE-Image-Turbo 的 ncnn/Vulkan 实现
+# 【腾讯犀牛鸟2026】ERNIE-Image-Turbo 的 ncnn/Vulkan 实现
+
+> 腾讯犀牛鸟开源人才培养计划第三阶段（Shape with AI · 开源课题实战）项目分享。
 
 这个项目创建于 **2026 年 9 月 5 日**，用 C++ 和 ncnn 实现 ERNIE-Image-Turbo 的本地推理，支持文生图、图生图和可选的提示词增强。模型转换完成后可以离线使用，推理端不需要 Python 或 PyTorch。除了命令行程序，也提供 C++ 接口供其他应用调用。
 
