@@ -1,26 +1,28 @@
 # ernie-image-ncnn-vulkan
 
-ERNIE-Image-Turbo 的 C++ / ncnn / Vulkan 本地文生图实现。提供命令行程序和 C++ 接口；准备好模型后，可以离线生成 PNG、JPEG、BMP 或 TGA，推理不依赖 Python。
+用 C++、ncnn 和 Vulkan 在本地运行 ERNIE-Image-Turbo。输入提示词，生成 PNG、JPEG、BMP 或 TGA；模型准备好后可以离线使用，推理不需要 Python。项目提供命令行程序，也可以作为 C++ 库接入其他应用。
 
-[生成第一张图](#构建与运行) · [常用操作](#常用操作) · [与官方的实测误差](#与官方的实测误差) · [技术实现](#技术实现) · [项目架构](#项目架构) · [C++ 接口](#c-接口) · [CI](#ci)
+![木桌上的红苹果，ERNIE 原生 Vulkan FP32 输出，1376×768](docs/images/apple-1376x768.png)
 
-当前为 **Linux 技术预览版**，主要实测环境是 RTX 4060 Laptop 8GB、32GB RAM，使用 Turbo、8 步、CFG=1、batch=1。已完成 1024×1024 离线生成和多种更大尺寸实图对照。这是已测试的环境，不是最低硬件要求。
+> A red apple on a wooden table, soft daylight, realistic photo.
 
-## 当前是否可以使用
+1376×768，8 步，Vulkan FP32。下方两张同样是本项目的原始输出，尺寸均为 1024×1024。
 
-在已测试的 Linux / Turbo / FP32 配置下，原生文生图主流程可以使用，已有完整实图与官方分阶段参考对照。日常使用先采用下面显式指定 FP32 的命令。这里的“可用”对应已保存的运行结果，不承诺任意提示词、尺寸和设备都通过全部数值检查。
+| 白猫与茶壶，英文提示词 | 雪山湖泊，中文提示词 |
+|:---:|:---:|
+| ![窗边的白猫和蓝色茶壶](docs/images/cat-1024.png) | ![雪山、蓝色湖泊与松树林](docs/images/lake-1024.png) |
 
-- 部分尺寸、长提示词和中文样例仍有中间张量未通过项，BF16 长提示词误差明显，保持实验状态；具体数字见[误差表](#与官方的实测误差)。
-- DiT 支持 GPU/RAM 权重放置、有界后台权重预取、激活/工作区的 RAM 缓冲区，以及从最近完成去噪步恢复的分配重试。预取默认关闭；RAM 分配须满足预算和平台余量检查。详见[内存执行机制](docs/MEMORY-EXECUTION.md)。
-- 第一次使用仍需准备本项目格式的模型包。三平台编译、无大模型测试与完整出图分别记录，不能用构建通过代替实际图像验证，见[平台验证](docs/PLATFORM-VALIDATION.md)。
+图片来自已完成的对照实验，使用保存的初始噪声。猫和湖泊样例仍有数值检查未通过项，下面的误差表保留了结果。[完整提示词、参数与原图来源](docs/images/README.md)。
 
-移植过程、转换命令和遇到的问题整理为 [ncnn Discussions 教程草稿](docs/NCNN-DISCUSSION-DRAFT.md)。草稿尚未发布。
+目前主要在 Linux 上使用和验证，测试机器是 RTX 4060 Laptop 8GB、32GB RAM，最低配置尚未测定。Windows 和 macOS 已通过原生构建与小型测试，完整模型出图还需要实机验证。首次使用需要自行编译并准备模型包，项目暂未发布预编译 Release。
 
 ## 构建与运行
 
-### 1. 编译程序
+### 编译
 
-在仓库根目录执行。下面使用已有的 CMake presets，需要 C++17 编译器、CMake 3.21+、Ninja、Rust/Cargo 和 libpng 开发库；GPU 构建还需要 Vulkan 开发库、可用驱动，以及在构建时核验和派生固定 ncnn 源码的 Python 3；生成图片时仍不依赖 Python。
+需要 C++17 编译器、CMake 3.21+、Ninja、Rust/Cargo、libpng 和 Vulkan 开发库，以及可用的 Vulkan 驱动。构建时还会用 Python 3 核验和处理锁定的 ncnn 源码。
+
+在仓库根目录运行：
 
 ```sh
 git submodule update --init --recursive
@@ -28,27 +30,29 @@ cmake --preset linux-vulkan
 cmake --build --preset linux-vulkan --target ernie-image
 ```
 
-得到 `build/linux-vulkan/ernie-image`。只构建上述目标即可出图；测试和诊断程序可在需要时构建。纯 CPU 构建把两条命令中的 preset 名称换成 `linux-cpu`，得到 `build/linux-cpu/ernie-image`，生成时加 `--device cpu`。不使用 Ninja 或仅有 CMake 3.19/3.20 时，使用 [手动构建命令](docs/RUNNING.md)。
+程序位于 `build/linux-vulkan/ernie-image`。只编译这个目标就能生成图片。
 
-### 2. 准备模型
+纯 CPU 构建使用 `linux-cpu` preset，运行时加 `--device cpu`。CMake 3.19/3.20 或不使用 Ninja 时，按[手动构建说明](docs/RUNNING.md#build-and-install)操作。[Windows 构建](docs/BUILDING-WINDOWS.md)和 [macOS 构建](docs/PLATFORM-VALIDATION.md#覆盖与复现)另有说明。
 
-程序需要**本项目格式的模型包**，Git 仓库不包含权重。已有模型包的用户直接指定目录即可；首次从官方权重准备模型仍需要下载、转换和打包，见 [模型准备步骤](docs/REPRODUCE-PIPELINE.md)。官方 `.safetensors` 文件不能直接作为 `--model` 的输入。
+### 准备模型
 
-| 手头的模型 | 如何使用 |
+程序读取本项目格式的模型包，官方 `.safetensors` 需要先转换。仓库不包含权重；已有模型包可以直接使用，从官方权重开始则需要完成[下载、转换与打包](docs/REPRODUCE-PIPELINE.md)。这一步目前仍需要一些手动操作。
+
+| 模型包 | 使用方式 |
 |---|---|
-| 固定尺寸原生包，例如 `models/turbo1024-s64-portable` | 直接指定 `--model`，尺寸由包确定 |
-| 共享原生包，例如 `models/turbo-shared-v2` | 指定 `--model`、`--width` 和 `--height`；[共享包组装说明](docs/RUNNING.md#shared-weights-and-runtime-dimensions) |
-| 独立 PE 包 | 文生图模型之外的可选项，通过 `--pe-model` 开启提示词增强 |
+| 固定尺寸包，如 `models/turbo1024-s64-portable` | 尺寸由包确定，直接指定目录 |
+| 共享包，如 `models/turbo-shared-v2` | 复用同一套权重，运行时指定宽度和高度；[组装方法](docs/RUNNING.md#shared-weights-and-runtime-dimensions) |
+| PE 提示词增强包 | 可选，通过 `--pe-model` 与文生图模型一起使用 |
 
-正常生成会自动校验全部模型文件。只检查模型是否完整时运行：
+正常生成会自动校验模型文件。想先确认包是否完整，可以运行：
 
 ```sh
 build/linux-vulkan/ernie-image --model models/turbo1024-s64-portable --verify-model
 ```
 
-### 3. 生成第一张图
+### 生成第一张图
 
-以下假设已准备好固定 1024×1024 模型包。显式选择 FP32，便于使用下方有完整对照记录的精度路径。
+准备好固定 1024×1024 模型包后：
 
 ```sh
 build/linux-vulkan/ernie-image --model models/turbo1024-s64-portable \
@@ -56,22 +60,24 @@ build/linux-vulkan/ernie-image --model models/turbo1024-s64-portable \
   --precision fp32 --output outputs/apple.png
 ```
 
-默认 8 步、seed 42，运行时显示模型校验、文本编码和每步去噪进度，结束后显示图像路径与耗时。输出目录自动创建；已有图片保留，再次生成时换一个文件名。Vulkan CLI 的默认精度仍为 FP16；下方 FP32 数据只对应表中列明的实验配置。
+这里显式选择 FP32，它有更充分的数值对照结果。程序本身的 Vulkan 默认精度是 FP16；CPU 模式省略精度时会选择 FP32。默认运行 8 步、seed 42，显示模型校验、文本编码和逐步去噪进度，最后打印保存路径与耗时。
+
+输出目录会自动创建。已有图片会保留，再次运行时换一个文件名即可。演示图使用的是实验保存的噪声，相同整数 seed 不保证生成与演示图或 PyTorch 逐位相同的结果。
 
 ### 常用操作
 
-| 需求 | 用法 |
+| 想做什么 | 参数 |
 |---|---|
-| 中文或长提示词 | 把提示词保存为 UTF-8 文件，用 `--prompt-file prompt.txt` 替代 `--prompt` |
-| 生成不同构图 | 修改 `--seed 123`；同一整数 seed 不保证与 PyTorch 的初始噪声相同 |
-| 纯 CPU 推理 | 加 `--device cpu`，省略精度时自动选择 FP32 |
-| 调整尺寸 | 使用共享包并加 `--width 768 --height 1024`；固定包保留自己的尺寸 |
-| 小显存下使用 RAM 权重 | 默认 `--dit-weights auto` 按预算选择；也可显式指定 `--dit-weights host` |
-| 保存运行参数和结果 | 加 `--report-json outputs/run.json`，记录本次配置、提示词和耗时 |
-| 提示词增强 | 加 `--pe-model /path/to/pe-package`；`--pe-greedy` 使用贪心解码 |
-| 图生图 | 使用带 encoder 的包，加 `--input source.png --strength 0.5`；[缩放与完整示例](docs/RUNNING.md#reviewed-image-to-image-package-and-cli) |
+| 使用中文或长提示词 | `--prompt-file prompt.txt`，文件使用 UTF-8，替代 `--prompt` |
+| 换一个构图 | `--seed 123` |
+| 调整尺寸 | 共享包加 `--width 768 --height 1024` |
+| 使用 RAM 存放 DiT 权重 | 默认 `--dit-weights auto` 自动选择，也可指定 `--dit-weights host` |
+| 保存本次参数和耗时 | `--report-json outputs/run.json` |
+| 开启提示词增强 | `--pe-model /path/to/pe-package`；`--pe-greedy` 使用贪心解码 |
+| 图生图 | 带 encoder 的包加 `--input source.png --strength 0.5`；[缩放与示例](docs/RUNNING.md#reviewed-image-to-image-package-and-cli) |
+| 查看显卡或选择设备 | `--diagnose` 查看可用设备，`--gpu N` 选择显卡 |
 
-共享包的完整命令示例：
+例如，用共享包生成一张竖图：
 
 ```sh
 build/linux-vulkan/ernie-image --model models/turbo-shared-v2 \
@@ -79,203 +85,104 @@ build/linux-vulkan/ernie-image --model models/turbo-shared-v2 \
   --precision fp32 --output outputs/portrait.png
 ```
 
-直接运行程序或加 `-h` / `--help` 查看常用选项，`--help-all` 查看完整参数。`--diagnose` 不加载权重，可用于查看可用显卡；选定显卡使用 `--gpu N`。内存策略、模型读取方式、采样和诊断参数见 [完整运行说明](docs/RUNNING.md)。
-
-## 功能
-
-| 功能 | 当前实现 |
-|---|---|
-| 本地文生图 | 原生分词、文本编码、36 层 DiT、Euler 去噪和 VAE 解码 |
-| 运行时尺寸 | 共享包复用权重，按尺寸实例化图，按实际 token 数选择 32/64/2048 文本桶 |
-| 提示词增强 | 可选 CPU PE，使用 ncnn 原生 KV cache；完成后释放权重和缓存 |
-| 图生图 | 使用带 encoder 的模型包，支持输入图像、强度与显式缩放方式 |
-| 内存管理 | GPU/RAM 权重、可选缓存/后台预取；有上限的 RAM 激活和工作区；最多三次检查点恢复 |
-| 应用接入 | 命令行、UTF-8 提示词文件、PNG/JPEG/BMP/TGA 输出、C++ RGB 接口与进度回调 |
+`--help` 显示常用选项，`--help-all` 显示全部参数。缓存、预取和显存预算通常可以先保持默认。
 
 ## 与官方的实测误差
 
-以下数据来自 **2026-09-06 / 07 保存的真实完整生成结果**。原生端实际执行分词、文本编码、8 步去噪和 VAE；官方端使用锁定版本的分阶段实现。每对结果使用相同提示词和同一份保存的初始 FP32 噪声，PE 关闭、CFG=1。FP32 行使用 Vulkan FP32 DiT、CPU 文本编码和 CPU VAE；这里没有用官方文本特征替换原生文本编码。
+对照使用相同提示词和保存的初始 FP32 噪声，原生端执行自己的分词、文本编码、DiT 和 VAE。官方参考由锁定的组件分阶段运行，DiT 使用 CUDA FP32；PE 关闭，CFG=1。以下结果衡量与该参考的数值接近程度，画质还需要结合提示词和实际图片判断。
 
-- **平均通道差（MAE）**：两张 PNG 所有 RGB 通道绝对差的平均值，数值越小越接近。
-- **最大通道差**：单个 RGB 通道的最大绝对差。两列均使用 **0–255** 的原始像素范围，最大差 1 表示相差一个灰度级。
-- **张量检查**：保存的中间结果通过了多少项项目诊断门槛。这些门槛由本项目定义，不是官方质量标准，也不是视觉相似度评分。
+像素差按 RGB 通道的 **0..255** 数值计算。张量检查表示 25 个中间结果中有多少通过本项目的误差门槛，这些门槛由项目定义。每行对应一次已保存的运行。
 
-### 简短英文苹果提示词，FP32
-
-共享 source32 模型包，15 个实际 token、64 个 DiT 文本槽；正常原生文本编码参与。原生程序快照为 `92559ea4`，源码基线为 `990e8ef`。表中数字属于这些已保存的运行，不冒充后续每个提交都重跑过的结果。
-
-| 输出尺寸 | 平均通道差 MAE（0–255） | 最大通道差（0–255） | 张量检查 | 记录 |
-|---|---:|---:|---:|---|
-| 512×512 | 0.000361125 | 1 | 25/25 | [原始报告](artifacts/2026-09-07/runtime-images-and-sdk/README.md) |
-| 768×768 | 0.027716743 | 2 | 18/25 | [原始报告](artifacts/2026-09-07/runtime-squares/README.md) |
-| 1024×1024 | 0.000761032 | 1 | 24/25 | [原始报告](artifacts/2026-09-07/runtime-squares/README.md) |
-| 1376×768 | 0.000617291 | 1 | 25/25 | [原始报告](artifacts/2026-09-07/runtime-large/README.md) |
-| 768×1376 | 0.001759137 | 1 | 25/25 | [原始报告](artifacts/2026-09-07/runtime-large/README.md) |
-| 2048×1024 | 0.001831373 | 1 | 25/25 | [原始报告](artifacts/2026-09-07/runtime-large/README.md) |
-| 1024×2048 | 0.000875314 | 1 | 25/25 | [原始报告](artifacts/2026-09-07/runtime-large/README.md) |
-
-这些图片均完整生成，并已查看实际苹果图像。768 和 1024 的中间张量仍有未过项，最终图片差异较小；完整数值一致性仍按原记录保留。旧固定 source64 / 1376×768 样例的最大通道差 3、23/25 结果也[单独保留](artifacts/2026-09-07/fixed1376-native-pipeline/README.md)，不能被新来源的通过记录覆盖。
-
-### 长提示词与中文样例
-
-下表为各自已保存的较早完整运行，模型来源、文本长度和精度不同，不能只按语言解释差异。
-
-| 提示词 / 尺寸 | 精度 | 平均通道差 MAE（0–255） | 最大通道差（0–255） | 张量检查 |
+| 样例 | DiT 精度 | 像素平均差 MAE | 最大差 | 张量检查 |
 |---|---|---:|---:|---:|
-| 40-token 英文，1024×1024 | FP32 | 0.002676964 | 1 | 24/25 |
-| 中文，1024×1024 | FP32 | 0.022625605 | 13 | 21/25 |
+| 苹果，512×512 | FP32 | 0.000361125 | 1 | 25/25 |
+| 苹果，512×512，默认精度 | FP16 | 0.235983531 | 109 | 23/25 |
+| 苹果，512×512，修正后的 BF16 路径 | BF16 | 1.294207255 | 143 | 17/25 |
+| 本页苹果，1376×768 | FP32 | 0.000617291 | 1 | 25/25 |
+| 本页白猫，40-token 英文，1024×1024 | FP32 | 0.002676964 | 1 | 24/25 |
+| 本页湖泊，中文，1024×1024 | FP32 | 0.022625605 | 13 | 21/25 |
 | 1080-token 中文，512×384 | FP32 | 0.082126194 | 17 | 19/25 |
-| 同一 1080-token 中文，512×384 | BF16 | 10.376324124 | 255 | 11/25 |
+| 同一 1080-token 中文 | BF16 | 10.376324124 | 255 | 11/25 |
 
-来源：[长英文与中文 FP32 对照](artifacts/2026-09-06/attention-parity/README.md)、[1080-token FP32 / BF16 对照](artifacts/2026-09-06/features-and-structure/README.md)。已测中文分词与官方一致，现有对照尚未隔离“语言”本身；文本条件的数值差异和去噪中的误差传播仍需区分。BF16 保持实验状态。
+512×512 三行来自 9 月 9 日的[内存执行回归](artifacts/2026-09-08/memory-execution/README.md)，其他行来自 9 月 6、7 日的运行。正常与混合内存 FP32 的 25 份张量和 PNG 都与旧版逐位相同；默认 FP16 也保持原输出，对官方的 23/25 和最大像素差 109 没有改变。
 
-这些结果用于说明移植与官方的数值接近程度，不代表所有提示词的画质评分，也没有建立全面优于其他移植的结论。更完整的图生图、PE、内存和平台证据见 [验证状态](docs/VALIDATION-STATUS.md)。
+BF16 的注意力和 Gemm 路径修复了非法 Vulkan 用法，新路径仍未通过完整数值检查。它和历史 ncnn 升级时的 BF16 18/25、最大差 98 分开记录。中文分词已与官方对齐，但现有样例同时涉及文本长度、模型来源和精度差异，尚未隔离语言本身的影响。
 
-### ncnn 最新 Git 升级对照（2026-09-08）
-
-正式依赖现已升级到 `3b7bdba7fc8aea8fd46779533eee027df77c639d`，这是 2026-09-08 核验时的上游最新 Git。以后跟进最新 Git，并将通过验证的明确 SHA 同步锁定在子模块和 `sources.lock.json`。更新项目后执行 `git submodule update --init --recursive`，再重新构建即可；旧 `6a1bf000` 模型包仍兼容，无需重新转换，原始来源和文件校验保持不变。
-
-升级前的独立对照中，旧版 `6a1bf000` 已包含 FP16/BF16 转换舍入修复。新版 `3b7bdba7` 的 57 项本机 CTest 全部通过，9 组真实权重配对输出逐位相同；完整 512×512、8 步、15-token 英文提示词对照如下。两版使用相同模型、噪声和配置，FP32 复用认证过的历史基线，FP16/BF16 各新跑一对。
-
-| 精度 | 新旧张量 / PNG | 官方张量检查 | 官方 PNG 平均差（0–255） | 最大差（0–255） |
-|---|---|---:|---:|---:|
-| FP32 | 全部逐位相同 | 25/25 | 0.000361125 | 1 |
-| FP16 | 全部逐位相同 | 23/25 | 0.235983531 | 109 |
-| BF16 | 全部逐位相同 | 18/25 | 1.165049235 | 98 |
-
-新版确实修复了独立 BF16 Reduction 抵消测试的错误，但本样例的完整图像误差没有因此减小。FP16/BF16 沿用各自原门槛，仍有上述未通过项。完整数据、复现代码与候选构建说明见 [ncnn 最新 Git 回归报告](artifacts/2026-09-08/ncnn-latest-git/README.md)；正式升级后的常规构建、模型兼容与三平台检查另见 [升级记录](artifacts/2026-09-08/ncnn-promotion/README.md)。
+更多尺寸、早期未通过项、版本和比较方法放在[数值结果明细](docs/NUMERICAL-RESULTS.md)。其中保留了 768×768 的 18/25、1024×1024 的 24/25，以及旧固定 1376×768 样例的 23/25、最大像素差 3。展示这些图片不意味着所有提示词或尺寸都已通过检查，也没有足够的同条件数据给本项目和其他移植做质量排名。
 
 ## 技术实现
 
-### 模型如何把提示词变成图像
+文本先经过原生 tokenizer 和 Mistral 编码器。程序执行前 25 层，取 `hidden_states[-2]`，得到每个 token 的 3072 维特征。文本只编码一次，随后供去噪循环使用。
 
-ERNIE-Image-Turbo 在压缩后的图像表示 **latent（潜变量）** 上执行 Flow Matching 生成：从随机噪声出发，用文本条件引导更新，最后由 VAE 将 latent 解码为 RGB。默认文本编码在 CPU 上执行，DiT 在 Vulkan 上执行，VAE 在 CPU 上执行。
-
-1. **文本条件只编码一次。** 原生 tokenizer 将提示词变成 token IDs，Mistral 文本编码器执行前 25 层，取官方要求的 `hidden_states[-2]`，得到每个有效 token 的 3072 维特征。它提供描述图像的条件，不负责输出图片或继续生成文字。
-2. **DiT 让文字和图像共同参与注意力。** 图像 latent 和文本特征分别投影到 4096 维，再拼成一个序列，经过 36 层 Transformer。以 1024×1024、64 个文本槽为例，图像有 `64×64=4096` 个位置，联合序列有 `4096+64=4160` 个位置。全局注意力让图像位置读取文本和其他图像位置；mask 排除无效文本 padding。
-3. **去噪循环逐步更新整张图的 latent。** 每步 DiT 预测当前 latent 的更新方向，Euler 根据相邻噪声尺度更新状态。默认执行 8 步，每步都运行完整 36 层；CFG=1 时无需额外的无条件分支。
-
-更新规则对应当前实现：
+DiT 将文本和图像 latent（潜变量）投影到 4096 维，拼成一个序列，经过 36 层 Transformer。1024×1024 图片对应 `64×64=4096` 个图像位置，加上 64 个文本槽，共 4160 个位置；mask 排除无效文本 padding。每一步都运行完整的 DiT，用 Euler 方法更新 latent：
 
 ```text
 v_i     = DiT(z_i, text_features, timestep_i)
 z_{i+1} = z_i + (sigma_{i+1} - sigma_i) * v_i
 ```
 
-`z_i` 是当前 latent，`v_i` 是模型预测的流速度，`sigma` 是从 1 降到 0 的噪声尺度。结束后先按模型统计量反归一化，将 128 通道的打包 latent 还原成 32 通道，再经 VAE 解码和像素量化得到图片。完整形状、位置编码和调度公式见 [推理数据与计算](docs/CODE-STRUCTURE.md#推理数据与计算)。
+`v_i` 是预测的流速度，`sigma` 从 1 降到 0。Turbo 默认执行 8 步，CFG=1，无需额外的无条件分支。结束后反归一化，将 128 通道的打包 latent 还原成 32 通道，再由 VAE 解码为 RGB。默认文本编码与 VAE 在 CPU 上执行，DiT 在 Vulkan 上执行。
 
-### ncnn 执行什么，C++ 负责什么
+ncnn 负责图执行和底层算子；C++ 负责组件调度、条件张量、Euler 更新和内存生命周期。ERNIE 特有的 RoPE、GELU、归一化与残差处理保留在对应组件中。图生图增加 VAE encoder，并按强度选择去噪起点；`strength=0` 直接重建输入图像。
 
-准备模型时，用锁定的官方权重导出文本层、DiT 输入/输出头、DiT blocks 和 VAE 图，通过 pnnx 转换为 ncnn 的 `.param` 图与 `.bin` 权重。模型包记录来源和文件校验信息；高分辨率 VAE、运行时尺寸等有各自受限的图适配步骤。
+### 内存与精度
 
-运行时，**ncnn 负责算子执行，C++ 负责生成过程和资源生命周期**。C++ 载入组件图、提交 CPU/Vulkan 运算、执行 Euler 更新，并在安全的阶段边界释放权重。图像生成不再导入 PyTorch；Rust tokenizer 已静态链接到原生程序。实现还保留 ERNIE 的三轴 RoPE、shared AdaLN、erf GELU 和特定归一化行为，不能仅凭算子名称相同就替换数学定义。[转换与执行细节](docs/CODE-STRUCTURE.md#从官方组件到-ncnn-执行)
+PE、文本编码、DiT 和 VAE 依次加载，阶段结束后释放权重。DiT 按块执行，块间激活尽量留在 GPU 上。FP32 注意力一次最多处理 128 行 query，每行保留全部 K/V；4160-token、32 头的单个分数矩阵从约 2.06 GiB 缩到 65 MiB，代价是更多提交和同步。CPU VAE 默认使用直接卷积，关闭 Winograd 和 SGEMM，以减少已观测到的大尺寸工作区压力。
 
-### 为什么能在有限显存上运行
-
-| 实现 | 原理与代价 |
+| 机制 | 默认行为 |
 |---|---|
-| 分阶段、逐块加载 | PE、文本、DiT、VAE 依次使用资源；DiT 默认只保留当前块的权重，执行完成后释放。降低同时驻留量，但增加重复读取和权重准备 |
-| GPU/RAM 权重放置 | 加载块前查询显存预算，结合权重估计和预留空间选择放置位置。RAM 权重仍用于 Vulkan 计算，访问成本取决于设备；权重放置与新增的激活缓冲区、检查点恢复分别管理 |
-| FP32 注意力按查询分块 | 每次最多计算 128 个 query，但保留完整 K/V 和可见上下文。4160-token、32 头的单个分数矩阵由约 2.06 GiB 降到 65 MiB，代价是增加提交和同步；该数字不是整个进程的显存峰值 |
-| CPU VAE 直接卷积 | 默认关闭 Winograd 和 SGEMM 路径，减少本项目已观测到的大尺寸工作区压力；运行速度仍取决于硬件和输入 |
+| 权重放置 | `--dit-weights auto`，根据预算选择 GPU 或 RAM；RAM 权重仍用于 Vulkan 计算 |
+| 权重缓存与后台预取 | 默认都关闭。Vulkan FP32、auto/host 权重下，可分别用 `--dit-cache-mib` 和 `--dit-prefetch-mib` 开启；预取最多提前准备一块 |
+| 激活与工作区 | `--gpu-memory auto --gpu-spill-mib 2048`，为 DiT 新缓冲区选择 GPU 或 GPU 可访问的 RAM |
+| 分配失败恢复 | `--oom-retries 3`，每步保存 CPU 检查点，失败时从最近完成的步骤重建执行 |
 
-RAM 权重缓存另有独立容量限制，默认关闭；内存允许时可以复用部分已准备的块，避免每一步都重新加载。它与权重文件映射、GPU 放置是不同选项，详见 [内存与缓存](docs/CODE-STRUCTURE.md#内存与缓存)。
+一次 512×512 实测中，混合配置使用了 288 次 RAM buffer 分配，峰值 192 MiB，280 次预取全部被消费。它耗时 420.948 秒，正常 FP32 为 258.230 秒。这两次开启了 trace，多个设置同时变化，页缓存和桌面负载也未控制，结果没有证明预取能加速；内存成本、逐次分配和部分全 RAM 运行保存在[实测明细](docs/NUMERICAL-RESULTS.md#内存执行改动后的完整回归)。
 
-本次内存执行实现已通过 Linux 的 **62 项 Vulkan 测试和 37 项 CPU 测试**，均无跳过，Khronos validation 无错误。正常与混合内存 FP32 都完成了 512×512、8 步出图，各 25 个张量及 PNG 与认证基线逐位相同；对官方仍为 25/25，PNG MAE 0.000361125、最大差 1。来源及原始记录见[内存执行验证](artifacts/2026-09-08/memory-execution/README.md)。
+恢复时会关闭额外缓存和预取，自动模式优先使用 RAM，并将 FP32 非 Flash 查询分块逐级缩为 64、32、16 行。分辨率、精度、步数、调度和完整 K/V 保持原设置。设备丢失、普通模型错误和清理同步失败直接报错；部分 ncnn 创建操作若只返回通用错误，也无法进入恢复。已有活动 buffer 的任意换页、文本/PE/VAE 恢复和进程重启续跑尚未实现。[内存执行教程](docs/MEMORY-EXECUTION.md)解释了分配器、预取线程、检查点和错误传播的具体做法。
 
-| 同输入 FP32 配置 | 实际 device / host 分配次数 | host buffer 峰值 | 预取被消费 | 本次观测耗时 |
-|---|---:|---:|---:|---:|
-| 正常：cache/prefetch 0、GPU reserve 512 MiB | 43,943 / 0 | 0 | 0 | 258.230 秒 |
-| 混合：cache/prefetch 各 1024 MiB、GPU reserve 5400 MiB | 43,655 / 288 | 192 MiB，全部为非 device-local RAM | 280/280 | 420.948 秒 |
+精度敏感的位置单独处理：残差、归一化中间计算和 Euler 主 latent 保留 FP32，避免 FP16 溢出；FP32 注意力使用 Kahan 补偿累加，CPU VAE 的均值和中心方差使用 FP64。文件中的 BF16 权重存储与运行时 BF16 计算分别控制。计算顺序和多步误差传播会影响结果，具体未通过项仍需逐阶段定位。
 
-两例均未触发 OOM 或重试。混合配置确实使用 RAM，但这次耗时更长；多个选项同时变化，trace 开启，文件页缓存及桌面负载未控制，不能从这两次运行推导某个选项的加速效果。5400 MiB 是实验触发策略的预留设置，不是硬件门槛，也没有真实耗尽显卡。先前强制全部 buffer 放 RAM 的配置仅完成两步，约 230 秒/步，没有完整 PNG，保留为部分结果。
-
-完整校验发现旧 BF16 注意力与 Gemm 使用了设备不支持的 accumulator 类型；当前将 BF16 SDPA/Gemm 切回有效的原生 Flash/普通 Gemm 路径，暂时放弃这两处分支的协作矩阵加速。新路径完成同一 512×512、8 步出图且零校验错误，但对官方仍只有 **17/25 张量通过，PNG MAE 1.294207255、最大差 143**，保持 BF16 实验状态。上方升级表是修正前的历史结果，不能替代这次[新路径完整回归](artifacts/2026-09-08/memory-execution/v3/README.md)。
-
-默认 FP16 也在最终源码上完成同一 8 步回归，**25/25 份张量及 PNG 与旧 FP16 逐位一致**；对官方仍为 23/25、PNG MAE 0.235983531、最大差 109，旧误差没有因内存改动增加或消失，见[默认 FP16 记录](artifacts/2026-09-08/memory-execution/v4/README.md)。最终源码的[三平台 CI](docs/PLATFORM-VALIDATION.md#2026-09-09-内存执行最终验证)五个作业全部成功；设备能力跳过和完整模型验证分别列出。
-
-后台预取默认关闭，在 Vulkan 模式下通过 `--precision fp32 --dit-weights auto --dit-prefetch-mib 1024` 开启，也允许显式 host 权重。它最多提前准备一个 FP32 DiT 块，受独立预算和 RAM 余量检查约束。它增加 RAM 驻留；加载时间与计算时间可能重叠，不能将二者相加当成生成耗时，也不承诺提速。
-
-激活和工作区默认使用 `--gpu-memory auto --gpu-spill-mib 2048`：显存预算不足或明确的设备分配失败时，可为新缓冲区选择 GPU 能访问的 RAM。每完成一个去噪步，保存 FP32 CPU 潜变量；`--oom-retries 3` 允许从最近检查点重建执行，关闭额外缓存和预取，并将 FP32 非 Flash 注意力的查询分块从 128 逐级缩到 64、32、16 行。每行仍使用全部 K/V，分辨率、步数、精度和调度器保持用户设置。设备丢失和普通模型/文件错误直接报错。
-
-这些设置仅覆盖 DiT。恢复依赖已保留错误类型的 buffer、命令、上传和提交路径；部分创建操作（如 compute pipeline）若仍被 ncnn 转成通用 `-1`，会直接结束。清理同步失败也不重试。它不是操作系统式的任意显存分页，也不提供进程退出后的断点续跑；具体平台限制、缓冲区生命周期及报告字段见[实现教程](docs/MEMORY-EXECUTION.md)。
-
-### KV cache 与精度处理
-
-**KV cache 用于可选的 PE 提示词增强。** PE 是自回归语言模型，每次生成新 token 时，历史 token 的 K/V 可以继续使用。本项目通过 ncnn 原生缓存接口维护独立会话和容量，正常入口仍逐 token 预填充。图像 DiT 的隐藏状态会随每一步去噪变化，即使原始文本特征相同，联合注意力中的文本状态也会变化，所以不把上一去噪步的 K/V 当作精确缓存使用。
-
-**精度按数值敏感点处理。** FP16 可能在残差相加或归一化的中间计算中溢出，因此这些位置保留/提升到 FP32，Euler 主 latent 也始终保持 FP32。FP32 注意力使用 Kahan 补偿累加，减小长求和中的舍入损失；CPU VAE 的均值和中心方差归约使用 FP64。权重文件中的 BF16 存储与运行时 BF16 计算是两回事，前者不代表整条计算路径都使用 BF16。
-
-同一数学公式在不同后端上也可能因计算顺序和精度产生差异，多步去噪又会传播已有差异。PyTorch 同样不保证跨平台计算逐位一致，见其 [数值精度说明](https://docs.pytorch.org/docs/2.14/notes/numerical_accuracy.html)。这只能解释误差可能产生的机制，具体未通过样例仍需用阶段对照定位，不能因此直接认定所有偏差都正常。上方误差表保留当前实测结果。
+可选 PE 是 26 层的自回归提示词增强器，使用 ncnn 原生 KV cache；正常入口逐 token 预填充。图像 DiT 的隐藏状态每步都会变化，因此其 K/V 没有跨去噪步骤复用。
 
 ## 项目架构
 
-代码按**推理阶段和资源职责**组织：CLI 收集输入，公共接口接收请求，流水线调用模型组件。命令行和其他 C++ 应用共用同一套推理实现。
+命令行和 C++ 应用共用 `ernie::generate`。CLI 处理参数、图片文件和终端进度，流水线返回 RGB 像素，不要求调用方使用同一套图像 I/O。
 
 ```mermaid
 flowchart TD
-    CLI["CLI：参数、图像读写、完成报告"] --> API["ernie::generate"]
-    APP["C++ 应用"] --> API
-    API --> PACKAGE["模型包校验与目标尺寸"]
-    PACKAGE --> PE["可选 CPU 提示词增强"]
-    PE --> TEXT["分词、文本编码与条件张量"]
-    TEXT --> DIT["DiT + Euler 去噪"]
-    INPUT["初始噪声 / 图生图 latent"] --> DIT
+    CLI["CLI / C++ 应用"] --> API["ernie::generate"]
+    API --> PACKAGE["校验模型包、选择尺寸"]
+    PACKAGE --> PE["可选 PE 提示词增强"]
+    PE --> TEXT["分词、文本编码、条件张量"]
+    TEXT --> DIT["36 层 DiT × Euler 去噪"]
+    INPUT["随机噪声 / 图生图 latent"] --> DIT
     DIT --> VAE["VAE 解码"]
     VAE --> RGB["RGB 像素与运行结果"]
 ```
 
-- **应用边界**：`include/ernie/pipeline.h` 定义请求、结果和回调，只依赖 C++ 标准库。CLI 负责参数和图像文件，流水线返回 RGB 像素。
-- **推理边界**：`src/pipeline.cpp` 连接 PE、文本编码、DiT 和 VAE。各组件通过统一的图/权重加载接口使用模型，不处理命令行或下载。
-- **资源边界**：PE、文本、DiT、VAE 依次执行，前一阶段权重释放后再进入下一阶段。DiT 逐块管理权重；激活缓冲区按设备和 RAM 预算放置，成功去噪步的 CPU 潜变量用于恢复。权重放置、可选缓存和单块预取分别管理。
-- **工具边界**：Python 用于下载、转换、打包和官方参考对照；这些工具不进入原生推理链路。
+| 代码位置 | 职责 |
+|---|---|
+| [`include/ernie/pipeline.h`](include/ernie/pipeline.h)、[`cli/`](cli) | 对外请求、结果与回调；命令行、UTF-8 提示词和图像文件处理 |
+| [`pipeline.cpp`](src/pipeline.cpp) | 连接各阶段，在阶段切换时释放权重 |
+| [`prompt_enhancer.cpp`](src/prompt_enhancer.cpp)、[`pe_session.cpp`](src/pe_session.cpp) | PE 采样和 KV cache 会话 |
+| [`text_encoder.cpp`](src/text_encoder.cpp)、[`conditioning.cpp`](src/conditioning.cpp) | 文本特征、位置编码和 mask |
+| [`denoiser.cpp`](src/denoiser.cpp)、[`dit.cpp`](src/dit.cpp)、[`block_sequence.cpp`](src/block_sequence.cpp) | Euler 步进、单步预测、逐块加载及预取 |
+| [`vae.cpp`](src/vae.cpp)、[`latent_ops.cpp`](src/latent_ops.cpp) | 编解码、latent 格式转换 |
+| [`model_package.cpp`](src/model_package.cpp)、[`shape_plan.cpp`](src/shape_plan.cpp) | 模型包校验、目标尺寸和文本桶选择 |
+| [`weight_placement.cpp`](src/weight_placement.cpp)、[`weight_session.cpp`](src/weight_session.cpp) | 权重位置和可选缓存 |
+| [`vulkan_memory.cpp`](src/vulkan_memory.cpp)、[`vulkan_denoise.cpp`](src/vulkan_denoise.cpp) | 缓冲区预算、检查点和重试 |
 
-### 推理阶段与源码对应
+`src/` 保持浅层目录。改 PE 采样看 `prompt_enhancer`，改 Euler 步进看 `denoiser`，增加图片格式看 `cli`；公共 API 只依赖 C++ 标准库。更详细的张量形状和模块关系在[代码导航](docs/CODE-STRUCTURE.md)中。
 
-| 执行阶段 | 主要源码 | 做什么、为什么放在这里 |
-|---|---|---|
-| 用户入口 | [`cli/main.cpp`](cli/main.cpp)、[`cli/options.cpp`](cli/options.cpp) | 参数、提示词文件、进度和图片保存集中在应用层，模型组件无需了解终端和文件格式 |
-| 公共请求 | [`include/ernie/pipeline.h`](include/ernie/pipeline.h) | 暴露 `GenerationRequest`、RGB 结果和回调；其他 C++ 程序直接复用 |
-| 阶段调度 | [`src/pipeline.cpp`](src/pipeline.cpp) | 校验包、连接阶段、收集结果，在阶段交接时释放权重 |
-| 可选提示词增强 | [`prompt_enhancer.cpp`](src/prompt_enhancer.cpp)、[`pe_session.cpp`](src/pe_session.cpp) | 26 层 Ministral3 生成增强提示词；采样与 KV cache 会话各自管理 |
-| 图像文本编码 | [`text_encoder.cpp`](src/text_encoder.cpp)、[`conditioning.cpp`](src/conditioning.cpp) | Mistral 前 25 层取 `hidden_states[-2]`，准备文本条件、位置和 mask |
-| 反复去噪 | [`denoiser.cpp`](src/denoiser.cpp)、[`dit.cpp`](src/dit.cpp)、[`block_sequence.cpp`](src/block_sequence.cpp) | Euler 管时间步与 latent 更新，DiT 管单步预测，块执行器管理 36 层的逐块加载；Turbo 默认循环 8 步 |
-| 图像解码 | [`vae.cpp`](src/vae.cpp)、[`latent_ops.cpp`](src/latent_ops.cpp) | latent 格式转换与 VAE 解码，最终由流水线返回 RGB 像素 |
-| 模型与权重 | [`model_package.cpp`](src/model_package.cpp)、[`shape_plan.cpp`](src/shape_plan.cpp)、[`weight_placement.cpp`](src/weight_placement.cpp)、[`weight_session.cpp`](src/weight_session.cpp) | 包校验、尺寸和文本桶选择、权重位置及可选缓存 |
-| 内存与恢复 | [`vulkan_memory.cpp`](src/vulkan_memory.cpp)、[`vulkan_denoise.cpp`](src/vulkan_denoise.cpp)、[`block_sequence.cpp`](src/block_sequence.cpp) | 激活/工作区预算、每步检查点与重试、单块异步预取 |
-
-这样组织后，修改采样只涉及 PE，修改 Euler 步进进入 denoiser，增加图片格式进入 CLI；模型算子保持在对应组件，公共 API 不暴露 ncnn 私有类型。`src/` 保持浅层目录，避免为了单个模型增加多模型注册或插件框架。
-
-图生图先由 VAE encoder 生成 latent，再按强度进入去噪；`strength=0` 直接走编码后重建。KV cache 用于 PE 自回归生成，DiT 的 K/V 随每步隐藏状态变化，不做跨去噪步的精确复用。
-
-### 目录导航
-
-```text
-ernie-image-ncnn-vulkan/
-├── include/ernie/       # 对外 C++ 接口
-├── cli/                 # 命令行、图像 I/O 和完成报告
-├── src/                 # 流水线、模型组件、形状和内存管理
-├── tokenizer/           # 原生 Rust tokenizer 与模型包校验
-├── cmake/               # ncnn 依赖、构建选项和 SDK 安装
-├── tools/               # 下载、转换、打包、参考验证
-├── probes/              # 算子与组件诊断程序
-├── tests/               # 小型网络、接口、包和安装回归
-├── docs/                # 使用说明与架构细节
-├── artifacts/           # 已保存的验证报告
-└── third_party/         # 固定版本依赖
-```
-
-`models/`、`outputs/` 和 `build*/` 是本地数据目录，不进入 Git。模块到源码的对应关系、加载边界和精度处理见 [架构与代码导航](docs/CODE-STRUCTURE.md)。
+Python 下载、转换、打包和参考工具放在 `tools/`；原生 tokenizer 与包校验在 `tokenizer/`；依赖和安装配置在 `cmake/`。`probes/` 用于组件诊断，`tests/` 用于回归，`artifacts/` 保存实测报告。模型、构建产物和批量生成结果留在本地，README 的三张原图单独放在 `docs/images/`。
 
 ## C++ 接口
 
-上面的 preset 已启用 SDK。编译后安装到自己的目录：
+Linux preset 已启用 SDK。安装后，其他 CMake 项目可以直接链接：
 
 ```sh
 cmake --install build/linux-vulkan --prefix "$PWD/outputs/install"
 ```
-
-使用 CPU preset 时替换对应构建目录。其他 CMake 项目可以链接同一套流水线：
 
 ```cmake
 find_package(Ernie 0.1.0 EXACT CONFIG REQUIRED)
@@ -283,7 +190,7 @@ add_executable(my-app main.cpp)
 target_link_libraries(my-app PRIVATE ernie::pipeline)
 ```
 
-配置应用时指定 `-DCMAKE_PREFIX_PATH=/path/to/installation`。调用示例：
+配置应用时传入 `-DCMAKE_PREFIX_PATH=/path/to/installation`。调用示例：
 
 ```cpp
 #include <ernie/pipeline.h>
@@ -293,46 +200,45 @@ int main()
     ernie::GenerationRequest request;
     request.model = "models/turbo1024-s64-portable";
     request.prompt = "A red apple on a wooden table.";
+    request.precision = "fp32";
     request.seed = 42;
     auto result = ernie::generate(request);
-    // result.image.pixels 是 RGB 字节，由应用选择保存或显示方式。
+    // result.image.pixels 是 RGB 字节，可自行保存或显示。
 }
 ```
 
-`generate` 支持进度回调，失败时抛出异常。应用源码无需包含 ncnn 或 PNG 头文件；链接需要兼容的 C++/OpenMP 工具链及系统依赖。当前 Vulkan 上下文为进程级，应串行调用生成接口；0.1.0 不承诺跨工具链稳定二进制 ABI。
+`generate` 支持进度回调，失败时抛出异常。当前应串行调用生成接口。应用无需包含 ncnn 或 PNG 头文件，链接仍需要兼容的 C++/OpenMP 工具链和系统依赖；0.1.0 暂不保证跨工具链的稳定二进制 ABI。CPU 构建使用对应安装目录，接口设置见 [SDK 说明](docs/RUNNING.md#build-and-install)。
 
 ## CI
 
-仓库已有 [GitHub Actions 构建工作流](.github/workflows/build.yml)，在 `main`、`codex/surpass-reference` 推送、Pull Request 和手动触发时运行。覆盖 Linux CPU/Vulkan、可选读取器 CPU、Windows 原生 MSVC 和 macOS 原生 Apple Clang，检查：
+[GitHub Actions](.github/workflows/build.yml)覆盖 Linux、Windows MSVC 和 macOS Apple Clang，检查原生程序、tokenizer、CLI、Unicode 路径、模型包和搬移安装后的 C++ 调用。工作流在 `main` 和验证分支推送、Pull Request 或手动触发时运行。
 
-- 原生程序与 SDK 编译、小型网络和算子测试。
-- CLI、UTF-8 路径、模型包完整性及安装后的独立 C++ 调用。
-- 下载器与发布清单的本地 HTTP 测试。
+内存执行版本的[最近一次代码验证](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34373124004)结果如下：
 
-内存执行最终源码 `7296bfe`、ncnn `3b7bdba7` 的[三平台 CI](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34373124004)五个作业全部成功。Linux 两个 CPU 配置各 37 项通过；Linux Mesa Vulkan 与 macOS MoltenVK 各 57 项通过、5 项因 CI 驱动缺少原生 BF16 storage 能力而跳过；Windows MSVC 为 37 项通过、25 项因无 Vulkan 驱动跳过。每个作业另有 23 项下载与清单检查通过，旧模型包兼容与重打包来源保留也均通过。先前 ncnn 升级的 `a495443` 结果保留在[历史记录](artifacts/2026-09-08/ncnn-promotion/README.md)。
+| 环境 | 通过 | 跳过 | 原因 |
+|---|---:|---:|---|
+| Linux CPU，读取器 OFF / ON | 各 37 | 0 | 两个独立构建 |
+| Linux Mesa Vulkan | 57 | 5 | CI 驱动缺少原生 BF16 storage |
+| macOS MoltenVK | 57 | 5 | 托管虚拟 GPU 缺少原生 BF16 storage |
+| Windows MSVC | 37 | 25 | 运行器没有 Vulkan 驱动 |
+| 本机 Linux / RTX 4060 Laptop | 62 | 0 | Vulkan 与 BF16 测试实际执行，校验层无错误 |
 
-**这 5 项 BF16 跳过属于 CI 环境的驱动能力限制。** 测试在运行前检查到该能力不可用后跳过；本机 RTX 4060 Laptop 支持该能力，包括新增 Gemm 的全部 62 项 Vulkan 测试已实际执行并通过。Linux Vulkan CI 使用摘要固定的 SDK 1.4.357.1 校验层，独立 VUID 扫描没有错误。
-
-实际通过、失败和设备能力跳过项见[平台验证](docs/PLATFORM-VALIDATION.md)，原始失败和修复后的日志均保留。macOS 使用 Vulkan loader 与托管虚拟 GPU 的 MoltenVK 配置。CI 不下载 ERNIE 大模型；完整模型出图与官方误差仍采用上方独立实测记录。
+上述均无失败，五个远程作业另外各通过 23 项 HTTP/模型清单检查，本机纯 CPU 另有 37 项通过。Linux Vulkan CI 使用固定的 SDK 1.4.357.1 校验层并检查 VUID；其他远程平台未启用该校验层。CI 不下载 ERNIE 权重，完整出图采用独立实机实验。[平台记录](docs/PLATFORM-VALIDATION.md)保留构建失败、修复过程和每项跳过原因。
 
 ## 当前限制
 
-- 部分中文、长提示词及逐步数值对照仍未通过；出图成功与完整数值一致性分别记录。
-- 共享包的实验尺寸范围为每轴 16..2048、16 的倍数、面积不超过 2097152；已验证若干完整尺寸，尚未覆盖每种尺寸和提示词组合。
-- 图像文本编码和 VAE 默认使用 CPU。GPU VAE、BF16 等路径仍为实验选项；新 PE 分块预填充目前是内部候选，正常入口仍逐 token 预填充。
-- RAM 激活/工作区和分配重试只覆盖 DiT。macOS 尚无生产 RAM 余量读取器，Windows Job/Wine 也返回余量未知，因此这些场景不能接纳 host 缓冲区，显式 host 模式也不能绕过。CPU 文本、PE、VAE 及进程重启后的恢复不在该机制内。
-- Windows、macOS 的完整模型出图和真实设备性能仍待验证；原生构建与小型测试单独记录。当前没有足够数据宣称全面超过参考项目。
+- 部分长提示词、中文和逐步数值对照尚未通过，BF16 与 GPU VAE 保持实验状态。新的 PE 分块预填充也是内部候选，日常入口仍逐 token 预填充。
+- 共享包接受每轴 16..2048、16 的倍数、面积不超过 2097152 的实验尺寸范围。已执行过若干完整尺寸，尚未覆盖所有形状与提示词组合。
+- 自动 RAM 分配与恢复只覆盖 DiT。macOS 尚无生产 RAM 余量读取器，Windows Job/Wine 同样返回余量未知；这些环境的 host 缓冲区准入会被拒绝，显式 host 也无法绕过。
+- Windows/macOS 的完整模型、物理 Mac 行为和真实设备性能仍需补充验证。跨后端的数值差异与性能结论以各自实测范围为准。
 
 ## 文档与来源
 
-- [运行参数与 SDK 接入](docs/RUNNING.md)
-- [模型下载、转换和打包](docs/REPRODUCE-PIPELINE.md)
-- [架构与代码导航](docs/CODE-STRUCTURE.md)
-- [转换与验证工具](tools/README.md)
-- [实测结果和已知数值差异](docs/VALIDATION-STATUS.md)
-- [三平台构建与执行记录](docs/PLATFORM-VALIDATION.md)
-- [ncnn Discussions 移植教程草稿](docs/NCNN-DISCUSSION-DRAFT.md)
-- [全部工作与其他项目复用说明](docs/PORTING-REUSE-GUIDE.md)
-- [版本与来源锁定](sources.lock.json)
+- [运行参数与 SDK](docs/RUNNING.md) · [模型准备](docs/REPRODUCE-PIPELINE.md) · [转换工具](tools/README.md)
+- [架构细节](docs/CODE-STRUCTURE.md) · [内存执行教程](docs/MEMORY-EXECUTION.md) · [数值结果明细](docs/NUMERICAL-RESULTS.md)
+- [验证状态](docs/VALIDATION-STATUS.md) · [平台记录](docs/PLATFORM-VALIDATION.md)
+- [ncnn Discussions 移植教程草稿](docs/NCNN-DISCUSSION-DRAFT.md) · [给其他项目的复用说明](docs/PORTING-REUSE-GUIDE.md)
 
-本项目新增代码使用 [MIT 许可](LICENSE)；ncnn 和模型权重遵循各自许可。官方模型来源为 [Baidu ERNIE-Image](https://github.com/baidu/ERNIE-Image)，运行时依赖 [Tencent ncnn](https://github.com/Tencent/ncnn)。[futz12/ernie-image-ncnn-vulkan](https://github.com/futz12/ernie-image-ncnn-vulkan/tree/8dcd6e4411137d8abe92c9d78581c4c96d5182c6) 等项目用于架构与行为参考，未复制其运行时代码或模型权重到本仓库。
+ncnn 目前锁定在 `3b7bdba7`，以后优先跟进上游 Git，并固定通过验证的提交。更新仓库后同步子模块即可；旧 `6a1bf000` 模型包仍兼容，包内来源和文件校验保持不变。完整版本在 [sources.lock.json](sources.lock.json) 中。
+
+本项目新增代码使用 [MIT 许可](LICENSE)，ncnn 与模型权重遵循各自许可。模型来自 [Baidu ERNIE-Image](https://github.com/baidu/ERNIE-Image)，运行时使用 [Tencent ncnn](https://github.com/Tencent/ncnn)。[futz12/ernie-image-ncnn-vulkan](https://github.com/futz12/ernie-image-ncnn-vulkan/tree/8dcd6e4411137d8abe92c9d78581c4c96d5182c6) 等项目提供了架构与行为参考，其运行时代码和模型权重未复制进本仓库。Discussions 教程目前仍是草稿。

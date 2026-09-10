@@ -88,7 +88,7 @@ Latest additional execution evidence: `artifacts/2026-09-07/runtime-rectangles-a
 ## Resource use and delivery
 
 - The initial target is an 8GB GPU and 32GB system RAM. Inspect current availability before large runs. Begin with one block and staged weight loading.
-- Keep weights, build products and generated images out of Git. Store small manifests, measurements and source hashes in `artifacts/`.
+- Keep weights, build products and generated images out of Git. The three original PNGs in `docs/images/`, explicitly requested by the user for the README on 2026-09-10, are a documentation exception; preserve their hashes and source records. Store small manifests, measurements and source hashes in `artifacts/`.
 - Schema-2 portable packages contain all 136 runtime files with no internal symlinks. Both native and Python checks cover every runtime checksum, file size, revision and model.cfg agreement. Keep schema-1 development package compatibility.
 - Snapshot runner binaries before long validation jobs. A concurrent build can temporarily remove or replace its executable; the first batch recorded this failure.
 - Run large GPU jobs sequentially. Overlapping a VAE test and DiT generation caused allocation failures and a SIGSEGV; that run does not establish an isolated-device capacity limit.

@@ -40,7 +40,7 @@
 
 **这 4 项 BF16 跳过由 CI 环境的驱动能力限制导致。** Linux 的 Mesa 软件设备和 macOS 的托管虚拟设备均报告 `bf16-p/s=1/0`：ncnn 的 BF16 打包路径可用，原生 BF16 storage 不可用。残差加法、ERF GELU、RMSNorm、LayerNorm 的对应测试在运行前检查能力，返回 `77` 后由 CTest 标记为跳过。本机 RTX 4060 Laptop 报告 `bf16-p/s=1/1`，同样四项已实际执行并通过。
 
-**完整模型出图目前有 Linux 实测记录，Windows 和 macOS 尚未运行完整 ERNIE 模型。** [七种尺寸与提示词误差](../README.md#与官方的实测误差)采用各自已保存的真实权重实验，保持原始数值门槛和未通过项。本轮 CI 没有重新运行这些大模型实验，也不提供三平台速度排名。较早的 [MinGW/Wine 验证](../artifacts/2026-09-07/windows-cpu-portability/README.md)属于单独的交叉构建与兼容层证据。
+**完整模型出图目前有 Linux 实测记录，Windows 和 macOS 尚未运行完整 ERNIE 模型。** [七种尺寸与提示词误差](NUMERICAL-RESULTS.md)采用各自已保存的真实权重实验，保持原始数值门槛和未通过项。本轮 CI 没有重新运行这些大模型实验，也不提供三平台速度排名。较早的 [MinGW/Wine 验证](../artifacts/2026-09-07/windows-cpu-portability/README.md)属于单独的交叉构建与兼容层证据。
 
 ## 此次原生验证修复了什么
 
