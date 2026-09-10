@@ -5,11 +5,16 @@ Not posted. Repository visibility verified PRIVATE on 2026-09-10.
 Images use repository-relative paths for local review. Posting requires public
 source links and uploading these original PNGs as Discussion attachments.
 Full conversion commands and historical detail: PORTING-WALKTHROUGH.md.
+Project creation verified through the GitHub API: 2026-09-05T02:41:27Z.
+Earliest local implementation commit: 7bf22ea22ae4622441afc100e28ca72589d6436e,
+2026-09-05T05:30:17+03:00. Both records fall on 2026-09-05 locally.
 -->
 
 # ERNIE-Image-Turbo 的 ncnn/Vulkan 实现
 
-这个项目用 C++ 和 ncnn 运行 ERNIE-Image-Turbo，支持本地文生图、图生图和可选的提示词增强。模型转换完成后可以离线使用，推理端不需要 Python 或 PyTorch。除了命令行程序，也提供 C++ 接口供其他应用调用。
+这个项目创建于 **2026 年 9 月 5 日**，用 C++ 和 ncnn 实现 ERNIE-Image-Turbo 的本地推理，支持文生图、图生图和可选的提示词增强。模型转换完成后可以离线使用，推理端不需要 Python 或 PyTorch。除了命令行程序，也提供 C++ 接口供其他应用调用。
+
+移植时，我也围绕本地机器的显存和 RAM 做了执行层优化，包括逐块加载、注意力分块、权重缓存、后台预取，以及激活和工作区的预算分配与失败恢复。这篇主要分享这些实现和数值对齐方法。
 
 默认由 CPU 执行文本编码和 VAE，Vulkan 执行 DiT。Turbo 使用 8 步 Euler 去噪、CFG=1，图像 latent 在整个去噪过程中保持 FP32。
 
@@ -77,34 +82,40 @@ ERNIE 的几处计算需要专门保留：
 
 文本 token IDs 使用与 Python 一致的 Tokenizers 版本和模型文件对齐，C++ 执行文本网络。文本编码取层规则另用完整小模型加 hook 核对。
 
-VAE 采用小图导出与目标空间形状特化，脚本核验固定图身份，再独立比较目标分辨率输出。CPU VAE 默认直接卷积，关闭 Winograd/SGEMM。已记录的 1024 苹果完整运行，峰值 RSS 从旧路径的 23.03 GiB 降到直接卷积路径的 5.82 GiB。
+VAE 采用小图导出与目标空间形状特化，脚本核验固定图身份，再独立比较目标分辨率输出。
 
 从单个真实 DiT block 到文本、36 层 DiT、VAE 和模型包组装的完整命令，放在[分步移植说明](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/docs/PORTING-WALKTHROUGH.md)。
 
-## Vulkan 执行与内存管理
+## 本项目的显存与内存优化
 
-DiT 按块执行，块间激活保留为 `VkMat`。本块的 GPU 命令完成后释放权重，下一块直接接收 GPU 输出，减少块间往返传输。
+这部分由项目自己的 C++ 执行层管理。ncnn 提供图执行、Vulkan buffer 和分配器接口，我在这些接口上实现了 ERNIE 的资源调度，决定何时加载权重、哪些数据留在 GPU、什么时候使用 RAM，以及分配失败后从哪里继续。
 
-FP32 非 Flash 注意力按 query 分块，每次最多处理 128 行，每行使用完整 K/V。4160 个位置、32 个头时，单个 FP32 分数缓冲区的大小为：
+首先控制权重驻留。文本编码、DiT 和 VAE 按阶段加载与释放，36 层 DiT 再按 block 流式执行。GPU 命令完成后，当前块不再复用的权重就可以回收，块间激活则保留为 `VkMat`，下一块直接接收 GPU 输出。开启 RAM 缓存时，一部分已准备好的块可以跨去噪步骤复用。
+
+注意力工作区也做了单独处理。项目的 FP32 非 Flash 路径按 query 分块，每次最多处理 128 行，每行仍使用完整 K/V。4160 个位置、32 个头时，单个 FP32 分数缓冲区的大小为：
 
 ```text
 完整矩阵：32 * 4160 * 4160 * 4 bytes ≈ 2.06 GiB
 128 行 Q：32 *  128 * 4160 * 4 bytes = 65 MiB
 ```
 
-分块增加提交和同步，但显著缩小这部分工作区。权重、Q/K/V 和其他缓冲区由各自的分配器管理。
+这里缩小的是单个注意力分数缓冲区，计算仍覆盖全部位置。权重、Q/K/V 和其他缓冲区由各自的分配器管理。
 
-执行层有几项独立控制：
+CPU VAE 的工作区也作了调整，默认使用 ncnn 直接卷积，关闭 Winograd/SGEMM。已记录的 1024×1024 苹果完整运行，峰值 RSS 从旧路径的 **23.03 GiB 降到 5.82 GiB**。
+
+在这个基础上，项目增加了几项可独立配置的内存策略：
 
 | 机制 | 实现方式 |
 |---|---|
 | 权重自动放置 | `--dit-weights auto`，组件加载前查询显存预算，结合权重估计和预留空间选择 GPU 或 RAM。RAM 权重仍用于 Vulkan 计算 |
 | RAM 权重缓存 | `--dit-cache-mib` 设置容量，跨去噪步骤复用已准备权重，内存压力下回收空闲项 |
-| 后台预取 | `--dit-prefetch-mib` 设置预算，独立 Net 提前准备下一块，与当前块计算重叠，最多提前一块 |
-| 激活与工作区放置 | `--gpu-memory auto --gpu-spill-mib 2048`，为 DiT 新 buffer 选择设备内存或 GPU 可访问的 RAM，按实际分配量计费 |
+| 后台预取 | `--dit-prefetch-mib` 设置预算，后台线程使用独立 Net 提前准备下一块，使 CPU 准备工作与当前块计算重叠，最多提前一块 |
+| 激活与工作区放置 | 项目的 `AdaptiveVkAllocator` 通过 `--gpu-memory auto --gpu-spill-mib 2048`，为 DiT 新 buffer 选择设备内存或 GPU 可访问的 RAM，按实际分配量计费 |
 | 分配失败恢复 | 每个成功的 Euler 步保存完整 FP32 CPU 检查点，明确分配失败时重建 session，从最近完成的步骤继续，默认最多重试三次 |
 
-缓存与预取默认关闭，启用范围是 Vulkan FP32 的 auto/host 权重路径。RAM 准入检查系统余量和进程限制，Linux 还检查当前与上级 cgroup。资源的释放等待对应 GPU 命令完成。
+权重放置和 RAM 缓存分别在 `weight_placement.cpp`、`weight_session.cpp`，预取接在 `block_sequence.cpp` 的逐块执行循环里。激活与工作区由 `vulkan_memory.cpp` 管理，检查点与恢复集中在 `vulkan_denoise.cpp`。这些策略统一接入 CLI 和 C++ 接口，模型计算代码保留在各自组件中。
+
+缓存与预取默认关闭，启用范围是 Vulkan FP32 的 auto/host 权重路径。缓存和预取准入、host buffer 分配前，都要检查系统余量与进程限制，Linux 还检查当前及上级 cgroup。内存压力下只回收空闲缓存，正在计算的块保持有效，资源释放和共享 Vulkan 队列提交都受同步保护。
 
 恢复时关闭额外缓存和预取，自动模式优先使用 RAM，FP32 非 Flash query 块按 128→64→32→16 缩小。图片尺寸、计算精度、步数和完整 K/V 保持原设置。恢复范围是 DiT 的明确分配错误，设备丢失或同步失败则保留原错误退出。
 
