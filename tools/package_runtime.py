@@ -34,13 +34,27 @@ def copy(source, target):
     target.chmod(target.stat().st_mode | 0o200)
 
 
+def target_crates(source):
+    host = re.search(r'^host: (.+)$', command('rustc', '-vV'), re.M).group(1)
+    metadata = json.loads(command('cargo', 'metadata', '--manifest-path', source / 'tokenizer/Cargo.toml',
+                                  '--locked', '--offline', '--format-version', '1', '--filter-platform', host))
+    nodes = {node['id']: node for node in metadata['resolve']['nodes']}
+    pending, reached = [metadata['resolve']['root']], set()
+    while pending:
+        key = pending.pop()
+        if key not in reached:
+            reached.add(key)
+            pending.extend(nodes[key]['dependencies'])
+    return host, {p['name'] + '-' + p['version'] for p in metadata['packages'] if p['id'] in reached}
+
+
 def linux_libraries(binary, root):
     listing = command('ldd', binary)
     if 'not found' in listing:
         raise ValueError(listing)
     # glibc and the C++ ABI remain the distribution's system runtime. Package
     # PNG, zlib and OpenMP so users do not need development packages.
-    external = {'libc.so.6', 'libm.so.6', 'libdl.so.2', 'libpthread.so.0',
+    external = {'libc.so.6', 'libm.so.6', 'libmvec.so.1', 'libdl.so.2', 'libpthread.so.0',
                 'librt.so.1', 'libstdc++.so.6', 'libgcc_s.so.1'}
     bundled = []
     for name, path in re.findall(r'^\s*(\S+) => (/\S+) ', listing, re.M):
@@ -55,6 +69,9 @@ def linux_libraries(binary, root):
     for pattern in ('libpng*', 'zlib1g', 'libgomp*', 'gcc-*-base', 'libstdc++*', 'libgcc*'):
         for path in Path('/usr/share/doc').glob(pattern + '/copyright'):
             copy(path, root / 'licenses/system' / path.parent.name / 'copyright')
+    for path in Path('/usr/share/common-licenses').glob('*'):
+        if path.is_file():
+            copy(path, root / 'licenses/system/common' / path.name)
     return {'bundled': bundled, 'system': sorted(external), 'observed': listing,
             'minimum': 'Ubuntu 24.04 x86_64 or compatible glibc 2.39 / libstdc++ from GCC 13'}
 
@@ -113,11 +130,19 @@ def mac_libraries(binary, root):
 def windows_libraries(binary, root):
     redist = Path(os.environ['VCToolsRedistDir'])
     dlls = ('msvcp140.dll', 'vcruntime140.dll', 'vcruntime140_1.dll', 'vcomp140.dll')
-    for name in dlls:
+    copied = []
+    pending = list(dlls)
+    for name in pending:
+        if name.lower() in copied:
+            continue
         matches = sorted((redist / 'x64').glob('Microsoft.VC*.*/' + name))
         if len(matches) != 1:
             raise ValueError('Expected one MSVC x64 redistributable: ' + name + ' in ' + str(redist))
         copy(matches[0], root / 'bin' / name)
+        copied.append(name.lower())
+        for dep in re.findall(r'^\s+([\w.-]+\.dll)\s*$', command('dumpbin', '/dependents', matches[0]), re.M | re.I):
+            if dep.lower().startswith(('msvcp', 'vcruntime', 'concrt', 'vcomp')):
+                pending.append(dep.lower())
     vs = Path(os.environ['VSINSTALLDIR'])
     notices = []
     for folder in (vs / 'Licenses', vs / 'Common7/IDE/1033', redist):
@@ -133,7 +158,7 @@ def windows_libraries(binary, root):
     vcpkg = Path(os.environ['VCPKG_INSTALLATION_ROOT']) / 'installed/x64-windows-static-md/share'
     for name in ('libpng', 'zlib'):
         copy(vcpkg / name / 'copyright', root / 'licenses/system' / name / 'copyright')
-    return {'bundled': list(dlls), 'minimum': 'Windows 10/11 x64; system Universal CRT',
+    return {'bundled': copied, 'minimum': 'Windows 10/11 x64; system Universal CRT',
             'notices': notices, 'dependencies': command('dumpbin', '/dependents', binary)}
 
 
@@ -160,9 +185,19 @@ def package(source, binary, output, junit):
     copy(source / 'tools/runtime/README.md', root / 'README.md')
     copy(junit, root / 'build-info/ctest-results.xml')
     registry = Path(os.environ.get('CARGO_HOME', str(Path.home() / '.cargo'))) / 'registry/src'
+    (root / 'licenses').mkdir(exist_ok=True)
     notices = collect_notices(source, root / 'licenses/source', cargo_registry=registry)
-    if notices['gaps']:
-        raise ValueError('Source notice inventory is incomplete: ' + repr(notices['gaps']))
+    host, active_crates = target_crates(source)
+    inactive = {p['name'] + '-' + p['version'] for p in notices['rust_lock_packages']} - active_crates
+    # Cargo.lock also contains firmware/WASI-only packages. Require notices for
+    # this native target; keep excluded entries visible instead of treating an
+    # unused UEFI dependency as a missing dependency of the desktop executable.
+    excluded_gaps = [gap for gap in notices['gaps'] if gap.split(':', 1)[0] in inactive]
+    required_gaps = [gap for gap in notices['gaps'] if gap not in excluded_gaps]
+    if required_gaps:
+        raise ValueError('Source notice inventory is incomplete: ' + repr(required_gaps))
+    for path in (source / 'third_party/ncnn/glslang/LICENSES').glob('*.txt'):
+        copy(path, root / 'licenses/source/glslang/LICENSES' / path.name)
     # Include nested notices in authenticated, locked crates (e.g. Oniguruma,
     # Unicode tables), in addition to the conservative root-level inventory.
     import tarfile
@@ -191,7 +226,10 @@ def package(source, binary, output, junit):
                         'scope': 'Native framework contracts; see ctest-results.xml'},
               'models': 'Separate download; pinned manifests are included'}
     (root / 'build-info/runtime.json').write_text(json.dumps(record, indent=2) + '\n')
-    (root / 'licenses/source-inventory.json').write_text(json.dumps(notices, indent=2) + '\n')
+    notice_inventory = {key: notices[key] for key in ('entries', 'rust_lock_packages', 'inventory_scope')}
+    notice_inventory.update(rust_target=host, target_packages=sorted(active_crates),
+                            excluded_target_notice_gaps=excluded_gaps)
+    (root / 'licenses/source-inventory.json').write_text(json.dumps(notice_inventory, indent=2) + '\n')
     # Actually relocate before publishing the archive, using a path with spaces.
     with tempfile.TemporaryDirectory(prefix='ernie runtime ') as tmp:
         moved = Path(tmp) / name

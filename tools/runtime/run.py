@@ -30,6 +30,21 @@ def has_option(args, name):
     return name in args or any(arg.startswith(name + '=') for arg in args)
 
 
+def check_dimensions(args):
+    values = []
+    for name in ('--width', '--height'):
+        if name in args:
+            index = args.index(name) + 1
+            if index == len(args):
+                raise ValueError(name + ' needs a number')
+            values.append(int(args[index]))
+        elif any(a.startswith(name + '=') for a in args):
+            raise ValueError('Use ' + name + ' NUMBER (with a space)')
+    if values and (len(values) != 2 or any(n < 16 or n > 2048 or n % 16 for n in values)
+                   or values[0] * values[1] > 2097152):
+        raise ValueError('Specify both --width and --height: multiples of 16, 16..2048, at most 2097152 pixels')
+
+
 def prepare(model, manifest, binary, env, pe=False):
     from download_model import download
     from release_manifest import load_manifest
@@ -71,7 +86,9 @@ def main(argv=None, root=ROOT):
     if not options.download_only and not any(has_option(args, a) for a in
             ('--prompt', '--prompt-file', '--verify-model')):
         parser.exit(2, 'Supply --prompt TEXT, --prompt-file FILE, or --download-only.\n')
-    if not has_option(args, '--model'):
+    check_dimensions(args)
+    pe_verification = '--verify-model' in args and has_option(args, '--pe-model')
+    if not has_option(args, '--model') and not pe_verification:
         model = options.models_dir.absolute() / 'turbo'
         prepare(model, root / 'manifests/turbo-v1.json', binary, env)
         args += ['--model', str(model)]

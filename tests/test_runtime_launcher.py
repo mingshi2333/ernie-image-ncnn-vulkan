@@ -64,6 +64,18 @@ class RuntimeLauncher(unittest.TestCase):
         self.assertEqual(prepare.call_count, 2)
         call.assert_not_called()
 
+    def test_invalid_dimensions_fail_before_download(self):
+        for shape in (['--width', '512'], ['--width', '2048', '--height', '2048'],
+                      ['--width', '513', '--height', '512'], ['--width', '0', '--height', '512']):
+            with self.subTest(shape=shape), patch.object(launcher, 'prepare') as prepare, self.assertRaises(ValueError):
+                launcher.main(['--prompt', 'apple', *shape], root=self.root)
+            prepare.assert_not_called()
+
+    def test_verify_only_existing_pe_does_not_download_main_model(self):
+        _, prepare, call = self.invoke(['--pe-model', 'existing/pe', '--verify-model'])
+        prepare.assert_not_called()
+        self.assertNotIn('--model', call.call_args.args[0])
+
     def test_model_storage_override(self):
         _, prepare, _ = self.invoke(['--models-dir', 'local models', '--prompt', 'village'])
         self.assertEqual(prepare.call_args.args[0], Path('local models').absolute() / 'turbo')
