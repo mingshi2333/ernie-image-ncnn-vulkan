@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "source_revision": "d2fd973f7658de5162e8edfee13171bb2e6c2e15",
+  "ci_run": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34772511807",
+  "models_revision": "9924de97ebe85c540ce09e207142a6efee614be7",
+  "platforms": [
+    {
+      "path": "runtime/ernie-image-linux-x86_64.zip",
+      "size": 12549739,
+      "sha256": "1bf44b2908844e7a679807152d3c93892d0067d18243b2d9587e033e4421768e",
+      "platform": "linux-x86_64",
+      "source_revision": "d2fd973f7658de5162e8edfee13171bb2e6c2e15",
+      "ncnn_revision": "3b7bdba7fc8aea8fd46779533eee027df77c639d",
+      "native_tests": {
+        "passed": 62,
+        "skipped": 6,
+        "scope": "Native framework contracts; see ctest-results.xml"
+      },
+      "files": 234,
+      "dependencies": {
+        "bundled": [
+          "libpng16.so.16",
+          "libgomp.so.1",
+          "libz.so.1"
+        ],
+        "system": [
+          "libc.so.6",
+          "libdl.so.2",
+          "libgcc_s.so.1",
+          "libm.so.6",
+          "libmvec.so.1",
+          "libpthread.so.0",
+          "librt.so.1",
+          "libstdc++.so.6"
+        ],
+        "observed": "linux-vdso.so.1 (0x00007f13cfa1b000)\n\tlibpng16.so.16 => /lib/x86_64-linux-gnu/libpng16.so.16 (0x00007f13cf9d1000)\n\tlibgomp.so.1 => /lib/x86_64-linux-gnu/libgomp.so.1 (0x00007f13cf97b000)\n\tlibstdc++.so.6 => /lib/x86_64-linux-gnu/libstdc++.so.6 (0x00007f13cde00000)\n\tlibm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007f13cf892000)\n\tlibmvec.so.1 => /lib/x86_64-linux-gnu/libmvec.so.1 (0x00007f13ce107000)\n\tlibgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007f13cf862000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f13cda00000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007f13cfa1d000)\n\tlibz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007f13ce0eb000)",
+        "minimum": "Ubuntu 24.04 x86_64 or compatible glibc 2.39 / libstdc++ from GCC 13"
+      },
+      "archive_file_checksums_verified": true
+    },
+    {
+      "path": "runtime/ernie-image-windows-x86_64.zip",
+      "size": 7409475,
+      "sha256": "7465047955cf701d9bb97ae92dd842399a23ee064102c166efed7ba92491b02e",
+      "platform": "windows-x86_64",
+      "source_revision": "d2fd973f7658de5162e8edfee13171bb2e6c2e15",
+      "ncnn_revision": "3b7bdba7fc8aea8fd46779533eee027df77c639d",
+      "native_tests": {
+        "passed": 40,
+        "skipped": 28,
+        "scope": "Native framework contracts; see ctest-results.xml"
+      },
+      "files": 205,
+      "dependencies": {
+        "bundled": [
+          "msvcp140.dll",
+          "vcruntime140.dll",
+          "vcruntime140_1.dll",
+          "vcomp140.dll"
+        ],
+        "minimum": "Windows 10/11 x64; system Universal CRT",
+        "notices": [
+          "Licenses/1033/Redist.txt"
+        ],
+        "dependencies": "Microsoft (R) COFF/PE Dumper Version 14.51.36256.0\nCopyright (C) Microsoft Corporation.  All rights reserved.\n\n\nDump of file D:\\a\\ernie-image-ncnn-vulkan\\ernie-image-ncnn-vulkan\\build\\ernie-image.exe\n\nFile Type: EXECUTABLE IMAGE\n\n  Image has the following dependencies:\n\n    bcryptprimitives.dll\n    api-ms-win-core-synch-l1-2-0.dll\n    KERNEL32.dll\n    ntdll.dll\n    MSVCP140.dll\n    VCOMP140.DLL\n    VCRUNTIME140.dll\n    VCRUNTIME140_1.dll\n    api-ms-win-crt-heap-l1-1-0.dll\n    api-ms-win-crt-string-l1-1-0.dll\n    api-ms-win-crt-runtime-l1-1-0.dll\n    api-ms-win-crt-convert-l1-1-0.dll\n    api-ms-win-crt-math-l1-1-0.dll\n    api-ms-win-crt-stdio-l1-1-0.dll\n    api-ms-win-crt-filesystem-l1-1-0.dll\n    api-ms-win-crt-environment-l1-1-0.dll\n    api-ms-win-crt-locale-l1-1-0.dll\n\n  Summary\n\n       26000 .data\n       3D000 .pdata\n      39B000 .rdata\n        D000 .reloc\n        1000 .rsrc\n      C4B000 .text\n       15000 _RDATA"
+      },
+      "archive_file_checksums_verified": true
+    },
+    {
+      "path": "runtime/ernie-image-macos-arm64.zip",
+      "size": 7595667,
+      "sha256": "021fba0f6502930324840a58959b726b878eeedf885ea1c6ab8ac4006e60f3a8",
+      "platform": "macos-arm64",
+      "source_revision": "d2fd973f7658de5162e8edfee13171bb2e6c2e15",
+      "ncnn_revision": "3b7bdba7fc8aea8fd46779533eee027df77c639d",
+      "native_tests": {
+        "passed": 62,
+        "skipped": 6,
+        "scope": "Native framework contracts; see ctest-results.xml"
+      },
+      "files": 205,
+      "dependencies": {
+        "bundled": [
+          "libMoltenVK.dylib",
+          "libpng16.16.dylib",
+          "libvulkan.1.dylib"
+        ],
+        "minimum": "macOS 15, arm64",
+        "codesign": "ad-hoc; not notarized"
+      },
+      "archive_file_checksums_verified": true
+    }
+  ],
+  "usage": "Extract one runtime ZIP. python3 run.py --prompt TEXT (Windows: python). Model weights download separately on first use."
+}

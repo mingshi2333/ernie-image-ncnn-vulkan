@@ -1,10 +1,40 @@
-# Runtime delivery drafts and model downloads
+# Runtime distribution and model downloads
 
 Preconverted model packages are published at
 [akashimio/ERNIE-Image-Turbo-ncnn](https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn).
 The [model download guide](models/README.md) includes fixed-revision manifests,
-checksums, licensing and optional PE instructions. The sections below also cover
-local runtime archive drafts; no precompiled runtime Release has been published.
+checksums, licensing and optional PE instructions.
+
+## Native runtime archives
+
+The native platform workflow packages the successful Linux Vulkan, Windows and
+macOS builds with `tools/package_runtime.py`. The ZIP contains the compiled CLI,
+required non-system runtime libraries, `run.py`, the standard-library downloader,
+fixed model manifests, notices, a file checksum inventory and the CI build record.
+Model weights stay in separate HF directories and are downloaded on first use.
+
+The packager tests the launcher from a relocated directory with spaces before
+creating an archive. macOS dylib references and the MoltenVK ICD are made relative
+to the package. Linux bundles PNG, zlib and OpenMP and requires Ubuntu 24.04's
+glibc/C++ runtime or compatible versions. Windows includes the MSVC runtime DLLs
+used by the executable. GPU drivers remain an operating-system dependency.
+
+```sh
+cargo fetch --manifest-path tokenizer/Cargo.toml --locked
+python3 tools/package_runtime.py --binary build/ernie-image \
+  --junit build/ctest-results.xml --output /new/runtime-output
+```
+
+Successful CI uploads `runtime-linux`, `runtime-windows` and `runtime-macos`
+artifacts. The reviewed ZIP and adjacent SHA256 file are copied to HF `runtime/`.
+Publication updates the model card and root file inventory, then checks the
+anonymous fixed-revision downloads. The `turbo/` and `pe/` model roots retain all
+original bytes. CI packaging itself does not publish to HF.
+
+## Historical local draft builder
+
+The earlier installation/SDK review tool below remains available for independent
+local drafts. It is separate from the native CI runtime packaging path.
 
 An archive produced by `build_release.py` is a local review draft. Its manifest
 always records `distributable: false`, `published: false`, and an unverified

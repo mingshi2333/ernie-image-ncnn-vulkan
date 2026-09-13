@@ -1,0 +1,30 @@
+{
+  "ci_run": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34771913462",
+  "source_revision": "933b5d391638eb31d9381b3d0028079fa4663036",
+  "records": [
+    {
+      "platform": "macos-initial.log",
+      "record": "2026-09-13T17:38:28.1940570Z 100% tests passed out of 68"
+    },
+    {
+      "platform": "macos-initial.log",
+      "record": "2026-09-13T17:38:30.5711880Z ValueError: Source notice inventory is incomplete: ['r-efi-5.3.0: authenticated archive has no notice text']"
+    },
+    {
+      "platform": "linux-initial.log",
+      "record": "2026-09-13T17:40:59.1731681Z 100% tests passed, 0 tests failed out of 68"
+    },
+    {
+      "platform": "linux-initial.log",
+      "record": "2026-09-13T17:40:59.7866407Z ValueError: Unreviewed non-system runtime library: libmvec.so.1"
+    },
+    {
+      "platform": "windows-initial.log",
+      "record": "2026-09-13T17:43:08.0973792Z 100% tests passed out of 68"
+    },
+    {
+      "platform": "windows-initial.log",
+      "record": "2026-09-13T17:43:10.7869540Z ValueError: Source notice inventory is incomplete: ['r-efi-5.3.0: authenticated archive has no notice text']"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Linux-clang++"
+	tests="1"
+	failures="0"
+	disabled="0"
+	skipped="0"
+	hostname="mios-pc"
+	time="1"
+	timestamp="2026-09-13T20:43:24"
+	>
+	<testcase name="cli_contract" classname="cli_contract" time="1.015" status="run">
+		<properties/>
+		<system-out>test_adaptive_memory_defaults_allow_cpu_without_a_cache (test_cli.CliTests.test_adaptive_memory_defaults_allow_cpu_without_a_cache) ... ok
+test_adaptive_memory_options_reject_invalid_values (test_cli.CliTests.test_adaptive_memory_options_reject_invalid_values) ... ok
+test_bf16_request_obeys_compiled_device_support (test_cli.CliTests.test_bf16_request_obeys_compiled_device_support) ... ok
+test_cpu_rejects_custom_gpu_memory_controls (test_cli.CliTests.test_cpu_rejects_custom_gpu_memory_controls) ... ok
+test_cpu_selects_fp32_only_when_precision_is_omitted (test_cli.CliTests.test_cpu_selects_fp32_only_when_precision_is_omitted) ... ok
+test_device_and_precision_errors_name_the_option (test_cli.CliTests.test_device_and_precision_errors_name_the_option) ... ok
+test_diagnose_lists_runtime_without_loading_a_model (test_cli.CliTests.test_diagnose_lists_runtime_without_loading_a_model) ... ok
+test_diagnose_reads_only_bounded_model_config_metadata (test_cli.CliTests.test_diagnose_reads_only_bounded_model_config_metadata)...
+[This part of the test output was removed since it exceeds the threshold of 1024 bytes.]
+</system-out>
+	</testcase>
+</testsuite>

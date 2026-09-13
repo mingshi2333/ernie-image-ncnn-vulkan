@@ -7,6 +7,12 @@
 | 文生图 `turbo/` | 23,271,740,211 字节，约 21.67 GiB | 25 层文本编码器、36 层 DiT、VAE decoder、Tokenizer、32/64/2048 文本图 |
 | 可选 PE `pe/` | 7,680,869,430 字节，约 7.15 GiB | 完整 26 层提示词增强模型、原生 KV cache 所需图和独立 Tokenizer |
 
+## 使用程序包自动下载
+
+HF 首页提供三个平台的程序 ZIP。完整解压后运行 `python3 run.py --prompt "A red apple." --output apple.png`；Windows 用 `python`。脚本只需 Python 3.10+ 标准库，会下载主模型、校验并启动 C++ 推理。使用 `--with-pe` 才下载提示词增强模型，`--download-only` 只准备文件。已有模型可传入 `--model /path/to/turbo`，不再下载。
+
+同一主包支持可变分辨率：宽高各 16..2048、均为 16 的倍数，总面积不超过 2,097,152 像素。例如 `--width 1376 --height 768 --precision fp32`；改尺寸和精度都复用同一份模型。完整示例见[项目首页](../../README.md#下载即用)。
+
 ## 下载文生图模型
 
 在项目根目录执行：
@@ -25,7 +31,7 @@ build/linux-vulkan/ernie-image --model models/ernie-image-turbo/turbo \
 使用 Hugging Face CLI 可以直接下载当前版本，同时取得模型卡、许可证和来源记录：
 
 ```sh
-hf download akashimio/ERNIE-Image-Turbo-ncnn --exclude "pe/*" --local-dir models/ernie-image-turbo
+hf download akashimio/ERNIE-Image-Turbo-ncnn --include "turbo/*" "LICENSE" "NOTICE" "README.md" "provenance.json" "files.json" --local-dir models/ernie-image-turbo
 build/linux-vulkan/ernie-image --model models/ernie-image-turbo/turbo --verify-model
 ```
 

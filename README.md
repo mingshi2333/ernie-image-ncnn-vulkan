@@ -14,7 +14,36 @@
 
 图片来自已完成的对照实验，使用保存的初始噪声。猫和湖泊样例仍有数值检查未通过项，下面的误差表保留了结果。[完整提示词、参数与原图来源](docs/images/README.md)。
 
-目前主要在 Linux 上使用和验证，测试机器是 RTX 4060 Laptop 8GB、32GB RAM，最低配置尚未测定。Windows 和 macOS 已通过原生构建与小型测试，完整模型出图还需要实机验证。预转换模型已提供下载；程序仍需自行编译，项目暂未发布预编译 Release。
+目前主要在 Linux 上使用和验证，测试机器是 RTX 4060 Laptop 8GB、32GB RAM，最低配置尚未测定。Windows 和 macOS 由原生 CI 覆盖构建、框架测试和程序包启动。预转换模型和三平台程序包放在 Hugging Face；程序包自带首次下载和启动脚本。
+
+## 下载即用
+
+从 [Hugging Face 模型页](https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn#下载即用)选择适合系统的程序 ZIP，完整解压后，在解压目录打开终端：
+
+```sh
+python3 run.py --prompt "A red apple on a wooden table, soft daylight." --output apple.png
+```
+
+Windows 使用 `python run.py`。启动脚本需要 Python 3.10+，只用标准库；程序已经编译好，无需安装 C++、Rust、PyTorch 或 CUDA。首次运行下载并校验约 **23.27 GB** 的主模型，默认保存在解压目录的 `models/turbo/`，之后可离线使用。默认生成 512×512、8 步、Vulkan FP16，输出文件保存在当前目录。
+
+```sh
+# 复用同一套模型，改变尺寸或精度
+python3 run.py --prompt-file prompt.txt --width 1376 --height 768 --precision fp32 --output landscape.png
+
+# 已经下载过 HF 模型时，直接指定 turbo 目录
+python3 run.py --model /path/to/ernie-image-turbo/turbo --prompt "A mountain lake." --output lake.png
+
+# 可选：下载并启用 26 层提示词增强模型，额外约 7.68 GB
+python3 run.py --with-pe --prompt "A small village." --output village.png
+```
+
+宽高各为 **16..2048** 范围内的 **16 的倍数**，总面积不超过 **2,097,152 像素**。512×512、768×1024、1024×1024、1376×768、2048×1024 可以共用本次发布的模型；2048×2048 超出当前面积限制。
+
+同一模型支持 `--precision fp32|fp16|bf16`，无需下载三份权重。FP32 有更充分的数值对照，Vulkan 默认 FP16，BF16 保留为实验选项。HF 上的 `turbo/objects/` 和 `pe/block-*/` 是内部存储，程序按清单自动读取，保留目录结构即可。
+
+本次 Linux ZIP 在 RTX 4060 Laptop 上完成了 512×512、默认 FP16、8 步的完整出图；2 个 CPU 线程下，程序记录的生成与写图耗时为 241.19 秒。这是一次发布验证样例，[图片、命令和运行记录](artifacts/2026-09-13/runtime-distribution/README.md)均已保存。
+
+程序包面向 Ubuntu 24.04 兼容 x86_64 系统、Windows 10/11 x64 和 macOS 15 Apple Silicon。Linux/Windows 需要可用的 Vulkan 驱动；macOS 包内带 MoltenVK。可用 `python3 run.py --diagnose` 检查设备，或加 `--device cpu` 使用 CPU。[程序包使用说明](tools/runtime/README.md)包含独立下载、存储路径和原生命令入口。
 
 ## 构建与运行
 
@@ -45,7 +74,7 @@ python3 tools/download_model.py --manifest docs/models/turbo-v1.json \
   --output models/ernie-image-turbo/turbo --verify-with build/linux-vulkan/ernie-image
 ```
 
-已有 Hugging Face CLI 时，也可以使用 `hf download akashimio/ERNIE-Image-Turbo-ncnn --exclude "pe/*" --local-dir models/ernie-image-turbo`。[模型下载说明](docs/models/README.md)提供固定版本、可选 PE 和文件格式说明。从官方 `.safetensors` 自行转换仍可按[转换与打包文档](docs/REPRODUCE-PIPELINE.md)操作。
+已有 Hugging Face CLI 时，也可以使用 `hf download akashimio/ERNIE-Image-Turbo-ncnn --include "turbo/*" "LICENSE" "NOTICE" "README.md" "provenance.json" "files.json" --local-dir models/ernie-image-turbo`。[模型下载说明](docs/models/README.md)提供固定版本、可选 PE 和文件格式说明。从官方 `.safetensors` 自行转换仍可按[转换与打包文档](docs/REPRODUCE-PIPELINE.md)操作。
 
 | 模型包 | 使用方式 |
 |---|---|
@@ -90,7 +119,7 @@ build/linux-vulkan/ernie-image --model models/ernie-image-turbo/turbo \
 例如，用共享包生成一张竖图：
 
 ```sh
-build/linux-vulkan/ernie-image --model models/turbo-shared-v2 \
+build/linux-vulkan/ernie-image --model models/ernie-image-turbo/turbo \
   --prompt-file prompt.txt --width 768 --height 1024 \
   --precision fp32 --output outputs/portrait.png
 ```

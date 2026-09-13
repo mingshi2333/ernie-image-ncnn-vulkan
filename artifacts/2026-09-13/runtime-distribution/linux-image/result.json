@@ -1,0 +1,36 @@
+{
+  "scope_command": [
+    "systemd-run",
+    "--user",
+    "--scope",
+    "--quiet",
+    "--unit=ernie-hf-runtime-20260913",
+    "--property=MemoryMax=17179869184",
+    "--property=MemorySwapMax=0",
+    "--property=CPUQuota=200%",
+    "taskset",
+    "-c",
+    "4,6",
+    "/usr/bin/python3",
+    "/var/tmp/ernie-hf-runtime-20260913-v1/smoke.py",
+    "--worker"
+  ],
+  "minimum_host_available_bytes": 21182197760,
+  "gpu_whole_device_peak_mib": 2103,
+  "complete": true,
+  "scope": "Default FP16 512x512 first-use execution; no official parity or speed comparison",
+  "return_code": 0,
+  "wall_seconds": 241.88910393600236,
+  "worker": {
+    "return_code": 0,
+    "seconds": 241.78259862800041,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "memory_peak_bytes": 13019090944,
+    "limits": {
+      "memory.max": "17179869184",
+      "memory.swap.max": "0",
+      "cpu.max": "200000 100000"
+    }
+  },
+  "image_sha256": "45554964e13151c9daa9bdb61c627f56417839d00031417b8aa1da1d1e43ecba"
+}
