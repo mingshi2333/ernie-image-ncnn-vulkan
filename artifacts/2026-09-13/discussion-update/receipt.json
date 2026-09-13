@@ -1,0 +1,39 @@
+{
+  "url": "https://github.com/Tencent/ncnn/discussions/6985",
+  "discussion_id": "D_kwDOBbcBAs4ApJJW",
+  "title": "【腾讯犀牛鸟2026】ERNIE-Image-Turbo 的 ncnn/Vulkan 实现",
+  "author": "mingshi2333",
+  "updated_at": "2026-09-13T16:04:05Z",
+  "source_commit": "186c52e29bd391e9b8207fbbbf6fcde50f239b2a",
+  "body_sha256": "1fdf031252e349d600de53754c63b1cb2b255b86b6c921db5bc058cc65c0f70c",
+  "previous_body_sha256": "311c4893952b9bf14e48795f453537c90c9d1411d31eb9c3560b31c825f95af2",
+  "update_existing_post": true,
+  "title_and_category_retained": true,
+  "body_readback_exact": true,
+  "rendered_image_count": 3,
+  "rendered_table_count": 6,
+  "original_image_urls_retained": true,
+  "project_public": true,
+  "publication_scope": "Existing post body updated at user request; runtime, model results and CI were not rerun for documentation",
+  "evidence_files": {
+    "before.json": "8624a3c5f6ee266e7f6faeed1ecbbab7e450aa3f1cc7c8a4b50e66f0c735bb0f",
+    "before-body.md": "311c4893952b9bf14e48795f453537c90c9d1411d31eb9c3560b31c825f95af2",
+    "body.md": "1fdf031252e349d600de53754c63b1cb2b255b86b6c921db5bc058cc65c0f70c",
+    "update-request.json": "2ce96b702be692dc3db6d44785f5be5a3f660c2a286d7b1b3d937d7c2b39d250",
+    "update-response.json": "1c82ed8c158a41c2b54f87e669c649603ddb5d7b8863002366d24d05f96f8923",
+    "readback.json": "119b65a47e6a740bb627e64da33d717763650d175b3cb76890971ce3ab6c9b08",
+    "body-rendered.html": "2ec29f7564121d8eac70edc9223674682c28d5000623250e0238c81986a78499"
+  },
+  "anonymous_public_read": {
+    "url": "https://github.com/Tencent/ncnn/discussions/6985",
+    "http_status": 200,
+    "anonymous": true,
+    "markers_present": {
+      "更新于 2026 年 9 月 13 日": true,
+      "单行 FP32 mask": true,
+      "244 项通过": true,
+      "34766001397": true
+    },
+    "html_sha256": "13a0dec18618c0b330a27832c7c22344c5c2e085199c635943ab546c736c3d8d"
+  }
+}
