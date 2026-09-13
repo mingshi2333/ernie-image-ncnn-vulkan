@@ -44,7 +44,7 @@ jobs:
           submodules: recursive
           persist-credentials: false
       - name: Model download contracts with local HTTP fixtures
-        run: python3 -W error::ResourceWarning -m unittest tests.test_model_download tests.test_release_manifest -v
+        run: python3 -W error::ResourceWarning -m unittest tests.test_model_download tests.test_release_manifest tests.test_runtime_launcher -v
       - name: Install native build dependencies
         run: |
           sudo apt-get update
@@ -131,6 +131,21 @@ jobs:
         run: |
           cmake --install build --prefix "$RUNNER_TEMP/ernie-install"
           "$RUNNER_TEMP/ernie-install/bin/ernie-image" --help
+      - name: Package and relocate Linux runtime
+        if: matrix.vulkan == 'ON'
+        run: |
+          cargo fetch --manifest-path tokenizer/Cargo.toml --locked
+          python3 tools/package_runtime.py --binary build/ernie-image --junit build/ctest-results.xml --output dist
+      - name: Save Linux runtime download
+        if: matrix.vulkan == 'ON'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: runtime-linux
+          path: |
+            dist/*.zip
+            dist/*.sha256
+          if-no-files-found: error
+          retention-days: 30
       - name: Save configure and test records
         if: always()
         # actions/upload-artifact v7, verified 2026-09-08.
@@ -156,7 +171,7 @@ jobs:
           submodules: recursive
           persist-credentials: false
       - name: Model download contracts with local HTTP fixtures
-        run: python -W error::ResourceWarning -m unittest tests.test_model_download tests.test_release_manifest -v
+        run: python -W error::ResourceWarning -m unittest tests.test_model_download tests.test_release_manifest tests.test_runtime_launcher -v
       - name: Configure MSVC and native dependencies
         shell: pwsh
         run: |
@@ -166,7 +181,7 @@ jobs:
           if (-not $vs) { throw 'MSVC x64 tools are unavailable' }
           Import-Module "$vs\Common7\Tools\Microsoft.VisualStudio.DevShell.dll"
           Enter-VsDevShell -VsInstallPath $vs -SkipAutomaticLocation -DevCmdArguments '-arch=x64 -host_arch=x64'
-          foreach ($name in @('PATH', 'INCLUDE', 'LIB', 'LIBPATH')) {
+          foreach ($name in @('PATH', 'INCLUDE', 'LIB', 'LIBPATH', 'VCToolsRedistDir', 'VSINSTALLDIR')) {
             "$name=$([Environment]::GetEnvironmentVariable($name))" >> $env:GITHUB_ENV
           }
           & "$env:VCPKG_INSTALLATION_ROOT\vcpkg.exe" install libpng:x64-windows-static-md --clean-after-build
@@ -187,6 +202,21 @@ jobs:
         # Vulkan is compiled. Device-dependent tests report skips when the
         # hosted Windows VM has no usable Vulkan driver.
         run: ctest --test-dir build --output-on-failure --output-junit "$env:GITHUB_WORKSPACE/build/ctest-results.xml"
+      - name: Package and relocate Windows runtime
+        run: |
+          cargo fetch --manifest-path tokenizer/Cargo.toml --locked
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python tools/package_runtime.py --binary build/ernie-image.exe --junit build/ctest-results.xml --output dist
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Save Windows runtime download
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: runtime-windows
+          path: |
+            dist/*.zip
+            dist/*.sha256
+          if-no-files-found: error
+          retention-days: 30
       - name: Save configure and test records
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
@@ -208,7 +238,7 @@ jobs:
           submodules: recursive
           persist-credentials: false
       - name: Model download contracts with local HTTP fixtures
-        run: python3 -W error::ResourceWarning -m unittest tests.test_model_download tests.test_release_manifest -v
+        run: python3 -W error::ResourceWarning -m unittest tests.test_model_download tests.test_release_manifest tests.test_runtime_launcher -v
       - name: Install native dependencies
         run: |
           brew install ninja libpng vulkan-loader molten-vk
@@ -232,6 +262,19 @@ jobs:
         # MoltenVK device availability is recorded by the tests. A skipped
         # device test is not counted as GPU execution evidence.
         run: ctest --test-dir build --output-on-failure --output-junit "$PWD/build/ctest-results.xml"
+      - name: Package and relocate macOS runtime
+        run: |
+          cargo fetch --manifest-path tokenizer/Cargo.toml --locked
+          python3 tools/package_runtime.py --binary build/ernie-image --junit build/ctest-results.xml --output dist
+      - name: Save macOS runtime download
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: runtime-macos
+          path: |
+            dist/*.zip
+            dist/*.sha256
+          if-no-files-found: error
+          retention-days: 30
       - name: Record macOS Vulkan crash details
         if: ${{ failure() && steps.contracts.outcome == 'failure' }}
         run: |
