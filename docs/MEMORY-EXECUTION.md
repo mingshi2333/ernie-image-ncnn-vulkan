@@ -4,7 +4,7 @@
 实现分成三个明确的职责：准备下一块权重、为新缓冲区选择内存、从已完成的去噪步骤恢复。
 它们共用可用内存查询和错误分类，生命周期仍由一次生成请求管理。
 
-本文依据当前开发代码及本机 Linux 实际测试撰写。完整模型对照与三平台 CI 的最新状态见[验证记录](../artifacts/2026-09-08/memory-execution/README.md)；实现存在不等于所有平台、模型和内存压力条件都已验证。
+本文依据开发代码及本机 Linux 实际测试撰写。预取、RAM 缓冲区和恢复的完整模型对照见[内存执行记录](../artifacts/2026-09-08/memory-execution/README.md)，后续单行 mask 改进见下节，最新框架 CI 见[平台验证](PLATFORM-VALIDATION.md)。
 
 ```mermaid
 flowchart TD
@@ -23,6 +23,14 @@ flowchart TD
 ```
 
 图中的下一块预取只与当前块并行准备；块之间、完整去噪步骤之间仍按原顺序计算。
+
+## 2026-09-13：减少重复的 mask 存储
+
+在分配策略之外，可以先去掉内容重复的常量。DiT 的所有 query 使用相同的 padding mask，因此 `conditioning.cpp` 将 `N×N` 方阵改为 `1×N`，Vulkan SDPA 按行广播。6144 个位置时，FP32 mask 从 144 MiB 降至 24 KiB。它与每次最多 128 行的 FP32 查询分块配合，后者继续保留完整 K/V。
+
+四条 shader 的 `mask_h` 和尾部索引适配由 `cmake/derive_sdpa_broadcast.py` 在构建目录生成，先核对锁定源码，再接入原生 shader registry 和 pipeline cache。CPU attention 为兼容各架构临时展开。这是 mask 本身的存储节省，整机峰值和耗时另行测量。
+
+本机 CPU、Vulkan FP32/FP16/BF16 的方阵/单行输出逐值相同；完整 64×64 CPU 回归通过 25/25 张量、PNG 最大通道差 1。模型输出、源码身份与首次验收格式修正都保存在[实施记录](../artifacts/2026-09-13/design-loop/README.md)。
 
 ## 1. 先确认参数的作用范围
 

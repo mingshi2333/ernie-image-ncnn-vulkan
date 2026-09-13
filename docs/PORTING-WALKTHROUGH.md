@@ -136,6 +136,8 @@ token IDs 先与官方逐项比较，然后比较 3072 维 hidden states。已�
 
 静态文本桶长、有效 token 数和 DiT 文本槽是三个量。原生程序按真实分词结果选可容纳的桶，执行后只取有效行，再补到 DiT 的槽数并准备 mask。source32 的共享包仍保留 64 个 DiT 文本槽。
 
+9 月 13 日补充独立导出的 256-token 候选图，并完成 87-token 真实英文提示词的 25 层 CPU FP32 文本对照，NRMSE 为 `5.98e-6`。候选继续进行 DiT 和模型包验收，自动来源仍为 32/64/2048。[候选图及完整文本记录](../artifacts/2026-09-13/design-loop/README.md)
+
 ## 5. 转换其余层，保留真实激活的 FP32 残差
 
 已检查的模板可以用于转换 36 层的独立权重：
@@ -279,6 +281,8 @@ build/ernie-image --model models/tutorial/turbo-portable \
 
 FP32 注意力还对 softmax 分母和概率乘 V 的长求和使用 Kahan 补偿。派生 shader 先将 Windows CRLF 换行统一为 LF，再核对完整源码的 SHA-256，并从同一份文本派生，ncnn 升级时必须重新审查。低精度 Flash 路径与原生缓存路径保留原行为。[注意力实现](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/src/ernie_attention.cpp)
 
+9 月 13 日进一步去掉了重复的 padding mask 行。`conditioning.cpp` 只生成 `1×N` FP32 常量，四条 Vulkan SDPA shader 通过 `mask_h` 广播读取，并处理尾部 tile 边界；CPU 在调用期间兼容展开。N=6144 时，mask 从 144 MiB 降为 24 KiB，完整 K/V 与查询分块策略保留。方阵/单行小型网络配对和完整 64×64 CPU 对照已通过，张量存储节省与整机性能分别记录，见[实施记录](../artifacts/2026-09-13/design-loop/README.md)。
+
 在这之后，执行层补上三个机制，详细的参数和代码见[内存执行教程](MEMORY-EXECUTION.md)：
 
 1. 在当前块执行前用一个 `std::future` 启动下一块的独立 Net 准备。默认关闭；启用要求 Vulkan FP32 和 auto/host 权重，例如 `--precision fp32 --dit-weights auto --dit-prefetch-mib 1024`。启动前检查估计和 RAM 余量，完成后核查实际权重驻留与预算；主线程统一处理缓存和日志。提交与等待串行化以兼容只有一个队列的设备，CPU 准备仍可重叠。
@@ -363,6 +367,8 @@ CLI 与外部应用调用同一个 `ernie::generate`。安装后，外部项目�
 ## 13. 验证三平台的原生程序
 
 Linux、Windows 和 macOS 各自编译并运行测试。Windows 使用 MSVC 原生程序，macOS 使用 Apple Clang；Linux 上的 MinGW/Wine 检查另行保留。
+
+最新的 9 月 13 日实现提交 `4e4907e` 已完成[五个框架 CI 作业](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34766001397)：两个 Linux CPU 配置各 40 项通过，Mesa/macOS 各 62 项通过、6 项 BF16 能力跳过，Windows 40 项通过、28 项无驱动跳过，共 244 通过、40 跳过、0 失败；另有 130 项 HTTP/清单检查通过。Linux Vulkan 校验层无错误。[原始 XML 与汇总](../artifacts/2026-09-13/design-loop/ci/summary.json)保存实际来源。下方按日期保留之前的构建和修复过程。
 
 跨平台容易漏掉的地方包括：
 

@@ -6,6 +6,8 @@ Publication authorized by the user on 2026-09-10, with a Rhino-bird stage-three
 annotation. The posted body uses immutable public URLs for the original PNGs.
 Repository is PUBLIC; its default branch is codex/surpass-reference.
 Posted at 2026-09-10T02:12:15Z. Public links and all three images verified.
+2026-09-13 revision: row-mask storage, complete CPU regression, text/PE
+candidates, model verification and current framework CI. Update the existing post.
 Full conversion commands and historical detail: PORTING-WALKTHROUGH.md.
 Project creation verified through the GitHub API: 2026-09-05T02:41:27Z.
 Earliest local implementation commit: 7bf22ea22ae4622441afc100e28ca72589d6436e,
@@ -16,9 +18,11 @@ Earliest local implementation commit: 7bf22ea22ae4622441afc100e28ca72589d6436e,
 
 > 腾讯犀牛鸟开源人才培养计划第三阶段（Shape with AI · 开源课题实战）项目分享。
 
+*更新于 2026 年 9 月 13 日。*
+
 这个项目创建于 **2026 年 9 月 5 日**，用 C++ 和 ncnn 实现 ERNIE-Image-Turbo 的本地推理，支持文生图、图生图和可选的提示词增强。模型转换完成后可以离线使用，推理端不需要 Python 或 PyTorch。除了命令行程序，也提供 C++ 接口供其他应用调用。
 
-移植时，我也围绕本地机器的显存和 RAM 做了执行层优化，包括逐块加载、注意力分块、权重缓存、后台预取，以及激活和工作区的预算分配与失败恢复。这篇主要分享这些实现和数值对齐方法。
+移植时，我也围绕本地机器的显存和 RAM 做了执行层优化，包括逐块加载、注意力分块、单行 padding mask、权重缓存、后台预取，以及激活和工作区的预算分配与失败恢复。这篇主要分享这些实现和数值对齐方法。
 
 默认由 CPU 执行文本编码和 VAE，Vulkan 执行 DiT。Turbo 使用 8 步 Euler 去噪、CFG=1，图像 latent 在整个去噪过程中保持 FP32。
 
@@ -58,6 +62,8 @@ Earliest local implementation commit: 7bf22ea22ae4622441afc100e28ca72589d6436e,
 以固定 1024×1024、64 个文本槽的包为例，DiT latent 的逻辑形状为 `[128,64,64]`。4096 个图像位置与 64 个文本位置拼接，联合序列长 4160。文本只编码一次，后续各步复用文本特征。
 
 文本桶长、有效 token 数和 DiT 文本槽分别处理。程序按实际分词结果选择文本桶，取有效行，再补齐 DiT 文本槽并构造 mask。source32 共享包仍保留 64 个 DiT 文本槽。
+
+当前自动选择使用独立认证的 32/64/2048 文本来源。为了减少中等长度提示词的 padding，另行导出了 256-token 候选图：87-token 真实提示词经过完整 25 层 CPU FP32 文本编码，与官方参考的 NRMSE 为 `5.98e-6`，通过既有门槛。这个候选正继续做 DiT 与模型包验收，再接入自动选择。
 
 Turbo 的调度与更新为：
 
@@ -105,6 +111,18 @@ VAE 采用小图导出与目标空间形状特化，脚本核验固定图身份�
 
 这里缩小的是单个注意力分数缓冲区，计算仍覆盖全部位置。权重、Q/K/V 和其他缓冲区由各自的分配器管理。
 
+padding mask 还可以进一步简化。DiT 的每个 query 都使用同一组有效 K/V 位置，原来 `N×N` 方阵的每一行其实相同。现在 `conditioning.cpp` 只生成一行，Vulkan attention 按行广播：
+
+| 联合序列长度 N | 原 FP32 mask | 单行 FP32 mask |
+|---:|---:|---:|
+| 4160 | 66.02 MiB | 16.25 KiB |
+| 6144 | 144 MiB | 24 KiB |
+| 10240 | 400 MiB | 40 KiB |
+
+方向参考了 [#6998 的单行 mask 设计](https://github.com/Tencent/ncnn/discussions/6998)。本项目在锁定源码的构建副本中适配四条 SDPA shader 的 `mask_h`，处理尾部 tile 的索引边界，沿用原生 shader registry、pipeline cache 和 FP32 查询分块。CPU 在 attention 调用期间展开，以兼容不同架构的实现。表中是 mask 张量的存储占用，整次生成的峰值和速度另行测量。
+
+CPU 和 Vulkan FP32/FP16/BF16 的方阵/单行配对结果逐值相同，覆盖不同长度、GQA、逐头 mask、重复执行和非 Flash 回退；FP32 另与独立 FP64 公式比较。[设计与验证记录](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/artifacts/2026-09-13/design-loop/README.md)保留了具体输入和源码身份。
+
 CPU VAE 的工作区也作了调整，默认使用 ncnn 直接卷积，关闭 Winograd/SGEMM。已记录的 1024×1024 苹果完整运行，峰值 RSS 从旧路径的 **23.03 GiB 降到 5.82 GiB**。
 
 在这个基础上，项目增加了几项可独立配置的内存策略：
@@ -133,6 +151,8 @@ CPU VAE 的工作区也作了调整，默认使用 ncnn 直接卷积，关闭 Wi
 
 实际 greedy 对照完成 315 个 token 至 EOS，文本/IDs 一致，每步 logits 通过固定门槛。正常入口按 token 预填充。
 
+分块预填充候选也接到了完整 PE 验证：139 个输入 token，chunk 16，执行全部 26 层并生成 64 个 token，IDs 与增强文本和官方一致，64 组 logits 全部通过，最大 NRMSE 为 `6.27e-6`。这例到达输出上限，EOS 对照仍使用上面的独立案例。分块候选保持单独验证，默认入口尚未切换；性能需要同条件计时。
+
 图像 DiT 的 hidden states 会随去噪步变化，联合注意力里的文本状态也会更新，因此 DiT 每步重新计算 K/V。PE 的自回归缓存与 DiT 的逐步去噪分别管理。
 
 ## 与官方实现的数值对照
@@ -147,8 +167,9 @@ CPU VAE 的工作区也作了调整，默认使用 ncnn 直接卷积，关闭 Wi
 | 本页苹果，1376×768 | 0.000617291 | 1 | 25/25 |
 | 本页白猫，1024×1024 | 0.002676964 | 1 | 24/25 |
 | 本页湖泊，1024×1024 | 0.022625605 | 13 | 21/25 |
+| 单行 mask CPU 回归，64×64 | 0.024495443 | 1 | 25/25 |
 
-MAE 按 `0..255` 的 RGB 通道统计，张量检查采用项目自定的数值容差。512 行来自 9 月 9 日的内存回归，三张演示图来自 9 月 6、7 日保存的实验。FP32 是目前数值对照更充分的路径，BF16 保持实验选项。[完整精度、尺寸与版本结果](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/docs/NUMERICAL-RESULTS.md)保留了 FP16/BF16、长提示词和各阶段数据。
+MAE 按 `0..255` 的 RGB 通道统计，张量检查采用项目自定的数值容差。512 行来自 9 月 9 日的内存回归，三张演示图来自 9 月 6、7 日保存的实验。最后一行是 9 月 13 日的完整 CPU 回归，执行原生文本编码、8 步 DiT 和 VAE；mask 按广播后的逻辑值精确比较，其他张量沿用原门槛。FP32 是目前数值对照更充分的路径，BF16 保持实验选项。[完整精度、尺寸与版本结果](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/docs/NUMERICAL-RESULTS.md)保留了 FP16/BF16、长提示词和各阶段数据。
 
 验证工具保存每步预测、latent 和解码结果，也支持用官方输入重放指定步骤和 block。这能把本步计算差异与前面累积的输入差异分开检查。对应工具是 `validate_pipeline.py`、`diagnose_pipeline_step.py` 和 block 探针。
 
@@ -198,21 +219,25 @@ build/linux-vulkan/ernie-image --model models/tutorial/turbo-portable \
 
 Vulkan 默认精度是 FP16，上例显式选择 FP32。UTF-8 提示词文件用 `--prompt-file`，共享包用 `--width` / `--height` 指定尺寸，图生图使用带 encoder 的包并设置 `--input` / `--strength`。`--report-json` 保存参数与耗时，`--help` 和 `--help-all` 分别显示常用与完整选项。
 
+已有本项目格式的下载清单时，`download_model.py --verify-with /path/to/ernie-image` 可以在下载和文件校验完成后直接检查原生模型包；公共权重下载清单仍在准备。设计来源、相关代码与实验结果通过[设计索引](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/docs/DESIGN-INDEX.md)连接，源码和链接变化由只读检查器提示重新核对。
+
 外部 C++ 应用通过安装包中的 `find_package(Ernie 0.1.0 EXACT CONFIG REQUIRED)` 和 `ernie::pipeline` 链接同一套生成接口。
 
 ## CI 框架验证
 
 GitHub Actions 覆盖 Linux、Windows MSVC 和 macOS Apple Clang 的原生构建与框架验证，内容包括算子、KV cache、CLI、Unicode 路径、模型包校验，以及搬移安装目录后的独立 C++ 调用。
 
-[内存执行版本的五个 CI 作业](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34373124004)全部通过：
+[9 月 13 日实现提交的五个 CI 作业](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34766001397)全部通过：
 
 | 环境 | 已通过检查 |
 |---|---:|
-| Linux CPU，读取器 OFF / ON | 各 37 |
-| Linux Mesa Vulkan | 57 |
-| macOS MoltenVK | 57 |
-| Windows MSVC | 37 |
+| Linux CPU，读取器 OFF / ON | 各 40 |
+| Linux Mesa Vulkan | 62 |
+| macOS MoltenVK | 62 |
+| Windows MSVC | 40 |
 
-每个作业另有 23 项 HTTP/模型清单检查通过。Linux Vulkan CI 启用固定 SDK 1.4.357.1 的 Khronos validation layer。本机 RTX 4060 的 62 项 Vulkan 测试和 37 项 CPU 测试通过，Vulkan 校验层无错误。工作流与逐项记录见[平台验证文档](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/docs/PLATFORM-VALIDATION.md)。
+合计 244 项通过、40 项按设备能力跳过、0 项失败，每个作业另有 26 项 HTTP/模型清单检查通过。Mesa 和 macOS 托管设备各有 6 项缺少原生 BF16 storage，Windows 有 28 项因没有 Vulkan 驱动跳过，均为 CI 环境能力限制，与 RAM 容量无关。
 
-感谢 [ncnn](https://github.com/Tencent/ncnn)、[pnnx](https://github.com/Tencent/ncnn/tree/master/tools/pnnx)、[ERNIE-Image](https://github.com/baidu/ERNIE-Image)，以及 [zimage-ncnn-vulkan](https://github.com/nihui/zimage-ncnn-vulkan) 和 [futz12 的 ERNIE 移植](https://github.com/futz12/ernie-image-ncnn-vulkan) 提供的组织方式与行为参考。
+Linux Vulkan CI 启用固定 SDK 1.4.357.1 的 Khronos validation layer，未报告校验错误。本机 RTX 4060 已实际通过 FP32/FP16/BF16 的单行 mask 配对。工作流、原始 XML 与逐项记录见[平台验证文档](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/docs/PLATFORM-VALIDATION.md)。
+
+感谢 [ncnn](https://github.com/Tencent/ncnn)、[pnnx](https://github.com/Tencent/ncnn/tree/master/tools/pnnx)、[ERNIE-Image](https://github.com/baidu/ERNIE-Image)，以及 [zimage-ncnn-vulkan](https://github.com/nihui/zimage-ncnn-vulkan)、[futz12 的 ERNIE 移植](https://github.com/futz12/ernie-image-ncnn-vulkan) 和 [everythingfornothing 的 ERNIE 移植](https://github.com/everythingfornothing/ernie-image-ncnn-vulkan) 提供的设计与实现参考。

@@ -148,6 +148,8 @@ PE、文本编码、DiT 和 VAE 依次加载，阶段结束后释放权重。DiT
 
 DiT 的 padding mask 现在只存一行，由 Vulkan attention 广播使用。例如 6144 个位置的 FP32 mask 从 144 MiB 降为 24 KiB。这个数值描述 mask 本身，整机峰值和生成耗时需要另外测量；CPU attention 为兼容各平台实现，会在调用期间展开 mask。改动来源、验证和后续的文本桶、PE 工作见[设计索引](docs/DESIGN-INDEX.md)。
 
+9 月 13 日的完整 64×64 CPU 回归通过 25/25 张量检查，PNG 最大通道差为 1。256-token 中间桶已通过 87-token 真实提示词的完整 25 层文本对照，PE chunk16 也通过了完整 26 层单例的 token/logits 对照；两者仍作为候选，继续验证后再调整默认选择。[本轮数据](docs/NUMERICAL-RESULTS.md#2026-09-13单行-mask-与候选验证)分别记录内存占用、数值结果和测量范围。
+
 ## 项目架构
 
 命令行和 C++ 应用共用 `ernie::generate`。CLI 处理参数、图片文件和终端进度，流水线返回 RGB 像素，不要求调用方使用同一套图像 I/O。
@@ -217,17 +219,16 @@ int main()
 
 [GitHub Actions](.github/workflows/build.yml)覆盖 Linux、Windows MSVC 和 macOS Apple Clang，检查原生程序、tokenizer、CLI、Unicode 路径、模型包和搬移安装后的 C++ 调用。工作流在 `main` 和验证分支推送、Pull Request 或手动触发时运行。
 
-内存执行版本的[最近一次代码验证](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34373124004)结果如下：
+9 月 13 日实现提交的[最近一次代码验证](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34766001397)结果如下：
 
 | 环境 | 通过 | 跳过 | 原因 |
 |---|---:|---:|---|
-| Linux CPU，读取器 OFF / ON | 各 37 | 0 | 两个独立构建 |
-| Linux Mesa Vulkan | 57 | 5 | CI 驱动缺少原生 BF16 storage |
-| macOS MoltenVK | 57 | 5 | 托管虚拟 GPU 缺少原生 BF16 storage |
-| Windows MSVC | 37 | 25 | 运行器没有 Vulkan 驱动 |
-| 本机 Linux / RTX 4060 Laptop | 62 | 0 | Vulkan 与 BF16 测试实际执行，校验层无错误 |
+| Linux CPU，读取器 OFF / ON | 各 40 | 0 | 两个独立构建 |
+| Linux Mesa Vulkan | 62 | 6 | CI 驱动缺少原生 BF16 storage |
+| macOS MoltenVK | 62 | 6 | 托管虚拟 GPU 缺少原生 BF16 storage |
+| Windows MSVC | 40 | 28 | 运行器没有 Vulkan 驱动 |
 
-上述均无失败，五个远程作业另外各通过 23 项 HTTP/模型清单检查，本机纯 CPU 另有 37 项通过。Linux Vulkan CI 使用固定的 SDK 1.4.357.1 校验层并检查 VUID；其他远程平台未启用该校验层。CI 不下载 ERNIE 权重，完整出图采用独立实机实验。[平台记录](docs/PLATFORM-VALIDATION.md)保留构建失败、修复过程和每项跳过原因。
+五个远程作业共 244 项通过、40 项跳过、0 项失败，另外各通过 26 项 HTTP/模型清单检查。上述跳过由 CI 驱动能力决定，与 RAM 容量无关。本机 NVIDIA 已实际通过 CPU 和 Vulkan FP32/FP16/BF16 的单行/方阵 mask 配对。Linux Vulkan CI 使用固定的 SDK 1.4.357.1 校验层并检查 VUID，未报告错误；其他远程平台未启用该校验层。CI 覆盖原生构建与框架测试，完整出图采用独立实机实验。[平台记录](docs/PLATFORM-VALIDATION.md)保留原始 XML、构建修复和每项跳过原因。
 
 ## 当前限制
 

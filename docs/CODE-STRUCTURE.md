@@ -80,6 +80,8 @@ attention(Q, K, V) = softmax(Q K^T / sqrt(128) + mask) V
 
 这里不使用因果 mask，图像与有效文本可以互相读取。前面的文本编码器和可选 PE 才使用因果注意力。DiT 输出头只保留图像位置，并投影回每个位置 128 维的预测。
 
+所有 query 共用同一行 padding mask。`conditioning.cpp` 保存 `1×N` FP32 常量，Vulkan SDPA 通过 `mask_h` 广播访问，CPU attention 调用期间兼容展开。构建适配集中在 `cmake/derive_sdpa_broadcast.py`，核对锁定源码后生成副本；运行时仍使用原生 shader registry 和 pipeline cache。[设计与配对验证](../artifacts/2026-09-13/design-loop/README.md)说明了四条 shader 路径和尾部索引处理。
+
 三轴 RoPE 让注意力区分文本顺序和图像二维位置，128 个旋转维度按 `[32, 48, 48]` 分配。当前 `conditioning.cpp` 中，图像位置 `(y,x)` 的坐标为 `(T,y,x)`，文本位置 `j` 的坐标为 `(j,0,0)`。第一轴使用真实文本长度，不使用补齐桶长。ERNIE 的全宽重复角度表和非交错旋转不能套用“两个半区共享同一角度表”的常规融合；[导出包装](../tools/export_dit_block.py)显式保留这组公式。
 
 每个 block 包含注意力和 gated MLP 两个残差分支。进入分支前先归一化，再施加当前时间条件产生的 scale/shift；分支输出乘 gate 后加回残差。MLP 保留 erf 形式的 GELU。这样同一组学习权重可以在不同噪声阶段产生不同的更新。
@@ -141,7 +143,7 @@ Vulkan 路径使用 `VkMat` 保存设备上的中间状态，通过 `VkCompute` 
 - `WeightSession` 管理可选的跨步 RAM 权重缓存，默认容量为零。`host_memory` 提供平台内存余量，Linux 同时考虑 cgroup；不能确认余量时不接纳额外缓存。
 - `PeSession` 只管理 PE 的 KV cache、位置和生命周期。它使用 ncnn 的独立 cache allocator、容量 hint 与原生不透明句柄，模板、分词和采样由 `prompt_enhancer` 负责。
 
-PE 的正常入口仍逐 token 预填充。内部候选 `append_chunk` 支持 1..32 个真实 token，通过矩形因果 mask 追加历史；只取最后一个真实 token 的输出进入采样。候选图严格匹配已知图后修改四处序列维度，未改变包和权重。它已有真实单层对照，完整 PE 的收益尚未验证，不作为默认加速说明。
+PE 的正常入口仍逐 token 预填充。内部候选 `append_chunk` 支持 1..32 个真实 token，通过矩形因果 mask 追加历史；只取最后一个真实 token 的输出进入采样。候选图严格匹配已知图后修改四处序列维度，未改变包和权重。9 月 13 日已完成 chunk16 的完整 26 层对照：139 个输入 token、64 个生成 token，IDs/文本与官方一致，64/64 logits 通过；这是一个到达输出上限的英文案例。候选的其他输入范围和同条件速度仍需验证，[记录](../artifacts/2026-09-13/design-loop/README.md)与生产默认分开。
 
 `model_loading.h` 提供 stdio/mapped 读取策略；读取方式、权重放置和缓存容量是独立选项。`cmake/ErnieModelReader.cmake` 的临时缓冲区修正默认关闭，只在构建目录派生固定 ncnn 编译单元，不修改第三方检出。以上开关见 [运行说明](RUNNING.md) 和 [组件说明](REPRODUCE-COMPONENTS.md)。
 
