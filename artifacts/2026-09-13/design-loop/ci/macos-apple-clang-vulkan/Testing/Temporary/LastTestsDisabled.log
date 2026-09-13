@@ -1,0 +1,6 @@
+6:attention_row_mask_bf16
+43:residual_contract_vulkan_bf16
+53:erf_gelu_vulkan_bf16
+54:rmsnorm_range_vulkan_bf16
+55:layernorm_range_vulkan_bf16
+66:bf16_gemm_vulkan

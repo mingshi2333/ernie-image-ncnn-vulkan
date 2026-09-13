@@ -33,6 +33,7 @@
     "src/shape_graph.cpp": "8b2c809b02fb457f2401cbf8cf99eaca506e1257045e66a84ad20d7ddb3185ea",
     "tools/download_model.py": "b3690c13a8d1bb8f64fc97bb064db4e988bfb2dd3e35507c2100a2af4bab03e5",
     "tools/validate_pe.py": "68079916e521141d6adb312960b08f544dd6ca822779288fe2d9b8de35cb7eb7",
-    "tests/fixtures/text-s256.ncnn.param": "969480f10ca063bb103064741ded9f709e894d2a07589a82246023447e5f42b6"
+    "tests/fixtures/text-s256.ncnn.param": "969480f10ca063bb103064741ded9f709e894d2a07589a82246023447e5f42b6",
+    "tools/validate_pipeline.py": "4c1338ce435e6254c8082359ecd4fc530e48a8f976a96018d4b4286f85e5ef9e"
   }
 }

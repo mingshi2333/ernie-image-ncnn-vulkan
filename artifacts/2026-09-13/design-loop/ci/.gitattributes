@@ -1,0 +1,5 @@
+# Preserve downloaded evidence bytes, including native Windows CRLF.
+** -text
+**/CMakeCache.txt -diff
+**/ctest-results.xml -diff
+**/Testing/** -diff

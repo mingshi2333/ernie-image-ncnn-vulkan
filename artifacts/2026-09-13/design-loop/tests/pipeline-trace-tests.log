@@ -1,0 +1,11 @@
+test_checksum_and_partial_float_corruption_are_rejected (test_pipeline_trace.PipelineTraceTest.test_checksum_and_partial_float_corruption_are_rejected) ... ok
+test_every_reference_row_is_checked (test_pipeline_trace.PipelineTraceTest.test_every_reference_row_is_checked) ... ok
+test_large_mask_sentinel_cannot_hide_an_incorrect_visible_value (test_pipeline_trace.PipelineTraceTest.test_large_mask_sentinel_cannot_hide_an_incorrect_visible_value) ... ok
+test_old_dense_and_new_row_match_the_same_official_fixture (test_pipeline_trace.PipelineTraceTest.test_old_dense_and_new_row_match_the_same_official_fixture) ... ok
+test_other_tensors_and_rectangular_masks_cannot_broadcast (test_pipeline_trace.PipelineTraceTest.test_other_tensors_and_rectangular_masks_cannot_broadcast) ... ok
+test_wrong_size_or_nonfinite_mask_is_rejected (test_pipeline_trace.PipelineTraceTest.test_wrong_size_or_nonfinite_mask_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.006s
+
+OK

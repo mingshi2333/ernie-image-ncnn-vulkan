@@ -31,7 +31,9 @@
 - 原门槛：NRMSE `2e-5`，最大差 `0.0002 + 0.0002 × reference_max_abs`。
 - 结果：[CPU 对照](text256/cpu-result.json)、[官方 fixture 身份](text256/fixture.json)、[导出记录](text256/conversion.json)。独立图保存在 [测试 fixture](../../../tests/fixtures/text-s256.ncnn.param)。
 
-该结果验证真实权重单层与合成输入，不等于 25 层真实提示词或整图通过。自动选择仍为已认证的 32/64/2048 来源；下一步需要完整文本、DiT 和包来源验收。1024 图像的文本容量若从 2048 降至 256，总位置会由 6144 降至 4352；这只是计划的形状变化，目前没有相应出图加速数据。
+随后用独立导出图认证 25 层重分桶结果，复用已逐层检查的无损权重，运行一个 87-token 的真实英文提示词。官方参考按实际长度计算，原生图填充到 256，只比较有效前缀。完整文本编码 CPU FP32 通过：NRMSE `5.977523689377264e-6`，最大绝对误差 `0.0037841796875`，参考最大绝对值 `598.9039916992188`。沿用完整文本门槛 NRMSE `0.0002` 与最大差 `0.0002 + 0.0002 × reference_max_abs`；它与上面单层的门槛和范围不同。见[25 层结果](text256/full-cpu-result.json)、[提示词及官方参考身份](text256/full-fixture.json)、[运行命令](text256/full-command.json)。
+
+自动选择仍为已认证的 32/64/2048 来源；256 候选接下来需要 DiT 和包来源验收。1024 图像的文本容量若从 2048 降至 256，总位置会由 6144 降至 4352；这只是计划的形状变化，目前没有相应出图加速数据。
 
 ## 已验证候选：完整 26 层 PE 分块
 
@@ -49,7 +51,34 @@
 
 `download_model.py --verify-with /path/to/ernie-image` 在下载散列全部通过后调用原生包校验。下载失败不启动原生程序；原生失败返回非零并保留下载结果。相关 HTTP/清单/源码测试 [28/28 通过](tests/download-source-tests.log)。公共权重地址与下载清单尚未发布。
 
-本机另一个研究任务持续使用 GPU。本轮小型 Vulkan 算子测试已经完成，大模型 GPU 出图需要错开；另行启动的 64×64 CPU 完整流水线结果将在此回写。三平台框架 CI 使用已有工作流和已授权验证分支，结果以实际运行记录为准。
+本机另一个研究任务持续使用 GPU。本轮小型 Vulkan 算子测试已经完成，大模型 GPU 出图需要错开。64×64 CPU 完整流水线已完成，结果见下节。三平台框架 CI 使用已有工作流和已授权验证分支，结果以实际运行记录为准。
+
+## 完整 CPU 流水线与 trace 兼容
+
+生产二进制 `85d43bc4d15fc859090156bced134ac417797eaec05c45035e1c1fcdecfd6046` 执行原生 tokenizer、25 层文本、8 步 DiT 和 CPU VAE，使用已保存的官方参考与相同初始 latent。该 64×64 历史开发包有 272 个 DiT 文本槽，总位置 288。模型执行返回 0，所有步骤和 PNG 均已保存；[首次验收结果](pipeline64-cpu/original-result.json)在常量 mask 处失败，因为旧验收器仍按 `288×288` 读取新的 `1×288` payload。
+
+修正 [trace 对比器](../../../tools/validate_pipeline.py)后，只重新读取同一份输出，没有重跑或替换模型结果。官方方阵 fixture、文件散列和[原门槛](pipeline64-cpu/gates.json)保持不变。仅 `constant-2` 可按单行广播，其他张量仍要求原尺寸；mask 要求广播后每个位置精确相同，不能用 `-1e30` 相对误差掩盖有效位置的错误。6 项[回归检查](tests/pipeline-trace-tests.log)覆盖旧方阵、新单行、尾行不一致、损坏值、错误形状与不完整 FP32 字节。
+
+[重新核算结果](pipeline64-cpu/reanalysis-result.json)保留原始执行身份、全部 trace 散列、门槛身份及[复算脚本](pipeline64-cpu/recompare_pipeline.py)：**25/25 张量通过，PNG MAE `0.024495442708333332`、最大通道差 `1/255`，原生浮点转 PNG 逐值一致。** 单行 mask 的逻辑值精确等于官方方阵。
+
+原生日志中的总耗时为 `447.792 s`，最大 RSS `1,415,500 KiB`；包括模型校验和 trace，受 2 核配额与 10 GiB cgroup 限制，不作为性能提升证据。该结果覆盖一例 CPU 完整出图；Vulkan 在本轮使用稠密/广播配对的小型网络验证。
+
+## 三平台框架 CI
+
+实现提交 `4e4907e750eb4f4a3f5a72239dfd7f64d333e438` 已推送至授权的 `codex/surpass-reference`。[CI 34766001397](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34766001397)五个作业全部成功。原始日志确认五次实际检出源码和 ncnn 修订；下表从下载的 JUnit XML 独立统计，跳过项排除在通过数之外。
+
+| 环境 | 实际通过 | 跳过 | 失败 |
+|---|---:|---:|---:|
+| Linux CPU，compact reader OFF | 40 | 0 | 0 |
+| Linux CPU，compact reader ON | 40 | 0 | 0 |
+| Linux / Mesa 软件 Vulkan | 62 | 6 | 0 |
+| macOS / MoltenVK | 62 | 6 | 0 |
+| Windows / MSVC | 40 | 28 | 0 |
+| 合计 | **244** | **40** | **0** |
+
+五个作业另有各 26 项下载/清单检查通过，共 130 项。Linux Mesa 和 macOS 托管设备的 6 项跳过是原生 BF16 storage 不可用，本轮新增的 `attention_row_mask_bf16` 也按能力跳过；Windows 的 28 项跳过是没有 Vulkan 驱动。与 RAM 大小无关。Linux Vulkan 启用 Khronos validation，独立扫描无 VUID/validation error。
+
+原始 XML、CMake 配置、测试日志和压缩作业日志保存在 [CI 目录](ci)，汇总及逐文件散列见 [summary.json](ci/summary.json)。后续 trace 读取器修正仅改变 Python 验收；本地 6 项 trace 和 8 项官方参考契约检查通过，C++/shader 与本次 CI 提交一致。文档回写不重复运行相同原生构建。
 
 ## 保留的首次失败
 

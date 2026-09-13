@@ -2,6 +2,23 @@
 
 本页分别记录原生构建、小型执行测试和完整模型出图。CTest 的“通过”数排除设备能力导致的跳过项；未下载 ERNIE 权重的 CI 只覆盖构建、接口和小型网络。
 
+## 2026-09-13 单行 mask 与模型准备
+
+实现提交 `4e4907e750eb4f4a3f5a72239dfd7f64d333e438` 的[三平台框架 CI](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34766001397)五个作业全部成功，ncnn 仍为 `3b7bdba7`。新增单行/方阵 mask 配对、shader 来源检查、设计索引检查，以及下载后原生包校验的 HTTP 测试。
+
+| 环境 | CTest 实际通过 | 跳过 | 失败 |
+|---|---:|---:|---:|
+| Linux CPU，compact reader OFF / ON | 各 40 | 0 | 0 |
+| Linux / Mesa 软件 Vulkan | 62 | 6 | 0 |
+| macOS / MoltenVK | 62 | 6 | 0 |
+| Windows / MSVC | 40 | 28 | 0 |
+
+远程共 **244 项通过、40 项跳过、0 项失败**；五个作业各有 26 项 HTTP/清单测试通过。原始 XML、配置、日志和实际 checkout 身份均保存在[独立汇总](../artifacts/2026-09-13/design-loop/ci/summary.json)。Linux Vulkan 的 Khronos validation 无错误。
+
+Mesa 和 macOS 的跳过项从 5 项增加至 6 项，是新增的 BF16 单行 mask 测试同样遇到 `bf16-p/s=1/0` 的 CI 驱动能力限制；Windows 的 28 项设备测试因运行器没有 Vulkan 驱动跳过。与 RAM 容量无关。本机 NVIDIA 已实际通过 CPU 及 Vulkan FP32/FP16/BF16 的单行/方阵配对。
+
+本轮完整模型结果另外记录：64×64 CPU 原生流水线 25/25 张量通过、PNG 最大通道差 1；256-token 候选的 87-token 提示词完整 25 层文本对照通过；PE chunk16 的完整 26 层单例生成 IDs/文本与官方一致，64/64 logits 通过。[实施记录](../artifacts/2026-09-13/design-loop/README.md)保留具体范围、旧 trace 格式验收失败和同一输出的复算结果。后续 Python 验收器修正通过本地 14 项相关检查，原生实现与该次 CI 相同。
+
 ## 2026-09-09 内存执行最终验证
 
 后台预取、DiT RAM buffer 与检查点恢复的最终代码为 `7296bfeba2c809d54a7d6214b0f08dee861ad1f8`，ncnn 仍为 `3b7bdba7`。[CI 34373124004](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34373124004)五个作业全部成功；下载后的原始 XML、日志与产物摘要独立核对了实际检出源码和下面的数量，见[完整归档与机器可读统计](../artifacts/2026-09-08/memory-execution/v3/final-ci/summary.json)。

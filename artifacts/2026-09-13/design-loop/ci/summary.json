@@ -1,0 +1,165 @@
+{
+  "run_id": 34766001397,
+  "url": "https://github.com/mingshi2333/ernie-image-ncnn-vulkan/actions/runs/34766001397",
+  "head_sha": "4e4907e750eb4f4a3f5a72239dfd7f64d333e438",
+  "ncnn_sha": "3b7bdba7fc8aea8fd46779533eee027df77c639d",
+  "scope": "Native framework CI: C++ runtime, CLI, package, installed SDK and small CPU/Vulkan networks; no complete model run",
+  "jobs": {
+    "linux-vulkan-OFF-reader-OFF": {
+      "passed": 40,
+      "skipped": 0,
+      "failed": 0,
+      "skipped_tests": [],
+      "failed_tests": [],
+      "khronos_validation_enabled": false,
+      "validation_error_lines": 0,
+      "files": {
+        "linux-vulkan-OFF-reader-OFF/CMakeCache.txt": "dc5006513930bda7696db1adbebfe3e5aa2fa7723b596192e5aa71344c0545b5",
+        "linux-vulkan-OFF-reader-OFF/Testing/Temporary/LastTest.log": "8683086bb3c0bc6040f3ff67bac7684c9b328b013d53516363cda9d8d07ec95d",
+        "linux-vulkan-OFF-reader-OFF/ctest-results.xml": "92360e6a843d92b659fd0808fa097d272433b97383db2fd8c2c58d04c9105904"
+      }
+    },
+    "linux-vulkan-OFF-reader-ON": {
+      "passed": 40,
+      "skipped": 0,
+      "failed": 0,
+      "skipped_tests": [],
+      "failed_tests": [],
+      "khronos_validation_enabled": false,
+      "validation_error_lines": 0,
+      "files": {
+        "linux-vulkan-OFF-reader-ON/CMakeCache.txt": "0dd8752597a3c52d7e225bd5beb64fd91a0544b2dcee2efaba07fd375a152d4f",
+        "linux-vulkan-OFF-reader-ON/Testing/Temporary/LastTest.log": "1fb53b523f8d3d00ec2445d8eb183c4c233684ead03e8f47f978011ff052e2dd",
+        "linux-vulkan-OFF-reader-ON/ctest-results.xml": "b553346063df9787061586294781ddfc3655a7f4c432f6de900f6ffb40eb282f"
+      }
+    },
+    "linux-vulkan-ON-reader-OFF": {
+      "passed": 62,
+      "skipped": 6,
+      "failed": 0,
+      "skipped_tests": [
+        "attention_row_mask_bf16",
+        "residual_contract_vulkan_bf16",
+        "erf_gelu_vulkan_bf16",
+        "rmsnorm_range_vulkan_bf16",
+        "layernorm_range_vulkan_bf16",
+        "bf16_gemm_vulkan"
+      ],
+      "failed_tests": [],
+      "khronos_validation_enabled": true,
+      "validation_error_lines": 0,
+      "files": {
+        "linux-vulkan-ON-reader-OFF/CMakeCache.txt": "e944c0dde27c76c92b5d3d2fe3a048644acd79babba8200f49b80e8370f28dd2",
+        "linux-vulkan-ON-reader-OFF/Testing/Temporary/LastTest.log": "7b98c4a01c3d16fdf28bdf2a64901ea90a43a2f537c329283313f67d301e732c",
+        "linux-vulkan-ON-reader-OFF/Testing/Temporary/LastTestsDisabled.log": "9e7132f8933f853add0482396df551c9baeae49f027c0b74b9610897a3c89a94",
+        "linux-vulkan-ON-reader-OFF/ctest-results.xml": "19e5d1ec66d95e6b3b4cc2d497a485266cf04bf4019119212f8a955ddf958ed8",
+        "linux-vulkan-ON-reader-OFF/vulkan-sdk-provenance.json": "e3d66783082d4dc2f3ce699bec6cde4ab6d00a8e3c9d21591b7d1fa57eac3d27",
+        "linux-vulkan-ON-reader-OFF/vulkan-sdk-sha256.log": "d1a7e9bbab4f9e0c017585c1262824e589405da3e5a05c77096c3b2bec67da0e",
+        "linux-vulkan-ON-reader-OFF/vulkan-validation-info.log": "c173b0744424bab23df735aaba7c355535ed5916c00a97980319a7915945e6bd"
+      },
+      "skip_reason": "CI Vulkan device lacks native BF16 storage (bf16-p/s=1/0)"
+    },
+    "macos-apple-clang-vulkan": {
+      "passed": 62,
+      "skipped": 6,
+      "failed": 0,
+      "skipped_tests": [
+        "attention_row_mask_bf16",
+        "residual_contract_vulkan_bf16",
+        "erf_gelu_vulkan_bf16",
+        "rmsnorm_range_vulkan_bf16",
+        "layernorm_range_vulkan_bf16",
+        "bf16_gemm_vulkan"
+      ],
+      "failed_tests": [],
+      "khronos_validation_enabled": false,
+      "validation_error_lines": 0,
+      "files": {
+        "macos-apple-clang-vulkan/CMakeCache.txt": "cab3565a7bbfff0ff80b1d5ce75e0aa0d9021ea0c55deac9caaa048acb790857",
+        "macos-apple-clang-vulkan/Testing/Temporary/LastTest.log": "a2ea19b61d4d5e5a1c431ba0d195db61b5d3d3c2de35e02896249ccc195ac21c",
+        "macos-apple-clang-vulkan/Testing/Temporary/LastTestsDisabled.log": "9e7132f8933f853add0482396df551c9baeae49f027c0b74b9610897a3c89a94",
+        "macos-apple-clang-vulkan/ctest-results.xml": "16d1297a87fd56a2343baea4695394b6e31ad86d5c0ad109e5e9b5c72290024d"
+      },
+      "skip_reason": "CI Vulkan device lacks native BF16 storage (bf16-p/s=1/0)"
+    },
+    "windows-msvc-vulkan": {
+      "passed": 40,
+      "skipped": 28,
+      "failed": 0,
+      "skipped_tests": [
+        "attention_row_mask_fp32",
+        "attention_row_mask_fp16",
+        "attention_row_mask_bf16",
+        "native_cache_vulkan",
+        "runtime_cache_vulkan",
+        "attention_long_fp32_accuracy",
+        "attention_bounded_workspace",
+        "gpu_context_contract",
+        "weight_session_vulkan",
+        "weight_session_mapped_vulkan",
+        "weight_session_bf16_file_vulkan",
+        "weight_session_mapped_bf16_file_vulkan",
+        "weight_placement_vulkan",
+        "residual_contract_vulkan",
+        "residual_contract_vulkan_bf16",
+        "erf_gelu_vulkan_fp32",
+        "rmsnorm_range_vulkan_fp32",
+        "layernorm_range_vulkan_fp32",
+        "erf_gelu_vulkan_fp16",
+        "rmsnorm_range_vulkan_fp16",
+        "layernorm_range_vulkan_fp16",
+        "erf_gelu_vulkan_bf16",
+        "rmsnorm_range_vulkan_bf16",
+        "layernorm_range_vulkan_bf16",
+        "vulkan_memory_buffers",
+        "ncnn_failure_vulkan",
+        "memory_execution_vulkan",
+        "bf16_gemm_vulkan"
+      ],
+      "failed_tests": [],
+      "khronos_validation_enabled": false,
+      "validation_error_lines": 0,
+      "files": {
+        "windows-msvc-vulkan/CMakeCache.txt": "9441642bd7da946e8d5ee7cba26d6444d402934ff098eebab5958ed3fc0ebc01",
+        "windows-msvc-vulkan/Testing/Temporary/LastTest.log": "b7f611596337a9e22e83aba91397e8eb0626482dbf50868c2ad76dccab3eb3a2",
+        "windows-msvc-vulkan/Testing/Temporary/LastTestsDisabled.log": "9eeb7443665d3406e4ac8e981d2b5448ca654c563c33177ab89829ea139ee27b",
+        "windows-msvc-vulkan/ctest-results.xml": "d3912201725aae24835453649c5d58c9ae8fdba038be28a8dbf7fba7c164d6ec"
+      },
+      "skip_reason": "GitHub Windows runner has no Vulkan driver"
+    }
+  },
+  "totals": {
+    "passed": 244,
+    "skipped": 40,
+    "failed": 0
+  },
+  "runner_log_sha256": "a2be4388c49a7e9021c600e8423b94f6128889b29a21715ec6745e8776bfd1a1",
+  "checkout_and_http": {
+    "windows": {
+      "checkout_verified": true,
+      "ncnn_checkout_verified": true,
+      "http_manifest_tests_passed": 26
+    },
+    "linux (OFF, OFF)": {
+      "checkout_verified": true,
+      "ncnn_checkout_verified": true,
+      "http_manifest_tests_passed": 26
+    },
+    "macos": {
+      "checkout_verified": true,
+      "ncnn_checkout_verified": true,
+      "http_manifest_tests_passed": 26
+    },
+    "linux (ON, OFF)": {
+      "checkout_verified": true,
+      "ncnn_checkout_verified": true,
+      "http_manifest_tests_passed": 26
+    },
+    "linux (OFF, ON)": {
+      "checkout_verified": true,
+      "ncnn_checkout_verified": true,
+      "http_manifest_tests_passed": 26
+    }
+  },
+  "http_manifest_tests_passed": 130
+}

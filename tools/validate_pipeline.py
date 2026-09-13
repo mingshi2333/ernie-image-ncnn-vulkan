@@ -185,6 +185,45 @@ def check_conditioning_options(args):
     if getattr(args, 'text_down_vector', False) and (args.reference_embeddings or args.diagnostic_embeddings or args.reference_only):
         raise ValueError('Vector text reduction requires a native text validation run')
 
+
+def compare_trace_tensor(name, item, reference_dir, trace_dir, gate):
+    """Compare logical tensors while retaining the native payload identity.
+
+    Only the DiT padding mask may use row storage. The official square fixture
+    remains unchanged, and every logical mask value must match exactly.
+    """
+    reference_path = Path(reference_dir) / item['file']
+    native_path = Path(trace_dir) / (name + '.f32')
+    if sha256(reference_path) != item['sha256']:
+        raise RuntimeError('Reference tensor checksum differs')
+    shape = item['shape']
+    expected = np.fromfile(reference_path, '<f4')
+    actual = np.fromfile(native_path, '<f4')
+    if (reference_path.stat().st_size != int(np.prod(shape)) * 4
+            or native_path.stat().st_size != actual.size * 4
+            or not np.isfinite(expected).all() or not np.isfinite(actual).all()):
+        raise RuntimeError(f'Invalid native or reference trace tensor: {name}')
+    reference_tensor = torch.from_numpy(expected)
+    native_tensor = torch.from_numpy(actual)
+    storage = {}
+    if (name == 'constant-2' and len(shape) == 2 and shape[0] == shape[1]
+            and shape[0] > 1 and actual.size == shape[1]):
+        reference_tensor = reference_tensor.reshape(shape)
+        native_tensor = native_tensor.reshape(1, shape[1]).expand(shape)
+        storage = {'logical_shape': shape, 'native_storage_shape': [1, shape[1]],
+                   'comparison': 'exact padding mask after row broadcast'}
+    elif expected.shape != actual.shape:
+        raise RuntimeError(f'Invalid native trace tensor shape: {name}')
+    error = metrics(reference_tensor, native_tensor)
+    passed = (error['nrmse'] <= gate['nrmse']
+              and error['max_abs_error'] <= gate['atol'] + gate['global_rtol'] * error['reference_max_abs'])
+    if name in ('initial', 'constant-2'):
+        # Relative error against -1e30 must never hide a changed visible key.
+        passed = torch.equal(reference_tensor, native_tensor)
+    return {'tensor': name, **error, **storage, 'passed': bool(passed),
+            'sha256': sha256(native_path)}
+
+
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--model',type=Path,required=True)
@@ -361,13 +400,8 @@ def main():
         for i,outputs in enumerate(fixture['outputs']):entries.extend((f'{name}-{i}',item,False) for name,item in outputs.items())
         entries.extend((name,item,False) for name,item in fixture['final'].items())
         for name,item,conditioning in entries:
-            if sha256(ref/item['file'])!=item['sha256']:raise RuntimeError('Reference tensor checksum differs')
-            expected=np.fromfile(ref/item['file'],'<f4');actual=np.fromfile(trace/(name+'.f32'),'<f4')
-            if expected.shape!=actual.shape or not np.isfinite(actual).all():raise RuntimeError('Invalid native trace tensor')
-            error=metrics(torch.from_numpy(expected),torch.from_numpy(actual));gate=gates['conditioning' if conditioning else args.precision]
-            passed=error['nrmse']<=gate['nrmse'] and error['max_abs_error']<=gate['atol']+gate['global_rtol']*error['reference_max_abs']
-            if name=='initial':passed=np.array_equal(expected,actual)
-            result['comparisons'].append({'tensor':name,**error,'passed':bool(passed),'sha256':sha256(trace/(name+'.f32'))})
+            gate=gates['conditioning' if conditioning else args.precision]
+            result['comparisons'].append(compare_trace_tensor(name,item,ref,trace,gate))
         native=np.array(Image.open(args.output/'native.png').convert('RGB')).astype('f8')
         expected=np.array(Image.open(ref/'reference.png').convert('RGB')).astype('f8')
         if native.shape!=expected.shape:raise RuntimeError('PNG dimensions differ')
