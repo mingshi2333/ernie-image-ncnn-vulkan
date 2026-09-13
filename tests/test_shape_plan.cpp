@@ -14,7 +14,7 @@ int main()
     require(s.width==1376 && s.height==768 && s.packed_width==86 && s.packed_height==48);
     require(s.latent_width==172 && s.latent_height==96 && s.image_tokens==4128);
     require(s.text_bucket==2048 && s.valid_text_tokens==1080 && s.total_tokens==6176 && s.valid_tokens==5208);
-    require(s.packed_latent_bytes==4128*128*4 && s.rope_elements==6176*128 && s.mask_elements==6176*6176);
+    require(s.packed_latent_bytes==4128*128*4 && s.rope_elements==6176*128 && s.mask_elements==6176);
     for (int t : {1,32,33,64,65,2048}) require(ShapePlan::create(c,16,16,t).text_bucket==(t<=32?32:t<=64?64:2048));
     for(auto wh : {std::array<int,2>{16,2048},{2048,16},{2048,1024},{1024,2048}}) require(ShapePlan::create(c,wh[0],wh[1],1).width==wh[0]);
     for(auto wh : {std::array<int,2>{0,16},{15,16},{17,16},{2049,16},{2048,2048},{-16,16}}) rejected([&]{ShapePlan::create(c,wh[0],wh[1],1);});

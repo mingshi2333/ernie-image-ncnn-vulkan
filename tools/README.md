@@ -16,6 +16,8 @@
 | 测量一轮原生生成 | `benchmark_pipeline.py` | 支持固定/共享包及运行时尺寸，核对原生完成记录、实际文本桶与内存设置；trace 默认关闭，保留独立计时和设备采样范围；不是质量验收 |
 | 核对固定对照项目权重 | `audit_port_weights.py`、`audit_port_relations.py` | 分块规范化实际权重、按固定图连接核对命名角色，并单独报告派生常量与数学差异；不自动证明全图等价或速度 |
 | 归档通过及失败证据 | `collect_parity_evidence.py` | 重新计算误差、核对散列，冻结小型报告；不改原始门槛 |
+| 下载并校验模型包 | `download_model.py --verify-with PATH` | 从真实下载清单恢复下载，再调用指定的原生 `ernie-image --verify-model` |
+| 检查设计索引 | `check_design_index.py` | 检查索引的本地链接和来源身份；变化后重新核对结论 |
 
 `export_*` 导出独立官方图与 fixture；`build_*` 构建真实权重包；`validate_*` 判定误差；`diagnose_*` 定位已发现的差异；`collect_*` 固定证据。底层助手如 `prepare_block.py`、`rebucket_*.py`、`specialize_vae.py` 由上述入口组合使用。
 

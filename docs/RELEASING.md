@@ -61,7 +61,8 @@ path, immutable HTTPS URL, byte size and SHA256. No production manifest with
 invented release URLs is supplied.
 
 ```sh
-python3 tools/download_model.py --manifest /path/to/download.json --output /path/to/model
+python3 tools/download_model.py --manifest /path/to/download.json --output /path/to/model \
+  --verify-with /path/to/ernie-image
 ```
 
 The downloader displays the total size and destination, authenticates existing
@@ -73,8 +74,12 @@ checks conservatively allow that restart. Atomic no-overwrite completion needs
 a filesystem supporting hard links. A lock left by a force-killed process
 requires checking that the old process is gone before manual cleanup.
 
-Download integrity is separate from model semantics. After bytes are obtained,
-run the installed native model/package verifier and the relevant PE verifier.
+`--verify-with` runs the specified native executable with `--verify-model` only
+after every download checksum passes. A native failure returns nonzero and keeps
+the downloaded files for inspection. Omit the option to download bytes only;
+PE packages use their separate PE verifier.
+
+Download integrity is separate from model semantics.
 The downloader does not establish model quality, feature support, provenance
 beyond the supplied authenticated manifest, or redistribution permission.
 

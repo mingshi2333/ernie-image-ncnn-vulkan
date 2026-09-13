@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-09-13",
+  "external_sources": [
+    {
+      "url": "https://github.com/Tencent/ncnn/discussions/6998",
+      "repository": "everythingfornothing/ernie-image-ncnn-vulkan",
+      "revision": "77b4cbbd90bb49723efda95b9009c0bab4f0f6f5",
+      "use": "actual text lengths, row mask design and Vulkan mask indexing"
+    },
+    {
+      "url": "https://github.com/Tencent/ncnn/discussions/6996",
+      "repository": "futz12/ernie-image-ncnn-vulkan",
+      "revision": "8dcd6e4411137d8abe92c9d78581c4c96d5182c6",
+      "use": "model delivery and PE prefill"
+    },
+    {
+      "url": "https://github.com/Tencent/ncnn",
+      "revision": "3b7bdba7fc8aea8fd46779533eee027df77c639d",
+      "use": "reviewed native attention, shaders and cache implementation"
+    }
+  ],
+  "local_files": {
+    "sources.lock.json": "2f5d0291b2a7872071bad5aa5f03a0c5ba9a5bb4c6a18df41f1ea5ab28bb5071",
+    "src/conditioning.cpp": "5a5c8cd5bbbcc9ef8cd1f42ef268746b29ed309df1d6e4507d273b2a4490556f",
+    "src/ernie_attention.cpp": "096901aeb1794edbcd7b76b79282985880a2c8f877791191facd1a025359eb3d",
+    "src/shape_plan.cpp": "2045c64fc17ca631327b24651d280433afc57a3f474993f5e0e4a87479854124",
+    "cmake/derive_sdpa_broadcast.py": "513cf6dc8919587caac9669dcead14c0b20d4c497311f6e56f628a90fa46812a",
+    "cmake/ErnieNcnnBroadcast.cmake": "62ac4f9be5d5a72346e1a0702b48661c81c6f55ac31445815fe4cadadfade108",
+    "cmake/ErnieAttentionShader.cmake": "4b3379577d72e7841d803f440354ecd2291a11d27d51ecd4bd132bc704c005f6",
+    "src/pe_session.cpp": "9087e5ae56a0c0c3c39c09ac4867cb718f96ea153140b2e4041e68231030794a",
+    "src/prompt_enhancer.cpp": "a7f6b1005c54744638850b79d7c8a2b1d05a17c7ca6f1a7aaf0ad7e74e889a71",
+    "src/shape_graph.cpp": "8b2c809b02fb457f2401cbf8cf99eaca506e1257045e66a84ad20d7ddb3185ea",
+    "tools/download_model.py": "b3690c13a8d1bb8f64fc97bb064db4e988bfb2dd3e35507c2100a2af4bab03e5",
+    "tools/validate_pe.py": "68079916e521141d6adb312960b08f544dd6ca822779288fe2d9b8de35cb7eb7",
+    "tests/fixtures/text-s256.ncnn.param": "969480f10ca063bb103064741ded9f709e894d2a07589a82246023447e5f42b6"
+  }
+}

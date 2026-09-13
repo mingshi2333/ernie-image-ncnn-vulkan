@@ -1,0 +1,32 @@
+{
+  "backend": "cpu",
+  "precision": "fp32",
+  "passed": true,
+  "command": [
+    "/var/tmp/ernie-evidence-loop-20260913-v1/text256-cpu/runner.snapshot",
+    "--output",
+    "/var/tmp/ernie-evidence-loop-20260913-v1/text256-cpu/cpu-fp32/output.f32",
+    "--tokens",
+    "256",
+    "--backend",
+    "cpu",
+    "--precision",
+    "fp32",
+    "--model",
+    "/var/tmp/ernie-evidence-loop-20260913-v1/text-template-256",
+    "--fixture",
+    "/var/tmp/ernie-evidence-loop-20260913-v1/text-template-256"
+  ],
+  "scope": "Official Mistral text block weights, synthetic activation, causal YaRN prefill",
+  "runner_sha256": "53eaa1ef5457f50cc265cf8563951b12e51c89530fb219612c10638d23e17135",
+  "validator_sha256": "9ea45a8f5747615468c29a64f81f3e6d4bd02e60c294efa9369af4ce5ca08362",
+  "model_manifests": [
+    "a24a8020111a3721a44750470685a2dba934fa0a16beb2b183470b32a167c638"
+  ],
+  "fixture_sha256": "3c78041c488f7157fd68165745769b321fdfe1e68d11e86cc6a58d17304f8eb0",
+  "return_code": 0,
+  "max_abs_error": 4.410743713378906e-06,
+  "nrmse": 4.2257965959063374e-07,
+  "reference_max_abs": 1.356448769569397,
+  "sha256": "74818ae4eded912b77f1989f5b706ffde1dce505e015bde92db992429bccbf43"
+}

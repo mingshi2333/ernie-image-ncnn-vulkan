@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Acquire authenticated bytes only; run the native model verifier separately."""
+"""Download authenticated model bytes, optionally verify them with ernie-image."""
 import argparse
 import hashlib
 import http.client
@@ -8,6 +8,7 @@ import os
 from pathlib import Path
 import re
 import shutil
+import subprocess
 import urllib.error
 import urllib.request
 from urllib.parse import urlsplit
@@ -153,8 +154,25 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--manifest', required=True, type=Path)
     parser.add_argument('--output', required=True, type=Path)
+    parser.add_argument('--verify-with', type=Path, metavar='ERNIE_IMAGE',
+                        help='Run this native executable with --verify-model after the download')
     args = parser.parse_args()
-    try: download(load_manifest(args.manifest), args.output)
-    except (OSError,ValueError,http.client.HTTPException) as error: parser.exit(1, f'Download failed: {error}\n')
+    try: acquire(load_manifest(args.manifest), args.output, verifier=args.verify_with)
+    except (OSError,ValueError,http.client.HTTPException,subprocess.CalledProcessError) as error:
+        parser.exit(1, f'Model preparation failed: {error}\n')
+
+
+def acquire(manifest, output, *, verifier=None, emit=print):
+    """Keep a failed native verification distinct from a successful download."""
+    binary = Path(verifier).resolve() if verifier is not None else None
+    if binary is not None and not binary.is_file():
+        raise ValueError('Native verifier does not exist: ' + str(binary))
+    result = download(manifest, output, emit=emit)
+    if binary is not None:
+        emit('Checking the model with ' + str(binary))
+        subprocess.run([str(binary), '--model', str(Path(output).absolute()), '--verify-model'], check=True)
+        result.update(status='native_model_verified', model_semantics='native_package_verifier_passed')
+        emit('Model preparation complete: download and native package checks passed.')
+    return result
 
 if __name__ == '__main__': main()

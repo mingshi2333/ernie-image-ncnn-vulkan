@@ -38,6 +38,8 @@ cmake --build --preset linux-vulkan --target ernie-image
 
 程序读取本项目格式的模型包，官方 `.safetensors` 需要先转换。仓库不包含权重；已有模型包可以直接使用，从官方权重开始则需要完成[下载、转换与打包](docs/REPRODUCE-PIPELINE.md)。这一步目前仍需要一些手动操作。
 
+如果拿到本项目格式的下载清单，可以将下载、断点续传、文件校验和原生模型校验连起来运行：[下载命令](docs/RELEASING.md#downloading-model-bytes-separately)。公共权重下载清单仍在准备中。
+
 | 模型包 | 使用方式 |
 |---|---|
 | 固定尺寸包，如 `models/turbo1024-s64-portable` | 尺寸由包确定，直接指定目录 |
@@ -143,6 +145,8 @@ PE、文本编码、DiT 和 VAE 依次加载，阶段结束后释放权重。DiT
 精度敏感的位置单独处理：残差、归一化中间计算和 Euler 主 latent 保留 FP32，避免 FP16 溢出；FP32 注意力使用 Kahan 补偿累加，CPU VAE 的均值和中心方差使用 FP64。文件中的 BF16 权重存储与运行时 BF16 计算分别控制。计算顺序和多步误差传播会影响结果，具体未通过项仍需逐阶段定位。
 
 可选 PE 是 26 层的自回归提示词增强器，使用 ncnn 原生 KV cache；正常入口逐 token 预填充。图像 DiT 的隐藏状态每步都会变化，因此其 K/V 没有跨去噪步骤复用。
+
+DiT 的 padding mask 现在只存一行，由 Vulkan attention 广播使用。例如 6144 个位置的 FP32 mask 从 144 MiB 降为 24 KiB。这个数值描述 mask 本身，整机峰值和生成耗时需要另外测量；CPU attention 为兼容各平台实现，会在调用期间展开 mask。改动来源、验证和后续的文本桶、PE 工作见[设计索引](docs/DESIGN-INDEX.md)。
 
 ## 项目架构
 

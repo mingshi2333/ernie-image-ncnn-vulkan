@@ -1,0 +1,13 @@
+Test project /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/build-dev
+    Start 3: attention_row_mask_cpu
+1/4 Test #3: attention_row_mask_cpu ...........   Passed    0.04 sec
+    Start 4: attention_row_mask_fp32
+2/4 Test #4: attention_row_mask_fp32 ..........   Passed    1.05 sec
+    Start 5: attention_row_mask_fp16
+3/4 Test #5: attention_row_mask_fp16 ..........   Passed    1.70 sec
+    Start 6: attention_row_mask_bf16
+4/4 Test #6: attention_row_mask_bf16 ..........   Passed    1.16 sec
+
+100% tests passed, 0 tests failed out of 4
+
+Total Test time (real) =   3.96 sec

@@ -1,0 +1,26 @@
+-- CMAKE_INSTALL_PREFIX = /usr/local
+-- NCNN_VERSION_STRING = 1.0.20260913
+-- Target arch: x86 64bit
+Traceback (most recent call last):
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/cmake/derive_sdpa_broadcast.py", line 113, in <module>
+    derive(args.source, args.bf16_source, args.registry, args.output)
+    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/cmake/derive_sdpa_broadcast.py", line 86, in derive
+    modified = shader(name, original)
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/cmake/derive_sdpa_broadcast.py", line 55, in shader
+    text = replace(text, 'mask_head * p.mask_cstep + gm * p.dst_seqlen + gn;',
+                   'mask_head * p.mask_cstep + min(gm, uint(p.mask_h - 1)) * p.dst_seqlen + gn;')
+  File "/home/mingshi/Project/AI/ernie-image-ncnn-vulkan/.worktrees/surpass-reference/cmake/derive_sdpa_broadcast.py", line 36, in replace
+    raise ValueError(f'Expected {count} occurrences of {before!r}')
+ValueError: Expected 1 occurrences of 'mask_head * p.mask_cstep + gm * p.dst_seqlen + gn;'
+CMake Error at cmake/ErnieNcnnBroadcast.cmake:16 (execute_process):
+  execute_process failed command indexes:
+
+    1: "Child return code: 1"
+
+Call Stack (most recent call first):
+  cmake/Dependencies.cmake:69 (ernie_prepare_ncnn_broadcast)
+  CMakeLists.txt:27 (include)
+
+
+-- Configuring incomplete, errors occurred!

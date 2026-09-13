@@ -76,6 +76,20 @@ int main()
         const auto image = ernie::dit_constants(frequency_path.u8string(), 1, 1, 1, 1);
         require(text.size() == 3 && text[0].h == 2 && image.size() == 3 && image[0].h == 2,
                 "UTF-8 conditioning file changed");
+        const auto padded_image = ernie::dit_constants(frequency_path.u8string(), 2, 2, 2, 32);
+        require(padded_image[2].dims == 2 && padded_image[2].w == 36 && padded_image[2].h == 1,
+                "DiT mask must contain only one key-padding row");
+        for (int k = 0; k < 36; ++k)
+            require(padded_image[2].row(0)[k] == (k < 6 ? 0.f : -1e30f), "DiT padding visibility changed");
+        for (int tokens : {4160, 6144, 10240})
+        {
+            const auto shape = tokens == 4160 ? ernie::ShapePlan::create({{64}}, 1024, 1024, 15) :
+                ernie::ShapePlan::create({{2048}}, tokens == 6144 ? 1024 : 2048, 1024, 15);
+            const auto constants = ernie::dit_constants(frequency_path.u8string(), shape);
+            require(constants[2].w == tokens && constants[2].h == 1 &&
+                    constants[2].total() * constants[2].elemsize == size_t(tokens) * 4,
+                    "Large DiT shape expanded its persistent mask");
+        }
         std::cout << "Native Unicode paths, UTF-8 API/Rust/CLI, prompt and tensor I/O passed; no model inference\n";
     }
     catch (const std::exception& error) { std::cerr << error.what() << '\n'; return 1; }

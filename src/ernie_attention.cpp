@@ -3,6 +3,7 @@
 #include "layer.h"
 #include <algorithm>
 #include <atomic>
+#include <cstring>
 #include <memory>
 #include <stdexcept>
 #include "vulkan_memory.h"
@@ -100,7 +101,7 @@ public:
     {
         const auto& q=in[0];
         // Preserve native autoregressive/cache and low-storage flash paths.
-        // Static ERNIE DiT is batch one, pack1, with a full 2D attention mask.
+        // ERNIE DiT is batch one, pack1. A one-row mask broadcasts over queries.
         bool slice=copy_rows && !kv_cache && !use_flash_attention && q.h>query_rows
                    && q.dims==3 && q.elempack==1 && q.elembits()==32;
 #if NCNN_BATCH
@@ -108,7 +109,7 @@ public:
 #endif
         if (attn_mask)
             slice=slice && (in[3].dims==2 || in[3].dims==3)
-                  && in[3].w==in[1].h && in[3].h==q.h
+                  && in[3].w==in[1].h && (in[3].h==1 || in[3].h==q.h)
                   && in[3].elempack==1 && in[3].elembits()==32;
         if (!slice) return ncnn::SDPA_vulkan::forward(in,out,cmd,opt);
         out[0].create(in[2].w,q.h,q.c,4u,opt.blob_vkallocator);
@@ -120,7 +121,7 @@ public:
             part[0].create(q.w,count,q.c,4u,opt.workspace_vkallocator);
             if (part[0].empty()) return -100;
             rows(q,part[0],first,0,count,cmd);
-            if (attn_mask)
+            if (attn_mask && in[3].h != 1)
             {
                 part[3].create(in[3].w,count,in[3].c,4u,opt.workspace_vkallocator);
                 if (part[3].empty()) return -100;
@@ -168,6 +169,7 @@ public:
     int load_param(const ncnn::ParamDict& params) override
     {
         if (!cpu) return -1;
+        has_mask = params.get(5, 0) != 0;
         int rc = cpu->load_param(params);
 #if NCNN_VULKAN
         if (!rc) rc = gpu->load_param(params);
@@ -198,7 +200,24 @@ public:
     }
     int forward(const std::vector<ncnn::Mat>& in, std::vector<ncnn::Mat>& out, const ncnn::Option& opt) const override
     {
-        return pipeline_status ? pipeline_status : cpu->forward(in, out, opt);
+        if (pipeline_status) return pipeline_status;
+        // Generic/architecture-specific CPU SDPA implementations do not all
+        // support row broadcast. Expand only for this call, never persist a
+        // quadratic host mask alongside the GPU constants.
+        if (has_mask && in.size() >= 4 && in[3].h == 1 && in[0].h > 1)
+        {
+            const auto& mask = in[3];
+            if (mask.elempack != 1 || mask.w != in[1].h) return -1;
+            auto expanded = in;
+            expanded[3].create(mask.w, in[0].h, mask.c, mask.elemsize, 1, opt.workspace_allocator);
+            if (expanded[3].empty()) return -100;
+            for (int c = 0; c < mask.c; ++c)
+                for (int row = 0; row < in[0].h; ++row)
+                    std::memcpy(expanded[3].channel(c).row<unsigned char>(row),
+                                mask.channel(c).data, size_t(mask.w) * mask.elemsize);
+            return cpu->forward(expanded, out, opt);
+        }
+        return cpu->forward(in, out, opt);
     }
 #if NCNN_VULKAN
     int forward(const std::vector<ncnn::VkMat>& in, std::vector<ncnn::VkMat>& out,
@@ -210,6 +229,7 @@ public:
 #endif
     std::unique_ptr<ncnn::Layer> cpu;
     int pipeline_status = -1;
+    bool has_mask = false;
 };
 ncnn::Layer* ErnieSDPA_layer_creator(void* userdata)
 {

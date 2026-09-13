@@ -1,0 +1,541 @@
+{
+  "passed": true,
+  "return_code": 0,
+  "elapsed_seconds": 44.97564602700004,
+  "prefill_chunk": 16,
+  "threads": 2,
+  "gates": {
+    "nrmse": 0.0002,
+    "atol": 0.0002,
+    "rtol": 0.0002
+  },
+  "exact": {
+    "input-ids.txt": true,
+    "generated-ids.txt": true,
+    "enhanced.txt": true
+  },
+  "logits": [
+    {
+      "token": 0,
+      "nrmse": 4.233358295263822e-06,
+      "max_abs_error": 3.981590270996094e-05,
+      "max_abs_limit": 0.004217786407470703,
+      "passed": true
+    },
+    {
+      "token": 1,
+      "nrmse": 2.64537697970838e-06,
+      "max_abs_error": 4.8041343688964844e-05,
+      "max_abs_limit": 0.005159371948242187,
+      "passed": true
+    },
+    {
+      "token": 2,
+      "nrmse": 3.6543501135833574e-06,
+      "max_abs_error": 4.100799560546875e-05,
+      "max_abs_limit": 0.004422380828857422,
+      "passed": true
+    },
+    {
+      "token": 3,
+      "nrmse": 2.538459544616178e-06,
+      "max_abs_error": 2.5987625122070312e-05,
+      "max_abs_limit": 0.004878147125244141,
+      "passed": true
+    },
+    {
+      "token": 4,
+      "nrmse": 3.058318205722978e-06,
+      "max_abs_error": 2.956390380859375e-05,
+      "max_abs_limit": 0.003986591720581055,
+      "passed": true
+    },
+    {
+      "token": 5,
+      "nrmse": 3.6317657382005894e-06,
+      "max_abs_error": 4.309415817260742e-05,
+      "max_abs_limit": 0.005548473739624023,
+      "passed": true
+    },
+    {
+      "token": 6,
+      "nrmse": 3.2504065478795895e-06,
+      "max_abs_error": 2.6702880859375e-05,
+      "max_abs_limit": 0.004558099746704102,
+      "passed": true
+    },
+    {
+      "token": 7,
+      "nrmse": 4.891868727531418e-06,
+      "max_abs_error": 4.887580871582031e-05,
+      "max_abs_limit": 0.0053383819580078125,
+      "passed": true
+    },
+    {
+      "token": 8,
+      "nrmse": 4.115374340973239e-06,
+      "max_abs_error": 3.361701965332031e-05,
+      "max_abs_limit": 0.005889711380004882,
+      "passed": true
+    },
+    {
+      "token": 9,
+      "nrmse": 3.867673587122764e-06,
+      "max_abs_error": 3.3020973205566406e-05,
+      "max_abs_limit": 0.004972158050537109,
+      "passed": true
+    },
+    {
+      "token": 10,
+      "nrmse": 3.177478372737057e-06,
+      "max_abs_error": 3.0040740966796875e-05,
+      "max_abs_limit": 0.005546120452880859,
+      "passed": true
+    },
+    {
+      "token": 11,
+      "nrmse": 2.8977384267125144e-06,
+      "max_abs_error": 3.0517578125e-05,
+      "max_abs_limit": 0.005420209121704101,
+      "passed": true
+    },
+    {
+      "token": 12,
+      "nrmse": 4.06664492322144e-06,
+      "max_abs_error": 3.814697265625e-05,
+      "max_abs_limit": 0.005041674423217774,
+      "passed": true
+    },
+    {
+      "token": 13,
+      "nrmse": 3.218278288675567e-06,
+      "max_abs_error": 3.1948089599609375e-05,
+      "max_abs_limit": 0.005576985931396485,
+      "passed": true
+    },
+    {
+      "token": 14,
+      "nrmse": 3.978599518432113e-06,
+      "max_abs_error": 3.719329833984375e-05,
+      "max_abs_limit": 0.005002042007446289,
+      "passed": true
+    },
+    {
+      "token": 15,
+      "nrmse": 4.374726634498578e-06,
+      "max_abs_error": 5.340576171875e-05,
+      "max_abs_limit": 0.0043228599548339845,
+      "passed": true
+    },
+    {
+      "token": 16,
+      "nrmse": 3.6011060171913336e-06,
+      "max_abs_error": 2.7179718017578125e-05,
+      "max_abs_limit": 0.004942561721801758,
+      "passed": true
+    },
+    {
+      "token": 17,
+      "nrmse": 3.764993320857975e-06,
+      "max_abs_error": 2.8371810913085938e-05,
+      "max_abs_limit": 0.004700748825073242,
+      "passed": true
+    },
+    {
+      "token": 18,
+      "nrmse": 6.273731256277692e-06,
+      "max_abs_error": 5.340576171875e-05,
+      "max_abs_limit": 0.005944802856445312,
+      "passed": true
+    },
+    {
+      "token": 19,
+      "nrmse": 4.140800740355303e-06,
+      "max_abs_error": 2.7477741241455078e-05,
+      "max_abs_limit": 0.0037209373474121096,
+      "passed": true
+    },
+    {
+      "token": 20,
+      "nrmse": 3.328015426187665e-06,
+      "max_abs_error": 2.8878450393676758e-05,
+      "max_abs_limit": 0.005725856399536133,
+      "passed": true
+    },
+    {
+      "token": 21,
+      "nrmse": 3.440597698398796e-06,
+      "max_abs_error": 2.5510787963867188e-05,
+      "max_abs_limit": 0.0049884059906005855,
+      "passed": true
+    },
+    {
+      "token": 22,
+      "nrmse": 3.924441826933753e-06,
+      "max_abs_error": 2.6226043701171875e-05,
+      "max_abs_limit": 0.004059896469116211,
+      "passed": true
+    },
+    {
+      "token": 23,
+      "nrmse": 3.033822268505674e-06,
+      "max_abs_error": 2.5987625122070312e-05,
+      "max_abs_limit": 0.004099888992309571,
+      "passed": true
+    },
+    {
+      "token": 24,
+      "nrmse": 4.409026225290845e-06,
+      "max_abs_error": 3.337860107421875e-05,
+      "max_abs_limit": 0.006107616424560547,
+      "passed": true
+    },
+    {
+      "token": 25,
+      "nrmse": 2.902888489957459e-06,
+      "max_abs_error": 2.3096799850463867e-05,
+      "max_abs_limit": 0.005249647140502929,
+      "passed": true
+    },
+    {
+      "token": 26,
+      "nrmse": 3.0558601209328984e-06,
+      "max_abs_error": 2.5510787963867188e-05,
+      "max_abs_limit": 0.004097202301025391,
+      "passed": true
+    },
+    {
+      "token": 27,
+      "nrmse": 3.2199317777455375e-06,
+      "max_abs_error": 2.6702880859375e-05,
+      "max_abs_limit": 0.003917055892944336,
+      "passed": true
+    },
+    {
+      "token": 28,
+      "nrmse": 4.091140036741395e-06,
+      "max_abs_error": 2.5987625122070312e-05,
+      "max_abs_limit": 0.004864001083374024,
+      "passed": true
+    },
+    {
+      "token": 29,
+      "nrmse": 4.470397094352341e-06,
+      "max_abs_error": 2.6881694793701172e-05,
+      "max_abs_limit": 0.005433505249023437,
+      "passed": true
+    },
+    {
+      "token": 30,
+      "nrmse": 2.9859211754964383e-06,
+      "max_abs_error": 2.6345252990722656e-05,
+      "max_abs_limit": 0.004008252716064453,
+      "passed": true
+    },
+    {
+      "token": 31,
+      "nrmse": 2.017104872954829e-06,
+      "max_abs_error": 2.47955322265625e-05,
+      "max_abs_limit": 0.004585723114013672,
+      "passed": true
+    },
+    {
+      "token": 32,
+      "nrmse": 3.2753476801237375e-06,
+      "max_abs_error": 3.4332275390625e-05,
+      "max_abs_limit": 0.00534666748046875,
+      "passed": true
+    },
+    {
+      "token": 33,
+      "nrmse": 2.4784622484894634e-06,
+      "max_abs_error": 2.4378299713134766e-05,
+      "max_abs_limit": 0.0045066421508789065,
+      "passed": true
+    },
+    {
+      "token": 34,
+      "nrmse": 2.523063270746614e-06,
+      "max_abs_error": 2.586841583251953e-05,
+      "max_abs_limit": 0.005378530120849609,
+      "passed": true
+    },
+    {
+      "token": 35,
+      "nrmse": 3.3320263869032863e-06,
+      "max_abs_error": 2.658367156982422e-05,
+      "max_abs_limit": 0.00582721176147461,
+      "passed": true
+    },
+    {
+      "token": 36,
+      "nrmse": 4.387888589657956e-06,
+      "max_abs_error": 3.230571746826172e-05,
+      "max_abs_limit": 0.003927519226074219,
+      "passed": true
+    },
+    {
+      "token": 37,
+      "nrmse": 4.269716955885901e-06,
+      "max_abs_error": 3.1828880310058594e-05,
+      "max_abs_limit": 0.006021925354003906,
+      "passed": true
+    },
+    {
+      "token": 38,
+      "nrmse": 2.2130643178320685e-06,
+      "max_abs_error": 3.719329833984375e-05,
+      "max_abs_limit": 0.005641054534912109,
+      "passed": true
+    },
+    {
+      "token": 39,
+      "nrmse": 4.025435135558602e-06,
+      "max_abs_error": 3.337860107421875e-05,
+      "max_abs_limit": 0.004666411209106445,
+      "passed": true
+    },
+    {
+      "token": 40,
+      "nrmse": 2.161367427364365e-06,
+      "max_abs_error": 2.47955322265625e-05,
+      "max_abs_limit": 0.005798493957519532,
+      "passed": true
+    },
+    {
+      "token": 41,
+      "nrmse": 4.5115959361024755e-06,
+      "max_abs_error": 4.1961669921875e-05,
+      "max_abs_limit": 0.005728091430664063,
+      "passed": true
+    },
+    {
+      "token": 42,
+      "nrmse": 3.90702254300625e-06,
+      "max_abs_error": 4.482269287109375e-05,
+      "max_abs_limit": 0.005592375183105468,
+      "passed": true
+    },
+    {
+      "token": 43,
+      "nrmse": 6.0358273134566305e-06,
+      "max_abs_error": 3.218650817871094e-05,
+      "max_abs_limit": 0.004446446228027343,
+      "passed": true
+    },
+    {
+      "token": 44,
+      "nrmse": 3.3546088138829037e-06,
+      "max_abs_error": 2.288818359375e-05,
+      "max_abs_limit": 0.005202474212646484,
+      "passed": true
+    },
+    {
+      "token": 45,
+      "nrmse": 4.810960540396835e-06,
+      "max_abs_error": 2.956390380859375e-05,
+      "max_abs_limit": 0.004624844741821289,
+      "passed": true
+    },
+    {
+      "token": 46,
+      "nrmse": 2.6812965607050324e-06,
+      "max_abs_error": 2.193450927734375e-05,
+      "max_abs_limit": 0.005575662612915039,
+      "passed": true
+    },
+    {
+      "token": 47,
+      "nrmse": 3.108697851723754e-06,
+      "max_abs_error": 2.5987625122070312e-05,
+      "max_abs_limit": 0.0048881439208984375,
+      "passed": true
+    },
+    {
+      "token": 48,
+      "nrmse": 4.450355017032944e-06,
+      "max_abs_error": 3.8042664527893066e-05,
+      "max_abs_limit": 0.005595381927490234,
+      "passed": true
+    },
+    {
+      "token": 49,
+      "nrmse": 2.4369644476578376e-06,
+      "max_abs_error": 2.6702880859375e-05,
+      "max_abs_limit": 0.005367787933349609,
+      "passed": true
+    },
+    {
+      "token": 50,
+      "nrmse": 2.67933082124854e-06,
+      "max_abs_error": 3.0994415283203125e-05,
+      "max_abs_limit": 0.005218274688720703,
+      "passed": true
+    },
+    {
+      "token": 51,
+      "nrmse": 3.0800561955215787e-06,
+      "max_abs_error": 2.8371810913085938e-05,
+      "max_abs_limit": 0.005627390289306641,
+      "passed": true
+    },
+    {
+      "token": 52,
+      "nrmse": 2.5458431912153347e-06,
+      "max_abs_error": 3.8623809814453125e-05,
+      "max_abs_limit": 0.0050146549224853515,
+      "passed": true
+    },
+    {
+      "token": 53,
+      "nrmse": 1.99180930728355e-06,
+      "max_abs_error": 2.6017427444458008e-05,
+      "max_abs_limit": 0.005362020111083984,
+      "passed": true
+    },
+    {
+      "token": 54,
+      "nrmse": 3.024170048768581e-06,
+      "max_abs_error": 2.9802322387695312e-05,
+      "max_abs_limit": 0.004405500793457031,
+      "passed": true
+    },
+    {
+      "token": 55,
+      "nrmse": 2.396210564291795e-06,
+      "max_abs_error": 3.0517578125e-05,
+      "max_abs_limit": 0.005526461029052734,
+      "passed": true
+    },
+    {
+      "token": 56,
+      "nrmse": 3.820758244757133e-06,
+      "max_abs_error": 3.355741500854492e-05,
+      "max_abs_limit": 0.004152308654785156,
+      "passed": true
+    },
+    {
+      "token": 57,
+      "nrmse": 4.656884170404774e-06,
+      "max_abs_error": 3.147125244140625e-05,
+      "max_abs_limit": 0.005575377655029297,
+      "passed": true
+    },
+    {
+      "token": 58,
+      "nrmse": 3.359833596688396e-06,
+      "max_abs_error": 3.0517578125e-05,
+      "max_abs_limit": 0.004871031951904296,
+      "passed": true
+    },
+    {
+      "token": 59,
+      "nrmse": 2.7457912351630167e-06,
+      "max_abs_error": 2.956390380859375e-05,
+      "max_abs_limit": 0.004648928070068359,
+      "passed": true
+    },
+    {
+      "token": 60,
+      "nrmse": 2.779144989896846e-06,
+      "max_abs_error": 2.2411346435546875e-05,
+      "max_abs_limit": 0.0038021263122558595,
+      "passed": true
+    },
+    {
+      "token": 61,
+      "nrmse": 3.2161981552498163e-06,
+      "max_abs_error": 2.5153160095214844e-05,
+      "max_abs_limit": 0.004078216552734375,
+      "passed": true
+    },
+    {
+      "token": 62,
+      "nrmse": 3.6165254807710424e-06,
+      "max_abs_error": 2.586841583251953e-05,
+      "max_abs_limit": 0.004353850555419922,
+      "passed": true
+    },
+    {
+      "token": 63,
+      "nrmse": 3.2273633122036023e-06,
+      "max_abs_error": 2.86102294921875e-05,
+      "max_abs_limit": 0.004218070220947266,
+      "passed": true
+    }
+  ],
+  "runner_sha256": "15935b52839571d78f443d2430d5d9e6947a66e2567e09479a462431683b6111",
+  "validator_sha256": "68079916e521141d6adb312960b08f544dd6ca822779288fe2d9b8de35cb7eb7",
+  "model_manifest_sha256": "bf6b5a8314ba5abe3654c95eabfb8f4e4a8a8541fff6ebea3c95a9f7683a8aff",
+  "reference_manifest_sha256": "7fd661d1a409076049f632a1e7d5aa4d1723e16535f2e5d78f13a38f2861c446",
+  "native_files": {
+    "enhanced.txt": "6cfbdb921b35ffee3f0358e2435738d027a34e28c6d04c31061e89f2512877e8",
+    "generated-ids.txt": "6cf7a7f1938253b51d2b5e3f034bc99370693ea394280cdb02f6a5240648d0d0",
+    "input-ids.txt": "d21c95700a851b6f3657938c59ff54d0b550561992a3645c94015e81278488a6",
+    "logits-0.f32": "03520521a8f6f8b22c2766f48480eeb00c442c7b5c912290e6ec56758281c3af",
+    "logits-1.f32": "0d50a94c338ea52f3f4a2cc64cd5178f2854e2e027f2ef51ea44b5fefd547571",
+    "logits-10.f32": "e660ecfda2a41d7f4bf3e3f8a3352db3653416871828a800c787ba7d68ffa4d3",
+    "logits-11.f32": "d85d73629c2a43bb721012a4736a626edef6864282c4a5712a2a4bb2dbf84c20",
+    "logits-12.f32": "fd5dc39432765a2dea0bb81082c91ca60bb85abff8daa8b160f7d4122013c6c8",
+    "logits-13.f32": "8fe86b8d5c758cfee65e9b38661c55633f2cd3b7563767f50f67df8c3d851cbc",
+    "logits-14.f32": "700766c93a1c3d290461bacc8f1d1f02d0942638e0daf1d0b1bcd1cc9097790e",
+    "logits-15.f32": "4820515de35993531d71cdc51622ffb67d5db498373232601feda186332a9ee5",
+    "logits-16.f32": "130597afbf8e0bd0c3e19f2bee06bbae39a912529f19329af65f9bcb8736ce8d",
+    "logits-17.f32": "9189c57ff86f137d04a6defb8704cdcd0dd1d63eb154485676e9496eb33c34d6",
+    "logits-18.f32": "15744e50dd9bddd0f927e5fa4c233b84419a46754007194476d658b21220abeb",
+    "logits-19.f32": "645a7ba08e0ebfe881e904fa777ffc448ae7c4787c11cffe5d355c3e21907781",
+    "logits-2.f32": "8ccd506c9a2d25652b55aed357b228c947ba415fb208e34313db1a577c22ff2b",
+    "logits-20.f32": "f46b363f29286b195583ff1565e821d41e1910cbeadc04b4556393b4f7351010",
+    "logits-21.f32": "484db26e2a04cd5b4b9cfb7bb8c248ef384cdb8a704375fbabb8898d97fd802a",
+    "logits-22.f32": "174678ff17caf8ac4295144712e0c03e3b646985e8634ad286468570f2e46cdd",
+    "logits-23.f32": "01aa90cb2325f1705709aff476c79eb8c656a96dd36a752b92ce990fa16d34de",
+    "logits-24.f32": "ac44a4824b5c037847d84e281edd66f9a9c72a83387eacda78a6d2eb8cc5e75f",
+    "logits-25.f32": "f30ec60cf67e0ff0502c8d23b4c5b1cb5ab809d399a66b7bb1acdb5ac868a822",
+    "logits-26.f32": "d57391156af74259a40ee93bfaaab3e84100e45f264f60021fb538a3da1217e9",
+    "logits-27.f32": "58663d5f6ab2ab9a69ee256045f616ea4e5c79952f8c21a683e661ba46eaad30",
+    "logits-28.f32": "553b4e11e45bfc70fd45fc624852507b45be03222efcbcfdb8f7849d8f3c7ae9",
+    "logits-29.f32": "493c53c03e97250adccc46f47b86c0eb4df01889929bb9b2d6778a398ec09b07",
+    "logits-3.f32": "df4e5f6ab711523188a4ad10290d4b0fee52545ef540fd3f8854ea09577c895d",
+    "logits-30.f32": "1c58478949d92ef112a7a6c8e1e0b7a618a0d161f4b8b55a183776d8b2adf587",
+    "logits-31.f32": "59fa3e5a41112d407aa7a4ca0d9360e0bed286466da8f4bbcf7bcffb0e616252",
+    "logits-32.f32": "8bad1676e00de7793107abf1c4b4a1c1aeeedc4c9fbac6b6d0f83f6cd0fbe349",
+    "logits-33.f32": "e27ea9cc107a3791db0ab83eb18d7e04ae58b28b5ae57c72ffe1670fb64e5083",
+    "logits-34.f32": "7c80e9bd4b08f1f492c317ddcf3d6ce515b9240e796d3591eb1e07cc2c5f36d1",
+    "logits-35.f32": "58e57109db304fad6e69d806c93d857c15733073a3da93f998abd9953d530bf2",
+    "logits-36.f32": "c717785fe1bbabffe3d221d7df2127260ea3ee4e6ba6f12bb4f50796ea52a629",
+    "logits-37.f32": "9eeccf493e5aadd7ca8edf3c1e4e0615cf784060d1990552a6a5b235353da10a",
+    "logits-38.f32": "7341a3865889ec86b41a432047e6a0dd358d3fc62fdea815416e44a7316ccf30",
+    "logits-39.f32": "8fa545a6fc52565c074651d451c998bf1d36a6610a4f6946afcc93291277c8f7",
+    "logits-4.f32": "6d06fc231d0a66e0e3028de7267b2df3402f44fb122acd9d97c52950ed31fec6",
+    "logits-40.f32": "263c9d8e6cf520b9f031df493999febf6e8caab73f7c7afd4e15dcb91b40acd1",
+    "logits-41.f32": "e38a305b6c20de5b92805f34aa33fbaa569e4da39bfea5e79cf76576dcc7dcea",
+    "logits-42.f32": "a7b249c88c6ef02be4b65c4377a856989f3a3fcab29773887de3710bf17b0aab",
+    "logits-43.f32": "5e6f91627b3683ef98cf9f1c0841b80646ba342e11d442ffa022754bcab79991",
+    "logits-44.f32": "6950f55b79d1e76647e0355be101b8f2aed3c63a67f0ff4f49fa94df157a322e",
+    "logits-45.f32": "642c122a314e6d0c1bed587c7da1adaae5b16aecf23231f2ba2eef8921f91f71",
+    "logits-46.f32": "f5c1917ade0d0d922f72db1ef10c78dbe044cedec8b3ee8da15d66ed7017880e",
+    "logits-47.f32": "7f1ffb5fd5f073bb0653726c5f757d9c3020f0ec9595dcebc9f2f31375c16bff",
+    "logits-48.f32": "e907e999dd94f92c1971b0fc557365181fc97dfd71d01d005b676f744f5e1bb2",
+    "logits-49.f32": "62e8e24d99bd89e133cec65baaf8c467077b76f161bc2c23d05fd16f233300e5",
+    "logits-5.f32": "dfd9d1406bda1dea5ddbd24f2cef21f4bdcb37fb7b1dd603ab0dc8bf788e23a7",
+    "logits-50.f32": "6f84781b124942eba6b9b1a3e1d0d85a21600dd5c7f72b2a347b8ee284e10834",
+    "logits-51.f32": "b8e0fe267c43829d459a06d433437f8f429a9c00fc06e9ed8ab3c249fcdad7f1",
+    "logits-52.f32": "bb882fabd8ee9e7bdf2831fbc1ad3d6a745cdeb73b7b3db9fc4475ad8193ae97",
+    "logits-53.f32": "68e7a860039ef03c6058fe7a3b75dde1cfe3853030665dfd94f8325eb6097bc5",
+    "logits-54.f32": "7275b5e8629f8b253867905049d447a93c69a1e70c315a66f907eee209eb3cad",
+    "logits-55.f32": "982ae2d913b5b50951437bd0ee15bace96fc3bc2c514825ed835505e83402c13",
+    "logits-56.f32": "31f57040efc245ab43519a127bb949a2ec2f6393c1c515679109020b12cde720",
+    "logits-57.f32": "182f6c25570e85f43e0904ea3959b37c2de7eea1549d3ae374a9abf9b4540b32",
+    "logits-58.f32": "efad9410babeb3ce62afc5f6511be582a4878493ef9c953883bb11aa15153d60",
+    "logits-59.f32": "755ff66a4111b326c2f2ffbb4a442c145d74aadbd5675edc219fffeb56e22c4d",
+    "logits-6.f32": "9b4d80baba3aa9871f3b406ad31afb65a033cb0d2753b8c7faee7ccae251489c",
+    "logits-60.f32": "eeb648dd4842ad989d96374f5877b330eab39f7a16af165b2e5cbf89b84703ae",
+    "logits-61.f32": "011a0dae6b820fe4e9681b9169a7dd0cac8bd934bdb8257d94890df2a2ed8fc6",
+    "logits-62.f32": "1306032a771c07cd853411071612d04e2aaa31bbd0fc7bc81ccb9aba1580b33f",
+    "logits-63.f32": "639fa476788486376aa25150004f7b7dd61ef7872c8ae7f143fbf29b94f6c8b3",
+    "logits-7.f32": "737e17d1cf465a5d57a0bd9a4b5b18b3c96bb0b15e3853b69f5b6b75b6e27768",
+    "logits-8.f32": "6317307e10415647321f4a8ec987720fe92cce2efa4dbeb3bd5619b771dc71e1",
+    "logits-9.f32": "88972f77c98be2881e11bd94f1b53a63c393c57db3bd9f2f0475cb386601411f",
+    "status.txt": "a538fba474c5d3749c98aa1d72d59adf847c6afc79a69a6e134ea467c090c0aa"
+  }
+}

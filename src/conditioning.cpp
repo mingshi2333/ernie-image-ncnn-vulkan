@@ -21,7 +21,7 @@ static std::vector<ncnn::Mat> make_constants(const std::string &path, int w, int
         if (!std::isfinite(f) || f <= 0.f)
             throw std::runtime_error("Invalid DiT frequency");
     const int image = w * h, length = image + text;
-    ncnn::Mat cos(128, length), sin(128, length), mask(length, length);
+    ncnn::Mat cos(128, length), sin(128, length), mask(length, 1);
     if (cos.empty() || sin.empty() || mask.empty())
         throw std::bad_alloc();
     for (int i = 0; i < length; ++i)
@@ -30,7 +30,6 @@ static std::vector<ncnn::Mat> make_constants(const std::string &path, int w, int
                                   i < image ? i % w : 0};
         float *c = cos.row(i);
         float *s = sin.row(i);
-        float *m = mask.row(i);
         for (int j = 0; j < 64; ++j)
         {
             const int axis = j < 16 ? 0 : j < 40 ? 1 : 2;
@@ -38,9 +37,9 @@ static std::vector<ncnn::Mat> make_constants(const std::string &path, int w, int
             c[2 * j] = c[2 * j + 1] = std::cos(phase);
             s[2 * j] = s[2 * j + 1] = std::sin(phase);
         }
-        for (int k = 0; k < length; ++k)
-            m[k] = k >= image + valid ? -1e30f : 0.f;
     }
+    for (int k = 0; k < length; ++k)
+        mask.row(0)[k] = k >= image + valid ? -1e30f : 0.f;
     return {cos, sin, mask};
 }
 std::vector<ncnn::Mat> dit_constants(const std::string &path, int w, int h, int valid, int text)

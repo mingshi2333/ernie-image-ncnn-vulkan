@@ -3,11 +3,12 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 from pathlib import Path
 import socket
+import subprocess
 import tempfile
 import threading
 import unittest
 from unittest.mock import patch
-from tools.download_model import download
+from tools.download_model import download, acquire
 from tests.test_release_manifest import manifest
 
 DATA=b'0123456789abcdef'*8192
@@ -56,6 +57,31 @@ class DownloadTests(unittest.TestCase):
         self.run_download();self.assertEqual(self.dest.read_bytes(),DATA)
         self.assertEqual(self.run_download()['files'][0]['status'],'verified_existing')
         self.assertEqual(len(self.server.requests),1)
+    def test_native_verifier_runs_after_authenticated_download(self):
+        binary = self.root.parent / 'ernie image'
+        binary.write_bytes(b'fixture')
+        def verified(command, *, check):
+            self.assertEqual(command, [str(binary), '--model', str(self.root), '--verify-model'])
+            self.assertTrue(check)
+            self.assertEqual(self.dest.read_bytes(), DATA)
+        with patch('tools.download_model.subprocess.run', side_effect=verified):
+            result = acquire(self.m, self.root, verifier=binary, emit=lambda _: None)
+        self.assertEqual(result['status'], 'native_model_verified')
+    def test_corrupt_download_does_not_start_native_verifier(self):
+        binary = self.root.parent / 'ernie-image'
+        binary.write_bytes(b'fixture')
+        self.server.mode = 'wrong'
+        with patch('tools.download_model.subprocess.run') as run:
+            with self.assertRaisesRegex(ValueError, 'checksum'):
+                acquire(self.m, self.root, verifier=binary, emit=lambda _: None)
+            run.assert_not_called()
+    def test_native_failure_preserves_download_without_claiming_success(self):
+        binary = self.root.parent / 'ernie-image'
+        binary.write_bytes(b'fixture')
+        with patch('tools.download_model.subprocess.run', side_effect=subprocess.CalledProcessError(1, 'fixture')):
+            with self.assertRaises(subprocess.CalledProcessError):
+                acquire(self.m, self.root, verifier=binary, emit=lambda _: None)
+        self.assertEqual(self.dest.read_bytes(), DATA)
     def test_resume_actual_range(self):
         self.partial();self.run_download();self.assertEqual(self.dest.read_bytes(),DATA)
         self.assertEqual(self.server.requests[0]['Range'],'bytes=4096-')

@@ -1,0 +1,33 @@
+test_atomic_publish_no_overwrite (tests.test_model_download.DownloadTests.test_atomic_publish_no_overwrite) ... ok
+test_complete_partial_verified_without_network (tests.test_model_download.DownloadTests.test_complete_partial_verified_without_network) ... ok
+test_corrupt_download_does_not_start_native_verifier (tests.test_model_download.DownloadTests.test_corrupt_download_does_not_start_native_verifier) ... ok
+test_disk_capacity (tests.test_model_download.DownloadTests.test_disk_capacity) ... ok
+test_exclusive_download_lock (tests.test_model_download.DownloadTests.test_exclusive_download_lock) ... ok
+test_existing_wrong_target_preserved (tests.test_model_download.DownloadTests.test_existing_wrong_target_preserved) ... ok
+test_hardlinked_resume_rejected (tests.test_model_download.DownloadTests.test_hardlinked_resume_rejected) ... ok
+test_http_failure_preserves_resume (tests.test_model_download.DownloadTests.test_http_failure_preserves_resume) ... ok
+test_native_failure_preserves_download_without_claiming_success (tests.test_model_download.DownloadTests.test_native_failure_preserves_download_without_claiming_success) ... ok
+test_native_verifier_runs_after_authenticated_download (tests.test_model_download.DownloadTests.test_native_verifier_runs_after_authenticated_download) ... ok
+test_new_and_authenticated_skip (tests.test_model_download.DownloadTests.test_new_and_authenticated_skip) ... ok
+test_resume_actual_range (tests.test_model_download.DownloadTests.test_resume_actual_range) ... ok
+test_server_200_restarts_without_append (tests.test_model_download.DownloadTests.test_server_200_restarts_without_append) ... ok
+test_symlink_and_resume_identity (tests.test_model_download.DownloadTests.test_symlink_and_resume_identity) ... ok
+test_symlink_output_ancestor_rejected (tests.test_model_download.DownloadTests.test_symlink_output_ancestor_rejected) ... ok
+test_truncated_then_resume (tests.test_model_download.DownloadTests.test_truncated_then_resume) ... ok
+test_version_change_preserves_partial (tests.test_model_download.DownloadTests.test_version_change_preserves_partial) ... ok
+test_wrong_content_range (tests.test_model_download.DownloadTests.test_wrong_content_range) ... ok
+test_wrong_last_byte_never_published (tests.test_model_download.DownloadTests.test_wrong_last_byte_never_published) ... ok
+test_duplicate_and_parent_paths (tests.test_release_manifest.ManifestTests.test_duplicate_and_parent_paths) ... ok
+test_duplicate_json_keys (tests.test_release_manifest.ManifestTests.test_duplicate_json_keys) ... ok
+test_identity_types_urls (tests.test_release_manifest.ManifestTests.test_identity_types_urls) ... ok
+test_paths (tests.test_release_manifest.ManifestTests.test_paths) ... ok
+test_payload_cannot_claim_other_files_resume_name (tests.test_release_manifest.ManifestTests.test_payload_cannot_claim_other_files_resume_name) ... ok
+test_valid (tests.test_release_manifest.ManifestTests.test_valid) ... ok
+test_windows_reserved_spellings_and_characters (tests.test_release_manifest.ManifestTests.test_windows_reserved_spellings_and_characters) ... ok
+test_incomplete_transformation_is_rejected (tests.test_sdpa_broadcast.BroadcastSourceTests.test_incomplete_transformation_is_rejected) ... ok
+test_pinned_variants_and_crlf (tests.test_sdpa_broadcast.BroadcastSourceTests.test_pinned_variants_and_crlf) ... ok
+
+----------------------------------------------------------------------
+Ran 28 tests in 0.536s
+
+OK

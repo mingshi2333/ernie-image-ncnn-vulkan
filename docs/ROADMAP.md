@@ -2,6 +2,8 @@
 
 首版目标：官方 ERNIE-Image-Turbo 权重 → 可追溯转换 → C++ / ncnn / Vulkan → 本地 PNG。Linux、batch=1、Turbo 8 steps、CFG=1；基础路径 PE 关闭，另提供可选 CPU PE。
 
+**2026-09-13：** 按[设计索引](DESIGN-INDEX.md)推进来源核对、实现、测试与回写。本轮接入 DiT 单行广播 mask 和下载后的原生包校验；独立验证 256-token 文本图及完整 26 层 PE chunk-16 候选。后两者尚未切换生产默认，结果与后续项见[实施记录](../artifacts/2026-09-13/design-loop/README.md)。下方日期较早的条目保留原时点状态。
+
 **当前执行入口：** [2026-09-06 超过参考项目的计划](superpowers/plans/2026-09-06-surpass-reference.md)。原生功能、数值定位、计时、Linux 安装与离线交付均已推进，整体正式门槛仍未通过。下面保留已有实现与证据；持续更新的任务记录见[执行进度](../.superpowers/sdd/2026-09-06-surpass-reference/progress.md)。
 
 **2026-09-07 增量：** [映射加载权重](../artifacts/2026-09-07/mapped-model-loading/README.md) 已作为默认关闭的选项接入，固定 64×64 完整轨迹及 PNG 逐字节一致，单次诊断耗时下降 26.1%，伴随 cgroup 内存回收压力；尚未构成配对性能结论。[1376×768 CPU 解码器与两个 head](../artifacts/2026-09-07/fixed1376-cpu-components/README.md) 已通过组件对照，[4192-token 的 36-block 连续轨迹](../artifacts/2026-09-07/fixed1376-block-chain/README.md)也全部通过；新尺寸 8 步完整图像仍待验收。[同输入 up 投影诊断](../artifacts/2026-09-07/matched-up-projection/README.md) 得到了实际数值结果，但未关闭中文图像失败。

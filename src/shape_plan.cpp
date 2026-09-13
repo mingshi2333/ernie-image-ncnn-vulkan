@@ -52,7 +52,7 @@ ShapePlan ShapePlan::create(const ShapeContract &contract, std::int64_t w, std::
     s.packed_latent_bytes = checked_shape_product(4, s.packed_latent_elements);
     s.rgb_bytes = checked_shape_product(3, area);
     s.rope_elements = checked_shape_product(s.total_tokens, 128); // each of cosine and sine
-    s.mask_elements = checked_shape_product(s.total_tokens, s.total_tokens); // current dense additive mask
+    s.mask_elements = s.total_tokens; // one key-padding row, broadcast over queries
     s.host_weights = s.total_tokens > 6144;
     return s;
 }

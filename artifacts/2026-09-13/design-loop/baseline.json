@@ -1,0 +1,8 @@
+{
+  "source_commit": "8c3e26530a6400030f8ef9c8ccb082f3b0250503",
+  "ncnn_commit": "3b7bdba7fc8aea8fd46779533eee027df77c639d",
+  "baseline_binary_sha256": "3202547804114b542a2785a1466bfc117e5d75830bf0633daf7b58cb741910da",
+  "task": "DiT row mask, independently exported text buckets, PE candidate and package preparation",
+  "gates": "Same inputs and old tolerances; dense versus row masks must be bitwise equal per backend/precision. No full-model speed claim from tensor sizes.",
+  "gpu_constraint": "Unrelated research GPU worker active; defer heavy GPU runs."
+}

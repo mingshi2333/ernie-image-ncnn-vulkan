@@ -12,6 +12,7 @@ class TextBucketTests(unittest.TestCase):
     def test_independent_exports_have_identical_equations(self):
         paths = {32: ROOT/'tests/fixtures/text-s32.ncnn.param',
                  64: ROOT/'tests/fixtures/text-s64.ncnn.param',
+                 256: ROOT/'tests/fixtures/text-s256.ncnn.param',
                  2048: ROOT/'tests/fixtures/text-s2048.ncnn.param'}
         for tokens, path in paths.items():
             self.assertEqual(graph_hash(path.read_text(), tokens), GRAPH_SHA256)

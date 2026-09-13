@@ -11,6 +11,10 @@ string(SHA256 sdpa_source_hash "${ERNIE_SDPA_SHADER_SOURCE}")
 if(NOT sdpa_source_hash STREQUAL "a6e6d5caaa411e4253a01a57b5fef461eeb1d9e634e3043920b9c6ad7dca4b14")
     message(FATAL_ERROR "Review the changed ncnn SDPA shader before deriving the ERNIE accumulation shader")
 endif()
+# SDPA's derived dispatch appends the actual mask height. This QKV shader does
+# not consume a mask, but must keep the same push-constant layout as native QK.
+string(REPLACE "    int mask_cstep;\n" "    int mask_cstep;\n    int mask_h;\n"
+    ERNIE_SDPA_SHADER_SOURCE "${ERNIE_SDPA_SHADER_SOURCE}")
 set(compensated_function [=[
 // Kahan accumulation: all four independent output rows retain their low bits.
 // Explicit precise temporaries forbid reassociation which would erase the

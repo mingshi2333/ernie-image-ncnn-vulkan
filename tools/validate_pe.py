@@ -21,9 +21,13 @@ def main():
     p.add_argument('--reference', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
     p.add_argument('--runner', type=Path, default=ROOT/'build/ernie-pe-runner')
+    p.add_argument('--prefill-chunk', type=int, default=1, choices=range(1, 33),
+                   help='Internal chunked-prefill candidate; production still defaults to one token')
+    p.add_argument('--threads', type=int, default=4)
     p.add_argument('--batch-contract', type=Path, help='Require reference membership in this frozen batch')
     p.add_argument('--tokenizer', type=Path, default=ROOT/'models/pe-tokenizer')
     args = p.parse_args()
+    if not 1 <= args.threads <= 256: p.error('Use 1..256 threads')
     if args.output.exists(): p.error('Use a new output directory')
     reference = args.reference.resolve()
     metadata = json.loads((reference/'reference.json').read_text())
@@ -50,7 +54,8 @@ def main():
     runner = out/'ernie-pe-runner'; shutil.copy2(args.runner, runner)
     prompt = out/'prompt.txt'; prompt.write_bytes(metadata['input_prompt'].encode())
     command = [str(runner), str(args.model.resolve()), str(prompt), str(metadata['width']),
-               str(metadata['height']), str(metadata['max_tokens']), str(out/'native'), 'greedy']
+               str(metadata['height']), str(metadata['max_tokens']), str(out/'native'), 'greedy',
+               str(args.prefill_chunk), str(args.threads)]
     started = time.monotonic()
     with (out/'native.log').open('w') as log:
         rc = subprocess.run(['/usr/bin/time', '-v', *command], stdout=log, stderr=subprocess.STDOUT).returncode
@@ -73,6 +78,7 @@ def main():
             for name in ('input-ids.txt', 'generated-ids.txt', 'enhanced.txt')}
     passed = rc == 0 and all(same.values()) and len(rows) == metadata['generated_tokens'] and all(x['passed'] for x in rows)
     result = dict(passed=passed, return_code=rc, elapsed_seconds=time.monotonic()-started,
+                  prefill_chunk=args.prefill_chunk, threads=args.threads,
                   gates=GATES, exact=same, logits=rows, runner_sha256=sha256(runner), validator_sha256=sha256(__file__),
                   model_manifest_sha256=sha256(args.model/'manifest.json'),
                   reference_manifest_sha256=sha256(reference/'reference.json'),

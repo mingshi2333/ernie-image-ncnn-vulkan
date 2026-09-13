@@ -1,0 +1,12 @@
+{
+  "block": 0,
+  "tokens": 256,
+  "weights_sha256": "292fba9a9ce542a1534716ac394070655f1f3c38120578fce5bb4ad10542161d",
+  "files": {
+    "text.ncnn.param": "969480f10ca063bb103064741ded9f709e894d2a07589a82246023447e5f42b6",
+    "text.pnnx-original.param": "aa782bacdb54a27ae00c5ce89ccda8c78e894a3b9c76e12617e99eda7b6c352b",
+    "text.ncnn.bin": "bae6c7fb845410ee1c6e6d97b32f557f27d459c3c7ac3119c7747ccba753f44c",
+    "fixture.json": "3c78041c488f7157fd68165745769b321fdfe1e68d11e86cc6a58d17304f8eb0",
+    "conversion.json": "048fe3c77cc063b79eba56b7482c01e1379b9b4564e8c450e88d3d890d8523d1"
+  }
+}

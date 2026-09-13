@@ -1,0 +1,175 @@
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+PE load 1/26
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+PE load 2/26
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+PE load 3/26
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+PE load 4/26
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+PE load 5/26
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+PE load 6/26
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+PE load 7/26
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+PE load 8/26
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+PE load 9/26
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+PE load 10/26
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+PE load 11/26
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+PE load 12/26
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+PE load 13/26
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+PE load 14/26
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+PE load 15/26
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+PE load 16/26
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+PE load 17/26
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+PE load 18/26
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+PE load 19/26
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+PE load 20/26
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+PE load 21/26
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+PE load 22/26
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+PE load 23/26
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+PE load 24/26
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+PE load 25/26
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+PE load 26/26
+overwrite built-in layer type RMSNorm
+overwrite built-in layer type LayerNorm
+overwrite built-in layer type SDPA
+overwrite built-in layer type GroupNorm
+PE prefill 16/139
+PE prefill 32/139
+PE prefill 48/139
+PE prefill 64/139
+PE prefill 80/139
+PE prefill 96/139
+PE prefill 112/139
+PE prefill 128/139
+PE prefill 139/139
+PE decode 8/64
+PE decode 16/64
+PE decode 24/64
+PE decode 32/64
+PE decode 40/64
+PE decode 48/64
+PE decode 56/64
+PE decode 64/64
+Enhanced: 一张高清写实摄影照片。画面中心是一颗饱满、鲜红的苹果，静静地放置在纹理清晰的深色实木桌面上。苹果表皮呈现出深红色与
+	Command being timed: "/var/tmp/ernie-evidence-loop-20260913-v1/pe-chunk16-en/ernie-pe-runner /home/mingshi/Project/AI/ernie-image-ncnn-vulkan/models/pe-cpu-v1 /var/tmp/ernie-evidence-loop-20260913-v1/pe-chunk16-en/prompt.txt 512 384 64 /var/tmp/ernie-evidence-loop-20260913-v1/pe-chunk16-en/native greedy 16 2"
+	User time (seconds): 65.35
+	System time (seconds): 15.42
+	Percent of CPU this job got: 179%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:44.90
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 15519412
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 29
+	Minor (reclaiming a frame) page faults: 7703965
+	Voluntary context switches: 1658
+	Involuntary context switches: 5991
+	Swaps: 0
+	File system inputs: 19362592
+	File system outputs: 65832
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
