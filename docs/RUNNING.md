@@ -7,6 +7,12 @@ packages select a text source after tokenization and accept explicit runtime
 dimensions. For the shortest build and first-image path, see the
 [quick start](../README.md#构建与运行).
 
+Preconverted image and optional PE packages are available on
+[Hugging Face](https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn).
+See the [model download guide](models/README.md) for fixed-revision downloads,
+package verification and the first-image command. The conversion and historical
+package paths below remain useful for preparing your own models.
+
 ## Everyday CLI use
 
 Running the executable with no arguments, `-h`, or `--help` shows common options

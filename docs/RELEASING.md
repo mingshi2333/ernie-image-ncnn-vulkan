@@ -1,6 +1,11 @@
-# Local delivery drafts
+# Runtime delivery drafts and model downloads
 
-No public release or model download endpoint has been established by these tools.
+Preconverted model packages are published at
+[akashimio/ERNIE-Image-Turbo-ncnn](https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn).
+The [model download guide](models/README.md) includes fixed-revision manifests,
+checksums, licensing and optional PE instructions. The sections below also cover
+local runtime archive drafts; no precompiled runtime Release has been published.
+
 An archive produced by `build_release.py` is a local review draft. Its manifest
 always records `distributable: false`, `published: false`, and an unverified
 release platform. Successful archive creation does not approve redistribution.
@@ -57,8 +62,8 @@ actual release contents and the applicable terms before any distribution.
 Python standard library. A separately supplied schema-1 download manifest must
 identify an immutable revision, graph schema, required capabilities, conversion
 source and script checksum, license source/notice, and each file's safe relative
-path, immutable HTTPS URL, byte size and SHA256. No production manifest with
-invented release URLs is supplied.
+path, immutable HTTPS URL, byte size and SHA256. Published manifests are
+[turbo-v1.json](models/turbo-v1.json) and [pe-v1.json](models/pe-v1.json).
 
 ```sh
 python3 tools/download_model.py --manifest /path/to/download.json --output /path/to/model \

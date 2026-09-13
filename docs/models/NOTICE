@@ -1,0 +1,21 @@
+ERNIE-Image-Turbo ncnn model distribution
+
+Original model: Baidu ERNIE-Image-Turbo
+https://huggingface.co/baidu/ERNIE-Image-Turbo
+Original model revision: bc68c81e2a1730a394d5fc9fae70713dee940140
+License: Apache License, Version 2.0 (see LICENSE).
+
+Format conversion and package preparation: mingshi2333 / akashimio, 2026.
+Runtime and conversion tools:
+https://github.com/mingshi2333/ernie-image-ncnn-vulkan
+
+The original model has been converted to ncnn computation graphs and weight
+streams, with project-specific tokenizer/configuration files and shared-object
+packaging. These are converted deployment artifacts, not a newly trained model.
+All converted artifacts under turbo/ and pe/ are modified representations of
+the original model. Their original manifests and provenance have been retained.
+No new weight conversion or quantization was performed for this upload.
+
+The pinned upstream model repository contains LICENSE and no NOTICE file.
+This NOTICE records the source and changes for this converted distribution.
+Runtime source code is maintained separately under its own MIT license.

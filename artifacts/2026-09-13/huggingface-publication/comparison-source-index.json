@@ -1,0 +1,117 @@
+{
+  "checked_at": "2026-09-13",
+  "method": "GitHub API HEAD, fixed-commit source and public Discussion review; no peer model execution",
+  "sources": [
+    {
+      "repo": "everythingfornothing/ernie-image-ncnn-vulkan",
+      "sha": "77b4cbbd90bb49723efda95b9009c0bab4f0f6f5",
+      "branch": "main",
+      "pushed_at": "2026-09-13T14:35:15Z",
+      "commit_date": "2026-09-13T14:35:11Z",
+      "fork": false,
+      "parent": null,
+      "reviewed_files": [
+        {
+          "path": "README.md",
+          "sha256": "a36c195e9d110fbb2c062b7c3afa87275ed529013e7e079456dde1b505202d45"
+        },
+        {
+          "path": "cpp/src/dit.cpp",
+          "sha256": "2d2d53853042f46312651fc05b8d89a9f9aa17fa10f2e3422d4f5d65201efdc0"
+        },
+        {
+          "path": "cpp/src/pipeline.cpp",
+          "sha256": "f53ae243c996e76fe6459bd65d1380333dae4158370432f34d728e33f96b908b"
+        },
+        {
+          "path": "cpp/src/runtime.cpp",
+          "sha256": "d45bb6f793b70e8593a6bea45d75b12e44768810a143663581ba098f5d0be953"
+        }
+      ]
+    },
+    {
+      "repo": "futz12/ernie-image-ncnn-vulkan",
+      "sha": "8dcd6e4411137d8abe92c9d78581c4c96d5182c6",
+      "branch": "main",
+      "pushed_at": "2026-07-27T16:36:38Z",
+      "commit_date": "2026-07-16T13:32:16Z",
+      "fork": false,
+      "parent": null,
+      "reviewed_files": [
+        {
+          "path": "README.md",
+          "sha256": "9c1dafd950a5b748c8560158d665c881d9b41c05520ff040036b1c3dff4788d1"
+        },
+        {
+          "path": "src/ernie_image_pipeline.cpp",
+          "sha256": "7f449771d5e9ad588f9532c6fb87671dc322d837b017d0cb07f3bcc44ae5d988"
+        },
+        {
+          "path": "src/main.cpp",
+          "sha256": "4abe56fdaa3c3cbad9d6265611a258d9d5d44ddc2839afbd66de757e8a533ef3"
+        }
+      ]
+    },
+    {
+      "repo": "Tencent/ncnn",
+      "sha": "c0abf4830d8f8637efa5d34fce3985ba3d8642bd",
+      "commit_date": "2026-09-10T09:23:55Z",
+      "reviewed_files": [
+        {
+          "path": "docs/how-to-use-and-FAQ/quantized-int8-inference.md",
+          "sha256": "e7c1dfb16f9ba7ccd606971611f96eab8fd9ee8302b421a89e03da1715598c56"
+        },
+        {
+          "path": "src/layer/gemm.h",
+          "sha256": "7ecd63d00f8fc6a875bd858bde258efacfabe7c1ea80b54ad95b1cb9b5e43253"
+        },
+        {
+          "path": "src/layer/vulkan/gemm_vulkan.cpp",
+          "sha256": "ca3db7b1e0d918ed10ad7dcdaef21c168d8da1d69f2e35f6ab47175d8ed44fa1"
+        },
+        {
+          "path": "tools/quantize/CMakeLists.txt",
+          "sha256": "1273931297c2e845818c6bd00006753e7614edcb9092c495b2ea15ea9fb71f75"
+        }
+      ]
+    },
+    {
+      "repo": "nihui/zimage-ncnn-vulkan",
+      "sha": "c1938eef9cd7e03cb216da4f4c89a0c041543e7a",
+      "commit_date": "2026-07-30T11:21:44Z",
+      "reviewed_files": [
+        {
+          "path": "README.md",
+          "sha256": "82a5569ff14072bce44035c6d6869cade22a79aff5284562b8e3bedf065add75"
+        },
+        {
+          "path": "src/zimage_pipeline.cpp",
+          "sha256": "950c9f7aa6f8e762a07542453e96158e1337d2fda9057e19404d97bf77f3546a"
+        }
+      ]
+    },
+    {
+      "repo": "touqiang-guang/ernie-image-ncnn",
+      "sha": "953a98d578b01a24966cd12144c88234685c2a32",
+      "branch": "main",
+      "pushed_at": "2026-09-07T12:27:54Z",
+      "commit_date": "2026-09-07T12:23:13Z",
+      "fork": false,
+      "parent": null,
+      "reviewed_files": [
+        {
+          "path": "README.md",
+          "sha256": "68453f77f14c798037b5991f147c3e20bc8e01f667df149943775ae076ddfe79"
+        },
+        {
+          "path": "src/ernie_pipeline.cpp",
+          "sha256": "8f75e8a57a90beb0fa29ad70e57656b966905caf39ad397e226ea8916d270cd1"
+        },
+        {
+          "path": "txt2img.py",
+          "sha256": "17839e586c9c48b6b17d5f3d4678034fcae664bb6f3bf333a6056b2af7a1650f"
+        }
+      ]
+    }
+  ]
+}

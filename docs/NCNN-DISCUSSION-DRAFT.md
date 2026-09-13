@@ -29,6 +29,7 @@ Earliest local implementation commit: 7bf22ea22ae4622441afc100e28ca72589d6436e,
 默认由 CPU 执行文本编码和 VAE，Vulkan 执行 DiT。Turbo 使用 8 步 Euler 去噪、CFG=1，图像 latent 在整个去噪过程中保持 FP32。
 
 - 代码：[ernie-image-ncnn-vulkan](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/tree/codex/surpass-reference)。
+- 预转换模型：[Hugging Face](https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn)。文生图主包约 23.27 GB，包含共享权重与 32/64/2048 文本图；可选 PE 包另约 7.68 GB。[下载说明](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/docs/models/README.md)提供固定版本清单、断点续传和校验命令，下载后可以直接运行。
 - 开发环境：Fedora，Ryzen 7745HX + RTX 4060 Laptop 8GB，32GB RAM。
 - 主要版本：ncnn `3b7bdba7`、pnnx `20260526`、Transformers `5.2.0`、Python/Rust Tokenizers `0.22.2`。完整依赖与模型来源记录在 [sources.lock.json](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/sources.lock.json)。
 

@@ -1,0 +1,31 @@
+{
+  "started_at": "2026-09-13T16:39:02Z",
+  "packages": {
+    "turbo": {
+      "python_verification": "passed",
+      "duration_seconds": 14.945,
+      "manifest_sha256": "21b6bc8deae17418c22257b52e928ee048a372342a2517bcb954276257c21d1a",
+      "native_verification_exit_code": 0,
+      "command": [
+        "/var/tmp/ernie-hf-release-20260913-v1/evidence/ernie-image",
+        "--model",
+        "/var/tmp/ernie-hf-release-20260913-v1/repo/turbo",
+        "--verify-model"
+      ]
+    },
+    "pe": {
+      "python_verification": "passed",
+      "duration_seconds": 5.059,
+      "manifest_sha256": "bf6b5a8314ba5abe3654c95eabfb8f4e4a8a8541fff6ebea3c95a9f7683a8aff",
+      "native_verification_exit_code": 0,
+      "command": [
+        "/var/tmp/ernie-hf-release-20260913-v1/evidence/ernie-image",
+        "--pe-model",
+        "/var/tmp/ernie-hf-release-20260913-v1/repo/pe",
+        "--verify-model"
+      ]
+    }
+  },
+  "binary_sha256": "85d43bc4d15fc859090156bced134ac417797eaec05c45035e1c1fcdecfd6046",
+  "finished_at": "2026-09-13T16:39:41Z"
+}

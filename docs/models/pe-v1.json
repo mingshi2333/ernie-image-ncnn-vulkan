@@ -1,0 +1,387 @@
+{
+  "schema_version": 1,
+  "model_revision": "9924de97ebe85c540ce09e207142a6efee614be7",
+  "graph_schema": "ernie-prompt-enhancer-schema1",
+  "required_capabilities": [
+    "ernie_pe_schema1",
+    "cpu_fp32",
+    "native_kv_cache"
+  ],
+  "conversion": {
+    "source": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/blob/9924de97ebe85c540ce09e207142a6efee614be7/provenance.json",
+    "script_sha256": "e6b73fd66a6e43ddb139bb7c1e849cda5636e4de5ea5096dc45d4b9e632ea7ab"
+  },
+  "license": {
+    "identifier": "Apache-2.0",
+    "source": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/blob/9924de97ebe85c540ce09e207142a6efee614be7/LICENSE",
+    "notice": "Original model: Baidu ERNIE-Image-Turbo. Converted distribution: mingshi2333 / akashimio. See docs/models/LICENSE-ERNIE-Image and docs/models/NOTICE. Original conversion identities remain in the package; script_sha256 identifies the verifier used to prepare this release."
+  },
+  "files": [
+    {
+      "path": "block-00/pe.ncnn.bin",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-00/pe.ncnn.bin",
+      "size": 232808476,
+      "sha256": "6c35b4a4c87c945ab875e1690a53f56bc993446c050e0dc0a0b0e04b37544d59"
+    },
+    {
+      "path": "block-00/pe.ncnn.param",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-00/pe.ncnn.param",
+      "size": 4223,
+      "sha256": "aa068ca4377987878f758359289907a86a3a592132fa6f6b3dadce79f5f1f265"
+    },
+    {
+      "path": "block-01/pe.ncnn.bin",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-01/pe.ncnn.bin",
+      "size": 232808476,
+      "sha256": "d227c4a7db850b1877f3b0447ee77bbcb7296abc39c4e0ce8cbbb9ef1b2aa66a"
+    },
+    {
+      "path": "block-01/pe.ncnn.param",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-01/pe.ncnn.param",
+      "size": 4223,
+      "sha256": "aa068ca4377987878f758359289907a86a3a592132fa6f6b3dadce79f5f1f265"
+    },
+    {
+      "path": "block-02/pe.ncnn.bin",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-02/pe.ncnn.bin",
+      "size": 232808476,
+      "sha256": "a929281bf16f4daeaa7d6fb4c00ef196b8f9953b624cd7b360ac49da0f22e598"
+    },
+    {
+      "path": "block-02/pe.ncnn.param",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-02/pe.ncnn.param",
+      "size": 4223,
+      "sha256": "aa068ca4377987878f758359289907a86a3a592132fa6f6b3dadce79f5f1f265"
+    },
+    {
+      "path": "block-03/pe.ncnn.bin",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-03/pe.ncnn.bin",
+      "size": 232808476,
+      "sha256": "b09a5007662059fa9c8e0de947f673ff7d4b3eb19f11c52c563f332a74cd61ef"
+    },
+    {
+      "path": "block-03/pe.ncnn.param",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-03/pe.ncnn.param",
+      "size": 4223,
+      "sha256": "aa068ca4377987878f758359289907a86a3a592132fa6f6b3dadce79f5f1f265"
+    },
+    {
+      "path": "block-04/pe.ncnn.bin",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-04/pe.ncnn.bin",
+      "size": 232808476,
+      "sha256": "e8919a2fcde846708e7dfe86a036736cb3cb50e1e6b3b2185441ae3545eeafb8"
+    },
+    {
+      "path": "block-04/pe.ncnn.param",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-04/pe.ncnn.param",
+      "size": 4223,
+      "sha256": "aa068ca4377987878f758359289907a86a3a592132fa6f6b3dadce79f5f1f265"
+    },
+    {
+      "path": "block-05/pe.ncnn.bin",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-05/pe.ncnn.bin",
+      "size": 232808476,
+      "sha256": "354786b6aeb2b127762fc342a1ad039b02755f50121b00f93c648a0ed1a63cec"
+    },
+    {
+      "path": "block-05/pe.ncnn.param",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-05/pe.ncnn.param",
+      "size": 4223,
+      "sha256": "aa068ca4377987878f758359289907a86a3a592132fa6f6b3dadce79f5f1f265"
+    },
+    {
+      "path": "block-06/pe.ncnn.bin",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-06/pe.ncnn.bin",
+      "size": 232808476,
+      "sha256": "782e7b57a4e73f8971735096cbb7cc9b27df0051a5caaf545624a9e555ac083d"
+    },
+    {
+      "path": "block-06/pe.ncnn.param",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-06/pe.ncnn.param",
+      "size": 4223,
+      "sha256": "aa068ca4377987878f758359289907a86a3a592132fa6f6b3dadce79f5f1f265"
+    },
+    {
+      "path": "block-07/pe.ncnn.bin",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-07/pe.ncnn.bin",
+      "size": 232808476,
+      "sha256": "a0eb935a8be73a3f7b75cc5c64a80bd32c9c2ffa26a879ba3080f1f2026a0da7"
+    },
+    {
+      "path": "block-07/pe.ncnn.param",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-07/pe.ncnn.param",
+      "size": 4223,
+      "sha256": "aa068ca4377987878f758359289907a86a3a592132fa6f6b3dadce79f5f1f265"
+    },
+    {
+      "path": "block-08/pe.ncnn.bin",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-08/pe.ncnn.bin",
+      "size": 232808476,
+      "sha256": "6f9aabbffa3eede61af8de096029370e2162b3048bf8b986c2fb423f6ae1b21c"
+    },
+    {
+      "path": "block-08/pe.ncnn.param",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-08/pe.ncnn.param",
+      "size": 4223,
+      "sha256": "aa068ca4377987878f758359289907a86a3a592132fa6f6b3dadce79f5f1f265"
+    },
+    {
+      "path": "block-09/pe.ncnn.bin",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-09/pe.ncnn.bin",
+      "size": 232808476,
+      "sha256": "6601753b67fb07600e897682208048708f352e00cd78bc01fbf7e7e5523f5246"
+    },
+    {
+      "path": "block-09/pe.ncnn.param",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-09/pe.ncnn.param",
+      "size": 4223,
+      "sha256": "aa068ca4377987878f758359289907a86a3a592132fa6f6b3dadce79f5f1f265"
+    },
+    {
+      "path": "block-10/pe.ncnn.bin",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-10/pe.ncnn.bin",
+      "size": 232808476,
+      "sha256": "f42529f2a98d9a3e222a5ea249878ac69d6df735417b3a2c1f0ba8a34d7bf34b"
+    },
+    {
+      "path": "block-10/pe.ncnn.param",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-10/pe.ncnn.param",
+      "size": 4223,
+      "sha256": "aa068ca4377987878f758359289907a86a3a592132fa6f6b3dadce79f5f1f265"
+    },
+    {
+      "path": "block-11/pe.ncnn.bin",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-11/pe.ncnn.bin",
+      "size": 232808476,
+      "sha256": "8620aea8c1c32bcf2fece9b0cda2038a79cd09d4ac5b5b2cb5bec9d191991ba5"
+    },
+    {
+      "path": "block-11/pe.ncnn.param",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-11/pe.ncnn.param",
+      "size": 4223,
+      "sha256": "aa068ca4377987878f758359289907a86a3a592132fa6f6b3dadce79f5f1f265"
+    },
+    {
+      "path": "block-12/pe.ncnn.bin",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-12/pe.ncnn.bin",
+      "size": 232808476,
+      "sha256": "d979fa7e81501bd37cbcbec3e32401fef07d4735906c352066804931d25006ae"
+    },
+    {
+      "path": "block-12/pe.ncnn.param",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-12/pe.ncnn.param",
+      "size": 4223,
+      "sha256": "aa068ca4377987878f758359289907a86a3a592132fa6f6b3dadce79f5f1f265"
+    },
+    {
+      "path": "block-13/pe.ncnn.bin",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-13/pe.ncnn.bin",
+      "size": 232808476,
+      "sha256": "be77b1b264febf0d29d872eeaa3adbd603cc9e6410c68e1cd9c5315d1af7a2b2"
+    },
+    {
+      "path": "block-13/pe.ncnn.param",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-13/pe.ncnn.param",
+      "size": 4223,
+      "sha256": "aa068ca4377987878f758359289907a86a3a592132fa6f6b3dadce79f5f1f265"
+    },
+    {
+      "path": "block-14/pe.ncnn.bin",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-14/pe.ncnn.bin",
+      "size": 232808476,
+      "sha256": "bf10c4e4b40140aea0b98010b7c0cf66a2a0533834e50c041fdbe811a8aa2cf9"
+    },
+    {
+      "path": "block-14/pe.ncnn.param",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-14/pe.ncnn.param",
+      "size": 4223,
+      "sha256": "aa068ca4377987878f758359289907a86a3a592132fa6f6b3dadce79f5f1f265"
+    },
+    {
+      "path": "block-15/pe.ncnn.bin",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-15/pe.ncnn.bin",
+      "size": 232808476,
+      "sha256": "5d7b5f3ca6ecb1c73e01bee3c35747332e36c3d6e6965288097a45f6db697b21"
+    },
+    {
+      "path": "block-15/pe.ncnn.param",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-15/pe.ncnn.param",
+      "size": 4223,
+      "sha256": "aa068ca4377987878f758359289907a86a3a592132fa6f6b3dadce79f5f1f265"
+    },
+    {
+      "path": "block-16/pe.ncnn.bin",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-16/pe.ncnn.bin",
+      "size": 232808476,
+      "sha256": "6bb2af896af21a348d3b38986a547c3abc10c2c4c9ab7de42f6d223ad6536989"
+    },
+    {
+      "path": "block-16/pe.ncnn.param",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-16/pe.ncnn.param",
+      "size": 4223,
+      "sha256": "aa068ca4377987878f758359289907a86a3a592132fa6f6b3dadce79f5f1f265"
+    },
+    {
+      "path": "block-17/pe.ncnn.bin",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-17/pe.ncnn.bin",
+      "size": 232808476,
+      "sha256": "958809567d863d88d010071096a88671b062d01574832a59709925524fece824"
+    },
+    {
+      "path": "block-17/pe.ncnn.param",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-17/pe.ncnn.param",
+      "size": 4223,
+      "sha256": "aa068ca4377987878f758359289907a86a3a592132fa6f6b3dadce79f5f1f265"
+    },
+    {
+      "path": "block-18/pe.ncnn.bin",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-18/pe.ncnn.bin",
+      "size": 232808476,
+      "sha256": "fe187049bf29613a22d5f7bbd8f96e59c4ed97ed262ad4e6a772bc0304ee7494"
+    },
+    {
+      "path": "block-18/pe.ncnn.param",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-18/pe.ncnn.param",
+      "size": 4223,
+      "sha256": "aa068ca4377987878f758359289907a86a3a592132fa6f6b3dadce79f5f1f265"
+    },
+    {
+      "path": "block-19/pe.ncnn.bin",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-19/pe.ncnn.bin",
+      "size": 232808476,
+      "sha256": "d7b48e12903ceb0e886124f850895315e1b52dd3544a66d7a8b26b598ac15e68"
+    },
+    {
+      "path": "block-19/pe.ncnn.param",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-19/pe.ncnn.param",
+      "size": 4223,
+      "sha256": "aa068ca4377987878f758359289907a86a3a592132fa6f6b3dadce79f5f1f265"
+    },
+    {
+      "path": "block-20/pe.ncnn.bin",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-20/pe.ncnn.bin",
+      "size": 232808476,
+      "sha256": "a07e2f4a15e46e2660aa25d7c2548dfeab35e3306ec060a3aeb9404363f8b028"
+    },
+    {
+      "path": "block-20/pe.ncnn.param",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-20/pe.ncnn.param",
+      "size": 4223,
+      "sha256": "aa068ca4377987878f758359289907a86a3a592132fa6f6b3dadce79f5f1f265"
+    },
+    {
+      "path": "block-21/pe.ncnn.bin",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-21/pe.ncnn.bin",
+      "size": 232808476,
+      "sha256": "25cc8adfdb379dfce39df57c47a6aadd1b73c783ae112776dab8f7f8756b9656"
+    },
+    {
+      "path": "block-21/pe.ncnn.param",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-21/pe.ncnn.param",
+      "size": 4223,
+      "sha256": "aa068ca4377987878f758359289907a86a3a592132fa6f6b3dadce79f5f1f265"
+    },
+    {
+      "path": "block-22/pe.ncnn.bin",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-22/pe.ncnn.bin",
+      "size": 232808476,
+      "sha256": "514aaf86e1a737c83c3f30f93c77782ec22b0e78863effce2657de85617ca4b8"
+    },
+    {
+      "path": "block-22/pe.ncnn.param",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-22/pe.ncnn.param",
+      "size": 4223,
+      "sha256": "aa068ca4377987878f758359289907a86a3a592132fa6f6b3dadce79f5f1f265"
+    },
+    {
+      "path": "block-23/pe.ncnn.bin",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-23/pe.ncnn.bin",
+      "size": 232808476,
+      "sha256": "8ef61c1ecde6601621d1c36c76eb48bf9250d36879ae82988598d279f8cd3915"
+    },
+    {
+      "path": "block-23/pe.ncnn.param",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-23/pe.ncnn.param",
+      "size": 4223,
+      "sha256": "aa068ca4377987878f758359289907a86a3a592132fa6f6b3dadce79f5f1f265"
+    },
+    {
+      "path": "block-24/pe.ncnn.bin",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-24/pe.ncnn.bin",
+      "size": 232808476,
+      "sha256": "ba3e1cff1d8b013b9f9d7d7d1f757c6a05276f8eb6aac6dd0a91a22a839ee9fd"
+    },
+    {
+      "path": "block-24/pe.ncnn.param",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-24/pe.ncnn.param",
+      "size": 4223,
+      "sha256": "aa068ca4377987878f758359289907a86a3a592132fa6f6b3dadce79f5f1f265"
+    },
+    {
+      "path": "block-25/pe.ncnn.bin",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-25/pe.ncnn.bin",
+      "size": 232808476,
+      "sha256": "31aead4ea70a2b849d01915bf16d55c0b55747eac0a9affc69d79fc44ea0386e"
+    },
+    {
+      "path": "block-25/pe.ncnn.param",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/block-25/pe.ncnn.param",
+      "size": 4223,
+      "sha256": "aa068ca4377987878f758359289907a86a3a592132fa6f6b3dadce79f5f1f265"
+    },
+    {
+      "path": "embeddings.bf16",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/embeddings.bf16",
+      "size": 805306368,
+      "sha256": "08b251e34dc3ed18d58e1f43a07574eccd90f2366623ed3ed2ef5a81237ab3fd"
+    },
+    {
+      "path": "head.ncnn.bin",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/head.ncnn.bin",
+      "size": 805318660,
+      "sha256": "24d22acbd161d5045c88a6f281dcd49ddff2fb4a420b87dc7379150780c36d5c"
+    },
+    {
+      "path": "head.ncnn.param",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/head.ncnn.param",
+      "size": 171,
+      "sha256": "24d9abcae0318267dc5edd42c9c805c2397953da76d2c17085eec0727792b4ac"
+    },
+    {
+      "path": "manifest.json",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/manifest.json",
+      "size": 14583,
+      "sha256": "bf6b5a8314ba5abe3654c95eabfb8f4e4a8a8541fff6ebea3c95a9f7683a8aff"
+    },
+    {
+      "path": "pe.cfg",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/pe.cfg",
+      "size": 77,
+      "sha256": "52e94783ec604b627d5f6dd105d03d483ebcc82238e59d5704a0e12db6edf324"
+    },
+    {
+      "path": "rope-inv-freq.f32",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/rope-inv-freq.f32",
+      "size": 256,
+      "sha256": "a736a0fd458aada260a1106b3d23f9e7593f258b09ab54ece95eda02b8f455d2"
+    },
+    {
+      "path": "tokenizer/chat_template.jinja",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/tokenizer/chat_template.jinja",
+      "size": 615,
+      "sha256": "0c859484eecf01db103acd02c332610163ee425cd46866d6cb126ee1bee974ea"
+    },
+    {
+      "path": "tokenizer/tokenizer.json",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/tokenizer/tokenizer.json",
+      "size": 17077402,
+      "sha256": "286acad9b0e27fce778ac429763536accf618ccb6ed72963b6f94685e531c5c7"
+    },
+    {
+      "path": "tokenizer/tokenizer_config.json",
+      "url": "https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn/resolve/9924de97ebe85c540ce09e207142a6efee614be7/pe/tokenizer/tokenizer_config.json",
+      "size": 21124,
+      "sha256": "95a353ec6c5c22537125c6a8b8afae0775c89411d84321329d5234c90d8d47ee"
+    }
+  ]
+}

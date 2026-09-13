@@ -14,7 +14,7 @@
 
 图片来自已完成的对照实验，使用保存的初始噪声。猫和湖泊样例仍有数值检查未通过项，下面的误差表保留了结果。[完整提示词、参数与原图来源](docs/images/README.md)。
 
-目前主要在 Linux 上使用和验证，测试机器是 RTX 4060 Laptop 8GB、32GB RAM，最低配置尚未测定。Windows 和 macOS 已通过原生构建与小型测试，完整模型出图还需要实机验证。首次使用需要自行编译并准备模型包，项目暂未发布预编译 Release。
+目前主要在 Linux 上使用和验证，测试机器是 RTX 4060 Laptop 8GB、32GB RAM，最低配置尚未测定。Windows 和 macOS 已通过原生构建与小型测试，完整模型出图还需要实机验证。预转换模型已提供下载；程序仍需自行编译，项目暂未发布预编译 Release。
 
 ## 构建与运行
 
@@ -36,12 +36,20 @@ cmake --build --preset linux-vulkan --target ernie-image
 
 ### 准备模型
 
-程序读取本项目格式的模型包，官方 `.safetensors` 需要先转换。仓库不包含权重；已有模型包可以直接使用，从官方权重开始则需要完成[下载、转换与打包](docs/REPRODUCE-PIPELINE.md)。这一步目前仍需要一些手动操作。
+预转换模型放在 [Hugging Face：akashimio/ERNIE-Image-Turbo-ncnn](https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn)。文生图主包约 **23.27 GB（21.67 GiB）**，包含 32/64/2048 三档文本图和共享权重，下载后可以直接使用。可选的 PE 提示词增强包另约 **7.68 GB（7.15 GiB）**。
 
-如果拿到本项目格式的下载清单，可以将下载、断点续传、文件校验和原生模型校验连起来运行：[下载命令](docs/RELEASING.md#downloading-model-bytes-separately)。公共权重下载清单仍在准备中。
+下面的命令只需要 Python 3 标准库，按仓库内的固定版本清单下载，支持断点续传，逐个核对 SHA-256，最后调用刚编译的程序校验模型：
+
+```sh
+python3 tools/download_model.py --manifest docs/models/turbo-v1.json \
+  --output models/ernie-image-turbo/turbo --verify-with build/linux-vulkan/ernie-image
+```
+
+已有 Hugging Face CLI 时，也可以使用 `hf download akashimio/ERNIE-Image-Turbo-ncnn --exclude "pe/*" --local-dir models/ernie-image-turbo`。[模型下载说明](docs/models/README.md)提供固定版本、可选 PE 和文件格式说明。从官方 `.safetensors` 自行转换仍可按[转换与打包文档](docs/REPRODUCE-PIPELINE.md)操作。
 
 | 模型包 | 使用方式 |
 |---|---|
+| 下载的 `models/ernie-image-turbo/turbo` | 共享权重包，运行时指定宽度和高度 |
 | 固定尺寸包，如 `models/turbo1024-s64-portable` | 尺寸由包确定，直接指定目录 |
 | 共享包，如 `models/turbo-shared-v2` | 复用同一套权重，运行时指定宽度和高度；[组装方法](docs/RUNNING.md#shared-weights-and-runtime-dimensions) |
 | PE 提示词增强包 | 可选，通过 `--pe-model` 与文生图模型一起使用 |
@@ -49,17 +57,17 @@ cmake --build --preset linux-vulkan --target ernie-image
 正常生成会自动校验模型文件。想先确认包是否完整，可以运行：
 
 ```sh
-build/linux-vulkan/ernie-image --model models/turbo1024-s64-portable --verify-model
+build/linux-vulkan/ernie-image --model models/ernie-image-turbo/turbo --verify-model
 ```
 
 ### 生成第一张图
 
-准备好固定 1024×1024 模型包后：
+下载并校验主包后，生成一张 1024×1024 图片：
 
 ```sh
-build/linux-vulkan/ernie-image --model models/turbo1024-s64-portable \
+build/linux-vulkan/ernie-image --model models/ernie-image-turbo/turbo \
   --prompt 'A red apple on a wooden table, soft daylight, realistic photo.' \
-  --precision fp32 --output outputs/apple.png
+  --width 1024 --height 1024 --precision fp32 --output outputs/apple.png
 ```
 
 这里显式选择 FP32，它有更充分的数值对照结果。程序本身的 Vulkan 默认精度是 FP16；CPU 模式省略精度时会选择 FP32。默认运行 8 步、seed 42，显示模型校验、文本编码和逐步去噪进度，最后打印保存路径与耗时。
