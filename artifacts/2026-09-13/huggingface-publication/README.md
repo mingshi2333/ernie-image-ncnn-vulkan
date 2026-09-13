@@ -16,4 +16,6 @@ Git LFS 属性按实际远端存储逐路径整理，避免小型共享对象被
 
 使用入口见 [模型下载说明](../../../docs/models/README.md)，固定下载清单为 [turbo-v1.json](../../../docs/models/turbo-v1.json) 与 [pe-v1.json](../../../docs/models/pe-v1.json)。README、运行说明和现有 Discussion 的模型下载入口随本次发布更新。同题实现与精度选择的来源核对见 [比较说明](../../../docs/COMMUNITY-COMPARISON.md)。
 
+现有 [Discussion #6985](https://github.com/Tencent/ncnn/discussions/6985) 已于 2026-09-13T17:13:49Z 增加一条模型下载入口。标题、分类及原图 URL 保持原样，正文逐字读回与匿名页面检查通过，见 [发布回执](discussion-receipt.json)。
+
 `publication.json` 保存发布身份，`package-verification.json` 保存上传前校验，`remote-inventory-check.json` 保存全文件远端核对，`download-checks.json` 保存匿名下载与完整清单检查。复核脚本在本目录，使用 `/var/tmp/ernie-hf-release-20260913-v1` 的本次暂存目录；未保存凭据或带签名的下载地址。

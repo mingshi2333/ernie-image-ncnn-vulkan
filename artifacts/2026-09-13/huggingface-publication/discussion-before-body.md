@@ -1,25 +1,3 @@
-<!--
-Published in Tencent/ncnn Discussions, Show and tell, 2026-09-10.
-https://github.com/Tencent/ncnn/discussions/6985
-Style reference: https://github.com/Tencent/ncnn/discussions/6798 (mingshi2333).
-Publication authorized by the user on 2026-09-10, with a Rhino-bird stage-three
-annotation. The posted body uses immutable public URLs for the original PNGs.
-Repository is PUBLIC; its default branch is codex/surpass-reference.
-Posted at 2026-09-10T02:12:15Z. Public links and all three images verified.
-2026-09-13 revision: row-mask storage, complete CPU regression, text/PE
-candidates, model verification and current framework CI. Update the existing post.
-Existing post updated at 2026-09-13T16:04:05Z; exact body/HTML and anonymous
-readback verified. Receipt: ../artifacts/2026-09-13/discussion-update/receipt.json.
-Hugging Face download link added at 2026-09-13T17:13:49Z; exact body and anonymous readback pass.
-Receipt: ../artifacts/2026-09-13/huggingface-publication/discussion-receipt.json.
-Full conversion commands and historical detail: PORTING-WALKTHROUGH.md.
-Project creation verified through the GitHub API: 2026-09-05T02:41:27Z.
-Earliest local implementation commit: 7bf22ea22ae4622441afc100e28ca72589d6436e,
-2026-09-05T05:30:17+03:00. Both records fall on 2026-09-05 locally.
--->
-
-# 【腾讯犀牛鸟2026】ERNIE-Image-Turbo 的 ncnn/Vulkan 实现
-
 > 腾讯犀牛鸟开源人才培养计划第三阶段（Shape with AI · 开源课题实战）项目分享。
 
 *更新于 2026 年 9 月 13 日。*
@@ -31,19 +9,18 @@ Earliest local implementation commit: 7bf22ea22ae4622441afc100e28ca72589d6436e,
 默认由 CPU 执行文本编码和 VAE，Vulkan 执行 DiT。Turbo 使用 8 步 Euler 去噪、CFG=1，图像 latent 在整个去噪过程中保持 FP32。
 
 - 代码：[ernie-image-ncnn-vulkan](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/tree/codex/surpass-reference)。
-- 预转换模型：[Hugging Face](https://huggingface.co/akashimio/ERNIE-Image-Turbo-ncnn)。文生图主包约 23.27 GB，包含共享权重与 32/64/2048 文本图；可选 PE 包另约 7.68 GB。[下载说明](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/docs/models/README.md)提供固定版本清单、断点续传和校验命令，下载后可以直接运行。
 - 开发环境：Fedora，Ryzen 7745HX + RTX 4060 Laptop 8GB，32GB RAM。
 - 主要版本：ncnn `3b7bdba7`、pnnx `20260526`、Transformers `5.2.0`、Python/Rust Tokenizers `0.22.2`。完整依赖与模型来源记录在 [sources.lock.json](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/sources.lock.json)。
 
 下面是原生程序的实际输出，1376×768、8 步、Vulkan FP32：
 
-![木桌上的红苹果，原生 Vulkan FP32，1376×768](images/apple-1376x768.png)
+![木桌上的红苹果，原生 Vulkan FP32，1376×768](https://raw.githubusercontent.com/mingshi2333/ernie-image-ncnn-vulkan/3c8bf118a49d1f05e856a48e2d6314ec98ca84aa/docs/images/apple-1376x768.png)
 
 > A red apple on a wooden table, soft daylight, realistic photo.
 
 | 英文提示词，1024×1024 | 中文提示词，1024×1024 |
 |:---:|:---:|
-| ![白猫与蓝色茶壶](images/cat-1024.png) | ![雪山、蓝色湖泊与松树林](images/lake-1024.png) |
+| ![白猫与蓝色茶壶](https://raw.githubusercontent.com/mingshi2333/ernie-image-ncnn-vulkan/3c8bf118a49d1f05e856a48e2d6314ec98ca84aa/docs/images/cat-1024.png) | ![雪山、蓝色湖泊与松树林](https://raw.githubusercontent.com/mingshi2333/ernie-image-ncnn-vulkan/3c8bf118a49d1f05e856a48e2d6314ec98ca84aa/docs/images/lake-1024.png) |
 
 三张均为已保存实验的原始 PNG，完整提示词、参数和来源见[演示图记录](https://github.com/mingshi2333/ernie-image-ncnn-vulkan/blob/codex/surpass-reference/docs/images/README.md)。
 
